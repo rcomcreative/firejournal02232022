@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad11_0rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Adjust Date For Log-->
+        <scene sceneID="CYy-h8-Kr8">
+            <objects>
+                <viewController storyboardIdentifier="AdjustDateForLog" id="tcD-5Q-KgX" customClass="AdjustDateForLog" customModule="Fire_Journal" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="QjZ-DS-vWw">
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7NT-ZL-Pnx">
+                                <rect key="frame" x="167" y="457" width="500" height="260"/>
+                                <subviews>
+                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="zxS-ZQ-FWV">
+                                        <rect key="frame" x="0.0" y="4" width="500" height="215"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="215" id="KHL-gR-BhV"/>
+                                            <constraint firstAttribute="width" constant="500" id="uSM-OW-FkY"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="datePickerTapped:" destination="tcD-5Q-KgX" eventType="valueChanged" id="JyX-0E-mmC"/>
+                                        </connections>
+                                    </datePicker>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="46" translatesAutoresizingMaskIntoConstraints="NO" id="5wr-xq-KOK">
+                                        <rect key="frame" x="10" y="209" width="480" height="41"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pdp-fa-j4z">
+                                                <rect key="frame" x="0.0" y="0.0" width="217" height="41"/>
+                                                <color key="backgroundColor" name="FJBlueColor"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                                                <state key="normal" title="Cancel">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="cancelBTapped:" destination="tcD-5Q-KgX" eventType="touchUpInside" id="Qih-zg-kwb"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J2R-bz-xrC">
+                                                <rect key="frame" x="263" y="0.0" width="217" height="41"/>
+                                                <color key="backgroundColor" name="FJARCRed"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                                                <state key="normal" title="Save">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="saveBTapped:" destination="tcD-5Q-KgX" eventType="touchUpInside" id="5ym-gH-tBg"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="zxS-ZQ-FWV" firstAttribute="leading" secondItem="7NT-ZL-Pnx" secondAttribute="leading" id="2cb-4B-W6v"/>
+                                    <constraint firstAttribute="trailing" secondItem="zxS-ZQ-FWV" secondAttribute="trailing" id="NfF-eA-VOv"/>
+                                    <constraint firstItem="5wr-xq-KOK" firstAttribute="leading" secondItem="7NT-ZL-Pnx" secondAttribute="leading" constant="10" id="Rbd-rj-cdu"/>
+                                    <constraint firstAttribute="bottom" secondItem="5wr-xq-KOK" secondAttribute="bottom" constant="10" id="Wfh-bA-OSu"/>
+                                    <constraint firstAttribute="trailing" secondItem="5wr-xq-KOK" secondAttribute="trailing" constant="10" id="dXG-qj-RGo"/>
+                                    <constraint firstAttribute="height" constant="260" id="g9Y-F2-QE7"/>
+                                    <constraint firstAttribute="width" constant="500" id="iw7-wa-ftI"/>
+                                    <constraint firstItem="zxS-ZQ-FWV" firstAttribute="top" secondItem="7NT-ZL-Pnx" secondAttribute="top" constant="4" id="mGH-Df-riZ"/>
+                                    <constraint firstItem="zxS-ZQ-FWV" firstAttribute="centerX" secondItem="7NT-ZL-Pnx" secondAttribute="centerX" id="nRg-qI-LdV"/>
+                                    <constraint firstItem="5wr-xq-KOK" firstAttribute="centerX" secondItem="7NT-ZL-Pnx" secondAttribute="centerX" id="zVd-4c-zpd"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Jn5-4n-ljo"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.33000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="7NT-ZL-Pnx" firstAttribute="centerY" secondItem="Jn5-4n-ljo" secondAttribute="centerY" id="LcH-Z0-dfD"/>
+                            <constraint firstItem="7NT-ZL-Pnx" firstAttribute="centerX" secondItem="Jn5-4n-ljo" secondAttribute="centerX" id="o5i-x5-2w8"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="cancelB" destination="pdp-fa-j4z" id="x4e-g2-g13"/>
+                        <outlet property="datePicker" destination="zxS-ZQ-FWV" id="TXE-jU-PLa"/>
+                        <outlet property="saveB" destination="J2R-bz-xrC" id="Roi-FR-8Vn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="foI-6f-HCD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="139" y="46"/>
+        </scene>
+    </scenes>
+    <resources>
+        <namedColor name="FJARCRed">
+            <color red="0.93300002813339233" green="0.23100000619888306" blue="0.20000000298023224" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="FJBlueColor">
+            <color red="0.046999998390674591" green="0.32499998807907104" blue="0.67799997329711914" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

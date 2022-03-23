@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="2DQ-Qp-OQV" customClass="FormHeaderV" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NVC-ud-wrO" userLabel="Content View">
+                    <rect key="frame" x="0.0" y="0.0" width="500" height="44"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kn1-jT-FLY">
+                            <rect key="frame" x="27" y="2" width="55" height="41"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="55" id="SDo-dh-vZ0"/>
+                                <constraint firstAttribute="height" constant="41" id="ggR-A9-E58"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                            <state key="normal" title="Back">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="backBTapped:" destination="2DQ-Qp-OQV" eventType="touchUpInside" id="qs8-U0-V40"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F0H-V7-RmA">
+                            <rect key="frame" x="333" y="2" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="SHm-Qs-ehU"/>
+                                <constraint firstAttribute="height" constant="41" id="uHQ-zW-k4P"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                            <color key="tintColor" name="FJARCRed"/>
+                            <state key="normal" backgroundImage="plus.circle" catalog="system"/>
+                            <connections>
+                                <action selector="newFormBTapped:" destination="2DQ-Qp-OQV" eventType="touchUpInside" id="ode-1W-qR4"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="leT-oL-H7h">
+                            <rect key="frame" x="398" y="2" width="75" height="41"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="41" id="Olw-U8-Kg2"/>
+                                <constraint firstAttribute="width" constant="75" id="Qu9-1T-3NH"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                            <state key="normal" title="Save">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="saveBTapped:" destination="2DQ-Qp-OQV" eventType="touchUpInside" id="Gbf-tZ-TvS"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="F0H-V7-RmA" firstAttribute="top" secondItem="NVC-ud-wrO" secondAttribute="top" constant="1.5" id="3XE-d0-EUZ"/>
+                        <constraint firstAttribute="trailing" secondItem="F0H-V7-RmA" secondAttribute="trailing" constant="127" id="WEy-5h-bxk"/>
+                        <constraint firstItem="Kn1-jT-FLY" firstAttribute="top" secondItem="NVC-ud-wrO" secondAttribute="top" constant="2" id="WiQ-gO-sjf"/>
+                        <constraint firstItem="leT-oL-H7h" firstAttribute="top" secondItem="NVC-ud-wrO" secondAttribute="top" constant="2" id="haV-aQ-msR"/>
+                        <constraint firstItem="Kn1-jT-FLY" firstAttribute="leading" secondItem="NVC-ud-wrO" secondAttribute="leading" constant="27" id="ldf-Eu-jXO"/>
+                        <constraint firstAttribute="trailing" secondItem="leT-oL-H7h" secondAttribute="trailing" constant="27" id="xfE-Vt-Vlc"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="1OW-fB-FtJ"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="NVC-ud-wrO" firstAttribute="top" secondItem="2DQ-Qp-OQV" secondAttribute="top" id="CRJ-tJ-pGk"/>
+                <constraint firstAttribute="trailing" secondItem="NVC-ud-wrO" secondAttribute="trailing" id="OeG-r2-f9w"/>
+                <constraint firstAttribute="bottom" secondItem="NVC-ud-wrO" secondAttribute="bottom" id="piQ-Ee-kQh"/>
+                <constraint firstItem="NVC-ud-wrO" firstAttribute="leading" secondItem="2DQ-Qp-OQV" secondAttribute="leading" id="xqp-DO-acg"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="backB" destination="Kn1-jT-FLY" id="pAR-3n-Itb"/>
+                <outlet property="contentView" destination="NVC-ud-wrO" id="Egg-XY-iiG"/>
+                <outlet property="newFormB" destination="F0H-V7-RmA" id="NXF-tl-NsK"/>
+                <outlet property="saveB" destination="leT-oL-H7h" id="1vN-wx-PtZ"/>
+            </connections>
+            <point key="canvasLocation" x="52.173913043478265" y="47.879464285714285"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="plus.circle" catalog="system" width="128" height="121"/>
+        <namedColor name="FJARCRed">
+            <color red="0.93300002813339233" green="0.23100000619888306" blue="0.20000000298023224" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

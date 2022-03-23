@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="AddButtonCell" customModule="ARCForm" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="540" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="540" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ddp-Ft-GeU">
+                        <rect key="frame" x="449" y="5" width="80" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="32" id="6B7-sM-5Tb"/>
+                            <constraint firstAttribute="width" constant="80" id="T0D-OL-MdJ"/>
+                        </constraints>
+                        <state key="normal" backgroundImage="addContactGreenButton"/>
+                        <connections>
+                            <action selector="addBTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="VH3-H3-ceq"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </tableViewCellContentView>
+            <constraints>
+                <constraint firstItem="ddp-Ft-GeU" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" constant="5" id="FlG-ck-9fF"/>
+                <constraint firstAttribute="trailing" secondItem="ddp-Ft-GeU" secondAttribute="trailing" constant="11" id="lmJ-JK-taN"/>
+            </constraints>
+            <connections>
+                <outlet property="addButton" destination="ddp-Ft-GeU" id="n4z-aO-6qQ"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="addContactGreenButton" width="80" height="28"/>
+    </resources>
+</document>

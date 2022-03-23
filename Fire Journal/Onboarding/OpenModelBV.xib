@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="mqW-W2-8C9" customClass="OpenModelBV">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="1025"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tvc-colorField" translatesAutoresizingMaskIntoConstraints="NO" id="lpo-0e-U53">
+                    <rect key="frame" x="0.0" y="0.0" width="500" height="1025"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoHeader" translatesAutoresizingMaskIntoConstraints="NO" id="aKD-oe-zDI">
+                    <rect key="frame" x="0.0" y="0.0" width="500" height="274"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="500" id="KaK-Vg-uF1"/>
+                        <constraint firstAttribute="height" constant="274" id="WNM-Tu-cPi"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Support" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="65i-t8-aNv">
+                    <rect key="frame" x="47" y="250" width="156.5" height="58"/>
+                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="48"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FMx-Ia-dbg">
+                    <rect key="frame" x="47" y="295" width="400" height="257"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="400" id="Fc0-Ce-k5M"/>
+                        <constraint firstAttribute="height" constant="257" id="qci-o1-OCJ"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="lpo-0e-U53" firstAttribute="leading" secondItem="mqW-W2-8C9" secondAttribute="leading" id="7dZ-qG-YIZ"/>
+                <constraint firstItem="FMx-Ia-dbg" firstAttribute="leading" secondItem="mqW-W2-8C9" secondAttribute="leading" constant="47" id="AE6-UC-DjZ"/>
+                <constraint firstItem="lpo-0e-U53" firstAttribute="top" secondItem="mqW-W2-8C9" secondAttribute="top" id="IvF-2g-v7f"/>
+                <constraint firstItem="aKD-oe-zDI" firstAttribute="leading" secondItem="mqW-W2-8C9" secondAttribute="leading" id="KAR-IQ-oNa"/>
+                <constraint firstItem="lpo-0e-U53" firstAttribute="height" secondItem="mqW-W2-8C9" secondAttribute="height" id="Prj-cl-8zo"/>
+                <constraint firstItem="aKD-oe-zDI" firstAttribute="top" secondItem="mqW-W2-8C9" secondAttribute="top" id="RxQ-wE-HSv"/>
+                <constraint firstItem="65i-t8-aNv" firstAttribute="leading" secondItem="mqW-W2-8C9" secondAttribute="leading" constant="47" id="bA1-EU-LG8"/>
+                <constraint firstItem="FMx-Ia-dbg" firstAttribute="top" secondItem="mqW-W2-8C9" secondAttribute="top" constant="295" id="fFc-v7-5ot"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="65i-t8-aNv" secondAttribute="trailing" id="gZg-uJ-Ict"/>
+                <constraint firstItem="lpo-0e-U53" firstAttribute="width" secondItem="mqW-W2-8C9" secondAttribute="width" id="pGO-MC-761"/>
+                <constraint firstItem="65i-t8-aNv" firstAttribute="top" secondItem="mqW-W2-8C9" secondAttribute="top" constant="250" id="yei-TD-7T2"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="backgroundIV" destination="lpo-0e-U53" id="qKY-I9-cuE"/>
+                <outlet property="descriptionL" destination="FMx-Ia-dbg" id="WIa-2w-95M"/>
+                <outlet property="headerIV" destination="aKD-oe-zDI" id="t8G-nm-JIN"/>
+                <outlet property="subjectL" destination="65i-t8-aNv" id="LmB-Uc-bkd"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="logoHeader" width="540" height="274"/>
+        <image name="tvc-colorField" width="10" height="10"/>
+    </resources>
+</document>

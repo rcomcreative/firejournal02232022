@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="0.0" reuseIdentifier="ARC_ListCell" rowHeight="150" id="R0R-ut-lv7" customClass="ARC_ListCell" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="140"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="R0R-ut-lv7" id="Dqk-PQ-Qfa">
+                <rect key="frame" x="0.0" y="0.0" width="600" height="140"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="100515IconSet_092016_redCross" translatesAutoresizingMaskIntoConstraints="NO" id="zMk-lH-uPh">
+                        <rect key="frame" x="15" y="29" width="75" height="75"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="75" id="3hB-Lt-vn0"/>
+                            <constraint firstAttribute="width" constant="75" id="LoM-kc-gwc"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Campaign" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A5e-Vv-U8s">
+                        <rect key="frame" x="91" y="11" width="482" height="19.5"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="widthClass=compact">
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                        </variation>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Address: 100 Main Street" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aFl-ij-RiK">
+                        <rect key="frame" x="90" y="33.5" width="483" height="19.5"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="widthClass=compact">
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                        </variation>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Apt/Mobile #: NA" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ft-i0-hTj">
+                        <rect key="frame" x="90" y="58" width="483" height="19.5"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="widthClass=compact">
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                        </variation>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="09/04/2020" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1z8-Jq-Uaz">
+                        <rect key="frame" x="92" y="80.5" width="481" height="19.5"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="widthClass=compact">
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                        </variation>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Campaign Open" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vij-6e-NE0">
+                        <rect key="frame" x="92" y="103" width="481" height="19.5"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="widthClass=compact">
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                        </variation>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="aFl-ij-RiK" firstAttribute="leading" secondItem="Dqk-PQ-Qfa" secondAttribute="leading" constant="90" id="3G4-FK-pwf"/>
+                    <constraint firstItem="Vij-6e-NE0" firstAttribute="top" secondItem="1z8-Jq-Uaz" secondAttribute="bottom" constant="3" id="9fK-sh-lpP"/>
+                    <constraint firstAttribute="trailing" secondItem="aFl-ij-RiK" secondAttribute="trailing" constant="27" id="A3A-7x-fwq"/>
+                    <constraint firstItem="zMk-lH-uPh" firstAttribute="leading" secondItem="Dqk-PQ-Qfa" secondAttribute="leading" constant="15" id="CkE-Cb-Ovf"/>
+                    <constraint firstAttribute="trailing" secondItem="Vij-6e-NE0" secondAttribute="trailing" constant="27" id="JSs-fz-yD0"/>
+                    <constraint firstItem="8ft-i0-hTj" firstAttribute="leading" secondItem="Dqk-PQ-Qfa" secondAttribute="leading" constant="90" id="LM7-9S-FOk"/>
+                    <constraint firstAttribute="trailing" secondItem="A5e-Vv-U8s" secondAttribute="trailing" constant="27" id="NAV-Mo-4Bg"/>
+                    <constraint firstItem="aFl-ij-RiK" firstAttribute="top" secondItem="A5e-Vv-U8s" secondAttribute="bottom" constant="-3" id="So2-jP-EK8">
+                        <variation key="widthClass=compact" constant="3"/>
+                    </constraint>
+                    <constraint firstItem="A5e-Vv-U8s" firstAttribute="top" secondItem="Dqk-PQ-Qfa" secondAttribute="topMargin" constant="4" id="Wex-Bd-vLU">
+                        <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                    </constraint>
+                    <constraint firstItem="Vij-6e-NE0" firstAttribute="leading" secondItem="Dqk-PQ-Qfa" secondAttribute="leading" constant="92" id="Y3y-HM-BIm"/>
+                    <constraint firstItem="1z8-Jq-Uaz" firstAttribute="leading" secondItem="Dqk-PQ-Qfa" secondAttribute="leading" constant="92" id="jEY-Vi-2KC"/>
+                    <constraint firstItem="zMk-lH-uPh" firstAttribute="top" secondItem="Dqk-PQ-Qfa" secondAttribute="top" constant="29" id="lrr-BC-4un"/>
+                    <constraint firstItem="1z8-Jq-Uaz" firstAttribute="top" secondItem="8ft-i0-hTj" secondAttribute="bottom" constant="3" id="mLl-ok-b1E"/>
+                    <constraint firstItem="8ft-i0-hTj" firstAttribute="top" secondItem="aFl-ij-RiK" secondAttribute="bottom" constant="-2" id="nrm-qf-Myn">
+                        <variation key="widthClass=compact" constant="5"/>
+                    </constraint>
+                    <constraint firstItem="A5e-Vv-U8s" firstAttribute="leading" secondItem="Dqk-PQ-Qfa" secondAttribute="leading" constant="91" id="sLg-EV-6V0"/>
+                    <constraint firstAttribute="trailing" secondItem="1z8-Jq-Uaz" secondAttribute="trailing" constant="27" id="sbh-QL-hnY"/>
+                    <constraint firstAttribute="trailing" secondItem="8ft-i0-hTj" secondAttribute="trailing" constant="27" id="zxy-AD-9oD"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="gYV-l7-jnk"/>
+            <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+            <connections>
+                <outlet property="addressL" destination="aFl-ij-RiK" id="v1e-i2-X08"/>
+                <outlet property="aptL" destination="8ft-i0-hTj" id="6P4-yZ-iyu"/>
+                <outlet property="campaignActionL" destination="Vij-6e-NE0" id="trx-iP-YFb"/>
+                <outlet property="campaignL" destination="A5e-Vv-U8s" id="AXS-bH-wmJ"/>
+                <outlet property="dateL" destination="1z8-Jq-Uaz" id="6s3-qp-v05"/>
+                <outlet property="iconIV" destination="zMk-lH-uPh" id="sKL-My-QRG"/>
+            </connections>
+            <point key="canvasLocation" x="722" y="-1"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="100515IconSet_092016_redCross" width="833" height="833"/>
+    </resources>
+</document>

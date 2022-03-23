@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="f9q-Rk-BS6">
+    <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Journal ModalTVC-->
+        <scene sceneID="keP-ol-BCL">
+            <objects>
+                <tableViewController storyboardIdentifier="JournalModalTVC" clearsSelectionOnViewWillAppear="NO" id="f9q-Rk-BS6" customClass="JournalModalTVC" customModule="Fire_Journal" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="7IY-xc-7LO">
+                        <rect key="frame" x="0.0" y="0.0" width="500" height="1296"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ReuseIdentifier" id="r1N-3O-Nq4">
+                                <rect key="frame" x="0.0" y="28" width="500" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="r1N-3O-Nq4" id="kYv-8N-oBH">
+                                    <rect key="frame" x="0.0" y="0.0" width="500" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="f9q-Rk-BS6" id="TOO-ee-CyO"/>
+                            <outlet property="delegate" destination="f9q-Rk-BS6" id="Yp4-TK-8TR"/>
+                        </connections>
+                    </tableView>
+                    <size key="freeformSize" width="500" height="1296"/>
+                    <connections>
+                        <segue destination="Rlr-pi-JtP" kind="showDetail" identifier="JournaModalDataSegue" id="kV7-sY-AhF"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ipu-LG-8yk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="203" y="291"/>
+        </scene>
+        <!--Journal Modal DataTVC-->
+        <scene sceneID="cf5-0t-R1w">
+            <objects>
+                <tableViewController storyboardIdentifier="JournalModalDataTVC" modalPresentationStyle="overCurrentContext" id="Rlr-pi-JtP" customClass="JournalModalDataTVC" customModule="Fire_Journal" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="xbd-HS-TGT">
+                        <rect key="frame" x="0.0" y="0.0" width="500" height="1296"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ReuseIdentifier" id="nRm-w3-GYj">
+                                <rect key="frame" x="0.0" y="28" width="500" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nRm-w3-GYj" id="bVS-hF-rgi">
+                                    <rect key="frame" x="0.0" y="0.0" width="500" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Rlr-pi-JtP" id="QNe-3O-hJU"/>
+                            <outlet property="delegate" destination="Rlr-pi-JtP" id="2Wy-eV-WrW"/>
+                        </connections>
+                    </tableView>
+                    <value key="contentSizeForViewInPopover" type="size" width="500" height="1276"/>
+                    <size key="freeformSize" width="500" height="1296"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bsL-rL-4hK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="755" y="291"/>
+        </scene>
+    </scenes>
+</document>

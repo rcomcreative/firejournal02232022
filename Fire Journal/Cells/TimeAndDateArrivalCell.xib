@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="81" id="C4f-ga-mel" customClass="TimeAndDateArrivalCell" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="81"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="C4f-ga-mel" id="cem-j0-ZvC">
+                <rect key="frame" x="0.0" y="0.0" width="500" height="81"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time and Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q05-8G-FGJ">
+                        <rect key="frame" x="20" y="6" width="157" height="29"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g3R-Jk-Hgo">
+                        <rect key="frame" x="412" y="35" width="35" height="35"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="35" id="5a0-bn-Q6W"/>
+                            <constraint firstAttribute="width" constant="35" id="Gut-1Q-YXK"/>
+                        </constraints>
+                        <state key="normal" backgroundImage="ICONS_TimePiece red"/>
+                        <connections>
+                            <action selector="clockBTapped:" destination="C4f-ga-mel" eventType="touchUpInside" id="g2w-93-utK"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="plu-iK-ZQy">
+                        <rect key="frame" x="457" y="33" width="35" height="35"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="35" id="HCK-Fl-zwG"/>
+                            <constraint firstAttribute="width" constant="35" id="Pjw-cf-3qY"/>
+                        </constraints>
+                        <state key="normal" backgroundImage="ec1c24PenTool"/>
+                        <connections>
+                            <action selector="noteBTapped:" destination="C4f-ga-mel" eventType="touchUpInside" id="WW4-Nw-hDE"/>
+                        </connections>
+                    </button>
+                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nwI-rk-SN3">
+                        <rect key="frame" x="160" y="38" width="240" height="34"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alarm" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Plk-gu-Udr">
+                        <rect key="frame" x="5" y="45" width="140" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="140" id="9BL-7t-hbx"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Plk-gu-Udr" firstAttribute="leading" secondItem="cem-j0-ZvC" secondAttribute="leading" constant="12" id="69g-am-HYd">
+                        <variation key="heightClass=regular-widthClass=compact" constant="5"/>
+                    </constraint>
+                    <constraint firstAttribute="trailing" secondItem="plu-iK-ZQy" secondAttribute="trailing" constant="8" id="7ev-98-aCM"/>
+                    <constraint firstItem="plu-iK-ZQy" firstAttribute="leading" secondItem="g3R-Jk-Hgo" secondAttribute="trailing" constant="20" id="AIy-5N-N2C">
+                        <variation key="widthClass=compact" constant="10"/>
+                    </constraint>
+                    <constraint firstItem="g3R-Jk-Hgo" firstAttribute="leading" secondItem="nwI-rk-SN3" secondAttribute="trailing" constant="12" id="DF5-R7-zAz"/>
+                    <constraint firstItem="nwI-rk-SN3" firstAttribute="leading" secondItem="Plk-gu-Udr" secondAttribute="trailing" constant="15" id="P43-fq-317"/>
+                    <constraint firstItem="plu-iK-ZQy" firstAttribute="top" secondItem="cem-j0-ZvC" secondAttribute="top" constant="33" id="RoH-LB-sA9"/>
+                    <constraint firstItem="q05-8G-FGJ" firstAttribute="top" secondItem="cem-j0-ZvC" secondAttribute="top" constant="6" id="UxI-LP-X6Q"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="q05-8G-FGJ" secondAttribute="trailing" id="fSv-bZ-b68"/>
+                    <constraint firstItem="q05-8G-FGJ" firstAttribute="leading" secondItem="cem-j0-ZvC" secondAttribute="leading" constant="20" id="hrd-Gw-7MK"/>
+                    <constraint firstItem="nwI-rk-SN3" firstAttribute="top" secondItem="cem-j0-ZvC" secondAttribute="top" constant="38" id="ie0-E7-5D7"/>
+                    <constraint firstItem="Plk-gu-Udr" firstAttribute="top" secondItem="cem-j0-ZvC" secondAttribute="top" constant="45" id="prh-ng-rvK"/>
+                    <constraint firstItem="g3R-Jk-Hgo" firstAttribute="top" secondItem="cem-j0-ZvC" secondAttribute="top" constant="35" id="vNI-wL-9t9"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="noteB" destination="plu-iK-ZQy" id="b25-fA-HMn"/>
+                <outlet property="subjectL" destination="Plk-gu-Udr" id="7FA-ZJ-q9y"/>
+                <outlet property="timeB" destination="g3R-Jk-Hgo" id="WHI-gN-KZc"/>
+                <outlet property="timeDateTF" destination="nwI-rk-SN3" id="nZY-7t-nJ7"/>
+            </connections>
+            <point key="canvasLocation" x="145" y="-105.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ICONS_TimePiece red" width="833" height="833"/>
+        <image name="ec1c24PenTool" width="305" height="306"/>
+    </resources>
+</document>

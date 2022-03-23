@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="StartShiftCVCell" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="342" height="85"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="342" height="85"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="UGZ-Cl-dXT" userLabel="Content View">
+                        <rect key="frame" x="0.0" y="0.0" width="350" height="83"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="StartShiftButtonGradient" translatesAutoresizingMaskIntoConstraints="NO" id="XAz-dN-MMO">
+                                <rect key="frame" x="0.0" y="0.0" width="350" height="84"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="84" id="xqC-zg-b2W"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ICONS_startShift" translatesAutoresizingMaskIntoConstraints="NO" id="8GC-Sk-74C">
+                                <rect key="frame" x="16" y="8" width="69" height="69"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="68.999999999999773" id="S6g-3B-o6I"/>
+                                    <constraint firstAttribute="height" constant="68.999999999999773" id="wTl-5l-Bay"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HuV-Ke-wsB">
+                                <rect key="frame" x="93" y="12" width="94" height="65"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="65" id="g0Q-Rz-1nh"/>
+                                </constraints>
+                                <string key="text">Start
+Shift</string>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="27"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OoD-mR-H9k">
+                                <rect key="frame" x="260" y="10" width="65" height="65"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="65" id="CTY-Gk-mrd"/>
+                                    <constraint firstAttribute="width" constant="65" id="XTS-NM-kHc"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="newStartShift"/>
+                                <connections>
+                                    <action selector="startShiftBTapped:" destination="gTV-IL-0wX" eventType="touchUpInside" id="WYl-5t-eBf"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="XAz-dN-MMO" secondAttribute="trailing" id="3KK-Hn-gHR"/>
+                            <constraint firstItem="OoD-mR-H9k" firstAttribute="top" secondItem="UGZ-Cl-dXT" secondAttribute="top" constant="10" id="A47-vW-Zde"/>
+                            <constraint firstItem="XAz-dN-MMO" firstAttribute="leading" secondItem="UGZ-Cl-dXT" secondAttribute="leading" id="ACv-18-464"/>
+                            <constraint firstItem="8GC-Sk-74C" firstAttribute="leading" secondItem="UGZ-Cl-dXT" secondAttribute="leading" constant="16" id="Hc4-Sp-TOi"/>
+                            <constraint firstItem="8GC-Sk-74C" firstAttribute="top" secondItem="UGZ-Cl-dXT" secondAttribute="top" constant="8" id="KJd-v6-UXg"/>
+                            <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="HuV-Ke-wsB" secondAttribute="trailing" constant="163" id="MGP-rS-4cj"/>
+                            <constraint firstItem="HuV-Ke-wsB" firstAttribute="top" secondItem="XAz-dN-MMO" secondAttribute="top" constant="12" id="V4k-OK-xmg"/>
+                            <constraint firstAttribute="trailing" secondItem="OoD-mR-H9k" secondAttribute="trailing" constant="25" id="dBL-GM-XRf"/>
+                            <constraint firstItem="XAz-dN-MMO" firstAttribute="top" secondItem="UGZ-Cl-dXT" secondAttribute="top" id="oB9-iu-d2c"/>
+                            <constraint firstItem="HuV-Ke-wsB" firstAttribute="leading" secondItem="8GC-Sk-74C" secondAttribute="trailing" constant="8" id="xYE-y0-oae"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <connections>
+                <outlet property="backgroundGradientIV" destination="XAz-dN-MMO" id="z42-JN-PAh"/>
+                <outlet property="iconIV" destination="8GC-Sk-74C" id="uwD-J0-flk"/>
+                <outlet property="startShiftB" destination="OoD-mR-H9k" id="1ld-RF-hLI"/>
+                <outlet property="subjectL" destination="HuV-Ke-wsB" id="VQf-XL-cZb"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="120.87053571428571"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="ICONS_startShift" width="833" height="833"/>
+        <image name="StartShiftButtonGradient" width="342" height="84"/>
+        <image name="newStartShift" width="87" height="87"/>
+    </resources>
+</document>

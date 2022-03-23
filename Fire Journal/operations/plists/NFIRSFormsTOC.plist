@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>sectionTitle</key>
+	<array>
+		<string>A General Information</string>
+		<string>B Location Type</string>
+		<string>C IncidentType</string>
+		<string>D Aid Given or Receieved</string>
+		<string>E Dates and Times </string>
+		<string>F Actions Taken</string>
+		<string>G Resources</string>
+		<string>H Casualties</string>
+		<string>I Mixed Use Property</string>
+		<string>J Property Use</string>
+		<string>K Person/Entity/Owner</string>
+		<string>L Remarks</string>
+		<string>M Authorization</string>
+		<string>Completed Modules</string>
+		<string>Fire Modules Required</string>
+	</array>
+	<key>sectionExplanation</key>
+	<array>
+		<string>FDID, Date, Station, Incident Number</string>
+		<string>Address, Check box for Wildland Fire Module</string>
+		<string>Incident Type Number and Description</string>
+		<string>Mutual Aid Given or Received</string>
+		<string>Arrival, Alarm, Controlled, Last Unit Cleared, Shirts, Alarms, Special Studies</string>
+		<string>Primary and additional Actions Taken</string>
+		<string>Apparatus and Personnel, Estimated Dollar Losses and Values</string>
+		<string>Deaths, Injuries, Detector, Hazardous Materials Release</string>
+		<string>List of Property Mixed Use</string>
+		<string>List of Structures, Ouside, Code, Description</string>
+		<string>Address Involved Person, Owner of Building or Business</string>
+		<string>Local Option</string>
+		<string>Officer in Charge, Member Marking Report</string>
+		<string>List of Modules Completed</string>
+		<string>Modules based on NFIRS Incident Type Section C</string>
+	</array>
+	<key>displayOrder</key>
+	<array>
+		<integer>0</integer>
+		<integer>1</integer>
+		<integer>2</integer>
+		<integer>3</integer>
+		<integer>4</integer>
+		<integer>5</integer>
+		<integer>6</integer>
+		<integer>7</integer>
+		<integer>8</integer>
+		<integer>9</integer>
+		<integer>10</integer>
+		<integer>11</integer>
+		<integer>12</integer>
+		<integer>13</integer>
+		<integer>14</integer>
+	</array>
+</dict>
+</plist>

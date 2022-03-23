@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="184" id="shn-kb-j3u" customClass="IncidentTextViewWithDirectionalCell" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="184"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="shn-kb-j3u" id="jU8-S1-FmG">
+                <rect key="frame" x="0.0" y="0.0" width="500" height="184"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fad-Uf-OYn">
+                        <rect key="frame" x="26" y="45" width="60" height="29"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jte-IG-HE3">
+                        <rect key="frame" x="26" y="74" width="460" height="109"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        <connections>
+                            <outlet property="delegate" destination="shn-kb-j3u" id="cJv-0S-jJ9"/>
+                        </connections>
+                    </textView>
+                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hkh-A5-ewv">
+                        <rect key="frame" x="101" y="44" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="aVD-Pz-Z5i"/>
+                            <constraint firstAttribute="width" constant="30" id="en2-7H-jIF"/>
+                        </constraints>
+                        <state key="normal" title="Button" image="ICONS_Directional blue"/>
+                        <connections>
+                            <action selector="incidentDirectionalBTapped:" destination="shn-kb-j3u" eventType="touchUpInside" id="Jl5-PL-bRO"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Hj-gw-l3w">
+                        <rect key="frame" x="431" y="44" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="0oV-YU-BXG"/>
+                            <constraint firstAttribute="height" constant="30" id="ALT-LI-ie4"/>
+                        </constraints>
+                        <color key="tintColor" red="0.85858565409999998" green="0.1557635795" blue="0.01992762813" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <connections>
+                            <action selector="nfirsInfoBTapped:" destination="shn-kb-j3u" eventType="touchUpInside" id="tX1-8J-6i9"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="jte-IG-HE3" firstAttribute="bottom" secondItem="jU8-S1-FmG" secondAttribute="bottomMargin" constant="10" id="E7T-1E-Czn"/>
+                    <constraint firstItem="Hkh-A5-ewv" firstAttribute="leading" secondItem="fad-Uf-OYn" secondAttribute="trailing" constant="15" id="HoA-9x-cbV"/>
+                    <constraint firstAttribute="trailing" secondItem="jte-IG-HE3" secondAttribute="trailing" constant="14" id="OWV-UM-sJ9"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="fad-Uf-OYn" secondAttribute="trailing" id="Ykh-jZ-jZb"/>
+                    <constraint firstItem="fad-Uf-OYn" firstAttribute="top" secondItem="jU8-S1-FmG" secondAttribute="top" constant="45" id="gjQ-fA-CMa"/>
+                    <constraint firstItem="jte-IG-HE3" firstAttribute="top" secondItem="jU8-S1-FmG" secondAttribute="top" constant="74" id="iU2-wg-ez2"/>
+                    <constraint firstAttribute="trailing" secondItem="1Hj-gw-l3w" secondAttribute="trailing" constant="39" id="k9p-9a-kKx"/>
+                    <constraint firstItem="Hkh-A5-ewv" firstAttribute="top" secondItem="jU8-S1-FmG" secondAttribute="top" constant="44" id="oB7-Ae-N48"/>
+                    <constraint firstItem="fad-Uf-OYn" firstAttribute="leading" secondItem="jU8-S1-FmG" secondAttribute="leading" constant="26" id="pSQ-hl-Ncc"/>
+                    <constraint firstItem="1Hj-gw-l3w" firstAttribute="top" secondItem="jU8-S1-FmG" secondAttribute="top" constant="44" id="tGt-Ml-pYR"/>
+                    <constraint firstItem="jte-IG-HE3" firstAttribute="leading" secondItem="jU8-S1-FmG" secondAttribute="leading" constant="26" id="yZV-8U-Dbk"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="7KV-HU-maD"/>
+            <connections>
+                <outlet property="descriptionTV" destination="jte-IG-HE3" id="ODL-Cq-RDH"/>
+                <outlet property="directionalB" destination="Hkh-A5-ewv" id="k24-pG-pSU"/>
+                <outlet property="nfirsInfoB" destination="1Hj-gw-l3w" id="VWw-Rk-YvV"/>
+                <outlet property="subjectL" destination="fad-Uf-OYn" id="2a3-hi-dlb"/>
+            </connections>
+            <point key="canvasLocation" x="91" y="80"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ICONS_Directional blue" width="833" height="833"/>
+    </resources>
+</document>

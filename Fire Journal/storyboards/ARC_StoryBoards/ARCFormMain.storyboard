@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--ARC_ViewController-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController storyboardIdentifier="ARC_ViewController" id="BYZ-38-t0r" userLabel="ARC_ViewController" customClass="ARC_ViewController" customModule="Fire_Journal" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="500" height="1266"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="djC-xJ-Cdg">
+                                <rect key="frame" x="0.0" y="0.0" width="500" height="1266"/>
+                                <color key="backgroundColor" name="FJARCBlue"/>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="khL-LM-rIa">
+                                <rect key="frame" x="164" y="573" width="172" height="120"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aa1-HZ-b91">
+                                        <rect key="frame" x="0.0" y="0.0" width="172" height="40"/>
+                                        <color key="backgroundColor" name="FJARCRed"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="tbj-Gu-Bkh"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="172" id="zQG-fw-DvH"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                                        <state key="normal" title="Campaign">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="campaignBTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NtV-tY-zBd"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iPy-dv-R62">
+                                        <rect key="frame" x="0.0" y="80" width="172" height="40"/>
+                                        <color key="backgroundColor" name="FJARCRed"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="DXY-Rb-LOL"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="172" id="omy-w6-S7C"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                                        <state key="normal" title="Single">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="singleBTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="L6O-Bi-hQD"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="GWB-fn-tzQ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="khL-LM-rIa" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="0Yd-0f-EsE"/>
+                            <constraint firstItem="djC-xJ-Cdg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="2zN-8K-niy"/>
+                            <constraint firstAttribute="bottom" secondItem="djC-xJ-Cdg" secondAttribute="bottom" id="6tl-v3-3Ug"/>
+                            <constraint firstItem="djC-xJ-Cdg" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="8Iw-28-5Mq"/>
+                            <constraint firstAttribute="trailing" secondItem="djC-xJ-Cdg" secondAttribute="trailing" id="NDx-Mz-vTT"/>
+                            <constraint firstItem="khL-LM-rIa" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Vge-EY-ZaI"/>
+                            <constraint firstItem="djC-xJ-Cdg" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="jSv-dg-lWu"/>
+                            <constraint firstItem="djC-xJ-Cdg" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="w2r-VI-6na"/>
+                        </constraints>
+                    </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="500" height="1266"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="500" height="1266"/>
+                    <connections>
+                        <outlet property="campaignB" destination="aa1-HZ-b91" id="ybe-ak-AlA"/>
+                        <outlet property="singleB" destination="iPy-dv-R62" id="f7K-Re-KWY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-419" y="80"/>
+        </scene>
+    </scenes>
+    <resources>
+        <namedColor name="FJARCBlue">
+            <color red="0.11800000071525574" green="0.15700000524520874" blue="0.23100000619888306" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="FJARCRed">
+            <color red="0.93300002813339233" green="0.23100000619888306" blue="0.20000000298023224" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

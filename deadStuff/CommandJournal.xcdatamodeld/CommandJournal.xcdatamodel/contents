@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11759" systemVersion="16C68" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+    <entity name="ActionsTaken" representedClassName="ActionsTaken" syncable="YES">
+        <attribute name="additionalThree" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="additionalTwo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="primaryAction" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="incidentActionsTakenInfo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Incident" inverseName="incidentActionsTakenDetails" inverseEntity="Incident" syncable="YES"/>
+    </entity>
+    <entity name="Battalion" representedClassName="Battalion" syncable="YES">
+        <attribute name="battalion" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+    </entity>
+    <entity name="CommandJournalUser" representedClassName="CommandJournalUser" syncable="YES">
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="emailAddress" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fdid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fireDepartment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fireStation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fireStationAddress" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fireStationAddressTwo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fireStationCity" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fireStationState" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fireStationWebSite" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fireStationZipCode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="middleName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mobileNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="platoon" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rank" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="incidentUserInfo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Incident" inverseName="incidentUserDetails" inverseEntity="Incident" syncable="YES"/>
+    </entity>
+    <entity name="Division" representedClassName="Division" syncable="YES">
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Emergency" representedClassName="Emergency" syncable="YES">
+        <attribute name="emergency" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="incidentEmergencyInfo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Incident" inverseName="incidentEmergencyDetails" inverseEntity="Incident" syncable="YES"/>
+    </entity>
+    <entity name="Exposure" representedClassName="Exposure" syncable="YES">
+        <attribute name="exposure" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="incidentExposureInfo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Incident" inverseName="incidentExposureDetails" inverseEntity="Incident" syncable="YES"/>
+    </entity>
+    <entity name="FireDepartment" representedClassName="FireDepartment" syncable="YES">
+        <attribute name="fdid" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="incidentFDIDInfo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Incident" inverseName="incidentFDIDDetails" inverseEntity="Incident" syncable="YES"/>
+    </entity>
+    <entity name="FireDistrict" representedClassName="FireDistrict" syncable="YES">
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="district" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="incidentDistrictInfo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Incident" inverseName="incidentDistrictDetails" inverseEntity="Incident" syncable="YES"/>
+    </entity>
+    <entity name="Incident" representedClassName="Incident" syncable="YES">
+        <attribute name="incidentDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentDateSearch" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentDayOfWeek" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentType" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="incidentActionsTakenDetails" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="ActionsTaken" inverseName="incidentActionsTakenInfo" inverseEntity="ActionsTaken" syncable="YES"/>
+        <relationship name="incidentAddressDetails" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="IncidentAddress" inverseName="incidentAddressInfo" inverseEntity="IncidentAddress" syncable="YES"/>
+        <relationship name="incidentDistrictDetails" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="FireDistrict" inverseName="incidentDistrictInfo" inverseEntity="FireDistrict" syncable="YES"/>
+        <relationship name="incidentEmergencyDetails" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Emergency" inverseName="incidentEmergencyInfo" inverseEntity="Emergency" syncable="YES"/>
+        <relationship name="incidentExposureDetails" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Exposure" inverseName="incidentExposureInfo" inverseEntity="Exposure" syncable="YES"/>
+        <relationship name="incidentFDIDDetails" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="FireDepartment" inverseName="incidentFDIDInfo" inverseEntity="FireDepartment" syncable="YES"/>
+        <relationship name="incidentLocalDetails" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="IncidentLocal" inverseName="incidentLocalInfo" inverseEntity="IncidentLocal" syncable="YES"/>
+        <relationship name="incidentLocationDetails" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="incidentLocationInfo" inverseEntity="Location" syncable="YES"/>
+        <relationship name="incidentMapDetails" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="IncidentMap" inverseName="incidentMapInfo" inverseEntity="IncidentMap" syncable="YES"/>
+        <relationship name="incidentNFRISDetails" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="IncidentNFRIS" inverseName="incidentNFRISInfo" inverseEntity="IncidentNFRIS" syncable="YES"/>
+        <relationship name="incidentNotesDetails" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="IncidentNotes" inverseName="incidentNotesInfo" inverseEntity="IncidentNotes" syncable="YES"/>
+        <relationship name="incidentPlatoonDetails" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Platoon" inverseName="incidentPlatoonInfo" inverseEntity="Platoon" syncable="YES"/>
+        <relationship name="incidentRadioChannelsDetails" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="IncidentRadioChannels" inverseName="incidentRadioChannelsInfo" inverseEntity="IncidentRadioChannels" syncable="YES"/>
+        <relationship name="incidentResourceDetails" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Resources" inverseName="incidentResourcesInfo" inverseEntity="Resources" syncable="YES"/>
+        <relationship name="incidentStationDetails" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Station" inverseName="incidentStationInfo" inverseEntity="Station" syncable="YES"/>
+        <relationship name="incidentTimeDetails" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="IncidentTimer" inverseName="incidentTimeInfo" inverseEntity="IncidentTimer" syncable="YES"/>
+        <relationship name="incidentTypeDetails" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="IncidentType" inverseName="incidentTypeInfo" inverseEntity="IncidentType" syncable="YES"/>
+        <relationship name="incidentUserDetails" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="CommandJournalUser" inverseName="incidentUserInfo" inverseEntity="CommandJournalUser" syncable="YES"/>
+    </entity>
+    <entity name="IncidentAddress" representedClassName="IncidentAddress" syncable="YES">
+        <attribute name="appSuiteRoom" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="censusTract" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="crossStreet" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentState" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="prefix" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stagingAddress" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="streetHighway" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="streetNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="streetType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="zip" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="incidentAddressInfo" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="Incident" inverseName="incidentAddressDetails" inverseEntity="Incident" syncable="YES"/>
+        <relationship name="incidentMapAddressDetails" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="IncidentMap" inverseName="incidentMapAddressInfo" inverseEntity="IncidentMap" syncable="YES"/>
+    </entity>
+    <entity name="IncidentLocal" representedClassName="IncidentLocal" syncable="YES">
+        <attribute name="incidentBattalion" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentDivision" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentFireDistrict" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentLocalType" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="incidentLocalInfo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Incident" inverseName="incidentLocalDetails" inverseEntity="Incident" syncable="YES"/>
+    </entity>
+    <entity name="IncidentMap" representedClassName="IncidentMap" syncable="YES">
+        <attribute name="incidentLatitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentLongitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stagingLatitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stagingLongitude" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="incidentMapAddressInfo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="IncidentAddress" inverseName="incidentMapAddressDetails" inverseEntity="IncidentAddress" syncable="YES"/>
+        <relationship name="incidentMapInfo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Incident" inverseName="incidentMapDetails" inverseEntity="Incident" syncable="YES"/>
+    </entity>
+    <entity name="IncidentNFRIS" representedClassName="IncidentNFRIS" syncable="YES">
+        <attribute name="incidentActionsTakenAdditionalThree" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentActionsTakenAdditionalTwo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentActionsTakenPrimary" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentExposure" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentFDID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentFireStation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentLocation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentPlatoon" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentResourcesEMSApparatus" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentResourcesEMSPersonnel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentResourcesOtherApparatus" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentResourcesOtherPersonnel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentResourcesSuppressionPersonnel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentResourcesSupressionApparatus" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentTypeNumberNFRIS" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentTypeTextNFRIS" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="incidentNFRISInfo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Incident" inverseName="incidentNFRISDetails" inverseEntity="Incident" syncable="YES"/>
+    </entity>
+    <entity name="IncidentNotes" representedClassName="IncidentNotes" syncable="YES">
+        <attribute name="incidentNote" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="incidentNotesInfo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Incident" inverseName="incidentNotesDetails" inverseEntity="Incident" syncable="YES"/>
+    </entity>
+    <entity name="IncidentRadioChannels" representedClassName="IncidentRadioChannels" syncable="YES">
+        <attribute name="incidentDispatch" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentTacOne" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentTacTwo" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="incidentRadioChannelsInfo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Incident" inverseName="incidentRadioChannelsDetails" inverseEntity="Incident" syncable="YES"/>
+    </entity>
+    <entity name="IncidentTimer" representedClassName="IncidentTimer" syncable="YES">
+        <attribute name="incidentAlarmCombinedDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentAlarmDay" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentAlarmHours" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentAlarmMinutes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentAlarmMonth" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentAlarmYear" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentArrivalCombinedDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentArrivalDay" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentArrivalHours" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentArrivalMinutes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentArrivalMonth" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentArrivalYear" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentControlledCombinedDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentControlledDay" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentControlledHours" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentControlledMinutes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentControlledMonth" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentControlledYear" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentElapsedTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentLastUnitCalledCombinedDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentLastUnitCalledDay" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentLastUnitCalledHours" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentLastUnitCalledMinutes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentLastUnitCalledMonth" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentLastUnitCalledYear" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentStartClockCombinedDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentStartClockDay" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentStartClockHours" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentStartClockMinutes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentStartClockMonth" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentStartClockSeconds" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentStartClockYear" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentStopClockCombinedDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentStopClockDay" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentStopClockHours" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentStopClockMinutes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentStopClockMonth" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentStopClockSeconds" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentStopClockYear" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="incidentTimeInfo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Incident" inverseName="incidentTimeDetails" inverseEntity="Incident" syncable="YES"/>
+    </entity>
+    <entity name="IncidentType" representedClassName="IncidentType" syncable="YES">
+        <attribute name="incidentTypeName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentTypeNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="incidentTypeInfo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Incident" inverseName="incidentTypeDetails" inverseEntity="Incident" syncable="YES"/>
+    </entity>
+    <entity name="LocalIncidentType" representedClassName="LocalIncidentType" syncable="YES">
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="localIncidentTypeName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Location" representedClassName="Location" syncable="YES">
+        <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="incidentLocationInfo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Incident" inverseName="incidentLocationDetails" inverseEntity="Incident" syncable="YES"/>
+    </entity>
+    <entity name="Platoon" representedClassName="Platoon" syncable="YES">
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="platoon" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="incidentPlatoonInfo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Incident" inverseName="incidentPlatoonDetails" inverseEntity="Incident" syncable="YES"/>
+    </entity>
+    <entity name="Prefix" representedClassName="Prefix" syncable="YES">
+        <attribute name="streetPrefix" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="RadioChannel" representedClassName="RadioChannel" syncable="YES">
+        <attribute name="channel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+    </entity>
+    <entity name="Rank" representedClassName="Rank" syncable="YES">
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="rank" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Resources" representedClassName="Resources" syncable="YES">
+        <attribute name="emsApparatus" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="emsPersonel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="otherApparatus" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="otherPersonnel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="supressionApparatus" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="supressionPersonal" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="incidentResourcesInfo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Incident" inverseName="incidentResourceDetails" inverseEntity="Incident" syncable="YES"/>
+    </entity>
+    <entity name="StartUp" representedClassName="StartUp" syncable="YES">
+        <attribute name="startUp" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+    </entity>
+    <entity name="States" representedClassName="States" syncable="YES">
+        <attribute name="abbreviation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Station" representedClassName="Station" syncable="YES">
+        <attribute name="stationNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="incidentStationInfo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Incident" inverseName="incidentStationDetails" inverseEntity="Incident" syncable="YES"/>
+    </entity>
+    <entity name="StreetType" representedClassName="StreetType" syncable="YES">
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="streetType" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="ActionsTaken" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Battalion" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="CommandJournalUser" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Division" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Emergency" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Exposure" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="FireDepartment" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="FireDistrict" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Incident" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="IncidentAddress" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="IncidentLocal" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="IncidentMap" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="IncidentNFRIS" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="IncidentNotes" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="IncidentRadioChannels" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="IncidentTimer" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="IncidentType" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="LocalIncidentType" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Location" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Platoon" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Prefix" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="RadioChannel" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Rank" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Resources" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="StartUp" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="States" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Station" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="StreetType" positionX="0" positionY="0" width="0" height="0"/>
+    </elements>
+</model>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsTVCellIdentifier" rowHeight="65" id="KGk-i7-Jjw" customClass="SettingsTVCell" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="65"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="500" height="65"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qxY-H3-3vK">
+                        <rect key="frame" x="20" y="7.5" width="50" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="J2X-R7-6UO"/>
+                            <constraint firstAttribute="height" constant="50" id="TRr-Hm-GiM"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DvK-pa-yNz">
+                        <rect key="frame" x="90" y="11" width="111.5" height="43"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="43" id="gPP-Mj-Ypf"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.compact.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="fFO-4S-3TA">
+                        <rect key="frame" x="467.5" y="11.5" width="12.5" height="42"/>
+                        <color key="tintColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="45" id="37b-wh-wrf"/>
+                            <constraint firstAttribute="width" constant="12.5" id="RvU-1b-oZK"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="DvK-pa-yNz" firstAttribute="centerY" secondItem="qxY-H3-3vK" secondAttribute="centerY" id="DgZ-ds-F3A"/>
+                    <constraint firstItem="DvK-pa-yNz" firstAttribute="leading" secondItem="qxY-H3-3vK" secondAttribute="trailing" constant="20" id="JO0-du-ZlL"/>
+                    <constraint firstItem="hVi-Fq-koL" firstAttribute="trailing" secondItem="fFO-4S-3TA" secondAttribute="trailing" constant="20" id="Lfx-sE-Fg9"/>
+                    <constraint firstItem="qxY-H3-3vK" firstAttribute="top" secondItem="hVi-Fq-koL" secondAttribute="top" constant="7.5" id="P7W-ly-ySf"/>
+                    <constraint firstItem="fFO-4S-3TA" firstAttribute="centerY" secondItem="hVi-Fq-koL" secondAttribute="centerY" id="eE4-nv-NNb"/>
+                    <constraint firstItem="qxY-H3-3vK" firstAttribute="leading" secondItem="hVi-Fq-koL" secondAttribute="leading" constant="20" id="x6f-0x-0Hb"/>
+                </constraints>
+                <viewLayoutGuide key="safeArea" id="hVi-Fq-koL"/>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="iconIV" destination="qxY-H3-3vK" id="YC6-fn-bGu"/>
+                <outlet property="indicatorSymbol" destination="fFO-4S-3TA" id="Pzb-UW-lCF"/>
+                <outlet property="settingsSubjectL" destination="DvK-pa-yNz" id="1g3-WE-rJK"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="119.53125"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="chevron.compact.right" catalog="system" width="32" height="64"/>
+    </resources>
+</document>

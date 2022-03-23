@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="450" id="KGk-i7-Jjw" customClass="ParagraphCell" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="540" height="450"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="540" height="450"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Purpose:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2IW-lQ-Fbl">
+                        <rect key="frame" x="25" y="17" width="490" height="24"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UrN-Kg-lMr">
+                        <rect key="frame" x="25" y="42" width="490" height="85"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="490" id="w10-1w-c9L"/>
+                            <constraint firstAttribute="height" constant="85" id="wqg-Jj-wHH"/>
+                        </constraints>
+                        <string key="text">The Activity Log (ICS 214) records details of notable activities at any ICS level, including single resources, equipment, Task Forces, etc. These logs provide basic incident activity documentation, and a reference for any after-action report.</string>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="widthClass=compact">
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        </variation>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Preparation:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OwD-wc-2Ua">
+                        <rect key="frame" x="25" y="133" width="490" height="24"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HH2-wP-jCm">
+                        <rect key="frame" x="25" y="161" width="490" height="88"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="490" id="jX9-oz-R0I"/>
+                            <constraint firstAttribute="height" constant="88" id="yUM-2I-oIJ"/>
+                        </constraints>
+                        <string key="text">An ICS 214 can be initiated and maintained by personnel in various ICS positions as it is needed or appropriate. Personnel should document how relevant incident activities are occurring and progressing, or any notable events or communications.</string>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="widthClass=compact">
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        </variation>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distribution:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z3H-uS-w16">
+                        <rect key="frame" x="25" y="252" width="490" height="24"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nkm-VI-OuP">
+                        <rect key="frame" x="25" y="284" width="490" height="158"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="490" id="3I0-zk-37x"/>
+                        </constraints>
+                        <string key="text">Completed ICS-214s are stored in Fire Journal and may be referenced at any time. Once you become a Fire Journal Member (learn more about membership), ICS forms can also be printed as complete NIMS compliant documents. Completed PDF or printed documents should then be shared with supervisors, who forward them to the Documentation Unit. The Documentation Unit should maintain a file of all ICS 214 forms. You may search and share any ICS-214 that you’ve completed at any time (Membership required).</string>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="widthClass=compact">
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        </variation>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Nkm-VI-OuP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="25" id="0Mi-fZ-qEF"/>
+                    <constraint firstItem="UrN-Kg-lMr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="42" id="2xH-aR-grN"/>
+                    <constraint firstItem="UrN-Kg-lMr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="25" id="8BY-SE-kuf"/>
+                    <constraint firstItem="HH2-wP-jCm" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="161" id="BZy-tb-nVn"/>
+                    <constraint firstAttribute="trailing" secondItem="z3H-uS-w16" secondAttribute="trailing" constant="25" id="BbJ-VA-9hs"/>
+                    <constraint firstItem="z3H-uS-w16" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="25" id="Bev-pb-epk"/>
+                    <constraint firstItem="HH2-wP-jCm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="25" id="UjV-n1-9l7"/>
+                    <constraint firstAttribute="trailing" secondItem="HH2-wP-jCm" secondAttribute="trailing" constant="25" id="Y4B-tm-TSW"/>
+                    <constraint firstItem="2IW-lQ-Fbl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="25" id="gJF-uq-z9i"/>
+                    <constraint firstItem="z3H-uS-w16" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="252" id="kGv-8O-5vG"/>
+                    <constraint firstItem="Nkm-VI-OuP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="284" id="mEm-0s-nQA"/>
+                    <constraint firstItem="OwD-wc-2Ua" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="25" id="oq7-eE-Moo"/>
+                    <constraint firstItem="OwD-wc-2Ua" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="133" id="rqh-ha-mGu"/>
+                    <constraint firstAttribute="bottom" secondItem="Nkm-VI-OuP" secondAttribute="bottom" constant="8" id="tOB-qx-G1i"/>
+                    <constraint firstAttribute="trailing" secondItem="Nkm-VI-OuP" secondAttribute="trailing" constant="25" id="thB-sQ-VsN"/>
+                    <constraint firstItem="2IW-lQ-Fbl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="17" id="wBg-zB-dVp"/>
+                    <constraint firstAttribute="trailing" secondItem="UrN-Kg-lMr" secondAttribute="trailing" constant="25" id="wIo-Lm-Kci"/>
+                    <constraint firstAttribute="trailing" secondItem="OwD-wc-2Ua" secondAttribute="trailing" constant="25" id="xeZ-mh-pyJ"/>
+                    <constraint firstAttribute="trailing" secondItem="2IW-lQ-Fbl" secondAttribute="trailing" constant="25" id="z1e-Qg-G2M"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="header1L" destination="2IW-lQ-Fbl" id="KPw-J9-Yq3"/>
+                <outlet property="header2L" destination="OwD-wc-2Ua" id="rMP-vP-NxW"/>
+                <outlet property="header3L" destination="z3H-uS-w16" id="5m1-jx-wks"/>
+                <outlet property="paragraph1L" destination="UrN-Kg-lMr" id="tnm-4k-AJq"/>
+                <outlet property="paragraph2L" destination="HH2-wP-jCm" id="5ye-Sl-ray"/>
+                <outlet property="paragraph3L" destination="Nkm-VI-OuP" id="UB6-8R-Aki"/>
+            </connections>
+            <point key="canvasLocation" x="120" y="7.1964017991004505"/>
+        </tableViewCell>
+    </objects>
+</document>

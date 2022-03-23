@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FormSegmentCell" rowHeight="135" id="KGk-i7-Jjw" customClass="FormSegmentCell" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="540" height="135"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="540" height="135"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How would you like to use this form?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cOY-lv-eqi">
+                        <rect key="frame" x="0.0" y="6" width="540" height="29"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="29" id="dCA-Va-r9D"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="hcT-7j-gwd">
+                        <rect key="frame" x="142.5" y="43" width="255" height="29"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="28" id="1BW-iY-0sa"/>
+                            <constraint firstAttribute="width" constant="255" id="xHF-6y-08a"/>
+                        </constraints>
+                        <segments>
+                            <segment title="First Form"/>
+                            <segment title="Additional Form"/>
+                        </segments>
+                        <connections>
+                            <action selector="openingSegmentTapped:" destination="KGk-i7-Jjw" eventType="valueChanged" id="qug-Nd-JmJ"/>
+                        </connections>
+                    </segmentedControl>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sbj-BT-hfW">
+                        <rect key="frame" x="343" y="97" width="172" height="28"/>
+                        <color key="backgroundColor" name="FJIncidentPlaceHolderRedColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="28" id="UZD-aD-ziv"/>
+                            <constraint firstAttribute="width" constant="172" id="pj9-RB-tjM"/>
+                        </constraints>
+                        <state key="normal" title="Continue"/>
+                        <connections>
+                            <action selector="continueButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="iRK-QR-Irn"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="hcT-7j-gwd" firstAttribute="top" secondItem="cOY-lv-eqi" secondAttribute="bottom" constant="8" symbolic="YES" id="1ns-OE-eS3"/>
+                    <constraint firstItem="cOY-lv-eqi" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" id="4o3-ar-6wf"/>
+                    <constraint firstItem="cOY-lv-eqi" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6" id="6GE-04-Zpr"/>
+                    <constraint firstAttribute="trailing" secondItem="sbj-BT-hfW" secondAttribute="trailing" constant="25" id="DyK-6C-tnj"/>
+                    <constraint firstItem="cOY-lv-eqi" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="LEu-zb-akl"/>
+                    <constraint firstItem="hcT-7j-gwd" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="ZDQ-R5-dHS"/>
+                    <constraint firstItem="sbj-BT-hfW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="97" id="tGY-nS-41h"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="continueButton" destination="sbj-BT-hfW" id="ZhU-k9-Ybx"/>
+                <outlet property="openingSegment" destination="hcT-7j-gwd" id="1f0-aJ-cQg"/>
+            </connections>
+            <point key="canvasLocation" x="377" y="50.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <namedColor name="FJIncidentPlaceHolderRedColor">
+            <color red="1" green="0.27099999785423279" blue="0.22699999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

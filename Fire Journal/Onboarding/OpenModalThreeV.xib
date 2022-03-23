@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="ipad9_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="OpenModalThree" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="1025"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tvc-colorField" translatesAutoresizingMaskIntoConstraints="NO" id="OKr-cZ-WY8">
+                    <rect key="frame" x="0.0" y="0.0" width="500" height="1025"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="incidentHeader" translatesAutoresizingMaskIntoConstraints="NO" id="R5U-Rt-eTC">
+                    <rect key="frame" x="0.0" y="0.0" width="500" height="274"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="274" id="1td-Cj-lsJ"/>
+                        <constraint firstAttribute="width" constant="500" id="B7z-KH-QUl"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WAe-ku-ffW">
+                    <rect key="frame" x="47" y="295" width="400" height="257"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="257" id="ND4-Dz-VoL"/>
+                        <constraint firstAttribute="width" constant="400" id="rcj-yA-rRB"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Incidents" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="THm-m2-amU">
+                    <rect key="frame" x="47" y="250" width="174" height="58"/>
+                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="48"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="OKr-cZ-WY8" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="CuB-h9-zQx"/>
+                <constraint firstItem="OKr-cZ-WY8" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="KzZ-PP-YGl"/>
+                <constraint firstItem="THm-m2-amU" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="250" id="VYI-Uw-HI2"/>
+                <constraint firstItem="R5U-Rt-eTC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="WEF-AA-Vvu"/>
+                <constraint firstItem="OKr-cZ-WY8" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="eGc-p4-3eT"/>
+                <constraint firstItem="THm-m2-amU" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="47" id="ewi-ci-1Zg"/>
+                <constraint firstItem="OKr-cZ-WY8" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="iWd-oe-CNf"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="THm-m2-amU" secondAttribute="trailing" id="j9J-l8-CgD"/>
+                <constraint firstItem="R5U-Rt-eTC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="k1g-t0-FEa"/>
+                <constraint firstItem="WAe-ku-ffW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="47" id="rQM-Zg-gRD"/>
+                <constraint firstItem="WAe-ku-ffW" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="295" id="x6F-nL-Jwh"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="backgroundIV" destination="OKr-cZ-WY8" id="VdY-AL-CIl"/>
+                <outlet property="descriptionL" destination="WAe-ku-ffW" id="QyY-P3-B9S"/>
+                <outlet property="headerIV" destination="R5U-Rt-eTC" id="uhy-70-YCM"/>
+                <outlet property="subjectL" destination="THm-m2-amU" id="9Id-Qy-cIa"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="incidentHeader" width="540" height="274"/>
+        <image name="tvc-colorField" width="10" height="10"/>
+    </resources>
+</document>

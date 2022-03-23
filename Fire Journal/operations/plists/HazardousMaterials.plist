@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>displayOrder</key>
+	<array>
+		<integer>0</integer>
+		<integer>1</integer>
+		<integer>2</integer>
+		<integer>3</integer>
+		<integer>4</integer>
+		<integer>5</integer>
+		<integer>6</integer>
+		<integer>7</integer>
+		<integer>8</integer>
+	</array>
+	<key>hazardousMaterial</key>
+	<array>
+		<string>1 Natural Gas: slow leak, no evacuation or HazMat actions</string>
+		<string>2 Propane gas: &lt;21-lb tank (as in Home BBQ grill)</string>
+		<string>3 Gasoline: vehicle fuel tank or portable container</string>
+		<string>4 Kerosene: fuel burning equipment or portable storage</string>
+		<string>5 Diesel fuel/fuel oil: vehicle fuel tank or portable storage</string>
+		<string>6 Household solvents: home/office spill, cleanup only</string>
+		<string>7 Motor oil: from engine or portable container</string>
+		<string>8 Paint: from paint cans totaling &lt;55 gallons</string>
+		<string>0 Other: special HazMat actions required or spill &gt; 55 gal</string>
+	</array>
+</dict>
+</plist>

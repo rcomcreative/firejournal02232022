@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="mGg-UZ-PzG" customClass="MapHeaderV" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NCx-b0-zOx" userLabel="Content View">
+                    <rect key="frame" x="0.0" y="0.0" width="500" height="44"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6pN-5f-R7o">
+                            <rect key="frame" x="27" y="2" width="55" height="41"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="41" id="BeA-Qa-OzR"/>
+                                <constraint firstAttribute="width" constant="55" id="cEU-cd-8f6"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                            <state key="normal" title="Back">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="backBTapped:" destination="mGg-UZ-PzG" eventType="touchUpInside" id="EdU-p6-Qji"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DXj-kv-tUy">
+                            <rect key="frame" x="433" y="2" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="41" id="aQN-27-uDY"/>
+                                <constraint firstAttribute="width" constant="40" id="wed-L7-cl7"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                            <color key="tintColor" name="FJARCRed"/>
+                            <state key="normal" backgroundImage="plus.circle" catalog="system"/>
+                            <connections>
+                                <action selector="addNewBTapped:" destination="mGg-UZ-PzG" eventType="touchUpInside" id="ccb-lC-PYc"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="DXj-kv-tUy" firstAttribute="top" secondItem="NCx-b0-zOx" secondAttribute="top" constant="1.5" id="JKA-hr-FdE"/>
+                        <constraint firstItem="6pN-5f-R7o" firstAttribute="leading" secondItem="NCx-b0-zOx" secondAttribute="leading" constant="27" id="d55-OY-0Pf"/>
+                        <constraint firstItem="6pN-5f-R7o" firstAttribute="top" secondItem="NCx-b0-zOx" secondAttribute="top" constant="2" id="oQY-dZ-mn0"/>
+                        <constraint firstAttribute="trailing" secondItem="DXj-kv-tUy" secondAttribute="trailing" constant="27" id="pP2-i9-1Zq"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="1Kr-rl-w23"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="NCx-b0-zOx" secondAttribute="trailing" id="88w-sX-uB7"/>
+                <constraint firstItem="NCx-b0-zOx" firstAttribute="top" secondItem="mGg-UZ-PzG" secondAttribute="top" id="hYR-jX-L4w"/>
+                <constraint firstItem="NCx-b0-zOx" firstAttribute="leading" secondItem="mGg-UZ-PzG" secondAttribute="leading" id="q2l-gE-xJx"/>
+                <constraint firstAttribute="bottom" secondItem="NCx-b0-zOx" secondAttribute="bottom" id="tvQ-wJ-yZi"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="addNewB" destination="DXj-kv-tUy" id="qrW-ng-xw8"/>
+                <outlet property="backB" destination="6pN-5f-R7o" id="dVy-1R-Rgo"/>
+                <outlet property="contentView" destination="NCx-b0-zOx" id="eFO-ud-rZ3"/>
+            </connections>
+            <point key="canvasLocation" x="52.173913043478265" y="47.879464285714285"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="plus.circle" catalog="system" width="128" height="121"/>
+        <namedColor name="FJARCRed">
+            <color red="0.93300002813339233" green="0.23100000619888306" blue="0.20000000298023224" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

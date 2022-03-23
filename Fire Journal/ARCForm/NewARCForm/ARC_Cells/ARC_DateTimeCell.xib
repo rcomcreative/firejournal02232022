@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ARC_DateTimeCell" rowHeight="90" id="Coo-2q-wKW" customClass="ARC_DateTimeCell" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="90"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Coo-2q-wKW" id="8iG-nm-Bcl">
+                <rect key="frame" x="0.0" y="0.0" width="500" height="90"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mrV-Y8-Dgm">
+                        <rect key="frame" x="27" y="39.5" width="45" height="45"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="46" id="OEy-0T-Bi2"/>
+                            <constraint firstAttribute="width" constant="45" id="xku-87-kTG"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                        <color key="tintColor" name="FJRedColor"/>
+                        <state key="normal" backgroundImage="clock" catalog="system">
+                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <connections>
+                            <action selector="timeBTapped:" destination="Coo-2q-wKW" eventType="touchUpInside" id="nAK-nR-eEi"/>
+                        </connections>
+                    </button>
+                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CC6-GG-WLb">
+                        <rect key="frame" x="78" y="41" width="395" height="42"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x0k-Tv-PK2">
+                        <rect key="frame" x="27" y="8" width="446" height="29"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="mrV-Y8-Dgm" firstAttribute="centerY" secondItem="CC6-GG-WLb" secondAttribute="centerY" id="2mg-a9-A2b"/>
+                    <constraint firstAttribute="bottom" secondItem="CC6-GG-WLb" secondAttribute="bottom" constant="7" id="C8Q-Vy-zzH"/>
+                    <constraint firstItem="x0k-Tv-PK2" firstAttribute="top" secondItem="8iG-nm-Bcl" secondAttribute="top" constant="8" id="Hir-SR-8wG"/>
+                    <constraint firstItem="mrV-Y8-Dgm" firstAttribute="leading" secondItem="8iG-nm-Bcl" secondAttribute="leading" constant="27" id="SPk-9h-C2j"/>
+                    <constraint firstItem="CC6-GG-WLb" firstAttribute="top" secondItem="x0k-Tv-PK2" secondAttribute="bottom" constant="4" id="fFd-7A-05N"/>
+                    <constraint firstAttribute="trailing" secondItem="x0k-Tv-PK2" secondAttribute="trailing" constant="27" id="hY3-xC-AMZ"/>
+                    <constraint firstItem="CC6-GG-WLb" firstAttribute="leading" secondItem="mrV-Y8-Dgm" secondAttribute="trailing" constant="6" id="oT7-9R-XNP"/>
+                    <constraint firstItem="x0k-Tv-PK2" firstAttribute="leading" secondItem="8iG-nm-Bcl" secondAttribute="leading" constant="27" id="vaA-jK-6bX"/>
+                    <constraint firstAttribute="trailing" secondItem="CC6-GG-WLb" secondAttribute="trailing" constant="27" id="xcJ-ba-S75"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="0OM-mg-R0a"/>
+            <connections>
+                <outlet property="dateL" destination="x0k-Tv-PK2" id="JcF-0e-m8L"/>
+                <outlet property="dateTF" destination="CC6-GG-WLb" id="aw9-ov-mE3"/>
+                <outlet property="timeB" destination="mrV-Y8-Dgm" id="NXG-AL-lHn"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="153.34821428571428"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="clock" catalog="system" width="128" height="121"/>
+        <namedColor name="FJRedColor">
+            <color red="0.92900002002716064" green="0.33300000429153442" blue="0.39599999785423279" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

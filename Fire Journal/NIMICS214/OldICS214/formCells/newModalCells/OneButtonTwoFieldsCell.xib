@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="110" id="KGk-i7-Jjw" customClass="OneButtonTwoFieldsCell" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10. Operational Period:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qOZ-Sq-LIs">
+                        <rect key="frame" x="12" y="5" width="163" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="163" id="c1k-9g-TiU"/>
+                            <constraint firstAttribute="height" constant="21" id="mg2-Ga-SVB"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="14" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="ws4-x5-DTk">
+                        <rect key="frame" x="185" y="24" width="121" height="34"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="14" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="X0M-a4-Yun">
+                        <rect key="frame" x="185" y="64" width="121" height="34"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date To:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hdl-bH-1Fe">
+                        <rect key="frame" x="12" y="27" width="156" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="156" id="fLk-n1-wGr"/>
+                            <constraint firstAttribute="height" constant="21" id="lwj-ZA-Ene"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date To:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h59-2O-QbD">
+                        <rect key="frame" x="12" y="66" width="156" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="156" id="AVq-ru-lsg"/>
+                            <constraint firstAttribute="height" constant="21" id="g1o-qq-g8D"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3am-uO-hfn">
+                        <rect key="frame" x="48" y="34.5" width="44" height="43"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="44" id="KYz-Cv-lHe"/>
+                            <constraint firstAttribute="height" constant="44" id="o3M-Td-3Y7"/>
+                        </constraints>
+                        <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <state key="normal" backgroundImage="clock" catalog="system"/>
+                        <connections>
+                            <action selector="button1Tapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="EOD-eH-p4e"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </tableViewCellContentView>
+            <constraints>
+                <constraint firstItem="ws4-x5-DTk" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" constant="24" id="18J-WT-7vo"/>
+                <constraint firstItem="Hdl-bH-1Fe" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" constant="27" id="1AQ-lQ-jvn"/>
+                <constraint firstItem="qOZ-Sq-LIs" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" constant="5" id="2Yx-GZ-5Ry"/>
+                <constraint firstItem="h59-2O-QbD" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" constant="66" id="4hT-iL-b7Q"/>
+                <constraint firstAttribute="trailing" secondItem="ws4-x5-DTk" secondAttribute="trailing" constant="14" id="ASx-XH-Tcy"/>
+                <constraint firstItem="3am-uO-hfn" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" constant="34" id="H44-tD-Z8o"/>
+                <constraint firstItem="X0M-a4-Yun" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" constant="185" id="M6h-5e-bdo"/>
+                <constraint firstItem="3am-uO-hfn" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" constant="48" id="O3x-69-TLP"/>
+                <constraint firstItem="h59-2O-QbD" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" constant="12" id="TBk-va-42q"/>
+                <constraint firstAttribute="trailing" secondItem="X0M-a4-Yun" secondAttribute="trailing" constant="14" id="aMF-ym-2Yd"/>
+                <constraint firstItem="Hdl-bH-1Fe" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" constant="12" id="aPk-GZ-rnE"/>
+                <constraint firstItem="qOZ-Sq-LIs" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" constant="12" id="iV8-1c-eO7"/>
+                <constraint firstItem="X0M-a4-Yun" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" constant="64" id="kxd-Zn-4sw"/>
+                <constraint firstItem="ws4-x5-DTk" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" constant="185" id="y6B-pN-fg6"/>
+            </constraints>
+            <connections>
+                <outlet property="cellButtonOne" destination="3am-uO-hfn" id="xoj-H7-rAC"/>
+                <outlet property="cellLabel" destination="qOZ-Sq-LIs" id="FFc-Cf-Nel"/>
+                <outlet property="inputLabelOne" destination="Hdl-bH-1Fe" id="Erw-6B-tAq"/>
+                <outlet property="inputLabelTwo" destination="h59-2O-QbD" id="7X9-ce-bNn"/>
+                <outlet property="inputTextFieldOne" destination="ws4-x5-DTk" id="lCA-Tt-fLU"/>
+                <outlet property="inputTextFieldTwo" destination="X0M-a4-Yun" id="J7S-kC-KQL"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="154"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="clock" catalog="system" width="64" height="60"/>
+    </resources>
+</document>

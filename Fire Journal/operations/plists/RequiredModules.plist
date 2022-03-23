@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>displayOrder</key>
+	<array>
+		<integer>0</integer>
+		<integer>1</integer>
+		<integer>2</integer>
+		<integer>3</integer>
+		<integer>4</integer>
+		<integer>5</integer>
+		<integer>6</integer>
+		<integer>7</integer>
+		<integer>8</integer>
+		<integer>9</integer>
+	</array>
+	<key>requiredModules</key>
+	<array>
+		<string>Buildings 111</string>
+		<string>Special structure 112</string>
+		<string>Confined 113–118</string>
+		<string>Mobile property 120–123</string>
+		<string>Vehicle 130–138</string>
+		<string>Vegetation 140-143</string>
+		<string>Outside rubbish fire 150-155</string>
+		<string>Special outside fir 160</string>
+		<string>Special outside fire 161-163</string>
+		<string>Crop fire 170-173</string>
+	</array>
+</dict>
+</plist>

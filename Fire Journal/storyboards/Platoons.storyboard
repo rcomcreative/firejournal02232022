@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NCS-UJ-FRO">
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--PlatoonsVC-->
+        <scene sceneID="gED-FA-PAV">
+            <objects>
+                <viewController storyboardIdentifier="PlatoonsVC" modalPresentationStyle="overCurrentContext" id="NCS-UJ-FRO" customClass="PlatoonsVC" customModule="Fire_Journal" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BiZ-eI-aAB">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="78k-Wz-AJd">
+                                <rect key="frame" x="20" y="328" width="374" height="275"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="COH-ZI-HVR">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="65"/>
+                                        <color key="backgroundColor" name="FJJournalBlueColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="65" id="prR-CC-VP3"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose Your Platoon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kwU-QA-3VI">
+                                        <rect key="frame" x="29" y="15" width="230" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="230" id="gde-0T-DFp"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="xO8-vp-ODl">
+                                        <rect key="frame" x="29" y="72.666666666666686" width="316" height="190"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="190" id="aPA-kc-ElV"/>
+                                        </constraints>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="PlatoonCell" id="ZdW-Kg-Dcn">
+                                                <rect key="frame" x="0.0" y="28" width="316" height="43.666667938232422"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZdW-Kg-Dcn" id="h0a-vI-eek">
+                                                    <rect key="frame" x="0.0" y="0.0" width="316" height="43.666667938232422"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                        </prototypes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="NCS-UJ-FRO" id="qoR-kc-5qY"/>
+                                            <outlet property="delegate" destination="NCS-UJ-FRO" id="quO-Bo-Mqc"/>
+                                        </connections>
+                                    </tableView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bKO-Uf-Uwp">
+                                        <rect key="frame" x="275" y="12.666666666666686" width="80" height="29"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="80" id="Wq0-uo-fh5"/>
+                                            <constraint firstAttribute="height" constant="29" id="lRS-qH-c7r"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="platoonCancelBTapped:" destination="NCS-UJ-FRO" eventType="touchUpInside" id="GdV-YQ-XQO"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <viewLayoutGuide key="safeArea" id="EtW-mA-i2A"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="kwU-QA-3VI" firstAttribute="top" secondItem="EtW-mA-i2A" secondAttribute="top" constant="15" id="16r-3n-jUq"/>
+                                    <constraint firstItem="xO8-vp-ODl" firstAttribute="centerY" secondItem="EtW-mA-i2A" secondAttribute="centerY" constant="30" id="8GA-ni-CJH"/>
+                                    <constraint firstItem="xO8-vp-ODl" firstAttribute="leading" secondItem="EtW-mA-i2A" secondAttribute="leading" constant="29" id="AV4-tG-FLi"/>
+                                    <constraint firstItem="kwU-QA-3VI" firstAttribute="leading" secondItem="EtW-mA-i2A" secondAttribute="leading" constant="29" id="C4S-Ep-p2H"/>
+                                    <constraint firstAttribute="width" constant="374" id="F1s-GD-p5P">
+                                        <variation key="widthClass=regular" constant="500"/>
+                                    </constraint>
+                                    <constraint firstItem="EtW-mA-i2A" firstAttribute="trailing" secondItem="bKO-Uf-Uwp" secondAttribute="trailing" constant="19" id="OyF-q1-iCx"/>
+                                    <constraint firstAttribute="height" constant="275" id="b2T-pc-xuY"/>
+                                    <constraint firstItem="COH-ZI-HVR" firstAttribute="leading" secondItem="EtW-mA-i2A" secondAttribute="leading" id="eXb-W8-gTJ"/>
+                                    <constraint firstItem="xO8-vp-ODl" firstAttribute="centerX" secondItem="EtW-mA-i2A" secondAttribute="centerX" id="fj5-DH-Wno"/>
+                                    <constraint firstItem="EtW-mA-i2A" firstAttribute="trailing" secondItem="COH-ZI-HVR" secondAttribute="trailing" id="loa-fh-zmb"/>
+                                    <constraint firstItem="bKO-Uf-Uwp" firstAttribute="centerY" secondItem="kwU-QA-3VI" secondAttribute="centerY" id="pup-zN-Lhw"/>
+                                    <constraint firstItem="COH-ZI-HVR" firstAttribute="top" secondItem="EtW-mA-i2A" secondAttribute="top" id="rpL-vT-DFR"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ghc-3x-k0R"/>
+                        <color key="backgroundColor" name="FJ33Background"/>
+                        <constraints>
+                            <constraint firstItem="ghc-3x-k0R" firstAttribute="centerY" secondItem="78k-Wz-AJd" secondAttribute="centerY" constant="-12.5" id="kcK-95-YOo"/>
+                            <constraint firstItem="78k-Wz-AJd" firstAttribute="centerX" secondItem="ghc-3x-k0R" secondAttribute="centerX" id="pNW-C0-CEs"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="cancelB" destination="bKO-Uf-Uwp" id="fRI-2Y-bfh"/>
+                        <outlet property="platoonTV" destination="xO8-vp-ODl" id="cxP-U1-Up9"/>
+                        <outlet property="platooonV" destination="78k-Wz-AJd" id="N9c-ho-8o4"/>
+                        <outlet property="subjectL" destination="kwU-QA-3VI" id="sog-3y-pYC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bd5-wT-8rc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="136.23188405797103" y="83.035714285714278"/>
+        </scene>
+    </scenes>
+    <resources>
+        <namedColor name="FJ33Background">
+            <color red="0.25400000810623169" green="0.25400000810623169" blue="0.25400000810623169" alpha="0.33000001311302185" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="FJJournalBlueColor">
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="E2W-Od-4sn" customClass="CellHeaderFDID" customModule="dashboard" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="88"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SHc-a1-hlt">
+                    <rect key="frame" x="0.0" y="0.0" width="500" height="88"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nah-YO-SZL">
+                            <rect key="frame" x="229" y="11" width="42" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LGK-ty-KLR">
+                            <rect key="frame" x="10" y="7" width="48" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="48" id="4QU-Gt-gxG"/>
+                                <constraint firstAttribute="height" constant="30" id="Bss-U3-8w8"/>
+                            </constraints>
+                            <state key="normal" title="Cancel"/>
+                            <connections>
+                                <action selector="cancelBTapped:" destination="E2W-Od-4sn" eventType="touchUpInside" id="Awc-i4-htF"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FDID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aDX-B3-2bf">
+                            <rect key="frame" x="18" y="58" width="38" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DEPT NAME" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1O0-ff-4NX">
+                            <rect key="frame" x="107" y="58" width="95" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CITY" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NbR-TR-3KA">
+                            <rect key="frame" x="346" y="58" width="38" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="LGK-ty-KLR" firstAttribute="leading" secondItem="SHc-a1-hlt" secondAttribute="leading" constant="10" id="1gr-ef-nFu"/>
+                        <constraint firstItem="nah-YO-SZL" firstAttribute="centerX" secondItem="SHc-a1-hlt" secondAttribute="centerX" id="9lf-4P-k2Q"/>
+                        <constraint firstItem="nah-YO-SZL" firstAttribute="top" secondItem="SHc-a1-hlt" secondAttribute="top" constant="11" id="DmF-wn-vaV"/>
+                        <constraint firstItem="aDX-B3-2bf" firstAttribute="top" secondItem="SHc-a1-hlt" secondAttribute="top" constant="58" id="EsS-Ka-1KX"/>
+                        <constraint firstItem="1O0-ff-4NX" firstAttribute="leading" secondItem="SHc-a1-hlt" secondAttribute="leading" constant="107" id="G3q-6k-rcr"/>
+                        <constraint firstItem="1O0-ff-4NX" firstAttribute="top" secondItem="SHc-a1-hlt" secondAttribute="top" constant="58" id="IFp-ol-SDi"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="aDX-B3-2bf" secondAttribute="trailing" id="NPp-T9-dWP"/>
+                        <constraint firstItem="aDX-B3-2bf" firstAttribute="leading" secondItem="SHc-a1-hlt" secondAttribute="leading" constant="18" id="OcJ-qD-KXS"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="NbR-TR-3KA" secondAttribute="trailing" id="Ud9-Og-w9i"/>
+                        <constraint firstItem="NbR-TR-3KA" firstAttribute="top" secondItem="SHc-a1-hlt" secondAttribute="top" constant="58" id="e4C-od-xSC"/>
+                        <constraint firstItem="LGK-ty-KLR" firstAttribute="top" secondItem="SHc-a1-hlt" secondAttribute="top" constant="7" id="fWs-mo-peN"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1O0-ff-4NX" secondAttribute="trailing" id="qu8-kW-TqB"/>
+                        <constraint firstItem="NbR-TR-3KA" firstAttribute="leading" secondItem="SHc-a1-hlt" secondAttribute="leading" constant="346" id="suH-Ia-RDW"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="SHc-a1-hlt" firstAttribute="leading" secondItem="E2W-Od-4sn" secondAttribute="leading" id="jNl-Tw-AGn"/>
+                <constraint firstItem="SHc-a1-hlt" firstAttribute="top" secondItem="E5l-92-6xh" secondAttribute="top" id="o5S-1x-KPJ"/>
+                <constraint firstAttribute="trailing" secondItem="SHc-a1-hlt" secondAttribute="trailing" id="spN-0c-UKp"/>
+                <constraint firstItem="SHc-a1-hlt" firstAttribute="bottom" secondItem="E5l-92-6xh" secondAttribute="bottom" id="yhh-6a-zmw"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="E5l-92-6xh"/>
+            <connections>
+                <outlet property="cancelB" destination="LGK-ty-KLR" id="ZFK-RN-IFS"/>
+                <outlet property="contentView" destination="SHc-a1-hlt" id="lcU-EZ-LSC"/>
+                <outlet property="headerTitle" destination="nah-YO-SZL" id="1bM-vh-hUu"/>
+            </connections>
+        </view>
+    </objects>
+</document>

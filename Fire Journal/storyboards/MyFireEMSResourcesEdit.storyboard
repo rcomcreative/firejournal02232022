@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9jM-AQ-Vox">
+    <device id="ipad11_0rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Settimgs My FireEMS Resources EditVC-->
+        <scene sceneID="Qwp-Vq-z18">
+            <objects>
+                <viewController storyboardIdentifier="SettimgsMyFireEMSResourcesEditVC" id="9jM-AQ-Vox" customClass="SettimgsMyFireEMSResourcesEditVC" customModule="Fire_Journal" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1ui-uT-rFg">
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dt7-kj-KnC">
+                                <rect key="frame" x="240" y="274.5" width="354" height="625"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="625" id="SPd-qQ-XhN"/>
+                                    <constraint firstAttribute="width" constant="354" id="Xdj-Pc-kK5"/>
+                                </constraints>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="cell" id="gJ3-nq-cPw">
+                                        <rect key="frame" x="0.0" y="28" width="354" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gJ3-nq-cPw" id="45c-xb-fiz">
+                                            <rect key="frame" x="0.0" y="0.0" width="354" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="9jM-AQ-Vox" id="WEb-6m-WEF"/>
+                                    <outlet property="delegate" destination="9jM-AQ-Vox" id="doJ-qi-cod"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.35628111169999999" green="0.20800000430000001" blue="0.28999999170000001" alpha="0.3322213772" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="dt7-kj-KnC" firstAttribute="centerY" secondItem="Uiy-DN-wUs" secondAttribute="centerY" id="Dc0-r0-jdx"/>
+                            <constraint firstItem="dt7-kj-KnC" firstAttribute="centerX" secondItem="Uiy-DN-wUs" secondAttribute="centerX" id="OMe-0e-Nyk"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Uiy-DN-wUs"/>
+                    </view>
+                    <connections>
+                        <outlet property="fireEMSResourcesEditTV" destination="dt7-kj-KnC" id="hlZ-T2-P3L"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Roe-yK-eUO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="197" y="223"/>
+        </scene>
+    </scenes>
+</document>

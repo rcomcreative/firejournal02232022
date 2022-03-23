@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="100" id="XAO-Lb-QkO" customClass="IncidentTFwDirectionalSwitchCell" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="76"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XAO-Lb-QkO" id="BG1-51-5b7">
+                <rect key="frame" x="0.0" y="0.0" width="500" height="76"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vdi-cP-v5E">
+                        <rect key="frame" x="26" y="11" width="60" height="29"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qog-ac-FM2">
+                        <rect key="frame" x="26" y="42" width="416" height="34"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                        <connections>
+                            <outlet property="delegate" destination="XAO-Lb-QkO" id="uFP-Nz-N0g"/>
+                        </connections>
+                    </textField>
+                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BkW-mV-um9">
+                        <rect key="frame" x="101" y="7" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="af5-vk-BLX"/>
+                            <constraint firstAttribute="height" constant="30" id="exd-0J-aAo"/>
+                        </constraints>
+                        <state key="normal" title="Button" image="ICONS_Directional blue"/>
+                        <connections>
+                            <action selector="directionalBTapped:" destination="XAO-Lb-QkO" eventType="touchUpInside" id="D26-Ec-8ea"/>
+                        </connections>
+                    </button>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uZ9-W7-fT5">
+                        <rect key="frame" x="438" y="5" width="51" height="31"/>
+                        <connections>
+                            <action selector="switchTapped:" destination="XAO-Lb-QkO" eventType="valueChanged" id="CkY-Yn-ldC"/>
+                        </connections>
+                    </switch>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4wc-5g-Bcp">
+                        <rect key="frame" x="338" y="9" width="90" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="90" id="I1p-mB-uAQ"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="uZ9-W7-fT5" firstAttribute="top" secondItem="BG1-51-5b7" secondAttribute="top" constant="5" id="4s0-hL-y0L"/>
+                    <constraint firstItem="vdi-cP-v5E" firstAttribute="leading" secondItem="BG1-51-5b7" secondAttribute="leading" constant="26" id="5QQ-gE-yhH"/>
+                    <constraint firstItem="Qog-ac-FM2" firstAttribute="top" secondItem="BG1-51-5b7" secondAttribute="top" constant="42" id="9O4-Mv-xm4"/>
+                    <constraint firstItem="vdi-cP-v5E" firstAttribute="top" secondItem="BG1-51-5b7" secondAttribute="top" constant="11" id="FXI-zc-gZl"/>
+                    <constraint firstAttribute="trailing" secondItem="uZ9-W7-fT5" secondAttribute="trailing" constant="13" id="Law-i3-LKe"/>
+                    <constraint firstItem="BkW-mV-um9" firstAttribute="leading" secondItem="vdi-cP-v5E" secondAttribute="trailing" constant="15" id="Pbk-s3-R85"/>
+                    <constraint firstItem="uZ9-W7-fT5" firstAttribute="leading" secondItem="4wc-5g-Bcp" secondAttribute="trailing" constant="10" id="QWQ-Nx-sb8"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="vdi-cP-v5E" secondAttribute="trailing" id="bkT-af-srH"/>
+                    <constraint firstItem="BkW-mV-um9" firstAttribute="top" secondItem="BG1-51-5b7" secondAttribute="top" constant="7" id="iYg-ck-bjE"/>
+                    <constraint firstItem="4wc-5g-Bcp" firstAttribute="top" secondItem="BG1-51-5b7" secondAttribute="top" constant="9" id="sXJ-Tj-hXf"/>
+                    <constraint firstItem="Qog-ac-FM2" firstAttribute="leading" secondItem="BG1-51-5b7" secondAttribute="leading" constant="26" id="wAk-EG-hiI"/>
+                    <constraint firstAttribute="trailing" secondItem="Qog-ac-FM2" secondAttribute="trailing" constant="58" id="zcu-tp-bxJ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="89f-JL-Nml"/>
+            <connections>
+                <outlet property="defaultOvertimeL" destination="4wc-5g-Bcp" id="f0n-bc-7pQ"/>
+                <outlet property="defaultOvertimeSwitch" destination="uZ9-W7-fT5" id="ebF-Ay-49L"/>
+                <outlet property="descriptionTF" destination="Qog-ac-FM2" id="KaR-1i-5yc"/>
+                <outlet property="directionalB" destination="BkW-mV-um9" id="G5P-4i-1rT"/>
+                <outlet property="subjectL" destination="vdi-cP-v5E" id="azW-UR-6P7"/>
+            </connections>
+            <point key="canvasLocation" x="34" y="53.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ICONS_Directional blue" width="833" height="833"/>
+    </resources>
+</document>

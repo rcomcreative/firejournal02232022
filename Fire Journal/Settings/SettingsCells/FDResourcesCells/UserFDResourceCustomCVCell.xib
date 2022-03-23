@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="" id="cZS-us-yTj" customClass="UserFDResourceCustomCVCell" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="92" height="111"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="92" height="111"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rVc-1t-6nM" userLabel="Content View">
+                        <rect key="frame" x="0.0" y="0.0" width="92" height="111"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="RESOURCEWHITE" translatesAutoresizingMaskIntoConstraints="NO" id="VcX-4s-xYl">
+                                <rect key="frame" x="10" y="5" width="72" height="72"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="72" id="YcJ-ES-15o"/>
+                                    <constraint firstAttribute="width" constant="72" id="h49-Uj-zSW"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gQj-vb-Ncz">
+                                <rect key="frame" x="21" y="17" width="50" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="M3r-jg-av9"/>
+                                    <constraint firstAttribute="width" constant="50" id="dXh-WF-cK5"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                <color key="textColor" name="BlackColorForText"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="RedSelectedCHECKED" translatesAutoresizingMaskIntoConstraints="NO" id="B52-WN-U88">
+                                <rect key="frame" x="33.5" y="82" width="25" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="25" id="6Y0-Af-f0X"/>
+                                    <constraint firstAttribute="height" constant="25" id="SOG-aR-Fmu"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j4U-io-Igm">
+                                <rect key="frame" x="0.0" y="0.0" width="92" height="115"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal">
+                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="selectBTapped:" destination="cZS-us-yTj" eventType="touchUpInside" id="jfB-Wd-LbA"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="B52-WN-U88" firstAttribute="centerX" secondItem="rVc-1t-6nM" secondAttribute="centerX" id="A52-1E-h7G"/>
+                            <constraint firstItem="VcX-4s-xYl" firstAttribute="top" secondItem="rVc-1t-6nM" secondAttribute="top" constant="5" id="E2m-TL-re0"/>
+                            <constraint firstItem="VcX-4s-xYl" firstAttribute="centerX" secondItem="rVc-1t-6nM" secondAttribute="centerX" id="EE5-yx-RlC"/>
+                            <constraint firstItem="gQj-vb-Ncz" firstAttribute="centerX" secondItem="rVc-1t-6nM" secondAttribute="centerX" id="IGc-ee-3Pg"/>
+                            <constraint firstItem="B52-WN-U88" firstAttribute="top" secondItem="VcX-4s-xYl" secondAttribute="bottom" constant="5" id="e7h-Hc-7sW"/>
+                            <constraint firstItem="B52-WN-U88" firstAttribute="top" secondItem="gQj-vb-Ncz" secondAttribute="bottom" constant="35" id="p1N-5b-8L1"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="rVc-1t-6nM" firstAttribute="top" secondItem="cZS-us-yTj" secondAttribute="top" id="8VT-Tx-iZe"/>
+                <constraint firstAttribute="bottom" secondItem="rVc-1t-6nM" secondAttribute="bottom" id="HN1-Uf-yxo"/>
+                <constraint firstAttribute="trailing" secondItem="rVc-1t-6nM" secondAttribute="trailing" id="x0J-2n-Tgp"/>
+                <constraint firstItem="rVc-1t-6nM" firstAttribute="leading" secondItem="cZS-us-yTj" secondAttribute="leading" id="zba-Qc-LYB"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="K1N-6P-w9q"/>
+            <connections>
+                <outlet property="accessIV" destination="B52-WN-U88" id="dNs-eX-fD1"/>
+                <outlet property="customResourceIV" destination="VcX-4s-xYl" id="pMx-L6-ODQ"/>
+                <outlet property="customResourceL" destination="gQj-vb-Ncz" id="TeL-IR-Zyx"/>
+                <outlet property="selectCustomB" destination="j4U-io-Igm" id="U2F-Su-pUe"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="88.727678571428569"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="RESOURCEWHITE" width="200" height="200"/>
+        <image name="RedSelectedCHECKED" width="29" height="29"/>
+        <namedColor name="BlackColorForText">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

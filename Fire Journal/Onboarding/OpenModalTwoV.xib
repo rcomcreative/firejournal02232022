@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="ipad9_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="OpenModalTwo" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="1025"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tvc-colorField" translatesAutoresizingMaskIntoConstraints="NO" id="zJF-iq-daP">
+                    <rect key="frame" x="0.0" y="0.0" width="500" height="1025"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="journalHeader" translatesAutoresizingMaskIntoConstraints="NO" id="AQR-0c-Ofh">
+                    <rect key="frame" x="0.0" y="0.0" width="500" height="274"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="500" id="9gA-Dm-Ix1"/>
+                        <constraint firstAttribute="height" constant="274" id="Hyx-kZ-6ag"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CoY-f6-Ctv">
+                    <rect key="frame" x="47" y="245" width="157" height="58"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="58" id="Rsa-yV-eLf"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="48"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ubS-ey-YKp">
+                    <rect key="frame" x="47" y="290" width="400" height="257"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="400" id="VbO-kk-A6e"/>
+                        <constraint firstAttribute="height" constant="257" id="hr2-lO-p7k"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="zJF-iq-daP" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="6vg-P3-iHx"/>
+                <constraint firstItem="CoY-f6-Ctv" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="47" id="96D-wb-zDs"/>
+                <constraint firstItem="ubS-ey-YKp" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="290" id="HQH-ll-bkz"/>
+                <constraint firstItem="ubS-ey-YKp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="47" id="Hpw-bQ-NuV"/>
+                <constraint firstItem="AQR-0c-Ofh" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="IPb-8K-3fH"/>
+                <constraint firstItem="CoY-f6-Ctv" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="245" id="J5P-qy-1Bi"/>
+                <constraint firstItem="zJF-iq-daP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="VR6-EU-tUr"/>
+                <constraint firstItem="zJF-iq-daP" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="azN-hy-yIh"/>
+                <constraint firstItem="zJF-iq-daP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="boC-Nb-FMM"/>
+                <constraint firstItem="AQR-0c-Ofh" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="piI-X1-fey"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="CoY-f6-Ctv" secondAttribute="trailing" id="yM8-RF-LcA"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="backgroundIV" destination="zJF-iq-daP" id="dSp-1z-IWl"/>
+                <outlet property="descriptionL" destination="ubS-ey-YKp" id="4cW-qo-cTS"/>
+                <outlet property="headerIV" destination="AQR-0c-Ofh" id="rzw-08-uFl"/>
+                <outlet property="subjectL" destination="CoY-f6-Ctv" id="eqN-gy-kMf"/>
+            </connections>
+            <point key="canvasLocation" x="-123" y="107"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="journalHeader" width="540" height="274"/>
+        <image name="tvc-colorField" width="10" height="10"/>
+    </resources>
+</document>

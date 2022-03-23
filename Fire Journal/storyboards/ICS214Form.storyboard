@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Detail View Controller-->
+        <scene sceneID="ep3-mb-lvH">
+            <objects>
+                <tableViewController storyboardIdentifier="ICS214DetailViewController" id="2t0-sG-711" customClass="ICS214DetailViewController" customModule="Fire_Journal" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="1" id="w2F-oG-I8t">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="CustomCell" id="9NA-qb-cR9" customClass="CustomCellOne" customModule="Fire_Journal" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="768" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9NA-qb-cR9" id="Xbn-4C-lAh">
+                                    <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="2t0-sG-711" id="UXc-aB-gQf"/>
+                            <outlet property="delegate" destination="2t0-sG-711" id="2AQ-yG-lSX"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="fvw-RO-8FS"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AjY-H5-IMR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="708" y="128"/>
+        </scene>
+        <!--NewICS214TVC-->
+        <scene sceneID="DhX-AM-NhH">
+            <objects>
+                <tableViewController storyboardIdentifier="NewICS214TVC" definesPresentationContext="YES" providesPresentationContextTransitionStyle="YES" modalPresentationStyle="overCurrentContext" id="sQO-7q-lg7" customClass="NewICS214TVC" customModule="Fire_Journal" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="dnh-ao-Rqk">
+                        <rect key="frame" x="0.0" y="0.0" width="500" height="1266"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="0.0" reuseIdentifier="ModalCustomCell" id="QZA-C5-r2W">
+                                <rect key="frame" x="0.0" y="28" width="500" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QZA-C5-r2W" id="mZC-tH-RZo">
+                                    <rect key="frame" x="0.0" y="0.0" width="500" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="sQO-7q-lg7" id="tJJ-p3-aKc"/>
+                            <outlet property="delegate" destination="sQO-7q-lg7" id="bMH-HS-Ovv"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="pMn-5R-Jtk"/>
+                    <value key="contentSizeForViewInPopover" type="size" width="500" height="1266"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="500" height="1266"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="l3X-uo-nmV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4644" y="-77"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="r7l-gg-dq7">
+            <objects>
+                <navigationController id="vC3-pB-5Vb" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="DjV-YW-jjY">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="50"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="2t0-sG-711" kind="relationship" relationship="rootViewController" id="4R3-P8-r5V"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SLD-UC-DBI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-45" y="129"/>
+        </scene>
+        <!--TeamTVC-->
+        <scene sceneID="zaR-Zx-dJW">
+            <objects>
+                <tableViewController storyboardIdentifier="TeamTVC" modalPresentationStyle="formSheet" id="h9h-v1-Mgp" customClass="TeamTVC" customModule="Fire_Journal" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsMultipleSelection="YES" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="1" id="wdi-ek-UlL">
+                        <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="0.0" reuseIdentifier="Team Cell" id="2R0-Xg-0mQ">
+                                <rect key="frame" x="0.0" y="28" width="540" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2R0-Xg-0mQ" id="9iN-Fv-wgT">
+                                    <rect key="frame" x="0.0" y="0.0" width="540" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="h9h-v1-Mgp" id="bIi-Us-iUX"/>
+                            <outlet property="delegate" destination="h9h-v1-Mgp" id="BpM-ol-skW"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="IqE-eo-VUg"/>
+                    <value key="contentSizeForViewInPopover" type="size" width="540" height="620"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="540" height="620"/>
+                    <connections>
+                        <segue destination="DKS-Xe-CAR" kind="show" identifier="ToContactsListSegue" id="ksY-pf-DMB"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4UY-bn-MZo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2910" y="561"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="QYH-1r-c47">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="formSheet" id="R4p-Ww-Fj9" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <value key="contentSizeForViewInPopover" type="size" width="540" height="620"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="540" height="620"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fHC-45-Qgm">
+                        <rect key="frame" x="0.0" y="0.0" width="540" height="50"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="h9h-v1-Mgp" kind="relationship" relationship="rootViewController" id="w2b-PP-ToR"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sNq-eo-ASU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2458.9928057553957" y="560.61151079136687"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="GAu-DL-gfq">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="formSheet" id="lrC-AL-aKs" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <value key="contentSizeForViewInPopover" type="size" width="540" height="620"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="540" height="620"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Vdh-Nw-euE">
+                        <rect key="frame" x="0.0" y="0.0" width="540" height="50"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="DKS-Xe-CAR" kind="relationship" relationship="rootViewController" id="jgY-mD-CF8"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vuE-OE-VRp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1873" y="-356"/>
+        </scene>
+        <!--ContactsTVC-->
+        <scene sceneID="diO-aA-G6Z">
+            <objects>
+                <tableViewController storyboardIdentifier="ContactsTVC" id="DKS-Xe-CAR" customClass="ContactsTVC" customModule="Fire_Journal" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsMultipleSelection="YES" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="1" id="RuE-dT-Y97">
+                        <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="0.0" reuseIdentifier="ContactCell" id="Aza-kP-Juv">
+                                <rect key="frame" x="0.0" y="28" width="540" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Aza-kP-Juv" id="CNh-f6-F2h">
+                                    <rect key="frame" x="0.0" y="0.0" width="540" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="DKS-Xe-CAR" id="cWi-Rr-8Qw"/>
+                            <outlet property="delegate" destination="DKS-Xe-CAR" id="ZJS-lS-BiA"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="zSy-D7-WfD"/>
+                    <value key="contentSizeForViewInPopover" type="size" width="540" height="620"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="540" height="620"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1sW-Ya-dm8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2467" y="-356"/>
+        </scene>
+        <!--NewICS214 New IncidentTVC-->
+        <scene sceneID="5aa-r5-26m">
+            <objects>
+                <tableViewController storyboardIdentifier="NewICS214NewIncidentTVC" modalPresentationStyle="overCurrentContext" id="myF-AD-rw9" customClass="NewICS214NewIncidentTVC" customModule="Fire_Journal" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="m9E-Kj-9PB">
+                        <rect key="frame" x="0.0" y="0.0" width="500" height="1266"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="0.0" reuseIdentifier="Cell" id="9aP-FK-gGl">
+                                <rect key="frame" x="0.0" y="28" width="500" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9aP-FK-gGl" id="RFi-9p-ZyC">
+                                    <rect key="frame" x="0.0" y="0.0" width="500" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="vxn-8C-c43" kind="show" identifier="IncidentDetailSegue" trigger="accessoryAction" id="qwT-Z4-Ueu"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="myF-AD-rw9" id="JFc-h5-7aC"/>
+                            <outlet property="delegate" destination="myF-AD-rw9" id="NDV-P0-oca"/>
+                        </connections>
+                    </tableView>
+                    <value key="contentSizeForViewInPopover" type="size" width="500" height="1266"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="500" height="1266"/>
+                    <connections>
+                        <segue destination="PxD-Wf-WhF" kind="show" identifier="incidentMapSegue" id="p98-18-5k5"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0hN-aL-vwz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4644" y="-947"/>
+        </scene>
+        <!--New Incident MapVC-->
+        <scene sceneID="Ld7-2D-5lC">
+            <objects>
+                <viewController storyboardIdentifier="NewIncidentMapVC" modalPresentationStyle="formSheet" id="PxD-Wf-WhF" customClass="NewIncidentMapVC" customModule="Fire_Journal" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gso-z6-HCK"/>
+                        <viewControllerLayoutGuide type="bottom" id="Kgl-BW-jDU"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="VUU-su-KpX">
+                        <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="hybrid" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Am2-jY-TLo">
+                                <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="PxD-Wf-WhF" id="Vd4-3w-2w3"/>
+                                </connections>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="8pP-hg-M60"/>
+                    <value key="contentSizeForViewInPopover" type="size" width="540" height="1024"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="540" height="640"/>
+                    <connections>
+                        <outlet property="newIncidentMap" destination="Am2-jY-TLo" id="Fd3-6N-TKr"/>
+                        <segue destination="jSo-rC-AQF" kind="unwind" identifier="unwindSegueToVC1" unwindAction="unwindToNewIncidentModalWithSegue:" id="NNV-e3-qx1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PxX-UB-k7o" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="jSo-rC-AQF" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="3888" y="-1190"/>
+        </scene>
+        <!--New Incident DetailTVC-->
+        <scene sceneID="HEb-jc-bh6">
+            <objects>
+                <tableViewController storyboardIdentifier="NewIncidentDetailTVC" id="vxn-8C-c43" customClass="NewIncidentDetailTVC" customModule="Fire_Journal" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="WE9-RL-RuL">
+                        <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell" id="3FD-Mp-rnI">
+                                <rect key="frame" x="0.0" y="28" width="540" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3FD-Mp-rnI" id="UUO-0r-0Kz">
+                                    <rect key="frame" x="0.0" y="0.0" width="540" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="vxn-8C-c43" id="vmO-28-bu4"/>
+                            <outlet property="delegate" destination="vxn-8C-c43" id="swg-dx-Cbl"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="j6N-WG-IG8"/>
+                    <value key="contentSizeForViewInPopover" type="size" width="540" height="640"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="540" height="640"/>
+                    <connections>
+                        <segue destination="ASm-qV-v0f" kind="unwind" identifier="unwindSegueToVC1" unwindAction="unwindToNewIncidentModalWithSegue:" id="hlV-L4-nsJ"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4w7-VT-c6e" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="ASm-qV-v0f" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="3889" y="-764"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="R89-Nb-ljf">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="PP7-tx-ysQ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <size key="freeformSize" width="540" height="620"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="uel-y8-z8A">
+                        <rect key="frame" x="0.0" y="0.0" width="540" height="50"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Oo3-e3-GIV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3453" y="-122"/>
+        </scene>
+        <!--NewICS214 ModalTVC-->
+        <scene sceneID="Tu3-Wr-fc0">
+            <objects>
+                <tableViewController storyboardIdentifier="NewICS214ModalTVC" modalPresentationStyle="overCurrentContext" id="i1N-2c-8xX" customClass="NewICS214ModalTVC" customModule="Fire_Journal" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="IES-ZK-rUQ">
+                        <rect key="frame" x="0.0" y="0.0" width="500" height="1266"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="cell" id="Tnx-RB-6nM">
+                                <rect key="frame" x="0.0" y="28" width="500" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Tnx-RB-6nM" id="jL0-C8-UnV">
+                                    <rect key="frame" x="0.0" y="0.0" width="500" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="i1N-2c-8xX" id="que-S0-uLg"/>
+                            <outlet property="delegate" destination="i1N-2c-8xX" id="smQ-dC-VOZ"/>
+                        </connections>
+                    </tableView>
+                    <value key="contentSizeForViewInPopover" type="size" width="500" height="1266"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="500" height="1266"/>
+                    <connections>
+                        <segue destination="sQO-7q-lg7" kind="showDetail" identifier="NewICS214TVCSegue" id="LlB-ol-gww"/>
+                        <segue destination="myF-AD-rw9" kind="showDetail" identifier="NewICS214NewIncidentTVCSegue" id="dWl-Pl-7v9"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jTN-fB-MkJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4147" y="-91"/>
+        </scene>
+    </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="ksY-pf-DMB"/>
+    </inferredMetricsTieBreakers>
+</document>

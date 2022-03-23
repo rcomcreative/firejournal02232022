@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>displayOrder</key>
+	<array>
+		<integer>0</integer>
+		<integer>1</integer>
+		<integer>2</integer>
+		<integer>3</integer>
+		<integer>4</integer>
+		<integer>5</integer>
+		<integer>6</integer>
+		<integer>7</integer>
+	</array>
+	<key>streetPrefix</key>
+	<array>
+		<string>East</string>
+		<string>North</string>
+		<string>South</string>
+		<string>West</string>
+		<string>Northeast</string>
+		<string>Northwest</string>
+		<string>Southeast</string>
+		<string>Southwest</string>
+	</array>
+	<key>streetPrefixAbbreviation</key>
+	<array>
+		<string>E</string>
+		<string>N</string>
+		<string>S</string>
+		<string>W</string>
+		<string>NE</string>
+		<string>NW</string>
+		<string>SE</string>
+		<string>SW</string>
+	</array>
+</dict>
+</plist>

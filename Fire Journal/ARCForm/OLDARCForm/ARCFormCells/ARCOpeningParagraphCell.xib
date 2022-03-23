@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ARCOpeningParagraphCell" rowHeight="450" id="vbK-g5-xDs" customClass="ARCOpeningParagraphCell" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="540" height="450"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vbK-g5-xDs" id="HzP-Om-Yaj">
+                <rect key="frame" x="0.0" y="0.0" width="540" height="450"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="30" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="18P-LN-oKY">
+                        <rect key="frame" x="25" y="17" width="490" height="356.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Purpose:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eZd-aE-DEt">
+                                <rect key="frame" x="0.0" y="0.0" width="82" height="24"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUO-Xf-Utp">
+                                <rect key="frame" x="0.0" y="35.5" width="490" height="84"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="490" id="wLO-H2-Luv"/>
+                                </constraints>
+                                <string key="text">The CRR Smoke Alarm Form is for use when inspecting a single family residence (home or apartment) for working smoke alarms. This form will provide for tracking of distribution of smoke alarms, the impact on the family or persons living in the unit described, the location, and other relevant data that will impact Community Risk Reduction efforts.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact">
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Preparation:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jwL-DQ-o5N">
+                                <rect key="frame" x="0.0" y="127" width="112.5" height="24"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZhN-a6-PxZ">
+                                <rect key="frame" x="0.0" y="162.5" width="490" height="100.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="490" id="e60-lP-VFb"/>
+                                </constraints>
+                                <string key="text">A CRR form can be implemented as a one-off individual form. Alternatively, you may create a “campaign” in the event you’re canvassing a neighborhood or a series of residences. Personnel should document as many items within the form as possible, and get each “head of household” to sign the form at the bottom. An installer or member in attendance should also sign the form. </string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact">
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distribution:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hfd-wD-ySQ">
+                                <rect key="frame" x="0.0" y="270.5" width="113" height="24"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KhX-vM-owo">
+                                <rect key="frame" x="0.0" y="306" width="490" height="50.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="490" id="nNQ-Qt-rlF"/>
+                                </constraints>
+                                <string key="text">Distrubtion is available via the Membership module (learn more about membership) and may be sent via email, or printed as a PDF form. The PDF form matches the format as established by the American Red Cross. </string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact">
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                </variation>
+                            </label>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="18P-LN-oKY" firstAttribute="leading" secondItem="HzP-Om-Yaj" secondAttribute="leading" constant="25" id="13h-2p-3c2"/>
+                    <constraint firstAttribute="trailing" secondItem="18P-LN-oKY" secondAttribute="trailing" constant="25" id="3lI-2l-5Ce"/>
+                    <constraint firstItem="18P-LN-oKY" firstAttribute="top" secondItem="HzP-Om-Yaj" secondAttribute="top" constant="17" id="mZk-L5-MMZ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="Yg0-4B-njh"/>
+            <connections>
+                <outlet property="paragraph1L" destination="vUO-Xf-Utp" id="pZj-vK-SqO"/>
+                <outlet property="paragraph2L" destination="ZhN-a6-PxZ" id="mKr-3A-poY"/>
+                <outlet property="paragraph3L" destination="KhX-vM-owo" id="uR3-Kv-i8x"/>
+                <outlet property="subject1L" destination="eZd-aE-DEt" id="TkC-Ie-5HT"/>
+                <outlet property="subject2L" destination="jwL-DQ-o5N" id="tZF-o1-wh0"/>
+                <outlet property="subject3L" destination="Hfd-wD-ySQ" id="2fa-uJ-tgm"/>
+            </connections>
+            <point key="canvasLocation" x="-758" y="27"/>
+        </tableViewCell>
+    </objects>
+</document>

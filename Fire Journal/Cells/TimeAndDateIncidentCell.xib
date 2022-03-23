@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="59" id="gX6-O3-Zc2" customClass="TimeAndDateIncidentCell" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="50"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gX6-O3-Zc2" id="RIL-bI-drS">
+                <rect key="frame" x="0.0" y="0.0" width="500" height="50"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="inn-Lh-BX8">
+                        <rect key="frame" x="407" y="13" width="35" height="35"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="35" id="3W5-6m-Dns"/>
+                            <constraint firstAttribute="height" constant="35" id="bLS-IA-tne"/>
+                        </constraints>
+                        <state key="normal" backgroundImage="ICONS_TimePiece red"/>
+                        <connections>
+                            <action selector="clockBTapped:" destination="gX6-O3-Zc2" eventType="touchUpInside" id="Llz-tG-7FZ"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ib1-LQ-UF0">
+                        <rect key="frame" x="452" y="11" width="35" height="35"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="35" id="6IC-HT-AKv"/>
+                            <constraint firstAttribute="height" constant="35" id="ZPx-gY-Cr8"/>
+                        </constraints>
+                        <state key="normal" backgroundImage="ec1c24PenTool"/>
+                        <connections>
+                            <action selector="notesBTapped:" destination="gX6-O3-Zc2" eventType="touchUpInside" id="qJT-GG-7Zh"/>
+                        </connections>
+                    </button>
+                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pDm-f2-U8C">
+                        <rect key="frame" x="155" y="16" width="240" height="34"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                        <connections>
+                            <outlet property="delegate" destination="RIL-bI-drS" id="Sl8-f6-efx"/>
+                        </connections>
+                    </textField>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alarm" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XSV-Eg-wo6">
+                        <rect key="frame" x="0.0" y="23" width="140" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="140" id="NI8-Mb-22c"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="pDm-f2-U8C" firstAttribute="top" secondItem="RIL-bI-drS" secondAttribute="top" constant="16" id="6xY-8g-xkA"/>
+                    <constraint firstAttribute="trailing" secondItem="Ib1-LQ-UF0" secondAttribute="trailing" constant="13" id="BtR-6h-6Ox"/>
+                    <constraint firstItem="XSV-Eg-wo6" firstAttribute="top" secondItem="RIL-bI-drS" secondAttribute="top" constant="23" id="DRA-Nn-LYt"/>
+                    <constraint firstItem="Ib1-LQ-UF0" firstAttribute="leading" secondItem="inn-Lh-BX8" secondAttribute="trailing" constant="20" id="Mm1-tc-JnV">
+                        <variation key="widthClass=compact" constant="10"/>
+                    </constraint>
+                    <constraint firstItem="inn-Lh-BX8" firstAttribute="leading" secondItem="pDm-f2-U8C" secondAttribute="trailing" constant="12" id="U5p-h5-otw"/>
+                    <constraint firstItem="inn-Lh-BX8" firstAttribute="top" secondItem="RIL-bI-drS" secondAttribute="top" constant="13" id="ZvR-eD-JZg"/>
+                    <constraint firstItem="Ib1-LQ-UF0" firstAttribute="top" secondItem="RIL-bI-drS" secondAttribute="top" constant="11" id="biZ-Uv-95R"/>
+                    <constraint firstItem="pDm-f2-U8C" firstAttribute="leading" secondItem="XSV-Eg-wo6" secondAttribute="trailing" constant="15" id="l6S-i9-r30"/>
+                    <constraint firstItem="XSV-Eg-wo6" firstAttribute="leading" secondItem="RIL-bI-drS" secondAttribute="leading" constant="12" id="lBr-YH-712">
+                        <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                    </constraint>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="clockB" destination="inn-Lh-BX8" id="EIf-fy-QlD"/>
+                <outlet property="notesB" destination="Ib1-LQ-UF0" id="azp-zv-MF3"/>
+                <outlet property="subjectL" destination="XSV-Eg-wo6" id="mTt-Un-qxI"/>
+                <outlet property="timeAndDateTF" destination="pDm-f2-U8C" id="qzF-pO-qHz"/>
+            </connections>
+            <point key="canvasLocation" x="-243" y="-14"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ICONS_TimePiece red" width="833" height="833"/>
+        <image name="ec1c24PenTool" width="305" height="306"/>
+    </resources>
+</document>

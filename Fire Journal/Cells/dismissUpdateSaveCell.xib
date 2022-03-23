@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="wpc-6C-Q6u" customClass="dismissUpdateSaveCell" customModule="dashboard" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wpc-6C-Q6u" id="zQQ-1L-pIy">
+                <rect key="frame" x="0.0" y="0.0" width="500" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eo0-Vm-zQw">
+                        <rect key="frame" x="29" y="6" width="63" height="34"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="63" id="Hd7-F6-xgx"/>
+                        </constraints>
+                        <state key="normal" title="Dismiss">
+                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="dismissBTapped:" destination="wpc-6C-Q6u" eventType="touchUpInside" id="Fel-b8-hXc"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6lC-6d-SIr">
+                        <rect key="frame" x="440" y="6" width="40" height="34"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="9HE-5I-GFa"/>
+                        </constraints>
+                        <state key="normal" title="Save">
+                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="saveBTapped:" destination="wpc-6C-Q6u" eventType="touchUpInside" id="aHc-BN-puf"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ue8-R1-Str">
+                        <rect key="frame" x="350" y="6" width="60" height="34"/>
+                        <state key="normal" title="Update">
+                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="updateBTapped:" destination="wpc-6C-Q6u" eventType="touchUpInside" id="CsW-Fi-HpM"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="6lC-6d-SIr" secondAttribute="trailing" constant="20" id="3kF-5v-Ewj"/>
+                    <constraint firstItem="Ue8-R1-Str" firstAttribute="top" secondItem="zQQ-1L-pIy" secondAttribute="top" constant="6" id="S4O-Jz-cWF"/>
+                    <constraint firstItem="6lC-6d-SIr" firstAttribute="top" secondItem="zQQ-1L-pIy" secondAttribute="top" constant="6" id="SuU-R7-Hfy"/>
+                    <constraint firstItem="Ue8-R1-Str" firstAttribute="centerX" secondItem="6lC-6d-SIr" secondAttribute="centerX" constant="-80" id="gU1-J3-hmx"/>
+                    <constraint firstItem="Eo0-Vm-zQw" firstAttribute="top" secondItem="zQQ-1L-pIy" secondAttribute="top" constant="6" id="hYm-hx-ayo"/>
+                    <constraint firstItem="Eo0-Vm-zQw" firstAttribute="leading" secondItem="zQQ-1L-pIy" secondAttribute="leading" constant="29" id="pSt-5t-K1e"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="Te1-9N-svE"/>
+            <connections>
+                <outlet property="dismissB" destination="Eo0-Vm-zQw" id="v9E-Qh-COU"/>
+                <outlet property="saveB" destination="6lC-6d-SIr" id="hKe-pz-67q"/>
+                <outlet property="updateB" destination="Ue8-R1-Str" id="7vn-QO-0g0"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

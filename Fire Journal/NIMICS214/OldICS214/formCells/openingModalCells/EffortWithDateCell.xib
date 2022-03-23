@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad10_5" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="44" id="KGk-i7-Jjw" customClass="EffortWithDateCell" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="540" height="250"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="540" height="250"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="9" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fto-uv-tdE">
+                        <rect key="frame" x="45" y="12" width="448" height="136"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="136" id="Rma-CD-nv0">
+                                <variation key="heightClass=regular-widthClass=compact" constant="166"/>
+                            </constraint>
+                        </constraints>
+                        <string key="text">Click the search button if you would like to see the entire list of incidents in your app, to choose as the Incident you wish to associate with this Local Incident ICS 214. The list of Incidents are clickable and when tapped will move you forward with that incident marked as the Local Incident Incident Name. If the incident hasn't been entered before you can create the incident before moving forward.</string>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        </variation>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Local Incident:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hTI-45-GHI">
+                        <rect key="frame" x="45" y="151" width="134" height="29"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="29" id="WYz-q3-FfV"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1pb-dH-t0x">
+                        <rect key="frame" x="237" y="185" width="172" height="28"/>
+                        <color key="backgroundColor" name="FJIncidentPlaceHolderRedColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="28" id="Ls6-TY-M4L"/>
+                            <constraint firstAttribute="width" constant="172" id="PYL-al-rhG"/>
+                        </constraints>
+                        <state key="normal" title="Search">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <connections>
+                            <action selector="incidentContinueBTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="edP-fW-GBZ"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W4l-iR-ggD">
+                        <rect key="frame" x="45" y="185" width="172" height="28"/>
+                        <color key="backgroundColor" name="FJIncidentPlaceHolderRedColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="28" id="7zF-Tz-OZZ"/>
+                            <constraint firstAttribute="width" constant="172" id="jG9-UD-P4F"/>
+                        </constraints>
+                        <state key="normal" title="New Incident">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <connections>
+                            <action selector="newIncidentBTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="IaN-8V-aYK"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="fto-uv-tdE" secondAttribute="trailing" constant="47" id="VMh-4r-frQ"/>
+                    <constraint firstItem="1pb-dH-t0x" firstAttribute="top" secondItem="fto-uv-tdE" secondAttribute="bottom" constant="37" id="Zpe-3I-WR0">
+                        <variation key="heightClass=regular-widthClass=compact" constant="37"/>
+                    </constraint>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hTI-45-GHI" secondAttribute="trailing" id="men-E8-6dw"/>
+                    <constraint firstItem="W4l-iR-ggD" firstAttribute="top" secondItem="fto-uv-tdE" secondAttribute="bottom" constant="37" id="rdt-oz-NL7">
+                        <variation key="heightClass=regular-widthClass=compact" constant="37"/>
+                    </constraint>
+                    <constraint firstItem="hTI-45-GHI" firstAttribute="top" secondItem="fto-uv-tdE" secondAttribute="bottom" constant="3" id="sif-AE-mb1"/>
+                    <constraint firstItem="fto-uv-tdE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="t11-Hu-Aex"/>
+                    <constraint firstItem="W4l-iR-ggD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="45" id="v4H-6t-4GE"/>
+                    <constraint firstItem="fto-uv-tdE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="45" id="wBp-BJ-QBj"/>
+                    <constraint firstItem="1pb-dH-t0x" firstAttribute="leading" secondItem="W4l-iR-ggD" secondAttribute="trailing" constant="20" id="xEJ-Rb-nqj"/>
+                </constraints>
+            </tableViewCellContentView>
+            <constraints>
+                <constraint firstItem="hTI-45-GHI" firstAttribute="leading" secondItem="njF-e1-oar" secondAttribute="leading" constant="45" id="YzD-u4-JLc"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="continueButton" destination="1pb-dH-t0x" id="laN-lo-tIH"/>
+                <outlet property="instructionL" destination="fto-uv-tdE" id="Hu4-Ye-dGG"/>
+                <outlet property="newIncidentB" destination="W4l-iR-ggD" id="e8R-0k-sBW"/>
+                <outlet property="titleL" destination="hTI-45-GHI" id="Fms-1U-FBS"/>
+            </connections>
+            <point key="canvasLocation" x="-73.599999999999994" y="54.872563718140931"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <namedColor name="FJIncidentPlaceHolderRedColor">
+            <color red="1" green="0.27099999785423279" blue="0.22699999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

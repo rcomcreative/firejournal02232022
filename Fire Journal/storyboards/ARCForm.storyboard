@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad9_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Form DetailTVC-->
+        <scene sceneID="XAK-s1-mGM">
+            <objects>
+                <tableViewController storyboardIdentifier="ARCFormDetailTVC" id="Jyv-uE-6Wv" customClass="ARCFormDetailTVC" customModule="Fire_Journal" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="nqR-E4-thf">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
+                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ARCFormCustomCell" id="gQM-I5-1tt">
+                                <rect key="frame" x="0.0" y="28" width="768" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gQM-I5-1tt" id="Ova-kw-LqH">
+                                    <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Jyv-uE-6Wv" id="HcN-cE-gr3"/>
+                            <outlet property="delegate" destination="Jyv-uE-6Wv" id="qEw-YN-dkT"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="ryZ-oy-XlZ"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="b3I-dn-B1p" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-128.90625" y="125.97656249999999"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="nYc-92-2a5">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4o3-ZJ-UvM" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="GiP-FT-WHc">
+                        <rect key="frame" x="0.0" y="20" width="768" height="50"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Jyv-uE-6Wv" kind="relationship" relationship="rootViewController" id="phm-5a-CbR"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dAb-sG-D2O" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-767" y="126"/>
+        </scene>
+        <!--NewARC Form ModalTVC-->
+        <scene sceneID="1Yd-rr-W9A">
+            <objects>
+                <tableViewController storyboardIdentifier="NewARCFormModalTVC" definesPresentationContext="YES" providesPresentationContextTransitionStyle="YES" modalPresentationStyle="formSheet" id="ATg-d4-1JW" customClass="NewARCFormModalTVC" customModule="Fire_Journal" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="MAh-8b-433">
+                        <rect key="frame" x="0.0" y="0.0" width="500" height="1266"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="reuseIdentifier" id="Wui-90-4AO">
+                                <rect key="frame" x="0.0" y="28" width="500" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Wui-90-4AO" id="XgQ-Pt-cio">
+                                    <rect key="frame" x="0.0" y="0.0" width="500" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ATg-d4-1JW" id="omm-vF-9ph"/>
+                            <outlet property="delegate" destination="ATg-d4-1JW" id="EXL-UI-XIr"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="mha-GI-47C"/>
+                    <value key="contentSizeForViewInPopover" type="size" width="500" height="1266"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="500" height="1266"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ROP-fE-dUJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="518" y="1111"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Wwx-Eb-V9X">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="D8d-Qt-svy" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <size key="freeformSize" width="500" height="620"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="72W-fe-fh1">
+                        <rect key="frame" x="0.0" y="20" width="500" height="50"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ATg-d4-1JW" kind="relationship" relationship="rootViewController" id="ZMX-kr-7iX"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ukw-9z-AT3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-129.6875" y="1012.4999999999999"/>
+        </scene>
+    </scenes>
+</document>

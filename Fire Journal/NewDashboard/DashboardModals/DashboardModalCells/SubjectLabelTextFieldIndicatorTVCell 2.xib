@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SubjectLabelTextFieldIndicatorTVCell" rowHeight="88" id="xa7-l7-R6H" customClass="SubjectLabelTextFieldIndicatorTVCell" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xa7-l7-R6H" id="4po-JS-mYm">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subject" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0aM-nW-jxM">
+                        <rect key="frame" x="20" y="10" width="83.5" height="29"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eXz-4i-mnE">
+                        <rect key="frame" x="16" y="47" width="257" height="34"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="34" id="ft1-Ul-wXz"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MEX-fh-ihK">
+                        <rect key="frame" x="288" y="44" width="16" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="7Lq-wY-8gs"/>
+                            <constraint firstAttribute="width" constant="16" id="XuW-4D-CGC"/>
+                        </constraints>
+                        <state key="normal" backgroundImage="Dashboard_Incidactor"/>
+                        <connections>
+                            <action selector="indicatorBTapped:" destination="xa7-l7-R6H" eventType="touchUpInside" id="0pX-mW-mD7"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="0aM-nW-jxM" secondAttribute="trailing" constant="10" id="12d-R4-aYw"/>
+                    <constraint firstItem="0aM-nW-jxM" firstAttribute="top" secondItem="4po-JS-mYm" secondAttribute="top" constant="10" id="InE-6S-xyk"/>
+                    <constraint firstItem="0aM-nW-jxM" firstAttribute="leading" secondItem="4po-JS-mYm" secondAttribute="leading" constant="20" id="Nmm-33-jr2"/>
+                    <constraint firstItem="eXz-4i-mnE" firstAttribute="leading" secondItem="4po-JS-mYm" secondAttribute="leading" constant="16" id="QMT-Jr-Wy3"/>
+                    <constraint firstAttribute="trailing" secondItem="MEX-fh-ihK" secondAttribute="trailing" constant="16" id="RNW-Zv-uUG"/>
+                    <constraint firstItem="MEX-fh-ihK" firstAttribute="leading" secondItem="eXz-4i-mnE" secondAttribute="trailing" constant="15" id="XeX-5P-CGA"/>
+                    <constraint firstItem="MEX-fh-ihK" firstAttribute="centerY" secondItem="eXz-4i-mnE" secondAttribute="centerY" id="bi6-oz-9IP"/>
+                    <constraint firstItem="eXz-4i-mnE" firstAttribute="top" secondItem="0aM-nW-jxM" secondAttribute="bottom" constant="8" id="nmj-Cj-8LL"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="bm3-sD-PD6"/>
+            <connections>
+                <outlet property="indicatorB" destination="MEX-fh-ihK" id="brg-iZ-7mX"/>
+                <outlet property="subjectL" destination="0aM-nW-jxM" id="2FX-7m-DTT"/>
+                <outlet property="subjectTF" destination="eXz-4i-mnE" id="RnK-wA-SSK"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="124.55357142857142"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="Dashboard_Incidactor" width="9" height="31"/>
+    </resources>
+</document>

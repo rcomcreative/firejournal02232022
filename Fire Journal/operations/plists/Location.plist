@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>displayOrder</key>
+	<array>
+		<integer>0</integer>
+		<integer>1</integer>
+		<integer>2</integer>
+		<integer>3</integer>
+		<integer>4</integer>
+		<integer>5</integer>
+		<integer>6</integer>
+	</array>
+	<key>location</key>
+	<array>
+		<string>Street Address</string>
+		<string>Intersection</string>
+		<string>In Front Of</string>
+		<string>Rear Of</string>
+		<string>Adjacent To</string>
+		<string>Directions</string>
+		<string>U.S. National Grid</string>
+	</array>
+</dict>
+</plist>

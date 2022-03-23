@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="75" id="bcI-Rg-i9W" customClass="LabelNoDescripAnswerSwitchCell" customModule="dashboard" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="75"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bcI-Rg-i9W" id="Iqn-SI-0Bb">
+                <rect key="frame" x="0.0" y="0.0" width="500" height="74.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="czb-HJ-5Wy">
+                        <rect key="frame" x="20" y="7" width="60" height="29"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ahK-6e-0D1">
+                        <rect key="frame" x="438" y="7" width="51" height="31"/>
+                        <connections>
+                            <action selector="defaultOvertimeSwitchWasTapped:" destination="bcI-Rg-i9W" eventType="valueChanged" id="Nj7-Hg-48M"/>
+                        </connections>
+                    </switch>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zhq-Ji-Nhq">
+                        <rect key="frame" x="348" y="11" width="85" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="85" id="Z8H-4t-Fq8"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uqL-D6-nlC">
+                        <rect key="frame" x="20" y="40" width="410" height="30"/>
+                        <nil key="textColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                        <connections>
+                            <outlet property="delegate" destination="bcI-Rg-i9W" id="I87-IZ-TSf"/>
+                        </connections>
+                    </textField>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="czb-HJ-5Wy" firstAttribute="top" secondItem="Iqn-SI-0Bb" secondAttribute="top" constant="7" id="3pX-Y4-nXY"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="czb-HJ-5Wy" secondAttribute="trailing" id="6Yz-Ra-JVY"/>
+                    <constraint firstAttribute="trailing" secondItem="ahK-6e-0D1" secondAttribute="trailing" constant="13" id="7wo-I4-rhd"/>
+                    <constraint firstItem="uqL-D6-nlC" firstAttribute="leading" secondItem="Iqn-SI-0Bb" secondAttribute="leading" constant="20" id="C9g-Gx-0zs"/>
+                    <constraint firstItem="uqL-D6-nlC" firstAttribute="top" secondItem="Iqn-SI-0Bb" secondAttribute="top" constant="40" id="GC5-4E-5Wj"/>
+                    <constraint firstAttribute="trailing" secondItem="uqL-D6-nlC" secondAttribute="trailing" constant="70" id="H8n-CG-7Zf"/>
+                    <constraint firstItem="czb-HJ-5Wy" firstAttribute="leading" secondItem="Iqn-SI-0Bb" secondAttribute="leading" constant="20" id="Jw8-IG-K81"/>
+                    <constraint firstItem="ahK-6e-0D1" firstAttribute="top" secondItem="czb-HJ-5Wy" secondAttribute="top" id="Ndz-Rm-6vW"/>
+                    <constraint firstItem="Zhq-Ji-Nhq" firstAttribute="trailing" secondItem="ahK-6e-0D1" secondAttribute="leading" constant="-5" id="ec9-uR-ZCS"/>
+                    <constraint firstItem="Zhq-Ji-Nhq" firstAttribute="top" secondItem="Iqn-SI-0Bb" secondAttribute="top" constant="11" id="fSg-ff-9A4"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="EZa-bQ-NVd"/>
+            <connections>
+                <outlet property="defaultOvertimeL" destination="Zhq-Ji-Nhq" id="xkY-3W-NBa"/>
+                <outlet property="defaultOvertimeSwitch" destination="ahK-6e-0D1" id="XUu-QR-Nlc"/>
+                <outlet property="descriptionTF" destination="uqL-D6-nlC" id="Lfq-gI-2wb"/>
+                <outlet property="subjectL" destination="czb-HJ-5Wy" id="xqT-4M-BZz"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

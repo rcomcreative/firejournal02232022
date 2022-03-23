@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="65" id="TE8-6D-qYq" customClass="ProfileLabelWithLocationButtonsCell" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="65"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TE8-6D-qYq" id="MAl-TY-AqZ">
+                <rect key="frame" x="0.0" y="0.0" width="500" height="65"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3sz-g8-zqz">
+                        <rect key="frame" x="20" y="22" width="46" height="21.5"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="23"/>
+                        <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                        </variation>
+                    </label>
+                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VoZ-am-6OJ">
+                        <rect key="frame" x="96.5" y="10" width="45" height="45"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="45" id="lh1-OI-NDt"/>
+                            <constraint firstAttribute="width" constant="45" id="m0h-vc-uIy"/>
+                        </constraints>
+                        <color key="tintColor" name="MasterBackgrndColor"/>
+                        <state key="normal" title="Button" image="location_white"/>
+                        <connections>
+                            <action selector="locationBTapped:" destination="TE8-6D-qYq" eventType="touchUpInside" id="3dZ-En-sZV"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cj5-OS-gOw">
+                        <rect key="frame" x="171.5" y="10" width="45" height="45"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="45" id="11l-9J-oag"/>
+                            <constraint firstAttribute="width" constant="45" id="KYV-fX-XCd"/>
+                        </constraints>
+                        <color key="tintColor" name="MasterBackgrndColor"/>
+                        <state key="normal" title="Button" image="world_black12032019"/>
+                        <connections>
+                            <action selector="worldBTapped:" destination="TE8-6D-qYq" eventType="touchUpInside" id="tOY-iW-hRi"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Cj5-OS-gOw" firstAttribute="top" secondItem="MAl-TY-AqZ" secondAttribute="top" constant="10" id="FwU-Ai-2Aa"/>
+                    <constraint firstItem="3sz-g8-zqz" firstAttribute="leading" secondItem="MAl-TY-AqZ" secondAttribute="leading" constant="20" id="HH0-Ho-ISb"/>
+                    <constraint firstItem="VoZ-am-6OJ" firstAttribute="top" secondItem="MAl-TY-AqZ" secondAttribute="top" constant="10" id="mWQ-Al-sm4"/>
+                    <constraint firstItem="Cj5-OS-gOw" firstAttribute="leading" secondItem="VoZ-am-6OJ" secondAttribute="trailing" constant="30" id="nZN-zu-dNH"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3sz-g8-zqz" secondAttribute="trailing" id="u35-de-jCC"/>
+                    <constraint firstItem="VoZ-am-6OJ" firstAttribute="leading" secondItem="3sz-g8-zqz" secondAttribute="trailing" constant="30.5" id="vXl-cg-pNT"/>
+                </constraints>
+            </tableViewCellContentView>
+            <constraints>
+                <constraint firstItem="3sz-g8-zqz" firstAttribute="centerY" secondItem="39e-cp-xf8" secondAttribute="centerY" id="88K-dU-h9C"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="39e-cp-xf8"/>
+            <connections>
+                <outlet property="locationB" destination="VoZ-am-6OJ" id="JDz-9R-tki"/>
+                <outlet property="subjectL" destination="3sz-g8-zqz" id="Gqj-iF-XpJ"/>
+                <outlet property="worldB" destination="Cj5-OS-gOw" id="hDL-ML-qmj"/>
+            </connections>
+            <point key="canvasLocation" x="137.59999999999999" y="10.344827586206897"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="location_white" width="200.5" height="200.5"/>
+        <image name="world_black12032019" width="200" height="200"/>
+        <namedColor name="MasterBackgrndColor">
+            <color red="0.30199998617172241" green="0.50599998235702515" blue="0.76899999380111694" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>DisplayOrder</key>
+	<array>
+		<integer>0</integer>
+		<integer>1</integer>
+		<integer>2</integer>
+		<integer>3</integer>
+		<integer>4</integer>
+		<integer>5</integer>
+		<integer>6</integer>
+		<integer>7</integer>
+		<integer>8</integer>
+		<integer>9</integer>
+		<integer>10</integer>
+		<integer>11</integer>
+		<integer>12</integer>
+		<integer>13</integer>
+		<integer>14</integer>
+		<integer>15</integer>
+		<integer>16</integer>
+		<integer>17</integer>
+		<integer>18</integer>
+		<integer>19</integer>
+		<integer>20</integer>
+		<integer>21</integer>
+		<integer>22</integer>
+		<integer>23</integer>
+		<integer>24</integer>
+		<integer>25</integer>
+		<integer>26</integer>
+		<integer>27</integer>
+		<integer>28</integer>
+		<integer>29</integer>
+		<integer>30</integer>
+		<integer>31</integer>
+		<integer>32</integer>
+		<integer>33</integer>
+		<integer>34</integer>
+		<integer>35</integer>
+		<integer>36</integer>
+		<integer>37</integer>
+		<integer>38</integer>
+		<integer>39</integer>
+		<integer>40</integer>
+		<integer>41</integer>
+		<integer>42</integer>
+		<integer>43</integer>
+		<integer>44</integer>
+		<integer>45</integer>
+		<integer>46</integer>
+		<integer>47</integer>
+		<integer>48</integer>
+		<integer>49</integer>
+		<integer>50</integer>
+		<integer>51</integer>
+		<integer>52</integer>
+		<integer>53</integer>
+		<integer>54</integer>
+		<integer>55</integer>
+		<integer>56</integer>
+		<integer>57</integer>
+		<integer>58</integer>
+		<integer>59</integer>
+		<integer>60</integer>
+		<integer>61</integer>
+		<integer>62</integer>
+		<integer>63</integer>
+		<integer>64</integer>
+	</array>
+	<key>ActionsTaken</key>
+	<array>
+		<string>10 Fire control or extinguishment, other.</string>
+		<string>11 Extinguishment by fire service personnel.</string>
+		<string>12 Salvage and overhaul.</string>
+		<string>13 Establish fire lines around wildfire perimeter. Includes clearing firebreaks using direct, indirect, and burnout tactics as appropriate.</string>
+		<string>14 Contain fire (wildland). Includes taking suppression action that can reasonably be expected to check the fire spread under prevailing and predicted conditions.</string>
+		<string>15 Confine fire (wildland). Includes when fire crews or resources stop the forward progress of a fire but have not put in all control lines.</string>
+		<string>16 Control fire (wildland). Includes when fire crews or resources completely surround the fire perimeter with control lines; extinguish any spot fires; burn any area adjacent to the fire side of the control lines; and cool down all hot spots that are immediate threats to the control line, until the lines can reasonably be expected to hold under foreseeable conditions.</string>
+		<string>17 Manage prescribed fire (wildland).</string>
+		<string>20 Search and rescue, other.</string>
+		<string>21 Search for lost or missing person. Includes animals.</string>
+		<string>22 Rescue, remove from harm. Excludes vehicle extrication (23).</string>
+		<string>23 Extrication or disentangling of a person. Excludes body recovery (24).</string>
+		<string>24 Recover body or body parts.</string>
+		<string>30 Emergency medical services, other.</string>
+		<string>31 Provide first aid and check for injuries. Medical evaluation of patient.</string>
+		<string>32 Provide basic life support (BLS).</string>
+		<string>33 Provide advanced life support (ALS).</string>
+		<string>34 Transport of person from scene in fire service ambulance or apparatus.</string>
+		<string>40 Hazardous condition, other.</string>
+		<string>41 Identification, analysis of hazardous materials.</string>
+		<string>42 Hazardous materials detection, monitoring, sampling, and analysis using a variety of detection instruments including combustible gas indicators (CGIs) or explosimeter, oxygen monitors, colorimetric tubes, specific chemical monitors, and others. Results from these devices must be analyzed to provide information about the hazardous nature of the material or environment.</string>
+		<string>43 Hazardous materials spill control and confinement. Includes confining or diking hazardous materials.These are actions taken to confine the product released to a limited area including the use of absorbents, damming/ diking, diversion of liquid runoff, dispersion, retention, or vapor suppression.</string>
+		<string>44 Hazardous materials leak control and containment. Includes actions taken to keep a material within its container, such as plugging/patching operations, neutralization, pressure isolation/reduction, solidification, and vacuuming.</string>
+		<string>45 Remove hazard. Includes neutralizing a hazardous condition.</string>
+		<string>46 Decontaminate persons or equipment. Includes actions taken to prevent the spread of contaminants from the “hot zone” to the “cold zone.”This includes gross, technical, or advanced personal decontamination of victims, emergency responders, and equipment.</string>
+		<string>47 Decontamination of occupancy or area exposed to hazardous materials.</string>
+		<string>48 Remove hazardous materials. Includes a broad range of actions taken to remove hazardous materials from a damaged container or contaminated area. Examples of actions to remove hazards include product offload/ transfer, controlled burning or product flaring, venting, and overpacking.</string>
+		<string>50 Fires, rescues, and hazardous conditions, other.</string>
+		<string>51 Ventilate. Includes nonhazardous odor removal and removal of smoke from nonhazardous materials-related fires.</string>
+		<string>52 Forcible entry, performed by fire service. Includes support to law enforcement.</string>
+		<string>53 Evacuate area. Removal of civilians from an area determined to be hazardous. Includes actions taken to isolate the contaminated area and/or evacuate those persons affected by a hazardous materials release or potential release.</string>
+		<string>54 Determine if the materials released are nonhazardous through product identification and environmental monitoring.</string>
+		<string>55 Establish safe area. Includes isolating the area affected by denying entry to unprotected persons and establishing hazard control zones (hot, warm, cold).</string>
+		<string>56 Provide air supply.</string>
+		<string>57 Provide light or electrical power.</string>
+		<string>58 Operate apparatus or vehicle.</string>
+		<string>60 Systems and services, other.</string>
+		<string>61 Restore municipal services. Includes turning water back on and notifying the gas company to turn the gas on.</string>
+		<string>62 Restore sprinkler or fire protection system.</string>
+		<string>63 Restore fire alarm system. Includes restoring fire alarm systems monitored by the fire service.</string>
+		<string>64 Shut down system. Includes shutting down water, gas, and fire alarm systems.</string>
+		<string>65 Secure property. Includes property conservation activities such as covering broken windows or holes in roofs.</string>
+		<string>66 Remove water or control flooding condition.</string>
+		<string>70 Assistance, other.</string>
+		<string>71 Assist physically disabled. Includes providing nonmedical assistance to physically disabled, handicapped, or elderly citizens.</string>
+		<string>72 Assist animal. Includes animal rescue, extrication, removal, or transport.</string>
+		<string>73 Provide manpower. Includes providing manpower to assist rescue/ambulance units lift patients or providing manpower to assist police.</string>
+		<string>74 Provide apparatus.</string>
+		<string>75 Provide equipment, where equipment is used by another agency.</string>
+		<string>76 Provide water. Includes tanker shuttle operations and pumping in a relay or from a water source. Excludes normal fire suppression operations.</string>
+		<string>77 Control crowd. Includes restricting pedestrian access to an area. Excludes control of vehicles (78).</string>
+		<string>78 Control traffic. Includes setting up barricades and directing traffic.</string>
+		<string>79 Assess damage from severe weather or the results of a natural disaster.</string>
+		<string>80 Information, investigation, and enforcement, other.</string>
+		<string>81 Incident command. Includes providing support to incident command activities.</string>
+		<string>82 Notify other agencies. Includes notifications of utility companies, property owners, and the like.</string>
+		<string>83 Provide information to the public or media.</string>
+		<string>84 Refer to proper authority. Includes turnover of incidents to other authorities or agencies such as the police.</string>
+		<string>85 Enforce fire code and other codes. Includes response to public complaints and abatement of code violations.</string>
+		<string>86 Investigate. Includes investigations done on arrival to determine the situation and post-incident investigations; and collecting incident information for incident reporting purposes.</string>
+		<string>87 Investigate. Fire out on arrival.</string>
+		<string>90 Fill-in, standby, other.</string>
+		<string>91 Fill in, move up to another fire station.</string>
+		<string>92 Standby.</string>
+		<string>93 Canceled en route. 0 Actions taken, other.</string>
+	</array>
+</dict>
+</plist>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="A83-dF-wHb" customClass="RelieveSupervisorContactsHeaderV" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="100"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lII-Ut-EGt" userLabel="Content View">
+                    <rect key="frame" x="0.0" y="0.0" width="500" height="100"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EDF0F6-D8E7FA_CellBkgrnd4sq" translatesAutoresizingMaskIntoConstraints="NO" id="Ukg-CB-fg0">
+                            <rect key="frame" x="0.0" y="0.0" width="500" height="100"/>
+                        </imageView>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ICONS_Membersboard color" translatesAutoresizingMaskIntoConstraints="NO" id="f5W-oN-rEG">
+                            <rect key="frame" x="74" y="22" width="69" height="69"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="68.999999999999773" id="6g1-ob-IbT"/>
+                                <constraint firstAttribute="width" constant="68.999999999999773" id="LbI-rg-KyN"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contacts" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FEb-rK-SpE">
+                            <rect key="frame" x="151" y="26" width="260" height="65"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="65" id="Tya-kX-Tlo"/>
+                                <constraint firstAttribute="width" constant="260" id="kl8-ng-sJh"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="27"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bxo-Ul-oSc">
+                            <rect key="frame" x="440" y="3" width="41" height="34"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="41" id="JXh-m1-z1p"/>
+                                <constraint firstAttribute="height" constant="34" id="zpc-10-sYS"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                            <state key="normal" title="Save">
+                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </state>
+                            <connections>
+                                <action selector="contactsSaveBTapped:" destination="A83-dF-wHb" eventType="touchUpInside" id="bAJ-aW-ogl"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Op-P3-rXj">
+                            <rect key="frame" x="15" y="3" width="58" height="34"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="34" id="EWw-7b-d3G"/>
+                                <constraint firstAttribute="width" constant="58" id="Nue-GR-XKR"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                            <state key="normal" title="Cancel">
+                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </state>
+                            <connections>
+                                <action selector="contactsCancelBTapped:" destination="A83-dF-wHb" eventType="touchUpInside" id="esd-fd-MLa"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H3e-yh-fbw">
+                            <rect key="frame" x="450" y="44" width="31" height="31"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="31" id="gt3-m4-h1m"/>
+                                <constraint firstAttribute="width" constant="31" id="vaa-VD-qjm"/>
+                            </constraints>
+                            <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <state key="normal" backgroundImage="infoCircleI"/>
+                            <connections>
+                                <action selector="contactsInfoBTapped:" destination="A83-dF-wHb" eventType="touchUpInside" id="dFZ-bR-Pz1"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="H3e-yh-fbw" firstAttribute="top" secondItem="lII-Ut-EGt" secondAttribute="top" constant="44" id="42y-Tm-fIh"/>
+                        <constraint firstItem="Ukg-CB-fg0" firstAttribute="leading" secondItem="lII-Ut-EGt" secondAttribute="leading" id="J9I-Vu-Lm9"/>
+                        <constraint firstAttribute="trailing" secondItem="H3e-yh-fbw" secondAttribute="trailing" constant="19" id="Oe6-hC-cmg"/>
+                        <constraint firstItem="FEb-rK-SpE" firstAttribute="leading" secondItem="f5W-oN-rEG" secondAttribute="trailing" constant="8" id="Tgb-fB-BdT"/>
+                        <constraint firstAttribute="bottom" secondItem="Ukg-CB-fg0" secondAttribute="bottom" id="Uig-hH-YNG"/>
+                        <constraint firstItem="f5W-oN-rEG" firstAttribute="leading" secondItem="lII-Ut-EGt" secondAttribute="leading" constant="74" id="Uv4-ok-kqE"/>
+                        <constraint firstItem="1Op-P3-rXj" firstAttribute="top" secondItem="lII-Ut-EGt" secondAttribute="top" constant="3" id="WTV-rz-jzB"/>
+                        <constraint firstItem="f5W-oN-rEG" firstAttribute="bottom" secondItem="FEb-rK-SpE" secondAttribute="bottom" id="ZTd-qN-Aol"/>
+                        <constraint firstItem="Ukg-CB-fg0" firstAttribute="top" secondItem="lII-Ut-EGt" secondAttribute="top" id="Zi8-rj-xxJ"/>
+                        <constraint firstItem="f5W-oN-rEG" firstAttribute="top" secondItem="lII-Ut-EGt" secondAttribute="top" constant="22" id="j9j-Tp-dmW"/>
+                        <constraint firstAttribute="trailing" secondItem="Ukg-CB-fg0" secondAttribute="trailing" id="o1z-fI-Q1a"/>
+                        <constraint firstItem="Bxo-Ul-oSc" firstAttribute="top" secondItem="lII-Ut-EGt" secondAttribute="top" constant="3" id="rkI-XW-wZc"/>
+                        <constraint firstAttribute="trailing" secondItem="Bxo-Ul-oSc" secondAttribute="trailing" constant="19" id="t0f-oM-19T"/>
+                        <constraint firstItem="1Op-P3-rXj" firstAttribute="leading" secondItem="lII-Ut-EGt" secondAttribute="leading" constant="15" id="teT-Pe-9z6"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="lII-Ut-EGt" firstAttribute="leading" secondItem="A83-dF-wHb" secondAttribute="leading" id="NO6-e2-JTV"/>
+                <constraint firstAttribute="trailing" secondItem="lII-Ut-EGt" secondAttribute="trailing" id="QtY-zb-zm8"/>
+                <constraint firstItem="lII-Ut-EGt" firstAttribute="bottom" secondItem="A83-dF-wHb" secondAttribute="bottom" id="Rxb-3P-Y71"/>
+                <constraint firstItem="lII-Ut-EGt" firstAttribute="top" secondItem="A83-dF-wHb" secondAttribute="top" id="tnU-EB-8Hx"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="0JI-x3-Lis"/>
+            <connections>
+                <outlet property="backgroundIV" destination="Ukg-CB-fg0" id="lEN-Tj-2y1"/>
+                <outlet property="contactsCancelB" destination="1Op-P3-rXj" id="5xy-xA-51K"/>
+                <outlet property="contactsInfoB" destination="H3e-yh-fbw" id="AWM-NF-ptx"/>
+                <outlet property="contactsSaveB" destination="Bxo-Ul-oSc" id="O8O-B6-auB"/>
+                <outlet property="contentView" destination="lII-Ut-EGt" id="Ill-Ci-6x8"/>
+                <outlet property="iconIV" destination="f5W-oN-rEG" id="yHF-kV-G0E"/>
+                <outlet property="subjectL" destination="FEb-rK-SpE" id="JsM-V4-BF3"/>
+            </connections>
+            <point key="canvasLocation" x="-304.34782608695656" y="-219.64285714285714"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="EDF0F6-D8E7FA_CellBkgrnd4sq" width="342" height="84"/>
+        <image name="ICONS_Membersboard color" width="833" height="833"/>
+        <image name="infoCircleI" width="31" height="31"/>
+    </resources>
+</document>

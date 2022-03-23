@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="StationResourcesStatusCVCellIdentifier" id="fk4-oK-ESg" customClass="StationResourcesStatusCVCell" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="230"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="500" height="230"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="fN6-Sr-NLd" userLabel="Content View">
+                        <rect key="frame" x="0.0" y="0.0" width="500" height="230"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="7kC-0K-Tyb">
+                                <rect key="frame" x="25" y="94" width="461" height="124"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="elk-ug-glo">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                            </collectionView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EDF0F6-D8E7FA_CellBkgrnd4sq" translatesAutoresizingMaskIntoConstraints="NO" id="NPM-8h-VaW">
+                                <rect key="frame" x="0.0" y="0.0" width="500" height="84"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RESOURCEWHITE" translatesAutoresizingMaskIntoConstraints="NO" id="gQk-df-KF5">
+                                <rect key="frame" x="16" y="8" width="69" height="69"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="68.999999999999773" id="3pF-w4-J6a"/>
+                                    <constraint firstAttribute="height" constant="68.999999999999773" id="oNK-vV-Cqq"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IcW-dA-hVj">
+                                <rect key="frame" x="93" y="12" width="397" height="64.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64.5" id="FL9-PZ-ui8"/>
+                                </constraints>
+                                <string key="text">Station Resources
+Status</string>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="27"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="NPM-8h-VaW" firstAttribute="top" secondItem="fN6-Sr-NLd" secondAttribute="top" id="0PT-Db-jy6"/>
+                            <constraint firstAttribute="bottom" secondItem="7kC-0K-Tyb" secondAttribute="bottom" constant="12" id="C8d-di-Ji0"/>
+                            <constraint firstItem="7kC-0K-Tyb" firstAttribute="leading" secondItem="fN6-Sr-NLd" secondAttribute="leading" constant="25" id="Dpi-bc-K0d"/>
+                            <constraint firstItem="NPM-8h-VaW" firstAttribute="leading" secondItem="fN6-Sr-NLd" secondAttribute="leading" id="FWW-cU-CU4"/>
+                            <constraint firstItem="IcW-dA-hVj" firstAttribute="leading" secondItem="gQk-df-KF5" secondAttribute="trailing" constant="8" id="JOX-Uj-cNM"/>
+                            <constraint firstAttribute="trailing" secondItem="7kC-0K-Tyb" secondAttribute="trailing" constant="14" id="MgK-Ut-fQP"/>
+                            <constraint firstItem="gQk-df-KF5" firstAttribute="leading" secondItem="fN6-Sr-NLd" secondAttribute="leading" constant="16" id="QFS-yb-uhc"/>
+                            <constraint firstAttribute="trailing" secondItem="IcW-dA-hVj" secondAttribute="trailing" constant="10" id="Yfw-sz-hNF"/>
+                            <constraint firstItem="IcW-dA-hVj" firstAttribute="top" secondItem="fN6-Sr-NLd" secondAttribute="top" constant="12" id="c18-SD-i8c"/>
+                            <constraint firstItem="gQk-df-KF5" firstAttribute="top" secondItem="fN6-Sr-NLd" secondAttribute="top" constant="8" id="daj-Na-ppQ"/>
+                            <constraint firstItem="7kC-0K-Tyb" firstAttribute="top" secondItem="fN6-Sr-NLd" secondAttribute="top" constant="94" id="gYd-IU-b6S"/>
+                            <constraint firstAttribute="trailing" secondItem="NPM-8h-VaW" secondAttribute="trailing" id="gld-ul-3cj"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="vul-5f-o1l"/>
+            <connections>
+                <outlet property="headerIV" destination="NPM-8h-VaW" id="zEM-UY-uci"/>
+                <outlet property="iconIV" destination="gQk-df-KF5" id="qgP-Lx-cJw"/>
+                <outlet property="stationResourcesCV" destination="7kC-0K-Tyb" id="bkn-Hd-j8j"/>
+                <outlet property="subjectL" destination="IcW-dA-hVj" id="Fc2-4T-Jp7"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="120.53571428571428"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="EDF0F6-D8E7FA_CellBkgrnd4sq" width="342" height="84"/>
+        <image name="RESOURCEWHITE" width="200" height="200"/>
+    </resources>
+</document>

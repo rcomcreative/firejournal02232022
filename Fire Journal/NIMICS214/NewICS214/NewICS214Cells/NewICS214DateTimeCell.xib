@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="90" id="Coo-2q-wKW" customClass="NewICS214DateTimeCell" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="90"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Coo-2q-wKW" id="8iG-nm-Bcl">
+                <rect key="frame" x="0.0" y="0.0" width="500" height="90"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mrV-Y8-Dgm">
+                        <rect key="frame" x="9" y="35.5" width="45" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="45" id="OEy-0T-Bi2"/>
+                            <constraint firstAttribute="width" constant="45" id="xku-87-kTG"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                        <color key="tintColor" name="FJRedColor"/>
+                        <state key="normal" backgroundImage="clock" catalog="system">
+                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <connections>
+                            <action selector="timeBTapped:" destination="Coo-2q-wKW" eventType="touchUpInside" id="nAK-nR-eEi"/>
+                        </connections>
+                    </button>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CC6-GG-WLb">
+                        <rect key="frame" x="60" y="40.5" width="172" height="34"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="172" id="r2o-HE-elf"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x0k-Tv-PK2">
+                        <rect key="frame" x="60" y="15" width="172" height="21.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="172" id="9M4-Eq-mA2"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Nl1-zQ-43g">
+                        <rect key="frame" x="248" y="40.5" width="172" height="34"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="172" id="arV-fL-GSL"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kL7-7m-TCG">
+                        <rect key="frame" x="248" y="15" width="172" height="21.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="172" id="OYP-Jg-v6Q"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="mrV-Y8-Dgm" firstAttribute="centerY" secondItem="CC6-GG-WLb" secondAttribute="centerY" id="2mg-a9-A2b"/>
+                    <constraint firstItem="kL7-7m-TCG" firstAttribute="top" secondItem="8iG-nm-Bcl" secondAttribute="top" constant="15" id="4bp-Xg-uLJ"/>
+                    <constraint firstItem="x0k-Tv-PK2" firstAttribute="top" secondItem="8iG-nm-Bcl" secondAttribute="top" constant="15" id="Hir-SR-8wG"/>
+                    <constraint firstItem="mrV-Y8-Dgm" firstAttribute="leading" secondItem="8iG-nm-Bcl" secondAttribute="leading" constant="9" id="SPk-9h-C2j"/>
+                    <constraint firstItem="CC6-GG-WLb" firstAttribute="top" secondItem="x0k-Tv-PK2" secondAttribute="bottom" constant="4" id="fFd-7A-05N"/>
+                    <constraint firstItem="CC6-GG-WLb" firstAttribute="leading" secondItem="8iG-nm-Bcl" secondAttribute="leading" constant="60" id="hbF-hM-Pc4"/>
+                    <constraint firstItem="Nl1-zQ-43g" firstAttribute="centerY" secondItem="CC6-GG-WLb" secondAttribute="centerY" id="i1r-7F-46C"/>
+                    <constraint firstItem="Nl1-zQ-43g" firstAttribute="leading" secondItem="CC6-GG-WLb" secondAttribute="trailing" constant="16" id="pAW-Nv-dOc"/>
+                    <constraint firstItem="kL7-7m-TCG" firstAttribute="leading" secondItem="Nl1-zQ-43g" secondAttribute="leading" id="piL-LS-eAt"/>
+                    <constraint firstItem="x0k-Tv-PK2" firstAttribute="leading" secondItem="8iG-nm-Bcl" secondAttribute="leading" constant="60" id="vaA-jK-6bX"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="0OM-mg-R0a"/>
+            <connections>
+                <outlet property="dateL" destination="x0k-Tv-PK2" id="JcF-0e-m8L"/>
+                <outlet property="dateTF" destination="CC6-GG-WLb" id="aw9-ov-mE3"/>
+                <outlet property="timeB" destination="mrV-Y8-Dgm" id="NXG-AL-lHn"/>
+                <outlet property="timeL" destination="kL7-7m-TCG" id="MmE-Ah-xOg"/>
+                <outlet property="timeTF" destination="Nl1-zQ-43g" id="aBa-7f-1cU"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="153.34821428571428"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="clock" catalog="system" width="128" height="121"/>
+        <namedColor name="FJRedColor">
+            <color red="0.92900002002716064" green="0.33300000429153442" blue="0.39599999785423279" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

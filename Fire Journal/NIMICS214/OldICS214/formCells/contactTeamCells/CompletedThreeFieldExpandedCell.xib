@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="KGk-i7-Jjw" customClass="CompletedThreeFieldExpandedCell" customModule="ARCForm" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Mv2-66-gFm">
+                        <rect key="frame" x="12" y="8" width="545" height="27"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="ePt-kd-b9a">
+                                <rect key="frame" x="0.0" y="0.0" width="545" height="27"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="14" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="Fgm-bx-Pll">
+                                        <rect key="frame" x="0.0" y="0.0" width="178" height="27"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="27" id="Nna-K7-Fid"/>
+                                        </constraints>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="KGk-i7-Jjw" id="jil-hY-WD0"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="14" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="5Rh-HV-2hJ">
+                                        <rect key="frame" x="184" y="0.0" width="177" height="27"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="KGk-i7-Jjw" id="21z-mR-TBd"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="14" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="qq9-p7-BFz">
+                                        <rect key="frame" x="367" y="0.0" width="178" height="27"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="27" id="dqe-5E-ld3"/>
+                                        </constraints>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="KGk-i7-Jjw" id="YV2-X9-gY2"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="5Rh-HV-2hJ" firstAttribute="width" secondItem="Fgm-bx-Pll" secondAttribute="width" id="SAq-WY-qZ9"/>
+                                    <constraint firstItem="qq9-p7-BFz" firstAttribute="width" secondItem="Fgm-bx-Pll" secondAttribute="width" id="wIh-1l-3VG"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                    </stackView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2ME-uB-iYi">
+                        <rect key="frame" x="565" y="8" width="27" height="27"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="27" id="2mU-OY-cOb"/>
+                            <constraint firstAttribute="height" constant="27" id="rh2-8i-Oe2"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="Mv2-66-gFm" secondAttribute="trailing" constant="35" id="c5W-rW-7ki"/>
+                </constraints>
+            </tableViewCellContentView>
+            <constraints>
+                <constraint firstItem="Mv2-66-gFm" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" constant="8" id="LM6-HX-O3W"/>
+                <constraint firstAttribute="trailing" secondItem="2ME-uB-iYi" secondAttribute="trailing" constant="8" id="Q4g-Nn-Vpm"/>
+                <constraint firstItem="Mv2-66-gFm" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" constant="12" id="ojL-d2-7jZ"/>
+                <constraint firstItem="2ME-uB-iYi" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" constant="8" id="toh-Zj-cgh"/>
+            </constraints>
+            <connections>
+                <outlet property="chosenIV" destination="2ME-uB-iYi" id="DB0-PF-ONk"/>
+                <outlet property="inputTestFieldOne" destination="Fgm-bx-Pll" id="ez2-vj-5lm"/>
+                <outlet property="inputTextFieldThree" destination="qq9-p7-BFz" id="o96-qY-YSE"/>
+                <outlet property="inputTextFieldTwo" destination="5Rh-HV-2hJ" id="HhL-4N-gnd"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

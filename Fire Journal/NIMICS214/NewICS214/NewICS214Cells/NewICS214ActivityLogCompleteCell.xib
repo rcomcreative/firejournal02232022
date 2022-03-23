@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="145" id="Y5w-RG-1sT" customClass="NewICS214ActivityLogCompleteCell" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="145"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Y5w-RG-1sT" id="TJU-rE-WEm">
+                <rect key="frame" x="0.0" y="0.0" width="600" height="145"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="14" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="meV-Vl-NUb">
+                        <rect key="frame" x="60" y="15" width="172" height="34"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="172" id="2po-g1-D7X"/>
+                            <constraint firstAttribute="height" constant="34" id="YYE-bc-4BQ"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                    </textField>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aif-pI-8gA">
+                        <rect key="frame" x="60" y="57" width="172" height="30"/>
+                        <color key="backgroundColor" name="FJRedColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="HM1-g5-Pwv"/>
+                            <constraint firstAttribute="width" constant="172" id="hTF-R2-cSi"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                        <state key="normal" title="Save">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <connections>
+                            <action selector="addBTapped:" destination="Y5w-RG-1sT" eventType="touchUpInside" id="W4H-l9-hhQ"/>
+                        </connections>
+                    </button>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wJr-Zv-hjX">
+                        <rect key="frame" x="247" y="15" width="338" height="114"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="textColor" systemColor="labelColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        <connections>
+                            <outlet property="delegate" destination="Y5w-RG-1sT" id="6NC-p0-IEk"/>
+                        </connections>
+                    </textView>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b0S-nd-Eou">
+                        <rect key="frame" x="60" y="15" width="172" height="34"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <connections>
+                            <action selector="changeDateBTapped:" destination="Y5w-RG-1sT" eventType="touchUpInside" id="pBF-iK-rRD"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="meV-Vl-NUb" firstAttribute="top" secondItem="TJU-rE-WEm" secondAttribute="top" constant="15" id="2is-jv-Ibh"/>
+                    <constraint firstAttribute="bottom" secondItem="wJr-Zv-hjX" secondAttribute="bottom" constant="16" id="APo-re-dkZ"/>
+                    <constraint firstItem="meV-Vl-NUb" firstAttribute="leading" secondItem="TJU-rE-WEm" secondAttribute="leading" constant="60" id="CBb-B8-0UI"/>
+                    <constraint firstItem="wJr-Zv-hjX" firstAttribute="top" secondItem="meV-Vl-NUb" secondAttribute="top" id="Z27-4T-p5S"/>
+                    <constraint firstItem="aif-pI-8gA" firstAttribute="top" secondItem="meV-Vl-NUb" secondAttribute="bottom" constant="8" id="fS6-vJ-20e"/>
+                    <constraint firstItem="wJr-Zv-hjX" firstAttribute="leading" secondItem="meV-Vl-NUb" secondAttribute="trailing" constant="15" id="mdo-k7-hL9"/>
+                    <constraint firstItem="aif-pI-8gA" firstAttribute="leading" secondItem="meV-Vl-NUb" secondAttribute="leading" id="mw6-rH-1RI"/>
+                    <constraint firstAttribute="trailing" secondItem="wJr-Zv-hjX" secondAttribute="trailing" constant="15" id="n6x-EW-M5B"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="addB" destination="aif-pI-8gA" id="fan-ZD-iP2"/>
+                <outlet property="changeDateB" destination="b0S-nd-Eou" id="y8j-E9-LEr"/>
+                <outlet property="logTV" destination="wJr-Zv-hjX" id="60n-Id-4wd"/>
+                <outlet property="timeDateTF" destination="meV-Vl-NUb" id="QK0-jp-SBk"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="153.01339285714286"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <namedColor name="FJRedColor">
+            <color red="0.92900002002716064" green="0.33300000429153442" blue="0.39599999785423279" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

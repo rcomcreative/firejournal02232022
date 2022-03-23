@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3hr-20-KnY">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--ARC_CampaignButtonVC-->
+        <scene sceneID="hZZ-kx-mri">
+            <objects>
+                <viewController storyboardIdentifier="ARC_CampaignButtonVC" id="3hr-20-KnY" userLabel="ARC_CampaignButtonVC" customClass="ARC_CampaignButtonVC" customModule="Fire_Journal" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="m3u-aP-FFC">
+                        <rect key="frame" x="0.0" y="0.0" width="500" height="1266"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tld-hd-2Ap">
+                                <rect key="frame" x="0.0" y="0.0" width="500" height="1266"/>
+                                <color key="backgroundColor" name="FJARCBlue"/>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="58w-GL-DCo">
+                                <rect key="frame" x="164" y="573" width="172" height="120"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h80-nI-bgU">
+                                        <rect key="frame" x="0.0" y="0.0" width="172" height="40"/>
+                                        <color key="backgroundColor" name="FJARCRed"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="172" id="HWJ-hQ-ZDE"/>
+                                            <constraint firstAttribute="height" constant="40" id="Svc-1L-M15"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                                        <state key="normal" title="Campaign">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xn4-TN-Uv5">
+                                        <rect key="frame" x="0.0" y="80" width="172" height="40"/>
+                                        <color key="backgroundColor" name="FJARCRed"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="172" id="XMX-Bo-0hw"/>
+                                            <constraint firstAttribute="height" constant="40" id="rXe-J8-jbf"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                                        <state key="normal" title="Single">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="HIm-wC-X3Q"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Tld-hd-2Ap" firstAttribute="leading" secondItem="m3u-aP-FFC" secondAttribute="leading" id="04J-Zc-qM6"/>
+                            <constraint firstAttribute="trailing" secondItem="Tld-hd-2Ap" secondAttribute="trailing" id="da1-Ke-XJM"/>
+                            <constraint firstItem="58w-GL-DCo" firstAttribute="centerY" secondItem="m3u-aP-FFC" secondAttribute="centerY" id="iTr-wG-YGk"/>
+                            <constraint firstItem="Tld-hd-2Ap" firstAttribute="top" secondItem="m3u-aP-FFC" secondAttribute="top" id="mR0-Cp-oZh"/>
+                            <constraint firstAttribute="bottom" secondItem="Tld-hd-2Ap" secondAttribute="bottom" id="qEB-iv-Xtv"/>
+                            <constraint firstItem="58w-GL-DCo" firstAttribute="centerX" secondItem="m3u-aP-FFC" secondAttribute="centerX" id="yKQ-U3-qGE"/>
+                        </constraints>
+                    </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="500" height="1266"/>
+                    <size key="freeformSize" width="500" height="1266"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rkl-IK-DkW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="269" y="103"/>
+        </scene>
+    </scenes>
+    <resources>
+        <namedColor name="FJARCBlue">
+            <color red="0.11800000071525574" green="0.15700000524520874" blue="0.23100000619888306" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="FJARCRed">
+            <color red="0.93300002813339233" green="0.23100000619888306" blue="0.20000000298023224" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

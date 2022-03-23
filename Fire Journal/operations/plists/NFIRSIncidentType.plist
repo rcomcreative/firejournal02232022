@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>displayOrder</key>
+	<array>
+		<integer>0</integer>
+		<integer>1</integer>
+		<integer>2</integer>
+		<integer>3</integer>
+		<integer>4</integer>
+		<integer>5</integer>
+		<integer>6</integer>
+		<integer>7</integer>
+		<integer>8</integer>
+		<integer>9</integer>
+		<integer>10</integer>
+		<integer>11</integer>
+		<integer>12</integer>
+		<integer>13</integer>
+		<integer>14</integer>
+		<integer>15</integer>
+		<integer>16</integer>
+		<integer>17</integer>
+		<integer>18</integer>
+		<integer>19</integer>
+		<integer>20</integer>
+		<integer>21</integer>
+		<integer>22</integer>
+		<integer>23</integer>
+		<integer>24</integer>
+		<integer>25</integer>
+		<integer>26</integer>
+		<integer>27</integer>
+		<integer>28</integer>
+		<integer>29</integer>
+		<integer>30</integer>
+		<integer>31</integer>
+		<integer>32</integer>
+		<integer>33</integer>
+		<integer>34</integer>
+		<integer>35</integer>
+		<integer>36</integer>
+		<integer>37</integer>
+		<integer>38</integer>
+		<integer>39</integer>
+		<integer>40</integer>
+		<integer>41</integer>
+		<integer>42</integer>
+		<integer>43</integer>
+		<integer>44</integer>
+		<integer>45</integer>
+		<integer>46</integer>
+		<integer>47</integer>
+		<integer>48</integer>
+		<integer>49</integer>
+		<integer>50</integer>
+		<integer>51</integer>
+		<integer>52</integer>
+		<integer>53</integer>
+		<integer>54</integer>
+		<integer>55</integer>
+		<integer>56</integer>
+		<integer>57</integer>
+		<integer>58</integer>
+		<integer>59</integer>
+		<integer>60</integer>
+		<integer>61</integer>
+		<integer>62</integer>
+		<integer>63</integer>
+		<integer>64</integer>
+		<integer>65</integer>
+		<integer>66</integer>
+		<integer>67</integer>
+		<integer>68</integer>
+		<integer>69</integer>
+		<integer>70</integer>
+		<integer>71</integer>
+		<integer>72</integer>
+		<integer>73</integer>
+		<integer>74</integer>
+		<integer>75</integer>
+		<integer>76</integer>
+		<integer>77</integer>
+		<integer>78</integer>
+		<integer>79</integer>
+		<integer>80</integer>
+		<integer>81</integer>
+		<integer>82</integer>
+		<integer>83</integer>
+		<integer>84</integer>
+		<integer>85</integer>
+		<integer>86</integer>
+		<integer>87</integer>
+		<integer>88</integer>
+		<integer>89</integer>
+		<integer>90</integer>
+		<integer>91</integer>
+		<integer>92</integer>
+		<integer>93</integer>
+		<integer>94</integer>
+		<integer>95</integer>
+		<integer>96</integer>
+		<integer>97</integer>
+		<integer>98</integer>
+		<integer>99</integer>
+		<integer>100</integer>
+		<integer>101</integer>
+		<integer>102</integer>
+		<integer>103</integer>
+		<integer>104</integer>
+		<integer>105</integer>
+		<integer>106</integer>
+		<integer>107</integer>
+		<integer>108</integer>
+		<integer>109</integer>
+		<integer>110</integer>
+		<integer>111</integer>
+		<integer>112</integer>
+		<integer>113</integer>
+		<integer>114</integer>
+		<integer>115</integer>
+		<integer>116</integer>
+		<integer>117</integer>
+		<integer>118</integer>
+		<integer>119</integer>
+		<integer>120</integer>
+		<integer>121</integer>
+		<integer>122</integer>
+		<integer>123</integer>
+		<integer>124</integer>
+		<integer>125</integer>
+		<integer>126</integer>
+		<integer>127</integer>
+		<integer>128</integer>
+		<integer>129</integer>
+		<integer>130</integer>
+		<integer>131</integer>
+		<integer>132</integer>
+		<integer>133</integer>
+		<integer>134</integer>
+		<integer>135</integer>
+		<integer>136</integer>
+		<integer>137</integer>
+		<integer>138</integer>
+		<integer>139</integer>
+		<integer>140</integer>
+		<integer>141</integer>
+		<integer>142</integer>
+		<integer>143</integer>
+		<integer>144</integer>
+		<integer>145</integer>
+		<integer>146</integer>
+		<integer>147</integer>
+		<integer>148</integer>
+		<integer>149</integer>
+		<integer>150</integer>
+		<integer>151</integer>
+		<integer>152</integer>
+		<integer>153</integer>
+		<integer>154</integer>
+		<integer>155</integer>
+		<integer>156</integer>
+		<integer>157</integer>
+		<integer>158</integer>
+		<integer>159</integer>
+		<integer>160</integer>
+		<integer>161</integer>
+		<integer>162</integer>
+		<integer>163</integer>
+		<integer>164</integer>
+		<integer>165</integer>
+		<integer>166</integer>
+		<integer>167</integer>
+		<integer>168</integer>
+		<integer>169</integer>
+		<integer>170</integer>
+		<integer>171</integer>
+		<integer>172</integer>
+		<integer>173</integer>
+		<integer>174</integer>
+		<integer>175</integer>
+		<integer>176</integer>
+	</array>
+	<key>incidentTypeName</key>
+	<array>
+		<string>Fire, other.</string>
+		<string>Building Fire. Excludes confined fires(113-118)</string>
+		<string>Fire in structure, other than in a building.</string>
+		<string>Cooking fire involving the conents of a cooking vessel w/out fire extension beyond the vessel</string>
+		<string>Chimney or flue fire originating in and confined to a chimney or flue.</string>
+		<string>Incinerator overload or malfunction, but flames cause no damage outside of incinerator</string>
+		<string>Fuel burner/boiler, delayed ignition or malfunction.</string>
+		<string>Commercial compactor fire, confined to contents of compoactor.</string>
+		<string>Trash or rubbish fire in a structure.</string>
+		<string>Fire in mobile home used as a fixed residence. Includes mobile homes when not in transit and used as a structure for residential purposes; and manufactured homes built on a permanent chassis.</string>
+		<string>Fire in a motor home, camper, or recreational vehicle when used as a structure. Includes motor homes when not in transit and used as a structure for residential purposes.</string>
+		<string>Fire in a portable building, when used at a fixed location. Includes portable buildings used for commerce, industry, or education and trailers used for commercial purposes.</string>
+		<string>Fire in mobile property used as a fixed structure, other.</string>
+		<string>Passenger vehicle fire. Includes any motorized passenger vehicle, other than a motor home (136) (e.g., pickup trucks, sport utility vehicles, buses).</string>
+		<string>Road freight or transport vehicle fire. Includes commercial freight hauling vehicles and contractor vans or trucks. Examples are moving trucks, plumber vans, and delivery trucks.</string>
+		<string>Rail vehicle fire. Includes all rail cars, including intermodal containers and passenger cars that are mounted on a rail car.</string>
+		<string>Water vehicle fire. Includes boats, barges, hovercraft, and all other vehicles designed for navigation on water.</string>
+		<string>Aircraft fire. Includes fires originating in or on an aircraft, regardless of use.</string>
+		<string>Self-propelled motor home or recreational vehicle. Includes only self-propelled motor homes or recreational vehicles when being used in a transport mode. Excludes those used for normal residential use (122).</string>
+		<string>Camper or recreational vehicle (RV) fire, not self-propelled. Includes trailers. Excludes RVs on blocks or used regularly as a fixed building (122) and the vehicle towing the camper or RV or the campers mounted on pick ups (131).</string>
+		<string>Off-road vehicle or heavy equipment fire. Includes dirt bikes, specialty off-road vehicles, earth-moving equip- ment (bulldozers), and farm equipment.</string>
+		<string>Mobile property (vehicle) fire, other.</string>
+		<string>Forest, woods, or wildland fire. Includes fires involving vegetative fuels, other than prescribed fire (632), that occur in an area in which development is essentially nonexistent, except for roads, railroads, power lines, and the like. Also includes forests managed for lumber production and fires involving elevated fuels such as tree branches and crowns. Excludes areas in cultivation for agricultural purposes such as tree farms or crops (17x series).</string>
+		<string>Brush or brush-and-grass mixture fire. Includes ground fuels lying on or immediately above the ground such as duff, roots, dead leaves, fine dead wood, and downed logs.</string>
+		<string>Grass fire. Includes fire confined to area characterized by grass ground cover, with little or no involvement of other ground fuels; otherwise, see 142.</string>
+		<string>Natural vegetation fire, other.</string>
+		<string>Outside rubbish, trash, or waste fire not included in 152–155. Excludes outside rubbish fires in a container or receptacle (154).</string>
+		<string>Garbage dump or sanitary landfill fire.</string>
+		<string>Construction or demolition landfill fire.</string>
+		<string>Dumpster or other outside trash receptacle fire. Includes waste material from manufacturing or other produc- tion processes. Excludes materials that are not rubbish or have salvage value (161 or 162).</string>
+		<string>Outside stationary compactor or compacted trash fire. Includes fires where the only material burning is rub- bish. Excludes fires where the compactor is damaged (162).</string>
+		<string>Outside rubbish fire, other.</string>
+		<string>Outside storage fire on residential or commercial/industrial property, not rubbish. Includes recyclable materi- als at dropoff points.</string>
+		<string>Outside equipment fire. Includes outside trash compactors, outside HVAC units, and irrigation pumps. Ex- cludes special structures (110 series) and mobile construction equipment (130 series).</string>
+		<string>Outside gas or vapor combustion explosion without sustained fire.</string>
+		<string>Outside mailbox fire. Includes dropoff boxes for delivery services.</string>
+		<string>Special outside fire, other.</string>
+		<string>Cultivated grain or crop fire. Includes fires involving corn, wheat, soybeans, rice, and other plants before har- vest.</string>
+		<string>Cultivated orchard or vineyard fire.</string>
+		<string>Cultivated trees or nursery stock fire. Includes fires involving Christmas tree farms and plants under cultivation for transport off-site for ornamental use.</string>
+		<string>Cultivated vegetation, crop fire, other.</string>
+		<string>Overpressure rupture, explosion, overheat, other.</string>
+		<string>Overpressure rupture of steam pipe or pipeline.</string>
+		<string>Overpressure rupture of steam boiler.</string>
+		<string>Overpressure rupture of pressure or process vessel from steam.</string>
+		<string>Overpressure rupture from steam, other.</string>
+		<string>Overpressure rupture of air or gas pipe or pipeline.</string>
+		<string>Overpressure rupture of boiler from air or gas. Excludes steam-related overpressure ruptures.</string>
+		<string>Overpressure rupture of pressure or process vessel from air or gas, not steam.</string>
+		<string>Overpressure rupture from air or gas, other.</string>
+		<string>Overpressure rupture of pressure or process vessel from a chemical reaction.</string>
+		<string>Munitions or bomb explosion (no fire). Includes explosions involving military ordnance, dynamite, nitroglyc- erin, plastic explosives, propellants, and similar agents with a UN classification 1.1 or 1.3. Includes primary and secondary high explosives.</string>
+		<string>Blasting agent explosion (no fire). Includes ammonium nitrate and fuel oil (ANFO) mixtures and explosives with a UN Classification 1.5 (also known as blasting agents).</string>
+		<string>Fireworks explosion (no fire). Includes all classes of fireworks.</string>
+		<string>Dust explosion (no fire).</string>
+		<string>Explosion (no fire), other.</string>
+		<string>Excessive heat, overheat scorch burns with no ignition. Excludes lightning strikes with no ensuing fire (814).</string>
+		<string>Rescue and EMS incident, other.</string>
+		<string>Medical assist. Includes incidents where medical assistance is provided to another group/agency that has pri- mary EMS responsibility. (Example, providing assistance to another agency-assisting EMS with moving a heavy patient.)</string>
+		<string>EMS call. Includes calls when the patient refuses treatment. Excludes vehicle accident with injury (322) and pedestrian struck (323).</string>
+		<string>Motor vehicle accident with injuries. Includes collision with other vehicle, fixed objects, or loss of control resulting in leaving the roadway.</string>
+		<string>Motor vehicle/pedestrian accident (MV Ped). Includes any motor vehicle accident involving a pedestrian injury.</string>
+		<string>Motor vehicle accident with no injuries.</string>
+		<string>Emergency medical service incident, other.</string>
+		<string>Lock-in. Includes opening locked vehicles and gaining entry to locked areas for access by caretakers or rescu- ers, such as a child locked in a bathroom. Excludes lock-outs (511).</string>
+		<string>Search for person on land. Includes lost hikers and children, even where there is an incidental search of local bodies of water, such as a creek or river.</string>
+		<string>Search for person in water. Includes shoreline searches incidental to a reported drowning call.</string>
+		<string>Search for person underground. Includes caves, mines, tunnels, and the like.</string>
+		<string>Search for lost person, other.</string>
+		<string>Extrication of victim(s) from building or structure, such as a building collapse. Excludes high-angle rescue (356).</string>
+		<string>Extrication of victim(s) from vehicle. Includes rescues from vehicles hanging off a bridge or cliff.</string>
+		<string>Removal of victim(s) from stalled elevator.</string>
+		<string>Trench/Below-grade rescue.</string>
+		<string>Confined space rescue. Includes rescues from the interiors of tanks, including areas with potential for hazard- ous atmospheres such as silos, wells, and tunnels.</string>
+		<string>High-angle rescue. Includes rope rescue and rescues off of structures.</string>
+		<string>Extrication of victim(s) from machinery. Includes extrication from farm or industrial equipment.350 Extrication, rescue, other.</string>
+		<string>Swimming/Recreational water areas rescue. Includes pools and ponds. Excludes ice rescue (362).</string>
+		<string>Ice rescue. Includes only cases where victim is stranded on ice or has fallen through ice.</string>
+		<string>Swift-water rescue. Includes flash flood conditions.</string>
+		<string>Surf rescue.</string>
+		<string>Watercraft rescue. Excludes rescues near the shore and in swimming/recreational areas (361). Includes people falling overboard at a significant distance from land.</string>
+		<string>Water and ice-related rescue, other.</string>
+		<string>Electrocution or potential electrocution. Excludes people trapped by power lines (372).</string>
+		<string>Trapped by power lines. Includes people trapped by downed or dangling power lines or other energized electrical equipment.</string>
+		<string>Electrical rescue, other.</string>
+		<string>Rescue or EMS standby for hazardous conditions. Excludes aircraft standby (462).</string>
+		<string>Hazardous condition (no fire), other.</string>
+		<string>Gasoline or other flammable liquid spill (flash point below 100 degrees F at standard temperature and pressure (Class I)).</string>
+		<string>Gas leak (natural gas or LPG). Excludes gas odors with no source found (671).</string>
+		<string>Oil or other combustible liquid spill (flash point at or above 100 degrees F at standard temperature and pressure (Class II or III)).</string>
+		<string>Combustible and flammable gas or liquid spills or leaks, other.</string>
+		<string>Chemical hazard (no spill or leak). Includes the potential for spills or leaks.</string>
+		<string>Chemical spill or leak. Includes unstable, reactive, explosive material.</string>
+		<string>Refrigeration leak. Includes ammonia.</string>
+		<string>Carbon monoxide incident. Excludes incidents with nothing found (736 or 746).</string>
+		<string>Toxic chemical condition, other.</string>
+		<string>Radiation leak, radioactive material. Includes release of radiation due to breaching of container or other accidental release.</string>
+		<string>Radioactive condition, other.</string>
+		<string>Heat from short circuit (wiring), defective or worn insulation.</string>
+		<string>Overheated motor or wiring.</string>
+		<string>Breakdown of light ballast.</string>
+		<string>Power line down. Excludes people trapped by downed power lines (372).</string>
+		<string>Arcing, shorted electrical equipment.</string>
+		<string>Electrical wiring/equipment problem, other.</string>
+		<string>Biological hazard, confirmed or suspected.</string>
+		<string>Building or structure weakened or collapsed. Excludes incidents where people are trapped (351).</string>
+		<string>Aircraft standby. Includes routine standby for takeoff and landing as well as emergency alerts at airports.</string>
+		<string>Vehicle accident, general cleanup. Includes incidents where FD is dispatched after the accident to clear away debris. Excludes extrication from vehicle (352) and flammable liquid spills (411 or 413).</string>
+		<string>Accident, potential accident, other.</string>
+		<string>Explosive, bomb removal. Includes disarming, rendering safe, and disposing of bombs or suspected devices. Excludes bomb scare (721).</string>
+		<string>Attempt to burn. Includes situations in which incendiary devices fail to function.</string>
+		<string>Threat to burn. Includes verbal threats and persons threatening to set themselves on fire. Excludes an attempted burning (481).</string>
+		<string>Attempted burning, illegal action, other.</string>
+		<string>Service call, other.</string>
+		<string>Lock-out. Includes efforts to remove keys from locked vehicles. Excludes lock-ins (331).</string>
+		<string>Ring or jewelry removal, without transport to hospital. Excludes persons injured (321).</string>
+		<string>Person in distress, other.</string>
+		<string>Water (not people) evacuation. Includes the removal of water from basements. Excludes water rescues (360 series).</string>
+		<string>Water or steam leak. Includes open hydrant. Excludes overpressure ruptures (211).</string>
+		<string>Water problem, other.</string>
+		<string>Smoke or odor removal. Excludes the removal of any hazardous materials.</string>
+		<string>Animal problem. Includes persons trapped by an animal or an animal on the loose.</string>
+		<string>Animal rescue.</string>
+		<string>Animal problem or rescue, other.</string>
+		<string>Assist police or other governmental agency. Includes forcible entry and the provision of lighting.</string>
+		<string>Police matter. Includes incidents where FD is called to a scene that should be handled by the police.</string>
+		<string>Public service. Excludes service to governmental agencies (551 or 552).</string>
+		<string>Assist invalid. Includes incidents where the invalid calls the FD for routine help, such as assisting a person in returning to bed or chair, with no transport or medical treatment given.</string>
+		<string>Defective elevator, no occupants.</string>
+		<string>Public service assistance, other.</string>
+		<string>Unauthorized burning. Includes fires that are under control and not endangering property.</string>
+		<string>Cover assignment, assist other fire agency such as standby at a fire station or move-up.</string>
+		<string>Good intent call, other.</string>
+		<string>Dispatched and canceled en route. Incident cleared or canceled prior to arrival of the responding unit. If a unit arrives on the scene, fill out the applicable code.</string>
+		<string>Wrong location. Excludes malicious false alarms (710 series).</string>
+		<string>No incident found on arrival at dispatch address.</string>
+		<string>Authorized controlled burning. Includes fires that are agricultural in nature and managed by the property owner. Excludes unauthorized controlled burning (561) and prescribed fires (632).</string>
+		<string>Prescribed fire. Includes fires ignited by management actions to meet specific objectives and have a written, approved prescribed fire plan prior to ignition. Excludes authorized controlled burning (631).</string>
+		<string>Vicinity alarm (incident in other location). For use only when an erroneous report is received for a legitimate incident. Includes separate locations reported for an actual fire and multiple boxes pulled for one fire.</string>
+		<string>Smoke scare, odor of smoke, not steam (652). Excludes gas scares or odors of gas (671).</string>
+		<string>Steam, vapor, fog, or dust thought to be smoke.</string>
+		<string>Smoke from barbecue or tar kettle (no hostile fire).</string>
+		<string>Steam, other gas mistaken for smoke, other.</string>
+		<string>EMS call where injured party has been transported by a non-fire service agency or left the scene prior to ar- rival.</string>
+		<string>Hazardous material release investigation with no hazardous condition found. Includes odor of gas with no leak/gas found.</string>
+		<string>Biological hazard investigation with no hazardous condition found.</string>
+		<string>False alarm or false call, other.</string>
+		<string>Municipal alarm system, malicious false alarm. Includes alarms transmitted on street fire alarm boxes.</string>
+		<string>Direct tie to fire department, malicious false alarm. Includes malicious alarms transmitted via fire alarm sys- tem directly tied to the fire department, not via dialed telephone.</string>
+		<string>Telephone, malicious false alarm. Includes false alarms transmitted via the public telephone network using the local emergency reporting number of the fire department or another emergency service agency.</string>
+		<string>Central station, malicious false alarm. Includes malicious false alarms via a central-station-monitored fire alarm system.</string>
+		<string>Local alarm system, malicious false alarm. Includes malicious false alarms reported via telephone or other means as a result of activation of a local fire alarm system.</string>
+		<string>Malicious, mischievous false alarm, other.</string>
+		<string>Bomb scare (no bomb).</string>
+		<string>Sprinkler activated due to the failure or malfunction of the sprinkler system. Includes any failure of sprinkler equipment that leads to sprinkler activation with no fire present. Excludes unintentional operation caused by damage to the sprinkler system (740 series).</string>
+		<string>Extinguishing system activation due to malfunction.</string>
+		<string>Smoke detector activation due to malfunction.</string>
+		<string>Heat detector activation due to malfunction.</string>
+		<string>Alarm system activation due to malfunction.</string>
+		<string>Carbon monoxide detector activation due to malfunction.</string>
+		<string>System or detector malfunction, other.</string>
+		<string>Sprinkler activation (no fire), unintentional. Includes testing the sprinkler system without fire department notification.</string>
+		<string>Extinguishing system activation. Includes testing the extinguishing system without fire department notifica- tion.</string>
+		<string>Smoke detector activation (no fire), unintentional. Includes proper system responses to environmental stimuli such as non-hostile smoke.</string>
+		<string>Detector activation (no fire), unintentional. A result of a proper system response to environmental stimuli such as high heat conditions.</string>
+		<string>Alarm system activation (no fire), unintentional.</string>
+		<string>Carbon monoxide detector activation (no carbon monoxide detected). Excludes carbon monoxide detector malfunction.</string>
+		<string>Unintentional transmission of alarm, other.</string>
+		<string>Biological hazard, malicious false report.</string>
+		<string>Severe weather or natural disaster, other.</string>
+		<string>Earthquake assessment, no rescue or other service rendered.</string>
+		<string>Flood assessment. Excludes water rescue (360 series).</string>
+		<string>Wind storm. Includes tornado, hurricane, or cyclone assessment. No other service rendered.</string>
+		<string>Lightning strike (no fire). Includes investigation.</string>
+		<string>Severe weather or natural disaster standby.</string>
+		<string>Special type of incident, other.</string>
+		<string>Citizen’s complaint. Includes reports of code or ordinance violation.</string>
+	</array>
+	<key>incidentTypeNumber</key>
+	<array>
+		<string>100</string>
+		<string>111</string>
+		<string>112</string>
+		<string>113</string>
+		<string>114</string>
+		<string>115</string>
+		<string>116</string>
+		<string>117</string>
+		<string>118</string>
+		<string>121</string>
+		<string>122</string>
+		<string>123</string>
+		<string>120</string>
+		<string>131</string>
+		<string>132</string>
+		<string>133</string>
+		<string>134</string>
+		<string>135</string>
+		<string>136</string>
+		<string>137</string>
+		<string>138</string>
+		<string>130</string>
+		<string>141</string>
+		<string>142</string>
+		<string>143</string>
+		<string>140</string>
+		<string>151</string>
+		<string>152</string>
+		<string>153</string>
+		<string>154</string>
+		<string>155</string>
+		<string>150</string>
+		<string>161</string>
+		<string>162</string>
+		<string>163</string>
+		<string>164</string>
+		<string>160</string>
+		<string>171</string>
+		<string>172</string>
+		<string>173</string>
+		<string>170</string>
+		<string>200</string>
+		<string>211</string>
+		<string>212</string>
+		<string>213</string>
+		<string>210</string>
+		<string>221</string>
+		<string>222</string>
+		<string>223</string>
+		<string>220</string>
+		<string>231</string>
+		<string>241</string>
+		<string>242</string>
+		<string>243</string>
+		<string>244</string>
+		<string>240</string>
+		<string>251</string>
+		<string>300</string>
+		<string>311</string>
+		<string>321</string>
+		<string>322</string>
+		<string>323</string>
+		<string>324</string>
+		<string>320</string>
+		<string>331</string>
+		<string>341</string>
+		<string>342</string>
+		<string>343</string>
+		<string>340</string>
+		<string>351</string>
+		<string>352</string>
+		<string>353</string>
+		<string>354</string>
+		<string>355</string>
+		<string>356</string>
+		<string>357</string>
+		<string>361</string>
+		<string>362</string>
+		<string>363</string>
+		<string>364</string>
+		<string>365</string>
+		<string>360</string>
+		<string>371</string>
+		<string>372</string>
+		<string>370</string>
+		<string>381</string>
+		<string>400</string>
+		<string>411</string>
+		<string>412</string>
+		<string>413</string>
+		<string>410</string>
+		<string>421</string>
+		<string>422</string>
+		<string>423</string>
+		<string>424</string>
+		<string>420</string>
+		<string>431</string>
+		<string>430</string>
+		<string>441</string>
+		<string>442</string>
+		<string>443</string>
+		<string>444</string>
+		<string>445</string>
+		<string>440</string>
+		<string>451</string>
+		<string>461</string>
+		<string>462</string>
+		<string>463</string>
+		<string>460</string>
+		<string>471</string>
+		<string>481</string>
+		<string>482</string>
+		<string>480</string>
+		<string>500</string>
+		<string>511</string>
+		<string>512</string>
+		<string>510</string>
+		<string>521</string>
+		<string>522</string>
+		<string>520</string>
+		<string>531</string>
+		<string>541</string>
+		<string>542</string>
+		<string>540</string>
+		<string>551</string>
+		<string>552</string>
+		<string>553</string>
+		<string>554</string>
+		<string>555</string>
+		<string>550</string>
+		<string>561</string>
+		<string>571</string>
+		<string>600</string>
+		<string>611</string>
+		<string>621</string>
+		<string>622</string>
+		<string>631</string>
+		<string>632</string>
+		<string>641</string>
+		<string>651</string>
+		<string>652</string>
+		<string>653</string>
+		<string>650</string>
+		<string>661</string>
+		<string>671</string>
+		<string>672</string>
+		<string>700</string>
+		<string>711</string>
+		<string>712</string>
+		<string>713</string>
+		<string>714</string>
+		<string>715</string>
+		<string>710</string>
+		<string>721</string>
+		<string>731</string>
+		<string>732</string>
+		<string>733</string>
+		<string>734</string>
+		<string>735</string>
+		<string>736</string>
+		<string>730</string>
+		<string>741</string>
+		<string>742</string>
+		<string>743</string>
+		<string>744</string>
+		<string>745</string>
+		<string>746</string>
+		<string>740</string>
+		<string>751</string>
+		<string>800</string>
+		<string>811</string>
+		<string>812</string>
+		<string>813</string>
+		<string>814</string>
+		<string>815</string>
+		<string>900</string>
+		<string>911</string>
+	</array>
+</dict>
+</plist>

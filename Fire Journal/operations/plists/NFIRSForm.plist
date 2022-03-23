@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>formDescriptions</key>
+	<array>
+		<string>The NFIRS-1 Basic Form is the most commonly used form following an emergency incident. Designed by the U.S. Fire Administration (USFA), this form should be used following every incident, regardless of type. Data may be shared, or, using Fire Journal Cloud (subscription required), you may create a PDF file that matches the Government NFIRS-1 form.</string>
+		<string>The Fire Module (NFIRS–2) is completed for incidents involving a noncontained fire. Each section or block in the Fire Module asks for information on particular types of fires or items involved in the fire.
+This module should be completed for Incident Types 100, 111, 112, 120–143, 160–173, and 170–173 found in Section C of the Basic Module.</string>
+		<string>The Structure Fire Module (NFIRS–3) should be completed for all structure fires. A structure is an assembly of materials forming a construction for occupancy or use to serve a specific purpose.This includes, but is not limited to, buildings, open platforms, bridges, roof assemblies over open storage or process areas, tents, air-supported structures, and grandstands.</string>
+		<string>The Civilian Fire Casualty Module should be completed whenever there are civilian casualties resulting from a fire. A fire casualty is a person who is injured or killed as a result of a fire, including injuries or deaths from natural or accidental causes sustained while involved in the activities of fire control, attempting rescue, or escaping from the dangers of the fire. Fires include Incident Types 100–199 as recorded on the Basic Module, Section C.</string>
+		<string>The Fire Service Casualty Module is used to report all injuries, deaths, or exposures to fire service per- sonnel.This includes casualties that occur in conjunction both with incident responses and with non- incident events such as station duties or training.</string>
+		<string>The EMS Module is an optional module. It should be used when that option has been chosen by your State or local authorities. The purpose of the EMS Module is to gather basic data as it relates to the provision of emergency medical care to the community. It may be used by both responding EMS unit(s) and responding fire suppression unit(s) that provide emergency medical services.This module does not include patient care information. The data collected from this form are incident based not patient based.</string>
+		<string>The Hazardous Materials (HazMat) Module is an optional module. It should be used when that option has been chosen by your State or local authorities. The HazMat Module is used when the Other box in Block H3 (“Hazardous Materials Release”) of the Basic Module (NFIRS–1) has been checked. Its purpose is to document reportable HazMat incidents.</string>
+		<string>The purpose of the Wildland Fire Module is to document reportable wildland fires: Reportable Wildland Fire: Any fire involving vegetative fuels, including a prescribed fire, that occurs in the wildland or urban-wildland interface areas, including those fires that threaten or consume structures. Prescribed fires are included in this definition of reportable fires to better understand the role of fire in the wildland ecosystem.</string>
+		<string>The Apparatus or Resources Module (NFIRS–9) is an optional module that is used to help manage and track apparatus and resources used on incidents.</string>
+		<string>This optional Arson Module may be used whenever the Cause of Ignition (Fire Module, Block E1) is coded as Intentional or as Cause Under Investigation without any distinction made as to whether a crime has occurred or a determination of criminal intent. The Arson Module may also be used when the fire is coded as Cause Undetermined After Investigation.</string>
+		<string>Community Risk Reduction (CRR) is an emerging trend in fire prevention. Capture the details of the visit, from the firefighters in attendance to the residents and everything about their home. Take as many photographs as you need, review overall home conditions, and detail not only smoke and CO detection devices in place or needed, but fire education and any follow up required.</string>
+		<string>Track your home smoke alarm visits. Capture the visit details, residence information, the status of smoke alarms and if you or a third party provides or installs them. Take photos of the residence, and organize any possible follow up. Sign off on the inspection and share it with your Battalion, fire prevention unit, or anyone else that should have access.</string>
+		<string>The Incident Briefing (ICS 201) provides the Incident Commander (and the Command and General Staffs) with basic information regarding the incident situation and the resources allocated to the incident. In addition to a briefing document, the ICS 201 also serves as an initial action worksheet. It serves as a permanent record of the initial response to the incident.</string>
+		<string>The Incident Objectives (ICS 202) describes the basic incident strategy, incident objectives, command emphasis/priorities, and safety considerations for use during the next operational period.</string>
+		<string>The Organization Assignment List (ICS 203) provides ICS personnel with information on the units that are currently activated and the names of personnel staffing each position/unit. It is used to complete the Incident Organization Chart (ICS 207) which is posted on the Incident Command Post display. An actual organization will be incident or event-specific. Not all positions need to be filled. Some blocks may contain more than one name. The size of the organization is dependent on the magnitude of the incident, and can be expanded or contracted as necessary.</string>
+		<string>The Assignment List(s) (ICS 204) informs Division and Group supervisors of incident assignments. Once the Command and General Staffs agree to the assignments, the assignment information is given to the appropriate Divisions and Groups.</string>
+		<string>The Incident Radio Communications Plan (ICS 205) provides information on all radio frequency or trunked radio system talkgroup assignments for each operational period. The plan is a summary of information obtained about available radio frequencies or talkgroups and the assignments of those resources by the Communications Unit Leader for use by incident responders. Information from the Incident Radio Communications Plan on frequency or talkgroup assignments is normally placed on the Assignment List (ICS 204).</string>
+		<string>The Communications List (ICS 205A) records methods of contact for incident personnel. While the Incident Radio Communications Plan (ICS 205) is used to provide information on all radio frequencies down to the Division/Group level, the ICS 205A indicates all methods of contact for personnel assigned to the incident (radio frequencies, phone numbers, pager numbers, etc.), and functions as an incident directory.</string>
+		<string>The Medical Plan (ICS 206) provides information on incident medical aid stations, transportation services, hospitals, and medical emergency procedures.</string>
+		<string>The Incident Organization Chart (ICS 207) provides a visual wall chart depicting the ICS organization position assignments for the incident. The ICS 207 is used to indicate what ICS organizational elements are currently activated and the names of personnel staffing each element. An actual organization will be event-specific. The size of the organization is dependent on the specifics and magnitude of the incident and is scalable and flexible. Personnel responsible for managing organizational positions are listed in each box as appropriate.</string>
+		<string>The Safety Message/Plan (ICS 208) expands on the Safety Message and Site Safety Plan.</string>
+		<string>The ICS 209 is used for reporting information on significant incidents. It is not intended for every incident, as most incidents are of short duration and do not require scarce resources, significant mutual aid, or additional support and attention. The ICS 209 contains basic information elements needed to support decisionmaking at all levels above the incident to support the incident. Decisionmakers may include the agency having jurisdiction, but also all multiagency coordination system (MACS) elements and parties, such as cooperating and assisting agencies/organizations, dispatch centers, emergency operations centers, administrators, elected officials, and local, tribal, county, State, and Federal agencies. Once ICS 209 information has been submitted from the incident, decisionmakers and others at all incident support and coordination points may transmit and share the information (based on its sensitivity and appropriateness) for access and use at local, regional, State, and national levels as it is needed to facilitate support.</string>
+		<string>The Resource Status Change (ICS 210) is used by the Incident Communications Center Manager to record status change information received on resources assigned to the incident. This information could be transmitted with a General Message (ICS 213). The form could also be used by Operations as a worksheet to track entry, etc.</string>
+		<string>Personnel and equipment arriving at the incident can check in at various incident locations. Check-in consists of reporting specific information, which is recorded on the Check-In List (ICS 211). The ICS 211 serves several purposes, as it: (1) records arrival times at the incident of all overhead personnel and equipment, (2) records the initial location of personnel and equipment to facilitate subsequent assignments, and (3) supports demobilization by recording the home base, method of travel, etc., for resources checked in.</string>
+		<string>The General Message (ICS 213) is used by the incident dispatchers to record incoming messages that cannot be orally transmitted to the intended recipients. The ICS 213 is also used by the Incident Command Post and other incident personnel to transmit messages (e.g., resource order, incident name change, other ICS coordination issues, etc.) to the Incident Communications Center for transmission via radio or telephone to the addressee. This form is used to send any message or notification to incident personnel that requires hard-copy delivery.</string>
+		<string>When assigned to a campaign incident, the Activity Log (ICS-214) records details of notably activities at any ICS level, including but not limited to single resources, equipment, crew, etc. These forms are to be completed on a daily basis. You may create a single form, or create a campaign, with ongoing daily forms attached to the master form. Data may be shared, or, using Fire Journal Cloud (subscription required), you may create a PDF file that matches that used by NIMS.</string>
+		<string>The Operational Planning Worksheet (ICS 215) communicates the decisions made by the Operations Section Chief during the Tactics Meeting concerning resource assignments and needs for the next operational period. The ICS 215 is used by the Resources Unit to complete the Assignment Lists (ICS 204) and by the Logistics Section Chief for ordering resources for the incident.</string>
+		<string>The purpose of the Incident Action Plan Safety Analysis (ICS 215A) is to aid the Safety Officer in completing an operational risk assessment to prioritize hazards, safety, and health issues, and to develop appropriate controls. This worksheet addresses communications challenges between planning and operations, and is best utilized in the planning phase and for Operations Section briefings.</string>
+		<string>The Support Vehicle/Equipment Inventory (ICS 218) provides an inventory of all transportation and support vehicles and equipment assigned to the incident. The information is used by the Ground Support Unit to maintain a record of the types and locations of vehicles and equipment on the incident. The Resources Unit uses the information to initiate and maintain status/resource information.</string>
+		<string>Resource Status Cards (ICS 219) are also known as “T-Cards,” and are used by the Resources Unit to record status and location information on resources, transportation, and support vehicles and personnel. These cards provide a visual display of the status and location of resources assigned to the incident.</string>
+		<string>The Air Operations Summary (ICS 220) provides the Air Operations Branch with the number, type, location, and specific assignments of helicopters and air resources.</string>
+		<string>The Demobilization Check-Out (ICS 221) ensures that resources checking out of the incident have completed all appropriate incident business, and provides the Planning Section information on resources released from the incident. Demobilization is a planned process and this form assists with that planning.</string>
+		<string>The Incident Personnel Performance Rating (ICS 225) gives supervisors the opportunity to evaluate subordinates on incident assignments. THIS RATING IS TO BE USED ONLY FOR DETERMINING AN INDIVIDUAL’S PERFORMANCE ON AN INCIDENT/EVENT.</string>
+		<string>Walk through the building with your iPad. Capture the location with a single tap. Add photos of each exposure. Detail the building construction, risks, utilities, smoke alarms, fire protection doors, previous inspections, and add any comments that may be useful if or when an incident occurs at the address you’re visiting.</string>
+		<string>Inspect your fire station fire hydrants.</string>
+		<string>CPR Training Form need a description</string>
+		<string>This form is to be used when inspecting a living space for working smoke alarms. You may use a single form, or create a campaign (such as when inspecting an entire street). Data may be shared, or, using Fire JournalCloud (subscription required), you may create a PDF file that matches that used by the American Red Cross.</string>
+	</array>
+	<key>formImageType</key>
+	<array>
+		<string>NFIRSBasic</string>
+		<string>NFIRSBasic</string>
+		<string>NFIRSBasic</string>
+		<string>NFIRSBasic</string>
+		<string>NFIRSBasic</string>
+		<string>NFIRSBasic</string>
+		<string>NFIRSBasic</string>
+		<string>NFIRSBasic</string>
+		<string>NFIRSBasic</string>
+		<string>NFIRSBasic</string>
+		<string>CRR</string>
+		<string>SMOKEC0</string>
+		<string>NIMS</string>
+		<string>NIMS</string>
+		<string>NIMS</string>
+		<string>NIMS</string>
+		<string>NIMS</string>
+		<string>NIMS</string>
+		<string>NIMS</string>
+		<string>NIMS</string>
+		<string>NIMS</string>
+		<string>NIMS</string>
+		<string>NIMS</string>
+		<string>NIMS</string>
+		<string>NIMS</string>
+		<string>NIMS</string>
+		<string>NIMS</string>
+		<string>NIMS</string>
+		<string>NIMS</string>
+		<string>NIMS</string>
+		<string>NIMS</string>
+		<string>NIMS</string>
+		<string>NIMS</string>
+		<string>SCOPE</string>
+		<string>HYDRANT</string>
+		<string>CPR</string>
+		<string>ARC</string>
+	</array>
+	<key>formName</key>
+	<array>
+		<string>NFIRS-1 Basic</string>
+		<string>NFIRS-2 Fire Module</string>
+		<string>NFIRS-3 Structure Fire Module</string>
+		<string>NFIRS-4 Civilian Fire Casualty Module</string>
+		<string>NFIRS-5 Fire Service Casualty Module</string>
+		<string>NFIRS-6 EMS Module</string>
+		<string>NFIRS-7 HazMat Module</string>
+		<string>NFIRS-8 Wildland Fire Module</string>
+		<string>NFIRS-9/-10 Apparatus/Personnel Modules</string>
+		<string>NFIRS-11 Arson Module</string>
+		<string>CRR Home Inspection</string>
+		<string>Smoke Alarm/C0 Alarm Inspection</string>
+		<string>NIMS ICS 201 Incident Briefing</string>
+		<string>NIMS ICS 202 Incident Objectives</string>
+		<string>NIMS ICS 203 Organization Assignment List</string>
+		<string>NIMS ICS 204 Assignment List</string>
+		<string>NIMS ICS 205 Incident Radio Communications Plan</string>
+		<string>NIMS ICS 205A Communication List</string>
+		<string>NIMS ICS 206 Medical Plan</string>
+		<string>NIMS ICS 207 Incident Organiation Chart</string>
+		<string>NIMS ICS 208 Safety Message/Plan</string>
+		<string>NIMS ICS 209 Incident Status Summary</string>
+		<string>NIMS ICS 210 Resource Status Change</string>
+		<string>NIMS ICS 211 Incident Check-In List</string>
+		<string>NIMS ICS 213 General Message</string>
+		<string>NIMS ICS 214 Activity Log</string>
+		<string>NIMS ICS 215 Operational Planning Worksheet</string>
+		<string>NIMS ICS 215A Incident Action Plan Safety Analysis</string>
+		<string>NIMS ICS 218 Support Vehicle/Equiptment Inventory</string>
+		<string>NIMS ICS 219 to ICS 219-8, ICS 219-10 Resource Status Card</string>
+		<string>NIMS ICS 220 Air Operations Summary Worksheet</string>
+		<string>NIMS ICS 221 Demobiliztion Check-Out</string>
+		<string>NIMS ICS 225 Incident Personnel Performance Rating</string>
+		<string>General Inspection Form</string>
+		<string>Hydrant Inspection Form</string>
+		<string>CPR Training Form</string>
+		<string>ARC Smoke Alarm Form</string>
+	</array>
+	<key>formVisible</key>
+	<array>
+		<true/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<true/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<false/>
+		<true/>
+	</array>
+	<key>displayOrder</key>
+	<array>
+		<integer>0</integer>
+		<integer>1</integer>
+		<integer>2</integer>
+		<integer>3</integer>
+		<integer>4</integer>
+		<integer>5</integer>
+		<integer>6</integer>
+		<integer>7</integer>
+		<integer>8</integer>
+		<integer>9</integer>
+		<integer>10</integer>
+		<integer>11</integer>
+		<integer>12</integer>
+		<integer>13</integer>
+		<integer>14</integer>
+		<integer>15</integer>
+		<integer>16</integer>
+		<integer>17</integer>
+		<integer>18</integer>
+		<integer>19</integer>
+		<integer>20</integer>
+		<integer>21</integer>
+		<integer>22</integer>
+		<integer>23</integer>
+		<integer>24</integer>
+		<integer>25</integer>
+		<integer>26</integer>
+		<integer>27</integer>
+		<integer>28</integer>
+		<integer>29</integer>
+		<integer>30</integer>
+		<integer>31</integer>
+		<integer>32</integer>
+		<integer>33</integer>
+		<integer>34</integer>
+		<integer>35</integer>
+		<integer>36</integer>
+	</array>
+</dict>
+</plist>

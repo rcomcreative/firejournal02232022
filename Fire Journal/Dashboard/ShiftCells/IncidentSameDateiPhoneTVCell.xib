@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="IncidentSameDateiPhoneTVCell" rowHeight="165" id="Qj6-ml-cWK" userLabel="IncidentSameDateiPhoneTVCell" customClass="IncidentSameDateiPhoneTVCell" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="165"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Qj6-ml-cWK" id="yHX-Xn-0ga">
+                <rect key="frame" x="0.0" y="0.0" width="500" height="165"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Dose" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jqo-Z3-qgT">
+                        <rect key="frame" x="26" y="14" width="439" height="29"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g8O-v9-3Wq">
+                        <rect key="frame" x="169" y="47" width="51" height="31"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="31" id="G70-Sv-uh5"/>
+                            <constraint firstAttribute="width" constant="49" id="rxH-Mn-O2H"/>
+                        </constraints>
+                        <connections>
+                            <action selector="sameAsAlarmTapped:" destination="Qj6-ml-cWK" eventType="valueChanged" id="QY0-Hb-xZE"/>
+                        </connections>
+                    </switch>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Same as alarm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wdx-VV-1Ug">
+                        <rect key="frame" x="26" y="52" width="135" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="135" id="amh-mk-w7c"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Thurs March 21, 2022 11:16:05HR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ieN-iZ-wPp">
+                        <rect key="frame" x="26" y="134" width="343" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="343" id="wns-iT-lUa"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="DIg-Vn-XvY">
+                        <rect key="frame" x="26" y="89" width="203" height="31"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" systemColor="labelColor"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="203" id="F7b-H6-ZCC"/>
+                            <constraint firstAttribute="height" constant="31" id="ucN-YA-5Wn"/>
+                        </constraints>
+                        <connections>
+                            <action selector="datePickerTapped:forEvent:" destination="Qj6-ml-cWK" eventType="valueChanged" id="sO8-68-bu8"/>
+                        </connections>
+                    </datePicker>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="g8O-v9-3Wq" firstAttribute="leading" secondItem="Wdx-VV-1Ug" secondAttribute="trailing" constant="8" symbolic="YES" id="0b8-p0-jge"/>
+                    <constraint firstItem="ieN-iZ-wPp" firstAttribute="top" secondItem="DIg-Vn-XvY" secondAttribute="bottom" constant="14" id="IV8-Gz-nVw"/>
+                    <constraint firstItem="DIg-Vn-XvY" firstAttribute="top" secondItem="Wdx-VV-1Ug" secondAttribute="bottom" constant="16" id="L8f-yn-cwH"/>
+                    <constraint firstItem="jqo-Z3-qgT" firstAttribute="leading" secondItem="yHX-Xn-0ga" secondAttribute="leading" constant="26" id="S9H-Za-3jW"/>
+                    <constraint firstItem="g8O-v9-3Wq" firstAttribute="centerY" secondItem="Wdx-VV-1Ug" secondAttribute="centerY" id="U1r-6S-Ndc"/>
+                    <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="jqo-Z3-qgT" secondAttribute="trailing" constant="35" id="jrf-ZY-i1b"/>
+                    <constraint firstItem="DIg-Vn-XvY" firstAttribute="leading" secondItem="jqo-Z3-qgT" secondAttribute="leading" id="kFw-RF-O8O"/>
+                    <constraint firstItem="Wdx-VV-1Ug" firstAttribute="top" secondItem="jqo-Z3-qgT" secondAttribute="bottom" constant="9" id="ojL-4d-uxr"/>
+                    <constraint firstItem="jqo-Z3-qgT" firstAttribute="top" secondItem="yHX-Xn-0ga" secondAttribute="top" constant="14" id="yvk-vR-QFw"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="gWJ-yP-lM8"/>
+            <connections>
+                <outlet property="datePicker" destination="DIg-Vn-XvY" id="CW9-iz-jbv"/>
+                <outlet property="sameAsAlarmL" destination="Wdx-VV-1Ug" id="i7K-D4-SHp"/>
+                <outlet property="sameAsAlarmSwitch" destination="g8O-v9-3Wq" id="Syl-xN-f9A"/>
+                <outlet property="subjectL" destination="jqo-Z3-qgT" id="mS0-Vi-t1J"/>
+                <outlet property="timeL" destination="ieN-iZ-wPp" id="yoe-gb-LK1"/>
+            </connections>
+            <point key="canvasLocation" x="33.333333333333336" y="-98.772321428571431"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

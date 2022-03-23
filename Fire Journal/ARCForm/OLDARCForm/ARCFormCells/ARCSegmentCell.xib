@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="ARCSegmentCell" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="135"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="500" height="134.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How would you like to use this form?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mpa-xV-n99">
+                        <rect key="frame" x="0.0" y="10" width="500" height="24"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="k6t-PJ-Fhw">
+                        <rect key="frame" x="122.5" y="43" width="255" height="29"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="28" id="EVT-uo-9pX"/>
+                            <constraint firstAttribute="width" constant="255" id="fyJ-V1-bnV"/>
+                        </constraints>
+                        <segments>
+                            <segment title="First Form"/>
+                            <segment title="Additional Form"/>
+                        </segments>
+                        <connections>
+                            <action selector="arcSegmentTapped:" destination="KGk-i7-Jjw" eventType="valueChanged" id="q49-2f-rH1"/>
+                        </connections>
+                    </segmentedControl>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TD7-OX-wP0">
+                        <rect key="frame" x="355" y="97" width="95" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="32" id="uHa-Nf-pvM"/>
+                            <constraint firstAttribute="width" constant="95" id="xO5-Lp-tKj"/>
+                        </constraints>
+                        <state key="normal" backgroundImage="ContinueButton"/>
+                        <connections>
+                            <action selector="masterContinueBTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="JFw-sj-w1f"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="TD7-OX-wP0" secondAttribute="bottom" constant="5.5" id="4Qx-nd-sbP"/>
+                    <constraint firstItem="Mpa-xV-n99" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="L93-iJ-kyL"/>
+                    <constraint firstItem="k6t-PJ-Fhw" firstAttribute="top" secondItem="Mpa-xV-n99" secondAttribute="bottom" constant="9" id="Zdy-LU-Kvp"/>
+                    <constraint firstItem="Mpa-xV-n99" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="aZp-DR-VfH"/>
+                    <constraint firstItem="Mpa-xV-n99" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" id="aaR-CH-Grb"/>
+                    <constraint firstItem="k6t-PJ-Fhw" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="g5O-iS-uUT"/>
+                    <constraint firstAttribute="trailing" secondItem="TD7-OX-wP0" secondAttribute="trailing" constant="50" id="t24-Mo-Rk0"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="arcSegment" destination="k6t-PJ-Fhw" id="0C8-Bv-Iaf"/>
+                <outlet property="masterContinueB" destination="TD7-OX-wP0" id="zqS-2R-acc"/>
+                <outlet property="titleL" destination="Mpa-xV-n99" id="PZd-RQ-7J8"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ContinueButton" width="95" height="28"/>
+    </resources>
+</document>

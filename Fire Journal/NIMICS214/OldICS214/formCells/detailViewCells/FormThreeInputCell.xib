@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="100" id="KGk-i7-Jjw" customClass="FormThreeInputCell" customModule="ARCForm" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="600" height="99"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="10. Operational Period:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M3I-rU-gZx">
+                        <rect key="frame" x="12" y="5" width="238" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Sxq-Li-mo4">
+                        <rect key="frame" x="12" y="33" width="576" height="21"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="IVO-ES-T85">
+                                <rect key="frame" x="0.0" y="0.0" width="576" height="21"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date To:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rS7-kz-jDp">
+                                        <rect key="frame" x="0.0" y="0.0" width="172" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="FHW-U0-X4R"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date To:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wBs-GV-BSU">
+                                        <rect key="frame" x="202" y="0.0" width="172" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="hGJ-5h-UKC"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date To:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="10i-L8-VXq">
+                                        <rect key="frame" x="404" y="0.0" width="172" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="UYx-Ld-a8U"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="wBs-GV-BSU" firstAttribute="width" secondItem="rS7-kz-jDp" secondAttribute="width" id="RPj-bo-grM"/>
+                                    <constraint firstItem="10i-L8-VXq" firstAttribute="width" secondItem="rS7-kz-jDp" secondAttribute="width" id="shD-YG-aBn"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                    </stackView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j5U-eV-1FY">
+                        <rect key="frame" x="481" y="65" width="80" height="28"/>
+                        <state key="normal" backgroundImage="addContactGreenButton"/>
+                        <connections>
+                            <action selector="addButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="slN-kg-RRG"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </tableViewCellContentView>
+            <constraints>
+                <constraint firstItem="Sxq-Li-mo4" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" constant="12" id="6Gw-7v-yXv"/>
+                <constraint firstItem="M3I-rU-gZx" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" constant="5" id="GTn-H1-big"/>
+                <constraint firstAttribute="trailing" secondItem="j5U-eV-1FY" secondAttribute="trailing" constant="39" id="Hd8-wB-vcX"/>
+                <constraint firstItem="M3I-rU-gZx" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" constant="12" id="aGv-L8-E1x"/>
+                <constraint firstItem="Sxq-Li-mo4" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" constant="33" id="e8P-bD-6kR"/>
+                <constraint firstItem="Sxq-Li-mo4" firstAttribute="centerX" secondItem="KGk-i7-Jjw" secondAttribute="centerX" id="oVD-Ao-QHF"/>
+                <constraint firstItem="j5U-eV-1FY" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" constant="65" id="qf4-ej-Eo8"/>
+            </constraints>
+            <connections>
+                <outlet property="addButton" destination="j5U-eV-1FY" id="RqW-X5-BKo"/>
+                <outlet property="cellL" destination="M3I-rU-gZx" id="6GT-AO-yby"/>
+                <outlet property="inputLabelOne" destination="rS7-kz-jDp" id="hGL-Mx-iRP"/>
+                <outlet property="inputLabelThree" destination="10i-L8-VXq" id="UNj-by-66W"/>
+                <outlet property="inputLabelTwo" destination="wBs-GV-BSU" id="9BZ-Jy-I9l"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="addContactGreenButton" width="80" height="28"/>
+    </resources>
+</document>

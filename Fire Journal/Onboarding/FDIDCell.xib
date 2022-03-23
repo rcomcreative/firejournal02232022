@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="FDIDCell" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="500" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g8l-uq-2jf">
+                        <rect key="frame" x="0.0" y="0.0" width="500" height="44"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="33065" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KHu-vw-Uo9">
+                                <rect key="frame" x="9" y="11" width="52" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DEPT NAME" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NBM-EC-UbM">
+                                <rect key="frame" x="69" y="16" width="69.5" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Palm Springs" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="77h-6W-SYA">
+                                <rect key="frame" x="350" y="16" width="74" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="KHu-vw-Uo9" firstAttribute="top" secondItem="g8l-uq-2jf" secondAttribute="top" constant="11" id="D2l-EU-gTs"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="77h-6W-SYA" secondAttribute="trailing" id="FRu-hV-XNl"/>
+                            <constraint firstItem="NBM-EC-UbM" firstAttribute="top" secondItem="g8l-uq-2jf" secondAttribute="top" constant="16" id="FhI-EC-v6O"/>
+                            <constraint firstItem="KHu-vw-Uo9" firstAttribute="leading" secondItem="g8l-uq-2jf" secondAttribute="leading" constant="9" id="UQh-Aj-S5d"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="KHu-vw-Uo9" secondAttribute="trailing" id="YtR-dG-L7N"/>
+                            <constraint firstItem="77h-6W-SYA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="NBM-EC-UbM" secondAttribute="trailing" id="ZMs-e1-4yu"/>
+                            <constraint firstItem="NBM-EC-UbM" firstAttribute="leading" secondItem="g8l-uq-2jf" secondAttribute="leading" constant="69" id="e3B-AO-pq3"/>
+                            <constraint firstItem="77h-6W-SYA" firstAttribute="top" secondItem="g8l-uq-2jf" secondAttribute="top" constant="16" id="uTe-zX-aOM"/>
+                            <constraint firstItem="77h-6W-SYA" firstAttribute="leading" secondItem="g8l-uq-2jf" secondAttribute="leading" constant="350" id="ziz-92-zq4"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="g8l-uq-2jf" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="4gb-lm-Ofs"/>
+                    <constraint firstAttribute="trailing" secondItem="g8l-uq-2jf" secondAttribute="trailing" id="BCb-ip-K2r"/>
+                    <constraint firstItem="g8l-uq-2jf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="WnH-Ta-RDS"/>
+                    <constraint firstItem="g8l-uq-2jf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="d9a-PV-LNG"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="cityL" destination="77h-6W-SYA" id="Dvt-xT-IA0"/>
+                <outlet property="deptL" destination="NBM-EC-UbM" id="bgq-vg-dH7"/>
+                <outlet property="fdidL" destination="KHu-vw-Uo9" id="mOo-km-Zr0"/>
+            </connections>
+            <point key="canvasLocation" x="137.59999999999999" y="153.82308845577214"/>
+        </tableViewCell>
+    </objects>
+</document>

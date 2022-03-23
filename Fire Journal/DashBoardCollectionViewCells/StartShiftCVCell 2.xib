@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="StartShiftCVCell" id="Dgt-vf-lmM" customClass="StartShiftCVCell" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="342" height="85"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="kKS-cD-a9r">
+                <rect key="frame" x="0.0" y="0.0" width="342" height="85"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="EDF0F6-D8E7FA_CellBkgrnd4sq" translatesAutoresizingMaskIntoConstraints="NO" id="uqo-ew-d3m">
+                        <rect key="frame" x="-4" y="0.0" width="350" height="84"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </imageView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ICONS_startShift" translatesAutoresizingMaskIntoConstraints="NO" id="p2u-KT-cJ1">
+                        <rect key="frame" x="16" y="8" width="69" height="69"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="68.999999999999773" id="gvx-35-erU"/>
+                            <constraint firstAttribute="height" constant="68.999999999999773" id="xs9-Q4-eP5"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9n4-NA-juN">
+                        <rect key="frame" x="93" y="9.5" width="158" height="66"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="66" id="dwp-DP-3tY"/>
+                        </constraints>
+                        <string key="text">Start
+Shift</string>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="27"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uuB-K5-dpp">
+                        <rect key="frame" x="252" y="10" width="65" height="65"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="65" id="Ghg-Bt-6FR"/>
+                            <constraint firstAttribute="width" constant="65" id="yw9-CS-HMs"/>
+                        </constraints>
+                        <state key="normal" backgroundImage="startShiftGreenGradient"/>
+                        <connections>
+                            <action selector="startShiftBTapped:" destination="Dgt-vf-lmM" eventType="touchUpInside" id="JNq-8Q-BmV"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="p2u-KT-cJ1" firstAttribute="leading" secondItem="kKS-cD-a9r" secondAttribute="leading" constant="16" id="3uY-GX-eCe"/>
+                    <constraint firstItem="9n4-NA-juN" firstAttribute="leading" secondItem="kKS-cD-a9r" secondAttribute="leading" constant="93" id="7eD-ox-P90"/>
+                    <constraint firstItem="p2u-KT-cJ1" firstAttribute="top" secondItem="kKS-cD-a9r" secondAttribute="top" constant="8" id="LIH-98-sed"/>
+                    <constraint firstAttribute="trailing" secondItem="uuB-K5-dpp" secondAttribute="trailing" constant="25" id="VG8-YM-nWO"/>
+                    <constraint firstItem="9n4-NA-juN" firstAttribute="centerY" secondItem="kKS-cD-a9r" secondAttribute="centerY" id="aht-PV-Xm8"/>
+                    <constraint firstItem="uuB-K5-dpp" firstAttribute="top" secondItem="kKS-cD-a9r" secondAttribute="top" constant="10" id="bcT-pQ-lba"/>
+                    <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="9n4-NA-juN" secondAttribute="trailing" constant="91" id="srH-mt-RTY"/>
+                </constraints>
+            </collectionViewCellContentView>
+            <connections>
+                <outlet property="backgroundGradientIV" destination="uqo-ew-d3m" id="lhP-jV-Abu"/>
+                <outlet property="iconIV" destination="p2u-KT-cJ1" id="rd7-FD-YXv"/>
+                <outlet property="startShiftB" destination="uuB-K5-dpp" id="jew-4d-ybY"/>
+                <outlet property="subjectL" destination="9n4-NA-juN" id="PBY-B8-zNL"/>
+            </connections>
+            <point key="canvasLocation" x="-75.362318840579718" y="-22.433035714285712"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="EDF0F6-D8E7FA_CellBkgrnd4sq" width="342" height="84"/>
+        <image name="ICONS_startShift" width="833" height="833"/>
+        <image name="startShiftGreenGradient" width="65" height="65"/>
+    </resources>
+</document>

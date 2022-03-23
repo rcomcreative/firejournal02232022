@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ARC_MapViewCell" rowHeight="544" id="KGk-i7-Jjw" customClass="ARC_MapViewCell" customModule="FJ_ARC_Plus" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="544"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="500" height="544"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="hybrid" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4cw-Gk-cK1">
+                        <rect key="frame" x="0.0" y="44" width="500" height="490"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <connections>
+                            <outlet property="delegate" destination="KGk-i7-Jjw" id="3TU-wb-WoF"/>
+                        </connections>
+                    </mapView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cbs-qO-PNM">
+                        <rect key="frame" x="317" y="52" width="172" height="30"/>
+                        <color key="backgroundColor" name="FJARCRed"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="172" id="9mO-pN-KHw"/>
+                            <constraint firstAttribute="height" constant="30" id="oqg-ye-Upf"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                        <state key="normal" title="Use Address">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <connections>
+                            <action selector="useAddressBTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="uQN-Em-KgI"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QYH-md-wNN">
+                        <rect key="frame" x="449" y="97.5" width="40" height="39"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="eUX-jp-cxv"/>
+                            <constraint firstAttribute="height" constant="40" id="tej-Tr-6tb"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                        <color key="tintColor" name="FJARCRed"/>
+                        <state key="normal" backgroundImage="info.circle" catalog="system">
+                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <connections>
+                            <action selector="mapCellInfoBTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="poA-cG-7s1"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="QYH-md-wNN" firstAttribute="top" secondItem="cbs-qO-PNM" secondAttribute="bottom" constant="15" id="NIk-pT-taE"/>
+                    <constraint firstAttribute="trailing" secondItem="cbs-qO-PNM" secondAttribute="trailing" constant="11" id="WCf-KE-j20"/>
+                    <constraint firstItem="QYH-md-wNN" firstAttribute="trailing" secondItem="cbs-qO-PNM" secondAttribute="trailing" id="deR-iZ-SJu"/>
+                    <constraint firstItem="cbs-qO-PNM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="52" id="tCU-4f-ryL"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="mapCellInfoB" destination="QYH-md-wNN" id="4Mh-Gi-ZFP"/>
+                <outlet property="mapV" destination="4cw-Gk-cK1" id="zZY-lM-RkK"/>
+                <outlet property="useAddressB" destination="cbs-qO-PNM" id="qM4-dS-Qzp"/>
+            </connections>
+            <point key="canvasLocation" x="-273" y="55"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="info.circle" catalog="system" width="128" height="121"/>
+        <namedColor name="FJARCRed">
+            <color red="0.93300002813339233" green="0.23100000619888306" blue="0.20000000298023224" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

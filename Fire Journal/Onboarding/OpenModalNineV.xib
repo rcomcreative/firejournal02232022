@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="ipad9_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="OpenModelNine" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="1025"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tvc-colorField" translatesAutoresizingMaskIntoConstraints="NO" id="Xgg-gc-pWZ">
+                    <rect key="frame" x="0.0" y="0.0" width="500" height="1025"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="supportHeader" translatesAutoresizingMaskIntoConstraints="NO" id="9U5-n1-4j8">
+                    <rect key="frame" x="0.0" y="0.0" width="500" height="274"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="274" id="Oj4-Wl-yBI"/>
+                        <constraint firstAttribute="width" constant="500" id="ZXw-0w-NO7"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="15" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JVD-K6-0HB">
+                    <rect key="frame" x="47" y="295" width="400" height="300"/>
+                    <color key="backgroundColor" red="0.92865699999999995" green="0.0" blue="0.79544499999999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="300" id="C3u-14-23R"/>
+                        <constraint firstAttribute="width" constant="400" id="ZoD-EQ-Jnc"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Questions?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ykh-E3-IMW">
+                    <rect key="frame" x="47" y="250" width="219" height="58"/>
+                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="48"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Xgg-gc-pWZ" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="7Tf-6d-dpl"/>
+                <constraint firstItem="9U5-n1-4j8" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="GHW-fH-hmP"/>
+                <constraint firstItem="JVD-K6-0HB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="47" id="P26-xs-dem"/>
+                <constraint firstItem="Xgg-gc-pWZ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="QOc-WO-3AY"/>
+                <constraint firstItem="Xgg-gc-pWZ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="U6H-WV-7Jx"/>
+                <constraint firstItem="ykh-E3-IMW" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="250" id="UCx-g6-rwg"/>
+                <constraint firstItem="ykh-E3-IMW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="47" id="fHz-it-Sxv"/>
+                <constraint firstItem="JVD-K6-0HB" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="295" id="hDr-hU-74q"/>
+                <constraint firstItem="9U5-n1-4j8" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="lXn-xr-Cf5"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ykh-E3-IMW" secondAttribute="trailing" id="oc3-i0-cin"/>
+                <constraint firstItem="Xgg-gc-pWZ" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="rXw-Yd-0yC"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="backgroundIV" destination="Xgg-gc-pWZ" id="LAD-sU-sxF"/>
+                <outlet property="descriptionL" destination="JVD-K6-0HB" id="V2D-Fk-2B9"/>
+                <outlet property="headerIV" destination="9U5-n1-4j8" id="iln-Oc-PEu"/>
+                <outlet property="subjectL" destination="ykh-E3-IMW" id="7aP-UE-zdS"/>
+            </connections>
+            <point key="canvasLocation" x="31" y="30"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="supportHeader" width="540" height="274"/>
+        <image name="tvc-colorField" width="10" height="10"/>
+    </resources>
+</document>

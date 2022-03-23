@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="LabelSingleDateFieldCell" rowHeight="100" id="6DK-t4-4KW" customClass="LabelSingleDateFieldCell" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="60"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6DK-t4-4KW" id="cac-Pc-8lN">
+                <rect key="frame" x="0.0" y="0.0" width="500" height="60"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Dose" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GMT-3K-iUo">
+                        <rect key="frame" x="26" y="14" width="150" height="29"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="150" id="4x2-i8-ruv"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4hW-dR-vm7">
+                        <rect key="frame" x="191" y="12.5" width="249" height="32"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="u0j-dh-EUC">
+                                <rect key="frame" x="0.0" y="0.0" width="125" height="35"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" systemColor="labelColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="105" id="8go-lJ-gjP"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="datePickerTapped:forEvent:" destination="6DK-t4-4KW" eventType="valueChanged" id="0Qt-lV-zd8"/>
+                                </connections>
+                            </datePicker>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="u0j-dh-EUC" secondAttribute="bottom" constant="-3" id="NZ4-OQ-kLM"/>
+                            <constraint firstItem="u0j-dh-EUC" firstAttribute="top" secondItem="4hW-dR-vm7" secondAttribute="top" id="bHB-C3-Gu0"/>
+                            <constraint firstItem="u0j-dh-EUC" firstAttribute="leading" secondItem="4hW-dR-vm7" secondAttribute="leading" id="hYd-fc-2hb"/>
+                            <constraint firstAttribute="height" constant="32" id="klZ-MN-inP"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="4hW-dR-vm7" firstAttribute="centerY" secondItem="GMT-3K-iUo" secondAttribute="centerY" id="0u0-OG-dkL"/>
+                    <constraint firstItem="GMT-3K-iUo" firstAttribute="leading" secondItem="cac-Pc-8lN" secondAttribute="leading" constant="26" id="50s-q4-1cp"/>
+                    <constraint firstItem="GMT-3K-iUo" firstAttribute="top" secondItem="cac-Pc-8lN" secondAttribute="top" constant="14" id="6oa-D6-cIT"/>
+                    <constraint firstItem="4hW-dR-vm7" firstAttribute="leading" secondItem="GMT-3K-iUo" secondAttribute="trailing" constant="15" id="MEp-fr-0Nk"/>
+                    <constraint firstAttribute="trailing" secondItem="4hW-dR-vm7" secondAttribute="trailing" constant="60" id="nF2-N6-fce"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="kQn-lB-UWM"/>
+            <connections>
+                <outlet property="dateHolderV" destination="4hW-dR-vm7" id="JIx-Tl-q6W"/>
+                <outlet property="datePicker" destination="u0j-dh-EUC" id="6aa-N1-PnQ"/>
+                <outlet property="subjectL" destination="GMT-3K-iUo" id="uNi-du-8dc"/>
+            </connections>
+            <point key="canvasLocation" x="33.333333333333336" y="-98.102678571428569"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="100" id="Gcz-f5-DSE" customClass="NewICS214HeaderCell" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="125"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Gcz-f5-DSE" id="ahE-nZ-yNf">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="125"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="296-p5-Gvi">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="32"/>
+                        <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="32" id="NHz-q6-xhI"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UGB-tJ-mIv">
+                        <rect key="frame" x="100" y="65" width="207" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="Irf-Xj-xrs"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="widthClass=compact">
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                        </variation>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ics214" translatesAutoresizingMaskIntoConstraints="NO" id="vAs-Xc-EiI">
+                        <rect key="frame" x="13" y="38" width="80" height="80"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="80" id="Nss-Uq-H64"/>
+                            <constraint firstAttribute="width" constant="80" id="hrM-Js-jOb"/>
+                        </constraints>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rI8-L8-jmT">
+                        <rect key="frame" x="25" y="2" width="48" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="48" id="Dqb-bD-BJz"/>
+                            <constraint firstAttribute="height" constant="30" id="rXF-Np-qlC"/>
+                        </constraints>
+                        <state key="normal" title="Cancel">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <connections>
+                            <action selector="cancelBTapped:" destination="Gcz-f5-DSE" eventType="touchUpInside" id="WwW-Of-lyC"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n88-pg-qxd">
+                        <rect key="frame" x="266" y="2" width="34" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="34" id="GOl-61-Rg0"/>
+                            <constraint firstAttribute="height" constant="30" id="gOm-GQ-EaJ"/>
+                        </constraints>
+                        <state key="normal" title="Save">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <connections>
+                            <action selector="saveBTapped:" destination="Gcz-f5-DSE" eventType="touchUpInside" id="mRE-IN-Q9t"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="UGB-tJ-mIv" firstAttribute="top" secondItem="ahE-nZ-yNf" secondAttribute="top" constant="65" id="3aR-Ev-9Fe"/>
+                    <constraint firstItem="vAs-Xc-EiI" firstAttribute="leading" secondItem="ahE-nZ-yNf" secondAttribute="leading" constant="13" id="8Ln-pX-8kD"/>
+                    <constraint firstItem="296-p5-Gvi" firstAttribute="top" secondItem="ahE-nZ-yNf" secondAttribute="top" id="9fk-Sn-c6N"/>
+                    <constraint firstAttribute="trailing" secondItem="296-p5-Gvi" secondAttribute="trailing" id="LG5-KP-KTn"/>
+                    <constraint firstItem="rI8-L8-jmT" firstAttribute="top" secondItem="ahE-nZ-yNf" secondAttribute="top" constant="2" id="UpL-iU-69e"/>
+                    <constraint firstAttribute="trailing" secondItem="n88-pg-qxd" secondAttribute="trailing" constant="20" id="Z5x-GN-fZh"/>
+                    <constraint firstItem="rI8-L8-jmT" firstAttribute="leading" secondItem="ahE-nZ-yNf" secondAttribute="leading" constant="25" id="cYP-aE-9g7"/>
+                    <constraint firstItem="n88-pg-qxd" firstAttribute="top" secondItem="ahE-nZ-yNf" secondAttribute="top" constant="2" id="eu6-6F-sLZ"/>
+                    <constraint firstItem="UGB-tJ-mIv" firstAttribute="leading" secondItem="vAs-Xc-EiI" secondAttribute="trailing" constant="7" id="jjN-Lo-VnD"/>
+                    <constraint firstItem="vAs-Xc-EiI" firstAttribute="top" secondItem="ahE-nZ-yNf" secondAttribute="top" constant="38" id="nDj-im-Njd"/>
+                    <constraint firstItem="296-p5-Gvi" firstAttribute="leading" secondItem="ahE-nZ-yNf" secondAttribute="leading" id="oLo-2G-2Fg"/>
+                    <constraint firstAttribute="trailing" secondItem="UGB-tJ-mIv" secondAttribute="trailing" constant="13" id="uo7-El-iSY"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="cancelB" destination="rI8-L8-jmT" id="MQd-wG-EBZ"/>
+                <outlet property="iconIV" destination="vAs-Xc-EiI" id="U0U-0I-3UQ"/>
+                <outlet property="saveB" destination="n88-pg-qxd" id="CHD-oh-XuA"/>
+                <outlet property="subjectL" destination="UGB-tJ-mIv" id="Gw5-5P-dau"/>
+            </connections>
+            <point key="canvasLocation" x="136.23188405797103" y="143.63839285714286"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ics214" width="240" height="240"/>
+    </resources>
+</document>

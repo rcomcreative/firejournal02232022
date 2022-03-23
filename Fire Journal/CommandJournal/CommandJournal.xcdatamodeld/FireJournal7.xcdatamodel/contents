@@ -1,0 +1,1254 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16F73" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="FireJournalLite">
+    <entity name="ActionsTaken" representedClassName="ActionsTaken" elementID="ActionsTaken" syncable="YES">
+        <attribute name="additionalThree" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="additionalThreeNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="additionalTwo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="additionalTwoNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fjpIncReference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="primaryAction" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="primaryActionNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="actionsTakenInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Incident" inverseName="actionsTakenDetails" inverseEntity="Incident" elementID="incidentActionsTakenInfo" syncable="YES"/>
+    </entity>
+    <entity name="BackUp" representedClassName="BackUp" syncable="YES">
+        <attribute name="apparatusBackup" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="apparatusModificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="assignmentBackup" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="assignmentModificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="attendeesBackup" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="attendeesModificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="backupGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="backupReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="battalionBackup" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="battalionModificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="divisionBackup" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="divisionModificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fireDistrictBackup" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fireDistrictModificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fireJournalUserBackup" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fireJournalUserModificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fireSafetyBackup" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fireSafetyModificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="incidentBackup" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="incidentModificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="journalBackup" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="journalModificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="lastModificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="localIncidentTypeBackup" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="localIncidentTypeModificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="nfirsStreetTypeBackup" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="nfirsStreetTypeModificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="platoonBackup" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="platoonModificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="radioChannelBackup" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="radioChannelModificaitonDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="rankBackup" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="rankModificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="resourcesBackup" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="resourcesModificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="scopeBackup" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="scopeModificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="stateBackup" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="stateModificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="statesBackup" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+    </entity>
+    <entity name="FireJournalUser" representedClassName="FireJournalUser" elementID="CommandJournalUser" syncable="YES">
+        <attribute name="aFJUReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="apparatusDefault" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="apparatusGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="apparatusOvertimeGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="assignmentDefault" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="assignmentGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="assignmentOvertimeGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="battalion" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cnIdentifier" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="crewDefault" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="crewOvertime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="crewOvertimeGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="defaultCrew" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="defaultCrewGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="defaultResources" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="division" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="emailAddress" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fdid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fireDepartment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fireDistrict" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fireStation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fireStationAddress" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fireStationAddressTwo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fireStationCity" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fireStationDefault" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="fireStationGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fireStationOvertimeGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fireStationState" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fireStationStreetName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fireStationStreetNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fireStationWebSite" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fireStationZipCode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fjpUserBackedUp" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fjpUserModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fjpUserSearchDate" optional="YES" attributeType="Date" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
+        <attribute name="fjuCKR" optional="YES" attributeType="Transformable" valueTransformerName="FjuCKR" syncable="YES"/>
+        <attribute name="initialApparatus" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="initialAssignment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="middleName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mobileNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="password" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="platoon" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="platoonDefault" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="platoonGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="platoonOverTimeGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rank" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="resourcesDefault" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="resourcesGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="resourcesOvertimeGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tempApparatus" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tempAssignment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tempFireStation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tempPlatoon" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tempResources" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="user" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="fireJournalUserDetails" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Journal" inverseName="fireJournalUserInfo" inverseEntity="Journal" syncable="YES"/>
+        <relationship name="fireJournalUserFSDetail" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="FireSafetyInspection" inverseName="fireJournalUserFSInfo" inverseEntity="FireSafetyInspection" syncable="YES"/>
+        <relationship name="fireJournalUserIncDetails" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Incident" inverseName="fireJournalUserIncInfo" inverseEntity="Incident" syncable="YES"/>
+    </entity>
+    <entity name="FireSafetyCanvasing" representedClassName="FireSafetyCanvasing" syncable="YES">
+        <attribute name="canvasDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="canvasName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="canvasingInfo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FireSafetyInspection" inverseName="canvasingDetail" inverseEntity="FireSafetyInspection" syncable="YES"/>
+    </entity>
+    <entity name="FireSafetyInspection" representedClassName="FireSafetyInspection" syncable="YES">
+        <attribute name="aFireSafetyReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="canvasing" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="canvasNameOfOperation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fireSafetyBackedUp" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fireSafetyCKRecord" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="fireSafetyCreationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fireSafetyLocation" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="fireSafetyPhotoTaken" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fireSafetyStreetHyway" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fireSafetyStreetNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fireSafetyZip" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firesSafetyModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fjpFSComplete" optional="YES" attributeType="Boolean" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
+        <attribute name="fjpFSCompleteDate" optional="YES" attributeType="Date" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
+        <attribute name="fjpFSGuidForReference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fjpFSModifiedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fjpUserReference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsDateSearch" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsDayOfWeek" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsDayOfYear" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsLatitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsLongitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsSearchDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsSectionFive" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsSectionFour" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsSectionOne" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsSectionSeven" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsSectionSix" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsSectionThree" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsSectionTwo" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsYear" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="smokeAlarm" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="smokeBool" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="canvasingDetail" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="FireSafetyCanvasing" inverseName="canvasingInfo" inverseEntity="FireSafetyCanvasing" syncable="YES"/>
+        <relationship name="fireJournalUserFSInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FireJournalUser" inverseName="fireJournalUserFSDetail" inverseEntity="FireJournalUser" syncable="YES"/>
+        <relationship name="fireSafetyInteriorPhotosDetails" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="FireSafetyInteriorPhotos" inverseName="fireSafetyInteriorPhotoInfo" inverseEntity="FireSafetyInteriorPhotos" syncable="YES"/>
+        <relationship name="fireSafetyMaterialDetails" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="FireSafetyMaterials" inverseName="fireSafetyMaterialsInfo" inverseEntity="FireSafetyMaterials" syncable="YES"/>
+        <relationship name="fireSafetyMemberDetails" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="FireSafetyMembers" inverseName="fireSafetyMemberInfo" inverseEntity="FireSafetyMembers" syncable="YES"/>
+        <relationship name="fireSafetyPhotosDetails" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="FireSafetyPhotos" inverseName="fireSafetyPhotosInfo" inverseEntity="FireSafetyPhotos" syncable="YES"/>
+        <relationship name="fireSafetySectionFiveDetails" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="FireSSectionFive" inverseName="fireSafetySectionFiveInfo" inverseEntity="FireSSectionFive" syncable="YES"/>
+        <relationship name="fireSafetySectionFourDetails" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="FireSSectionFour" inverseName="fireSafetySectionFourInfo" inverseEntity="FireSSectionFour" syncable="YES"/>
+        <relationship name="fireSafetySectionOneDetails" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="FireSSectionOne" inverseName="fireSafetySectionOneInfo" inverseEntity="FireSSectionOne" syncable="YES"/>
+        <relationship name="fireSafetySectionSevenDetails" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="FireSSectionSeven" inverseName="fireSafetySectionSevenInfo" inverseEntity="FireSSectionSeven" syncable="YES"/>
+        <relationship name="fireSafetySectionSixDetails" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="FireSSectionSix" inverseName="fireSafetySectionSixInfo" inverseEntity="FireSSectionSix" syncable="YES"/>
+        <relationship name="fireSafetySectionThreeDetails" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="FireSSectionThree" inverseName="fireSafetySectionThreeInfo" inverseEntity="FireSSectionThree" syncable="YES"/>
+        <relationship name="fireSafetySectionTwoDetails" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="FireSSectionTwo" inverseName="fireSafetySectionTwoInfo" inverseEntity="FireSSectionTwo" syncable="YES"/>
+    </entity>
+    <entity name="FireSafetyInteriorPhotos" representedClassName="FireSafetyInteriorPhotos" syncable="YES">
+        <attribute name="aFireSafetyReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fireSafetyInteriorPhotoBackUp" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fireSafetyInteriorPhotoModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fjpFSInspecReference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="interiorPhotoUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="fireSafetyInteriorPhotoInfo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FireSafetyInspection" inverseName="fireSafetyInteriorPhotosDetails" inverseEntity="FireSafetyInspection" syncable="YES"/>
+    </entity>
+    <entity name="FireSafetyMaterials" representedClassName="FireSafetyMaterials" syncable="YES">
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="materialsSupplied" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="fireSafetyMaterialsInfo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FireSafetyInspection" inverseName="fireSafetyMaterialDetails" inverseEntity="FireSafetyInspection" syncable="YES"/>
+    </entity>
+    <entity name="FireSafetyMembers" representedClassName="FireSafetyMembers" syncable="YES">
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="familySafetyMember" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="fireSafetyMemberInfo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FireSafetyInspection" inverseName="fireSafetyMemberDetails" inverseEntity="FireSafetyInspection" syncable="YES"/>
+    </entity>
+    <entity name="FireSafetyPhotos" representedClassName="FireSafetyPhotos" syncable="YES">
+        <attribute name="aFireSafetyReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="fireSafetyPhotoBackUp" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fireSafetyPhotoModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fjpFSInspecReference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imagePath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imagePathA" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imagePathB" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imagePathC" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imagePathD" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageTypeA" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageTypeB" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageTypeC" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageTypeD" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="inspectorSignatureFileName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="residentSignatureFileName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="signatureInspector" optional="YES" attributeType="Binary" storedInTruthFile="YES" syncable="YES"/>
+        <attribute name="signatureResident" optional="YES" attributeType="Binary" storedInTruthFile="YES" syncable="YES"/>
+        <relationship name="fireSafetyPhotosInfo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FireSafetyInspection" inverseName="fireSafetyPhotosDetails" inverseEntity="FireSafetyInspection" syncable="YES"/>
+    </entity>
+    <entity name="FireSSectionFive" representedClassName="FireSSectionFive" syncable="YES">
+        <attribute name="fjpFSInspecReference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS5q1alarm" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS5q2alarmInstalled" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS5q3comment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS5q3number1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS5q3number2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS5q4comment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS5q4number1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS5q4number2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS5q5lalarmAge" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS5q6number1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS5q6number2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS5q7COalarm" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS5q8advisedPurchase" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS5q8referral" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS5q9authorized" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS5q9howManyBatteries" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS5q9provideAlarms" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS5q10AssistedDevice" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS5q10freeInstalled" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS5q10provideAlarms" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS5q10totalInstalled" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS5q10TypeAlarm" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS5q11batteriesProvided" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS5q11howManyBatteries" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS5q11residentAdvised" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS5q12factorPreventing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS5q12factorPreventingSub" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS5q12installed" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS5q12numFreeInstall" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS5q12numInstaller" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS5q12numWorking" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS5q13residentAdvised" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS5q13sprinklerSystem" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS5q14factorPreventing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS5q14factorPreventingSub" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS5q15residentSprinkler" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="fireSafetySectionFiveInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FireSafetyInspection" inverseName="fireSafetySectionFiveDetails" inverseEntity="FireSafetyInspection" syncable="YES"/>
+    </entity>
+    <entity name="FireSSectionFour" representedClassName="FireSSectionFour" syncable="YES">
+        <attribute name="fjpFSInspecReference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS4q1Overall" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS4q2Exterior" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="fireSafetySectionFourInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FireSafetyInspection" inverseName="fireSafetySectionFourDetails" inverseEntity="FireSafetyInspection" syncable="YES"/>
+    </entity>
+    <entity name="FireSSectionOne" representedClassName="FireSSectionOne" syncable="YES">
+        <attribute name="fjpFSInspecReference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsFS1q7battalion" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsFS1q8councilWard" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS1q2FireCompany" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS1q3FireDistrict" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS1q4ZipCode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS1q5VisitMade" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS1q6Access" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="fireSafetySectionOneInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FireSafetyInspection" inverseName="fireSafetySectionOneDetails" inverseEntity="FireSafetyInspection" syncable="YES"/>
+    </entity>
+    <entity name="FireSSectionSeven" representedClassName="FireSSectionSeven" syncable="YES">
+        <attribute name="fjpFSInspecReference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS7q1followUp" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS7q2followUpDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS7q2followUpMO" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS7q2followUpYear" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS7q2subReason" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS7q2subReasonOther" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS7q3copyOfRepoort" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS7q3via" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS7q4timeStampDD" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS7q4timeStampHH" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS7q4timeStampMinute" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS7q4timeStampMM" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS7q4timeStampYYYY" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS7q5inspectorSig" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS7q6residentSig" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="fireSafetySectionSevenInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FireSafetyInspection" inverseName="fireSafetySectionSevenDetails" inverseEntity="FireSafetyInspection" syncable="YES"/>
+    </entity>
+    <entity name="FireSSectionSix" representedClassName="FireSSectionSix" syncable="YES">
+        <attribute name="fjpFSInspecReference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS6q1familiar" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS6q2called911" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS6q2reason911" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS6q3completedEscapePlan" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS6q4planShown2FC" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS6q4planShown2FCyes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS6q5FCprovidedPlan" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS6q6materialsListed" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS6q6materialsListedOther" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS6q6sub1" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS6q6sub2" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS6q6sub3" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS6q6sub4" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS6q6sub5" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS6q6sub6" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS6q6sub7" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS6q6sub8" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS6q6sub9" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS6q6sub10" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS6q6sub11" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS6q6sub12" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS6q6sub13" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS6q6sub14" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS6q7materialsListed" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS6q7materialsOther" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS6q7sub1" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS6q7sub2" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS6q7sub3" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS6q7sub4" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS6q7sub5" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS6q7sub6" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS6q7sub7" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS6q7sub8" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS6q7sub9" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS6q7sub9b" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS6q7sub10" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS6q7sub11" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS6q7sub12" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS6q8questionA" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS6q8questionB" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS6q8questionC" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="fireSafetySectionSixInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FireSafetyInspection" inverseName="fireSafetySectionSixDetails" inverseEntity="FireSafetyInspection" syncable="YES"/>
+    </entity>
+    <entity name="FireSSectionThree" representedClassName="FireSSectionThree" syncable="YES">
+        <attribute name="photosTaken" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="fireSafetySectionThreeInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FireSafetyInspection" inverseName="fireSafetySectionThreeDetails" inverseEntity="FireSafetyInspection" syncable="YES"/>
+    </entity>
+    <entity name="FireSSectionTwo" representedClassName="FireSSectionTwo" syncable="YES">
+        <attribute name="fjpFSInspecReference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsFSAlarmsWired" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsFSFactorsPreventing" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsFSNonWorkingCONote" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsFSnumLivingHouse" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsFSNumOfFreeCOAlarmsInstalled" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsFSOtherNotes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsFSresidentLastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsFSWorkingCOAlarms" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS2q1ResidenceType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS2q2BuildingConstruct" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS2q3BuildingAge" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS2q4Exposure" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS2q5ResidentAdults" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS2q5ResidentChildren" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS2q5ResidentDisabilitiesType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS2q5ResidentDisibilitiesCount" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS2q5ResidentOlder" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS2q5ResidentOther" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS2q5ResidentPetsCount" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS2q5ResidentPetsType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS2q5ResidentUnder5" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS2q6Smoke" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS2q6SmokeAdultCount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS2q6SmokeOlderCount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS2q6SmokeTeenCount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS2q7ContactAdultEmail" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS2q7ContactFacebook" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS2q7ContactHomePhone" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS2q7ContactMobilePhone" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS2q7ContactTwitter" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS2q7LocationCity" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS2q7LocationLatitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS2q7LocationLocationType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS2q7LocationLongitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS2q7LocationPrefix" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS2q7LocationState" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS2q7LocationStreetHwy" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS2q7LocationStreetNum" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS2q7LocationStreetType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS2q7LocationZip" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fsS2q8EarthquakeInsurance" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS2q8FireInsurance" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fsS2q8OwnRent" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="fireSafetySectionTwoInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FireSafetyInspection" inverseName="fireSafetySectionTwoDetails" inverseEntity="FireSafetyInspection" syncable="YES"/>
+    </entity>
+    <entity name="Forms" representedClassName="Forms" syncable="YES">
+        <attribute name="aFormReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="formBackup" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="formCKRecord" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="formGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="formImageType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="formModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="formName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="formVisible" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="formTOCInfo" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="FormTOC" inverseName="formTOCDetails" inverseEntity="FormTOC" syncable="YES"/>
+    </entity>
+    <entity name="FormTOC" representedClassName="FormTOC" syncable="YES">
+        <attribute name="aSectionReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="formTOCCKRecord" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="formTOCGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sectionBackup" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="sectionCompleted" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="sectionExplanation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sectionModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="sectionTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="formTOCDetails" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Forms" inverseName="formTOCInfo" inverseEntity="Forms" syncable="YES"/>
+    </entity>
+    <entity name="Incident" representedClassName="Incident" elementID="incident" syncable="YES">
+        <attribute name="anIncidentReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="fjIncidentCKR" optional="YES" attributeType="Transformable" valueTransformerName="FjIncidentCKR" syncable="YES"/>
+        <attribute name="fjpIncGuidForReference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fjpIncidentDateSearch" optional="YES" attributeType="Date" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
+        <attribute name="fjpIncidentModifiedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fjpJournalReference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fjpUserReference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="formType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentBackedUp" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="incidentCreationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="incidentDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentDateSearch" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentDayOfWeek" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentDayOfYear" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="incidentEntryTypeImageName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentLocation" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="incidentModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="incidentNFIRSCompleted" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="incidentNFIRSCompletedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="incidentNFIRSDataComplete" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="incidentNFIRSDataDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentNFIRSDataSaved" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentPhotoTaken" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="incidentSearchDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentStreetHyway" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentStreetNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentZipCode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentZipPlus4" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="situationIncidentImage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tempIncidentApparatus" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tempIncidentAssignment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tempIncidentFireStation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tempIncidentPlatoon" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="actionsTakenDetails" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="ActionsTaken" inverseName="actionsTakenInfo" inverseEntity="ActionsTaken" elementID="incidentActionsTakenDetails" syncable="YES"/>
+        <relationship name="completedModulesDetails" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="IncidentNFIRSCompleteMods" inverseName="completedModuleInfo" inverseEntity="IncidentNFIRSCompleteMods" syncable="YES"/>
+        <relationship name="fireJournalUserIncInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FireJournalUser" inverseName="fireJournalUserIncDetails" inverseEntity="FireJournalUser" syncable="YES"/>
+        <relationship name="formDetails" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="NFIRSSections" inverseName="formSections" inverseEntity="NFIRSSections" syncable="YES"/>
+        <relationship name="incidentAddressDetails" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="IncidentAddress" inverseName="incidentAddressInfo" inverseEntity="IncidentAddress" syncable="YES"/>
+        <relationship name="incidentInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Journal" inverseName="incidentDetails" inverseEntity="Journal" syncable="YES"/>
+        <relationship name="incidentLocalDetails" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="IncidentLocal" inverseName="incidentLocalInfo" inverseEntity="IncidentLocal" syncable="YES"/>
+        <relationship name="incidentMapDetails" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="IncidentMap" inverseName="incidentMapInfo" inverseEntity="IncidentMap" syncable="YES"/>
+        <relationship name="incidentNFIRSDetails" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="IncidentNFIRS" inverseName="incidentNFIRSInfo" inverseEntity="IncidentNFIRS" elementID="IncidentNFRISDetails" syncable="YES"/>
+        <relationship name="incidentNFIRSKSecDetails" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="IncidentNFIRSKSec" inverseName="incidentNFIRSKSecInto" inverseEntity="IncidentNFIRSKSec" syncable="YES"/>
+        <relationship name="incidentNotesDetails" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="IncidentNotes" inverseName="incidentNotesInfo" inverseEntity="IncidentNotes" syncable="YES"/>
+        <relationship name="incidentPhotoDetails" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="IncidentPhotos" inverseName="incidentPhotoInfo" inverseEntity="IncidentPhotos" syncable="YES"/>
+        <relationship name="incidentRadioChannelsDetails" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="IncidentRadioChannels" inverseName="incidentRadioChannelsInfo" inverseEntity="IncidentRadioChannels" syncable="YES"/>
+        <relationship name="incidentResourceDetails" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="IncidentResources" inverseName="incidentResourceInfo" inverseEntity="IncidentResources" elementID="incidentResourceDetails" syncable="YES"/>
+        <relationship name="incidentTagDetails" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="IncidentTags" inverseName="incidentTagInfo" inverseEntity="IncidentTags" syncable="YES"/>
+        <relationship name="incidentTimerDetails" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="IncidentTimer" inverseName="incidentTimerInfo" inverseEntity="IncidentTimer" elementID="incidentTimeDetails" syncable="YES"/>
+        <relationship name="requiredModulesDetails" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="IncidentNFIRSRequiredModules" inverseName="requiredModuleInfo" inverseEntity="IncidentNFIRSRequiredModules" syncable="YES"/>
+        <relationship name="sectionLDetails" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="IncidentNFIRSsecL" inverseName="sectionLInfo" inverseEntity="IncidentNFIRSsecL" syncable="YES"/>
+        <relationship name="sectionMDetails" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="IncidentNFIRSsecM" inverseName="sectionMInfo" inverseEntity="IncidentNFIRSsecM" syncable="YES"/>
+        <relationship name="teamMemberDetails" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="IncidentTeam" inverseName="teamMemberInfo" inverseEntity="IncidentTeam" syncable="YES"/>
+    </entity>
+    <entity name="IncidentAddress" representedClassName="IncidentAddress" elementID="IncidentAddress" syncable="YES">
+        <attribute name="appSuiteRoom" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="censusTract" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="censusTract2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="crossStreet" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fjpIncReference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentState" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="prefix" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stagingAddress" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="streetHighway" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="streetNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="streetType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="suffix" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="zip" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="zipPlus4" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="incidentAddressInfo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Incident" inverseName="incidentAddressDetails" inverseEntity="Incident" syncable="YES"/>
+    </entity>
+    <entity name="IncidentLocal" representedClassName="IncidentLocal" syncable="YES">
+        <attribute name="incidentBattalion" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentDivision" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentFireDistrict" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentLocalType" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="incidentLocalInfo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Incident" inverseName="incidentLocalDetails" inverseEntity="Incident" syncable="YES"/>
+    </entity>
+    <entity name="IncidentMap" representedClassName="IncidentMap" syncable="YES">
+        <attribute name="incidentLatitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentLongitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stagingLatitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stagingLongitude" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="incidentMapInfo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Incident" inverseName="incidentMapDetails" inverseEntity="Incident" syncable="YES"/>
+    </entity>
+    <entity name="IncidentNFIRS" representedClassName="IncidentNFIRS" elementID="IncidentNFRIS" syncable="YES">
+        <attribute name="fireStationState" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fjpIncReference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentActionsTakenAdditionalThree" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentActionsTakenAdditionalTwo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentActionsTakenPrimary" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentAidGiven" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentAidGivenFDID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentAidGivenIncidentNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentAidGivenNone" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="incidentAidGivenState" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentCasualtiesCivilianDeaths" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentCasualtiesCivilianInjuries" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentCasualtiesFireDeaths" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentCasualtiesFireInjuries" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentCasualtiesNone" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="incidentCasualtiesServiceDeaths" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentCasualtitesServideInjuries" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentDetectorChosen" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentExposure" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentFDID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentFDID1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentFireStation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentHazMat" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentHazMatNone" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="incidentLocation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentPlatoon" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentPropertyNone" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="incidentPropertyOutside" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentPropertyOutsideNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentPropertyStructure" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentPropertyStructureNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentPropertyUse" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentPropertyUseNone" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentPropertyUseNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentResourceCheck" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="incidentResourcesEMSApparatus" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentResourcesEMSPersonnel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentResourcesOtherApparatus" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentResourcesOtherPersonnel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentResourcesSuppressionPersonnel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentResourcesSupressionApparatus" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentTypeNumberNFRIS" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentTypeTextNFRIS" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lossesContentDollars" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lossesContentNone" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="lossesPropertyDollars" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lossesPropertyNone" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="mixedUsePropertyNone" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="mixedUsePropertyType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nfirsChangeDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nfirsSectionOneSegment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="propertyUseNone" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="resourceCountsIncludeAidReceived" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="shiftAlarm" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="shiftDistrict" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="shiftOrPlatoon" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skipSectionF" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="specialStudyID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="specialStudyValue" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="valueContentDollars" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="valueContentsNone" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="valuePropertyDollars" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="valuePropertyNone" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="incidentNFIRSInfo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Incident" inverseName="incidentNFIRSDetails" inverseEntity="Incident" elementID="incidentNFRISInfo" syncable="YES"/>
+    </entity>
+    <entity name="IncidentNFIRSCompleteMods" representedClassName="IncidentNFIRSCompleteMods" syncable="YES">
+        <attribute name="completedModules" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="completedModulesBackUp" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="completedModulesModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fjpIncReference" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="completedModuleInfo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Incident" inverseName="completedModulesDetails" inverseEntity="Incident" syncable="YES"/>
+    </entity>
+    <entity name="IncidentNFIRSKSec" representedClassName="IncidentNFIRSKSec" syncable="YES">
+        <attribute name="fjpIncReference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kOwnerAptSuiteRoom" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kOwnerAreaCode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kOwnerBusinessName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kOwnerCheckBox" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="kOwnerCity" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kOwnerFirstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kOwnerLastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kOwnerMI" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kOwnerNamePrefix" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kOwnerNameSuffix" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kOwnerPhoneLastFour" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kOwnerPhonePrefix" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kOwnerPOBox" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kOwnerSameAsPerson" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="kOwnerState" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kOwnerStreetHyway" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kOwnerStreetNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kOwnerStreetPrefix" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kOwnerStreetSuffix" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kOwnerStreetType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kOwnerZip" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kOwnerZipPlusFour" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kPersonAppSuiteRoom" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kPersonAreaCode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kPersonBusinessName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kPersonCheckBox" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="kPersonCity" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kPersonFirstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kPersonGender" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kPersonLastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kPersonMI" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kPersonMoreThanOne" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="kPersonNameSuffix" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kPersonPhoneLastFour" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kPersonPhonePrefix" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kPersonPOBox" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kPersonPrefix" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kPersonState" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kPersonStreetHyway" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kPersonStreetNum" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kPersonStreetSuffix" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kPersonStreetType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kPersonZipCode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="kPersonZipPlus4" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="incidentNFIRSKSecInto" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Incident" inverseName="incidentNFIRSKSecDetails" inverseEntity="Incident" syncable="YES"/>
+    </entity>
+    <entity name="IncidentNFIRSRequiredModules" representedClassName="IncidentNFIRSRequiredModules" syncable="YES">
+        <attribute name="fjpIncReference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="requiredModule" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="requiredModuleBackUp" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="requiredModuleModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="requiredModuleInfo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Incident" inverseName="requiredModulesDetails" inverseEntity="Incident" syncable="YES"/>
+    </entity>
+    <entity name="IncidentNFIRSsecL" representedClassName="IncidentNFIRSsecL" syncable="YES">
+        <attribute name="fjpIncReference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lRemarks" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="modDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="moreRemarks" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="sectionLInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Incident" inverseName="sectionLDetails" inverseEntity="Incident" syncable="YES"/>
+    </entity>
+    <entity name="IncidentNFIRSsecM" representedClassName="IncidentNFIRSsecM" syncable="YES">
+        <attribute name="fjpIncReference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="memberAssignment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="memberDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="memberMakingReportID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="memberRankPosition" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="memberSameAsOfficer" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="officerAssignment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="officerDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="officerInChargeID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="officerRankPosition" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="secMModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="signatureMember" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="signatureOfficer" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="sectionMInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Incident" inverseName="sectionMDetails" inverseEntity="Incident" syncable="YES"/>
+    </entity>
+    <entity name="IncidentNotes" representedClassName="IncidentNotes" syncable="YES">
+        <attribute name="fjpIncReference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentNote" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentSummaryNotes" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <relationship name="incidentNotesInfo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Incident" inverseName="incidentNotesDetails" inverseEntity="Incident" syncable="YES"/>
+    </entity>
+    <entity name="IncidentPhotos" representedClassName="IncidentPhotos" syncable="YES">
+        <attribute name="aIncidentReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="fjpIncReference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentPhotoBackUp" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="incidentPhotoModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="incidentPhotoUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="incidentPhotoInfo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Incident" inverseName="incidentPhotoDetails" inverseEntity="Incident" syncable="YES"/>
+    </entity>
+    <entity name="IncidentRadioChannels" representedClassName="IncidentRadioChannels" syncable="YES">
+        <attribute name="fjpIncReference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentDispatch" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentTacOne" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentTacTwo" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="incidentRadioChannelsInfo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Incident" inverseName="incidentRadioChannelsDetails" inverseEntity="Incident" syncable="YES"/>
+    </entity>
+    <entity name="IncidentResources" representedClassName="IncidentResources" elementID="Resources" syncable="YES">
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="incidentReference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentResource" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentResourceBackup" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="incidentResourceModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="incidentResourceInfo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Incident" inverseName="incidentResourceDetails" inverseEntity="Incident" elementID="incidentResourcesInfo" syncable="YES"/>
+    </entity>
+    <entity name="IncidentTags" representedClassName="IncidentTags" syncable="YES">
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="incidentReference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentTag" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentTagBackup" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="incidentTagModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="incidentTagInfo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Incident" inverseName="incidentTagDetails" inverseEntity="Incident" syncable="YES"/>
+    </entity>
+    <entity name="IncidentTeam" representedClassName="IncidentTeam" syncable="YES">
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="incidentReference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="teamMember" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="teamMemberBackup" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="teamMemberModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="teamMemberInfo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Incident" inverseName="teamMemberDetails" inverseEntity="Incident" syncable="YES"/>
+    </entity>
+    <entity name="IncidentTimer" representedClassName="IncidentTimer" elementID="IncidentTimer" syncable="YES">
+        <attribute name="arrivalSameDate" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="controlledSameDate" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="fjpIncReference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentAlarmCombinedDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentAlarmDateTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="incidentAlarmDay" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentAlarmHours" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentAlarmMinutes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentAlarmMonth" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentAlarmNotes" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="incidentAlarmYear" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentArrivalCombinedDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentArrivalDateTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="incidentArrivalDay" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentArrivalHours" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentArrivalMinutes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentArrivalMonth" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentArrivalNotes" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="incidentArrivalYear" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentControlDateTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="incidentControlledCombinedDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentControlledDay" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentControlledHours" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentControlledMinutes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentControlledMonth" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentControlledNotes" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="incidentControlledYear" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentElapsedTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentLastUnitCalledCombinedDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentLastUnitCalledDay" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentLastUnitCalledHours" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentLastUnitCalledMinutes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentLastUnitCalledMonth" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentLastUnitCalledYear" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentLastUnitClearedNotes" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="incidentLastUnitDateTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="incidentStartClockCombinedDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentStartClockDay" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentStartClockHours" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentStartClockMinutes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentStartClockMonth" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentStartClockSeconds" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentStartClockYear" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentStopClockCombinedDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentStopClockDay" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentStopClockHours" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentStopClockMinutes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentStopClockMonth" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentStopClockSeconds" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentStopClockYear" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastUnitSameDate" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="incidentTimerInfo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Incident" inverseName="incidentTimerDetails" inverseEntity="Incident" elementID="incidentTimeInfo" syncable="YES"/>
+    </entity>
+    <entity name="Journal" representedClassName="Journal" elementID="Journal" syncable="YES">
+        <attribute name="aIncidentReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="aJournalReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="fjJournalCKR" optional="YES" attributeType="Transformable" valueTransformerName="FjJournalCKR" syncable="YES"/>
+        <attribute name="fjpIncReference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fjpJGuidForReference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fjpJournalModifiedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fjpJournalSearchDate" optional="YES" attributeType="Date" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
+        <attribute name="fjpUserReference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="journalBackedUp" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="journalCity" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="journalCreationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="journalDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="journalDateSearch" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="journalDayOfWeek" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="journalDayOfYear" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="journalDiscussion" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="journalEntry" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="journalEntryType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="journalEntryTypeImageName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="journalFireStation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="journalHeader" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="journalLatitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="journalLocation" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="journalLongitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="journalMMDDYYYY" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="journalModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="journalMonth" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="journalNextSteps" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="journalOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="journalOverview" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="journalPhotoTaken" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="journalPrivate" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="journalState" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="journalStreetName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="journalStreetNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="journalSummary" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="journalTempApparatus" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="journalTempAssignment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="journalTempFireStation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="journalTempPlatoon" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="journalTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="journalYear" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="journalYearMonthDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="journalZip" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="fireJournalUserInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FireJournalUser" inverseName="fireJournalUserDetails" inverseEntity="FireJournalUser" syncable="YES"/>
+        <relationship name="incidentDetails" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Incident" inverseName="incidentInfo" inverseEntity="Incident" syncable="YES"/>
+        <relationship name="journalAttendDetails" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="JournalAttend" inverseName="journalAttendInfo" inverseEntity="JournalAttend" syncable="YES"/>
+        <relationship name="journalPhotoDetails" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="JournalPhotos" inverseName="journalPhotoInfo" inverseEntity="JournalPhotos" syncable="YES"/>
+        <relationship name="journalTagDetails" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="JournalTags" inverseName="journalTagInfo" inverseEntity="JournalTags" syncable="YES"/>
+    </entity>
+    <entity name="JournalAttend" representedClassName="JournalAttend" syncable="YES">
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fjpJournalReference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="journalAttendee" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="journalAttendeeBackup" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="journalAttendeeModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="journalAttendInfo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Journal" inverseName="journalAttendDetails" inverseEntity="Journal" syncable="YES"/>
+    </entity>
+    <entity name="JournalPhotos" representedClassName="JournalPhotos" syncable="YES">
+        <attribute name="aJournalReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="fjpJournalReference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="journalPhotoBackUp" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="journalPhotoModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="journalPhotoUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="journalPhotoInfo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Journal" inverseName="journalPhotoDetails" inverseEntity="Journal" syncable="YES"/>
+    </entity>
+    <entity name="JournalTags" representedClassName="JournalTags" syncable="YES">
+        <attribute name="aJournalTagReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fjpJournalReference" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="journalGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="journalTag" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="journalTagBackUp" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="journalTagModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="journalTagInfo" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Journal" inverseName="journalTagDetails" inverseEntity="Journal" syncable="YES"/>
+    </entity>
+    <entity name="NFIRSActionsTaken" representedClassName="NFIRSActionsTaken" syncable="YES">
+        <attribute name="aActionTakenReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="actionTaken" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="actionTakenBackup" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="actionTakenGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="actionTakenModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+    </entity>
+    <entity name="NFIRSAidGiven" representedClassName="NFIRSAidGiven" syncable="YES">
+        <attribute name="aAidGivenReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="aidGiven" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="aidGivenBackup" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="aidGivenGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="aidGivenModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+    </entity>
+    <entity name="NFIRSCompletedModules" representedClassName="NFIRSCompletedModules" syncable="YES">
+        <attribute name="aCompletedModulesReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="completedModules" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="completedModulesBackup" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="completedModulesGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="completedModulesModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+    </entity>
+    <entity name="NFIRSHazardousMaterials" representedClassName="NFIRSHazardousMaterials" syncable="YES">
+        <attribute name="aHazardousMaterialReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="hazardousMaterial" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="hazardousMaterialBackup" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="hazardousMaterialGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="hazardousMaterialModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+    </entity>
+    <entity name="NFIRSIncidentType" representedClassName="NFIRSIncidentType" syncable="YES">
+        <attribute name="aIncidentTypeNameReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="incidentTypeGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentTypeName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="incidentTypeNameBackup" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="incidentTypeNameModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+    </entity>
+    <entity name="NFIRSLocation" representedClassName="NFIRSLocation" syncable="YES">
+        <attribute name="aLocationReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="locationBackup" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="locationGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="locationModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+    </entity>
+    <entity name="NFIRSMixedUseProperties" representedClassName="NFIRSMixedUseProperties" syncable="YES">
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="mixedUseProperty" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mixedUsePropertyBackup" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="mixedUsePropertyGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mixedUsePropertyModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="mixedUsePropertyReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+    </entity>
+    <entity name="NFIRSPropertyUse" representedClassName="NFIRSPropertyUse" syncable="YES">
+        <attribute name="aPropertyUseReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="propertyUse" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="propertyUseBackup" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="propertyUseGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="propertyUseModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="propertyUseType" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="NFIRSRequiredModules" representedClassName="NFIRSRequiredModules" syncable="YES">
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="requiredModules" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="requiredModulesBackup" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="requiredModulesGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="requiredModulesModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="requiredModulesReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+    </entity>
+    <entity name="NFIRSSections" representedClassName="NFIRSSections" syncable="YES">
+        <attribute name="completedModules" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="requiredModules" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="sectionA" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="sectionB" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="sectionC" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="sectionD" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="sectionE" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="sectionF" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="sectionG" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="sectionH" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="sectionI" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="sectionJ" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="sectionK" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="sectionL" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="sectionM" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="formSections" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Incident" inverseName="formDetails" inverseEntity="Incident" syncable="YES"/>
+    </entity>
+    <entity name="NFIRSStreetPrefix" representedClassName="NFIRSStreetPrefix" syncable="YES">
+        <attribute name="aStreetPrefixReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="streetPrefix" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="streetPrefixAbbreviation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="streetPrefixBackup" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="streetPrefixGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="streetPrefixModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+    </entity>
+    <entity name="NFIRSStreetType" representedClassName="NFIRSStreetType" elementID="StreetType" syncable="YES">
+        <attribute name="aStreetTypeReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fjNFIRSStreetTypeCKR" optional="YES" attributeType="Transformable" valueTransformerName="FjNFIRSStreetTypeCKR" syncable="YES"/>
+        <attribute name="nfirsSTBackedUp" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="nfirsSTModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="streetType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="streetTypeGuid" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Products" representedClassName="Products" syncable="YES">
+        <attribute name="administrativeFormPack" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="administrativeFormPackModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="advancedMapping" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="advancedMappingAnnual" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="advancedMappingModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="aProductGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="aProductsReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="arsonFormPack" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="arsonFormPackAnnual" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="arsonFormPackModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="arsonJournal" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="arsonJournalAnnual" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="arsonJournalModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="captainsForms" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="captainsFormsModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="chiefsForms" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="chiefsFormsModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="esriMapping" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="esriMappingAnnual" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="esriMappingModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fireJournalConnect" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="fireJournalConnectAnnual" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="fireJournalConnectModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fireJournalConnectProductIdentifier" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fireJournalConnectPurchaseDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fireJournalConnectSubscriptionExperationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fireJournalConnectTransactionIdentifier" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firePreventionFormPack" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="firePreventionFormPackAnnual" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="firePreventionFormPackModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="formPackOne" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="formPackOneModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="icsFormPackOne" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="icsFormPackOneModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="incidentClockTimer" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="incidentClockTimerModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="inventoryPack" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="inventoryPackModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="maintenanceFormPack" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="maintenanceFormPackModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="nfirsFormPack" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="nfirsFormPackModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="productsBackup" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="productsModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="shiftCalendar" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="shiftCalendarModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="tasksTodoList" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="taskToDoListModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="unionManagement" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="unionManagementAnnual" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="unionManagementModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+    </entity>
+    <entity name="StartUp" representedClassName="StartUp" syncable="YES">
+        <attribute name="agreement" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="agreementDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="freshDesk" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="freshDeskDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="startedUp" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="startUp" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="startUpDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+    </entity>
+    <entity name="UserApparatusType" representedClassName="UserApparatusType" syncable="YES">
+        <attribute name="aApparatusReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="apparatus" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="apparatusBackUp" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="apparatusGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="apparatusModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="defaultApparatus" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+    </entity>
+    <entity name="UserAssignments" representedClassName="UserAssignments" syncable="YES">
+        <attribute name="aAssignmentReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="assignment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="assignmentBackUp" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="assignmentGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="assignmentModDate" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="assignmentModerationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="defaultAssignment" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+    </entity>
+    <entity name="UserAttendees" representedClassName="UserAttendees" syncable="YES">
+        <attribute name="aAttendeeReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="attendee" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="attendeeBackUp" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="attendeeGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="attendeeModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="defaultCrewMember" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fjUserAttendeeCKR" optional="YES" attributeType="Transformable" valueTransformerName="FjUserAttendeeCKR" syncable="YES"/>
+    </entity>
+    <entity name="UserBattalion" representedClassName="UserBattalion" elementID="Battalion" syncable="YES">
+        <attribute name="aBattalionReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="battalion" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="battalionBackUp" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="battalionGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="battalionModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+    </entity>
+    <entity name="UserBuildingType" representedClassName="UserBuildingType" syncable="YES">
+        <attribute name="aBuildingTypeReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="buildingType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="buildingTypeBackup" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="buildingTypeGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="buildingTypeModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+    </entity>
+    <entity name="UserCouncilWard" representedClassName="UserCouncilWard" syncable="YES">
+        <attribute name="aCouncilWardReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="councilWard" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="councilWardBackup" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="councilWardGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="councilWardModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+    </entity>
+    <entity name="UserCrews" representedClassName="UserCrews" syncable="YES">
+        <attribute name="aCrewReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="crew" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="crewDateCreated" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="crewDateModified" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="crewDefault" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="crewGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="crewName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="crewUpdated" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="userCrewsCKR" optional="YES" attributeType="Transformable" valueTransformerName="fjUserCrewsCKR" syncable="YES"/>
+    </entity>
+    <entity name="UserDivision" representedClassName="UserDivision" elementID="Division" syncable="YES">
+        <attribute name="aDivisionReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="divisionBackUp" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="divisionGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="divisionModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="theDivisionName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="UserFireDistrict" representedClassName="UserFireDistrict" elementID="FireDistrict" syncable="YES">
+        <attribute name="aFireDistrictReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fireDistrict" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fireDistrictBackUp" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fireDistrictGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fireDistrictModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+    </entity>
+    <entity name="UserFireStation" representedClassName="UserFireStation" syncable="YES">
+        <attribute name="aUserFireStationReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="defaultFireStation" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="fireStation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fireStationCreated" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fireStationGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fireStationModified" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="userFireStationCKR" optional="YES" attributeType="Transformable" syncable="YES"/>
+    </entity>
+    <entity name="UserInstaller" representedClassName="UserInstaller" syncable="YES">
+        <attribute name="aInstallerReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="installer" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="installerBackup" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="installerGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="installerModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+    </entity>
+    <entity name="UserLocalIncidentType" representedClassName="UserLocalIncidentType" elementID="LocalIncidentType" syncable="YES">
+        <attribute name="aUserLocalTypeReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fjUserLocalIncidentCKR" optional="YES" attributeType="Transformable" valueTransformerName="FfjUserLocalIncidentCKR" syncable="YES"/>
+        <attribute name="localIncidentGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="localIncidentTypeBackUp" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="localIncidentTypeModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="localIncidentTypeName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="UserPlatoon" representedClassName="UserPlatoon" elementID="Platoon" syncable="YES">
+        <attribute name="aPlatoonReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="defaultPlatoon" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fjUserPlatoonCKR" optional="YES" attributeType="Transformable" valueTransformerName="FjUserPlatoonCKR" syncable="YES"/>
+        <attribute name="platoon" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="platoonBackUp" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="platoonGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="platoonModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+    </entity>
+    <entity name="UserRadioChannel" representedClassName="UserRadioChannel" elementID="RadioChannel" syncable="YES">
+        <attribute name="aRadioChannelReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="radioChannel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="radioChannelBackUp" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="radioChannelGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="radioChannelModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+    </entity>
+    <entity name="UserRank" representedClassName="UserRank" elementID="Rank" syncable="YES">
+        <attribute name="aRankReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fjUserRankCKR" optional="YES" attributeType="Transformable" valueTransformerName="FjUserRankCKR" syncable="YES"/>
+        <attribute name="rank" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rankBackUp" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="rankGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rankModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+    </entity>
+    <entity name="UserResourceGroups" representedClassName="UserResourceGroups" syncable="YES">
+        <attribute name="aResourceGroupReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="resourceGDateCreated" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="resourceGDateModified" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="resourceGDefault" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="resourceGGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="resourceGName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="resourceGroup" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="resourceGUpdated" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="userResourceGCKR" optional="YES" attributeType="Transformable" valueTransformerName="fjUserCrewsCKR" syncable="YES"/>
+    </entity>
+    <entity name="UserResources" representedClassName="UserResources" syncable="YES">
+        <attribute name="aResourceReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="defaultResource" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="fjUserResourceCKR" optional="YES" attributeType="Transformable" valueTransformerName="FjUserResourceCKR" syncable="YES"/>
+        <attribute name="resource" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="resourceBackUp" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="resourceGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="resourceModificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+    </entity>
+    <entity name="UserSpecialties" representedClassName="UserSpecialties" syncable="YES">
+        <attribute name="aSpecialitiesReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="secialitiesGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="specialities" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="specialitiesBackup" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="specialitiesModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+    </entity>
+    <entity name="UserStates" representedClassName="States" elementID="States" syncable="YES">
+        <attribute name="aStateReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="stateAbbreviation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stateBackUp" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="stateGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stateModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="stateName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="UserTags" representedClassName="UserTags" elementID="Tags" syncable="YES">
+        <attribute name="aUserTagReference" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="displayOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="fjUserTagCKR" optional="YES" attributeType="Transformable" valueTransformerName="FjUserTagCKR" syncable="YES"/>
+        <attribute name="tagUpdate" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="userTag" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userTagBackup" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="userTagGuid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userTagModDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="ActionsTaken" positionX="-549" positionY="-297" width="128" height="165"/>
+        <element name="BackUp" positionX="-504" positionY="-252" width="128" height="645"/>
+        <element name="FireJournalUser" positionX="-522" positionY="-270" width="128" height="990"/>
+        <element name="FireSafetyCanvasing" positionX="-495" positionY="-243" width="128" height="90"/>
+        <element name="FireSafetyInspection" positionX="-531" positionY="-279" width="128" height="750"/>
+        <element name="FireSafetyInteriorPhotos" positionX="-531" positionY="-279" width="128" height="150"/>
+        <element name="FireSafetyMaterials" positionX="-522" positionY="-270" width="128" height="90"/>
+        <element name="FireSafetyMembers" positionX="-513" positionY="-261" width="128" height="90"/>
+        <element name="FireSafetyPhotos" positionX="-540" positionY="-288" width="128" height="330"/>
+        <element name="FireSSectionFive" positionX="-549" positionY="-297" width="128" height="615"/>
+        <element name="FireSSectionFour" positionX="-540" positionY="-288" width="128" height="105"/>
+        <element name="FireSSectionOne" positionX="-495" positionY="-243" width="128" height="180"/>
+        <element name="FireSSectionSeven" positionX="-504" positionY="-252" width="128" height="300"/>
+        <element name="FireSSectionSix" positionX="-522" positionY="-270" width="128" height="690"/>
+        <element name="FireSSectionThree" positionX="-531" positionY="-279" width="128" height="75"/>
+        <element name="FireSSectionTwo" positionX="-549" positionY="-297" width="128" height="720"/>
+        <element name="Forms" positionX="-540" positionY="-288" width="128" height="195"/>
+        <element name="FormTOC" positionX="-513" positionY="-261" width="128" height="195"/>
+        <element name="Incident" positionX="-378" positionY="-261" width="128" height="885"/>
+        <element name="IncidentAddress" positionX="-342" positionY="-279" width="128" height="285"/>
+        <element name="IncidentLocal" positionX="-360" positionY="-297" width="128" height="120"/>
+        <element name="IncidentMap" positionX="-306" positionY="-243" width="128" height="120"/>
+        <element name="IncidentNFIRS" positionX="-306" positionY="-243" width="128" height="1005"/>
+        <element name="IncidentNFIRSCompleteMods" positionX="-351" positionY="-288" width="128" height="120"/>
+        <element name="IncidentNFIRSKSec" positionX="-342" positionY="-279" width="128" height="735"/>
+        <element name="IncidentNFIRSRequiredModules" positionX="-333" positionY="-270" width="128" height="120"/>
+        <element name="IncidentNFIRSsecL" positionX="-324" positionY="-261" width="128" height="120"/>
+        <element name="IncidentNFIRSsecM" positionX="-324" positionY="-261" width="128" height="255"/>
+        <element name="IncidentNotes" positionX="-360" positionY="-297" width="128" height="105"/>
+        <element name="IncidentPhotos" positionX="-333" positionY="-270" width="128" height="135"/>
+        <element name="IncidentRadioChannels" positionX="-315" positionY="-252" width="128" height="120"/>
+        <element name="IncidentResources" positionX="-315" positionY="-252" width="128" height="135"/>
+        <element name="IncidentTags" positionX="-360" positionY="-297" width="128" height="135"/>
+        <element name="IncidentTeam" positionX="-315" positionY="-252" width="128" height="135"/>
+        <element name="IncidentTimer" positionX="-306" positionY="-243" width="128" height="825"/>
+        <element name="Journal" positionX="-315" positionY="-99" width="128" height="780"/>
+        <element name="JournalAttend" positionX="-324" positionY="-108" width="128" height="135"/>
+        <element name="JournalPhotos" positionX="-342" positionY="-126" width="128" height="135"/>
+        <element name="JournalTags" positionX="-351" positionY="-135" width="128" height="165"/>
+        <element name="NFIRSActionsTaken" positionX="-324" positionY="-108" width="128" height="135"/>
+        <element name="NFIRSAidGiven" positionX="-342" positionY="-126" width="128" height="135"/>
+        <element name="NFIRSCompletedModules" positionX="-351" positionY="-135" width="128" height="135"/>
+        <element name="NFIRSHazardousMaterials" positionX="-333" positionY="-117" width="128" height="135"/>
+        <element name="NFIRSIncidentType" positionX="-351" positionY="-135" width="128" height="135"/>
+        <element name="NFIRSLocation" positionX="-360" positionY="-144" width="128" height="135"/>
+        <element name="NFIRSMixedUseProperties" positionX="-333" positionY="-117" width="128" height="135"/>
+        <element name="NFIRSPropertyUse" positionX="-342" positionY="-126" width="128" height="150"/>
+        <element name="NFIRSRequiredModules" positionX="-351" positionY="-135" width="128" height="135"/>
+        <element name="NFIRSSections" positionX="-360" positionY="-144" width="128" height="285"/>
+        <element name="NFIRSStreetPrefix" positionX="-306" positionY="-90" width="128" height="150"/>
+        <element name="NFIRSStreetType" positionX="-324" positionY="-108" width="128" height="150"/>
+        <element name="Products" positionX="-306" positionY="-90" width="128" height="810"/>
+        <element name="StartUp" positionX="-351" positionY="-135" width="128" height="150"/>
+        <element name="UserApparatusType" positionX="-342" positionY="-126" width="128" height="150"/>
+        <element name="UserAssignments" positionX="-315" positionY="-99" width="128" height="165"/>
+        <element name="UserAttendees" positionX="-306" positionY="-90" width="128" height="165"/>
+        <element name="UserBattalion" positionX="-315" positionY="-99" width="128" height="135"/>
+        <element name="UserBuildingType" positionX="-333" positionY="-117" width="128" height="135"/>
+        <element name="UserCouncilWard" positionX="-351" positionY="-135" width="128" height="135"/>
+        <element name="UserCrews" positionX="-423" positionY="-135" width="128" height="180"/>
+        <element name="UserDivision" positionX="-342" positionY="-126" width="128" height="135"/>
+        <element name="UserFireDistrict" positionX="-333" positionY="-117" width="128" height="135"/>
+        <element name="UserFireStation" positionX="-432" positionY="-144" width="128" height="150"/>
+        <element name="UserInstaller" positionX="-333" positionY="-117" width="128" height="135"/>
+        <element name="UserLocalIncidentType" positionX="-306" positionY="-90" width="128" height="150"/>
+        <element name="UserPlatoon" positionX="-360" positionY="-144" width="128" height="165"/>
+        <element name="UserRadioChannel" positionX="-315" positionY="-99" width="128" height="135"/>
+        <element name="UserRank" positionX="-324" positionY="-108" width="128" height="150"/>
+        <element name="UserResourceGroups" positionX="-432" positionY="-135" width="128" height="180"/>
+        <element name="UserResources" positionX="-360" positionY="-144" width="128" height="165"/>
+        <element name="UserSpecialties" positionX="-333" positionY="-117" width="128" height="135"/>
+        <element name="UserStates" positionX="-315" positionY="-99" width="128" height="150"/>
+        <element name="UserTags" positionX="-360" positionY="-144" width="128" height="165"/>
+    </elements>
+</model>

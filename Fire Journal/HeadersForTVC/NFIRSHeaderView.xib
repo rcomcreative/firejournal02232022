@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="NFIRSHeaderView" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="180"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HKh-s9-VuA">
+                    <rect key="frame" x="0.0" y="0.0" width="500" height="180"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sjh-GJ-eWP">
+                            <rect key="frame" x="0.0" y="0.0" width="500" height="180"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eh4-m4-3Fa">
+                                    <rect key="frame" x="29" y="11" width="40" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="40" id="JDY-bY-5Yg"/>
+                                        <constraint firstAttribute="height" constant="40" id="kJR-nr-KTK"/>
+                                    </constraints>
+                                    <state key="normal" backgroundImage="100515IconSet_092016_NFIRSBasic1"/>
+                                </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NFIRS BASIC 1 SECTION 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" adjustsLetterSpacingToFitWidth="YES" enabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dcl-c4-Uiv">
+                                    <rect key="frame" x="69" y="22" width="236.5" height="24"/>
+                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Basic Module (NFIRS–1) captures general information on every incident (or emergency call) to which the department responds." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" adjustsLetterSpacingToFitWidth="YES" enabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ORD-kw-NGt">
+                                    <rect key="frame" x="29" y="59" width="453" height="112"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bdy-Dr-6Np">
+                                    <rect key="frame" x="462" y="15" width="20" height="20"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="20" id="Fi8-79-i1l"/>
+                                        <constraint firstAttribute="height" constant="20" id="hU6-La-Qzp"/>
+                                    </constraints>
+                                    <state key="normal" backgroundImage="toggleTriangleRed40"/>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="Dcl-c4-Uiv" firstAttribute="leading" secondItem="Sjh-GJ-eWP" secondAttribute="leading" constant="69" id="4hf-AO-bbc"/>
+                                <constraint firstItem="ORD-kw-NGt" firstAttribute="leading" secondItem="Dcl-c4-Uiv" secondAttribute="leading" constant="-40" id="KmU-sb-r8t"/>
+                                <constraint firstItem="Dcl-c4-Uiv" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="Sjh-GJ-eWP" secondAttribute="trailing" id="bha-8B-MyZ"/>
+                                <constraint firstItem="eh4-m4-3Fa" firstAttribute="top" secondItem="Sjh-GJ-eWP" secondAttribute="top" constant="11" id="eF2-nc-XRK"/>
+                                <constraint firstItem="Dcl-c4-Uiv" firstAttribute="top" secondItem="Sjh-GJ-eWP" secondAttribute="top" constant="22" id="nqI-YR-Qjr"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="Sjh-GJ-eWP" firstAttribute="top" secondItem="HKh-s9-VuA" secondAttribute="top" id="4uO-Wa-0mW"/>
+                        <constraint firstItem="Bdy-Dr-6Np" firstAttribute="top" secondItem="HKh-s9-VuA" secondAttribute="top" constant="15" id="FLp-cm-KFY"/>
+                        <constraint firstItem="ORD-kw-NGt" firstAttribute="leading" secondItem="HKh-s9-VuA" secondAttribute="leading" constant="29" id="Ibm-0U-04r"/>
+                        <constraint firstAttribute="trailing" secondItem="ORD-kw-NGt" secondAttribute="trailing" constant="18" id="KyQ-Mx-17a"/>
+                        <constraint firstItem="eh4-m4-3Fa" firstAttribute="leading" secondItem="HKh-s9-VuA" secondAttribute="leading" constant="29" id="QXB-AO-B9G"/>
+                        <constraint firstAttribute="bottom" secondItem="ORD-kw-NGt" secondAttribute="bottom" constant="9" id="YBv-2V-m0R"/>
+                        <constraint firstAttribute="trailing" secondItem="Bdy-Dr-6Np" secondAttribute="trailing" constant="18" id="Ylg-e4-UOG"/>
+                        <constraint firstAttribute="bottom" secondItem="Sjh-GJ-eWP" secondAttribute="bottom" id="Ze9-Po-MGM"/>
+                        <constraint firstAttribute="trailing" secondItem="Sjh-GJ-eWP" secondAttribute="trailing" id="fHa-sE-twI"/>
+                        <constraint firstItem="Sjh-GJ-eWP" firstAttribute="leading" secondItem="HKh-s9-VuA" secondAttribute="leading" id="mTe-mG-QeW"/>
+                        <constraint firstItem="ORD-kw-NGt" firstAttribute="top" secondItem="HKh-s9-VuA" secondAttribute="top" constant="59" id="zQD-jT-PYI"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="HKh-s9-VuA" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="8dK-aj-grl"/>
+                <constraint firstItem="HKh-s9-VuA" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="AnD-jO-D6b"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="HKh-s9-VuA" secondAttribute="trailing" id="gZI-W8-7Mp"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="HKh-s9-VuA" secondAttribute="bottom" id="iAu-7g-xzT"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="colorV" destination="Sjh-GJ-eWP" id="42w-ha-ZBM"/>
+                <outlet property="contentView" destination="HKh-s9-VuA" id="nwH-Sq-1sD"/>
+                <outlet property="headerDescL" destination="ORD-kw-NGt" id="9rn-0y-OZq"/>
+                <outlet property="titleL" destination="Dcl-c4-Uiv" id="t2e-ok-KpC"/>
+                <outlet property="toggleB" destination="eh4-m4-3Fa" id="pj2-Yh-VNV"/>
+            </connections>
+            <point key="canvasLocation" x="-824" y="56.671664167916049"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="100515IconSet_092016_NFIRSBasic1" width="833" height="833"/>
+        <image name="toggleTriangleRed40" width="40" height="40"/>
+    </resources>
+</document>

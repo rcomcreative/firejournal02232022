@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="KGk-i7-Jjw" customClass="CompletedTwoFieldCellwTextV" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="178"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="600" height="178"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="14" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="JVL-08-iS7">
+                        <rect key="frame" x="12" y="6" width="200" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="hCN-Ts-Mg8"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="pWb-8v-Z4P"/>
+                            <constraint firstAttribute="width" constant="200" id="rZ9-V3-VYg"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                        <connections>
+                            <outlet property="delegate" destination="KGk-i7-Jjw" id="Bbz-pi-4I1"/>
+                        </connections>
+                    </textField>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="r2L-8L-SWx">
+                        <rect key="frame" x="220" y="6" width="367" height="162"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="162" id="yyw-kl-jlb"/>
+                        </constraints>
+                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no"/>
+                    </textView>
+                </subviews>
+            </tableViewCellContentView>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="r2L-8L-SWx" secondAttribute="trailing" constant="13" id="2JQ-yc-IUn"/>
+                <constraint firstItem="JVL-08-iS7" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" constant="12" id="AQo-Yn-HQx"/>
+                <constraint firstItem="JVL-08-iS7" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" constant="6" id="dyR-de-bQD"/>
+                <constraint firstItem="r2L-8L-SWx" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" constant="220" id="hRL-Tq-oYk"/>
+                <constraint firstItem="r2L-8L-SWx" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" constant="6" id="u6m-PS-5Y2"/>
+            </constraints>
+            <connections>
+                <outlet property="inputTextFieldOne" destination="JVL-08-iS7" id="SGA-KF-LxO"/>
+                <outlet property="inputTwoTV" destination="r2L-8L-SWx" id="K1d-NJ-CoG"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="154"/>
+        </tableViewCell>
+    </objects>
+</document>

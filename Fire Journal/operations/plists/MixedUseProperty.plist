@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>displayOrder</key>
+	<array>
+		<integer>0</integer>
+		<integer>1</integer>
+		<integer>2</integer>
+		<integer>3</integer>
+		<integer>4</integer>
+		<integer>5</integer>
+		<integer>6</integer>
+		<integer>7</integer>
+		<integer>8</integer>
+		<integer>9</integer>
+		<integer>10</integer>
+		<integer>11</integer>
+	</array>
+	<key>mixedUseProperty</key>
+	<array>
+		<string>10 Assembly use</string>
+		<string>20 Education use</string>
+		<string>33 Medical use</string>
+		<string>40 Residential use</string>
+		<string>51 Row of stores</string>
+		<string>53 Enclosed mall</string>
+		<string>58 Business &amp; residential</string>
+		<string>59 Office use</string>
+		<string>60 Industrial use</string>
+		<string>63 Military use</string>
+		<string>65 Farm use</string>
+		<string>00 Other mixed use</string>
+	</array>
+</dict>
+</plist>

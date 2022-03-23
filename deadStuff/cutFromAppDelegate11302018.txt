@@ -1,0 +1,81 @@
+// MARK: - Core Data stack - not using
+//    func createMainContext() -> NSManagedObjectContext {
+//
+//        // Initialize NSManagedObjectModel
+//        let modelURL = Bundle.main.url(forResource: "CommandJournal", withExtension: "momd")
+//        guard let model = NSManagedObjectModel(contentsOf: modelURL!) else { fatalError("model not found") }
+//
+//        // Configure NSPersistentStoreCoordinator with an NSPersistentStore
+//        let psc = NSPersistentStoreCoordinator(managedObjectModel: model)
+//
+//        let storeURL = try! FileManager
+//            .default
+//            .url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+//            .appendingPathComponent("CommandJournal.sqlite")
+//
+//        let options = [ NSInferMappingModelAutomaticallyOption : true,
+//                        NSMigratePersistentStoresAutomaticallyOption : true]
+//
+//        try! psc.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storeURL, options: options)
+//
+//        // Create and return NSManagedObjectContext
+//        let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+//        context.persistentStoreCoordinator = psc
+//
+//        return context
+//    }
+    
+    lazy var applicationDocumentsDirectory: NSURL = {
+        // The directory the application uses to store the Core Data store file. This code uses a directory named "com.cocoacasts.PersistentStores" in the application's documents Application Support directory.
+        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return urls[urls.count-1] as NSURL
+    }()
+    
+    lazy var managedModel: NSManagedObjectModel = {
+        let modelURL = Bundle.main.url(forResource: "CommandJournal", withExtension: "momd")!
+        return NSManagedObjectModel(contentsOf: modelURL)!
+    }()
+
+    lazy var persistentContainer: NSPersistentContainer = {
+        /*
+         The persistent container for the application. This implementation
+         creates and returns a container, having loaded the store for the
+         application to it. This property is optional since there are legitimate
+         error conditions that could cause the creation of the store to fail.
+        */
+//        let container = NSPersistentContainer(name: "CommandJournal")
+//        let url = self.applicationDocumentsDirectory.appendingPathComponent("CommandJournal.sqlite")
+//        let storeDescription = NSPersistentStoreDescription(url: url!)
+//        container.persistentStoreDescriptions = [storeDescription]
+//        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+//            container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+//            if let error = error as NSError? {
+        
+//        let container = NSPersistentContainer(name: "CommandJournal")
+        let container = NSPersistentContainer.init(name: "CommandJournal", managedObjectModel: self.managedModel )
+        let defaultURL = NSPersistentContainer.defaultDirectoryURL().appendingPathComponent("CommandJournal.sqlite")
+        let description = NSPersistentStoreDescription(url: defaultURL)
+        description.shouldMigrateStoreAutomatically = true
+        description.shouldInferMappingModelAutomatically = true
+        description.type = NSSQLiteStoreType
+        description.shouldAddStoreAsynchronously = true
+        container.persistentStoreDescriptions = [description]
+        
+//
+        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+//            let description:NSPersistentStoreDescription = storeDescription
+            print(description)
+            
+            if let error = error as NSError? {
+        
+                let error = "\(error):\(error.localizedDescription) \(error.userInfo)"
+                print(error)
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: FJkPERSISTENT_STORE_ERROR_REPORTING), object: nil, userInfo:["errorMessage":error])
+                }
+            }
+            print("Core Data stack has been initialized with description: \(storeDescription)")
+            print("something")
+        })
+        return container
+    }()

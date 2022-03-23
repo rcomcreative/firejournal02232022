@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="va2-uw-OAG" customClass="NewICS214ResourceAssignedHeader" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="80"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eBh-by-IGw" userLabel="Content View">
+                    <rect key="frame" x="0.0" y="0.0" width="500" height="80"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Settings_RedEditResource" translatesAutoresizingMaskIntoConstraints="NO" id="uDU-Zz-LfG">
+                            <rect key="frame" x="0.0" y="0.0" width="500" height="80"/>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IWe-fe-BNH">
+                            <rect key="frame" x="440" y="3" width="41" height="34"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="34" id="Asj-7d-buz"/>
+                                <constraint firstAttribute="width" constant="41" id="YEC-Td-gID"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                            <state key="normal" title="Save">
+                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </state>
+                            <connections>
+                                <action selector="saveBtapped:" destination="va2-uw-OAG" eventType="touchUpInside" id="AOy-UQ-2C9"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xrX-3Y-nrY">
+                            <rect key="frame" x="15" y="3" width="58" height="34"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="34" id="L9Z-rs-Pjb"/>
+                                <constraint firstAttribute="width" constant="58" id="uej-6Z-fgF"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                            <state key="normal" title="Cancel">
+                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </state>
+                            <connections>
+                                <action selector="cancelBTapped:" destination="va2-uw-OAG" eventType="touchUpInside" id="buE-ES-va5"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lDG-tb-LcO">
+                            <rect key="frame" x="450" y="36" width="31" height="31"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="31" id="3jK-aB-Kgc"/>
+                                <constraint firstAttribute="width" constant="31" id="q3y-UR-1Fr"/>
+                            </constraints>
+                            <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <state key="normal" backgroundImage="infoCircleI"/>
+                            <connections>
+                                <action selector="infoBTapped:" destination="va2-uw-OAG" eventType="touchUpInside" id="586-nV-AzN"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Resource Assigned" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YbD-fT-4EQ">
+                            <rect key="frame" x="80" y="37" width="370" height="29"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="xrX-3Y-nrY" firstAttribute="leading" secondItem="eBh-by-IGw" secondAttribute="leading" constant="15" id="3gP-3o-39H"/>
+                        <constraint firstItem="uDU-Zz-LfG" firstAttribute="top" secondItem="eBh-by-IGw" secondAttribute="top" id="4U2-ld-thf"/>
+                        <constraint firstAttribute="bottom" secondItem="uDU-Zz-LfG" secondAttribute="bottom" id="GNj-hr-oU3"/>
+                        <constraint firstItem="lDG-tb-LcO" firstAttribute="leading" relation="lessThanOrEqual" secondItem="YbD-fT-4EQ" secondAttribute="trailing" id="PvO-ze-v0H"/>
+                        <constraint firstItem="uDU-Zz-LfG" firstAttribute="leading" secondItem="eBh-by-IGw" secondAttribute="leading" id="Vfe-uw-dcm"/>
+                        <constraint firstAttribute="trailing" secondItem="IWe-fe-BNH" secondAttribute="trailing" constant="19" id="Vvr-ud-5Vu"/>
+                        <constraint firstAttribute="trailing" secondItem="lDG-tb-LcO" secondAttribute="trailing" constant="19" id="WiJ-HE-u5Z"/>
+                        <constraint firstAttribute="trailing" secondItem="uDU-Zz-LfG" secondAttribute="trailing" id="YQo-1x-KoR"/>
+                        <constraint firstItem="IWe-fe-BNH" firstAttribute="top" secondItem="eBh-by-IGw" secondAttribute="top" constant="3" id="bk3-oF-7t6"/>
+                        <constraint firstAttribute="bottom" secondItem="lDG-tb-LcO" secondAttribute="bottom" constant="13" id="h9N-c1-oa2"/>
+                        <constraint firstItem="xrX-3Y-nrY" firstAttribute="top" secondItem="eBh-by-IGw" secondAttribute="top" constant="3" id="rqS-6z-9Qz"/>
+                        <constraint firstItem="YbD-fT-4EQ" firstAttribute="centerY" secondItem="lDG-tb-LcO" secondAttribute="centerY" id="xZj-1W-uTr"/>
+                        <constraint firstItem="YbD-fT-4EQ" firstAttribute="leading" secondItem="eBh-by-IGw" secondAttribute="leading" constant="80" id="zQf-Td-A0V"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="eBh-by-IGw" firstAttribute="bottom" secondItem="va2-uw-OAG" secondAttribute="bottom" id="3ce-XE-mVN"/>
+                <constraint firstAttribute="trailing" secondItem="eBh-by-IGw" secondAttribute="trailing" id="SGp-mI-L0G"/>
+                <constraint firstItem="eBh-by-IGw" firstAttribute="leading" secondItem="va2-uw-OAG" secondAttribute="leading" id="Zmo-yz-6dM"/>
+                <constraint firstItem="eBh-by-IGw" firstAttribute="top" secondItem="va2-uw-OAG" secondAttribute="top" id="xxR-G8-AbD"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="t6z-yy-XQb"/>
+            <connections>
+                <outlet property="SubjectL" destination="YbD-fT-4EQ" id="5gy-ab-Uh5"/>
+                <outlet property="backgroundV" destination="uDU-Zz-LfG" id="WrD-pc-W9b"/>
+                <outlet property="cancelB" destination="xrX-3Y-nrY" id="ndp-hZ-n3D"/>
+                <outlet property="contentView" destination="eBh-by-IGw" id="TCH-8W-jKd"/>
+                <outlet property="infoB" destination="lDG-tb-LcO" id="FgZ-fx-L4y"/>
+                <outlet property="saveB" destination="IWe-fe-BNH" id="Xyv-pV-xc9"/>
+            </connections>
+            <point key="canvasLocation" x="-304.34782608695656" y="-219.64285714285714"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Settings_RedEditResource" width="342" height="84"/>
+        <image name="infoCircleI" width="31" height="31"/>
+    </resources>
+</document>

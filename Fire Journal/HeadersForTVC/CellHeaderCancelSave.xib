@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="RIx-Ql-83A" customClass="CellHeaderCancelSave" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lQ1-z8-khE">
+                    <rect key="frame" x="0.0" y="0.0" width="500" height="44"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="scM-Fl-YxT">
+                            <rect key="frame" x="229" y="11" width="42" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wu2-za-eka">
+                            <rect key="frame" x="10" y="7" width="48" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="48" id="Vj2-MI-3Oq"/>
+                                <constraint firstAttribute="height" constant="30" id="nfJ-UW-fRU"/>
+                            </constraints>
+                            <state key="normal" title="Cancel">
+                                <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="cancelBTapped:" destination="RIx-Ql-83A" eventType="touchUpInside" id="pgf-Qd-RPn"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NCV-bH-Kms">
+                            <rect key="frame" x="435" y="8" width="48" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="48" id="XVI-UZ-xom"/>
+                                <constraint firstAttribute="height" constant="30" id="rEj-Wj-Elp"/>
+                            </constraints>
+                            <state key="normal" title="Save">
+                                <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="saveBTapped:" destination="RIx-Ql-83A" eventType="touchUpInside" id="vxM-HF-8JE"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstItem="Wu2-za-eka" firstAttribute="top" secondItem="lQ1-z8-khE" secondAttribute="top" constant="7" id="11v-wI-EHl"/>
+                        <constraint firstItem="NCV-bH-Kms" firstAttribute="top" secondItem="lQ1-z8-khE" secondAttribute="topMargin" id="XKp-Iq-1RE"/>
+                        <constraint firstItem="Wu2-za-eka" firstAttribute="leading" secondItem="lQ1-z8-khE" secondAttribute="leading" constant="10" id="cYK-bA-oEW"/>
+                        <constraint firstItem="scM-Fl-YxT" firstAttribute="centerX" secondItem="lQ1-z8-khE" secondAttribute="centerX" id="hYZ-TN-C15"/>
+                        <constraint firstAttribute="trailing" secondItem="NCV-bH-Kms" secondAttribute="trailing" constant="17" id="rjl-iK-bbF"/>
+                        <constraint firstItem="scM-Fl-YxT" firstAttribute="top" secondItem="lQ1-z8-khE" secondAttribute="top" constant="11" id="sFZ-Bv-jIk"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="lQ1-z8-khE" firstAttribute="bottom" secondItem="FJz-XK-4eA" secondAttribute="bottom" id="0EE-BV-6uh"/>
+                <constraint firstItem="lQ1-z8-khE" firstAttribute="leading" secondItem="RIx-Ql-83A" secondAttribute="leading" id="KXa-2A-99E"/>
+                <constraint firstAttribute="trailing" secondItem="lQ1-z8-khE" secondAttribute="trailing" id="UaM-wp-Yqf"/>
+                <constraint firstItem="lQ1-z8-khE" firstAttribute="top" secondItem="FJz-XK-4eA" secondAttribute="top" id="r07-a0-1Hn"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="FJz-XK-4eA"/>
+            <connections>
+                <outlet property="cancelB" destination="Wu2-za-eka" id="SUb-kl-zX8"/>
+                <outlet property="headerTitleL" destination="scM-Fl-YxT" id="RND-3S-gVy"/>
+                <outlet property="saveB" destination="NCV-bH-Kms" id="Od8-1f-WSb"/>
+            </connections>
+            <point key="canvasLocation" x="-93" y="60"/>
+        </view>
+    </objects>
+</document>

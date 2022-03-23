@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="80" id="KGk-i7-Jjw" customClass="LabelDateTimeButtonCell" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="80"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="500" height="80"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vj6-Lb-HIE">
+                        <rect key="frame" x="438" y="0.0" width="45" height="45"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="45" id="45a-vy-Pgd"/>
+                            <constraint firstAttribute="height" constant="45" id="C0d-v7-9oS"/>
+                        </constraints>
+                        <state key="normal" title="Button" image="ICONS_TimePiece"/>
+                        <connections>
+                            <action selector="dateTimeButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="5nx-Ee-1vV"/>
+                        </connections>
+                    </button>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NDN-t3-Dy6">
+                        <rect key="frame" x="20" y="46" width="416" height="34"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                        <connections>
+                            <outlet property="delegate" destination="KGk-i7-Jjw" id="od9-Zi-4S2"/>
+                        </connections>
+                    </textField>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rBv-A7-jN1">
+                        <rect key="frame" x="20" y="18" width="60" height="29"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="rBv-A7-jN1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="18" id="3CB-nt-xPt"/>
+                    <constraint firstItem="NDN-t3-Dy6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="46" id="9pN-4R-gJt"/>
+                    <constraint firstItem="Vj6-Lb-HIE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="ZL8-99-fhD"/>
+                    <constraint firstItem="rBv-A7-jN1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="ak8-Vd-Cj1"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="rBv-A7-jN1" secondAttribute="trailing" id="gCI-SH-28g"/>
+                    <constraint firstAttribute="trailing" secondItem="Vj6-Lb-HIE" secondAttribute="trailing" constant="17" id="i9j-MC-Hoc"/>
+                    <constraint firstItem="NDN-t3-Dy6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="it1-dh-VZg"/>
+                    <constraint firstAttribute="trailing" secondItem="NDN-t3-Dy6" secondAttribute="trailing" constant="64" id="wY4-1w-B0L"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="dateTimeB" destination="Vj6-Lb-HIE" id="tLe-C6-Bsy"/>
+                <outlet property="dateTimeL" destination="rBv-A7-jN1" id="q8P-uC-2kF"/>
+                <outlet property="dateTimeTV" destination="NDN-t3-Dy6" id="HxW-Bh-gfV"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="154"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ICONS_TimePiece" width="833" height="833"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

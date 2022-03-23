@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="ipad9_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="OpenModalSeven" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="1025"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tvc-colorField" translatesAutoresizingMaskIntoConstraints="NO" id="Qlh-Cp-N84">
+                    <rect key="frame" x="0.0" y="0.0" width="500" height="1025"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="settingsHeader" translatesAutoresizingMaskIntoConstraints="NO" id="QS5-vc-ThT">
+                    <rect key="frame" x="0.0" y="0.0" width="500" height="274"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="500" id="dye-ky-Lul"/>
+                        <constraint firstAttribute="height" constant="274" id="ziI-Ys-oM5"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K3i-nB-cye">
+                    <rect key="frame" x="47" y="295" width="400" height="257"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="400" id="UVL-gD-tLb"/>
+                        <constraint firstAttribute="height" constant="257" id="fju-jv-kXn"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Journal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9kM-t1-HeP">
+                    <rect key="frame" x="47" y="250" width="230" height="58"/>
+                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="48"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Qlh-Cp-N84" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="2Pe-G5-K0h"/>
+                <constraint firstItem="K3i-nB-cye" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="295" id="3iI-Yy-lGK"/>
+                <constraint firstItem="QS5-vc-ThT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="5U1-o3-GYc"/>
+                <constraint firstItem="K3i-nB-cye" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="47" id="9YU-Ex-aOV"/>
+                <constraint firstItem="9kM-t1-HeP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="250" id="CCc-59-0qH"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="9kM-t1-HeP" secondAttribute="trailing" id="CjP-h9-q0y"/>
+                <constraint firstItem="Qlh-Cp-N84" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="K9U-vq-9Wn"/>
+                <constraint firstItem="Qlh-Cp-N84" firstAttribute="top" secondItem="QS5-vc-ThT" secondAttribute="top" id="TIl-mi-Szl"/>
+                <constraint firstItem="9kM-t1-HeP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="47" id="Te6-pg-ueu"/>
+                <constraint firstAttribute="trailing" secondItem="Qlh-Cp-N84" secondAttribute="trailing" id="hAe-zW-cob"/>
+                <constraint firstItem="QS5-vc-ThT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="rge-k2-4Me"/>
+                <constraint firstItem="Qlh-Cp-N84" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="uFm-RC-bLZ"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="backgroundIV" destination="Qlh-Cp-N84" id="2e3-ob-JTL"/>
+                <outlet property="descriptionL" destination="K3i-nB-cye" id="lhN-Qa-A0z"/>
+                <outlet property="headerIV" destination="QS5-vc-ThT" id="ViZ-yf-hCg"/>
+                <outlet property="subjectL" destination="9kM-t1-HeP" id="M0z-jT-Jtd"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="settingsHeader" width="540" height="274"/>
+        <image name="tvc-colorField" width="10" height="10"/>
+    </resources>
+</document>

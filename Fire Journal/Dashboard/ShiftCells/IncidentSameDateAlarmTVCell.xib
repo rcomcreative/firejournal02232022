@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="IncidentSameDateAlarmTVCell" rowHeight="130" id="lMa-6Q-bp9" userLabel="IncidentSameDateAlarmTVCell" customClass="IncidentSameDateAlarmTVCell" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="130"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lMa-6Q-bp9" id="daF-Ux-ZsL">
+                <rect key="frame" x="0.0" y="0.0" width="500" height="130"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Dose" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uJu-tp-8Sr">
+                        <rect key="frame" x="26" y="14" width="220" height="29"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="220" id="8ac-ke-lRZ"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YJk-U7-fbE">
+                        <rect key="frame" x="26" y="55" width="429" height="32"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="ulQ-1t-7b9">
+                                <rect key="frame" x="0.0" y="0.0" width="227.5" height="35"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" systemColor="labelColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="105" id="KaL-Dk-SjI"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="datePickerTapped:forEvent:" destination="lMa-6Q-bp9" eventType="valueChanged" id="BoL-dE-LRB"/>
+                                </connections>
+                            </datePicker>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="32" id="6sf-G7-YXc"/>
+                            <constraint firstAttribute="trailing" secondItem="ulQ-1t-7b9" secondAttribute="trailing" constant="201.5" id="Z3q-Cb-aSH"/>
+                            <constraint firstItem="ulQ-1t-7b9" firstAttribute="leading" secondItem="YJk-U7-fbE" secondAttribute="leading" id="r0v-b1-0jN"/>
+                            <constraint firstItem="ulQ-1t-7b9" firstAttribute="top" secondItem="YJk-U7-fbE" secondAttribute="top" id="suk-wn-3bS"/>
+                            <constraint firstAttribute="bottom" secondItem="ulQ-1t-7b9" secondAttribute="bottom" constant="-3" id="vo9-D9-4mF"/>
+                        </constraints>
+                    </view>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tgh-dz-LVW">
+                        <rect key="frame" x="406" y="13" width="51" height="31"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="31" id="fri-rC-AAg"/>
+                            <constraint firstAttribute="width" constant="49" id="lw6-dm-I5F"/>
+                        </constraints>
+                        <connections>
+                            <action selector="sameAsAlarmTapped:" destination="lMa-6Q-bp9" eventType="valueChanged" id="KVr-qH-mYS"/>
+                        </connections>
+                    </switch>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Same as alarm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NM6-xT-X7W">
+                        <rect key="frame" x="263" y="18" width="135" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="135" id="dNU-9F-UiR"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thurs March 21, 2022 11:16:05HR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="leh-bu-x9a">
+                        <rect key="frame" x="26" y="101" width="343" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="343" id="Zbc-0Z-lmS"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Tgh-dz-LVW" firstAttribute="centerY" secondItem="uJu-tp-8Sr" secondAttribute="centerY" id="5G9-FJ-9gQ"/>
+                    <constraint firstAttribute="trailing" secondItem="YJk-U7-fbE" secondAttribute="trailing" constant="45" id="5I1-RO-c6l"/>
+                    <constraint firstItem="YJk-U7-fbE" firstAttribute="top" secondItem="uJu-tp-8Sr" secondAttribute="bottom" constant="12" id="6kJ-o5-hjK"/>
+                    <constraint firstItem="uJu-tp-8Sr" firstAttribute="leading" secondItem="daF-Ux-ZsL" secondAttribute="leading" constant="26" id="EHL-HE-gli"/>
+                    <constraint firstItem="Tgh-dz-LVW" firstAttribute="leading" secondItem="NM6-xT-X7W" secondAttribute="trailing" constant="8" symbolic="YES" id="FzB-ny-HkJ"/>
+                    <constraint firstItem="YJk-U7-fbE" firstAttribute="leading" secondItem="uJu-tp-8Sr" secondAttribute="leading" id="Sq4-rp-d1P"/>
+                    <constraint firstItem="leh-bu-x9a" firstAttribute="trailing" secondItem="YJk-U7-fbE" secondAttribute="trailing" constant="-86" id="V0w-69-g32"/>
+                    <constraint firstItem="leh-bu-x9a" firstAttribute="top" secondItem="YJk-U7-fbE" secondAttribute="bottom" constant="14" id="hIQ-Zr-Wc5"/>
+                    <constraint firstAttribute="trailing" secondItem="Tgh-dz-LVW" secondAttribute="trailing" constant="45" id="k5J-xu-gSA"/>
+                    <constraint firstItem="uJu-tp-8Sr" firstAttribute="top" secondItem="daF-Ux-ZsL" secondAttribute="top" constant="14" id="mRc-HP-xlH"/>
+                    <constraint firstItem="leh-bu-x9a" firstAttribute="leading" secondItem="uJu-tp-8Sr" secondAttribute="leading" id="sMh-mp-kBr"/>
+                    <constraint firstItem="NM6-xT-X7W" firstAttribute="centerY" secondItem="uJu-tp-8Sr" secondAttribute="centerY" id="yVS-14-pGR"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="ldS-uG-zMi"/>
+            <connections>
+                <outlet property="dateHolderV" destination="YJk-U7-fbE" id="vbg-a6-58c"/>
+                <outlet property="datePicker" destination="ulQ-1t-7b9" id="cD0-Bx-blv"/>
+                <outlet property="sameAsAlarmL" destination="NM6-xT-X7W" id="vAj-9r-RKQ"/>
+                <outlet property="sameAsAlarmSwitch" destination="Tgh-dz-LVW" id="OyN-hu-Xon"/>
+                <outlet property="subjectL" destination="uJu-tp-8Sr" id="mlr-MS-5oa"/>
+                <outlet property="timeL" destination="leh-bu-x9a" id="16Q-od-apf"/>
+            </connections>
+            <point key="canvasLocation" x="33.333333333333336" y="-98.4375"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

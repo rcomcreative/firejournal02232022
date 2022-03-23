@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TsV-ae-E5B">
+    <device id="ipad11_0rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Resource EditVC-->
+        <scene sceneID="awL-fs-eJx">
+            <objects>
+                <viewController storyboardIdentifier="FDResourceEditVC" modalPresentationStyle="overCurrentContext" id="TsV-ae-E5B" customClass="FDResourceEditVC" customModule="Fire_Journal" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jYo-zM-IKZ">
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cSF-r4-NHh">
+                                <rect key="frame" x="167" y="474.5" width="500" height="225"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EDF0F6-D8E7FA_CellBkgrnd4sq" translatesAutoresizingMaskIntoConstraints="NO" id="9Or-Ir-9dW">
+                                        <rect key="frame" x="0.0" y="0.0" width="500" height="43"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="43" id="Kah-cQ-gTC"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vsN-8t-fB0">
+                                        <rect key="frame" x="400" y="8" width="80" height="29"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="80" id="KrB-9O-ewu"/>
+                                            <constraint firstAttribute="height" constant="29" id="SMM-8p-lql"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <state key="normal" title="Save">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="saveBTapped:" destination="TsV-ae-E5B" eventType="touchUpInside" id="yeG-wI-ipi"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EoQ-Gx-57C">
+                                        <rect key="frame" x="17" y="7" width="80" height="29"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="80" id="Gg1-jp-Y8T"/>
+                                            <constraint firstAttribute="height" constant="29" id="kdK-q6-Tec"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancelBTapped:" destination="TsV-ae-E5B" eventType="touchUpInside" id="jXS-i5-aa5"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit Fire/EMS Resource" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n5S-2H-9ch">
+                                        <rect key="frame" x="29" y="51" width="429" height="24"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="pSf-0v-xRw">
+                                        <rect key="frame" x="201.5" y="83" width="97" height="72"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FIRECOMMISSIONER" translatesAutoresizingMaskIntoConstraints="NO" id="BUt-sK-UxJ">
+                                                <rect key="frame" x="0.0" y="0.0" width="72" height="72"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="72" id="8Mp-cu-qDH"/>
+                                                    <constraint firstAttribute="height" constant="72" id="l5A-HW-j4y"/>
+                                                </constraints>
+                                            </imageView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GreenAvailable" translatesAutoresizingMaskIntoConstraints="NO" id="8i5-Ne-azg">
+                                                <rect key="frame" x="72" y="23.5" width="25" height="25"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="25" id="GzR-oU-DZA"/>
+                                                    <constraint firstAttribute="height" constant="25" id="M3q-3C-l4D"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="72" id="Dka-US-bUs"/>
+                                            <constraint firstAttribute="width" constant="97" id="ZK3-gd-V4z"/>
+                                        </constraints>
+                                    </stackView>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Jtz-cK-vq8">
+                                        <rect key="frame" x="29" y="176" width="451" height="32"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <segments>
+                                            <segment title="Front Line"/>
+                                            <segment title="Reserve"/>
+                                            <segment title="Out of Service"/>
+                                        </segments>
+                                        <color key="selectedSegmentTintColor" systemColor="tertiarySystemBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <action selector="segmentTapped:" destination="TsV-ae-E5B" eventType="valueChanged" id="MYp-nM-P30"/>
+                                        </connections>
+                                    </segmentedControl>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="vsN-8t-fB0" firstAttribute="top" secondItem="A0i-8l-DYm" secondAttribute="top" constant="8" id="1JC-tw-rmO"/>
+                                    <constraint firstItem="A0i-8l-DYm" firstAttribute="trailing" secondItem="n5S-2H-9ch" secondAttribute="trailing" constant="42" id="1ve-A4-Ut2"/>
+                                    <constraint firstAttribute="height" constant="225" id="4fM-xR-tMR"/>
+                                    <constraint firstItem="EoQ-Gx-57C" firstAttribute="leading" secondItem="A0i-8l-DYm" secondAttribute="leading" constant="17" id="5QD-ht-6RY"/>
+                                    <constraint firstItem="Jtz-cK-vq8" firstAttribute="leading" secondItem="A0i-8l-DYm" secondAttribute="leading" constant="29" id="AP5-aR-WvH"/>
+                                    <constraint firstAttribute="width" constant="374" id="ARQ-K7-4eM">
+                                        <variation key="widthClass=regular" constant="500"/>
+                                    </constraint>
+                                    <constraint firstItem="9Or-Ir-9dW" firstAttribute="leading" secondItem="A0i-8l-DYm" secondAttribute="leading" id="IRt-7s-Zm8"/>
+                                    <constraint firstItem="n5S-2H-9ch" firstAttribute="leading" secondItem="A0i-8l-DYm" secondAttribute="leading" constant="29" id="JhX-ni-9Uu"/>
+                                    <constraint firstItem="n5S-2H-9ch" firstAttribute="top" secondItem="9Or-Ir-9dW" secondAttribute="bottom" constant="8" id="L2z-Er-tBK"/>
+                                    <constraint firstItem="A0i-8l-DYm" firstAttribute="trailing" secondItem="vsN-8t-fB0" secondAttribute="trailing" constant="20" id="U58-0O-PHA"/>
+                                    <constraint firstItem="A0i-8l-DYm" firstAttribute="trailing" secondItem="Jtz-cK-vq8" secondAttribute="trailing" constant="20" id="dHu-YL-zZS"/>
+                                    <constraint firstItem="A0i-8l-DYm" firstAttribute="trailing" secondItem="9Or-Ir-9dW" secondAttribute="trailing" id="fX4-B4-4DZ"/>
+                                    <constraint firstItem="9Or-Ir-9dW" firstAttribute="top" secondItem="A0i-8l-DYm" secondAttribute="top" id="hyp-0E-UdO"/>
+                                    <constraint firstItem="pSf-0v-xRw" firstAttribute="top" secondItem="n5S-2H-9ch" secondAttribute="bottom" constant="8" id="ibZ-4l-g7b"/>
+                                    <constraint firstItem="EoQ-Gx-57C" firstAttribute="top" secondItem="A0i-8l-DYm" secondAttribute="top" constant="7" id="jhM-Yf-Pca"/>
+                                    <constraint firstItem="Jtz-cK-vq8" firstAttribute="top" secondItem="pSf-0v-xRw" secondAttribute="bottom" constant="21" id="my7-g5-xXg"/>
+                                    <constraint firstItem="pSf-0v-xRw" firstAttribute="centerX" secondItem="A0i-8l-DYm" secondAttribute="centerX" id="qXF-7u-YiG"/>
+                                </constraints>
+                                <viewLayoutGuide key="safeArea" id="A0i-8l-DYm"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.33000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="cSF-r4-NHh" firstAttribute="centerY" secondItem="JKC-02-o6i" secondAttribute="centerY" id="2Py-ZA-dud"/>
+                            <constraint firstItem="cSF-r4-NHh" firstAttribute="centerX" secondItem="jYo-zM-IKZ" secondAttribute="centerX" id="vde-H8-Krq"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="JKC-02-o6i"/>
+                    </view>
+                    <connections>
+                        <outlet property="accessIV" destination="8i5-Ne-azg" id="Gsw-6V-1ba"/>
+                        <outlet property="cancelB" destination="EoQ-Gx-57C" id="JAA-Yh-Apx"/>
+                        <outlet property="resourceIV" destination="BUt-sK-UxJ" id="4NG-Aa-DZM"/>
+                        <outlet property="resourceSegment" destination="Jtz-cK-vq8" id="LZt-tB-v31"/>
+                        <outlet property="resourceV" destination="cSF-r4-NHh" id="zJX-rR-qxt"/>
+                        <outlet property="saveB" destination="vsN-8t-fB0" id="M1E-wW-ZBs"/>
+                        <outlet property="subjectL" destination="n5S-2H-9ch" id="2QG-qa-Qzy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="s5Y-0E-1aa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137.41007194244605" y="83.417085427135675"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="EDF0F6-D8E7FA_CellBkgrnd4sq" width="342" height="84"/>
+        <image name="FIRECOMMISSIONER" width="200" height="200"/>
+        <image name="GreenAvailable" width="25" height="25"/>
+    </resources>
+</document>

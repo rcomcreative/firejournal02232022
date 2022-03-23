@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="315" id="KVG-aC-EBI" customClass="NewAddressFieldsButtonsCell" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="315"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KVG-aC-EBI" id="KbL-Xa-SVK">
+                <rect key="frame" x="0.0" y="0.0" width="500" height="315"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VMP-u3-pPf">
+                        <rect key="frame" x="20" y="70" width="410" height="34"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <textInputTraits key="textInputTraits"/>
+                        <connections>
+                            <outlet property="delegate" destination="KVG-aC-EBI" id="pfI-hY-Zuh"/>
+                        </connections>
+                    </textField>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zby-Aq-9ep">
+                        <rect key="frame" x="26" y="38" width="60" height="29"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6OY-XC-JwB">
+                        <rect key="frame" x="20" y="109" width="410" height="34"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <textInputTraits key="textInputTraits"/>
+                        <connections>
+                            <outlet property="delegate" destination="KVG-aC-EBI" id="hMU-i1-LUn"/>
+                        </connections>
+                    </textField>
+                    <textField opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ORW-Kr-O92">
+                        <rect key="frame" x="20" y="148" width="410" height="34"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <textInputTraits key="textInputTraits"/>
+                        <connections>
+                            <outlet property="delegate" destination="KVG-aC-EBI" id="DUY-fw-UdR"/>
+                        </connections>
+                    </textField>
+                    <textField opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SUS-sa-ZSe">
+                        <rect key="frame" x="20" y="188" width="410" height="34"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <textInputTraits key="textInputTraits"/>
+                        <connections>
+                            <outlet property="delegate" destination="KVG-aC-EBI" id="94L-FO-E1Z"/>
+                        </connections>
+                    </textField>
+                    <textField opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EH3-5b-pdy">
+                        <rect key="frame" x="20" y="229" width="410" height="34"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <textInputTraits key="textInputTraits"/>
+                        <connections>
+                            <outlet property="delegate" destination="KVG-aC-EBI" id="RAY-0s-vRe"/>
+                        </connections>
+                    </textField>
+                    <textField opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="N2z-kl-baC">
+                        <rect key="frame" x="21" y="270" width="409" height="34"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <textInputTraits key="textInputTraits"/>
+                        <connections>
+                            <outlet property="delegate" destination="KVG-aC-EBI" id="Wvn-YJ-fpc"/>
+                        </connections>
+                    </textField>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="VMP-u3-pPf" firstAttribute="top" secondItem="KbL-Xa-SVK" secondAttribute="top" constant="70" id="00N-Fk-Mdf"/>
+                    <constraint firstAttribute="trailing" secondItem="ORW-Kr-O92" secondAttribute="trailing" constant="70" id="6Mi-Se-CDW"/>
+                    <constraint firstItem="EH3-5b-pdy" firstAttribute="top" secondItem="KbL-Xa-SVK" secondAttribute="top" constant="229" id="ANP-0b-71L"/>
+                    <constraint firstItem="SUS-sa-ZSe" firstAttribute="leading" secondItem="KbL-Xa-SVK" secondAttribute="leading" constant="20" id="J3l-Ng-4k0"/>
+                    <constraint firstItem="6OY-XC-JwB" firstAttribute="top" secondItem="KbL-Xa-SVK" secondAttribute="top" constant="109" id="Jno-NR-EBZ"/>
+                    <constraint firstAttribute="trailing" secondItem="6OY-XC-JwB" secondAttribute="trailing" constant="70" id="MNH-oT-cn9"/>
+                    <constraint firstAttribute="trailing" secondItem="N2z-kl-baC" secondAttribute="trailing" constant="70" id="OmO-M6-87W"/>
+                    <constraint firstItem="zby-Aq-9ep" firstAttribute="top" secondItem="KbL-Xa-SVK" secondAttribute="top" constant="38" id="P4x-zh-VEr"/>
+                    <constraint firstItem="VMP-u3-pPf" firstAttribute="leading" secondItem="KbL-Xa-SVK" secondAttribute="leading" constant="20" id="Urr-ec-Vi8"/>
+                    <constraint firstAttribute="trailing" secondItem="VMP-u3-pPf" secondAttribute="trailing" constant="70" id="Veu-0n-tcZ"/>
+                    <constraint firstItem="N2z-kl-baC" firstAttribute="top" secondItem="KbL-Xa-SVK" secondAttribute="top" constant="270" id="Zqn-Ml-UWX"/>
+                    <constraint firstItem="zby-Aq-9ep" firstAttribute="leading" secondItem="KbL-Xa-SVK" secondAttribute="leading" constant="26" id="cK3-n0-krK"/>
+                    <constraint firstItem="EH3-5b-pdy" firstAttribute="leading" secondItem="KbL-Xa-SVK" secondAttribute="leading" constant="20" id="dN2-mF-jiC"/>
+                    <constraint firstItem="SUS-sa-ZSe" firstAttribute="top" secondItem="KbL-Xa-SVK" secondAttribute="top" constant="188" id="dk4-lx-M9f"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="zby-Aq-9ep" secondAttribute="trailing" id="dkr-g1-7xf"/>
+                    <constraint firstItem="N2z-kl-baC" firstAttribute="leading" secondItem="KbL-Xa-SVK" secondAttribute="leading" constant="21" id="dwR-O6-Z1e"/>
+                    <constraint firstAttribute="trailing" secondItem="EH3-5b-pdy" secondAttribute="trailing" constant="70" id="eyD-xf-eJs"/>
+                    <constraint firstItem="ORW-Kr-O92" firstAttribute="top" secondItem="KbL-Xa-SVK" secondAttribute="top" constant="148" id="jfB-Nf-wcx"/>
+                    <constraint firstItem="ORW-Kr-O92" firstAttribute="leading" secondItem="KbL-Xa-SVK" secondAttribute="leading" constant="20" id="pbH-Dc-5Ai"/>
+                    <constraint firstItem="6OY-XC-JwB" firstAttribute="leading" secondItem="KbL-Xa-SVK" secondAttribute="leading" constant="20" id="yaX-kq-CkU"/>
+                    <constraint firstAttribute="trailing" secondItem="SUS-sa-ZSe" secondAttribute="trailing" constant="70" id="zC2-59-4S9"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="hKz-rh-R5y"/>
+            <connections>
+                <outlet property="addressLatitudeTF" destination="EH3-5b-pdy" id="xyU-lG-xEd"/>
+                <outlet property="addressLongitudeTF" destination="N2z-kl-baC" id="jhS-m4-fB0"/>
+                <outlet property="addressTF" destination="VMP-u3-pPf" id="ChN-ba-RDW"/>
+                <outlet property="cityTF" destination="6OY-XC-JwB" id="nG9-Lf-Kdy"/>
+                <outlet property="stateTF" destination="ORW-Kr-O92" id="OtQ-4e-6FP"/>
+                <outlet property="subjectL" destination="zby-Aq-9ep" id="aXm-1D-Zio"/>
+                <outlet property="zipTF" destination="SUS-sa-ZSe" id="Io2-fp-lWo"/>
+            </connections>
+            <point key="canvasLocation" x="-23" y="-81"/>
+        </tableViewCell>
+    </objects>
+</document>

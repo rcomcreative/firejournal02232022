@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad11_0rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="wCe-Oy-IWA" customClass="SettingsMyResourcesHeaderV" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="66"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3ci-FC-Mdb" userLabel="Content View">
+                    <rect key="frame" x="0.0" y="0.0" width="500" height="66"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RLy-Hz-Ysa">
+                            <rect key="frame" x="0.0" y="-2" width="500" height="68"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Fire Station Resources" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ndH-Qi-2B5">
+                            <rect key="frame" x="20" y="16" width="375" height="36"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="36" id="QPV-3e-Rw1"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                            <variation key="heightClass=regular-widthClass=regular">
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="32"/>
+                            </variation>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nCw-0f-oS2">
+                            <rect key="frame" x="444" y="18.5" width="31" height="31"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="31" id="lMj-rk-ych"/>
+                                <constraint firstAttribute="height" constant="31" id="w8d-Yq-yiN"/>
+                            </constraints>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <state key="normal" backgroundImage="infoCircleI">
+                                <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="infoBTapped:" destination="wCe-Oy-IWA" eventType="touchUpInside" id="8bs-db-4Pb"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="nCw-0f-oS2" secondAttribute="trailing" constant="25" id="7JG-G7-Eel"/>
+                        <constraint firstAttribute="trailing" secondItem="RLy-Hz-Ysa" secondAttribute="trailing" id="CGl-yD-PhI"/>
+                        <constraint firstItem="nCw-0f-oS2" firstAttribute="centerY" secondItem="ndH-Qi-2B5" secondAttribute="centerY" id="N9d-Zu-fe3"/>
+                        <constraint firstItem="ndH-Qi-2B5" firstAttribute="top" secondItem="3ci-FC-Mdb" secondAttribute="top" constant="16" id="T6U-IL-LmZ"/>
+                        <constraint firstItem="RLy-Hz-Ysa" firstAttribute="leading" secondItem="3ci-FC-Mdb" secondAttribute="leading" id="Ucs-yR-hEF"/>
+                        <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="ndH-Qi-2B5" secondAttribute="trailing" constant="278.5" id="YOW-6A-stY"/>
+                        <constraint firstAttribute="bottom" secondItem="RLy-Hz-Ysa" secondAttribute="bottom" id="cuW-rs-PWZ"/>
+                        <constraint firstItem="ndH-Qi-2B5" firstAttribute="leading" secondItem="3ci-FC-Mdb" secondAttribute="leading" constant="20" id="oCl-ho-hlM"/>
+                        <constraint firstItem="RLy-Hz-Ysa" firstAttribute="top" secondItem="3ci-FC-Mdb" secondAttribute="top" constant="-2" id="tVg-w2-xeT"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="3ci-FC-Mdb" secondAttribute="bottom" id="07t-22-qYX"/>
+                <constraint firstItem="3ci-FC-Mdb" firstAttribute="top" secondItem="wCe-Oy-IWA" secondAttribute="top" id="7t8-My-nGS"/>
+                <constraint firstItem="3ci-FC-Mdb" firstAttribute="leading" secondItem="wCe-Oy-IWA" secondAttribute="leading" id="Pb0-M6-eqI"/>
+                <constraint firstAttribute="trailing" secondItem="3ci-FC-Mdb" secondAttribute="trailing" id="n4x-6J-zus"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="6mX-7C-vLt"/>
+            <connections>
+                <outlet property="backgroundV" destination="RLy-Hz-Ysa" id="u29-RQ-dJQ"/>
+                <outlet property="contentView" destination="3ci-FC-Mdb" id="zpd-lG-eFq"/>
+                <outlet property="infoB" destination="nCw-0f-oS2" id="1od-jA-M2N"/>
+                <outlet property="myResourcesTitleL" destination="ndH-Qi-2B5" id="d88-It-7dP"/>
+            </connections>
+            <point key="canvasLocation" x="51.798561151079141" y="47.738693467336681"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="infoCircleI" width="31" height="31"/>
+    </resources>
+</document>

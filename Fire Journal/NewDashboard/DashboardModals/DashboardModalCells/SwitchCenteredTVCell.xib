@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SwitchCenteredTVCell" id="KGk-i7-Jjw" customClass="SwitchCenteredTVCell" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vap-hO-5Qe">
+                        <rect key="frame" x="136.5" y="7" width="49" height="31"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="31" id="4E6-Bx-jKB"/>
+                            <constraint firstAttribute="width" constant="47" id="g2j-35-Cab"/>
+                        </constraints>
+                        <connections>
+                            <action selector="centerSwithTapped:" destination="KGk-i7-Jjw" eventType="valueChanged" id="QcJ-nW-wrx"/>
+                        </connections>
+                    </switch>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AM Relief" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k8O-eI-gJT">
+                        <rect key="frame" x="5" y="12" width="116.5" height="22"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Overtime" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YDz-ic-Zkn">
+                        <rect key="frame" x="198.5" y="12" width="116.5" height="22"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="k8O-eI-gJT" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="8KQ-gb-lav"/>
+                    <constraint firstItem="YDz-ic-Zkn" firstAttribute="leading" secondItem="Vap-hO-5Qe" secondAttribute="trailing" constant="15" id="BgS-Pp-50c"/>
+                    <constraint firstItem="k8O-eI-gJT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="TiF-4i-y7v"/>
+                    <constraint firstItem="YDz-ic-Zkn" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="TvF-qk-Epi"/>
+                    <constraint firstItem="Vap-hO-5Qe" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="XcY-Tl-PMi"/>
+                    <constraint firstAttribute="trailing" secondItem="YDz-ic-Zkn" secondAttribute="trailing" constant="5" id="hYA-xJ-iSw"/>
+                    <constraint firstItem="Vap-hO-5Qe" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="7" id="n1d-Bi-jdg"/>
+                    <constraint firstItem="Vap-hO-5Qe" firstAttribute="leading" secondItem="k8O-eI-gJT" secondAttribute="trailing" constant="15" id="osi-SK-i9L"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="centerSwitch" destination="Vap-hO-5Qe" id="hpc-ie-lax"/>
+                <outlet property="leftSubjectL" destination="k8O-eI-gJT" id="eeg-yG-dMM"/>
+                <outlet property="rightSubjectL" destination="YDz-ic-Zkn" id="NGo-VE-3Fu"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="124.55357142857142"/>
+        </tableViewCell>
+    </objects>
+</document>
