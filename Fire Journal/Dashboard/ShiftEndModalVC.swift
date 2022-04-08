@@ -15,6 +15,7 @@ import CoreLocation
 
 protocol ShiftEndModalVCDelegate: AnyObject {
     func dismissShiftEndModal()
+    func endShiftNOUserFound()
 }
 
 class ShiftEndModalVC: UIViewController {
@@ -43,7 +44,10 @@ class ShiftEndModalVC: UIViewController {
     private var launchNC: LaunchNotifications!
     
     var theUserTime: UserTime!
+    var theUserTimeOID: NSManagedObjectID!
     var theUser: FireJournalUser!
+    var theStatus: Status!
+    var theStatusObj: NSManagedObjectID!
     var utGuid: String = ""
     
     var alertUp: Bool = false
@@ -59,7 +63,9 @@ Shift
         //    MARK: -BOOL-
     var showPicker: Bool = false
     var updateCV: Bool = false
-    var discussionHeight: CGFloat = 110
+    var discussionAvailable: Bool = false
+    var discussionHeight: CGFloat = 0.0
+    var discussionNote: String = ""
     var shiftAMorRelief = false
     var superOrRelief: Bool = false
     var relieveOrSupervisor: String = ""
@@ -74,22 +80,30 @@ Shift
         launchNC.callNotifications()
         nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: context)
         
-        guard let guid = userDefaults.string(forKey: FJkUSERTIMEGUID) else {
-            let errorMessage = "Start shift needs to be started."
-            errorAlert(errorMessage: errorMessage)
-            return
-        }
-        getTheUserTime(guid)
         
-        if theUserTime == nil {
-            dismiss(animated: true)
+        if let obj = theStatusObj {
+            theStatus = context.object(with: obj) as? Status
+        }
+        
+        if let obj = theUserTimeOID {
+            theUserTime = context.object(with: obj) as? UserTime
+        } else {
+            if theStatus != nil {
+                if let guid = theStatus.guidString {
+                    getTheUserTime(guid)
+                }
+                if theUserTime == nil {
+                    delegate?.endShiftNOUserFound()
+                }
+            }
         }
         
         getTheUser()
         if theUser == nil {
-            dismiss(animated: true, completion: nil)
+            delegate?.endShiftNOUserFound()
         }
         
+        getTheNotes()
         roundViews()
         configureshiftModalHeaderV()
         configureshiftTableView()
@@ -111,6 +125,16 @@ Shift
 }
 
 extension ShiftEndModalVC {
+    
+    func getTheNotes() {
+        if theUserTime != nil {
+            if let discuss = theUserTime.endShiftDiscussion {
+                discussionNote = discuss
+                discussionHeight = configureLabelHeight(text: discussionNote)
+                discussionAvailable = true
+            }
+        }
+    }
     
         /// get the stored guid for the shift
         /// - Parameter guid: String guid for the last shift issued

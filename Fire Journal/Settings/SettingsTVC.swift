@@ -60,18 +60,12 @@ class SettingsTVC: UITableViewController {
         //        MARK: -OBSERVE WHEN TAGS HAVE BEEN RELOADED
         nc.addObserver(self, selector: #selector(tagsAreLoadedNow(ns:)), name: NSNotification.Name(rawValue: FJkReloadUserTagsFinished), object: nil)
         
-        //        MARK: -OBSERVE WHEN RESOURCES HAVE BEEN RELOADED
-        nc.addObserver(self, selector: #selector(resourcesAreLoadedNow(ns:)), name: NSNotification.Name(rawValue: FJkReloadUserResourcesFinished), object: nil)
-        
         
         //        MARK: -OBSERVE WHEN RANK HAVE BEEN RELOADED
         nc.addObserver(self, selector: #selector(rankAreLoadedNow(ns:)), name: NSNotification.Name(rawValue: FJkReloadUserRankFinished), object: nil)
         
         //        MARK: -OBSERVE WHEN  PLATOON HAVE BEEN RELOADED
         nc.addObserver(self, selector: #selector(platoonAreLoadedNow(ns:)), name: NSNotification.Name(rawValue: FJkReloadUserPlatoonFinished), object: nil)
-        
-        //        MARK: -OBSERVE WHEN  STREETTYPE HAVE BEEN RELOADED
-        nc.addObserver(self, selector: #selector(streetTypeAreLoadedNow(ns:)), name: NSNotification.Name(rawValue: FJkReloadStreetTypeFinished), object: nil)
         
         //        MARK: -OBSERVE WHEN  LOCALINCIDENTTYPE HAVE BEEN RELOADED
         nc.addObserver(self, selector: #selector(localIncidentTypeAreLoadedNow(ns:)), name: NSNotification.Name(rawValue: FJkReloadLocalIncidentTypesFinished), object: nil)
@@ -115,26 +109,14 @@ class SettingsTVC: UITableViewController {
     }
     
     // MARK: - Table view data source
-    //    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    //        let row = indexPath.row
-    //        switch row {
-    //        case 0:
-    //            return 105
-    //        default:
-    //            return 44
-    //        }
-    //    }
-    //
-    //    override func numberOfSections(in tableView: UITableView) -> Int {
-    //        return 1
-    //    }
+   
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 11
+        return 8
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -170,42 +152,30 @@ class SettingsTVC: UITableViewController {
             cell.settingsSubjectL.text = "My Profile"
             cell.settingType = FJSettings.myProfile
         case 1:
-            cell.iconIV.image = UIImage(named: "MyFireEMSResource")
-            cell.settingsSubjectL.text = "My Fire Station Resources"
-            cell.settingType = FJSettings.fireStationResources
-        case 2:
-            cell.iconIV.image = UIImage(named: "FireEMSResourcesIcon")
-            cell.settingsSubjectL.text = "Fire/EMS Resources"
-            cell.settingType = FJSettings.resources
-        case 3:
             cell.iconIV.image = UIImage(named: "TagsIcon")
             cell.settingsSubjectL.text = "Tags"
             cell.settingType = FJSettings.tags
-        case 4:
+        case 2:
             cell.iconIV.image = UIImage(named: "SettingsIconDefault")
             cell.settingsSubjectL.text = "Rank"
             cell.settingType = FJSettings.rank
-        case 5:
+        case 3:
             cell.iconIV.image = UIImage(named: "SettingsIconDefault")
             cell.settingsSubjectL.text = "Platoon"
             cell.settingType = FJSettings.platoon
-        case 6:
-            cell.iconIV.image = UIImage(named: "SettingsIconDefault")
-            cell.settingsSubjectL.text = "Street Types"
-            cell.settingType = FJSettings.streetTypes
-        case 7:
+        case 4:
             cell.iconIV.image = UIImage(named: "SettingsIconDefault")
             cell.settingsSubjectL.text = "Local Incident Types"
             cell.settingType = FJSettings.localIncidentTypes
-        case 8:
+        case 5:
             cell.iconIV.image = UIImage(named: "SettingsICloudIcon")
             cell.settingsSubjectL.text = "About Membership"
             cell.settingType = FJSettings.cloud
-        case 9:
+        case 6:
             cell.iconIV.image = UIImage(named: "SettingsIconDefault")
             cell.settingsSubjectL.text = "Terms and Conditions"
             cell.settingType = FJSettings.terms
-        case 10:
+        case 7:
             cell.iconIV.image = UIImage(named: "SettingsIconDefault")
             cell.settingsSubjectL.text = "User Privacy"
             cell.settingType = FJSettings.privacy
@@ -242,15 +212,6 @@ class SettingsTVC: UITableViewController {
         case 7:
             let cell = tableView.cellForRow(at: indexPath)! as! SettingsTVCell
             launchSettingsPage(cell.settingType)
-        case 8:
-            let cell = tableView.cellForRow(at: indexPath)! as! SettingsTVCell
-            launchSettingsPage(cell.settingType)
-        case 9:
-            let cell = tableView.cellForRow(at: indexPath)! as! SettingsTVCell
-            launchSettingsPage(cell.settingType)
-        case 10:
-            let cell = tableView.cellForRow(at: indexPath)! as! SettingsTVCell
-            launchSettingsPage(cell.settingType)
         default:break
         }
     }
@@ -268,19 +229,6 @@ class SettingsTVC: UITableViewController {
                 nc.post(name:Notification.Name(rawValue:FJkPROFILE_FROM_MASTER),
                         object: nil,
                         userInfo: ["sizeTrait":compact])
-            }
-        case .fireStationResources:
-            if count == 0 {
-                countIsZero()
-            } else {
-                switch compact {
-                case .compact:
-                    delegate?.settingsLoadPage(settings: settings)
-                case .regular:
-                    nc.post(name:Notification.Name(rawValue:FJkSETTINGSMYFIRESTATIONRESOURCESCalled),
-                            object: nil,
-                            userInfo: ["sizeTrait":compact])
-                }
             }
         case .cloud:
             if collapsed {
@@ -339,36 +287,6 @@ class SettingsTVC: UITableViewController {
                     delegate?.settingsLoadPage(settings: settings)
                 } else {
                     nc.post(name:Notification.Name(rawValue:FJkSETTINGPLATOONCalled),
-                            object: nil,
-                            userInfo: ["sizeTrait":compact])
-                }
-            }
-        case .resources:
-            let count = theCount(entity: "UserResources")
-            if count < 65 {
-                if !alertUp {
-                    resourcesPresentAlert()
-                }
-            } else {
-                if collapsed {
-                    delegate?.settingsLoadPage(settings: settings)
-                } else {
-                    nc.post(name:Notification.Name(rawValue:FJkSETTINGRESOURCESCalled),
-                            object: nil,
-                            userInfo: ["sizeTrait":compact])
-                }
-            }
-        case .streetTypes:
-            let count = theCount(entity: "NFIRSStreetType")
-            if count == 0 {
-                if !alertUp {
-                    streetTypePresentAlert()
-                }
-            } else {
-                if collapsed {
-                    delegate?.settingsLoadPage(settings: settings)
-                } else {
-                    nc.post(name:Notification.Name(rawValue:FJkSETTINGSTREETTYPECalled),
                             object: nil,
                             userInfo: ["sizeTrait":compact])
                 }
@@ -485,43 +403,6 @@ extension SettingsTVC {
         }
     }
     
-    //    MARK: -RELOAD THE USER RESOURCES ALERT
-    func resourcesPresentAlert() {
-        let title: InfoBodyText = .resourcesAreEmptySubject
-        let message: InfoBodyText = .resourcesAreEmpty
-        let alert = UIAlertController.init(title: title.rawValue, message: message.rawValue, preferredStyle: .alert)
-        let okAction = UIAlertAction.init(title: "Okay", style: .default, handler: {_ in
-            self.alertUp = false
-            
-            let nc = NotificationCenter.default
-            DispatchQueue.main.async {
-                nc.post(name:Notification.Name(rawValue:FJkReloadUserResourcesCalled),
-                        object: nil,
-                        userInfo: nil )
-            }
-        })
-        
-        alert.addAction(okAction)
-        let noAction = UIAlertAction.init(title: "No", style: .default, handler: {_ in
-            self.alertUp = false
-        })
-        alert.addAction(noAction)
-        alertUp = true
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    //    MARK: -RELOAD THE RESOURCESPAGE
-    /// Reloads the RESOURCES Settings page with populated tags
-    /// - Parameter ns: no userInfo
-    @objc func resourcesAreLoadedNow( ns: Notification ) {
-        if collapsed {
-            delegate?.settingsLoadPage(settings: FJSettings.resources )
-        } else {
-            nc.post(name:Notification.Name(rawValue:FJkSETTINGRESOURCESCalled),
-                    object: nil,
-                    userInfo: ["sizeTrait":compact])
-        }
-    }
     
     //    MARK: -RELOAD THE USER RANK ALERT
     func rankPresentAlert() {
@@ -599,44 +480,6 @@ extension SettingsTVC {
         }
     }
     
-    
-    //    MARK: -RELOAD THE NFIRS STREET TYPES ALERT
-    func streetTypePresentAlert() {
-        let title: InfoBodyText = .streetTypeAreEmptySubject
-        let message: InfoBodyText = .streetTypeAreEmpty
-        let alert = UIAlertController.init(title: title.rawValue, message: message.rawValue, preferredStyle: .alert)
-        let okAction = UIAlertAction.init(title: "Okay", style: .default, handler: {_ in
-            self.alertUp = false
-            
-            let nc = NotificationCenter.default
-            DispatchQueue.main.async {
-                nc.post(name:Notification.Name(rawValue:FJkReloadStreetTypeCalled),
-                        object: nil,
-                        userInfo: nil )
-            }
-        })
-        
-        alert.addAction(okAction)
-        let noAction = UIAlertAction.init(title: "No", style: .default, handler: {_ in
-            self.alertUp = false
-        })
-        alert.addAction(noAction)
-        alertUp = true
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    //    MARK: -RELOAD THE STREET TYPES PAGE
-    /// Reloads the STREET TYPES Settings page with populated tags
-    /// - Parameter ns: no userInfo
-    @objc func streetTypeAreLoadedNow( ns: Notification ) {
-        if collapsed {
-            delegate?.settingsLoadPage(settings: FJSettings.streetTypes)
-        } else {
-            nc.post(name:Notification.Name(rawValue:FJkSETTINGSTREETTYPECalled),
-                    object: nil,
-                    userInfo: ["sizeTrait":compact])
-        }
-    }
     
     //    MARK: -RELOAD THE LOCAL INCIDENT TYPE ALERT
     func localIncidentTypePresentAlert() {

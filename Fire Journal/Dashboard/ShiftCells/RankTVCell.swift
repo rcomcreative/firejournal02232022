@@ -93,7 +93,7 @@ extension RankTVCell {
             case .rank, .platoon, .ems, .fireFighter, .languages, .qualfications, .assignment:
                 config.baseBackgroundColor = UIColor(named: "FJBlueColor")
             case .leaveWork:
-                config.baseBackgroundColor = UIColor(named: "FJGreenColor")
+                config.baseBackgroundColor = UIColor(named: "FJBlueColor")
             case .stationType:
                 config.baseBackgroundColor = UIColor(named: "FJIconRed")
             default: break
@@ -238,6 +238,21 @@ extension RankTVCell {
                 theSubjectTF.textColor = .label
             }
             
+            
+            if Device.IS_IPHONE {
+                NSLayoutConstraint.activate([
+                    
+                    newB.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 10),
+                    newB.widthAnchor.constraint(equalToConstant: 279),
+                    newB.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 26),
+                    newB.heightAnchor.constraint(equalToConstant: 45),
+                    
+                    theSubjectTF.topAnchor.constraint(equalTo: newB.bottomAnchor, constant: 10),
+                    theSubjectTF.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -35),
+                    theSubjectTF.leadingAnchor.constraint(equalTo: newB.leadingAnchor),
+                    theSubjectTF.heightAnchor.constraint(equalToConstant: 24),
+                    ])
+            } else {
             NSLayoutConstraint.activate([
                 theSubjectTF.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
                 theSubjectTF.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -35),
@@ -248,6 +263,7 @@ extension RankTVCell {
                 newB.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 26),
                 newB.heightAnchor.constraint(equalToConstant: 45),
                 ])
+            }
         }
     }
     

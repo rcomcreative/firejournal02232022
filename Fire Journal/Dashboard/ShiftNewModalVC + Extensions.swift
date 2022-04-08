@@ -19,8 +19,13 @@ extension ShiftNewModalVC: UITableViewDelegate {
             shiftTableView.register(UINib(nibName: "SubjectLabelTextFieldIndicatorTVCell", bundle: nil), forCellReuseIdentifier: "SubjectLabelTextFieldIndicatorTVCell")
             shiftTableView.register(UINib(nibName: "SubjectLabelTextViewTVCell", bundle: nil), forCellReuseIdentifier: "SubjectLabelTextViewTVCell")
             shiftTableView.register(UINib(nibName: "LabelSingleDateFieldCell", bundle: nil), forCellReuseIdentifier: "LabelSingleDateFieldCell")
+        shiftTableView.register(UINib(nibName: "LabelDateiPhoneTVCell", bundle: nil), forCellReuseIdentifier: "LabelDateiPhoneTVCell")
             shiftTableView.register(UINib(nibName: "SwitchCenteredTVCell", bundle: nil), forCellReuseIdentifier: "SwitchCenteredTVCell")
             shiftTableView.register(RankTVCell.self, forCellReuseIdentifier: "RankTVCell")
+        shiftTableView.register(UINib(nibName: "LabelTextFieldCell", bundle: nil), forCellReuseIdentifier: "LabelTextFieldCell")
+        shiftTableView.register(MultipleAddButtonTVCell.self, forCellReuseIdentifier: "MultipleAddButtonTVCell")
+        shiftTableView.register(UINib(nibName: "LabelCell", bundle: nil), forCellReuseIdentifier: "LabelCell")
+
     }
     
 }
@@ -32,7 +37,7 @@ extension ShiftNewModalVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 8
+        return 9
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -41,13 +46,27 @@ extension ShiftNewModalVC: UITableViewDataSource {
         case 0:
             return 44
         case 1:
+            if Device.IS_IPHONE {
+                return 100
+            } else {
             return 60
+            }
         case 2, 5, 6:
             return 88
         case 3, 4:
+            if Device.IS_IPHONE {
+                return 100
+            } else {
             return 55
+            }
         case 7:
-           return 150
+           return 85
+        case 8:
+            if discussionAvailable {
+                return discussionHeight
+            } else {
+                return 0
+            }
         default:
             return 44
         }
@@ -61,11 +80,17 @@ extension ShiftNewModalVC: UITableViewDataSource {
             cell = configureSwitchCenteredTVCell(cell, index: indexPath)
             return cell
         case 1:
+            if Device.IS_IPHONE {
+                var cell = tableView.dequeueReusableCell(withIdentifier: "LabelDateiPhoneTVCell", for: indexPath) as! LabelDateiPhoneTVCell
+                cell = configureLabelDateiPhoneTVCell(cell, index: indexPath)
+                return cell
+            } else {
             var cell = tableView.dequeueReusableCell(withIdentifier: "LabelSingleDateFieldCell", for: indexPath) as! LabelSingleDateFieldCell
             cell = configureLabelSingleDateFieldCell(cell, index: indexPath)
             cell.configureTheLabel(width: 125)
             cell.configureDatePickersHoldingV()
             return cell
+            }
         case 2, 5, 6:
             var cell = tableView.dequeueReusableCell(withIdentifier: "SubjectLabelTextFieldIndicatorTVCell", for: indexPath) as! SubjectLabelTextFieldIndicatorTVCell
             cell = configureSubjectLabelTextFieldIndicatorTVCell(cell, index: indexPath)
@@ -77,9 +102,19 @@ extension ShiftNewModalVC: UITableViewDataSource {
             cell.configureTheButton()
             return cell
         case 7:
-            var cell = tableView.dequeueReusableCell(withIdentifier: "SubjectLabelTextViewTVCell", for: indexPath) as! SubjectLabelTextViewTVCell
-            cell = configureSubjectLabelTextViewTVCell(cell, index: indexPath)
+            var cell = tableView.dequeueReusableCell(withIdentifier: "MultipleAddButtonTVCell", for: indexPath) as! MultipleAddButtonTVCell
+            cell = configureMultipleAddButtonTVCell(cell, index: indexPath)
+            cell.configureTheButton()
             return cell
+        case 8:
+            if discussionAvailable {
+                var cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath) as! LabelCell
+                cell = configureLabelCell(cell, index: indexPath)
+                return cell
+            } else {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "LabelTextFieldCell", for: indexPath) as! LabelTextFieldCell
+                    return cell
+            }
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "CellIdentifier", for: indexPath)
             return cell
@@ -127,6 +162,45 @@ extension ShiftNewModalVC: UITableViewDataSource {
         }
     }
     
+    func configureLabelCell(_ cell: LabelCell, index: IndexPath) -> LabelCell {
+        cell.tag = index.row
+        let row = index.row
+        cell.modalTitleL.font = cell.modalTitleL.font.withSize(15)
+        cell.modalTitleL.adjustsFontSizeToFitWidth = true
+        cell.modalTitleL.lineBreakMode = NSLineBreakMode.byWordWrapping
+        cell.modalTitleL.numberOfLines = 0
+        cell.infoB.isHidden = true
+        cell.infoB.alpha = 0.0
+        cell.infoB.isEnabled = false
+        switch row {
+        case 8:
+            cell.modalTitleL.text = discussionNote
+        default: break
+        }
+        cell.modalTitleL.setNeedsDisplay()
+        return cell
+    }
+    
+    func configureMultipleAddButtonTVCell(_ cell: MultipleAddButtonTVCell, index: IndexPath) -> MultipleAddButtonTVCell {
+        cell.tag = index.row
+        cell.indexPath = index
+        let section = index.section
+        let row = index.row
+        cell.delegate = self
+        switch section {
+        case 0:
+            switch row {
+            case 7:
+                cell.type = IncidentTypes.startShiftNotes
+                cell.aBackgroundColor = "FJBlueColor"
+                cell.aChoice = ""
+            default: break
+            }
+        default: break
+        }
+        return cell
+    }
+    
     func configureSubjectLabelTextViewTVCell(_ cell: SubjectLabelTextViewTVCell, index: IndexPath) -> SubjectLabelTextViewTVCell {
         cell.subjectL.text = "Discussion"
         if let discussion = theUserTime.startShiftDiscussion {
@@ -167,6 +241,37 @@ extension ShiftNewModalVC: UITableViewDataSource {
         }
         cell.delegate = self
         return  cell
+    }
+    
+    func configureLabelDateiPhoneTVCell(_ cell: LabelDateiPhoneTVCell, index: IndexPath) -> LabelDateiPhoneTVCell {
+        let row = index.row
+        cell.tag = row
+        cell.delegate = self
+        cell.index = index
+        let section = index.section
+        switch section {
+        case 0:
+            switch row {
+            case 0:
+                cell.datePicker.datePickerMode = .dateAndTime
+                cell.theSubject = "Date/Time"
+                if theUserTime != nil {
+                    if let relievingTime = theUserTime.userStartShiftTime {
+                        cell.theFirstDose = relievingTime
+                    } else {
+                        let startShiftDate = Date()
+                        cell.theFirstDose = startShiftDate
+                        theUserTime.userStartShiftTime = startShiftDate
+                    }
+                } else {
+                        let startShiftDate = Date()
+                        cell.theFirstDose = startShiftDate
+                }
+            default: break
+            }
+        default: break
+        }
+        return cell
     }
     
     func configureLabelSingleDateFieldCell(_ cell: LabelSingleDateFieldCell, index: IndexPath ) -> LabelSingleDateFieldCell {
@@ -247,6 +352,87 @@ extension ShiftNewModalVC: UITableViewDataSource {
     
 }
 
+extension ShiftNewModalVC: MultipleAddButtonTVCellDelegate {
+    
+    func multiAddBTapped(type: IncidentTypes, index: IndexPath) {
+        let row = index.row
+        switch row {
+        case 7:
+            let storyboard = UIStoryboard(name: "TheShiftNote", bundle: nil)
+            if let theShiftNoteVC = storyboard.instantiateViewController(withIdentifier: "TheShiftNoteVC") as? TheShiftNoteVC {
+                theShiftNoteVC.modalPresentationStyle = .formSheet
+                theShiftNoteVC.isModalInPresentation = true
+                theShiftNoteVC.theType = IncidentTypes.startShiftNotes
+                if theUserTime != nil {
+                    theShiftNoteVC.shiftObID = theUserTime.objectID
+                    theShiftNoteVC.delegate = self
+                    theShiftNoteVC.index = index
+                    self.present(theShiftNoteVC , animated: true, completion: nil)
+                }
+            }
+        default: break
+        }
+    }
+    
+    func multiTitleChosen(type: IncidentTypes, title: String, index: IndexPath) {
+    }
+    
+        //    MARK: -CONFIGUREHEIGHT-
+    
+        /// find the height for text area using the string associated with input
+        /// - Parameter text: text entered in modals for form
+        /// - Returns: returns the height for the label cell
+    func configureLabelHeight(text: String ) -> CGFloat {
+        var theFloat: CGFloat = 0.0
+        let frame = self.view.frame
+        let width = frame.width - 70
+        let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
+        label.numberOfLines = 0
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
+        label.font = .systemFont(ofSize: 18)
+        label.text = text
+        label.sizeToFit()
+        let labelFrame = label.frame
+        theFloat = labelFrame.height
+        label.removeFromSuperview()
+        if theFloat < 44 {
+            theFloat = 88
+        }
+        return theFloat
+    }
+    
+}
+
+extension ShiftNewModalVC: TheShiftNoteVCDelegate {
+   
+    func theShiftNoteHasBeenUpdated(text: String, index: IndexPath, type: IncidentTypes) {
+        let row = index.row
+        let indexPath = IndexPath(row: row + 1, section: 0)
+        switch type {
+        case .startShiftNotes:
+            discussionAvailable = true
+            discussionNote = text
+            discussionHeight = configureLabelHeight(text: discussionNote)
+            if theUserTime != nil {
+                theUserTime.startShiftDiscussion = discussionNote
+            }
+        case .endShiftNotes:
+            discussionAvailable = true
+            discussionNote = text
+            discussionHeight = configureLabelHeight(text: discussionNote)
+            if theUserTime != nil {
+                theUserTime.endShiftDiscussion = discussionNote
+            }
+        default: break
+        }
+        shiftTableView.reloadRows(at: [indexPath], with: .automatic)
+    }
+    
+    
+}
+
+
+
 extension ShiftNewModalVC: RelieveSupervisorVCDelegate {
 
     func relieveSupervisorCancel() {
@@ -301,6 +487,14 @@ extension ShiftNewModalVC: RankTVCellDelegate {
             shiftTableView.reloadRows(at: [IndexPath(row: 4, section: 0)], with: .automatic)
         default: break
         }
+    }
+    
+}
+
+extension ShiftNewModalVC: LabelDateiPhoneTVCellDelegate {
+    
+    func theDatePickerTapped(_ theDate: Date, index: IndexPath) {
+        theUserTime.userStartShiftTime = theDate
     }
     
 }
@@ -384,6 +578,8 @@ extension ShiftNewModalVC: ShiftModalHeaderVDelegate {
                 buildTheStartShiftJournal()
                 if let guid = theUserTime.userTimeGuid {
                     self.userDefaults.set(guid, forKey: FJkUSERTIMEGUID)
+                    self.theStatus.guidString = guid
+                    theUserTime.shiftCompleted = false
                 } else {
                     var guidDate: GuidFormatter!
                     if let date = theUserTime.userStartShiftTime {
@@ -395,6 +591,8 @@ extension ShiftNewModalVC: ShiftModalHeaderVDelegate {
                     let theUserGuid = "78."+guid
                     theUserTime.userTimeGuid = theUserGuid
                     self.userDefaults.set(theUserGuid, forKey: FJkUSERTIMEGUID)
+                    self.theStatus.guidString = guid
+                    theUserTime.shiftCompleted = false
                 }
                 do {
                     try context.save()
@@ -535,7 +733,7 @@ Relieving: \(relief)
 Supervisor: \(supervisor)
 Discussion: \(discussion)
 """
-        theJournal.journalOverview = overview as NSObject
+        theJournal.journalOverviewSC = overview as NSObject
         theJournal.journalTempFireStation = station
         theJournal.journalFireStation = station
         theJournal.journalTempPlatoon = theUserTime.startShiftPlatoon

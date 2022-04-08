@@ -8,6 +8,11 @@
 
 import Foundation
 
+extension Notification.Name {
+    static let fireJournalPhotoErrorCalled = Notification.Name("fireJournalPhotoErrorCalled")
+    static let fireJournalCameraPhotoSaved = Notification.Name("fireJournalCameraPhotoSaved")
+}
+
 let FConnectName = "FireJournal"
 let FJkCLOUDKITCONTAINERNAME = "iCloud.com.purecommand.FireJournal2017"
 let FJkRECIEVEDRemoteNotification = "FJkRECIEVEDRemoteNotification"

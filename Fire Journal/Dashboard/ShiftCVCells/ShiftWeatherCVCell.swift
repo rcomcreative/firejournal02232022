@@ -175,6 +175,58 @@ Weather
     
     func configureNSLayouts() {
         
+        if Device.IS_IPHONE {
+            
+            NSLayoutConstraint.activate([
+                
+            theBackgroundView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            theBackgroundView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            theBackgroundView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            theBackgroundView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            
+            titleIconIV.leadingAnchor.constraint(equalTo: theBackgroundView.leadingAnchor, constant: 20),
+            titleIconIV.topAnchor.constraint(equalTo: theBackgroundView.topAnchor, constant: 20),
+            titleIconIV.heightAnchor.constraint(equalToConstant: 65),
+            titleIconIV.widthAnchor.constraint(equalToConstant: 65),
+            
+            titleL.centerYAnchor.constraint(equalTo: titleIconIV.centerYAnchor),
+            titleL.heightAnchor.constraint(equalToConstant: 65),
+            titleL.leadingAnchor.constraint(equalTo: titleIconIV.trailingAnchor, constant: 15),
+            titleL.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -20),
+            
+            temperatureL.leadingAnchor.constraint(equalTo: titleIconIV.leadingAnchor),
+            temperatureL.topAnchor.constraint(equalTo: titleL.bottomAnchor, constant: 10),
+            temperatureL.widthAnchor.constraint(equalToConstant: 200),
+            temperatureL.heightAnchor.constraint(equalToConstant: 30),
+            
+            temperature2L.leadingAnchor.constraint(equalTo: temperatureL.trailingAnchor,constant: 15),
+            temperature2L.topAnchor.constraint(equalTo: temperatureL.topAnchor),
+            temperature2L.heightAnchor.constraint(equalToConstant: 30),
+            temperature2L.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -20),
+            
+            humidityL.leadingAnchor.constraint(equalTo: titleIconIV.leadingAnchor),
+            humidityL.topAnchor.constraint(equalTo: temperatureL.bottomAnchor, constant: 10),
+            humidityL.widthAnchor.constraint(equalToConstant: 200),
+            humidityL.heightAnchor.constraint(equalToConstant: 30),
+            
+            humidity2L.leadingAnchor.constraint(equalTo: humidityL.trailingAnchor,constant: 15),
+            humidity2L.topAnchor.constraint(equalTo: humidityL.topAnchor),
+            humidity2L.heightAnchor.constraint(equalToConstant: 30),
+            humidity2L.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -20),
+            
+            windL.leadingAnchor.constraint(equalTo: titleIconIV.leadingAnchor),
+            windL.topAnchor.constraint(equalTo: humidityL.bottomAnchor, constant: 10),
+            windL.widthAnchor.constraint(equalToConstant: 200),
+            windL.heightAnchor.constraint(equalToConstant: 30),
+            
+            wind2L.leadingAnchor.constraint(equalTo: windL.trailingAnchor,constant: 15),
+            wind2L.topAnchor.constraint(equalTo: windL.topAnchor),
+            wind2L.heightAnchor.constraint(equalToConstant: 30),
+            wind2L.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -20),
+            
+            ])
+        } else {
+        
         NSLayoutConstraint.activate([
             
         theBackgroundView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
@@ -223,7 +275,7 @@ Weather
         wind2L.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -20),
         
         ])
-        
+        }
     }
     
 }

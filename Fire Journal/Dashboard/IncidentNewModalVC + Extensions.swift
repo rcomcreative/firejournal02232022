@@ -125,6 +125,8 @@ extension IncidentNewModalVC: UITableViewDelegate {
         incidentTableView.register(UINib(nibName: "SubjectLabelTextFieldIndicatorTVCell", bundle: nil), forCellReuseIdentifier: "SubjectLabelTextFieldIndicatorTVCell")
         incidentTableView.register(UINib(nibName: "SubjectLabelTextViewTVCell", bundle: nil), forCellReuseIdentifier: "SubjectLabelTextViewTVCell")
         incidentTableView.register(UINib(nibName: "LabelSingleDateFieldCell", bundle: nil), forCellReuseIdentifier: "LabelSingleDateFieldCell")
+        
+        incidentTableView.register(UINib(nibName: "LabelDateiPhoneTVCell", bundle: nil), forCellReuseIdentifier: "LabelDateiPhoneTVCell")
         incidentTableView.register(UINib(nibName: "LabelYesNoSwitchCell", bundle: nil), forCellReuseIdentifier: "LabelYesNoSwitchCell")
         incidentTableView.register(UINib(nibName: "SegmentCell", bundle: nil), forCellReuseIdentifier: "SegmentCell")
         incidentTableView.register(UINib(nibName: "NewAddressFieldsButtonsCell", bundle: nil), forCellReuseIdentifier: "NewAddressFieldsButtonsCell")
@@ -152,7 +154,11 @@ extension IncidentNewModalVC: UITableViewDataSource {
         case 1:
             return 85
         case 2:
+            if Device.IS_IPHONE {
+                return 100
+            } else {
             return 60
+            }
         case 3:
             return 84
         case 4:
@@ -178,11 +184,17 @@ extension IncidentNewModalVC: UITableViewDataSource {
             cell = configureLabelTextFieldCell(cell, index: indexPath)
             return cell
         case 2:
+            if Device.IS_IPHONE {
+                var cell = tableView.dequeueReusableCell(withIdentifier: "LabelDateiPhoneTVCell", for: indexPath) as! LabelDateiPhoneTVCell
+                cell = configureLabelDateiPhoneTVCell(cell, index: indexPath)
+                return cell
+            } else {
             var cell = tableView.dequeueReusableCell(withIdentifier: "LabelSingleDateFieldCell", for: indexPath) as! LabelSingleDateFieldCell
             cell = configureLabelSingleDateFieldCell(cell, index: indexPath)
             cell.configureTheLabel(width: 125)
             cell.configureDatePickersHoldingV()
             return cell
+            }
         case 3:
             var cell = tableView.dequeueReusableCell(withIdentifier: "SegmentCell", for: indexPath) as! SegmentCell
             cell = configureSegmentCell(cell, index: indexPath)
@@ -291,6 +303,35 @@ extension IncidentNewModalVC: UITableViewDataSource {
         return cell
     }
     
+    func configureLabelDateiPhoneTVCell(_ cell: LabelDateiPhoneTVCell, index: IndexPath) -> LabelDateiPhoneTVCell {
+        let row = index.row
+        cell.tag = row
+        cell.delegate = self
+        cell.index = index
+        let section = index.section
+        switch section {
+        case 0:
+            switch row {
+            case 2:
+                cell.datePicker.datePickerMode = .dateAndTime
+                cell.theSubject = "Date/Time"
+                if theIncident != nil {
+                    if let alarmTime = theIncidentTime.incidentAlarmDateTime {
+                        cell.theFirstDose = alarmTime
+                    } else {
+                        if let alarmTime = theIncident.incidentModDate {
+                            cell.theFirstDose = alarmTime
+                            theIncidentTime.incidentAlarmDateTime = alarmTime
+                        }
+                    }
+                }
+            default: break
+            }
+        default: break
+        }
+        return cell
+    }
+    
     func configureLabelSingleDateFieldCell(_ cell: LabelSingleDateFieldCell, index: IndexPath ) -> LabelSingleDateFieldCell {
         let row = index.row
         cell.tag = row
@@ -365,6 +406,14 @@ extension IncidentNewModalVC: UITableViewDataSource {
         default: break
         }
         return cell
+    }
+    
+}
+
+extension IncidentNewModalVC: LabelDateiPhoneTVCellDelegate {
+    
+    func theDatePickerTapped(_ theDate: Date, index: IndexPath) {
+        theIncidentTime.incidentAlarmDateTime = theDate
     }
     
 }

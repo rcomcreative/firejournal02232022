@@ -15,6 +15,7 @@ import CoreLocation
 
 protocol ShiftNewModalVCDelegate: AnyObject {
     func dismissShiftStartModal()
+    func noUserFound()
 }
 
 class ShiftNewModalVC: UIViewController {
@@ -41,10 +42,16 @@ class ShiftNewModalVC: UIViewController {
     lazy var slideInTransitioningDelgate = SlideInPresentationManager()
     private let vcLaunch = VCLaunch()
     private var launchNC: LaunchNotifications!
+
     
     var theUserTime: UserTime!
+    var theStatus: Status!
+    var theStatusOID: NSManagedObjectID!
     var theUser: FireJournalUser!
     var utGuid: String = ""
+    var discussionAvailable: Bool = false
+    var discussionHeight: CGFloat = 0.0
+    var discussionNote: String = ""
     
     var alertUp: Bool = false
     
@@ -59,10 +66,10 @@ Shift
         //    MARK: -BOOL-
     var showPicker: Bool = false
     var updateCV: Bool = false
-    var discussionHeight: CGFloat = 110
     var shiftAMorRelief = false
     var relieveOrSupervisor: String = ""
     var relievedByGuid: String = ""
+    var userTimeObjID: NSManagedObjectID!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,14 +79,22 @@ Shift
         launchNC.callNotifications()
         nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: context)
         
-        getTheLastUserTime()
-        if theUserTime == nil {
-            dismiss(animated: true)
+        if let sOID = theStatusOID {
+            theStatus = context.object(with: sOID) as? Status
+        }
+        
+        if let obj = userTimeObjID {
+            theUserTime = context.object(with: obj) as? UserTime
+        } else {
+            getTheLastUserTime()
+            if theUserTime == nil {
+                dismiss(animated: true)
+            }
         }
         
         getTheUser()
         if theUser == nil {
-            dismiss(animated: true, completion: nil)
+            delegate?.noUserFound()
         }
         
         roundViews()

@@ -45,6 +45,19 @@ class SegmentCell: UITableViewCell {
     @IBAction func typeSegmentTapped(_ sender: Any) {
         
         switch myShift {
+        case .journal:
+            switch typeSegment.selectedSegmentIndex {
+            case 0:
+                type = .station
+            case 1:
+                type = .community
+            case 2:
+                type = .members
+            case 3:
+                type = .training
+            default:
+                type = .station
+            }
         case .incidents:
             switch typeSegment.selectedSegmentIndex {
             case 0:

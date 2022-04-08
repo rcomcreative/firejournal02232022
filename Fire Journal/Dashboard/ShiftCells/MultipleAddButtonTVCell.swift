@@ -150,6 +150,14 @@ extension MultipleAddButtonTVCell {
                 config.image = UIImage(systemName: "note.text.badge.plus")
                 config.title = " Shift Notes"
                 config.baseBackgroundColor = UIColor(named: theBackgroundColor)
+            case .startShiftNotes:
+                config.image = UIImage(systemName: "note.text.badge.plus")
+                config.title = " Start Shift Notes"
+                config.baseBackgroundColor = UIColor(named: theBackgroundColor)
+            case .endShiftNotes:
+                config.image = UIImage(systemName: "note.text.badge.plus")
+                config.title = " End Shift Notes"
+                config.baseBackgroundColor = UIColor(named: theBackgroundColor)
             case .tags:
                 config.image = UIImage(systemName: "tag.circle")
                 config.title = " Tags"
@@ -237,6 +245,22 @@ extension MultipleAddButtonTVCell {
             case .incidentPhoto:
                 config.image = UIImage(systemName: "camera.circle")
                 config.title = " Photos"
+                config.baseBackgroundColor = UIColor(named: theBackgroundColor)
+            case .overview:
+                config.image = UIImage(systemName: "list.bullet.circle")
+                config.title = " Overview Notes"
+                config.baseBackgroundColor = UIColor(named: theBackgroundColor)
+            case .discussion:
+                config.image = UIImage(systemName: "list.bullet.circle")
+                config.title = " Discussion Notes"
+                config.baseBackgroundColor = UIColor(named: theBackgroundColor)
+            case .nextSteps:
+                config.image = UIImage(systemName: "list.bullet.circle")
+                config.title = " Next Steps Notes"
+                config.baseBackgroundColor = UIColor(named: theBackgroundColor)
+            case .summary:
+                config.image = UIImage(systemName: "list.bullet.circle")
+                config.title = " Summary Notes"
                 config.baseBackgroundColor = UIColor(named: theBackgroundColor)
             default: break
             }

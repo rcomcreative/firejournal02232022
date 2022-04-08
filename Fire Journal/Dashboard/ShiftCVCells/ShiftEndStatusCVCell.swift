@@ -222,6 +222,66 @@ extension ShiftEndStatusCVCell {
     
     func configureNSLayout() {
         
+        if Device.IS_IPHONE {
+            NSLayoutConstraint.activate([
+                
+            theBackgroundView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            theBackgroundView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            theBackgroundView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            theBackgroundView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            
+            shiftIconIV.leadingAnchor.constraint(equalTo: theBackgroundView.leadingAnchor, constant: 20),
+            shiftIconIV.topAnchor.constraint(equalTo: theBackgroundView.topAnchor, constant: 20),
+            shiftIconIV.heightAnchor.constraint(equalToConstant: 65),
+            shiftIconIV.widthAnchor.constraint(equalToConstant: 65),
+            
+            titleL.centerYAnchor.constraint(equalTo: shiftIconIV.centerYAnchor),
+            titleL.heightAnchor.constraint(equalToConstant: 30),
+            titleL.leadingAnchor.constraint(equalTo: shiftIconIV.trailingAnchor, constant: 15),
+            titleL.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -20),
+            
+            statusL.leadingAnchor.constraint(equalTo: shiftIconIV.leadingAnchor),
+            statusL.topAnchor.constraint(equalTo: shiftIconIV.bottomAnchor, constant: 10),
+            statusL.widthAnchor.constraint(equalToConstant: 150),
+            statusL.heightAnchor.constraint(equalToConstant: 30),
+            
+            status2L.leadingAnchor.constraint(equalTo: statusL.trailingAnchor,constant: 15),
+            status2L.topAnchor.constraint(equalTo: statusL.topAnchor),
+            status2L.heightAnchor.constraint(equalToConstant: 30),
+            status2L.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -20),
+            
+            dateL.leadingAnchor.constraint(equalTo: shiftIconIV.leadingAnchor),
+            dateL.topAnchor.constraint(equalTo: statusL.bottomAnchor, constant: 10),
+            dateL.widthAnchor.constraint(equalToConstant: 150),
+            dateL.heightAnchor.constraint(equalToConstant: 30),
+            
+            date2L.leadingAnchor.constraint(equalTo: dateL.trailingAnchor,constant: 15),
+            date2L.topAnchor.constraint(equalTo: dateL.topAnchor),
+            date2L.heightAnchor.constraint(equalToConstant: 30),
+            date2L.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -20),
+            
+            timeL.leadingAnchor.constraint(equalTo: shiftIconIV.leadingAnchor),
+            timeL.topAnchor.constraint(equalTo: dateL.bottomAnchor, constant: 10),
+            timeL.widthAnchor.constraint(equalToConstant: 150),
+            timeL.heightAnchor.constraint(equalToConstant: 30),
+            
+            time2L.leadingAnchor.constraint(equalTo: timeL.trailingAnchor,constant: 15),
+            time2L.topAnchor.constraint(equalTo: timeL.topAnchor),
+            time2L.heightAnchor.constraint(equalToConstant: 30),
+            time2L.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -20),
+            
+            incidentsL.leadingAnchor.constraint(equalTo: shiftIconIV.leadingAnchor),
+            incidentsL.topAnchor.constraint(equalTo: timeL.bottomAnchor, constant: 10),
+            incidentsL.widthAnchor.constraint(equalToConstant: 150),
+            incidentsL.heightAnchor.constraint(equalToConstant: 30),
+            
+            incidents2L.leadingAnchor.constraint(equalTo: incidentsL.trailingAnchor,constant: 15),
+            incidents2L.topAnchor.constraint(equalTo: incidentsL.topAnchor),
+            incidents2L.heightAnchor.constraint(equalToConstant: 30),
+            incidents2L.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -20),
+            
+            ])
+        } else {
         NSLayoutConstraint.activate([
             
         theBackgroundView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
@@ -280,6 +340,7 @@ extension ShiftEndStatusCVCell {
         incidents2L.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -20),
         
         ])
+        }
     }
     
 }

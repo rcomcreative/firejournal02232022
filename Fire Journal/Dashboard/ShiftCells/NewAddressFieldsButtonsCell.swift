@@ -135,13 +135,7 @@ class NewAddressFieldsButtonsCell: UITableViewCell, UITextFieldDelegate {
     }
     
     @objc func mapBTapped() {
-        switch self.tag {
-        case 2:
             delegate?.worldBTapped(tag: self.tag)
-        case 4:
-            delegate?.worldBTapped(tag: self.tag)
-        default: break
-        }
     }
     
     

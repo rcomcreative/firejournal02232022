@@ -195,7 +195,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, NSF
         getAllMapLocations(type: incidentType,entity: "ICS214Form")
         DispatchQueue.main.async {
             self.nc.post(name: Notification.Name(rawValue: FJkTHEMAPTYPECHANGED),
-                         object: nil, userInfo: ["shift":MenuItems.ics214])
+                         object: nil, userInfo: ["shift": MenuItems.ics214])
         }
     }
     @IBAction func allARCFormBTapped(_ sender: Any) {
@@ -1025,13 +1025,9 @@ extension MapVC {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == incidentSegue {
-            let formTVC = segue.destination as! IncidentTVC
-            formTVC.objectID = objectID
+            let formTVC = segue.destination as! IncidentVC
             formTVC.id = objectID
             formTVC.fromMap = true
-            formTVC.myShift = .incidents
-            formTVC.incidentType = incidentType
-            formTVC.delegate = self
         } else if segue.identifier == arcSegue {
             let formTVC = segue.destination as! ARC_FormTVC
             formTVC.objectID = objectID
@@ -1046,14 +1042,13 @@ extension MapVC {
     }
 }
 
+
 extension MapVC: IncidentTVCDelegate {
-
-    
-
 
     func incidentTapped() {
         self.dismiss(animated: true, completion: nil)
     }
+    
 }
 
 extension MapVC: NewICS214DetailTVCDelegate {

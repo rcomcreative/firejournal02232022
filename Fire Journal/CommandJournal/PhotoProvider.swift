@@ -17,6 +17,9 @@ class PhotoProvider {
     var context: NSManagedObjectContext!
     var photo: Photo!
     var staff: UserAttendees!
+    var theIncident: Incident!
+    var theJournal: Journal!
+    var theType: IncidentTypes!
     
     init(with persistentContainer: NSPersistentContainer) {
         self.persistentContainer = persistentContainer
@@ -32,6 +35,86 @@ class PhotoProvider {
         }
     }
     
+//    MARK: -ADDPHOTO to Journal
+    func addPhotoToJournal(imageData: Data, imageURL: URL, journalid: NSManagedObjectID, taskContext: NSManagedObjectContext, shouldSave: Bool = true, completionBlock: () -> ()) {
+        self.context = taskContext
+        self.theJournal = self.context.object(with: journalid) as? Journal
+        self.theType = .journal
+        let thumbnailImage = Photo.thumbnail(from: imageData, thumbnailPixelSize: 80)
+        var destinationURL: URL? // to hold the attachment.imageURL for later use
+        
+        taskContext.performAndWait {
+            photo = Photo(context: taskContext)
+            photo.journalGuid = self.theJournal.journalGuid
+            photo.photoDate = Date()
+            photo.guid = UUID()
+            self.theJournal.journalPhotoTaken = true
+            self.theJournal.addToPhoto(photo)
+            photo.image = thumbnailImage // transient
+            if shouldSave {
+                save(context: taskContext)
+            }
+            guard let theGuid = photo.guid else { return }
+            destinationURL = photo.imageURL(guid: theGuid)
+        }
+        
+        DispatchQueue.global().async {
+            var nsError: NSError?
+            NSFileCoordinator().coordinate(writingItemAt: destinationURL!, options: .forReplacing, error: &nsError,
+                                           byAccessor: { (newURL: URL) -> Void in
+                do {
+                    try imageData.write(to: newURL, options: .atomic)
+                } catch {
+                    print("###\(#function): Failed to save an image file: \(destinationURL!)")
+                }
+            })
+            if let nsError = nsError {
+                print("###\(#function): \(nsError.localizedDescription)")
+            }
+        }
+        completionBlock()
+    }
+    
+//    MARK: -ADDPHOTO to INcidents
+    func addPhotoIncident(imageData: Data, imageURL: URL, incidentid: NSManagedObjectID, taskContext: NSManagedObjectContext, shouldSave: Bool = true ) {
+        self.context = taskContext
+        self.theIncident = self.context.object(with: incidentid) as? Incident
+        self.theType = .allIncidents
+        let thumbnailImage = Photo.thumbnail(from: imageData, thumbnailPixelSize: 80)
+        var destinationURL: URL? // to hold the attachment.imageURL for later use
+        
+        taskContext.performAndWait {
+            photo = Photo(context: taskContext)
+            photo.incidentGuid = self.theIncident.incidentGuid
+            photo.photoDate = Date()
+            photo.guid = UUID()
+            self.theIncident.incidentPhotoTaken = true
+            self.theIncident.addToPhoto(photo)
+            photo.image = thumbnailImage // transient
+            if shouldSave {
+                save(context: taskContext)
+            }
+            
+            guard let theGuid = photo.guid else { return }
+            destinationURL = photo.imageURL(guid: theGuid)
+        }
+        
+        DispatchQueue.global().async {
+            var nsError: NSError?
+            NSFileCoordinator().coordinate(writingItemAt: destinationURL!, options: .forReplacing, error: &nsError,
+                                           byAccessor: { (newURL: URL) -> Void in
+                do {
+                    try imageData.write(to: newURL, options: .atomic)
+                } catch {
+                    print("###\(#function): Failed to save an image file: \(destinationURL!)")
+                }
+            })
+            if let nsError = nsError {
+                print("###\(#function): \(nsError.localizedDescription)")
+            }
+        }
+        
+    }
     
         //    MARK:- AddPhoto for UserAttendees
     /**
@@ -41,6 +124,7 @@ class PhotoProvider {
                        shouldSave: Bool = true,logo: Bool) {
         self.staff = staff
         self.context = taskContext
+        self.theType = .deptMember
         let thumbnailImage = Photo.thumbnail(from: imageData, thumbnailPixelSize: 80)
         var destinationURL: URL? // to hold the attachment.imageURL for later use
         
@@ -55,7 +139,9 @@ class PhotoProvider {
             if shouldSave {
                 save(context: taskContext)
             }
-            destinationURL = photo.imageURL()
+            
+            guard let theGuid = photo.guid else { return }
+            destinationURL = photo.imageURL(guid: theGuid)
         }
         
         DispatchQueue.global().async {
@@ -81,12 +167,27 @@ class PhotoProvider {
             DispatchQueue.main.async {
                 self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"Photo save merge that"])
             }
-            
-            DispatchQueue.main.async {
-                    let objectID = self.staff.objectID
-                    self.nc.post(name: NSNotification.Name(rawValue: FJkMODIFIEDUSERATTENDEE_TOCLOUDKIT), object: nil, userInfo:["objectID":objectID])
+            if theType != nil {
+                switch theType {
+                case .deptMember:
+                    DispatchQueue.main.async {
+                            let objectID = self.staff.objectID
+                            self.nc.post(name: NSNotification.Name(rawValue: FJkMODIFIEDUSERATTENDEE_TOCLOUDKIT), object: nil, userInfo:["objectID":objectID])
+                    }
+                case .allIncidents:
+                    DispatchQueue.main.async {
+                            let objectID = self.theIncident.objectID
+                            self.nc.post(name: NSNotification.Name(rawValue: FJkCKModifiedIncidentsToCloud), object: nil, userInfo:["objectID":objectID])
+                    }
+                case .journal:
+                    DispatchQueue.main.async {
+                            let objectID = self.theJournal.objectID
+                            self.nc.post(name: NSNotification.Name(rawValue: FJkCKModifiedJournalsToCloud), object: nil, userInfo:["objectID":objectID])
+                    }
+                default: break
+                }
             }
-        } catch let error as NSError {
+                    } catch let error as NSError {
             let theError: String = error.localizedDescription
             let error = "There was an error in saving " + theError
             print(error)
@@ -117,7 +218,9 @@ class PhotoProvider {
         var newAttachmentCount = newAttachments.count
         for attachment in newAttachments {
             
-            let fileURL = attachment.imageURL()
+            guard let theGuid = attachment.guid else { return }
+            
+            let fileURL = attachment.imageURL(guid: theGuid)
             var data: Data?
             
             var nsError: NSError?
@@ -132,7 +235,8 @@ class PhotoProvider {
             }
             
             guard data != nil else {
-                fatalError("###\(#function): Failed to read full image data for attachment: \(attachment)")
+                print("###\(#function): Failed to read full image data for attachment: \(attachment)")
+                return
             }
             
                 //            Load image data using a taskContext. Reset the context after saving each image.

@@ -13,7 +13,19 @@ import CloudKit
 import CoreLocation
 
 extension Journal {
-    
+//    MARK: -PHOTO-
+    func getThePhotos() -> [Photo] {
+        var thePhotos = [Photo]()
+        guard let photos = self.photo?.allObjects as? [Photo] else {
+            return thePhotos
+        }
+        thePhotos = photos
+        return thePhotos
+    }
+}
+
+extension Journal {
+//    MARK: -CLOUDKIT
     func getTheUser() ->FireJournalUser {
         var fju:FireJournalUser? = nil
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FireJournalUser" )
@@ -455,224 +467,5 @@ extension Journal {
         }
     }
     
-   /* func modifyJournalForCloud(ckRecord:CKRecord)->CKRecord {
-        
-        let fjJournalR = ckRecord
-        fjJournalR["fjpJGuidForReference"] = self.fjpJGuidForReference
-        fjJournalR["fjpIncReference"] = self.fjpIncReference
-        let fju = getTheUser()
-        fjJournalR["fjpUserReference"] = fju.aFJUReference as? CKRecord.Reference
-        fjJournalR["journalAttendee"] = ""
-        fjJournalR["journalBackedUp"] = true
-        fjJournalR["journalCity"] = self.journalCity
-        fjJournalR["journalCreationDate"] = self.journalCreationDate
-        fjJournalR["journalDateSearch"] = self.journalDateSearch
-        fjJournalR["journalDiscussion"] = self.journalDiscussion as? String
-        fjJournalR["journalEntryType"] = self.journalEntryType
-        fjJournalR["journalEntryTypeImageName"] = self.journalEntryTypeImageName
-        fjJournalR["journalFireStation"] = self.journalFireStation
-        fjJournalR["journalHeader"] = self.journalHeader
-        if self.journalLocation != nil {
-            fjJournalR["journalLocation"] = self.journalLocation as! CLLocation
-            fjJournalR["journalLatitude"] = self.journalLatitude ?? ""
-            fjJournalR["journalLongitude"] = self.journalLongitude ?? ""
-        }
-        fjJournalR["journalModDate"] = self.journalModDate
-        fjJournalR["journalNextSteps"] = self.journalNextSteps as? String
-        fjJournalR["journalOverview"] = self.journalOverview as? String
-        fjJournalR["journalPhotoTaken"] = false
-        fjJournalR["journalPrivate"] = self.journalPrivate
-        fjJournalR["journalState"] = self.journalState
-        fjJournalR["journalStreetName"] = self.journalStreetName
-        fjJournalR["journalStreetNumber"] = self.journalStreetNumber
-        fjJournalR["journalSummary"] = self.journalSummary as? String
-        fjJournalR["journalTag"] = ""
-        fjJournalR["journalTempApparatus"] = self.journalTempApparatus
-        fjJournalR["journalTempAssignment"] = self.journalTempAssignment
-        fjJournalR["journalTempFireStation"] = self.journalTempFireStation
-        fjJournalR["journalTempPlatoon"] = self.journalTempPlatoon
-        fjJournalR["journalZip"] = self.journalZip
-        fjJournalR["theEntity"] = "Journal"
-        
-        return fjJournalR
-    }*/
-
-  /*  func newJournalForCloud()->CKRecord {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "YYYYDDDMMHHmmAAAAAAAA"
-//        let dateFormatted = dateFormatter.string(from: self.journalModDate ?? Date())
-//        let name = "Journal \(dateFormatted)"
-        
-        var recordName: String = ""
-        if let name = self.fjpJGuidForReference {
-            recordName = name
-        } else {
-            let jGuidDate = GuidFormatter.init(date:self.journalCreationDate!)
-            let jGuid:String = jGuidDate.formatGuid()
-            self.fjpJGuidForReference = "01."+jGuid
-            recordName = "01."+jGuid
-        }
-        let JournalRZ = CKRecordZone.init(zoneName: "FireJournalShare")
-        let fjJournalRID = CKRecord.ID(recordName: recordName, zoneID: JournalRZ.zoneID)
-        let fjJournalR = CKRecord.init(recordType: "Journal", recordID: fjJournalRID)
-        let fjJournalRef = CKRecord.Reference(recordID: fjJournalRID, action: .deleteSelf)
-        _ = getTheUser()
-        fjJournalR["fjpIncReference"] = self.fjpIncReference
-//        fjJournalR["fjpUserReference"] = fju.aFJUReference as! CKRecord.Reference        
-        fjJournalR["fjpJGuidForReference"] = self.fjpJGuidForReference
-        fjJournalR["journalAttendee"] = ""
-        fjJournalR["journalBackedUp"] = true
-        fjJournalR["journalCity"] = self.journalCity
-        fjJournalR["journalCreationDate"] = self.journalCreationDate
-        fjJournalR["journalDateSearch"] = self.journalDateSearch
-        fjJournalR["journalDiscussion"] = self.journalDiscussion as? String
-        fjJournalR["journalEntryType"] = self.journalEntryType
-        fjJournalR["journalEntryTypeImageName"] = self.journalEntryTypeImageName
-        fjJournalR["journalFireStation"] = self.journalFireStation
-        fjJournalR["journalHeader"] = self.journalHeader
-        if self.journalLocation != nil {
-            fjJournalR["journalLocation"] = self.journalLocation as! CLLocation
-            fjJournalR["journalLatitude"] = self.journalLatitude ?? ""
-            fjJournalR["journalLongitude"] = self.journalLongitude ?? ""
-        }
-        fjJournalR["journalModDate"] = self.journalModDate
-        fjJournalR["journalNextSteps"] = self.journalNextSteps as? String
-        fjJournalR["journalOverview"] = self.journalOverview as? String
-        fjJournalR["journalPhotoTaken"] = false
-        fjJournalR["journalPrivate"] = self.journalPrivate
-        fjJournalR["journalState"] = self.journalState
-        fjJournalR["journalStreetName"] = self.journalStreetName
-        fjJournalR["journalStreetNumber"] = self.journalStreetNumber
-        fjJournalR["journalSummary"] = self.journalSummary as? String
-        fjJournalR["journalTag"] = ""
-        fjJournalR["journalTempApparatus"] = self.journalTempApparatus
-        fjJournalR["journalTempAssignment"] = self.journalTempAssignment
-        fjJournalR["journalTempFireStation"] = self.journalTempFireStation
-        fjJournalR["journalTempPlatoon"] = self.journalTempPlatoon
-        fjJournalR["journalZip"] = self.journalZip
-        fjJournalR["theEntity"] = "Journal"
-        
-        self.aJournalReference = fjJournalRef
-        saveToCD()
-        return fjJournalR
-    }*/
-    
-    /*func updateJournalFromCloud(ckRecord: CKRecord) {
-        let fjJournalR = ckRecord
-        if let jReference:String = fjJournalR["fjpIncReference"] {
-            self.fjpIncReference = jReference
-        }
-        if let _:String = fjJournalR["fjpUserReference"] {
-            let fju = getTheUser()
-            if let guid = fju.userGuid {
-                self.fjpUserReference = guid
-            }
-        }
-        fjJournalR["fjpJGuidForReference"] = self.fjpJGuidForReference
-        //        TODO: -attendees for journal-
-        //        self.journalAttendee = fjJournalR["journalAttendee"]
-        self.journalBackedUp = fjJournalR["journalBackedUp"] ?? 0
-        if let city:String = fjJournalR["journalCity"] {
-            self.journalCity = city
-        }
-        self.journalCreationDate = fjJournalR["journalCreationDate"]  ?? Date()
-        if let dateSearch:String = fjJournalR["journalDateSearch"] {
-            self.journalDateSearch = dateSearch
-        }
-        if let discuss:String = fjJournalR["journalDiscussion"] {
-            self.journalDiscussion = discuss as NSObject
-        }
-        if let type:String = fjJournalR["journalEntryType"] {
-            let journalType:String = type
-            if journalType == "Station" {
-                self.journalEntryType = "Station"
-                self.journalEntryTypeImageName = "100515IconSet_092016_Stationboard c0l0r"
-                self.journalPrivate = true
-            } else if journalType == "Community" {
-                self.journalEntryType = "Community"
-                self.journalEntryTypeImageName = "ICONS_communityboard color"
-                self.journalPrivate = true
-            } else if journalType == "Members" {
-                self.journalEntryType = "Community"
-                self.journalEntryTypeImageName = "ICONS_Membersboard color"
-                self.journalPrivate = true
-            } else if journalType == "PRIVATE" {
-                self.journalEntryType = "PRIVATE"
-                self.journalEntryTypeImageName = "ICONS_BBLUELOCK"
-                self.journalPrivate = false
-            }
-            else if journalType == "Fire" || journalType == "EMS" || journalType == "Rescue" {
-                self.journalEntryType = journalType
-                self.journalEntryTypeImageName = "NOTJournal"
-            }
-        }
-        if let fireStation:String = fjJournalR["journalFireStation"] {
-            self.journalFireStation = fireStation
-        }
-        if let header:String = fjJournalR["journalHeader"] {
-            self.journalHeader = header
-        }
-        if fjJournalR["journalLocation"] != nil {
-            self.journalLocation = fjJournalR["journalLocation"] as? NSObject
-            self.journalLatitude = fjJournalR["journalLatitude"] ?? ""
-            self.journalLongitude = fjJournalR["journalLongitude"] ?? ""
-        }
-        self.journalModDate = fjJournalR["journalModDate"] ?? Date()
-        if let next:String = fjJournalR["journalNextSteps"] {
-            self.journalNextSteps = next as NSObject
-        }
-        if let overView:String = fjJournalR["journalOverview"] {
-            self.journalOverview = overView as NSObject
-        }
-        self.journalPhotoTaken = fjJournalR["journalPhotoTaken"] ?? 0
-        if let state:String = fjJournalR["journalState"] {
-            self.journalState = state
-        }
-        if let stName:String = fjJournalR["journalStreetName"] {
-            self.journalStreetName = stName
-        }
-        if let num:String = fjJournalR["journalStreetNumber"] {
-            self.journalStreetNumber = num
-        }
-        if let summary:String = fjJournalR["journalStreetNumber"] {
-            self.journalSummary = summary as NSObject
-        }
-        //        TODO: -JOURNAL TAGS-
-        //        self.journalTag = fjJournalR["journalTag"]
-        if let tempApp:String = fjJournalR["journalTempApparatus"] {
-            self.journalTempApparatus = tempApp
-        }
-        if let tempAss:String = fjJournalR["journalTempAssignment"] {
-            self.journalTempAssignment = tempAss
-        }
-        if let tempFS:String = fjJournalR["journalTempFireStation"] {
-            self.journalTempFireStation = tempFS
-        }
-        if let tempP:String = fjJournalR["journalTempPlatoon"] {
-            self.journalTempPlatoon = tempP
-        }
-        if let zip:String = fjJournalR["journalZip"] {
-            self.journalZip = zip
-        }
-        let coder = NSKeyedArchiver(requiringSecureCoding: true)
-        fjJournalR.encodeSystemFields(with: coder)
-        let data = coder.encodedData
-        self.fjJournalCKR = data as NSObject
-        saveToCD()
-    }
-    
-    private func saveToCD() {
-        do {
-            try self.managedObjectContext?.save()
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.managedObjectContext,userInfo:["info":"no big deal here"])
-                print("journal we have saved to the cloud")
-            }
-        } catch {
-            let nserror = error as NSError
-            
-            let error = "The Journal+CustomAdditions context was unable to save due to: \(nserror.localizedDescription) \(nserror.userInfo)"
-            print(error)
-        }
-    }*/
+  
 }

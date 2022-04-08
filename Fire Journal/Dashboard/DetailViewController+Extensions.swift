@@ -35,17 +35,189 @@ extension DetailViewController {
             errorAlert(errorMessage: errorMessage)
             return
         }
-        theUserTime = userTime.last
+        let uTime = userTime.last
+        if let id = uTime?.objectID {
+            theUserTime  = context.object(with: id) as? UserTime
+        }
     }
     
-    func getTheCompletedShift(guid: String) {
+    func getTheCompletedShift() {
         userTimeContext = userTimeProvider.persistentContainer.newBackgroundContext()
-        guard let userTime = userTimeProvider.getTheLastCompletedShift(userTimeContext, guid) else {
+        guard let userTime = userTimeProvider.getTheLastCompletedShift(userTimeContext) else {
             let errorMessage = "A start shift is needed to retrieve the incidents of the day"
             errorAlert(errorMessage: errorMessage)
             return
         }
-        theUserTime = userTime.last
+        let uTime = userTime.last
+        if let id = uTime?.objectID {
+            theExpiredUserTime  = context.object(with: id) as? UserTime
+        } 
+    }
+    
+    func getTheUser() {
+        theUserContext = theUserProvider.persistentContainer.newBackgroundContext()
+        guard let users = theUserProvider.getTheUser(theUserContext) else {
+            let errorMessage = "There is no user associated with this end shift"
+            errorAlert(errorMessage: errorMessage)
+            return
+        }
+        let aUser = users.last
+        if let id = aUser?.objectID {
+            theFireJournalUser = context.object(with: id) as? FireJournalUser
+        }
+    }
+    
+    func getTheStatus() {
+        statusContext = statusProvider.persistentContainer.newBackgroundContext()
+        if let status = statusProvider.getTheStatus(context: statusContext) {
+            if !status.isEmpty {
+                let aStatus = status.last
+                if let id = aStatus?.objectID {
+                    theStatus = context.object(with: id) as? Status
+                }
+            } else {
+                if theStatus == nil {
+                    theStatus = Status(context: context)
+                    getTheLastUserTime()
+                    if theUserTime != nil {
+                        theStatus.agreement = true
+                        theStatus.agreementDate = Date()
+                        if let guid = theUserTime.userTimeGuid {
+                            theStatus.guidString = guid
+                        }
+                        do {
+                            try context.save()
+                            DispatchQueue.main.async {
+                                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"status  merge that"])
+                            }
+                        } catch let error as NSError {
+                            let theError: String = error.localizedDescription
+                            let error = "There was an error in saving " + theError
+                            errorAlert(errorMessage: error)
+                        }
+                    } else {
+                        let guidDate = GuidFormatter.init(date: Date())
+                        let guid = guidDate.formatGuid()
+                        let theUserGuid = "78."+guid
+                        theUserTime = UserTime.init(context: context)
+                        theUserTime.userTimeGuid = theUserGuid
+                        theUserTime.userStartShiftTime = Date()
+                        theStatus.guidString = theUserGuid
+                        
+                            theStatus.agreement = true
+                            theStatus.agreementDate = Date()
+                        getTheUser()
+                        if theFireJournalUser != nil {
+                            var userName: String = ""
+                            if let user = theFireJournalUser.userName {
+                                userName = user
+                            }
+                            if userName == "" {
+                                if let first = theFireJournalUser.firstName {
+                                    userName = first
+                                }
+                                if let last = theFireJournalUser.lastName {
+                                    userName = userName + " " + last
+                                }
+                                if userName != "" {
+                                    theFireJournalUser.userName = userName
+                                }
+                            }
+                            theUserTime.fireJournalUser = theFireJournalUser
+                            self.userDefaults.set(theUserGuid, forKey: FJkUSERTIMEGUID)
+                            let objectID = theUserTime.objectID
+                            DispatchQueue.main.async {
+                                self.nc.post(name:Notification.Name(rawValue: FJkCKNewStartEndCreated),
+                                        object: nil,
+                                        userInfo: ["objectID": objectID as NSManagedObjectID])
+                            }
+                            do {
+                                try context.save()
+                                DispatchQueue.main.async {
+                                    self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"EndShiftModal TVC merge that"])
+                                }
+                            } catch let error as NSError {
+                                let theError: String = error.localizedDescription
+                                let error = "There was an error in saving " + theError
+                                errorAlert(errorMessage: error)
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            if theStatus == nil {
+                theStatus = Status(context: context)
+                getTheLastUserTime()
+                if theUserTime != nil {
+                    theStatus.agreement = true
+                    theStatus.agreementDate = Date()
+                    if let guid = theUserTime.userTimeGuid {
+                        theStatus.guidString = guid
+                    }
+                    do {
+                        try context.save()
+                        DispatchQueue.main.async {
+                            self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"status  merge that"])
+                        }
+                    } catch let error as NSError {
+                        let theError: String = error.localizedDescription
+                        let error = "There was an error in saving " + theError
+                        errorAlert(errorMessage: error)
+                    }
+                } else {
+                    let guidDate = GuidFormatter.init(date: Date())
+                    let guid = guidDate.formatGuid()
+                    let theUserGuid = "78."+guid
+                    theUserTime = UserTime.init(context: context)
+                    theUserTime.userTimeGuid = theUserGuid
+                    theUserTime.userStartShiftTime = Date()
+                    theStatus.guidString = theUserGuid
+                    
+                        theStatus.agreement = true
+                        theStatus.agreementDate = Date()
+                    getTheUser()
+                    if theFireJournalUser != nil {
+                        var userName: String = ""
+                        if let user = theFireJournalUser.userName {
+                            userName = user
+                        }
+                        if userName == "" {
+                            if let first = theFireJournalUser.firstName {
+                                userName = first
+                            }
+                            if let last = theFireJournalUser.lastName {
+                                userName = userName + " " + last
+                            }
+                            if userName != "" {
+                                theFireJournalUser.userName = userName
+                            }
+                        }
+                        theUserTime.fireJournalUser = theFireJournalUser
+                        self.userDefaults.set(theUserGuid, forKey: FJkUSERTIMEGUID)
+                        let objectID = theUserTime.objectID
+                        DispatchQueue.main.async {
+                            self.nc.post(name:Notification.Name(rawValue: FJkCKNewStartEndCreated),
+                                    object: nil,
+                                    userInfo: ["objectID": objectID as NSManagedObjectID])
+                        }
+                        do {
+                            try context.save()
+                            DispatchQueue.main.async {
+                                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"EndShiftModal TVC merge that"])
+                            }
+                        } catch let error as NSError {
+                            let theError: String = error.localizedDescription
+                            let error = "There was an error in saving " + theError
+                            errorAlert(errorMessage: error)
+                        }
+                    }
+                }
+            }
+        }
+        
+        
+        
     }
     
     
@@ -54,8 +226,6 @@ extension DetailViewController {
     func getThisShiftsIncidents(_ userTime: UserTime) {
         taskContext = incidentProvider.persistentContainer.newBackgroundContext()
         guard let incidents = incidentProvider.getTodaysIncidents(context: taskContext, userTime: userTime) else {
-            let errorMessage = "There were no incidents related to the listed shift"
-            errorAlert(errorMessage: errorMessage)
             return }
         theTodayIncidents = incidents
         theNewestIncident = theTodayIncidents.last
@@ -141,7 +311,7 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
             return collectionView.dequeueConfiguredReusableCell(using: configureShiftFormCVCellRegistration, for: indexPath, item: theUserTime )
         case .status:
             if startEndShift {
-                return collectionView.dequeueConfiguredReusableCell(using: configureShiftEndStatusCVCellRegistration, for: indexPath, item: theUserTime )
+                return collectionView.dequeueConfiguredReusableCell(using: configureShiftEndStatusCVCellRegistration, for: indexPath, item: theExpiredUserTime )
             } else {
                 return collectionView.dequeueConfiguredReusableCell(using: configureShiftStartStatusCVCellRegistration, for: indexPath, item: theUserTime )
             }
@@ -244,13 +414,22 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
         let shiftEndModalVC  = storyboard.instantiateViewController(identifier: "ShiftEndModalVC") as! ShiftEndModalVC
         shiftEndModalVC.delegate = self
         shiftEndModalVC.transitioningDelegate = slideInTransitioningDelgate
-        
+        if theStatus != nil {
+            shiftEndModalVC.theStatusObj = theStatus.objectID
+        }
         if Device.IS_IPHONE {
             shiftEndModalVC.modalPresentationStyle = .formSheet
         } else {
             shiftEndModalVC.modalPresentationStyle = .custom
         }
-        self.present(shiftEndModalVC, animated: true, completion: nil)
+        
+        if theUserTime == nil {
+            let error = "There was a error creating the userTime"
+            errorAlert(errorMessage: error)
+        } else {
+            shiftEndModalVC.theUserTimeOID = theUserTime.objectID
+            self.present(shiftEndModalVC, animated: true, completion: nil)
+        }
     }
     
     func startShiftTapped() {
@@ -260,7 +439,12 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
         let startShiftModalTVC  = storyboard.instantiateViewController(identifier: "ShiftNewModalVC") as! ShiftNewModalVC
         startShiftModalTVC.delegate = self
         startShiftModalTVC.transitioningDelegate = slideInTransitioningDelgate
-        
+        if theStatus != nil {
+            startShiftModalTVC.theStatusOID = theStatus.objectID
+        } else {
+            let error = "There was a error creating the userTime"
+            errorAlert(errorMessage: error)
+        }
         if Device.IS_IPHONE {
             startShiftModalTVC.modalPresentationStyle = .formSheet
         } else {
@@ -269,8 +453,10 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
         if theUserTime == nil {
             let error = "There was a error creating the userTime"
             errorAlert(errorMessage: error)
+        } else {
+            startShiftModalTVC.userTimeObjID = theUserTime.objectID
+            self.present(startShiftModalTVC, animated: true, completion: nil)
         }
-        self.present(startShiftModalTVC, animated: true, completion: nil)
     }
     
 }
@@ -285,17 +471,27 @@ extension DetailViewController: ShiftNewModalVCDelegate {
         dismiss(animated: true, completion: nil)
     }
     
-    
+    func noUserFound() {
+        dismiss(animated: true, completion: nil)
+        let errorMessage = "There was a failure to provide the user profile."
+        errorAlert(errorMessage: errorMessage)
+    }
 }
 
 extension DetailViewController: ShiftEndModalVCDelegate {
     
     func dismissShiftEndModal() {
-        startEndShift.toggle()
+        startEndShift = true
         userDefaults.set(startEndShift, forKey: FJkSTARTSHIFTENDSHIFTBOOL)
         self.dashboardCollectionView.reloadSections(IndexSet(integer: DashboardSections.shift.rawValue))
         self.dashboardCollectionView.reloadSections(IndexSet(integer: DashboardSections.status.rawValue))
         dismiss(animated: true, completion: nil)
+    }
+    
+    func endShiftNOUserFound() {
+        dismiss(animated: true, completion: nil)
+        let errorMessage = "There was a failure to provide the shift."
+        errorAlert(errorMessage: errorMessage)
     }
     
 }
@@ -320,30 +516,40 @@ extension DetailViewController: ShiftFormCVCellDelegate {
         let storyBoard : UIStoryboard = UIStoryboard(name: "IncidentNew", bundle:nil)
         let incidentNewModalVC = storyBoard.instantiateViewController(withIdentifier: "IncidentNewModalVC") as! IncidentNewModalVC
         incidentNewModalVC.transitioningDelegate = slideInTransitioningDelgate
-        
-        if Device.IS_IPHONE {
-            incidentNewModalVC.modalPresentationStyle = .formSheet
+        if theUserTime != nil {
+            incidentNewModalVC.userTimeObjectID = theUserTime.objectID
+            if Device.IS_IPHONE {
+                incidentNewModalVC.modalPresentationStyle = .formSheet
+            } else {
+                incidentNewModalVC.modalPresentationStyle = .custom
+            }
+            incidentNewModalVC.delegate = self
+            self.present(incidentNewModalVC, animated: true, completion: nil)
         } else {
-            incidentNewModalVC.modalPresentationStyle = .custom
+            let errorMessage = "A shift needs to be started to create incident entries."
+            errorAlert(errorMessage: errorMessage)
         }
-        incidentNewModalVC.delegate = self
-        self.present(incidentNewModalVC, animated: true, completion: nil)
     }
     
     func presentJournalFormModal() {
         slideInTransitioningDelgate.direction = .bottom
         slideInTransitioningDelgate.disableCompactHeight = true
-        let storyBoard : UIStoryboard = UIStoryboard(name: "JournalSB", bundle:nil)
-        let newJournalModalTVC = storyBoard.instantiateInitialViewController() as! JournalModalTVC
-        newJournalModalTVC.transitioningDelegate = slideInTransitioningDelgate
-        newJournalModalTVC.context = context
+        let storyBoard : UIStoryboard = UIStoryboard(name: "JournalNewModal", bundle:nil)
+        let journalNewModalVC = storyBoard.instantiateInitialViewController() as! JournalNewModalVC
+        journalNewModalVC.transitioningDelegate = slideInTransitioningDelgate
+        if theUserTime != nil {
+            journalNewModalVC.userTimeObjectID = theUserTime.objectID
         if Device.IS_IPHONE {
-            newJournalModalTVC.modalPresentationStyle = .formSheet
+            journalNewModalVC.modalPresentationStyle = .formSheet
         } else {
-            newJournalModalTVC.modalPresentationStyle = .custom
+            journalNewModalVC.modalPresentationStyle = .custom
         }
-        newJournalModalTVC.delegate = self
-        self.present(newJournalModalTVC,animated: true)
+        journalNewModalVC.delegate = self
+        self.present(journalNewModalVC,animated: true)
+        } else {
+            let errorMessage = "A shift needs to be started to create journal entries."
+            errorAlert(errorMessage: errorMessage)
+        }
     }
     
     func presentFormsModal() {
@@ -366,15 +572,15 @@ extension DetailViewController: ShiftFormCVCellDelegate {
     
 }
 
-extension DetailViewController: JournalModalTVCDelegate {
+extension DetailViewController: JournalNewModalVCDelegate {
     
-    func dismissJModalTapped(shift: MenuItems) {
+    func journalNewCancelled() {
         self.dismiss(animated: true, completion: nil)
     }
     
-    func journalModalSaved(id: NSManagedObjectID, shift: MenuItems) {
+    func journalNewSaved(objectID: NSManagedObjectID) {
         self.dismiss(animated: true, completion: {
-            self.nc.post(name:Notification.Name(rawValue:FJkJOURNAL_FROM_MASTER),object: nil, userInfo: ["sizeTrait":SizeTrait.regular,"objectID":id])
+            self.nc.post(name:Notification.Name(rawValue: FJkJOURNAL_FROM_MASTER),object: nil, userInfo: ["sizeTrait":SizeTrait.regular,"objectID": objectID])
         })
     }
     
@@ -457,26 +663,34 @@ extension DetailViewController: OpenModalScrollVCDelegate {
     func allCompleted(yesNo: Bool) {
         dismiss(animated: true, completion: {
             self.userDefaults.set(true, forKey: FJkFIRSTRUNFORDATAFROMCLOUDKIT)
-            self.userDefaults.synchronize()
             self.theAgreementsAccepted()
             self.freshDeskRequest()
             self.appDelegate.fetchAnyChangesWeMissed(firstRun: true)
             DispatchQueue.main.async {
-                self.nc.post(name:Notification.Name(rawValue:FJkOPENWEATHER_UPDATENow),object: nil)
+                self.nc.post(name:Notification.Name(rawValue: FJkOPENWEATHER_UPDATENow),object: nil)
             }
             self.buildUserTime()
+            self.dashboardCollectionView.reloadSections(IndexSet(integer: DashboardSections.shift.rawValue))
+            self.dashboardCollectionView.reloadSections(IndexSet(integer: DashboardSections.status.rawValue))
+            self.dashboardCollectionView.reloadSections(IndexSet(integer: DashboardSections.weather.rawValue))
         })
     }
     
     func buildUserTime() {
         startEndShift = true
         userDefaults.set(startEndShift, forKey: FJkSTARTSHIFTENDSHIFTBOOL)
-        let guidDate = GuidFormatter.init(date: Date())
+        let agreementDate = Date()
+        let guidDate = GuidFormatter.init(date: agreementDate)
         let guid = guidDate.formatGuid()
         let theUserGuid = "78."+guid
         theUserTime = UserTime.init(context: context)
         theUserTime.userTimeGuid = theUserGuid
-        theUserTime.userStartShiftTime = Date()
+        theStatus = Status.init(context: context)
+        theStatus.guidString = theUserGuid
+        theStatus.agreement = true
+        theStatus.agreementDate = agreementDate
+        theUserTime.userStartShiftTime = agreementDate
+        theUserTime.shiftCompleted = false
         self.userDefaults.set(theUserGuid, forKey: FJkUSERTIMEGUID)
         let objectID = theUserTime.objectID
         DispatchQueue.main.async {
@@ -487,7 +701,7 @@ extension DetailViewController: OpenModalScrollVCDelegate {
         do {
             try context.save()
             DispatchQueue.main.async {
-                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"EndShiftModal TVC merge that"])
+                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"User Time Start Shift Created for use merge that"])
             }
             self.configuredashboardCollectionView()
         } catch let error as NSError {
@@ -499,9 +713,6 @@ extension DetailViewController: OpenModalScrollVCDelegate {
     
     func theAgreementsAccepted() {
         agreementAccepted = userDefaults.bool(forKey: FJkUserAgreementAgreed)
-        if let guid = userDefaults.string(forKey: FJkUSERTIMEGUID) {
-            startEndGuid = guid
-        }
     }
     
     func freshDeskRequest() {

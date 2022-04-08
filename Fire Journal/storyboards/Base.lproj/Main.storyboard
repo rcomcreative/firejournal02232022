@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="H1p-Uh-vWS">
     <device id="ipad10_2" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -390,22 +389,22 @@
                         <outlet property="myFireStationLocation" destination="IMM-hm-mFa" id="bbX-lb-pcu"/>
                         <outlet property="myLocationB" destination="eAn-WD-yDJ" id="y2v-WI-KV4"/>
                         <outlet property="rescueIncidentB" destination="KBH-J6-iIV" id="aPb-X4-YJy"/>
-                        <segue destination="3fa-eU-Cub" kind="showDetail" identifier="MapVCToMapIncidentSegue" id="POi-7u-1Ok"/>
                         <segue destination="7dW-zL-GBT" kind="showDetail" identifier="MapVCToMapARCSegue" id="F1L-ME-0F3"/>
                         <segue destination="IZs-5l-PkO" kind="showDetail" identifier="MapVCToMapICS214Segue" id="Gny-A6-yI8"/>
+                        <segue destination="tcC-Sa-2Ui" kind="showDetail" identifier="MapVCToMapIncidentSegue" id="kTg-bW-IbO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CSM-Wu-ZWt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3075.5395683453239" y="867.6258992805756"/>
         </scene>
-        <!--MapIncident-->
-        <scene sceneID="KGE-c7-1Yb">
+        <!--IncidentVC-->
+        <scene sceneID="usC-IE-d7f">
             <objects>
-                <viewControllerPlaceholder storyboardName="MapIncident" id="3fa-eU-Cub" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="goo-MI-fO4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="IncidentVC" id="tcC-Sa-2Ui" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3xv-an-zkT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3603" y="846"/>
+            <point key="canvasLocation" x="3589" y="792"/>
         </scene>
         <!--MapARCForm-->
         <scene sceneID="cLl-Kc-ECx">
@@ -2687,7 +2686,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="r7i-6Z-zg0">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="1080"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="Arm-wq-HPj" style="IBUITableViewCellStyleDefault" id="WCw-Qf-5nD">
@@ -11576,7 +11575,7 @@ Alarms</string>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Tll-UG-LXB"/>
+        <segue reference="6S0-TO-JiA"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="100515IconSet_092016_Forms" width="833" height="833"/>

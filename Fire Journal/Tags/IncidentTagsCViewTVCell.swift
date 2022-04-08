@@ -89,8 +89,8 @@ extension IncidentTagsCViewTVCell {
         contentView.addSubview(tagCollectionView)
         NSLayoutConstraint.activate([
             tagCollectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            tagCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            tagCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            tagCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            tagCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
             tagCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
             
         ])
@@ -101,10 +101,10 @@ extension IncidentTagsCViewTVCell {
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.2),
                                                   heightDimension: .fractionalHeight(0.5))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
+            item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5)
             
             
-            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.75))
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.50))
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
             
             let section = NSCollectionLayoutSection(group: group)

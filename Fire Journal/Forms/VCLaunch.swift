@@ -588,17 +588,12 @@ class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalT
     }
     
     func journalCalled(sizeTrait: SizeTrait,id: NSManagedObjectID) -> Void {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller:JournalTVC = storyboard.instantiateViewController(withIdentifier: "JournalTVC") as! JournalTVC
+        let storyboard = UIStoryboard(name: "TheJournal", bundle: nil)
+        let controller:JournalVC = storyboard.instantiateViewController(withIdentifier: "JournalVC") as! JournalVC
         let navigator = UINavigationController.init(rootViewController: controller)
         controller.navigationItem.leftItemsSupplementBackButton = true
         controller.navigationItem.leftBarButtonItem = self.splitVC?.displayModeButtonItem
-        //        controller.context = context
         controller.id = id
-        controller.sizeTrait = sizeTrait
-        controller.myShift = .journal
-        controller.delegate = self
-        controller.titleName = "Journal"
         self.splitVC?.showDetailViewController(navigator, sender:self)
         nc.post(name:Notification.Name(rawValue:"FJkJOURNALLISTSEGUE"),
                 object: nil,
@@ -606,16 +601,12 @@ class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalT
     }
     
     func journalCalledFromList(sizeTrait: SizeTrait,id: NSManagedObjectID) -> Void {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller:JournalTVC = storyboard.instantiateViewController(withIdentifier: "JournalTVC") as! JournalTVC
+        let storyboard = UIStoryboard(name: "TheJournal", bundle: nil)
+        let controller:JournalVC = storyboard.instantiateViewController(withIdentifier: "JournalVC") as! JournalVC
         let navigator = UINavigationController.init(rootViewController: controller)
         controller.navigationItem.leftItemsSupplementBackButton = true
         controller.navigationItem.leftBarButtonItem = self.splitVC?.displayModeButtonItem
         controller.id = id
-        controller.sizeTrait = sizeTrait
-        controller.myShift = .journal
-        controller.delegate = self
-        controller.titleName = "Journal"
         self.splitVC?.showDetailViewController(navigator, sender:self)
     }
     
@@ -708,7 +699,7 @@ class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalT
         controller.delegate = self
         controller.titleName = "Personal Journal"
         self.splitVC?.showDetailViewController(navigator, sender:self)
-        nc.post(name:Notification.Name(rawValue:"FJkPERSONALLISTCALLED"),
+        nc.post(name:Notification.Name(rawValue: FJkPERSONALLISTCALLED ),
                 object: nil,
                 userInfo: nil)
     }

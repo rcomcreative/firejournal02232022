@@ -484,6 +484,8 @@ public enum IncidentTypes:Int {
     case platoonPriorities
     case stationPriorities
     case shiftNotes
+    case startShiftNotes
+    case endShiftNotes
     case supervisor
     case apparatusManufacturer
     case apparatusAssignedPositions
@@ -492,6 +494,10 @@ public enum IncidentTypes:Int {
     case apparatusMaintenance
     case leaveWork
     case incidentPhoto
+    case overview
+    case discussion
+    case nextSteps
+    case summary
 }
 
 public enum NFIRSModule:Int {

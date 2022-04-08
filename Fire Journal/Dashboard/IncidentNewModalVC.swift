@@ -28,6 +28,7 @@ class IncidentNewModalVC: UIViewController {
         return provider
     }()
     var userTimeContext: NSManagedObjectContext!
+    var userTimeObjectID: NSManagedObjectID!
     
     lazy var theUserProvider: FireJournalUserProvider = {
         let provider = FireJournalUserProvider(with: (UIApplication.shared.delegate as! AppDelegate).persistentContainer)
@@ -85,6 +86,9 @@ New Incident
         launchNC.callNotifications()
         nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: context)
         
+        if let obj = userTimeObjectID {
+            theUserTime = context.object(with: obj) as? UserTime
+        }
         if theUserTime == nil {
             dismiss(animated: true)
         }
@@ -133,6 +137,7 @@ New Incident
         theIncident.incidentDateSearch = sDate
         theIncident.incidentModDate = incidentModDate
         theIncident.incidentCreationDate = incidentModDate
+        theIncident.incidentGuid = UUID()
         theIncident.incidentType = "Emergency"
         theIncident.userTime = theUserTime
         theIncident.fireJournalUserIncInfo = theUser
@@ -175,8 +180,8 @@ New Incident
         theIncidentNFIRSsecM = IncidentNFIRSsecM(context: context)
         theIncidentNFIRSsecM.sectionMInfo = theIncident
         
-        thePhoto = Photo(context: context)
-        thePhoto.addToIncident(theIncident)
+//        thePhoto = Photo(context: context)
+//        thePhoto.addToIncident(theIncident)
         
     }
 

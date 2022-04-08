@@ -120,6 +120,8 @@ class IncidentVC: UIViewController {
     var theTagsAvailable: Bool = false
     var theTagsHeight: CGFloat = 0
     
+    var fromMap: Bool = false
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -132,7 +134,9 @@ class IncidentVC: UIViewController {
         nc.addObserver(self, selector: #selector(compactOrRegular(ns:)), name:NSNotification.Name(rawValue: FJkCOMPACTORREGULAR), object: nil)
         nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: context)
         
+        
         setUpNavigationButton()
+        
         getTheTags()
         
         if id != nil {
@@ -193,9 +197,6 @@ class IncidentVC: UIViewController {
                              object: nil,
                              userInfo: ["objectID": objectID as NSManagedObjectID])
             }
-            DispatchQueue.main.async {
-                self.nc.removeObserver(self, name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
-            }
             theAlert(message: "The incident data has been saved.")
         } catch let error as NSError {
             let nserror = error
@@ -236,6 +237,10 @@ class IncidentVC: UIViewController {
     func buildTheIncident() {
         
         theIncident = context.object(with: id) as? Incident
+        
+        if theIncident.incidentGuid == nil {
+            theIncident.incidentGuid = UUID()
+        }
         
         if theIncident.theLocation != nil {
             theIncidentLocation = theIncident.theLocation
@@ -296,6 +301,14 @@ class IncidentVC: UIViewController {
         }
         if theIncident.incidentTagDetails != nil {
             theIncidentTags = theIncident.tags?.allObjects as! [Tag]
+            theTagsAvailable = true
+            theIncidentTags = theIncidentTags.sorted { $0.name! < $1.name! }
+            let count = theIncidentTags.count
+            let counted = count / 6
+            theTagsHeight = CGFloat(counted * 44)
+            if theTagsHeight < 100 {
+                theTagsHeight = 88
+            }
         }
         if theIncident.actionsTakenDetails != nil {
             theActionsTaken = theIncident.actionsTakenDetails

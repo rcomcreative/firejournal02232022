@@ -43,7 +43,7 @@ extension TagsCVCell {
         theBackgroundView.layer.cornerRadius = 8
         
         tagL.textAlignment = .center
-        tagL.font = UIFont.preferredFont(forTextStyle: .caption2)
+        tagL.font = .systemFont(ofSize: 10, weight: UIFont.Weight(rawValue: 100))
         tagL.textColor = .white
         tagL.adjustsFontForContentSizeCategory = true
         tagL.lineBreakMode = NSLineBreakMode.byWordWrapping

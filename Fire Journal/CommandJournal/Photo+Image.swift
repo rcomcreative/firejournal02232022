@@ -27,26 +27,26 @@ extension Photo {
     /**
      Create the image file URL for the current attachment.
      */
-    func imageURL() -> URL {
-        let fileName = guid!.uuidString + ".jpg"
+    func imageURL(guid: UUID) -> URL {
+        let fileName = guid.uuidString + ".jpg"
         return CloudKitManager.attachmentFolder.appendingPathComponent(fileName)
     }
     
     /**
      Create the thumbnail URL for the current attachment.
      */
-    private func thumbnailURL() -> URL {
-        let fileName = guid!.uuidString + ".thumbnail"
+    private func thumbnailURL(guid: UUID) -> URL {
+        let fileName = guid.uuidString + ".thumbnail"
         return CloudKitManager.attachmentFolder.appendingPathComponent(fileName)
     }
     
-    func getThumbnail() -> UIImage? {
+    func getThumbnail(guid: UUID) -> UIImage? {
         // Return the thumbnail image if it is already loaded.
         guard image == nil else { return image }
         
         var nsError: NSError?
         NSFileCoordinator().coordinate(
-            readingItemAt: thumbnailURL(), options: .withoutChanges, error: &nsError,
+            readingItemAt: thumbnailURL(guid: guid), options: .withoutChanges, error: &nsError,
             byAccessor: { (newURL: URL) -> Void in
                 image = UIImage(contentsOfFile: newURL.path)
             }
@@ -75,13 +75,13 @@ extension Photo {
      Attachments created by Core Data with CloudKit don’t have cached files.
      Provide a new task context to load the image data, and release it after the image finishes loading.
      */
-    func getImage(with taskContext: NSManagedObjectContext) -> UIImage? {
+    func getImage(with taskContext: NSManagedObjectContext, guid: UUID) -> UIImage? {
         // Load the image from the cached file if the file exists.
         var image: UIImage?
         
         var nsError: NSError?
         NSFileCoordinator().coordinate(
-            readingItemAt: imageURL(), options: .withoutChanges, error: &nsError,
+            readingItemAt: imageURL(guid: guid), options: .withoutChanges, error: &nsError,
             byAccessor: { (newURL: URL) -> Void in
                 if let data = try? Data(contentsOf: newURL) {
                     image = UIImage(data: data, scale: UIScreen.main.scale)
