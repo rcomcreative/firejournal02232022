@@ -23,9 +23,9 @@ extension ListTVC {
         }
     }
     
-    func getTheLastUserTime() {
+    func getTheLastUserTime(guid: String) {
         userTimeContext = userTimeProvider.persistentContainer.newBackgroundContext()
-        if let userTime = userTimeProvider.getLastShiftNotCompleted(userTimeContext)  {
+        if let userTime = userTimeProvider.getTheShift(userTimeContext, guid)  {
             let uTime = userTime.last
             if let id = uTime?.objectID {
                 theUserTime  = context.object(with: id) as? UserTime

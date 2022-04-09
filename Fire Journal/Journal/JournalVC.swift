@@ -159,13 +159,24 @@ class JournalVC: SpinnerViewController, UIImagePickerControllerDelegate, UINavig
             navigationItem.leftBarButtonItem = listButton
             navigationItem.setLeftBarButtonItems([listButton], animated: true)
             navigationItem.leftItemsSupplementBackButton = false
+            let regularBarButtonTextAttributes: [NSAttributedString.Key: Any] = [
+                .foregroundColor: UIColor.black,
+                .font: UIFont.systemFont(ofSize: 22, weight: UIFont.Weight(rawValue: 150))
+            ]
+            listButton.setTitleTextAttributes(regularBarButtonTextAttributes, for: .normal)
+            listButton.setTitleTextAttributes(regularBarButtonTextAttributes, for: .highlighted)
         }
         
         
         if (Device.IS_IPHONE){
-            self.navigationController?.navigationBar.backgroundColor = UIColor.white
-            let navigationBarAppearace = UINavigationBar.appearance()
-            navigationBarAppearace.tintColor = UIColor.black
+            self.navigationController?.navigationBar.barTintColor = UIColor(named: "FJBlueColor")
+            self.navigationController?.navigationBar.isTranslucent = false
+            let regularBarButtonTextAttributes: [NSAttributedString.Key: Any] = [
+                .foregroundColor: UIColor.black,
+                .font: UIFont.systemFont(ofSize: 22, weight: UIFont.Weight(rawValue: 150))
+            ]
+            saveButton.setTitleTextAttributes(regularBarButtonTextAttributes, for: .normal)
+            saveButton.setTitleTextAttributes(regularBarButtonTextAttributes, for: .highlighted)
         } else {
             let navigationBarAppearace = UINavigationBar.appearance()
             navigationBarAppearace.tintColor = UIColor.black

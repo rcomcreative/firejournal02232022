@@ -34,6 +34,8 @@ extension IncidentVC: UITableViewDelegate {
         incidentTableView.register(IncidentEditBarTVC.self, forCellReuseIdentifier: "IncidentEditBarTVC")
         incidentTableView.register(IncidentTextViewTVCell.self, forCellReuseIdentifier: "IncidentTextViewTVCell")
         incidentTableView.register(IncidentTagsCViewTVCell.self, forCellReuseIdentifier: "IncidentTagsCViewTVCell")
+        incidentTableView.register(CameraTVCell.self, forCellReuseIdentifier: "CameraTVCell")
+        incidentTableView.register(IncidentPhotoCollectionCell.self, forCellReuseIdentifier: "IncidentPhotoCollectionCell")
     }
     
 }

@@ -95,10 +95,10 @@ class OnBoardAddressSearch: UIViewController, MKLocalSearchCompleterDelegate, UI
             headerBarV.backgroundColor = UIColor(named: "FJIconRed")
         case .deptMember:
             searchBar.placeholder = "Search for staff's address by typing or audio"
-            headerBarV.backgroundColor = UIColor(named: "FJBlue")
+            headerBarV.backgroundColor = UIColor(named: "FJBlueColor")
         case .journal:
-            searchBar.placeholder = "Search for staff's address by typing or audio"
-            headerBarV.backgroundColor = UIColor(named: "FJBlue")
+            searchBar.placeholder = "Search for address by typing or audio"
+            headerBarV.backgroundColor = UIColor(named: "FJBlueColor")
         case .allIncidents:
             searchBar.placeholder = "Search for address by typing in the search bar or use audio"
             headerBarV.backgroundColor = UIColor(named: "FJIconRed")

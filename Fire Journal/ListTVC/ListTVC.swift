@@ -102,7 +102,11 @@ class ListTVC: UITableViewController,UISplitViewControllerDelegate   {
         }
         
         getTheStatus()
-        getTheLastUserTime()
+        if theStatus != nil {
+            if let guid = theStatus.guidString {
+                getTheLastUserTime(guid: guid)
+            }
+        }
         
         configureNavigationBar()
         

@@ -66,10 +66,17 @@ class IncidentVC: UIViewController {
     var theIncidentNFIRSsecM: IncidentNFIRSsecM!
     var thePhoto: Photo!
     var theJournal: Journal!
+    var validPhotos = [Photo]()
     var theTags = [Tag]()
     var utGuid: String = ""
     var compact:SizeTrait = .regular
     var dataTVC: ModalDataTVC!
+    
+    var itemProvider: [NSItemProvider] = []
+    var iterator: IndexingIterator<[NSItemProvider]>?
+    var photosAvailable: Bool = false
+    var cameraType: Bool = false
+
     
     var alertUp: Bool = false
     var incidentTableView: UITableView!

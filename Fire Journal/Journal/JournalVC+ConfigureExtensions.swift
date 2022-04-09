@@ -34,6 +34,9 @@ extension JournalVC {
         let labelFrame = label.frame
         theFloat = labelFrame.height
         label.removeFromSuperview()
+        if Device.IS_IPHONE {
+            theFloat = theFloat - 400
+        }
         if theFloat < 44 {
             theFloat = 88
         }
@@ -106,7 +109,7 @@ extension JournalVC {
             NSLayoutConstraint.activate([
                 journalTableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
                 journalTableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
-                journalTableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 15),
+                journalTableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0),
                 journalTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -10),
             ])
         } else {

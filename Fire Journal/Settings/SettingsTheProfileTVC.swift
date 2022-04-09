@@ -599,7 +599,9 @@ class SettingsTheProfileTVC: UITableViewController,ProfileLabelTextDelegate,Prof
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let row = indexPath.row
         switch row {
-        case 0...10:
+        case 0:
+            return 0
+        case 1...10:
             return 44
         case 11:
             return 65
@@ -672,7 +674,7 @@ class SettingsTheProfileTVC: UITableViewController,ProfileLabelTextDelegate,Prof
             return cell
         case 5:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileLabelCell", for: indexPath) as! ProfileLabelCell
-            cell.subjectL.text = "Your Assignment Info"
+            cell.subjectL.text = "My Assignment"
             cellArray.append(cell)
             indexPathArray.append(indexPath)
             return cell
@@ -719,7 +721,7 @@ class SettingsTheProfileTVC: UITableViewController,ProfileLabelTextDelegate,Prof
         case 11:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileLabelWithLocationButtonsCell", for: indexPath) as! ProfileLabelWithLocationButtonsCell
             cell.delegate = self
-            cell.subjectL.text = "Your Fire Station Information"
+            cell.subjectL.text = "My Primary Fire Station"
             cellArray.append(cell)
             indexPathArray.append(indexPath)
             return cell
@@ -761,7 +763,7 @@ class SettingsTheProfileTVC: UITableViewController,ProfileLabelTextDelegate,Prof
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileLabelTextFieldCell", for: indexPath) as! ProfileLabelTextFieldCell
             cell.delegate = self
             cell.fju = "fjuStreetNum"
-            cell.subjectL.text = "Fire Station Street Number"
+            cell.subjectL.text = "Street Number"
             cell.descriptionTF.placeholder = "101"
             cell.descriptionTF.text = fireJournalUser.fjuStreetNum
             cell.tag = 6
@@ -772,7 +774,7 @@ class SettingsTheProfileTVC: UITableViewController,ProfileLabelTextDelegate,Prof
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileLabelTextFieldCell", for: indexPath) as! ProfileLabelTextFieldCell
             cell.delegate = self
             cell.fju = "fjuStreetName"
-            cell.subjectL.text = "Fire Station Street/Hyway"
+            cell.subjectL.text = "Street/Highway"
             cell.descriptionTF.placeholder = "Grant Ave"
             cell.descriptionTF.text = fireJournalUser.fjuStreetName
             cell.tag = 7
@@ -783,7 +785,7 @@ class SettingsTheProfileTVC: UITableViewController,ProfileLabelTextDelegate,Prof
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileLabelTextFieldCell", for: indexPath) as! ProfileLabelTextFieldCell
             cell.delegate = self
             cell.fju = "fjuCity"
-            cell.subjectL.text = "Fire Station City"
+            cell.subjectL.text = "City"
             cell.descriptionTF.placeholder = "Los Angeles"
             cell.descriptionTF.text = fireJournalUser.fjuCity
             cell.tag = 8
@@ -794,7 +796,7 @@ class SettingsTheProfileTVC: UITableViewController,ProfileLabelTextDelegate,Prof
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileLabelTextFieldCell", for: indexPath) as! ProfileLabelTextFieldCell
             cell.delegate = self
             cell.fju = "fjuState"
-            cell.subjectL.text = "Fire Station State"
+            cell.subjectL.text = "State"
             cell.descriptionTF.placeholder = "CA"
             cell.descriptionTF.text = fireJournalUser.fjuState
             cell.tag = 9
@@ -805,7 +807,7 @@ class SettingsTheProfileTVC: UITableViewController,ProfileLabelTextDelegate,Prof
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileLabelTextFieldCell", for: indexPath) as! ProfileLabelTextFieldCell
             cell.delegate = self
             cell.fju = "fjuZip"
-            cell.subjectL.text = "Fire Station Zip"
+            cell.subjectL.text = "Zip"
             cell.descriptionTF.placeholder = "90001"
             cell.descriptionTF.text = fireJournalUser.fjuZip
             cell.tag = 10
@@ -827,7 +829,7 @@ class SettingsTheProfileTVC: UITableViewController,ProfileLabelTextDelegate,Prof
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileLabelTextFieldCell", for: indexPath) as! ProfileLabelTextFieldCell
             cell.delegate = self
             cell.fju = "fjuWebSite"
-            cell.subjectL.text = "Fire Department Web Address"
+            cell.subjectL.text = "Website"
             cell.descriptionTF.placeholder = "LAFD.org"
             cell.descriptionTF.text = fireJournalUser.fjuWebSite
             cell.tag = 12

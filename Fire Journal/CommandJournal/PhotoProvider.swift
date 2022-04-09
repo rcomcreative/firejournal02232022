@@ -49,8 +49,16 @@ class PhotoProvider {
             photo.photoDate = Date()
             photo.guid = UUID()
             self.theJournal.journalPhotoTaken = true
-            self.theJournal.addToPhoto(photo)
+            photo.journal = self.theJournal
             photo.image = thumbnailImage // transient
+            
+//            imageData
+            
+            let theImageData = ImageData(context: taskContext)
+            theImageData.data = imageData
+            theImageData.photoGuid = photo.guid
+            theImageData.attachment = photo
+            
             if shouldSave {
                 save(context: taskContext)
             }
@@ -136,6 +144,7 @@ class PhotoProvider {
             staff.photoAvailable = true
             staff.photo = photo
             photo.image = thumbnailImage // transient
+            
             if shouldSave {
                 save(context: taskContext)
             }
@@ -202,7 +211,7 @@ class PhotoProvider {
      */
     func saveImageDataiIfNeeded(for attachments: NSSet, taskContext: NSManagedObjectContext,
                                 completionHandler: (() -> Void)? = nil) {
-        
+        self.context = taskContext
         guard let attachments = attachments.allObjects as? [Photo] else {
             completionHandler?()
             return

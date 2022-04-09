@@ -69,13 +69,14 @@ extension JournalVC: CameraTVCellDelegate, PHPickerViewControllerDelegate {
                 DispatchQueue.main.async {
                     self.spinner.stopAnimating()
                 }
-                self.saveJournal(self) {
-                    print("saved")
-                    self.validPhotos =  self.theJournal.photo?.allObjects as! [Photo]
-                    print("here is validPhotos \(self.validPhotos.count)")
-                    self.photosAvailable = true
-                    self.journalTableView.reloadRows(at: [IndexPath.init(row:8, section: 0)], with: .automatic)
-                }
+                    //                self.saveJournal(self) {
+                print("saved")
+                self.theJournal = self.context.object(with: self.id) as? Journal
+                self.validPhotos =  self.theJournal.photo?.allObjects as! [Photo]
+                print("here is validPhotos \(self.validPhotos.count)")
+                self.photosAvailable = true
+                self.journalTableView.reloadRows(at: [IndexPath.init(row:8, section: 0)], with: .automatic)
+                    //                }
             }
         }
     }
@@ -179,8 +180,8 @@ extension JournalVC: CameraTVCellDelegate, PHPickerViewControllerDelegate {
                         self.validPhotos = attachments.filter { return !($0.imageData == nil) }
                         
                         self.journalTableView.reloadRows(at: [IndexPath.init(row:8, section: 0)], with: .automatic)
-                        // print out the image size as a test
-                    print(image.size)
+                            // print out the image size as a test
+                        print(image.size)
                     }
                 }
             }
