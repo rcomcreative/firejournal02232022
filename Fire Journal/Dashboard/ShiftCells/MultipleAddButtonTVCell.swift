@@ -70,6 +70,10 @@ extension MultipleAddButtonTVCell {
             var config = UIButton.Configuration.filled()
             config.buttonSize = .medium
             switch type {
+            case .fdid:
+                config.image = UIImage(systemName: "list.bullet.rectangle.portrait")
+                config.title = " FDID"
+                config.baseBackgroundColor = UIColor(named: theBackgroundColor)
             case .education:
                 config.image = UIImage(systemName: "pencil.circle")
                 config.title = " Education"

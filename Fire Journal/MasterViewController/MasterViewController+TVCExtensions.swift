@@ -180,7 +180,7 @@ extension MasterViewController {
             cell.myShiftIV.image = backgroundI
             
             cell.myShiftL.textColor = tintColor
-            cell.myShiftL.text = "Personal"
+            cell.myShiftL.text = "Projects"
         case .maps:
             let backgroundI = UIImage(named: "ICONS_map white")
             

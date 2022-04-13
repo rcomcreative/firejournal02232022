@@ -272,56 +272,60 @@ class JournalVC: SpinnerViewController, UIImagePickerControllerDelegate, UINavig
     
     func buildTheJournal() {
         
-        getTheUser()
-        getTheLastUserTime()
-        
         theJournal = context.object(with: id) as? Journal
-        if theJournal.theLocation != nil {
-            theJournalLocation = theJournal.theLocation
-        } else {
-            theJournalLocation = FCLocation(context: context)
-            theJournalLocation.guid = UUID.init()
-            theJournal.theLocation = theJournalLocation
-        }
-        
-        
-        if theJournal.journalTagDetails != nil {
-            theJournalTags = theJournal.tags?.allObjects as! [Tag]
-            theTagsAvailable = true
-            theJournalTags = theJournalTags.sorted { $0.name! < $1.name! }
-            let count = theJournalTags.count
-            let counted = count / 6
-            theTagsHeight = CGFloat(counted * 44)
-            if theTagsHeight < 100 {
-                theTagsHeight = 88
+        if theJournal != nil {
+            if theJournal.fireJournalUserInfo != nil {
+                theUser = theJournal.fireJournalUserInfo
+            } else {
+                getTheUser()
             }
+            getTheLastUserTime()
+            if theJournal.theLocation != nil {
+                theJournalLocation = theJournal.theLocation
+            } else {
+                theJournalLocation = FCLocation(context: context)
+                theJournalLocation.guid = UUID.init()
+                theJournal.theLocation = theJournalLocation
+            }
+            
+            
+            if theJournal.journalTagDetails != nil {
+                theJournalTags = theJournal.tags?.allObjects as! [Tag]
+                theTagsAvailable = true
+                theJournalTags = theJournalTags.sorted { $0.name! < $1.name! }
+                let count = theJournalTags.count
+                let counted = count / 6
+                theTagsHeight = CGFloat(counted * 44)
+                if theTagsHeight < 100 {
+                    theTagsHeight = 88
+                }
+            }
+            
+            if let overview = theJournal.journalOverviewSC as? String {
+                theOverviewNotes = overview
+                theOverviewNotesAvailable = true
+                theOverviewNotesHeight = configureLabelHeight(text: theOverviewNotes)
+            }
+            
+            if let summary = theJournal.journalSummarySC as? String {
+                theSummaryNotes = summary
+                theSummaryNotesAvailable = true
+                theSummaryNotesHeight = configureLabelHeight(text: theSummaryNotes)
+            }
+            
+            if theJournal.journalGuid == nil {
+                theJournal.journalGuid = UUID()
+            }
+            
+            guard let attachments = self.theJournal.photo?.allObjects as? [Photo] else { return }
+            self.validPhotos.removeAll()
+            self.validPhotos = attachments.filter { return !($0.imageData == nil) }
+            self.validPhotos = self.validPhotos.sorted(by: { $0.photoDate! < $1.photoDate! })
+            if !self.validPhotos.isEmpty {
+                self.photosAvailable = true
+            }
+        
         }
-        
-        if let overview = theJournal.journalOverviewSC as? String {
-            theOverviewNotes = overview
-            theOverviewNotesAvailable = true
-            theOverviewNotesHeight = configureLabelHeight(text: theOverviewNotes)
-        }
-        
-        if let summary = theJournal.journalSummarySC as? String {
-            theSummaryNotes = summary
-            theSummaryNotesAvailable = true
-            theSummaryNotesHeight = configureLabelHeight(text: theSummaryNotes)
-        }
-        
-        if theJournal.journalGuid == nil {
-            theJournal.journalGuid = UUID()
-        }
-        
-         guard let attachments = self.theJournal.photo?.allObjects as? [Photo] else { return }
-        self.validPhotos.removeAll()
-        self.validPhotos = attachments.filter { return !($0.imageData == nil) }
-        self.validPhotos = self.validPhotos.sorted(by: { $0.photoDate! < $1.photoDate! })
-        if !self.validPhotos.isEmpty {
-            self.photosAvailable = true
-        }
-        
-        
     }
 
 }

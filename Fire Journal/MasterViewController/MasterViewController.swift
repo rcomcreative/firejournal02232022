@@ -54,6 +54,21 @@ class MasterViewController: UITableViewController,UISplitViewControllerDelegate,
     var myShift: MenuItems = .journal
     var locationMovedToLocationsSC: Bool = false
     
+    lazy var plistProvider: PlistProvider = {
+        let provider = PlistProvider(with: (UIApplication.shared.delegate as! AppDelegate).persistentContainer)
+        return provider
+    }()
+    var plistContext: NSManagedObjectContext!
+    
+    
+    lazy var theUserProvider: FireJournalUserProvider = {
+        let provider = FireJournalUserProvider(with: (UIApplication.shared.delegate as! AppDelegate).persistentContainer)
+        return provider
+    }()
+    var theUserContext: NSManagedObjectContext!
+    var theUser: FireJournalUser!
+    var theUserObjectID: NSManagedObjectID!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -76,12 +91,17 @@ class MasterViewController: UITableViewController,UISplitViewControllerDelegate,
         
         registerCells()
         
+        
         addObserversForMaster()
         
         agreementAccepted = userDefaults.bool(forKey: FJkUserAgreementAgreed)
         if !agreementAccepted {
             DispatchQueue.main.async {
                 self.nc.post(name: NSNotification.Name(rawValue: FJkUserAgreementAgreed), object: nil, userInfo:nil)
+            }
+        } else {
+            if theUser == nil {
+                getTheUser()
             }
         }
         
@@ -110,7 +130,7 @@ class MasterViewController: UITableViewController,UISplitViewControllerDelegate,
     }
     
     override func viewWillLayoutSubviews() {
-//        let backgroundColor = UIColor(red:0.89, green:0.90, blue:0.93, alpha:1.00)
+            //        let backgroundColor = UIColor(red:0.89, green:0.90, blue:0.93, alpha:1.00)
         self.tableView.backgroundColor = .clear
         
         var floatPercent = 1.00
@@ -134,7 +154,7 @@ class MasterViewController: UITableViewController,UISplitViewControllerDelegate,
         print(floatPercent)
         
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if !Device.IS_IPHONE {
@@ -148,7 +168,18 @@ class MasterViewController: UITableViewController,UISplitViewControllerDelegate,
         let collaped = self.splitViewController?.isCollapsed
         print("Settings here is collapsed \(String(describing: collaped))")
         userDefaults.set(collaped, forKey: FJkFJISCOLLAPSED)
-        userDefaults.synchronize()
+    }
+    
+        //    MARK: -ALERTS-
+    
+    func errorAlert(errorMessage: String) {
+        let alert = UIAlertController.init(title: "Error", message: errorMessage, preferredStyle: .alert)
+        let okAction = UIAlertAction.init(title: "Okay", style: .default, handler: {_ in
+            self.alertUp = false
+        })
+        alert.addAction(okAction)
+        alertUp = true
+        self.present(alert, animated: true, completion: nil)
     }
     
     

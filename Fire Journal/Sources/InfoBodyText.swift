@@ -138,6 +138,7 @@ enum InfoBodyText:String {
     case incidentLastUnitNoteDescription = "Create notes that pertain to the last unit standing time. Hit the time stamp button to add your name and the time, then tap the save button when you are finished."
     case incidentNotesSubject = "Incident Notes"
     case incidentNotesDescription = "Create notes that pertain to the incident. Hit the time stamp button to add your name and the time, then tap the save button when you are finished."
+    case onboardUserSaveErrorMessage = "A good deal of Journal and Incident reporting is dependent on the following fields needing to be filled out:\n"
 
 
 }

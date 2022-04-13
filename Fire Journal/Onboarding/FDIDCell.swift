@@ -14,6 +14,30 @@ class FDIDCell: UITableViewCell {
     @IBOutlet weak var deptL: UILabel!
     @IBOutlet weak var cityL: UILabel!
     
+    private var theFDID: String = ""
+    var fdid: String = "" {
+        didSet {
+            self.theFDID = self.fdid
+            self.fdidL.text = self.theFDID
+        }
+    }
+    
+    private var theDepartment: String = ""
+    var depart: String = "" {
+        didSet {
+            self.theDepartment = self.depart
+            self.deptL.text = self.theDepartment
+        }
+    }
+    
+    private var theCity: String = ""
+    var city: String = "" {
+        didSet {
+            self.theCity = self.city
+            self.cityL.text = self.theCity
+        }
+    }
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()

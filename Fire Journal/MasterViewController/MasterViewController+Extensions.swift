@@ -186,6 +186,19 @@ extension MasterViewController {
         }
     }
     
+    func getTheUser() {
+        theUserContext = theUserProvider.persistentContainer.newBackgroundContext()
+        guard let users = theUserProvider.getTheUser(theUserContext) else {
+            let errorMessage = "There is no user associated with this end shift"
+            errorAlert(errorMessage: errorMessage)
+            return
+        }
+        let aUser = users.last
+        if let id = aUser?.objectID {
+            theUser = context.object(with: id) as? FireJournalUser
+        }
+    }
+    
 }
 
 extension MasterViewController {

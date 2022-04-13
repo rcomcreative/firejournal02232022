@@ -331,17 +331,19 @@ extension JournalVC: UITableViewDataSource {
         cell.label4L.text = "Platoon"
         cell.label5L.text = "Apparatus"
         cell.label6L.text = "Assignment"
-        if let user = theUser.userName {
-            cell.user = user
-            if user == "" {
-                var name: String = ""
-                if let first = theUser.firstName {
-                    name = first
+        if theUser != nil {
+            if let user = theUser.userName {
+                cell.user = user
+                if user == "" {
+                    var name: String = ""
+                    if let first = theUser.firstName {
+                        name = first
+                    }
+                    if let last = theUser.lastName {
+                        name = name + " " + last
+                    }
+                    cell.user = name
                 }
-                if let last = theUser.lastName {
-                    name = name + " " + last
-                }
-                cell.user = name
             }
         }
         if let theType = theJournal.journalEntryType {

@@ -11,6 +11,10 @@ import Foundation
 extension Notification.Name {
     static let fireJournalPhotoErrorCalled = Notification.Name("fireJournalPhotoErrorCalled")
     static let fireJournalCameraPhotoSaved = Notification.Name("fireJournalCameraPhotoSaved")
+    static let fireJournalUserFDIDComplete = Notification.Name("fireJournalUserFDIDComplete")
+    static let fireJournalUserNFIRSIncidentTypeComplete = Notification.Name("fireJournalUserNFIRSIncidentTypeComplete")
+    static let fireJournalUserLocalIncidentComplete = Notification.Name("fireJournalUserLocalIncidentComplete")
+    static let fireJournalNFIRSActionTakenComplete = Notification.Name("fireJournalNFIRSActionTakenComplete")
 }
 
 let FConnectName = "FireJournal"

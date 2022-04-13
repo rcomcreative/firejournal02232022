@@ -59,6 +59,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     
     fileprivate let log = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "log")
     
+    lazy var fdidProvider: UserFDIDProvider = {
+        let provider = UserFDIDProvider(with: (UIApplication.shared.delegate as! AppDelegate).persistentContainer)
+        return provider
+    }()
+    var fdidContext: NSManagedObjectContext!
+    
+    lazy var userProvider: FireJournalUserProvider = {
+        let provider = FireJournalUserProvider(with: (UIApplication.shared.delegate as! AppDelegate).persistentContainer)
+        return provider
+    }()
+    var userContext: NSManagedObjectContext!
+    
     //    MARK -LOCATION FOR WEATHER-
     func determineLocation() {
         if (CLLocationManager.locationServicesEnabled()) {
@@ -175,7 +187,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             userDefaults.set(false, forKey: FJkUserFDResourcesPointOfTruthOperationHasRun)
             userDefaults.synchronize()
         } else {
-            beginPlistProcess()
+            DispatchQueue.global(qos: .background).async {
+                self.fdidContext = self.fdidProvider.persistentContainer.newBackgroundContext()
+                if let fdid = self.fdidProvider.buildTheFDIDs(theGuidDate: Date(), backgroundContext: self.fdidContext) {
+                    print("fdids are done")
+                }
+            }
             self.cloud.firstRun = true
         }
         
@@ -237,22 +254,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     }
     
     func beginPlistProcess() {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "NFIRSIncidentType" )
-        var predicate = NSPredicate.init()
-        predicate = NSPredicate(format: "incidentTypeNumber CONTAINS %@","100")
-        fetchRequest.predicate = predicate
-        do {
-            let fetched = try self.persistentContainer.viewContext.fetch(fetchRequest) as! [NFIRSIncidentType]
-            bkgrdContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-            bkgrdContext.persistentStoreCoordinator = managedObjectContext.persistentStoreCoordinator
-            if fetched.count == 0 {
-                let plistsLoad = LoadPlists.init(bkgrdContext)
-                plistsLoad.runTheOperations()
-            }
-        }  catch let error as NSError {
-            let errorMessage = "MasterTVC fetchRequest for plists error \(error.localizedDescription) \(String(describing: error._userInfo))"
-            print(errorMessage)
-        }
+//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "NFIRSIncidentType" )
+//        var predicate = NSPredicate.init()
+//        predicate = NSPredicate(format: "incidentTypeNumber CONTAINS %@","100")
+//        fetchRequest.predicate = predicate
+//        do {
+//            let fetched = try self.persistentContainer.viewContext.fetch(fetchRequest) as! [NFIRSIncidentType]
+////            bkgrdContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+////            bkgrdContext.persistentStoreCoordinator = managedObjectContext.persistentStoreCoordinator
+//            if fetched.count == 0 {
+//                self.plistContext = plistProvider.persistentContainer.newBackgroundContext()
+//                
+////                let plistsLoad = LoadPlists.init(bkgrdContext)
+////                plistsLoad.runTheOperations()
+//            }
+//        }  catch let error as NSError {
+//            let errorMessage = "MasterTVC fetchRequest for plists error \(error.localizedDescription) \(String(describing: error._userInfo))"
+//            print(errorMessage)
+//        }
     }
     
     @objc private func zoneRecordsCalled(notification: Notification) {

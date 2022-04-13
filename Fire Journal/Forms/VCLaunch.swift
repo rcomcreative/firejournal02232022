@@ -48,7 +48,7 @@ class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalT
     }
     
     //    MARK: -SETTINGSTVCDELEGATE
-    func settingsLoadPage(settings: FJSettings) {
+    func settingsLoadPage(settings: FJSettings, userObjectID: NSManagedObjectID) {
         //            //    MARK: -TODO-
     }
     

@@ -149,7 +149,7 @@ extension MasterViewController {
     }
     
     @objc func myProfileCalled(ns: Notification) {
-        let vc:SettingsTheProfileTVC = vcLaunch.myProfileCalled(compact: compact)
+        let vc: SettingsTheProfileTVC = vcLaunch.myProfileCalled(compact: compact)
         vc.delegate = self
         vc.titleName = ""
         vc.compact = compact
@@ -329,8 +329,11 @@ extension MasterViewController {
     
     @objc func openingNeededOnMaster(ns:Notification) -> Void {
         if Device.IS_IPHONE {
-            let userItemsLoad = LoadUserItems.init(context)
-            userItemsLoad.runTheOperations()
+            DispatchQueue.main.async {
+                self.plistContext = self.plistProvider.persistentContainer.newBackgroundContext()
+                let loadTheUserFromCloud = LoadTheUserFromCloud(context: self.plistContext)
+                loadTheUserFromCloud.getCloudUser()
+            }
             slideInTransitioningDelgate.direction = .bottom
             slideInTransitioningDelgate.disableCompactHeight = true
             let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)

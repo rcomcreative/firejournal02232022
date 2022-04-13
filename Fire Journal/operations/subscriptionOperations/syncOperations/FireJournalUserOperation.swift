@@ -14,6 +14,7 @@ import CloudKit
 
 
 class FireJournalUserLoader: FJOperation {
+    
     let context: NSManagedObjectContext
     var bkgrdContext:NSManagedObjectContext!
     var privateDatabase:CKDatabase!
@@ -26,6 +27,7 @@ class FireJournalUserLoader: FJOperation {
     let userDefaults = UserDefaults.standard
     var task : UIBackgroundTaskIdentifier = .invalid
     var bkgrndTask: BkgrndTask?
+    var fju: FireJournalUser!
     
     
     init(_ context: NSManagedObjectContext,database: CKDatabase) {
@@ -114,7 +116,7 @@ class FireJournalUserLoader: FJOperation {
             }
             
             if count == 0 {
-                let fju = FireJournalUser.init(entity: NSEntityDescription.entity(forEntityName: "FireJournalUser", in: bkgrdContext)!, insertInto: bkgrdContext)
+                fju = FireJournalUser(context: context)
                 fju.displayOrder = record["displayOrder"]
                 fju.userGuid = record["userGuid"]
                 fju.firstName = record["firstName"]
@@ -123,9 +125,7 @@ class FireJournalUserLoader: FJOperation {
                 fju.activeReceiptExpirationDate = record["activeReceiptExpirationDate"] as? Date
                 fju.activeReceiptProductIdentifier = record["activeReceiptProductIdentifier"]
                 fju.activeReceiptTransactionIdentifier = record["activeReceiptTransactionIdentifier"]
-//                if record["aFJUReference"] != nil {
-//                fju.aFJUReference = record["aFJUReference"] as? NSObject
-//                }
+
                 if record["assignmentDefault"] ?? false {
                 fju.apparatusDefault = true
                 } else {
@@ -215,20 +215,9 @@ class FireJournalUserLoader: FJOperation {
                 fju.resourcesGuid = record["resourcesGuid"]
                 fju.resourcesOvertimeGuid = record["resourcesOvertimeGuid"]
                 fju.resourcesOvertimeName = record["resourcesOvertimeName"]
-
                 let ssDefaultB: Bool = false
-//                if record["shiftStatusAMorOver"] != nil {
-//                    let ssDefault = record["shiftStatusAMoreOver"] as! NSNumber
-//                        if ssDefault == 1 {
-//                            ssDefaultB = true
-//                        }
-//                }
                 fju.shiftStatusAMorOver = ssDefaultB
-//                let subDefault = record["subscriptionAccount"] as! NSNumber
                 let subDefaultB: Bool = false
-//                if subDefault == 1 {
-//                    subDefaultB = true
-//                }
                 fju.subscriptionAccount = subDefaultB
                 fju.tempApparatus = record["tempApparatus"]
                 fju.tempAssignment = record["tempAssignment"]
@@ -253,8 +242,6 @@ class FireJournalUserLoader: FJOperation {
                 record.encodeSystemFields(with: coder)
                 let data = coder.encodedData
                 fju.fjuCKR = data as NSObject
-                
-                
                 saveToCD()
             }
         } else {

@@ -111,16 +111,17 @@ extension MasterViewController: SettingsTVCDelegate {
         self.navigationController?.popToRootViewController(animated: true)
     }
     
-    func settingsLoadPage(settings: FJSettings) {
+    func settingsLoadPage(settings: FJSettings, userObjectID: NSManagedObjectID) {
         self.dismiss(animated: true, completion: nil)
         self.navigationController?.popToRootViewController(animated: true)
         let collapsed = userDefaults.bool(forKey: FJkFJISCOLLAPSED)
         switch settings {
         case .myProfile:
-            let vc:SettingsTheProfileTVC = vcLaunch.modalSettingsProfileCalled()
+            let vc: SettingsTheProfileTVC = vcLaunch.modalSettingsProfileCalled()
             vc.delegate = self
             vc.titleName = "My Profile"
             vc.compact = compact
+            vc.objectID = userObjectID
             let navigator = UINavigationController.init(rootViewController: vc)
             self.present(navigator, animated: true, completion: nil)
         case .cloud:
@@ -142,7 +143,7 @@ extension MasterViewController: SettingsTVCDelegate {
             let navigator = UINavigationController.init(rootViewController: vc)
             self.present(navigator, animated: true, completion: nil)
         case .tags:
-            let vc:SettingsDataTVC = vcLaunch.modalSettingsDataCalled(settings:FJSettings.tags)
+            let vc: SettingsDataTVC = vcLaunch.modalSettingsDataCalled(settings:FJSettings.tags)
             vc.compact = compact
             vc.collapsed = collapsed
             vc.delegate = self
@@ -325,7 +326,10 @@ extension MasterViewController: SettingsCrewDelegate {
     func crewAskingForContactList(settings: FJSettings) {
         self.dismiss(animated: true, completion: nil)
         self.navigationController?.popToRootViewController(animated: true)
-        settingsLoadPage(settings:settings)
+        if theUser != nil {
+            let objectID = theUser.objectID
+            settingsLoadPage(settings:settings, userObjectID: objectID)
+        }
     }
     
 }
@@ -348,7 +352,10 @@ extension MasterViewController: SettingsContactsDelegate {
         self.dismiss(animated: true, completion: nil)
         self.navigationController?.popToRootViewController(animated: true)
         DispatchQueue.main.async {
-            self.settingsLoadPage(settings:FJSettings.crewMembers)
+            if self.theUser != nil {
+                let objectID = self.theUser.objectID
+                self.settingsLoadPage(settings: FJSettings.crewMembers, userObjectID: objectID)
+            }
         }
     }
     
@@ -372,7 +379,10 @@ extension MasterViewController: SettingsContactsDelegate {
         })
         self.navigationController?.popToRootViewController(animated: true)
         DispatchQueue.main.async {
-            self.settingsLoadPage(settings:FJSettings.crewMembers)
+            if self.theUser != nil {
+                let objectID = self.theUser.objectID
+                self.settingsLoadPage(settings: FJSettings.crewMembers, userObjectID: objectID)
+            }
         }
     }
     
@@ -387,7 +397,9 @@ extension MasterViewController: MapVCDelegate {
 extension MasterViewController: SettingsTheProfileDelegate {
     
     func theProfileReturnToSettings(compact: SizeTrait) {
-//        <#code#>
+            self.dismiss(animated: true, completion: nil)
+            self.navigationController?.popToRootViewController(animated: true)
+            myShiftCellTapped(myShift: MenuItems.settings)
     }
     
     func theProfileSavedNowGoToSettings(compact: SizeTrait) {
@@ -405,7 +417,7 @@ extension MasterViewController: SettingsProfileDataDelegate {
     func settingsProfileDataChosen(type:FJSettings,_ object:String ) {
         if Device.IS_IPHONE {
                 //            self.dismiss(animated: true, completion: {
-            let vc:SettingsTheProfileTVC = self.vcLaunch.modalSettingsProfileCalled()
+            let vc: SettingsTheProfileTVC = self.vcLaunch.modalSettingsProfileCalled()
             vc.delegate = self
             vc.titleName = "My Profile"
             vc.compact = self.compact
@@ -635,28 +647,42 @@ extension MasterViewController: MyShiftCellDelegate {
                 let collaped = self.splitViewController?.isCollapsed
                 print("Settings here is collapsed \(String(describing: collaped))")
                 if !collaped! {
-                    nc.post(name:Notification.Name(rawValue:FJkSETTINGS_FROM_MASTER),
-                            object: nil,
-                            userInfo: ["sizeTrait":compact])
-                } else {
-                    let title = "Fire Journal Settings"
-                    let vc:SettingsTVC = vcLaunch.modalSettingsCalled()
-                    vc.delegate = self
-                    vc.titleName = title
-                    vc.compact = compact
-                    let navigator = UINavigationController.init(rootViewController: vc)
-                    navigator.navigationItem.leftItemsSupplementBackButton = true
-                    navigator.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
-                    let navigationBarAppearace = UINavigationBar.appearance()
-                    if #available(iOS 13.0, *) {
-                        navigationBarAppearace.barTintColor = UIColor.systemBackground
-                        navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.label]
-                        navigationBarAppearace.tintColor = .link
-                    } else {
-                        navigationBarAppearace.barTintColor = UIColor.black
-                        navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.black]
+                    if theUser != nil {
+                        let objectID = theUser.objectID
+                        nc.post(name:Notification.Name(rawValue: FJkSETTINGS_FROM_MASTER),
+                                object: nil,
+                                userInfo: ["sizeTrait":compact, "userObjID": objectID])
                     }
-                    self.present(navigator, animated: true, completion: nil)
+                } else {
+                    if theUser != nil {
+                        let objectID = theUser.objectID
+                        let title = "Fire Journal Settings"
+                        let vc: SettingsTVC = vcLaunch.modalSettingsCalled()
+                        vc.delegate = self
+                        vc.titleName = title
+                        vc.compact = compact
+                        vc.userObjectID = objectID
+                        let navigator = UINavigationController.init(rootViewController: vc)
+                        navigator.navigationItem.leftItemsSupplementBackButton = true
+                        navigator.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
+                        
+                        let regularBarButtonTextAttributes: [NSAttributedString.Key: Any] = [
+                            .foregroundColor: UIColor.white,
+                            .font: UIFont.systemFont(ofSize: 22, weight: UIFont.Weight(rawValue: 150))
+                        ]
+                        navigator.navigationItem.leftBarButtonItem?.setTitleTextAttributes(regularBarButtonTextAttributes, for: .normal)
+                        navigator.navigationItem.leftBarButtonItem?.setTitleTextAttributes(regularBarButtonTextAttributes, for: .highlighted)
+                        let navigationBarAppearace = UINavigationBar.appearance()
+                        if #available(iOS 13.0, *) {
+                            navigationBarAppearace.barTintColor = UIColor.systemBackground
+                            navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.label]
+                            navigationBarAppearace.tintColor = .link
+                        } else {
+                            navigationBarAppearace.barTintColor = UIColor.black
+                            navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.black]
+                        }
+                        self.present(navigator, animated: true, completion: nil)
+                        }
                 }
             case .store:
                 print("Store")

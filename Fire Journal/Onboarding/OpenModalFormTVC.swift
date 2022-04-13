@@ -61,7 +61,7 @@ class OpenModalFormTVC: UITableViewController,CLLocationManagerDelegate,UITextFi
     var zipNum: String = ""
     var currentLocation: CLLocation!
     var segue:String = "onboardDataSegue"
-    var fireJournalUser:FireJournalUserOnboard!
+    var fireJournalUser: FireJournalUserOnboard!
     let userDefaults = UserDefaults.standard
     weak var delegate:OpenModalFormTVCDelegate? = nil
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -223,7 +223,7 @@ class OpenModalFormTVC: UITableViewController,CLLocationManagerDelegate,UITextFi
     }
     
     private func buildFJUOnBoard() {
-        if fju != nil {
+        if fju != nil  && fireJournalUser != nil {
             fireJournalUser.statusAMorOvertime = fju.shiftStatusAMorOver
             fireJournalUser.fjuFirstName = fju.firstName ?? ""
             firstNameTF.text = fireJournalUser.fjuFirstName
@@ -370,7 +370,7 @@ class OpenModalFormTVC: UITableViewController,CLLocationManagerDelegate,UITextFi
     }
     
     func alertUser(first:Bool,last:Bool,email:Bool,fireStation:Bool) {
-        var message: String = "A good deal of Journal and Incident reporting is dependent on the following fields needing to be filled out:\n"
+        var message: String = InfoBodyText.onboardUserSaveErrorMessage.rawValue
         if first {
             message = "\(message) First Name,"
         }
@@ -420,98 +420,100 @@ class OpenModalFormTVC: UITableViewController,CLLocationManagerDelegate,UITextFi
         
         if !firstNameB, !lastNameB, !fireStationB, !emailB {
             if userIsFromCloud {
-                fju.firstName = fireJournalUser.fjuFirstName
-                fju.lastName = fireJournalUser.fjuLastName
-                let first = fireJournalUser.fjuFirstName
-                let last = fireJournalUser.fjuLastName
-                fju.userName = "\(first) \(last)"
-                fireJournalUser.fjuUserName = "\(first) \(last)"
-                fju.shiftStatusAMorOver = fireJournalUser.statusAMorOvertime
-                fju.emailAddress = fireJournalUser.fjuEmailAddress
-                fju.mobileNumber = fireJournalUser.fjuPhoneNumber
-                fju.platoon = fireJournalUser.fjuPlatoon
-                fju.platoonGuid = fireJournalUser.fjuPlatoonGuid
-                fju.tempPlatoon = fireJournalUser.fjuPlatoonTemp
-                fju.rank = fireJournalUser.fjuRank
-                fju.fireStation = fireJournalUser.fjuFireStation
-                fju.initialAssignment = fireJournalUser.fjuAssignment
-                fju.assignmentGuid = fireJournalUser.fjuAssignmentGuid
-                fju.tempAssignment = fireJournalUser.fjuAssignmentTemp
-                fju.tempFireStation = fju.fireStation
-                fju.fdid = fireJournalUser.fjuFDID
-                fju.initialApparatus = fireJournalUser.fjuApparatus
-                fju.apparatusGuid = fireJournalUser.fjuApparatusGuid
-                fju.tempApparatus = fireJournalUser.fjuApparatusTemp
-                fju.fireStationStreetNumber = fireJournalUser.fjuStreetNum
-                fju.fireStationStreetName = fireJournalUser.fjuStreetName
-                fju.fireStationCity = fireJournalUser.fjuCity
-                fju.fireStationState = fireJournalUser.fjuState
-                fju.fireStationZipCode = fireJournalUser.fjuZip
-                fju.fjpUserModDate = fireJournalUser.fjuModDate
-                fju.fjpUserSearchDate = fireJournalUser.fjuSearchDate
-                fju.fjpUserBackedUp = false
-                
-                /// location saved as Data with secureCodeing
-                if fireJournalUser.fjuLocation != nil {
-                    if let location = fireJournalUser.fjuLocation {
-                    do {
-                        let data = try NSKeyedArchiver.archivedData(withRootObject: location, requiringSecureCoding: true)
-                        fju.fjuLocationSC = data as NSObject
-                    } catch {
-                        print("got an error here")
+                if fireJournalUser != nil && fju != nil {
+                    fju.firstName = fireJournalUser.fjuFirstName
+                    fju.lastName = fireJournalUser.fjuLastName
+                    let first = fireJournalUser.fjuFirstName
+                    let last = fireJournalUser.fjuLastName
+                    fju.userName = "\(first) \(last)"
+                    fireJournalUser.fjuUserName = "\(first) \(last)"
+                    fju.shiftStatusAMorOver = fireJournalUser.statusAMorOvertime
+                    fju.emailAddress = fireJournalUser.fjuEmailAddress
+                    fju.mobileNumber = fireJournalUser.fjuPhoneNumber
+                    fju.platoon = fireJournalUser.fjuPlatoon
+                    fju.platoonGuid = fireJournalUser.fjuPlatoonGuid
+                    fju.tempPlatoon = fireJournalUser.fjuPlatoonTemp
+                    fju.rank = fireJournalUser.fjuRank
+                    fju.fireStation = fireJournalUser.fjuFireStation
+                    fju.initialAssignment = fireJournalUser.fjuAssignment
+                    fju.assignmentGuid = fireJournalUser.fjuAssignmentGuid
+                    fju.tempAssignment = fireJournalUser.fjuAssignmentTemp
+                    fju.tempFireStation = fju.fireStation
+                    fju.fdid = fireJournalUser.fjuFDID
+                    fju.initialApparatus = fireJournalUser.fjuApparatus
+                    fju.apparatusGuid = fireJournalUser.fjuApparatusGuid
+                    fju.tempApparatus = fireJournalUser.fjuApparatusTemp
+                    fju.fireStationStreetNumber = fireJournalUser.fjuStreetNum
+                    fju.fireStationStreetName = fireJournalUser.fjuStreetName
+                    fju.fireStationCity = fireJournalUser.fjuCity
+                    fju.fireStationState = fireJournalUser.fjuState
+                    fju.fireStationZipCode = fireJournalUser.fjuZip
+                    fju.fjpUserModDate = fireJournalUser.fjuModDate
+                    fju.fjpUserSearchDate = fireJournalUser.fjuSearchDate
+                    fju.fjpUserBackedUp = false
+                    
+                        /// location saved as Data with secureCodeing
+                    if fireJournalUser.fjuLocation != nil {
+                        if let location = fireJournalUser.fjuLocation {
+                            do {
+                                let data = try NSKeyedArchiver.archivedData(withRootObject: location, requiringSecureCoding: true)
+                                fju.fjuLocationSC = data as NSObject
+                            } catch {
+                                print("got an error here")
+                            }
+                        }
                     }
+                    
+                    let fjuJournal = Journal.init(entity: NSEntityDescription.entity(forEntityName: "Journal", in: context)!, insertInto: context)
+                    let journalModDate = Date()
+                    let jGuidDate = GuidFormatter.init(date:journalModDate)
+                    let jGuid:String = jGuidDate.formatGuid()
+                    fjuJournal.fjpJGuidForReference = "01."+jGuid
+                    let searchDate = FormattedDate.init(date:journalModDate)
+                    let sDate:String = searchDate.formatTheDate()
+                    let header:String = "New User created \(sDate)"
+                    fjuJournal.journalHeader = header
+                    fjuJournal.journalEntryTypeImageName = "100515IconSet_092016_Stationboard c0l0r"
+                    fjuJournal.journalEntryType = "Station"
+                    let modDate = Date()
+                    fjuJournal.journalCreationDate = modDate
+                    fjuJournal.journalModDate = modDate
+                    fjuJournal.journalDateSearch = sDate
+                    fjuJournal.fjpIncReference = ""
+                    fjuJournal.fjpUserReference = fireJournalUser.fjuGuid
+                    let journalEntry:String = "New User created \(fireJournalUser.fjuFirstName) \(fireJournalUser.fjuLastName) on \(sDate)"
+                    fjuJournal.journalOverview = journalEntry as NSObject
+                    fjuJournal.journalTempPlatoon = fireJournalUser.fjuPlatoonTemp
+                    fjuJournal.journalTempApparatus = fireJournalUser.fjuApparatusTemp
+                    fjuJournal.journalTempAssignment = fireJournalUser.fjuAssignmentTemp
+                    fjuJournal.journalTempFireStation = fireJournalUser.fjuFireStation
+                    fjuJournal.journalFireStation = fireJournalUser.fjuFireStation
+                    fjuJournal.journalBackedUp = false
+                    fjuJournal.journalPhotoTaken = false
+                    
+                        //                MARK: -LOCATION-
+                        /// location saved as Data with secureCodeing
+                    if fireJournalUser.fjuLocation != nil {
+                        if let location = fireJournalUser.fjuLocation {
+                            do {
+                                let data = try NSKeyedArchiver.archivedData(withRootObject: location, requiringSecureCoding: true)
+                                fjuJournal.journalLocationSC = data as NSObject
+                            } catch {
+                                print("got an error here")
+                            }
+                        }
                     }
+                    fjuJournal.journalStreetNumber = fireJournalUser.fjuStreetNum
+                    fjuJournal.journalStreetName = fireJournalUser.fjuStreetName
+                    fjuJournal.journalCity = fireJournalUser.fjuCity
+                    fjuJournal.journalState = fireJournalUser.fjuState
+                    fjuJournal.journalZip = fireJournalUser.fjuZip
+                    fjuJournal.journalPrivate = true
+                    
+                    
+                    saveToCD()
+                    delegate?.theFormIsComplete(yesNo: true)
                 }
-                
-                let fjuJournal = Journal.init(entity: NSEntityDescription.entity(forEntityName: "Journal", in: context)!, insertInto: context)
-                let journalModDate = Date()
-                let jGuidDate = GuidFormatter.init(date:journalModDate)
-                let jGuid:String = jGuidDate.formatGuid()
-                fjuJournal.fjpJGuidForReference = "01."+jGuid
-                let searchDate = FormattedDate.init(date:journalModDate)
-                let sDate:String = searchDate.formatTheDate()
-                let header:String = "New User created \(sDate)"
-                fjuJournal.journalHeader = header
-                fjuJournal.journalEntryTypeImageName = "100515IconSet_092016_Stationboard c0l0r"
-                fjuJournal.journalEntryType = "Station"
-                let modDate = Date()
-                fjuJournal.journalCreationDate = modDate
-                fjuJournal.journalModDate = modDate
-                fjuJournal.journalDateSearch = sDate
-                fjuJournal.fjpIncReference = ""
-                fjuJournal.fjpUserReference = fireJournalUser.fjuGuid
-                let journalEntry:String = "New User created \(fireJournalUser.fjuFirstName) \(fireJournalUser.fjuLastName) on \(sDate)"
-                fjuJournal.journalOverview = journalEntry as NSObject
-                fjuJournal.journalTempPlatoon = fireJournalUser.fjuPlatoonTemp
-                fjuJournal.journalTempApparatus = fireJournalUser.fjuApparatusTemp
-                fjuJournal.journalTempAssignment = fireJournalUser.fjuAssignmentTemp
-                fjuJournal.journalTempFireStation = fireJournalUser.fjuFireStation
-                fjuJournal.journalFireStation = fireJournalUser.fjuFireStation
-                fjuJournal.journalBackedUp = false
-                fjuJournal.journalPhotoTaken = false
-                
-//                MARK: -LOCATION-
-                /// location saved as Data with secureCodeing
-                if fireJournalUser.fjuLocation != nil {
-                    if let location = fireJournalUser.fjuLocation {
-                    do {
-                        let data = try NSKeyedArchiver.archivedData(withRootObject: location, requiringSecureCoding: true)
-                        fjuJournal.journalLocationSC = data as NSObject
-                    } catch {
-                        print("got an error here")
-                    }
-                    }
-                }
-                fjuJournal.journalStreetNumber = fireJournalUser.fjuStreetNum
-                fjuJournal.journalStreetName = fireJournalUser.fjuStreetName
-                fjuJournal.journalCity = fireJournalUser.fjuCity
-                fjuJournal.journalState = fireJournalUser.fjuState
-                fjuJournal.journalZip = fireJournalUser.fjuZip
-                fjuJournal.journalPrivate = true
-                
-                
-                saveToCD()
-                delegate?.theFormIsComplete(yesNo: true)
             } else {
                 let fju = FireJournalUser.init(entity: NSEntityDescription.entity(forEntityName: "FireJournalUser", in: context)!, insertInto: context)
                 fju.firstName = fireJournalUser.fjuFirstName

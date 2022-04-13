@@ -352,7 +352,7 @@ struct IncidentData {
 }
 
 
-public enum IncidentTypes:Int {
+public enum IncidentTypes: Int {
     case fire
     case ems
     case rescue
@@ -498,6 +498,7 @@ public enum IncidentTypes:Int {
     case discussion
     case nextSteps
     case summary
+    case theRanks
 }
 
 public enum NFIRSModule:Int {

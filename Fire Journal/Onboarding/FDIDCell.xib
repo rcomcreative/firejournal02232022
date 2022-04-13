@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,40 +20,45 @@
                         <rect key="frame" x="0.0" y="0.0" width="500" height="44"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="33065" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KHu-vw-Uo9">
-                                <rect key="frame" x="9" y="11" width="52" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="9" y="11" width="70" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="70" id="2cc-DQ-Pp4"/>
+                                    <constraint firstAttribute="height" constant="21" id="Ex3-m8-kQ2"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DEPT NAME" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NBM-EC-UbM">
-                                <rect key="frame" x="69" y="16" width="69.5" height="14.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <nil key="textColor"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DEPT NAME" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NBM-EC-UbM">
+                                <rect key="frame" x="87" y="15" width="70.5" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Palm Springs" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="77h-6W-SYA">
-                                <rect key="frame" x="350" y="16" width="74" height="14.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Palm Springs" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="77h-6W-SYA">
+                                <rect key="frame" x="300" y="0.0" width="160" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="8AB-JX-gry"/>
+                                    <constraint firstAttribute="width" constant="160" id="hoD-aG-hK3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="NBM-EC-UbM" firstAttribute="leading" secondItem="KHu-vw-Uo9" secondAttribute="trailing" constant="8" symbolic="YES" id="AVs-Ut-1Gd"/>
                             <constraint firstItem="KHu-vw-Uo9" firstAttribute="top" secondItem="g8l-uq-2jf" secondAttribute="top" constant="11" id="D2l-EU-gTs"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="77h-6W-SYA" secondAttribute="trailing" id="FRu-hV-XNl"/>
-                            <constraint firstItem="NBM-EC-UbM" firstAttribute="top" secondItem="g8l-uq-2jf" secondAttribute="top" constant="16" id="FhI-EC-v6O"/>
+                            <constraint firstItem="NBM-EC-UbM" firstAttribute="centerY" secondItem="KHu-vw-Uo9" secondAttribute="centerY" constant="0.5" id="Fqo-66-ImF"/>
                             <constraint firstItem="KHu-vw-Uo9" firstAttribute="leading" secondItem="g8l-uq-2jf" secondAttribute="leading" constant="9" id="UQh-Aj-S5d"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="KHu-vw-Uo9" secondAttribute="trailing" id="YtR-dG-L7N"/>
                             <constraint firstItem="77h-6W-SYA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="NBM-EC-UbM" secondAttribute="trailing" id="ZMs-e1-4yu"/>
-                            <constraint firstItem="NBM-EC-UbM" firstAttribute="leading" secondItem="g8l-uq-2jf" secondAttribute="leading" constant="69" id="e3B-AO-pq3"/>
-                            <constraint firstItem="77h-6W-SYA" firstAttribute="top" secondItem="g8l-uq-2jf" secondAttribute="top" constant="16" id="uTe-zX-aOM"/>
-                            <constraint firstItem="77h-6W-SYA" firstAttribute="leading" secondItem="g8l-uq-2jf" secondAttribute="leading" constant="350" id="ziz-92-zq4"/>
+                            <constraint firstItem="77h-6W-SYA" firstAttribute="centerY" secondItem="NBM-EC-UbM" secondAttribute="centerY" id="g8h-6Y-oZc"/>
+                            <constraint firstItem="77h-6W-SYA" firstAttribute="leading" secondItem="g8l-uq-2jf" secondAttribute="leading" constant="300" id="ziz-92-zq4"/>
                         </constraints>
                     </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="g8l-uq-2jf" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="4gb-lm-Ofs"/>
+                    <constraint firstAttribute="trailing" secondItem="77h-6W-SYA" secondAttribute="trailing" constant="40" id="9SN-by-fpt"/>
                     <constraint firstAttribute="trailing" secondItem="g8l-uq-2jf" secondAttribute="trailing" id="BCb-ip-K2r"/>
                     <constraint firstItem="g8l-uq-2jf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="WnH-Ta-RDS"/>
                     <constraint firstItem="g8l-uq-2jf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="d9a-PV-LNG"/>

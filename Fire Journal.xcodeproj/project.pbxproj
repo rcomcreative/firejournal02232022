@@ -145,6 +145,7 @@
 		133EE9C1224425E200541240 /* NFIRSDateTimeInstructCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 133EE9BF224425E200541240 /* NFIRSDateTimeInstructCell.xib */; };
 		133EE9C422442F5000541240 /* NFIRSLabelDateTimeButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133EE9C222442F5000541240 /* NFIRSLabelDateTimeButtonCell.swift */; };
 		133EE9C522442F5000541240 /* NFIRSLabelDateTimeButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 133EE9C322442F5000541240 /* NFIRSLabelDateTimeButtonCell.xib */; };
+		133F3D6028074B1100F53232 /* ProfileLabelTextFieldTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133F3D5F28074B1100F53232 /* ProfileLabelTextFieldTVCell.swift */; };
 		133F7CB124A6B41B002F4B4B /* NewICS214Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133F7CB024A6B41B002F4B4B /* NewICS214Resources.swift */; };
 		13431904245C9012008EBAFF /* OpenFDResources.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13431903245C9012008EBAFF /* OpenFDResources.storyboard */; };
 		13431906245C90BA008EBAFF /* OpenFDResourcesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13431905245C90BA008EBAFF /* OpenFDResourcesTVC.swift */; };
@@ -213,6 +214,8 @@
 		13592C6C2494484D00F5BDF0 /* NewICS214DateTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13592C6A2494484D00F5BDF0 /* NewICS214DateTimeCell.swift */; };
 		13592C6D2494484D00F5BDF0 /* NewICS214DateTimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13592C6B2494484D00F5BDF0 /* NewICS214DateTimeCell.xib */; };
 		135AFC0F231084F600C71A87 /* FDResourceIncidentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135AFC0D231084F600C71A87 /* FDResourceIncidentCell.swift */; };
+		1360753D2805EDC300B84636 /* NFIRSActionTakenProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1360753C2805EDC300B84636 /* NFIRSActionTakenProvider.swift */; };
+		1360753F2805F11800B84636 /* UserFDIDProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1360753E2805F11800B84636 /* UserFDIDProvider.swift */; };
 		13615A7325310EE4008FAA63 /* ARC_FormTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13615A7125310EE4008FAA63 /* ARC_FormTVC.swift */; };
 		13615A7425310EE4008FAA63 /* ARC_FormTVC+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13615A7225310EE4008FAA63 /* ARC_FormTVC+Extensions.swift */; };
 		13615A78253120E0008FAA63 /* ARC_FormType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13615A77253120E0008FAA63 /* ARC_FormType.swift */; };
@@ -253,6 +256,8 @@
 		13755B4922A7E2E600487D42 /* DeleteFromCloudWithGeneratedIDSyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13755B4822A7E2E600487D42 /* DeleteFromCloudWithGeneratedIDSyncOperation.swift */; };
 		13759BD227F8973500F733DF /* FullImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13759BD127F8973500F733DF /* FullImageVC.swift */; };
 		13759BD427F8976D00F733DF /* FullImage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13759BD327F8976D00F733DF /* FullImage.storyboard */; };
+		1375B23D2802214800FB33FB /* PlistProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1375B23C2802214800FB33FB /* PlistProvider.swift */; };
+		1375B23F28022D4B00FB33FB /* UserFromCloudOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1375B23E28022D4B00FB33FB /* UserFromCloudOperation.swift */; };
 		1376B05D22E3CEBF00485455 /* Mapping32to33.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1376B05C22E3CEBF00485455 /* Mapping32to33.xcmappingmodel */; };
 		1378071122FDE54800B842D0 /* UserFDResouceEditCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1378070F22FDE54800B842D0 /* UserFDResouceEditCVCell.swift */; };
 		1378071222FDE54800B842D0 /* UserFDResouceEditCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1378071022FDE54800B842D0 /* UserFDResouceEditCVCell.xib */; };
@@ -358,6 +363,16 @@
 		1399BA962460D20E0008E0AA /* VersionControlOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1399BA952460D20E0008E0AA /* VersionControlOperation.swift */; };
 		139A70ED220E60BA00A3ED6F /* JournalSegmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139A70EB220E60BA00A3ED6F /* JournalSegmentCell.swift */; };
 		139A70EE220E60BA00A3ED6F /* JournalSegmentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 139A70EC220E60BA00A3ED6F /* JournalSegmentCell.xib */; };
+		139AB20D2804A5680091D024 /* LoadTheUserFromCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139AB20C2804A5680091D024 /* LoadTheUserFromCloud.swift */; };
+		139AB20F2804AEED0091D024 /* BuildFromFDID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139AB20E2804AEED0091D024 /* BuildFromFDID.swift */; };
+		139AB2112804B11F0091D024 /* UserFDIDBuildOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139AB2102804B11F0091D024 /* UserFDIDBuildOperation.swift */; };
+		139AB2132804D0690091D024 /* BuildFromNFIRSIncidentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139AB2122804D0690091D024 /* BuildFromNFIRSIncidentType.swift */; };
+		139AB2152804D3E40091D024 /* NFIRSIncidentTypeBuildOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139AB2142804D3E40091D024 /* NFIRSIncidentTypeBuildOperation.swift */; };
+		139AB2172804DA160091D024 /* BuildFromLocalIncidentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139AB2162804DA160091D024 /* BuildFromLocalIncidentType.swift */; };
+		139AB2192804DF9F0091D024 /* UserLocalIncidentTypeBuildOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139AB2182804DF9F0091D024 /* UserLocalIncidentTypeBuildOperation.swift */; };
+		139AB21B2804EEEE0091D024 /* BuildFromActionsTaken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139AB21A2804EEEE0091D024 /* BuildFromActionsTaken.swift */; };
+		139AB21D2804EFA00091D024 /* NFIRSActionTakenBuildOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139AB21C2804EFA00091D024 /* NFIRSActionTakenBuildOperation.swift */; };
+		139AB21F280503230091D024 /* LocalIncidentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139AB21E280503230091D024 /* LocalIncidentProvider.swift */; };
 		139C092221D15F600098E31E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 139C092121D15F600098E31E /* StoreKit.framework */; };
 		139D330E23415F86009CD7AE /* BackgroundOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139D330D23415F86009CD7AE /* BackgroundOperation.swift */; };
 		139F01A92330404200C64F9E /* Mapping38to39.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 139F01A82330404200C64F9E /* Mapping38to39.xcmappingmodel */; };
@@ -1293,6 +1308,7 @@
 		133EE9BF224425E200541240 /* NFIRSDateTimeInstructCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NFIRSDateTimeInstructCell.xib; sourceTree = "<group>"; };
 		133EE9C222442F5000541240 /* NFIRSLabelDateTimeButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFIRSLabelDateTimeButtonCell.swift; sourceTree = "<group>"; };
 		133EE9C322442F5000541240 /* NFIRSLabelDateTimeButtonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NFIRSLabelDateTimeButtonCell.xib; sourceTree = "<group>"; };
+		133F3D5F28074B1100F53232 /* ProfileLabelTextFieldTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLabelTextFieldTVCell.swift; sourceTree = "<group>"; };
 		133F7CB024A6B41B002F4B4B /* NewICS214Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewICS214Resources.swift; sourceTree = "<group>"; };
 		13431903245C9012008EBAFF /* OpenFDResources.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OpenFDResources.storyboard; sourceTree = "<group>"; };
 		13431905245C90BA008EBAFF /* OpenFDResourcesTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenFDResourcesTVC.swift; sourceTree = "<group>"; };
@@ -1366,6 +1382,8 @@
 		13592C6A2494484D00F5BDF0 /* NewICS214DateTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewICS214DateTimeCell.swift; sourceTree = "<group>"; };
 		13592C6B2494484D00F5BDF0 /* NewICS214DateTimeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewICS214DateTimeCell.xib; sourceTree = "<group>"; };
 		135AFC0D231084F600C71A87 /* FDResourceIncidentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDResourceIncidentCell.swift; sourceTree = "<group>"; };
+		1360753C2805EDC300B84636 /* NFIRSActionTakenProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFIRSActionTakenProvider.swift; sourceTree = "<group>"; };
+		1360753E2805F11800B84636 /* UserFDIDProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFDIDProvider.swift; sourceTree = "<group>"; };
 		13615A7125310EE4008FAA63 /* ARC_FormTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARC_FormTVC.swift; sourceTree = "<group>"; };
 		13615A7225310EE4008FAA63 /* ARC_FormTVC+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ARC_FormTVC+Extensions.swift"; sourceTree = "<group>"; };
 		13615A77253120E0008FAA63 /* ARC_FormType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARC_FormType.swift; sourceTree = "<group>"; };
@@ -1412,6 +1430,8 @@
 		13755B4822A7E2E600487D42 /* DeleteFromCloudWithGeneratedIDSyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteFromCloudWithGeneratedIDSyncOperation.swift; sourceTree = "<group>"; };
 		13759BD127F8973500F733DF /* FullImageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullImageVC.swift; sourceTree = "<group>"; };
 		13759BD327F8976D00F733DF /* FullImage.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FullImage.storyboard; sourceTree = "<group>"; };
+		1375B23C2802214800FB33FB /* PlistProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistProvider.swift; sourceTree = "<group>"; };
+		1375B23E28022D4B00FB33FB /* UserFromCloudOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFromCloudOperation.swift; sourceTree = "<group>"; };
 		1376B05B22E3CE6800485455 /* FireJournal33.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FireJournal33.xcdatamodel; sourceTree = "<group>"; };
 		1376B05C22E3CEBF00485455 /* Mapping32to33.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = Mapping32to33.xcmappingmodel; sourceTree = "<group>"; };
 		1378070F22FDE54800B842D0 /* UserFDResouceEditCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFDResouceEditCVCell.swift; sourceTree = "<group>"; };
@@ -1523,6 +1543,16 @@
 		1399BA952460D20E0008E0AA /* VersionControlOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionControlOperation.swift; sourceTree = "<group>"; };
 		139A70EB220E60BA00A3ED6F /* JournalSegmentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalSegmentCell.swift; sourceTree = "<group>"; };
 		139A70EC220E60BA00A3ED6F /* JournalSegmentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JournalSegmentCell.xib; sourceTree = "<group>"; };
+		139AB20C2804A5680091D024 /* LoadTheUserFromCloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadTheUserFromCloud.swift; sourceTree = "<group>"; };
+		139AB20E2804AEED0091D024 /* BuildFromFDID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildFromFDID.swift; sourceTree = "<group>"; };
+		139AB2102804B11F0091D024 /* UserFDIDBuildOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFDIDBuildOperation.swift; sourceTree = "<group>"; };
+		139AB2122804D0690091D024 /* BuildFromNFIRSIncidentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildFromNFIRSIncidentType.swift; sourceTree = "<group>"; };
+		139AB2142804D3E40091D024 /* NFIRSIncidentTypeBuildOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFIRSIncidentTypeBuildOperation.swift; sourceTree = "<group>"; };
+		139AB2162804DA160091D024 /* BuildFromLocalIncidentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildFromLocalIncidentType.swift; sourceTree = "<group>"; };
+		139AB2182804DF9F0091D024 /* UserLocalIncidentTypeBuildOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocalIncidentTypeBuildOperation.swift; sourceTree = "<group>"; };
+		139AB21A2804EEEE0091D024 /* BuildFromActionsTaken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildFromActionsTaken.swift; sourceTree = "<group>"; };
+		139AB21C2804EFA00091D024 /* NFIRSActionTakenBuildOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFIRSActionTakenBuildOperation.swift; sourceTree = "<group>"; };
+		139AB21E280503230091D024 /* LocalIncidentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalIncidentProvider.swift; sourceTree = "<group>"; };
 		139C092121D15F600098E31E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		139D330D23415F86009CD7AE /* BackgroundOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundOperation.swift; sourceTree = "<group>"; };
 		139F01A723303C4A00C64F9E /* FireJournal39.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FireJournal39.xcdatamodel; sourceTree = "<group>"; };
@@ -2421,6 +2451,7 @@
 				13A6D71727F7AE9F008CA1D9 /* IncidentPhotoCollectionCell.swift */,
 				13A6D71D27F7B636008CA1D9 /* JournalPhotoCollectionCell.swift */,
 				13A6D71927F7AEC8008CA1D9 /* CameraTVCell.swift */,
+				133F3D5F28074B1100F53232 /* ProfileLabelTextFieldTVCell.swift */,
 				13A6D71B27F7B3FB008CA1D9 /* InteractiveCollectionView.swift */,
 			);
 			path = ShiftCells;
@@ -2594,6 +2625,7 @@
 			children = (
 				13EA352227E507500058D6EE /* Photo+Image.swift */,
 				13EA352127E507500058D6EE /* PhotoProvider.swift */,
+				1375B23C2802214800FB33FB /* PlistProvider.swift */,
 				1363D5BB22A84A4700836CAE /* FJPlayground.playground */,
 				1323048221B1E0BD006013D3 /* CommandJournal.xcdatamodeld */,
 				13D85B5E27C55D6F0021A5A6 /* IncidentProvider.swift */,
@@ -2601,8 +2633,11 @@
 				13D85B6027C5A7960021A5A6 /* UserTimeProvider.swift */,
 				13CAF8B327F3AFB9000FE0CA /* StatusProvider.swift */,
 				1390D2F727EA8BEB00EE3DFD /* TagProvider.swift */,
+				139AB21E280503230091D024 /* LocalIncidentProvider.swift */,
+				1360753C2805EDC300B84636 /* NFIRSActionTakenProvider.swift */,
 				13CE8A5F27CEA6D50022EA0D /* IncidentMonthTotalsProvider.swift */,
 				139895A327E28480008A57DF /* NFIRSIncidentTypeProvider.swift */,
+				1360753E2805F11800B84636 /* UserFDIDProvider.swift */,
 				13D48DE9231ED3E100EDC9F8 /* MappingModels */,
 				1395810F21BB24E000764AA3 /* Incident+CustomAdditions.swift */,
 				133BBBD2255C475E0028031A /* Incident+ExtensionsFetch.swift */,
@@ -2629,6 +2664,8 @@
 				13DD443221CEBE4A006C3FB9 /* UserLocalIncidentType+CustomAdditions.swift */,
 				137B772A255C5E0E005B6648 /* FireJournalUser+ExtensionsFetch.swift */,
 				130C530E27DC236800750CC4 /* GetTheUserLocation.swift */,
+				1375B23E28022D4B00FB33FB /* UserFromCloudOperation.swift */,
+				139AB20C2804A5680091D024 /* LoadTheUserFromCloud.swift */,
 			);
 			path = CommandJournal;
 			sourceTree = "<group>";
@@ -3746,6 +3783,14 @@
 				13F3E88B219B80BD0044CF41 /* UserTagsOperation.swift */,
 				137E446321E96215005508CA /* FreshDeskOperation.swift */,
 				138069C9230AF163005C1706 /* UpdateUserResourcesWithCustomBoolOperation.swift */,
+				139AB20E2804AEED0091D024 /* BuildFromFDID.swift */,
+				139AB2122804D0690091D024 /* BuildFromNFIRSIncidentType.swift */,
+				139AB2162804DA160091D024 /* BuildFromLocalIncidentType.swift */,
+				139AB21A2804EEEE0091D024 /* BuildFromActionsTaken.swift */,
+				139AB2102804B11F0091D024 /* UserFDIDBuildOperation.swift */,
+				139AB2142804D3E40091D024 /* NFIRSIncidentTypeBuildOperation.swift */,
+				139AB2182804DF9F0091D024 /* UserLocalIncidentTypeBuildOperation.swift */,
+				139AB21C2804EFA00091D024 /* NFIRSActionTakenBuildOperation.swift */,
 			);
 			path = plistOperations;
 			sourceTree = "<group>";
@@ -4478,6 +4523,7 @@
 				134FF4E7244525430064ABF3 /* UpdateShiftEditResourceVC.swift in Sources */,
 				13615A7325310EE4008FAA63 /* ARC_FormTVC.swift in Sources */,
 				13F3EB3A219B80BF0044CF41 /* LabelDateTimeSearchSwitchButtonCell.swift in Sources */,
+				1375B23F28022D4B00FB33FB /* UserFromCloudOperation.swift in Sources */,
 				13C96E3325310A8000C5195F /* FormHeaderV.swift in Sources */,
 				13F3EBA2219B80BF0044CF41 /* OpenModalFormTVC.swift in Sources */,
 				13A6D72027F7B9A0008CA1D9 /* JournalVC+PhotoExtensions.swift in Sources */,
@@ -4521,9 +4567,11 @@
 				13F3EA88219B80BF0044CF41 /* PropertyUseOperation.swift in Sources */,
 				132304B621B1E0BE006013D3 /* Mapping7to8Model.xcmappingmodel in Sources */,
 				132304B821B1E0BE006013D3 /* Mapping13to14.xcmappingmodel in Sources */,
+				139AB21D2804EFA00091D024 /* NFIRSActionTakenBuildOperation.swift in Sources */,
 				13DD446B21CEC239006C3FB9 /* ModifyLocalIncidentTypeOperation.swift in Sources */,
 				13F3E978219B80BF0044CF41 /* SlideInPresentationController.swift in Sources */,
 				13F3E968219B80BF0044CF41 /* ARCFormTVC.swift in Sources */,
+				139AB2152804D3E40091D024 /* NFIRSIncidentTypeBuildOperation.swift in Sources */,
 				13DD444D21CEC096006C3FB9 /* NewUserAttendeesOperation.swift in Sources */,
 				13F3EB1E219B80BF0044CF41 /* AddressSearchButtonsCell.swift in Sources */,
 				13F6E6FB21BC93BF00410AC1 /* AllModifiedIncidentsToCloud.swift in Sources */,
@@ -4533,6 +4581,7 @@
 				13F3EB9C219B80BF0044CF41 /* OpenModalScrollVC.swift in Sources */,
 				13F3EA80219B80BF0044CF41 /* UserStatesOperation.swift in Sources */,
 				13F6EE8621C1DFF4002ED5F0 /* NewUserTimeOperation.swift in Sources */,
+				139AB2132804D0690091D024 /* BuildFromNFIRSIncidentType.swift in Sources */,
 				13F3EA22219B80BF0044CF41 /* CrewModalTVC.swift in Sources */,
 				132304B721B1E0BE006013D3 /* Mapping4to5Model.xcmappingmodel in Sources */,
 				13BA68D623FDC6E800427FCE /* UserFDResource.swift in Sources */,
@@ -4745,6 +4794,7 @@
 				13DD446521CEC205006C3FB9 /* ModifyUserResourcesOperation.swift in Sources */,
 				13C96DD125310A5800C5195F /* ARC_LabelExtendedTextFieldCell.swift in Sources */,
 				13E23B9D27F4D8DA0033BCA6 /* JournalVC+TVCExtensions.swift in Sources */,
+				133F3D6028074B1100F53232 /* ProfileLabelTextFieldTVCell.swift in Sources */,
 				13E23B9F27F4F4550033BCA6 /* JournalEditTVCell.swift in Sources */,
 				1338B93F23DB6A0900ABECA7 /* CellHeaderForFireEMSResourceEdit.swift in Sources */,
 				13A7CA1C23074410008CBB20 /* mapping34to35.xcmappingmodel in Sources */,
@@ -4830,6 +4880,7 @@
 				138024EE23340309004961AB /* NewStoreVC.swift in Sources */,
 				13D9D8C624C8C05B00B66BFF /* fjkDeleteUserAttendeeSyncOperation.swift in Sources */,
 				13D85B5F27C55D6F0021A5A6 /* IncidentProvider.swift in Sources */,
+				1375B23D2802214800FB33FB /* PlistProvider.swift in Sources */,
 				13F3EA50219B80BF0044CF41 /* CrewModalCell.swift in Sources */,
 				13C96E1D25310A7300C5195F /* StaticText.swift in Sources */,
 				13F3E9F6219B80BF0044CF41 /* AddButtonCell.swift in Sources */,
@@ -4888,6 +4939,7 @@
 				13755B4922A7E2E600487D42 /* DeleteFromCloudWithGeneratedIDSyncOperation.swift in Sources */,
 				138F15C1219F8FB2007173C6 /* FJICS214FormOperation.swift in Sources */,
 				13F3EA3C219B80BF0044CF41 /* CrewModalDataTVC.swift in Sources */,
+				1360753D2805EDC300B84636 /* NFIRSActionTakenProvider.swift in Sources */,
 				1392A07A2497F7DF007C825E /* NewUserResourceToCloudOperation.swift in Sources */,
 				13F3E99C219B80BF0044CF41 /* IncidentDateInputCell.swift in Sources */,
 				13DD442F21CEBDDD006C3FB9 /* UserResourcesGroups+CustomAdditions.swift in Sources */,
@@ -4900,6 +4952,7 @@
 				139895A627E29503008A57DF /* RelieveSupervisorVC.swift in Sources */,
 				1314272C27E77731008CD9BB /* ModalLableSingleDateFieldCell.swift in Sources */,
 				1390D2DC27E8F54F00EE3DFD /* IncidentTagsCViewTVCell.swift in Sources */,
+				139AB21B2804EEEE0091D024 /* BuildFromActionsTaken.swift in Sources */,
 				13F6EE8A21C1E01C002ED5F0 /* AllModifiedUserTimeOperation.swift in Sources */,
 				13C04A0521BF192E00266492 /* FireJournalUser+CustomAdditions.swift in Sources */,
 				13EE551C22D68FE300713C9B /* EffortSetUpCell.swift in Sources */,
@@ -4914,8 +4967,10 @@
 				13ED0FA227ECF56B00FB4901 /* ListTVC+ObserverExtensions.swift in Sources */,
 				13D85B7327C6E73E0021A5A6 /* ShiftWeatherCVCell.swift in Sources */,
 				132304BA21B1E0BE006013D3 /* Mapping17to18.xcmappingmodel in Sources */,
+				139AB2172804DA160091D024 /* BuildFromLocalIncidentType.swift in Sources */,
 				13DD447921CEC2E3006C3FB9 /* AllModifiedNFIRSStreetTypeOperation.swift in Sources */,
 				1331671A24A56A3C003F3882 /* NewICS214ActivityLogCompleteCell.swift in Sources */,
+				139AB20D2804A5680091D024 /* LoadTheUserFromCloud.swift in Sources */,
 				13F3EB5C219B80BF0044CF41 /* dismissUpdateSaveCell.swift in Sources */,
 				138BF28524D095460031E6C6 /* ICS214ToCloud.swift in Sources */,
 				1383466F27E40FDA00B40A4D /* CrewContactListCell.swift in Sources */,
@@ -4923,6 +4978,7 @@
 				13D0793321A4D8E000068B0A /* SettingsProfileTVC.swift in Sources */,
 				13F9DA9023A86633009BB07B /* FlatTVCell.swift in Sources */,
 				13B6361B2534BA7D0014DB63 /* ARCFormToCloud.swift in Sources */,
+				139AB2112804B11F0091D024 /* UserFDIDBuildOperation.swift in Sources */,
 				133EE018244535FD0042CB8E /* ResourcesLayout.swift in Sources */,
 				1338E14C224160BA000EEBDC /* NFIRSsectionHeaderTHFV.swift in Sources */,
 				13F3EA56219B80BF0044CF41 /* ModalDataTVC.swift in Sources */,
@@ -4958,6 +5014,7 @@
 				13F1657B2270CF8D00FA717A /* ICS214Data.swift in Sources */,
 				13F3E996219B80BF0044CF41 /* IncidentTypeCell.swift in Sources */,
 				133E83B32315D61D0024CB07 /* LabelWithInfoCell.swift in Sources */,
+				1360753F2805F11800B84636 /* UserFDIDProvider.swift in Sources */,
 				135AFC0F231084F600C71A87 /* FDResourceIncidentCell.swift in Sources */,
 				1368B8E622E232930005B06E /* SettingsUserFDResourcesTVC+Extension.swift in Sources */,
 				13DD443321CEBE4A006C3FB9 /* UserLocalIncidentType+CustomAdditions.swift in Sources */,
@@ -4999,6 +5056,7 @@
 				13BE998925643FCF00DC9BC4 /* ARCrossForm+ExtensionsFetch.swift in Sources */,
 				13BA68E423FDC7FE00427FCE /* ResourceHeader.swift in Sources */,
 				13F3E9E0219B80BF0044CF41 /* TwoButtonFourInputCell.swift in Sources */,
+				139AB21F280503230091D024 /* LocalIncidentProvider.swift in Sources */,
 				1337233E219E2DFF0036D908 /* CoreDataController.swift in Sources */,
 				132304AB21B1E0BE006013D3 /* Mapping16to17.xcmappingmodel in Sources */,
 				13F3EA18219B80BF0044CF41 /* NewIncidentMapVC.swift in Sources */,
@@ -5072,6 +5130,7 @@
 				130A2A0C25BB9F33003E890B /* Mapping48to49.xcmappingmodel in Sources */,
 				133EE01F244544660042CB8E /* CrewLayout.swift in Sources */,
 				13F3EBA8219B80BF0044CF41 /* OnboardDataTVC.swift in Sources */,
+				139AB20F2804AEED0091D024 /* BuildFromFDID.swift in Sources */,
 				132304BC21B1E0BE006013D3 /* Mapping25to26.xcmappingmodel in Sources */,
 				13B35516240AF4300072155E /* UserEntryInfo.swift in Sources */,
 				13F3E9E2219B80BF0044CF41 /* DoubleTextFieldCell.swift in Sources */,
@@ -5118,6 +5177,7 @@
 				13F3EA70219B80BF0044CF41 /* NFIRSMixedUsePropertiesOperation.swift in Sources */,
 				13F83123241D8ED500958B1E /* ARCFormData.swift in Sources */,
 				1358ACCB2485B33F00F5125E /* IncidentAdditionalResourcesCustomCell.swift in Sources */,
+				139AB2192804DF9F0091D024 /* UserLocalIncidentTypeBuildOperation.swift in Sources */,
 				13B35518240AF4B40072155E /* UpdateShiftData.swift in Sources */,
 				13C96E2525310A7300C5195F /* CloudTypes.swift in Sources */,
 				13F3E9B6219B80BF0044CF41 /* ParagraphCell.swift in Sources */,
@@ -5323,7 +5383,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Fire Journal/Fire Journal.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4.0.06;
+				CURRENT_PROJECT_VERSION = 4.0.07;
 				DEVELOPMENT_TEAM = 8Y2CT58NL3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5363,7 +5423,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Fire Journal/Fire Journal.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4.0.06;
+				CURRENT_PROJECT_VERSION = 4.0.07;
 				DEVELOPMENT_TEAM = 8Y2CT58NL3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

@@ -29,6 +29,8 @@ class NFIRSIncidentTypeProvider: NSObject, NSFetchedResultsControllerDelegate {
     }
     
     private(set) var persistentContainer: NSPersistentContainer
+    var buildFromNFIRSIncidentType: BuildFromNFIRSIncidentType!
+
     
     init(with persistentContainer: NSPersistentContainer) {
         self.persistentContainer = persistentContainer
@@ -56,5 +58,35 @@ class NFIRSIncidentTypeProvider: NSObject, NSFetchedResultsControllerDelegate {
         }
         return theNFIRSIncidentTypes
     }
+    
+    func buildTheNFIRSIncidentTypes(theGuidDate: Date, backgroundContext: NSManagedObjectContext)  -> [NFIRSIncidentType] {
+        var incidentTypes = [NFIRSIncidentType]()
+        buildFromNFIRSIncidentType = BuildFromNFIRSIncidentType.init()
+        let nfirsA = buildFromNFIRSIncidentType.nfirsIncidentTypes
+        for nfirs in nfirsA {
+            let guidDate = GuidFormatter.init(date: theGuidDate)
+            let guid = guidDate.formatGuid()
+            let theGuid = "54."+guid
+            if let theNFIRS = nfirs.nfirsIncidentTypes {
+                let incidentType = NFIRSIncidentType(context: backgroundContext)
+                incidentType.incidentTypeGuid = theGuid
+                incidentType.displayOrder = Int64(theNFIRS.displayOrder)
+                incidentType.incidentTypeNumber = theNFIRS.incidentTypeNumber
+                incidentType.incidentTypeName = theNFIRS.incidentTypeName
+                incidentTypes.append(incidentType)
+            }
+        }
+        do {
+            try backgroundContext.save()
+        } catch let error as NSError {
+            let nserror = error
+            
+            let errorMessage = "IncidentEdit saveToCD The context was unable to save due to \(nserror), \(nserror.userInfo)"
+            print(errorMessage)
+        }
+        backgroundContext.reset()
+        return incidentTypes
+    }
+
     
 }

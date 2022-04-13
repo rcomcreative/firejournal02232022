@@ -18,7 +18,7 @@ class ProfileLabelTextFieldCell: UITableViewCell, UITextFieldDelegate {
     @IBOutlet weak var subjectL: UILabel!
     @IBOutlet weak var descriptionTF: UITextField!
     weak var delegate:ProfileLabelTextDelegate? = nil
-    var fju:String = ""
+    var fju: String = ""
     
     override func awakeFromNib() {
         super.awakeFromNib()

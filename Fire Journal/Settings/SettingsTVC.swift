@@ -1,10 +1,10 @@
-//
-//  SettingsTVC.swift
-//  dashboard
-//
-//  Created by DuRand Jones on 9/4/18.
-//  Copyright © 2018 PureCommand LLC. All rights reserved.
-//
+    //
+    //  SettingsTVC.swift
+    //  dashboard
+    //
+    //  Created by DuRand Jones on 9/4/18.
+    //  Copyright © 2018 PureCommand LLC. All rights reserved.
+    //
 
 import UIKit
 import Foundation
@@ -12,7 +12,7 @@ import CoreData
 
 protocol SettingsTVCDelegate: AnyObject {
     func settingsTapped()
-    func settingsLoadPage(settings:FJSettings)
+    func settingsLoadPage(settings:FJSettings, userObjectID: NSManagedObjectID)
 }
 
 class SettingsTVC: UITableViewController {
@@ -35,16 +35,16 @@ class SettingsTVC: UITableViewController {
     var device:Device!
     var count: Int = 0
     var alertUp: Bool = false
+    var userObjectID: NSManagedObjectID!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         device = Device.init()
-//        self.title = titleName
         vcLaunch.splitVC = self.splitViewController
         launchNC = LaunchNotifications.init(launchVC: vcLaunch)
         launchNC.callNotifications()
         count = theCount(entity: "UserFDResources")
-        //        collapsed = self.splitVC?.isCollapsed ?? false
+        
         collapsed = userDefaults.bool(forKey: FJkFJISCOLLAPSED)
         
         switch compact {
@@ -57,17 +57,17 @@ class SettingsTVC: UITableViewController {
         
         nc.addObserver(self, selector: #selector(compactOrRegular(ns:)), name:NSNotification.Name(rawValue: FJkCOMPACTORREGULAR), object: nil)
         
-        //        MARK: -OBSERVE WHEN TAGS HAVE BEEN RELOADED
+            //        MARK: -OBSERVE WHEN TAGS HAVE BEEN RELOADED
         nc.addObserver(self, selector: #selector(tagsAreLoadedNow(ns:)), name: NSNotification.Name(rawValue: FJkReloadUserTagsFinished), object: nil)
         
         
-        //        MARK: -OBSERVE WHEN RANK HAVE BEEN RELOADED
+            //        MARK: -OBSERVE WHEN RANK HAVE BEEN RELOADED
         nc.addObserver(self, selector: #selector(rankAreLoadedNow(ns:)), name: NSNotification.Name(rawValue: FJkReloadUserRankFinished), object: nil)
         
-        //        MARK: -OBSERVE WHEN  PLATOON HAVE BEEN RELOADED
+            //        MARK: -OBSERVE WHEN  PLATOON HAVE BEEN RELOADED
         nc.addObserver(self, selector: #selector(platoonAreLoadedNow(ns:)), name: NSNotification.Name(rawValue: FJkReloadUserPlatoonFinished), object: nil)
         
-        //        MARK: -OBSERVE WHEN  LOCALINCIDENTTYPE HAVE BEEN RELOADED
+            //        MARK: -OBSERVE WHEN  LOCALINCIDENTTYPE HAVE BEEN RELOADED
         nc.addObserver(self, selector: #selector(localIncidentTypeAreLoadedNow(ns:)), name: NSNotification.Name(rawValue: FJkReloadLocalIncidentTypesFinished), object: nil)
         
         registerCells()
@@ -98,7 +98,7 @@ class SettingsTVC: UITableViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+            // Dispose of any resources that can be recreated.
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -108,30 +108,30 @@ class SettingsTVC: UITableViewController {
         }
     }
     
-    // MARK: - Table view data source
-   
+        // MARK: - Table view data source
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 8
+            // #warning Incomplete implementation, return the number of rows
+        return 6
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 65
     }
     
-    // MARK: - Table view data source// MARK: - Table View
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerV = Bundle.main.loadNibNamed("SettingsModalHeadzerSaveDismiss", owner: self, options: nil)?.first as! SettingsModalHeadzerSaveDismiss
-        return headerV
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 126
-    }
+            // MARK: - Table view data source// MARK: - Table View
+            override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+                let headerV = Bundle.main.loadNibNamed("SettingsModalHeadzerSaveDismiss", owner: self, options: nil)?.first as! SettingsModalHeadzerSaveDismiss
+                return headerV
+            }
+        
+            override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+                return 126
+            }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let row = indexPath.item
@@ -157,25 +157,17 @@ class SettingsTVC: UITableViewController {
             cell.settingType = FJSettings.tags
         case 2:
             cell.iconIV.image = UIImage(named: "SettingsIconDefault")
-            cell.settingsSubjectL.text = "Rank"
-            cell.settingType = FJSettings.rank
-        case 3:
-            cell.iconIV.image = UIImage(named: "SettingsIconDefault")
-            cell.settingsSubjectL.text = "Platoon"
-            cell.settingType = FJSettings.platoon
-        case 4:
-            cell.iconIV.image = UIImage(named: "SettingsIconDefault")
             cell.settingsSubjectL.text = "Local Incident Types"
             cell.settingType = FJSettings.localIncidentTypes
-        case 5:
+        case 3:
             cell.iconIV.image = UIImage(named: "SettingsICloudIcon")
             cell.settingsSubjectL.text = "About Membership"
             cell.settingType = FJSettings.cloud
-        case 6:
+        case 4:
             cell.iconIV.image = UIImage(named: "SettingsIconDefault")
             cell.settingsSubjectL.text = "Terms and Conditions"
             cell.settingType = FJSettings.terms
-        case 7:
+        case 5:
             cell.iconIV.image = UIImage(named: "SettingsIconDefault")
             cell.settingsSubjectL.text = "User Privacy"
             cell.settingType = FJSettings.privacy
@@ -206,12 +198,6 @@ class SettingsTVC: UITableViewController {
         case 5:
             let cell = tableView.cellForRow(at: indexPath)! as! SettingsTVCell
             launchSettingsPage(cell.settingType)
-        case 6:
-            let cell = tableView.cellForRow(at: indexPath)! as! SettingsTVCell
-            launchSettingsPage(cell.settingType)
-        case 7:
-            let cell = tableView.cellForRow(at: indexPath)! as! SettingsTVCell
-            launchSettingsPage(cell.settingType)
         default:break
         }
     }
@@ -224,27 +210,39 @@ class SettingsTVC: UITableViewController {
         case .myProfile:
             switch compact {
             case .compact:
-                delegate?.settingsLoadPage(settings: settings)
+                if userObjectID != nil {
+                    delegate?.settingsLoadPage(settings: settings, userObjectID: userObjectID)
+                }
             case .regular:
-                nc.post(name:Notification.Name(rawValue:FJkPROFILE_FROM_MASTER),
-                        object: nil,
-                        userInfo: ["sizeTrait":compact])
+                if userObjectID != nil {
+                    nc.post(name:Notification.Name(rawValue: FJkPROFILE_FROM_MASTER),
+                            object: nil,
+                            userInfo: ["sizeTrait":compact, "userObjID": userObjectID!])
+                }
             }
         case .cloud:
             if collapsed {
-                delegate?.settingsLoadPage(settings: settings)
+                if userObjectID != nil {
+                    delegate?.settingsLoadPage(settings: settings, userObjectID: userObjectID)
+                }
             } else {
-                nc.post(name:Notification.Name(rawValue:FJkSETTINGSFJCLOUDCalled),
-                        object: nil,
-                        userInfo: ["sizeTrait":compact])
+                if userObjectID != nil {
+                    nc.post(name:Notification.Name(rawValue:FJkSETTINGSFJCLOUDCalled),
+                            object: nil,
+                            userInfo: ["sizeTrait":compact, "userObjID": userObjectID!])
+                }
             }
         case .crewMembers:
             if collapsed {
-                delegate?.settingsLoadPage(settings: settings)
+                if userObjectID != nil {
+                    delegate?.settingsLoadPage(settings: settings, userObjectID: userObjectID)
+                }
             } else {
-                nc.post(name:Notification.Name(rawValue:FJkSETTINGSCREWCalled),
-                        object: nil,
-                        userInfo: ["sizeTrait":compact])
+                if userObjectID != nil {
+                    nc.post(name:Notification.Name(rawValue:FJkSETTINGSCREWCalled),
+                            object: nil,
+                            userInfo: ["sizeTrait":compact, "userObjID": userObjectID!])
+                }
             }
         case .tags:
             let count = theCount(entity: "UserTags")
@@ -254,11 +252,15 @@ class SettingsTVC: UITableViewController {
                 }
             } else {
                 if collapsed {
-                    delegate?.settingsLoadPage(settings: settings)
+                    if userObjectID != nil {
+                        delegate?.settingsLoadPage(settings: settings, userObjectID: userObjectID)
+                    }
                 } else {
-                    nc.post(name:Notification.Name(rawValue:FJkSETTINGSTAGSCalled),
-                            object: nil,
-                            userInfo: ["sizeTrait":compact])
+                    if userObjectID != nil {
+                        nc.post(name:Notification.Name(rawValue:FJkSETTINGSTAGSCalled),
+                                object: nil,
+                                userInfo: ["sizeTrait":compact, "userObjID": userObjectID!])
+                    }
                 }
             }
         case .rank:
@@ -269,11 +271,15 @@ class SettingsTVC: UITableViewController {
                 }
             } else {
                 if collapsed {
-                    delegate?.settingsLoadPage(settings: settings)
+                    if userObjectID != nil {
+                        delegate?.settingsLoadPage(settings: settings, userObjectID: userObjectID)
+                    }
                 } else {
-                    nc.post(name:Notification.Name(rawValue:FJkSETTINGRANKCalled),
-                            object: nil,
-                            userInfo: ["sizeTrait":compact])
+                    if userObjectID != nil {
+                        nc.post(name:Notification.Name(rawValue:FJkSETTINGRANKCalled),
+                                object: nil,
+                                userInfo: ["sizeTrait":compact, "userObjID": userObjectID!])
+                    }
                 }
             }
         case .platoon:
@@ -284,11 +290,15 @@ class SettingsTVC: UITableViewController {
                 }
             } else {
                 if collapsed {
-                    delegate?.settingsLoadPage(settings: settings)
+                    if userObjectID != nil {
+                        delegate?.settingsLoadPage(settings: settings, userObjectID: userObjectID)
+                    }
                 } else {
-                    nc.post(name:Notification.Name(rawValue:FJkSETTINGPLATOONCalled),
-                            object: nil,
-                            userInfo: ["sizeTrait":compact])
+                    if userObjectID != nil {
+                        nc.post(name:Notification.Name(rawValue:FJkSETTINGPLATOONCalled),
+                                object: nil,
+                                userInfo: ["sizeTrait":compact, "userObjID": userObjectID!])
+                    }
                 }
             }
         case .localIncidentTypes:
@@ -299,28 +309,40 @@ class SettingsTVC: UITableViewController {
                 }
             } else {
                 if collapsed {
-                    delegate?.settingsLoadPage(settings: settings)
+                    if userObjectID != nil {
+                        delegate?.settingsLoadPage(settings: settings, userObjectID: userObjectID)
+                    }
                 } else {
-                    nc.post(name:Notification.Name(rawValue:FJkSETTINGLOCALINCIDENTTYPECalled),
-                            object: nil,
-                            userInfo: ["sizeTrait":compact])
+                    if userObjectID != nil {
+                        nc.post(name:Notification.Name(rawValue:FJkSETTINGLOCALINCIDENTTYPECalled),
+                                object: nil,
+                                userInfo: ["sizeTrait":compact, "userObjID": userObjectID!])
+                    }
                 }
             }
         case .terms:
             if collapsed {
-                delegate?.settingsLoadPage(settings: settings)
+                if userObjectID != nil {
+                    delegate?.settingsLoadPage(settings: settings, userObjectID: userObjectID)
+                }
             } else {
-                nc.post(name:Notification.Name(rawValue:FJkSETTINGTERMSCalled),
-                        object: nil,
-                        userInfo: ["sizeTrait":compact])
+                if userObjectID != nil {
+                    nc.post(name:Notification.Name(rawValue:FJkSETTINGTERMSCalled),
+                            object: nil,
+                            userInfo: ["sizeTrait":compact, "userObjID": userObjectID!])
+                }
             }
         case .privacy:
             if collapsed {
-                delegate?.settingsLoadPage(settings: settings)
+                if userObjectID != nil {
+                    delegate?.settingsLoadPage(settings: settings, userObjectID: userObjectID)
+                }
             } else {
-                nc.post(name:Notification.Name(rawValue:FJkSETTINGPRIVACYCalled),
-                        object: nil,
-                        userInfo: ["sizeTrait":compact])
+                if userObjectID != nil {
+                    nc.post(name:Notification.Name(rawValue:FJkSETTINGPRIVACYCalled),
+                            object: nil,
+                            userInfo: ["sizeTrait":compact, "userObjID": userObjectID!])
+                }
             }
         default:
             break
@@ -352,7 +374,7 @@ extension SettingsTVC {
         }
     }
     
-    /// Alert presented when there are no Fire Station Resources chosen yet
+        /// Alert presented when there are no Fire Station Resources chosen yet
     func presentAlert() {
         let title: InfoBodyText = .myFireStationResourcesSupportNotesSubject2
         let message: InfoBodyText = .myFireStationResourcesSupportNotes2
@@ -365,7 +387,7 @@ extension SettingsTVC {
         self.present(alert, animated: true, completion: nil)
     }
     
-    /// Reload Default Tags Alert
+        /// Reload Default Tags Alert
     func tagsPresentAlert() {
         let title: InfoBodyText = .tagsAreEmptySubject
         let message: InfoBodyText = .tagsAreEmpty
@@ -390,12 +412,14 @@ extension SettingsTVC {
         self.present(alert, animated: true, completion: nil)
     }
     
-    //    MARK: -RELOAD THE TAGS PAGE
-    /// Reloads the Tags Settings page with populated tags
-    /// - Parameter ns: no userInfo
+        //    MARK: -RELOAD THE TAGS PAGE
+        /// Reloads the Tags Settings page with populated tags
+        /// - Parameter ns: no userInfo
     @objc func tagsAreLoadedNow( ns: Notification ) {
         if collapsed {
-            delegate?.settingsLoadPage(settings: FJSettings.tags)
+            if userObjectID != nil {
+                delegate?.settingsLoadPage(settings: FJSettings.tags, userObjectID: userObjectID)
+            }
         } else {
             nc.post(name:Notification.Name(rawValue:FJkSETTINGSTAGSCalled),
                     object: nil,
@@ -404,7 +428,7 @@ extension SettingsTVC {
     }
     
     
-    //    MARK: -RELOAD THE USER RANK ALERT
+        //    MARK: -RELOAD THE USER RANK ALERT
     func rankPresentAlert() {
         let title: InfoBodyText = .rankAreEmptySubject
         let message: InfoBodyText = .rankAreEmpty
@@ -429,12 +453,14 @@ extension SettingsTVC {
         self.present(alert, animated: true, completion: nil)
     }
     
-    //    MARK: -RELOAD THE RANK PAGE
-    /// Reloads the RANK Settings page with populated tags
-    /// - Parameter ns: no userInfo
+        //    MARK: -RELOAD THE RANK PAGE
+        /// Reloads the RANK Settings page with populated tags
+        /// - Parameter ns: no userInfo
     @objc func rankAreLoadedNow( ns: Notification ) {
         if collapsed {
-            delegate?.settingsLoadPage(settings: FJSettings.rank)
+            if userObjectID != nil {
+                delegate?.settingsLoadPage(settings: FJSettings.rank, userObjectID: userObjectID)
+            }
         } else {
             nc.post(name:Notification.Name(rawValue:FJkSETTINGRANKCalled),
                     object: nil,
@@ -442,7 +468,7 @@ extension SettingsTVC {
         }
     }
     
-    //    MARK: -RELOAD THE USER PLATOON ALERT
+        //    MARK: -RELOAD THE USER PLATOON ALERT
     func platoonPresentAlert() {
         let title: InfoBodyText = .platoonAreEmptySubject
         let message: InfoBodyText = .platoonAreEmpty
@@ -467,12 +493,14 @@ extension SettingsTVC {
         self.present(alert, animated: true, completion: nil)
     }
     
-    //    MARK: -RELOAD THE PLATOON PAGE
-    /// Reloads the PLATOON Settings page with populated tags
-    /// - Parameter ns: no userInfo
+        //    MARK: -RELOAD THE PLATOON PAGE
+        /// Reloads the PLATOON Settings page with populated tags
+        /// - Parameter ns: no userInfo
     @objc func platoonAreLoadedNow( ns: Notification ) {
         if collapsed {
-            delegate?.settingsLoadPage(settings: FJSettings.platoon)
+            if userObjectID != nil {
+                delegate?.settingsLoadPage(settings: FJSettings.platoon, userObjectID: userObjectID)
+            }
         } else {
             nc.post(name:Notification.Name(rawValue:FJkSETTINGPLATOONCalled),
                     object: nil,
@@ -481,7 +509,7 @@ extension SettingsTVC {
     }
     
     
-    //    MARK: -RELOAD THE LOCAL INCIDENT TYPE ALERT
+        //    MARK: -RELOAD THE LOCAL INCIDENT TYPE ALERT
     func localIncidentTypePresentAlert() {
         let title: InfoBodyText = .localIncidentTypesAreEmptySubject
         let message: InfoBodyText = .localIncidentTypesAreEmpty
@@ -506,16 +534,20 @@ extension SettingsTVC {
         self.present(alert, animated: true, completion: nil)
     }
     
-    //    MARK: -RELOAD THE LOCAL INCIDENT TYPES PAGE
-    /// Reloads the LOCAL INCIDENT TYPES Settings page with populated tags
-    /// - Parameter ns: no userInfo
+        //    MARK: -RELOAD THE LOCAL INCIDENT TYPES PAGE
+        /// Reloads the LOCAL INCIDENT TYPES Settings page with populated tags
+        /// - Parameter ns: no userInfo
     @objc func localIncidentTypeAreLoadedNow( ns: Notification ) {
         if collapsed {
-            delegate?.settingsLoadPage(settings: FJSettings.localIncidentTypes)
+            if userObjectID != nil {
+                delegate?.settingsLoadPage(settings: FJSettings.localIncidentTypes, userObjectID: userObjectID)
+            }
         } else {
-            nc.post(name:Notification.Name(rawValue:FJkSETTINGLOCALINCIDENTTYPECalled),
-                    object: nil,
-                    userInfo: ["sizeTrait":compact])
+            if userObjectID != nil {
+                nc.post(name:Notification.Name(rawValue:FJkSETTINGLOCALINCIDENTTYPECalled),
+                        object: nil,
+                        userInfo: ["sizeTrait":compact])
+            }
         }
     }
     

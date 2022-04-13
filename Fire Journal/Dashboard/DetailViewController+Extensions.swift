@@ -250,8 +250,11 @@ extension DetailViewController {
     }
     
     func presentAgreement() {
-        let userItemsLoad = LoadUserItems.init(context)
-        userItemsLoad.runTheOperations()
+        DispatchQueue.main.async {
+            self.plistContext = self.plistProvider.persistentContainer.newBackgroundContext()
+            let loadTheUserFromCloud = LoadTheUserFromCloud(context: self.plistContext)
+            loadTheUserFromCloud.getCloudUser()
+        }
         slideInTransitioningDelgate.direction = .bottom
         slideInTransitioningDelgate.disableCompactHeight = true
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)

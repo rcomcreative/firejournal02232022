@@ -85,6 +85,57 @@ extension IncidentVC {
         }
     }
     
+    func getTheActionsTaken() {
+        theActionsTakenContext = nfirsActionTakenProvider.persistentContainer.newBackgroundContext()
+        if let actions = nfirsActionTakenProvider.getAllActionsTaken(context: theActionsTakenContext) {
+            if actions.count == 0 {
+                DispatchQueue.main.async {
+                    self.theNFIRsActionsTaken = self.nfirsActionTakenProvider.buildNFIRSActionTaken(theGuidDate: Date(), backgroundContext: self.theActionsTakenContext)
+                }
+            } else {
+                theNFIRsActionsTaken = actions
+            }
+        } else {
+                DispatchQueue.main.async {
+                    self.theNFIRsActionsTaken = self.nfirsActionTakenProvider.buildNFIRSActionTaken(theGuidDate: Date(), backgroundContext: self.theActionsTakenContext)
+                }
+        }
+    }
+    
+    func getTheLocalIncidentTypes() {
+        theLocalIncidentContext = localIncidentProvider.persistentContainer.newBackgroundContext()
+        if let local = localIncidentProvider.getAllLocalIncidentTypes(context: theLocalIncidentContext) {
+            if local.count == 0 {
+                    DispatchQueue.main.async {
+                        self.theLocalIncidentTypes = self.localIncidentProvider.buildLocalIncidentType(theGuidDate: Date(), backgroundContext: self.theLocalIncidentContext)
+                    }
+            } else {
+                theLocalIncidentTypes = local
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.theLocalIncidentTypes = self.localIncidentProvider.buildLocalIncidentType(theGuidDate: Date(), backgroundContext: self.theLocalIncidentContext)
+            }
+        }
+    }
+    
+    func getTheNFIRSIncidentType() {
+        nfirsIncidentTypeContext = nfirsIncidentTypeProvider.persistentContainer.newBackgroundContext()
+        if let types = nfirsIncidentTypeProvider.getAllNFIRSIncidentType(nfirsIncidentTypeContext) {
+            if types.count == 0 {
+                DispatchQueue.main.async {
+                    self.theNFIRSIncidentTypes = self.nfirsIncidentTypeProvider.buildTheNFIRSIncidentTypes(theGuidDate: Date(), backgroundContext: self.nfirsIncidentTypeContext)
+                }
+            } else {
+                theNFIRSIncidentTypes = types
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.theNFIRSIncidentTypes = self.nfirsIncidentTypeProvider.buildTheNFIRSIncidentTypes(theGuidDate: Date(), backgroundContext: self.nfirsIncidentTypeContext)
+            }
+        }
+    }
+    
         // MARK: -LAYOUT CONFIGURATIONS-
     
         /// build the table view for the form - called in viewdidload

@@ -36,6 +36,24 @@ class IncidentVC: UIViewController {
     }()
     var theTagContext: NSManagedObjectContext!
     
+    lazy var nfirsActionTakenProvider: NFIRSActionTakenProvider = {
+        let provider = NFIRSActionTakenProvider(with: (UIApplication.shared.delegate as! AppDelegate).persistentContainer)
+        return provider
+    }()
+    var theActionsTakenContext: NSManagedObjectContext!
+    
+    lazy var localIncidentProvider: LocalIncidentProvider = {
+        let provider = LocalIncidentProvider(with: (UIApplication.shared.delegate as! AppDelegate).persistentContainer)
+        return provider
+    }()
+    var theLocalIncidentContext: NSManagedObjectContext!
+    
+    lazy var nfirsIncidentTypeProvider: NFIRSIncidentTypeProvider = {
+        let provider = NFIRSIncidentTypeProvider(with: (UIApplication.shared.delegate as! AppDelegate).persistentContainer)
+        return provider
+    }()
+    var nfirsIncidentTypeContext: NSManagedObjectContext!
+    
     let nc = NotificationCenter.default
     let userDefaults = UserDefaults.standard
     let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
@@ -68,6 +86,9 @@ class IncidentVC: UIViewController {
     var theJournal: Journal!
     var validPhotos = [Photo]()
     var theTags = [Tag]()
+    var theNFIRsActionsTaken = [NFIRSActionsTaken]()
+    var theNFIRSIncidentTypes = [NFIRSIncidentType]()
+    var theLocalIncidentTypes = [UserLocalIncidentType]()
     var utGuid: String = ""
     var compact:SizeTrait = .regular
     var dataTVC: ModalDataTVC!
@@ -145,6 +166,9 @@ class IncidentVC: UIViewController {
         setUpNavigationButton()
         
         getTheTags()
+        getTheActionsTaken()
+        getTheNFIRSIncidentType()
+        getTheLocalIncidentTypes()
         
         if id != nil {
             getUserLocation.determineLocation()

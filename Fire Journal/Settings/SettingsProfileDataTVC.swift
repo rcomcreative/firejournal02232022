@@ -23,57 +23,83 @@ class SettingsProfileDataTVC: UITableViewController,NSFetchedResultsControllerDe
     private var launchNC: LaunchNotifications!
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    var bkgrdContext:NSManagedObjectContext!
     weak var delegate:SettingsProfileDataDelegate? = nil
     var fetched:Array<Any>!
     var type:FJSettings!
     var entity:String = ""
     var attribute:String = ""
     var sortAttribute:String = ""
-    var fju:FireJournalUser!
+    var fju: FireJournalUser!
     
     var compact:SizeTrait = .regular
     
+    
+    lazy var fdidProvider: UserFDIDProvider = {
+        let provider = UserFDIDProvider(with: (UIApplication.shared.delegate as! AppDelegate).persistentContainer)
+        return provider
+    }()
+    var fdidContext: NSManagedObjectContext!
+    
+    var userObjtID: NSManagedObjectID!
+    var theUser: FireJournalUser!
+    var theFDIDs = [UserFDID]()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        getTheUser(entity: "FireJournalUser", attribute: "userGuid", sortAttribute: "lastName")
-        manageEntities()
+
         self.title = titleName
+        
+        guard let _ = userObjtID else {
+            delegate?.settingsProfileDataCanceled()
+            return
+        }
+        theUser = context.object(with: userObjtID) as? FireJournalUser
+        
+        fdidContext = fdidProvider.persistentContainer.newBackgroundContext()
+        if let fdid = fdidProvider.getTheFDIDForCityState(context: fdidContext, userID: userObjtID) {
+            if fdid.isEmpty {
+                if let fdids = fdidProvider.buildTheFDIDs(theGuidDate: Date(), backgroundContext: fdidContext) {
+                    if  let fdid = fdidProvider.getTheFDIDForCityState(context: fdidContext, userID: userObjtID) {
+                        theFDIDs = fdid
+                    }
+                }
+            } else {
+                theFDIDs = fdid
+            }
+        }
         
         vcLaunch.splitVC = self.splitViewController
         launchNC = LaunchNotifications.init(launchVC: vcLaunch)
         launchNC.callNotifications()
-        bkgrdContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        bkgrdContext.persistentStoreCoordinator = context.persistentStoreCoordinator
-        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: bkgrdContext)
+        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: context)
         
-        switch compact {
-        case .compact:
+        
             let button1 = UIBarButtonItem(title: "My Profile", style: .plain, target: self, action: #selector(goBackToSettings(_:)))
             navigationItem.setLeftBarButtonItems([button1], animated: true)
-        case .regular:
-            let button1 = UIBarButtonItem(title: "My Profile", style: .plain, target: self, action: #selector(goBackToSettings(_:)))
-            
-//            navigationItem.leftItemsSupplementBackButton = true
-//            let button3 = self.splitViewController?.displayModeButtonItem
-            navigationItem.setLeftBarButtonItems([button1], animated: true)
+        
+        let regularBarButtonTextAttributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor(named: "FJBlueColor"),
+            .font: UIFont.systemFont(ofSize: 22, weight: UIFont.Weight(rawValue: 150))
+        ]
+        button1.setTitleTextAttributes(regularBarButtonTextAttributes, for: .normal)
+        button1.setTitleTextAttributes(regularBarButtonTextAttributes, for: .highlighted)
+        
+        if (Device.IS_IPHONE){
+            self.navigationController?.navigationBar.barTintColor = UIColor(named: "FJBlueColor")
+            self.navigationController?.navigationBar.isTranslucent = true
+        } else {
+            let navigationBarAppearace = UINavigationBar.appearance()
+            navigationBarAppearace.tintColor = UIColor.black
+            navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.black]
         }
-//        let navigationBarAppearace = UINavigationBar.appearance()
-//        if #available(iOS 13.0, *) {
-//            navigationBarAppearace.barTintColor = UIColor.white
-//        } else {
-//            navigationBarAppearace.barTintColor = UIColor.black
-//        }
-//        if #available(iOS 13.0, *) {
-//            navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.label]
-//        } else {
-//            navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.black]
-//        }
         
         self.title = titleName
         
         nc.addObserver(self, selector: #selector(compactOrRegular(ns:)), name:NSNotification.Name(rawValue: FJkCOMPACTORREGULAR), object: nil)
+        
+        tableView.register(UINib(nibName: "FDIDCell", bundle: nil), forCellReuseIdentifier: "FDIDCell")
+        
     }
     
     
@@ -155,32 +181,15 @@ class SettingsProfileDataTVC: UITableViewController,NSFetchedResultsControllerDe
     func saveToUser(newEntry:String,fireDepartment:String) {
         let modDate = Date()
         switch type {
-        case .platoon?:
-            fju.platoon = newEntry
-            if fju.tempPlatoon == "" {
-                fju.tempPlatoon = newEntry
-            }
-        case .rank?:
-            fju.rank = newEntry
-        case .assignment?:
-            fju.initialAssignment = newEntry
-            if fju.tempAssignment == "" {
-                fju.tempAssignment = newEntry
-            }
         case .fdid?:
-            fju.fdid = newEntry
-            if fju.fireDepartment == "" {
-                fju.fireDepartment = fireDepartment
-            }
-        case .apparatus?:
-            fju.initialApparatus = newEntry
-            if fju.tempApparatus == "" {
-                fju.tempApparatus = newEntry
+            theUser.fdid = newEntry
+            if theUser.fireDepartment == "" {
+                theUser.fireDepartment = fireDepartment
             }
         default:break
         }
-        fju.fjpUserModDate = modDate
-        fju.fjpUserBackedUp = false
+        theUser.fjpUserModDate = modDate
+        theUser.fjpUserBackedUp = false
         saveToCD()
     }
     
@@ -194,10 +203,10 @@ class SettingsProfileDataTVC: UITableViewController,NSFetchedResultsControllerDe
     
     fileprivate func saveToCD() {
         do {
-            try bkgrdContext.save()
+            try context.save()
             
             DispatchQueue.main.async {
-                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.bkgrdContext,userInfo:["info":"Settings Profile Data TVC here"])
+                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"Settings Profile Data TVC here"])
             }
             
             if Device.IS_IPHONE {
@@ -212,7 +221,7 @@ class SettingsProfileDataTVC: UITableViewController,NSFetchedResultsControllerDe
                     DispatchQueue.main.async {
                         self.nc.post(name:Notification.Name(rawValue:FJkPROFILE_FROM_MASTER),
                                      object: nil,
-                                     userInfo: ["sizeTrait":self.compact])
+                                     userInfo: ["sizeTrait": self.compact])
                         self.nc.removeObserver(self, name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
                     }
                 }
@@ -238,12 +247,7 @@ class SettingsProfileDataTVC: UITableViewController,NSFetchedResultsControllerDe
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let sections = _fetchedResultsController?.sections
-        {
-            let currentSection = sections[section]
-            return currentSection.numberOfObjects
-        }
-        return 0
+        return theFDIDs.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -260,10 +264,16 @@ class SettingsProfileDataTVC: UITableViewController,NSFetchedResultsControllerDe
     }
     
     func configureFDIDCell(_ cell: FDIDCell, at indexPath: IndexPath) {
-        let fdid:UserFDID = _fetchedResultsController?.object(at: indexPath) as! UserFDID
-        cell.fdidL.text = fdid.fdidNumber ?? ""
-        cell.deptL.text = fdid.fireDepartmentName ?? ""
-        cell.cityL.text = fdid.hqCity ?? ""
+        let fdid: UserFDID = theFDIDs[indexPath.row]
+        if let number = fdid.fdidNumber {
+            cell.fdid = number
+        }
+        if let dept = fdid.fireDepartmentName {
+            cell.depart = dept
+        }
+        if let theCity = fdid.hqCity {
+            cell.city = theCity
+        }
     }
     
     func configureCell(_ cell: UITableViewCell, at indexPath: IndexPath) {
@@ -306,7 +316,7 @@ class SettingsProfileDataTVC: UITableViewController,NSFetchedResultsControllerDe
             newEntry = cellChecked?.textLabel?.text ?? ""
         default: break
         }
-        saveToUser(newEntry:newEntry,fireDepartment: fireDepartment)
+        saveToUser(newEntry:newEntry, fireDepartment: fireDepartment)
     }
     
     private func getTheUser(entity: String, attribute: String, sortAttribute: String) {

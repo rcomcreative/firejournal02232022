@@ -60,7 +60,7 @@ extension RankTVCell {
             var config = UIButton.Configuration.filled()
             config.buttonSize = .medium
             switch type {
-            case .rank:
+            case .rank, .theRanks:
                 config.image = UIImage(systemName: "person.crop.square.fill.and.at.rectangle")
                 config.title = " Rank"
             case .platoon:
@@ -87,10 +87,13 @@ extension RankTVCell {
             case .assignment:
                 config.image = UIImage(systemName: "list.bullet.circle")
                 config.title = " Assignment"
+            case .apparatus:
+                config.image = UIImage(systemName: "car.2")
+                config.title = " Apparatus"
             default: break
             }
             switch type {
-            case .rank, .platoon, .ems, .fireFighter, .languages, .qualfications, .assignment:
+            case .rank, .platoon, .ems, .fireFighter, .languages, .qualfications, .assignment, .apparatus, .theRanks:
                 config.baseBackgroundColor = UIColor(named: "FJBlueColor")
             case .leaveWork:
                 config.baseBackgroundColor = UIColor(named: "FJBlueColor")
@@ -136,12 +139,63 @@ extension RankTVCell {
                         UIAction(title: "Engineer / Driver", handler: theClosure),
                         ])
                 }
+            case .theRanks:
+                newB.menu = UIMenu(children: [
+                    UIAction(title: "Lieutenant", handler: theClosure),
+                       UIAction(title: "Captain", handler: theClosure),
+                    UIAction(title: "EMS Supervisor", handler: theClosure),
+                    UIAction(title: "Battalion Chief", handler: theClosure),
+                    UIAction(title: "Assistant Chief", handler: theClosure),
+                    UIAction(title: "Deputy Chief", handler: theClosure),
+                    UIAction(title: "Deputy EMS Chief", handler: theClosure),
+                    UIAction(title: "Assistant Deputy Chief", handler: theClosure),
+                    UIAction(title: "Chief Deputy", handler: theClosure),
+                       UIAction(title: "Commissioner", handler: theClosure),
+                       UIAction(title: "Fire Commissioner", handler: theClosure),
+                    UIAction(title: "FireFighter", handler: theClosure),
+                    UIAction(title: "Volunteer Firefighter", handler: theClosure),
+                    UIAction(title: "Firefighter/EMT", handler: theClosure),
+                    UIAction(title: "Firefighter/Paramedic", handler: theClosure),
+                    UIAction(title: "EMT", handler: theClosure),
+                    UIAction(title: "Paramedic", handler: theClosure),
+                    UIAction(title: "Inspector", handler: theClosure),
+                    UIAction(title: "Chauffeur", handler: theClosure),
+                    UIAction(title: "Apparatus Operator", handler: theClosure),
+                    UIAction(title: "Engineer / Driver", handler: theClosure),
+                    ])
+            case .apparatus:
+                newB.menu = UIMenu(children: [
+                    UIAction(title: "Air Ambulance", handler: theClosure),
+                    UIAction(title: "Battalion Sedan", handler: theClosure),
+                    UIAction(title: "Bike Team", handler: theClosure),
+                    UIAction(title: "Brush Truck", handler: theClosure),
+                    UIAction(title: "Chief Officer", handler: theClosure),
+                    UIAction(title: "Command Vehicle", handler: theClosure),
+                    UIAction(title: "Communications Unit", handler: theClosure),
+                    UIAction(title: "Engine", handler: theClosure),
+                    UIAction(title: "Fire Boat", handler: theClosure),
+                    UIAction(title: "Gator", handler: theClosure),
+                    UIAction(title: "Haz Mat", handler: theClosure),
+                    UIAction(title: "Helicopter", handler: theClosure),
+                    UIAction(title: "Ladder Truck", handler: theClosure),
+                    UIAction(title: "Mobile Command Post", handler: theClosure),
+                    UIAction(title: "Mobile Repair Unit", handler: theClosure),
+                    UIAction(title: "Plug Buggy", handler: theClosure),
+                    UIAction(title: "Quint", handler: theClosure),
+                    UIAction(title: "Rehabilitation Unit", handler: theClosure),
+                    UIAction(title: "Rescue Ambulance", handler: theClosure),
+                    UIAction(title: "SUV", handler: theClosure),
+                    UIAction(title: "Swift Water Rescue", handler: theClosure),
+                    UIAction(title: "Tractor", handler: theClosure),
+                    UIAction(title: "Tunnel Rescue", handler: theClosure),
+                    UIAction(title: "US R", handler: theClosure),
+                ])
             case .platoon:
                 newB.menu = UIMenu(children: [
-                       UIAction(title: "D Platoon", handler: theClosure),
-                       UIAction(title: "C Platoon", handler: theClosure),
+                       UIAction(title: "A Platoon", handler: theClosure),
                        UIAction(title: "B Platoon", handler: theClosure),
-                       UIAction(title: "A Platoon", handler: theClosure)
+                       UIAction(title: "C Platoon", handler: theClosure),
+                       UIAction(title: "D Platoon", handler: theClosure)
                    ])
             case .ems:
                 newB.menu = UIMenu(children: [

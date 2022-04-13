@@ -142,6 +142,12 @@ class DetailViewController: UIViewController {
     }()
     var theUserContext: NSManagedObjectContext!
     
+    lazy var plistProvider: PlistProvider = {
+        let provider = PlistProvider(with: (UIApplication.shared.delegate as! AppDelegate).persistentContainer)
+        return provider
+    }()
+    var plistContext: NSManagedObjectContext!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

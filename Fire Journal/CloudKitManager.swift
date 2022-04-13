@@ -579,7 +579,7 @@
         
         @objc func appMovedToForegraound() {
             pendingOperations.nfirsIncidentTypeQueue.isSuspended = false
-            registerBackgroundTask()
+//            registerBackgroundTask()
         }
         
         //     MARK: -VERSION CONTROL-
@@ -592,9 +592,9 @@
         
         //    MARK: -POINT OF TRUTH-USER RESOURCES-
         @objc func runUserResourcesPointOfTruth(notification: Notification) {
-            bkgrndTask = BkgrndTask.init(bkgrndTask: backgroundTask)
-            bkgrndTask?.operation = "CloudKitManager"
-            bkgrndTask?.registerBackgroundTask()
+//            bkgrndTask = BkgrndTask.init(bkgrndTask: backgroundTask)
+//            bkgrndTask?.operation = "CloudKitManager"
+//            bkgrndTask?.registerBackgroundTask()
             resourcesPendingOperations.resourcesTypeQueue.isSuspended = true
             let userFDResourcesSync = UserFDResourcesPointOfTruthOperation.init(context)
             resourcesPendingOperations.resourcesTypeQueue.addOperation(userFDResourcesSync)
@@ -612,7 +612,7 @@
         
         //    MARK: -CLOUDKIT CHANGES-
         func getCloudKitChanges(zoneIDs: [CKRecordZone.ID], completionHandler: (() -> Void)? = nil) {
-            registerBackgroundTask()
+//            registerBackgroundTask()
             // Get the last CKZoneToken
             if let data = userDefaults.data(forKey: FJkCKZondChangeToken) {
                 do {
@@ -820,7 +820,7 @@
         }
         
         func addTokenToDefaults()->Void {
-            registerBackgroundTask()
+//            registerBackgroundTask()
             DispatchQueue.main.async {
                 let encodedData = try! NSKeyedArchiver.archivedData(withRootObject: self.sharedDBChangeToken!, requiringSecureCoding: false)
                 self.userDefaults.set(encodedData, forKey: FJkCKZondChangeToken)
@@ -849,7 +849,7 @@
         
         //    MARK: -ZONE RECORDS CALLED-
         @objc func zoneRecordsCalled(notification: Notification)->Void {
-            registerBackgroundTask()
+//            registerBackgroundTask()
             if let userInfo = notification.userInfo as! [String: Any]?
             {
                 recordEntity = userInfo["recordEntity"] as? TheEntities ?? TheEntities.fjUser
@@ -1430,7 +1430,7 @@
         
         //    MARK: -FEETCH CHANGES MISSED-
         func fetchAnyChangesWeMissed()->Void {
-            registerBackgroundTask()
+//            registerBackgroundTask()
             sharedDBChangeToken = userDefaults.object(forKey: FJkCKServerChangeToken) as? CKServerChangeToken
             
             let changesOperation = CKFetchDatabaseChangesOperation(previousServerChangeToken: sharedDBChangeToken)
