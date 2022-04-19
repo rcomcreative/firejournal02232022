@@ -305,6 +305,9 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, NSF
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+        self.navigationController?.navigationBar.barTintColor = UIColor(named: "FJBlueColor")
+        self.navigationController?.navigationBar.isTranslucent = false
         roundViews()
         self.title = titleName
         getTheUser(userGuid: "")

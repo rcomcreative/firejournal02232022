@@ -11,8 +11,8 @@ import CoreData
 import CloudKit
 
 class FJUserFDResourcesSyncOperation: FJOperation {
+    
     let context: NSManagedObjectContext
-    var bkgrdContext:NSManagedObjectContext!
     let pendingOperations = PendingOperations()
     var thread:Thread!
     let nc = NotificationCenter.default
@@ -47,10 +47,9 @@ class FJUserFDResourcesSyncOperation: FJOperation {
             return
         }
         
-        bkgrdContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        bkgrdContext.persistentStoreCoordinator = context.persistentStoreCoordinator
+        
         thread = Thread(target:self, selector:#selector(checkTheThread), object:nil)
-        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: bkgrdContext)
+        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: self.context)
         executing(true)
         
         if firstRun {
@@ -107,9 +106,9 @@ class FJUserFDResourcesSyncOperation: FJOperation {
     
     fileprivate func saveToCoreData() {
         do {
-            try bkgrdContext.save()
+            try self.context.save()
             DispatchQueue.main.async {
-                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.bkgrdContext,userInfo:["info":"FJUserFDResourcesSyncOperation here"])
+                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object: self.context ,userInfo:["info":"FJUserFDResourcesSyncOperation here"])
             }
         } catch let error as NSError {
             let nserror = error
@@ -120,9 +119,9 @@ class FJUserFDResourcesSyncOperation: FJOperation {
     
     fileprivate func saveToCD() {
         do {
-            try bkgrdContext.save()
+            try self.context.save()
             DispatchQueue.main.async {
-                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.bkgrdContext,userInfo:["info":"FJUserFDResourcesSyncOperation here"])
+                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object: self.context ,userInfo:["info":"FJUserFDResourcesSyncOperation here"])
             }
             DispatchQueue.main.async {
                 self.nc.post(name:Notification.Name(rawValue:FJkCKZoneRecordsCALLED),
@@ -180,7 +179,7 @@ class FJUserFDResourcesSyncOperation: FJOperation {
             let resourceGuid: String = fdResourceR["fdResourceGuid"] ?? ""
             let count = theCounterOfSameness(guid: resourceGuid)
             if count == 0 {
-                let ufdResouceCD = UserFDResources.init(entity: NSEntityDescription.entity(forEntityName: "UserFDResources", in: bkgrdContext)!, insertInto: bkgrdContext)
+                let ufdResouceCD = UserFDResources(context: self.context)
                 let custom: Bool = fdResourceR["customResource"] ?? false
                 ufdResouceCD.customResource = custom
                 ufdResouceCD.fdResource = fdResourceR["fdResource"]
@@ -205,7 +204,7 @@ class FJUserFDResourcesSyncOperation: FJOperation {
                 ufdResouceCD.fdYear = fdResourceR["fdYear"]
 //                if let customResource: String = fdResourceR["fdResourceImageName"] {
                     if custom {
-                        let userResources  = UserResources.init(entity:NSEntityDescription.entity(forEntityName: "UserResources", in: bkgrdContext)!, insertInto: bkgrdContext)
+                        let userResources  = UserResources(context: self.context)
                         userResources.defaultResource = false
                         userResources.fdResource = true
                         userResources.resource = fdResourceR["fdResource"]
@@ -224,7 +223,7 @@ class FJUserFDResourcesSyncOperation: FJOperation {
     func newUserFDResourcesFromCloud(record: CKRecord)->Void  {
         let fdResourceR = record
         
-        let ufdResouceCD = UserFDResources.init(entity: NSEntityDescription.entity(forEntityName: "UserFDResources", in: bkgrdContext)!, insertInto: bkgrdContext)
+        let ufdResouceCD = UserFDResources(context: self.context)
         let custom: Bool = fdResourceR["customResource"] ?? false
         ufdResouceCD.customResource = custom
         ufdResouceCD.fdResource = fdResourceR["fdResource"]
@@ -244,7 +243,7 @@ class FJUserFDResourcesSyncOperation: FJOperation {
         ufdResouceCD.fdShopNumber = fdResourceR["fdShopNumber"]
         ufdResouceCD.fdYear = fdResourceR["fdYear"]
             if custom {
-                let userResources  = UserResources.init(entity:NSEntityDescription.entity(forEntityName: "UserResources", in: bkgrdContext)!, insertInto: bkgrdContext)
+                let userResources  = UserResources(context: self.context)
                 userResources.defaultResource = false
                 userResources.fdResource = true
                 userResources.resource = fdResourceR["fdResource"]
@@ -259,7 +258,7 @@ class FJUserFDResourcesSyncOperation: FJOperation {
     func theCounter()->Int {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "UserFDResources" )
         do {
-            let count = try bkgrdContext.count(for:fetchRequest)
+            let count = try self.context.count(for:fetchRequest)
             return count
         } catch let error as NSError {
             print("Error: \(error.localizedDescription)")
@@ -275,7 +274,7 @@ class FJUserFDResourcesSyncOperation: FJOperation {
         fetchRequest.sortDescriptors = sortDescriptors
         fetchRequest.fetchBatchSize = 20
         do {
-            fetchedForm  = try bkgrdContext.fetch(fetchRequest) as! [UserFDResources]
+            fetchedForm  = try self.context.fetch(fetchRequest) as! [UserFDResources]
         } catch let error as NSError {
             print("Error: \(error.localizedDescription)")
         }
@@ -292,7 +291,7 @@ class FJUserFDResourcesSyncOperation: FJOperation {
         let predicateCan = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [predicate])
         fetchRequest.predicate = predicateCan
         do {
-            count = try bkgrdContext.count(for:fetchRequest)
+            count = try self.context.count(for:fetchRequest)
             return count
         }  catch let error as NSError {
             let errorMessage = "FJUserFDResourcesSyncOperation fetchRequest \(fetchRequest) for error \(error.localizedDescription) \(String(describing: error._userInfo))"
@@ -309,8 +308,8 @@ class FJUserFDResourcesSyncOperation: FJOperation {
         let predicateCan = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [predicate])
         fetchRequest.predicate = predicateCan
         do {
-            let count = try bkgrdContext.count(for:fetchRequest)
-            userFDResourcesA = try bkgrdContext.fetch(fetchRequest) as! [UserFDResources]
+            let count = try self.context.count(for:fetchRequest)
+            userFDResourcesA = try self.context.fetch(fetchRequest) as! [UserFDResources]
             if !userFDResourcesA.isEmpty {
                 fjUserFDResources = userFDResourcesA.last!
             }

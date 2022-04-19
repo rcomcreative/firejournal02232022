@@ -12,8 +12,8 @@ import CoreData
 import CloudKit
 
 class FJUserAttendeesFromCloudSyncingOperation: FJOperation {
+    
     let context: NSManagedObjectContext
-    var bkgrdContext:NSManagedObjectContext!
     let pendingOperations = PendingOperations()
     var thread:Thread!
     let nc = NotificationCenter.default
@@ -44,10 +44,9 @@ class FJUserAttendeesFromCloudSyncingOperation: FJOperation {
             return
         }
         
-        bkgrdContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        bkgrdContext.persistentStoreCoordinator = context.persistentStoreCoordinator
+        
         thread = Thread(target:self, selector:#selector(checkTheThread), object:nil)
-        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: bkgrdContext)
+        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: self.context)
         executing(true)
         
         let count = theCounter()
@@ -121,7 +120,7 @@ class FJUserAttendeesFromCloudSyncingOperation: FJOperation {
         let named:Bool = checkForName(name: name!)
         
         if !named {
-            let fjUserAttendees = UserAttendees.init(entity: NSEntityDescription.entity(forEntityName: "UserAttendees", in: bkgrdContext)!, insertInto: bkgrdContext)
+            let fjUserAttendees = UserAttendees(context: self.context)
             fjUserAttendees.attendeeGuid = fjUserAttendeeRecord["attendeeGuid"]
             fjUserAttendees.attendee = name
             fjUserAttendees.attendeeEmail = fjUserAttendeeRecord["attendeeEmail"]
@@ -135,9 +134,9 @@ class FJUserAttendeesFromCloudSyncingOperation: FJOperation {
             let data = coder.encodedData
             fjUserAttendees.fjUserAttendeeCKR = data as NSObject
             do {
-                try bkgrdContext.save()
+                try self.context.save()
                 DispatchQueue.main.async {
-                    self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.bkgrdContext,userInfo:["info":"FJuser Attendees from cloud syncing Operation"])
+                    self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object: self.context ,userInfo:["info":"FJuser Attendees from cloud syncing Operation"])
                 }
             } catch let error as NSError {
                 let nserror = error
@@ -168,9 +167,9 @@ class FJUserAttendeesFromCloudSyncingOperation: FJOperation {
     
     fileprivate func saveToCD() {
         do {
-            try bkgrdContext.save()
+            try self.context.save()
             DispatchQueue.main.async {
-                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.bkgrdContext,userInfo:["info":"FJuser Attendees from cloud syncing Operation"])
+                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object: self.context  ,userInfo:["info":"FJuser Attendees from cloud syncing Operation"])
             }
             DispatchQueue.main.async {
                 self.nc.post(name:Notification.Name(rawValue:FJkCKZoneRecordsCALLED),

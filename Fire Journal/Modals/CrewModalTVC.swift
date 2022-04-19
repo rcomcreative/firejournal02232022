@@ -286,9 +286,7 @@ class CrewModalTVC: UITableViewController, UITextViewDelegate, UITextFieldDelega
             }
             DispatchQueue.main.async {
                print("here we go to FJkFJUserModifiedSendToCloud")
-                self.nc.post(name:Notification.Name(rawValue:FJkFJUserModifiedSendToCloud),
-                        object: nil,
-                        userInfo: ["objectID":self.fju.objectID])
+                self.nc.post(name: .fireJournalUserModifiedSendToCloud , object: nil, userInfo: ["objectID": self.fju.objectID])
             }
         } catch let error as NSError {
             print("CrewModalTVC line 335 Fetch Error: \(error.localizedDescription)")

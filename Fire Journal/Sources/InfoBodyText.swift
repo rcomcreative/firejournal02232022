@@ -37,7 +37,11 @@ enum InfoBodyText:String {
     case fireEMSResources = "Fire Journal is set up to allow you to not only manage what you do in managing your fire station and incidents, but to also manage the apparatus (resources) within your fire station - using the ID assigned by your Departent. For example, BC1 may relate to Battalion Chief for the Battalion 1 district. You may edit the list below to better conform to your Department. Simply type in the resource in the field below, then tap on the + button. To delete a resource, swipe left.\n\nAdditionally you can choose up to 10 Resources for use in your Shift and Incident Assignments."
     case fireEMSResourcesSupportSubject = "Fire/EMS Resources Support"
     case fireEMSResourcesSupport = "At this time 10 resources are the default, in order to add"
+    case arcFormSubject = "CRR Smoke Alarm Inspection Form"
+    case arcFormDescription = "Use the Community Risk Reduction (CRR) Smoke Alarm Inspection Form when performing home fire safety inspections, including the installation of smoke alarms. You will have the option of creating a single form - or a campaign when, for example, conducting a neighborhood smoke alarm canvassing operation. This form conforms to that used by the nationally recognized fire safety organizations."
     case ics214SupportSubject = "ICS 214 Form Support"
+    case ics214Subject = "ICS 214 Form"
+    case ics214Description = "Use the ICS-214 to record your activities during any operational period in which you or your crew are on scene. Record activities such as resources, assignment, date, time, and what took place. Typically, and ICS-214 is used for each operational period. You may create a single form, or a master form and subsequent follow up forms (for multiple operational periods within a single extended incident)."
     case ics214SupportNotes = "Use this ICS-214 form as your daily operational period journal. This form should be used to record details of relevant activities at any ICS level, including single resources, equipment, Task Forces and so on. The logs provide incident activity history, and provides a reference for any after action report."
     case ics214ShareSupportSubject = "ICS 214 Form Share"
     case ics214ShareSupportNotes = "Your ICS 214 Activity Log is being prepared for sharing. This may take a moment."
@@ -139,6 +143,8 @@ enum InfoBodyText:String {
     case incidentNotesSubject = "Incident Notes"
     case incidentNotesDescription = "Create notes that pertain to the incident. Hit the time stamp button to add your name and the time, then tap the save button when you are finished."
     case onboardUserSaveErrorMessage = "A good deal of Journal and Incident reporting is dependent on the following fields needing to be filled out:\n"
+    case onboardInfoSubject = "Your Profile"
+    case onboardInfoDescription = "Filling out your profile helps with ensuring Fire Journal is set up for your first shift."
 
 
 }

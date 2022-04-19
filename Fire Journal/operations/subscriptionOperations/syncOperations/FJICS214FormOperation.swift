@@ -15,7 +15,6 @@ import CloudKit
 
 class FJICS214Loader: FJOperation {
     let context: NSManagedObjectContext
-    var bkgrdContext:NSManagedObjectContext!
     var thread:Thread!
     let nc = NotificationCenter.default
     let myContainer = CKContainer.init(identifier: FJkCLOUDKITDATABASENAME)
@@ -45,10 +44,9 @@ class FJICS214Loader: FJOperation {
             return
         }
         
-        bkgrdContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        bkgrdContext.persistentStoreCoordinator = context.persistentStoreCoordinator
+      
         thread = Thread(target:self, selector:#selector(checkTheThread), object:nil)
-        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: bkgrdContext)
+        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: self.context)
         executing(true)
         
         let count = theCounter()
@@ -117,9 +115,9 @@ class FJICS214Loader: FJOperation {
     
     fileprivate func saveToCD() {
         do {
-            try bkgrdContext.save()
+            try self.context.save()
             DispatchQueue.main.async {
-                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.bkgrdContext,userInfo:["info":"FJICS214 form Operation here"])
+                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object: self.context,userInfo:["info":"FJICS214 form Operation here"])
             }
             DispatchQueue.main.async {
                 self.nc.post(name:Notification.Name(rawValue:FJkCKZoneRecordsCALLED),
@@ -168,7 +166,7 @@ class FJICS214Loader: FJOperation {
     private func newICS214FromCloud(record: CKRecord)->Void  {
         let fjICS214Record = record
         
-        let fjuICS214 = ICS214Form.init(entity: NSEntityDescription.entity(forEntityName: "ICS214Form", in: bkgrdContext)!, insertInto: bkgrdContext)
+        let fjuICS214 = ICS214Form(context: self.context)
         fjuICS214.ics214Count = fjICS214Record["ics214Count"] ?? 0
         
         // MARK: -BOOLEANS
@@ -227,7 +225,6 @@ class FJICS214Loader: FJOperation {
                    fjuICS214.ics214Signature = imageDataFromCloudKit(asset: fjICS214Record["ics214Signature"]!)
             }
         }
-        //fjuICS214.ics214Signature = fjICS214Record["ics214Signature
         
         // MARK: -Strings
         if let effort:String = fjICS214Record["ics214Effort"] {
@@ -284,8 +281,6 @@ class FJICS214Loader: FJOperation {
                 print("got an error here")
             }
         }
-        
-//        fjuICS214.ics214CKReference = fjICS214Record["fjICS214Ref"] as? NSObject
         
         
         let coder = NSKeyedArchiver(requiringSecureCoding: true)

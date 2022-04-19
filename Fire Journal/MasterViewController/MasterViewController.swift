@@ -32,6 +32,8 @@ class MasterViewController: UITableViewController,UISplitViewControllerDelegate,
     lazy var slideInTransitioningDelgate = SlideInPresentationManager()
     let userDefaults = UserDefaults.standard
     var agreementAccepted:Bool = false
+    var firstTimeAgreementAccepted: Bool = false
+    var journalEmpty: Bool = false
     
         //    let pendingOperations = PendingOperations()
     
@@ -68,6 +70,8 @@ class MasterViewController: UITableViewController,UISplitViewControllerDelegate,
     var theUserContext: NSManagedObjectContext!
     var theUser: FireJournalUser!
     var theUserObjectID: NSManagedObjectID!
+    var theUserTime: UserTime!
+    var theUserTimeObjectID: NSManagedObjectID!
     
     override func viewDidLoad() {
         super.viewDidLoad()

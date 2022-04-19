@@ -213,9 +213,7 @@ class ModalResourcesTVC: UITableViewController, ModalResourceDataDelegate, UITex
                 self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"Modfal Resources TVC merge that"])
             }
             DispatchQueue.main.async {
-                self.nc.post(name:Notification.Name(rawValue:FJkFJUserModifiedSendToCloud),
-                        object: nil,
-                        userInfo: ["objectID":self.fju.objectID])
+                self.nc.post(name: .fireJournalUserModifiedSendToCloud , object: nil, userInfo: ["objectID": self.fju.objectID])
             }
         } catch let error as NSError {
             print("ModalResourcesTVC line 218 Fetch Error: \(error.localizedDescription)")

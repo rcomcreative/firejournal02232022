@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="m24-B6-XEV" customClass="OnboardHeaderV" customModule="Fire_Journal" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="834" height="170"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C9x-wd-6dl">
+                    <rect key="frame" x="0.0" y="0.0" width="834" height="170"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoHeaderShorter-1" translatesAutoresizingMaskIntoConstraints="NO" id="OtX-vF-qt2">
+                            <rect key="frame" x="167" y="10" width="500" height="150"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="150" id="02h-ef-FEm"/>
+                                <constraint firstAttribute="width" constant="500" id="nfs-0T-Fyx"/>
+                            </constraints>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pjF-dL-S5S">
+                            <rect key="frame" x="714" y="9" width="100" height="41"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="41" id="SGN-zT-eFZ"/>
+                                <constraint firstAttribute="width" constant="100" id="doB-Pw-gy9"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                            <state key="normal" title="Submit">
+                                <color key="titleColor" systemColor="labelColor"/>
+                            </state>
+                            <connections>
+                                <action selector="saveBTapped:" destination="m24-B6-XEV" eventType="touchUpInside" id="xtC-kV-MGe"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oa5-uD-0iL">
+                            <rect key="frame" x="679" y="15" width="30" height="29"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="30" id="7F5-w0-YR6"/>
+                                <constraint firstAttribute="height" constant="30" id="UUU-Us-McU"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <state key="normal">
+                                <color key="titleColor" systemColor="labelColor"/>
+                                <imageReference key="backgroundImage" image="info.circle" catalog="system"/>
+                            </state>
+                            <connections>
+                                <action selector="infoBTapped:" destination="m24-B6-XEV" eventType="touchUpInside" id="DaX-qm-btK"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="pjF-dL-S5S" secondAttribute="trailing" constant="20" id="0DL-Tf-kf5"/>
+                        <constraint firstItem="pjF-dL-S5S" firstAttribute="leading" secondItem="Oa5-uD-0iL" secondAttribute="trailing" constant="5" id="0qO-IT-eM0"/>
+                        <constraint firstItem="OtX-vF-qt2" firstAttribute="centerY" secondItem="C9x-wd-6dl" secondAttribute="centerY" id="CMw-ZZ-LXQ"/>
+                        <constraint firstItem="pjF-dL-S5S" firstAttribute="top" secondItem="C9x-wd-6dl" secondAttribute="top" constant="9" id="Kl1-J3-MQr"/>
+                        <constraint firstItem="Oa5-uD-0iL" firstAttribute="centerY" secondItem="pjF-dL-S5S" secondAttribute="centerY" id="Ti1-ho-odh"/>
+                        <constraint firstItem="OtX-vF-qt2" firstAttribute="centerX" secondItem="C9x-wd-6dl" secondAttribute="centerX" id="dUN-Mr-Akf"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="boD-xL-lMT"/>
+            <constraints>
+                <constraint firstItem="C9x-wd-6dl" firstAttribute="centerX" secondItem="m24-B6-XEV" secondAttribute="centerX" id="1nS-At-tc3"/>
+                <constraint firstItem="C9x-wd-6dl" firstAttribute="leading" secondItem="m24-B6-XEV" secondAttribute="leading" id="GTq-70-K4b"/>
+                <constraint firstItem="C9x-wd-6dl" firstAttribute="centerY" secondItem="m24-B6-XEV" secondAttribute="centerY" id="Ghm-jw-egj"/>
+                <constraint firstItem="C9x-wd-6dl" firstAttribute="bottom" secondItem="m24-B6-XEV" secondAttribute="bottom" id="xxX-Fq-geG"/>
+            </constraints>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="contentView" destination="C9x-wd-6dl" id="XR3-bX-jih"/>
+                <outlet property="headerIconIV" destination="OtX-vF-qt2" id="6OR-Ut-M72"/>
+                <outlet property="infoB" destination="Oa5-uD-0iL" id="W7Y-Nj-heg"/>
+                <outlet property="submitB" destination="pjF-dL-S5S" id="nnr-sB-wAh"/>
+            </connections>
+            <point key="canvasLocation" x="-191.30434782608697" y="-62.276785714285708"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="info.circle" catalog="system" width="128" height="121"/>
+        <image name="logoHeaderShorter-1" width="540" height="150"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

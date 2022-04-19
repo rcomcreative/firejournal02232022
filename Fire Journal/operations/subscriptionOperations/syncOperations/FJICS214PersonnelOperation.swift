@@ -12,8 +12,8 @@ import CoreData
 import CloudKit
 
 class FJICS214PersonnelOperation: FJOperation {
+    
     let context: NSManagedObjectContext
-    var bkgrdContext:NSManagedObjectContext!
     var thread:Thread!
     let nc = NotificationCenter.default
     let myContainer = CKContainer.init(identifier: FJkCLOUDKITDATABASENAME)
@@ -48,10 +48,9 @@ class FJICS214PersonnelOperation: FJOperation {
             return
         }
         
-        bkgrdContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        bkgrdContext.persistentStoreCoordinator = context.persistentStoreCoordinator
+        
         thread = Thread(target:self, selector:#selector(checkTheThread), object:nil)
-        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: bkgrdContext)
+        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: self.context)
         executing(true)
         fetchedICS214s = getAllTheForms()
         
@@ -133,9 +132,9 @@ class FJICS214PersonnelOperation: FJOperation {
     fileprivate func saveToCD() {
         let nc = NotificationCenter.default
         do {
-            try bkgrdContext.save()
+            try self.context.save()
             DispatchQueue.main.async {
-                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.bkgrdContext,userInfo:["info":"FJICS214 PERSONNEL Operation here"])
+                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object: self.context ,userInfo:["info":"FJICS214 PERSONNEL Operation here"])
             }
             DispatchQueue.main.async {
                
@@ -190,11 +189,11 @@ class FJICS214PersonnelOperation: FJOperation {
     
     private func deletefromCDPersonnelUpdate() {
         for personnel in fjICS214PersonnelA {
-            bkgrdContext.delete(personnel)
+            self.context.delete(personnel)
             do {
-                try bkgrdContext.save()
+                try self.context.save()
                 DispatchQueue.main.async {
-                    self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.bkgrdContext,userInfo:["info":"FJICS214 PERSONNEL Operation here"])
+                    self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object: self.context ,userInfo:["info":"FJICS214 PERSONNEL Operation here"])
                 }
             } catch let error as NSError {
                 let nserror = error
@@ -214,8 +213,8 @@ class FJICS214PersonnelOperation: FJOperation {
         let predicateCan = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [predicate])
         fetchRequest.predicate = predicateCan
         do {
-            let count = try bkgrdContext.count(for:fetchRequest)
-            fjICS214PersonnelA = try bkgrdContext.fetch(fetchRequest) as! [ICS214Personnel]
+            let count = try self.context.count(for:fetchRequest)
+            fjICS214PersonnelA = try self.context.fetch(fetchRequest) as! [ICS214Personnel]
             return count
         }  catch let error as NSError {
             let errorMessage = "FJICS214PersonnelOperation fetchRequest \(fetchRequest) for error \(error.localizedDescription) \(String(describing: error._userInfo))"
@@ -232,8 +231,8 @@ class FJICS214PersonnelOperation: FJOperation {
         let predicateCan = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [predicate])
         fetchRequest.predicate = predicateCan
         do {
-            let count = try bkgrdContext.count(for:fetchRequest)
-            fjICS214PersonnelA = try bkgrdContext.fetch(fetchRequest) as! [ICS214Personnel]
+            let count = try self.context.count(for:fetchRequest)
+            fjICS214PersonnelA = try self.context.fetch(fetchRequest) as! [ICS214Personnel]
             if !fjICS214PersonnelA.isEmpty {
                 fjICS214Personnel = fjICS214PersonnelA.last!
             }
@@ -252,7 +251,7 @@ class FJICS214PersonnelOperation: FJOperation {
         let predicateCan = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [predicate])
         fetchRequest.predicate = predicateCan
         do {
-            let fetched = try bkgrdContext.fetch(fetchRequest) as! [ICS214Form]
+            let fetched = try self.context.fetch(fetchRequest) as! [ICS214Form]
             if fetched.isEmpty {
                 count = 0
             } else {
@@ -272,18 +271,11 @@ class FJICS214PersonnelOperation: FJOperation {
         let guid:String = fjICS214PersonnalR["ics214Guid"] ?? ""
         
         
-        let fjuICS214Personnel = ICS214Personnel.init(entity: NSEntityDescription.entity(forEntityName: "ICS214Personnel", in: bkgrdContext)!, insertInto: bkgrdContext)
+        let fjuICS214Personnel = ICS214Personnel(context: self.context)
         
         fjuICS214Personnel.ics214Guid = fjICS214PersonnalR["ics214Guid"] ?? ""
         fjuICS214Personnel.ics214PersonelGuid = fjICS214PersonnalR["ics214PersonelGuid"] ?? ""
-//        if let ics214Ref:CKRecord.Reference = fjICS214PersonnalR["ics214Reference"] {
-//            fjuICS214Personnel.ics214Reference = ics214Ref as NSObject
-//        }
         fjuICS214Personnel.userAttendeeGuid = fjICS214PersonnalR["userAttendeeGuid"] ?? ""
-//        if let attendeeRef:String = fjICS214PersonnalR["userAttendeeReference"] {
-//            fjuICS214Personnel.userAttendeeReference = attendeeRef as NSObject
-//        }
-        
         if guid != "" {
             let counter = getTheICS214(guid: guid)
             if counter > 0 {

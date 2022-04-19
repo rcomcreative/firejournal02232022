@@ -25,7 +25,10 @@ extension DetailViewController {
             errorAlert(errorMessage: errorMessage)
             return
         }
-        theUserTime = userTime.last
+        let uTime = userTime.last
+        if let id = uTime?.objectID {
+            theUserTime  = context.object(with: id) as? UserTime
+        }
     }
     
     func getTheLastUserTime() {
@@ -250,10 +253,13 @@ extension DetailViewController {
     }
     
     func presentAgreement() {
-        DispatchQueue.main.async {
-            self.plistContext = self.plistProvider.persistentContainer.newBackgroundContext()
-            let loadTheUserFromCloud = LoadTheUserFromCloud(context: self.plistContext)
-            loadTheUserFromCloud.getCloudUser()
+        getTheUser()
+        if theFireJournalUser == nil {
+            DispatchQueue.main.async {
+                self.plistContext = self.plistProvider.persistentContainer.newBackgroundContext()
+                let loadTheUserFromCloud = LoadTheUserFromCloud(context: self.plistContext)
+                loadTheUserFromCloud.getCloudUser()
+            }
         }
         slideInTransitioningDelgate.direction = .bottom
         slideInTransitioningDelgate.disableCompactHeight = true
@@ -471,6 +477,14 @@ extension DetailViewController: ShiftNewModalVCDelegate {
         userDefaults.set(startEndShift, forKey: FJkSTARTSHIFTENDSHIFTBOOL)
         self.dashboardCollectionView.reloadSections(IndexSet(integer: DashboardSections.shift.rawValue))
         self.dashboardCollectionView.reloadSections(IndexSet(integer: DashboardSections.status.rawValue))
+        if firstTimeAgreementAccepted {
+            let userFromCloud = userDefaults.bool(forKey: FJkFJUSERSavedToCoreDataFromCloud)
+            if userFromCloud {
+                self.freshDeskRequest()
+            }
+            firstTimeAgreementAccepted = false
+        }
+
         dismiss(animated: true, completion: nil)
     }
     
@@ -555,23 +569,94 @@ extension DetailViewController: ShiftFormCVCellDelegate {
         }
     }
     
+    @objc func presentNewJournalForEmptyJournalA(nc: Notification) {
+        slideInTransitioningDelgate.direction = .bottom
+        slideInTransitioningDelgate.disableCompactHeight = true
+        let storyBoard : UIStoryboard = UIStoryboard(name: "JournalNewModal", bundle:nil)
+        let journalNewModalVC = storyBoard.instantiateInitialViewController() as! JournalNewModalVC
+        journalNewModalVC.transitioningDelegate = slideInTransitioningDelgate
+        if theUserTime != nil {
+            journalNewModalVC.userTimeObjectID = theUserTime.objectID
+        if Device.IS_IPHONE {
+            journalNewModalVC.modalPresentationStyle = .formSheet
+        } else {
+            journalNewModalVC.modalPresentationStyle = .custom
+        }
+        journalNewModalVC.delegate = self
+        self.present(journalNewModalVC,animated: true)
+        } else {
+            let errorMessage = "A shift needs to be started to create journal entries."
+            errorAlert(errorMessage: errorMessage)
+        }
+    }
+    
     func presentFormsModal() {
         slideInTransitioningDelgate.direction = .bottom
         slideInTransitioningDelgate.disableCompactHeight = true
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        let modalTVC = storyBoard.instantiateViewController(withIdentifier: "ModalTVC") as! ModalTVC
-        modalTVC.delegate = self
-        modalTVC.transitioningDelegate = slideInTransitioningDelgate
-        modalTVC.title = ""
-        modalTVC.myShift = MenuItems.forms
+        let storyBoard : UIStoryboard = UIStoryboard(name: "FormModal", bundle:nil)
+        let formListModalVC = storyBoard.instantiateViewController(withIdentifier: "FormListModalVC") as! FormListModalVC
+        formListModalVC.delegate = self
+        formListModalVC.transitioningDelegate = slideInTransitioningDelgate
+        formListModalVC.title = ""
         if Device.IS_IPHONE {
-            modalTVC.modalPresentationStyle = .formSheet
+            formListModalVC.modalPresentationStyle = .formSheet
         } else {
-            modalTVC.modalPresentationStyle = .custom
+            formListModalVC.modalPresentationStyle = .custom
         }
-        modalTVC.context = context
-        self.present(modalTVC, animated: true, completion: nil)
+        if theFireJournalUser != nil {
+            formListModalVC.userID = theFireJournalUser.objectID
+        }
+        self.present(formListModalVC, animated: true, completion: nil)
     }
+    
+}
+
+extension DetailViewController: FormListModalVCDelegate {
+    
+    func formListModalCancelled() {
+        print("detail dismissed")
+    }
+    
+    func formListModalChosen(type: IncidentTypes, index: IndexPath) {
+        dismiss(animated: true, completion: nil)
+        switch type {
+        case .ics214Form:
+            let int = theCount(entity: "ICS214Form")
+            if int != 0 {
+                let objectID = fetchTheLatest(shift: MenuItems.ics214)
+                nc.post(name:Notification.Name(rawValue: FJkICS214_FROM_MASTER),
+                        object: nil,
+                        userInfo: ["objectID": objectID, "shift": MenuItems.ics214])
+            } else {
+                slideInTransitioningDelgate.direction = .bottom
+                slideInTransitioningDelgate.disableCompactHeight = true
+                let vc: NewICS214ModalTVC = vcLaunch.modalICS214NewCalled()
+                vc.title = "New ICS 214"
+                vc.delegate = self
+                vc.transitioningDelegate = slideInTransitioningDelgate
+                vc.modalPresentationStyle = .custom
+                self.present(vc, animated: true, completion: nil)
+            }
+        case .arcForm:
+            let int = theCount(entity: "ARCrossForm")
+            if int != 0 {
+                let objectID = fetchTheLatest(shift: MenuItems.arcForm)
+                nc.post(name:Notification.Name(rawValue: FJkARCFORM_FROM_MASTER),
+                        object: nil,
+                        userInfo: ["objectID": objectID, "shift": MenuItems.arcForm])
+            } else {
+                slideInTransitioningDelgate.direction = .bottom
+                slideInTransitioningDelgate.disableCompactHeight = true
+                let vc:ARC_ViewController = vcLaunch.modalARCFormNewCalled()
+                vc.title = "New ARC Form"
+                vc.transitioningDelegate = slideInTransitioningDelgate
+                vc.modalPresentationStyle = .custom
+                self.present(vc, animated: true, completion: nil)
+            }
+        default: break
+        }
+    }
+    
     
 }
 
@@ -662,6 +747,35 @@ extension DetailViewController: EndShiftDashboardModalTVCDelegate {
 }
 
 extension DetailViewController: OpenModalScrollVCDelegate {
+    
+    
+    func agreementAndFormCompleted(objectID: NSManagedObjectID, userTimeObjectID: NSManagedObjectID) {
+        dismiss(animated: true, completion: {
+            self.userDefaults.set(true, forKey: FJkFIRSTRUNFORDATAFROMCLOUDKIT)
+            self.theAgreementsAccepted()
+            self.firstTimeAgreementAccepted = true
+//            self.freshDeskRequest()
+//            self.appDelegate.fetchAnyChangesWeMissed(firstRun: true)
+            DispatchQueue.main.async {
+                self.nc.post(name:Notification.Name(rawValue: FJkOPENWEATHER_UPDATENow),object: nil)
+            }
+            self.theFireJournalUser = self.context.object(with: objectID) as? FireJournalUser
+            self.theUserTime = self.context.object(with: userTimeObjectID) as? UserTime
+            self.getTheStatus()
+            self.theExpiredUserTime = self.theUserTime
+            if self.theUserTime == nil {
+                self.buildUserTime()
+            } else {
+                self.startEndShift = true
+                self.startShiftTapped()
+            }
+            self.configuredashboardCollectionView()
+//            self.dashboardCollectionView.reloadSections(IndexSet(integer: DashboardSections.shift.rawValue))
+//            self.dashboardCollectionView.reloadSections(IndexSet(integer: DashboardSections.status.rawValue))
+//            self.dashboardCollectionView.reloadSections(IndexSet(integer: DashboardSections.weather.rawValue))
+        })
+    }
+    
     
     func allCompleted(yesNo: Bool) {
         dismiss(animated: true, completion: {
@@ -795,8 +909,9 @@ extension DetailViewController {
                 let okAction = UIAlertAction.init(title: "Okay", style: .default, handler: {_ in
                     self.alertUp = false
                     self.createSpinnerView()
-                    
-                        //                    FJkLOCKMASTERDOWNFORDOWNLOAD
+                    DispatchQueue.global(qos: .background).async {
+                        self.appDelegate.fetchAnyChangesWeMissed(firstRun: true)
+                    }
                 })
                 alert.addAction(okAction)
                 alertUp = true

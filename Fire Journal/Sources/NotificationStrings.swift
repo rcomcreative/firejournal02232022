@@ -15,6 +15,8 @@ extension Notification.Name {
     static let fireJournalUserNFIRSIncidentTypeComplete = Notification.Name("fireJournalUserNFIRSIncidentTypeComplete")
     static let fireJournalUserLocalIncidentComplete = Notification.Name("fireJournalUserLocalIncidentComplete")
     static let fireJournalNFIRSActionTakenComplete = Notification.Name("fireJournalNFIRSActionTakenComplete")
+    static let fireJournalUserModifiedSendToCloud = Notification.Name("fireJournalUserModifiedSendToCloud")
+    static let fireJournalPresentNewJournal = Notification.Name("fireJournalPresentNewJournal")
 }
 
 let FConnectName = "FireJournal"

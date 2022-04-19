@@ -15,7 +15,6 @@ import CloudKit
 class FJUserTimeSyncOperation: FJOperation {
 
     let context: NSManagedObjectContext
-    var bkgrdContext:NSManagedObjectContext!
     var privateDatabase:CKDatabase!
     let myContainer = CKContainer.init(identifier: FJkCLOUDKITDATABASENAME)
     var thread:Thread!
@@ -49,9 +48,9 @@ class FJUserTimeSyncOperation: FJOperation {
             return
         }
         
-        bkgrdContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        bkgrdContext.persistentStoreCoordinator = context.persistentStoreCoordinator
-        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: bkgrdContext)
+//        bkgrdContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+//        bkgrdContext.persistentStoreCoordinator = context.persistentStoreCoordinator
+        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: self.context)
         executing(true)
         
         
@@ -147,7 +146,7 @@ class FJUserTimeSyncOperation: FJOperation {
     
     private func newUserTimeFromTheCloud(ckRecord: CKRecord) {
         let fjUserTimeRecord = ckRecord
-        let fjuUserTime = UserTime.init(entity: NSEntityDescription.entity(forEntityName: "UserTime", in: bkgrdContext)!, insertInto: bkgrdContext)
+        let fjuUserTime = UserTime(context: context)
         fjuUserTime.endShiftDiscussion = fjUserTimeRecord["endShiftDiscussion"] ?? ""
         fjuUserTime.endShiftSupervisor = fjUserTimeRecord["endShiftSupervisor"] ?? ""
         fjuUserTime.endShiftStatus = fjUserTimeRecord["endShiftStatus"] ?? false
@@ -190,9 +189,9 @@ class FJUserTimeSyncOperation: FJOperation {
     
     fileprivate func saveToCD() {
         do {
-            try bkgrdContext.save()
+            try self.context.save()
             DispatchQueue.main.async {
-                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.bkgrdContext,userInfo:["info":"FJUser Time Sync Operation here"])
+                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object: self.context,userInfo:["info":"FJUser Time Sync Operation here"])
             }
             DispatchQueue.main.async {
                 self.nc.post(name:Notification.Name(rawValue:FJkCKZoneRecordsCALLED),

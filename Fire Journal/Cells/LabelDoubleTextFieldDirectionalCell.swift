@@ -65,4 +65,9 @@ class LabelDoubleTextFieldDirectionalCell: UITableViewCell,UITextFieldDelegate {
         delegate?.twoTFDidFinishEditing(text:text,myShift:myShift,incidentType:incidentType)
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
 }

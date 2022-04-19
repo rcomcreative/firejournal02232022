@@ -14,7 +14,6 @@ import CloudKit
 
 class FJIncidentLoader: FJOperation {
     let context: NSManagedObjectContext
-    var bkgrdContext:NSManagedObjectContext!
     let pendingOperations = PendingOperations()
     var thread:Thread!
     let nc = NotificationCenter.default
@@ -46,10 +45,8 @@ class FJIncidentLoader: FJOperation {
             return
         }
         
-        bkgrdContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        bkgrdContext.persistentStoreCoordinator = context.persistentStoreCoordinator
-        thread = Thread(target:self, selector:#selector(checkTheThread), object:nil)
-        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: bkgrdContext)
+        thread = Thread(target:self, selector:#selector(checkTheThread), object: nil)
+        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: self.context)
         executing(true)
         
         let count = theCounter()
@@ -120,7 +117,7 @@ class FJIncidentLoader: FJOperation {
         fetchRequest.fetchBatchSize = 1
         
         do {
-            let fetched = try bkgrdContext.fetch(fetchRequest) as! [FireJournalUser]
+            let fetched = try self.context.fetch(fetchRequest) as! [FireJournalUser]
             if fetched.isEmpty {
                 print("no user available")
             } else {
@@ -145,10 +142,9 @@ class FJIncidentLoader: FJOperation {
     
     private func newIncidentFromCloud(record: CKRecord)->Void {
         let fjIncidentR = record
-        let fjuIncident = Incident.init(entity: NSEntityDescription.entity(forEntityName: "Incident", in: bkgrdContext)!, insertInto: bkgrdContext)
+        let fjuIncident = Incident(context: context)
         fjuIncident.formType = fjIncidentR["formType"]
         fjuIncident.fjpIncGuidForReference = fjIncidentR["fjpIncGuidForReference"]
-//        fjuIncident.fireJournalUserIncInfo =
         fjuIncident.incidentCreationDate = fjIncidentR["incidentCreationDate"]
         fjuIncident.incidentDate = fjIncidentR["incidentDate"]
         fjuIncident.incidentDateSearch = fjIncidentR["incidentDateSearch"]
@@ -190,7 +186,7 @@ class FJIncidentLoader: FJOperation {
         fjuIncident.tempIncidentPlatoon = fjIncidentR["tempIncidentPlatoon"]
         fjuIncident.arsonInvestigation = fjIncidentR["arsonInvestigation"] as? Bool ?? false
         
-        let fjuSections = NFIRSSections.init(entity: NSEntityDescription.entity(forEntityName: "NFIRSSections", in: bkgrdContext)!, insertInto: bkgrdContext)
+        let fjuSections = NFIRSSections(context: context)
         fjuSections.sectionA = fjIncidentR["sectionA"] as? Bool ?? false
         fjuSections.sectionB = fjIncidentR["sectionB"] as? Bool ?? false
         fjuSections.sectionC = fjIncidentR["sectionC"] as? Bool ?? false
@@ -205,7 +201,7 @@ class FJIncidentLoader: FJOperation {
         fjuSections.sectionM = fjIncidentR["sectionM"] as? Bool ?? false
         fjuIncident.formDetails = fjuSections
         
-        let fjIncidentAddress = IncidentAddress.init(entity: NSEntityDescription.entity(forEntityName: "IncidentAddress", in: bkgrdContext)!, insertInto: bkgrdContext)
+        let fjIncidentAddress = IncidentAddress(context: context)
         fjIncidentAddress.appSuiteRoom = fjIncidentR["appSuiteRoom"]
         fjIncidentAddress.censusTract = fjIncidentR["censusTract"]
         fjIncidentAddress.censusTract2 = fjIncidentR["censusTract2"]
@@ -223,7 +219,7 @@ class FJIncidentLoader: FJOperation {
         fjuIncident.incidentAddressDetails = fjIncidentAddress
         
         //MARK: -incidentLocal-
-        let fjIncidentLocal = IncidentLocal.init(entity: NSEntityDescription.entity(forEntityName: "IncidentLocal", in: bkgrdContext)!, insertInto: bkgrdContext)
+        let fjIncidentLocal = IncidentLocal(context: context)
         fjIncidentLocal.incidentBattalion = fjIncidentR["incidentBattalion"]
         fjIncidentLocal.incidentDivision = fjIncidentR["incidentDivision"]
         fjIncidentLocal.incidentFireDistrict = fjIncidentR["incidentFireDistrict"]
@@ -231,7 +227,7 @@ class FJIncidentLoader: FJOperation {
         fjuIncident.incidentLocalDetails = fjIncidentLocal
         
         //MARK: -incidentMap-
-        let fjIncidentMap = IncidentMap.init(entity: NSEntityDescription.entity(forEntityName: "IncidentMap", in: bkgrdContext)!, insertInto: bkgrdContext)
+        let fjIncidentMap = IncidentMap(context: context)
         fjIncidentMap.incidentLatitude = fjIncidentR["incidentLatitude"]
         fjIncidentMap.incidentLongitude = fjIncidentR["incidentLongitude"]
         fjIncidentMap.stagingLatitude = fjIncidentR["stagingLatitude"]
@@ -239,7 +235,7 @@ class FJIncidentLoader: FJOperation {
         fjuIncident.incidentMapDetails = fjIncidentMap
         
         //MARK: -IncidentNFIRS-
-        let fjIncidentNFIRS = IncidentNFIRS.init(entity: NSEntityDescription.entity(forEntityName: "IncidentNFIRS", in: bkgrdContext)!, insertInto: bkgrdContext)
+        let fjIncidentNFIRS = IncidentNFIRS(context: context)
         fjIncidentNFIRS.fireStationState = fjIncidentR["fireStationState"]
         fjIncidentNFIRS.incidentActionsTakenAdditionalThree = fjIncidentR["incidentActionsTakenAdditionalThree"]
         fjIncidentNFIRS.incidentActionsTakenAdditionalTwo = fjIncidentR["incidentActionsTakenAdditionalTwo"]
@@ -307,7 +303,7 @@ class FJIncidentLoader: FJOperation {
             
             // TODO: -CompletedModules-
             // MARK: -IncidentNFIRSKSec-
-            let fjIncidentNFIRSKSec = IncidentNFIRSKSec.init(entity: NSEntityDescription.entity(forEntityName: "IncidentNFIRSKSec", in: bkgrdContext)!, insertInto: bkgrdContext)
+            let fjIncidentNFIRSKSec = IncidentNFIRSKSec(context: context)
             fjIncidentNFIRSKSec.kOwnerAptSuiteRoom = fjIncidentR["kOwnerAptSuiteRoom"]
             fjIncidentNFIRSKSec.kOwnerAreaCode = fjIncidentR["kOwnerAreaCode"]
             fjIncidentNFIRSKSec.kOwnerBusinessName = fjIncidentR["kOwnerBusinessName"]
@@ -356,13 +352,13 @@ class FJIncidentLoader: FJOperation {
             
             // TODO: -REQUIREDMODULES
             // MARK: -IncidentNFIRSsecL-
-            let fjIncidentNFIRSsecL = IncidentNFIRSsecL.init(entity: NSEntityDescription.entity(forEntityName: "IncidentNFIRSsecL", in: bkgrdContext)!, insertInto: bkgrdContext)
+            let fjIncidentNFIRSsecL = IncidentNFIRSsecL(context: context)
             fjIncidentNFIRSsecL.lRemarks = fjIncidentR["incidentNFIRSSecLNotes"] as? NSObject
             fjIncidentNFIRSsecL.moreRemarks = fjIncidentR["incidentNFIRSSecLMoreRemarks"] as? Bool ?? false
             fjuIncident.sectionLDetails = fjIncidentNFIRSsecL
             
             // MARK: -IncidentNFIRSsecM-
-            let fjIncidentNFIRSsecM = IncidentNFIRSsecM.init(entity: NSEntityDescription.entity(forEntityName: "IncidentNFIRSsecM", in: bkgrdContext)!, insertInto: bkgrdContext)
+            let fjIncidentNFIRSsecM = IncidentNFIRSsecM(context: context)
             fjIncidentNFIRSsecM.memberAssignment = fjIncidentR["memberAssignment"]
             fjIncidentNFIRSsecM.memberDate = fjIncidentR["memberDate"]
             fjIncidentNFIRSsecM.memberMakingReportID = fjIncidentR["memberMakingReportID"]
@@ -381,14 +377,14 @@ class FJIncidentLoader: FJOperation {
             fjuIncident.sectionMDetails = fjIncidentNFIRSsecM
             
             // MARK: -IncidentNotes-
-            let fjIncidentNotes = IncidentNotes.init(entity: NSEntityDescription.entity(forEntityName: "IncidentNotes", in: bkgrdContext)!, insertInto: bkgrdContext)
+            let fjIncidentNotes = IncidentNotes(context: context)
             fjIncidentNotes.incidentSummaryNotes = fjIncidentR["incidentSummaryNotes"] as? NSObject
             fjIncidentNotes.incidentNote = fjIncidentR["incidentNote"]
             fjuIncident.incidentNotesDetails = fjIncidentNotes
             
             // TODO: -IncidentResources-
             // MARK: -IncidentTimer-
-            let fjIncidentTimer = IncidentTimer.init(entity: NSEntityDescription.entity(forEntityName: "IncidentTimer", in: bkgrdContext)!, insertInto: bkgrdContext)
+            let fjIncidentTimer = IncidentTimer(context: context)
             fjIncidentTimer.arrivalSameDate = fjIncidentR["arrivalSameDate"] as? Bool ?? false
             fjIncidentTimer.controlledSameDate = fjIncidentR["controlledSameDate"] as? Bool ?? false
             fjIncidentTimer.incidentAlarmCombinedDate = fjIncidentR["incidentAlarmCombinedDate"]
@@ -444,7 +440,7 @@ class FJIncidentLoader: FJOperation {
             fjuIncident.incidentTimerDetails = fjIncidentTimer
             
             // MARK: -ActionsTaken-
-            let fjActionsTaken = ActionsTaken.init(entity: NSEntityDescription.entity(forEntityName: "ActionsTaken", in: bkgrdContext)!, insertInto: bkgrdContext)
+            let fjActionsTaken = ActionsTaken(context: context)
             fjActionsTaken.additionalThree = fjIncidentR["additionalThree"]
             fjActionsTaken.additionalThreeNumber = fjIncidentR["additionalThreeNumber"]
             fjActionsTaken.additionalTwo = fjIncidentR["additionalTwo"]
@@ -462,10 +458,10 @@ class FJIncidentLoader: FJOperation {
     
     fileprivate func saveToCD() {
         do {
-            try bkgrdContext.save()
+            try self.context.save()
             
             DispatchQueue.main.async {
-                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.bkgrdContext,userInfo:["info":"FJIncidentOperation here"])
+                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object: self.context ,userInfo:["info":"FJIncidentOperation here"])
             }
             DispatchQueue.main.async {
                 self.nc.post(name:Notification.Name(rawValue:FJkCKZoneRecordsCALLED),

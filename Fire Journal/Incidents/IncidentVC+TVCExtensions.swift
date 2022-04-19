@@ -12,6 +12,7 @@ import Foundation
 import CoreData
 import MapKit
 import CoreLocation
+import PhotosUI
 
 extension IncidentVC: UITableViewDelegate {
     
@@ -174,12 +175,20 @@ extension IncidentVC: UITableViewDataSource {
         case 29:
             return 85
         case 30:
+            if photosAvailable {
+                return 85
+            } else {
+                return 0
+            }
+        case 31:
+            return 85
+        case 32:
             if theTagsAvailable {
                 return theTagsHeight
             } else {
                 return 0
             }
-        case 31:
+        case 33:
             return 150
         default:
             return 150
@@ -399,16 +408,33 @@ extension IncidentVC: UITableViewDataSource {
             cell = configureLabelYesNoSwitchCell(cell, index: indexPath)
             return cell
         case 29:
+                var cell = tableView.dequeueReusableCell(withIdentifier: "CameraTVCell", for: indexPath) as! CameraTVCell
+                cell = configureCameraTVCell(cell, index: indexPath)
+                cell.configureTheButton()
+                return cell
+        case 30:
+            if photosAvailable {
+                var cell = tableView.dequeueReusableCell(withIdentifier: "IncidentPhotoCollectionCell", for: indexPath) as! IncidentPhotoCollectionCell
+                cell = configureIncidentPhotoCollectionCell(cell, index: indexPath)
+                cell.configure(index: indexPath)
+                cell.delegate = self
+                cell.bringSubviewToFront(cell.photoCollectionView)
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "LabelTextFieldCell", for: indexPath) as! LabelTextFieldCell
+                return cell
+            }
+        case 31:
             var cell = tableView.dequeueReusableCell(withIdentifier: "MultipleAddButtonTVCell", for: indexPath) as! MultipleAddButtonTVCell
             cell = configureMultipleAddButtonTVCell(cell, index: indexPath)
             cell.configureTheButton()
             return cell
-        case 30:
+        case 32:
             var cell = tableView.dequeueReusableCell(withIdentifier: "IncidentTagsCViewTVCell", for: indexPath) as! IncidentTagsCViewTVCell
             cell = configureIncidentTagsCViewTVCell(cell, index: indexPath)
             cell.configure(theIncident: theIncident)
             return cell
-        case 31:
+        case 33:
             var cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath) as! LabelCell
             cell = configureLabelCell(cell, index: indexPath)
             return cell

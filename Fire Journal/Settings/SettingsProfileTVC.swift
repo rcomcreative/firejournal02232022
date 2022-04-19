@@ -304,9 +304,7 @@ class SettingsProfileTVC: UITableViewController,CLLocationManagerDelegate,UIText
                 print("we have saved to the cloud")
             }
             DispatchQueue.main.async {
-                nc.post(name:Notification.Name(rawValue:FJkFJUserModifiedSendToCloud),
-                        object: nil,
-                        userInfo: ["objectID":self.objectID!])
+                self.nc.post(name: .fireJournalUserModifiedSendToCloud , object: nil, userInfo: ["objectID": self.objectID!])
             }
             switch compact {
             case .compact:

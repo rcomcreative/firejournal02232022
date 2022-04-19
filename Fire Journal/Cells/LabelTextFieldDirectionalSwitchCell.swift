@@ -63,5 +63,9 @@ class LabelTextFieldDirectionalSwitchCell: UITableViewCell, UITextFieldDelegate 
         print(textField.text ?? "nothing to see here")
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
     
 }

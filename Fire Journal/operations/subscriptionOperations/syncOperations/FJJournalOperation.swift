@@ -15,7 +15,6 @@ import CloudKit
 class FJJournalLoader: FJOperation {
     
     let context: NSManagedObjectContext
-    var bkgrdContext:NSManagedObjectContext!
     let pendingOperations = PendingOperations()
     var thread:Thread!
     let nc = NotificationCenter.default
@@ -50,10 +49,9 @@ class FJJournalLoader: FJOperation {
             return
         }
         
-        bkgrdContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        bkgrdContext.persistentStoreCoordinator = context.persistentStoreCoordinator
+        
         thread = Thread(target:self, selector:#selector(checkTheThread), object:nil)
-        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: bkgrdContext)
+        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: self.context)
         executing(true)
         
         getTheDetailData()
@@ -140,7 +138,7 @@ class FJJournalLoader: FJOperation {
         fetchRequest.fetchBatchSize = 1
         
         do {
-            let fetched = try bkgrdContext.fetch(fetchRequest) as! [FireJournalUser]
+            let fetched = try self.context.fetch(fetchRequest) as! [FireJournalUser]
             if fetched.isEmpty {
                 print("no user available")
             } else {
@@ -165,15 +163,13 @@ class FJJournalLoader: FJOperation {
     
     private func newJournalFromCloud(record: CKRecord)->Void {
         let fjJournalR = record
-        let fjuJournal = Journal.init(entity: NSEntityDescription.entity(forEntityName: "Journal", in: bkgrdContext)!, insertInto: bkgrdContext)
+        let fjuJournal = Journal(context: self.context)
         if let jReference:String = fjJournalR["fjpIncReference"] {
             fjuJournal.fjpIncReference = jReference
         }
         fjuJournal.fjpUserReference = fju?.userGuid
         fjuJournal.fireJournalUserInfo = fju
         fjuJournal.fjpJGuidForReference = fjJournalR["fjpJGuidForReference"]
-        //        TODO: -attendees for journal-
-        //        fjuJournal.journalAttendee = fjJournalR["journalAttendee"]
         fjuJournal.journalBackedUp = fjJournalR["journalBackedUp"] ?? 0
         if let city:String = fjJournalR["journalCity"] {
             fjuJournal.journalCity = city
@@ -281,9 +277,9 @@ class FJJournalLoader: FJOperation {
         do {
             counted += 1
             print(counted)
-            try bkgrdContext.save()
+            try self.context.save()
             DispatchQueue.main.async {
-                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.bkgrdContext,userInfo:["info":"FJJournal Operation here"])
+                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object: self.context,userInfo:["info":"FJJournal Operation here"])
             }
         } catch let error as NSError {
             let nserror = error
@@ -293,14 +289,14 @@ class FJJournalLoader: FJOperation {
     
     fileprivate func saveToCD() {
         do {
-            try bkgrdContext.save()
+            try self.context.save()
             DispatchQueue.main.async {
-                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.bkgrdContext,userInfo:["info":"FJJournal Operation here"])
+                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object: self.context,userInfo:["info":"FJJournal Operation here"])
             }
             DispatchQueue.main.async {
-                self.nc.post(name:Notification.Name(rawValue:FJkCKZoneRecordsCALLED),
+                self.nc.post(name:Notification.Name(rawValue: FJkCKZoneRecordsCALLED),
                              object: nil,
-                             userInfo: ["recordEntity":TheEntities.fjUser])
+                             userInfo: ["recordEntity": TheEntities.fjUser])
                 self.executing(false)
                 self.finish(true)
                 self.nc.removeObserver(self, name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)

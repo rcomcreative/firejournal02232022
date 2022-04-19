@@ -287,6 +287,7 @@ extension RankTVCell {
                 } else if theSubjectTF.text == "A Platoon" {
                     theSubjectTF.textColor = UIColor(named: "FJRedColor")
                 }
+                theSubjectTF.setNeedsDisplay()
             default:
                 theSubjectTF.font = .systemFont(ofSize: 22)
                 theSubjectTF.textColor = .label
@@ -312,7 +313,7 @@ extension RankTVCell {
                 theSubjectTF.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -35),
                 
                 newB.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
-                newB.trailingAnchor.constraint(equalTo: self.theSubjectTF.leadingAnchor, constant: -35),
+                newB.trailingAnchor.constraint(equalTo: self.theSubjectTF.leadingAnchor, constant: -5),
                 newB.widthAnchor.constraint(equalToConstant: 279),
                 newB.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 26),
                 newB.heightAnchor.constraint(equalToConstant: 45),

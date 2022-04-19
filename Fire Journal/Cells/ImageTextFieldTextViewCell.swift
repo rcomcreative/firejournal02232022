@@ -12,7 +12,7 @@ protocol ImageTextFieldTextViewCellDelegate: AnyObject {
     func cellSelectedTapped(type: MenuItems)
 }
 
-class ImageTextFieldTextViewCell: UITableViewCell,UITextViewDelegate {
+class ImageTextFieldTextViewCell: UITableViewCell, UITextViewDelegate {
 
     //    MARK: -objects
     @IBOutlet weak var iconIV: UIImageView!

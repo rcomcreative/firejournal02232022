@@ -12,7 +12,7 @@ import CoreData
 
 
 protocol OpenModalScrollVCDelegate: AnyObject {
-
+    func agreementAndFormCompleted(objectID: NSManagedObjectID, userTimeObjectID: NSManagedObjectID)
     func allCompleted( yesNo: Bool )
     func errorOnFormLoad(errorInCD: String)
 }
@@ -250,11 +250,14 @@ class OpenModalScrollVC: UIViewController, UIScrollViewDelegate, OpenModalAgreem
     func loadUpUserForm() {
         slideInTransitioningDelgate.direction = .bottom
         slideInTransitioningDelgate.disableCompactHeight = true
-        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let userForm = storyboard.instantiateViewController(withIdentifier: "OpenModalFormTVC") as! OpenModalFormTVC
+        let storyboard : UIStoryboard = UIStoryboard(name: "OnboardProfileForm", bundle: nil)
+        let userForm = storyboard.instantiateViewController(withIdentifier: "OnboardProfileFormVC") as! OnboardProfileFormVC
         userForm.delegate = self
         userForm.transitioningDelegate = slideInTransitioningDelgate
         userForm.modalPresentationStyle = .custom
+        
+//            newJournalFormVC.modalPresentationStyle = .formSheet
+//            newJournalFormVC.isModalInPresentation = true
         self.present(userForm, animated: true, completion: nil)
     }
     
@@ -275,6 +278,15 @@ class OpenModalScrollVC: UIViewController, UIScrollViewDelegate, OpenModalAgreem
             loadUpUserForm()
         } else {
         }
+    }
+    
+}
+
+extension OpenModalScrollVC: OnboardProfileFormVCDelegate {
+    
+    func theOnboardFormIsComplete(objectID: NSManagedObjectID, userTimeObjectID: NSManagedObjectID) {
+        delegate?.agreementAndFormCompleted(objectID: objectID, userTimeObjectID: userTimeObjectID)
+        self.dismiss(animated: true, completion: nil)
     }
     
 }

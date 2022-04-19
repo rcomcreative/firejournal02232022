@@ -34,9 +34,7 @@ extension JournalVC {
         let labelFrame = label.frame
         theFloat = labelFrame.height
         label.removeFromSuperview()
-        if Device.IS_IPHONE {
-            theFloat = theFloat - 400
-        }
+        theFloat = theFloat - 400
         if theFloat < 44 {
             theFloat = 88
         }

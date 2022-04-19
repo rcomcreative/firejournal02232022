@@ -709,13 +709,11 @@ class OpenModalFormTVC: UITableViewController,CLLocationManagerDelegate,UITextFi
                 getTheLastSaved(guid: guid )
             }
             DispatchQueue.main.async {
-                nc.post(name:Notification.Name(rawValue:FJkFireJournalUserSaved),
+                nc.post(name:Notification.Name(rawValue: FJkFireJournalUserSaved),
                         object: nil,
                         userInfo: ["user":self.fireJournalUser as FireJournalUserOnboard])
                 if self.userIsFromCloud {
-                    nc.post(name:Notification.Name(rawValue:FJkFJUserModifiedSendToCloud),
-                            object: nil,
-                            userInfo: ["objectID":self.objectID!])
+                    self.nc.post(name: .fireJournalUserModifiedSendToCloud , object: nil, userInfo: ["objectID": self.objectID as Any])
                 } else {
                     nc.post(name:Notification.Name(rawValue:FJkFJUserNEWSendToCloud),
                             object: nil,

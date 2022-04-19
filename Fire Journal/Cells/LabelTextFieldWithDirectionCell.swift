@@ -86,6 +86,11 @@ class LabelTextFieldWithDirectionCell: UITableViewCell,UITextFieldDelegate {
             print("nothing here")
         }
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 
     
 }

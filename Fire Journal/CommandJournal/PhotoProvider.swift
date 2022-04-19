@@ -84,7 +84,7 @@ class PhotoProvider {
     }
     
 //    MARK: -ADDPHOTO to INcidents
-    func addPhotoIncident(imageData: Data, imageURL: URL, incidentid: NSManagedObjectID, taskContext: NSManagedObjectContext, shouldSave: Bool = true ) {
+    func addPhotoIncident(imageData: Data, imageURL: URL, incidentid: NSManagedObjectID, taskContext: NSManagedObjectContext, shouldSave: Bool = true, completionBlock: () -> () ) {
         self.context = taskContext
         self.theIncident = self.context.object(with: incidentid) as? Incident
         self.theType = .allIncidents
@@ -121,6 +121,7 @@ class PhotoProvider {
                 print("###\(#function): \(nsError.localizedDescription)")
             }
         }
+        completionBlock()
         
     }
     
@@ -186,7 +187,7 @@ class PhotoProvider {
                 case .allIncidents:
                     DispatchQueue.main.async {
                             let objectID = self.theIncident.objectID
-                            self.nc.post(name: NSNotification.Name(rawValue: FJkCKModifiedIncidentsToCloud), object: nil, userInfo:["objectID":objectID])
+                            self.nc.post(name: NSNotification.Name(rawValue: FJkCKModifiedIncidentsToCloud), object: nil, userInfo:["objectIDs": [objectID]])
                     }
                 case .journal:
                     DispatchQueue.main.async {

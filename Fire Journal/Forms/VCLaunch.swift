@@ -542,42 +542,21 @@ class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalT
     }
     
     func incidentCalled(sizeTrait: SizeTrait,id: NSManagedObjectID)->Void {
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let controller:IncidentTVC = storyboard.instantiateViewController(withIdentifier: "IncidentTVC") as! IncidentTVC
-//        let navigator = UINavigationController.init(rootViewController: controller)
-//        controller.navigationItem.leftItemsSupplementBackButton = true
-//        controller.navigationItem.leftBarButtonItem = self.splitVC?.displayModeButtonItem
-//        //        controller.managedObjectContext = context
-//        controller.id = id
-//        controller.sizeTrait = sizeTrait
-//        controller.myShift = .incidents
-//        controller.delegate = self
-//        controller.titleName = "Incident"
-        let storyboard = UIStoryboard(name: "IncidentVC", bundle: nil)
-        let controller:IncidentVC = storyboard.instantiateViewController(withIdentifier: "IncidentVC") as! IncidentVC
-        let navigator = UINavigationController.init(rootViewController: controller)
-        controller.navigationItem.leftItemsSupplementBackButton = true
-        controller.navigationItem.leftBarButtonItem = self.splitVC?.displayModeButtonItem
-        controller.id = id
-        self.splitVC?.showDetailViewController(navigator, sender:self)
+        if Device.IS_IPAD {
+            let storyboard = UIStoryboard(name: "IncidentVC", bundle: nil)
+            let controller:IncidentVC = storyboard.instantiateViewController(withIdentifier: "IncidentVC") as! IncidentVC
+            let navigator = UINavigationController.init(rootViewController: controller)
+            controller.navigationItem.leftItemsSupplementBackButton = true
+            controller.navigationItem.leftBarButtonItem = self.splitVC?.displayModeButtonItem
+            controller.id = id
+            self.splitVC?.showDetailViewController(navigator, sender:self)
+        }
         nc.post(name:Notification.Name(rawValue:"FJkINCIDENTLISTCALLED"),
                 object: nil,
                 userInfo: nil)
     }
     
     func incidentCalledFromList(sizeTrait: SizeTrait,id:NSManagedObjectID)->Void {
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let controller:IncidentTVC = storyboard.instantiateViewController(withIdentifier: "IncidentTVC") as! IncidentTVC
-//        let navigator = UINavigationController.init(rootViewController: controller)
-//        controller.navigationItem.leftItemsSupplementBackButton = true
-//        controller.navigationItem.leftBarButtonItem = self.splitVC?.displayModeButtonItem
-//        //        controller.managedObjectContext = context
-//        controller.id = id
-//        controller.sizeTrait = sizeTrait
-//        controller.delegate = self
-//        controller.myShift = .incidents
-//        controller.titleName = "Incident"
-//        self.splitVC?.showDetailViewController(navigator, sender:self)
         let storyboard = UIStoryboard(name: "IncidentVC", bundle: nil)
         let controller:IncidentVC = storyboard.instantiateViewController(withIdentifier: "IncidentVC") as! IncidentVC
         let navigator = UINavigationController.init(rootViewController: controller)
@@ -588,14 +567,16 @@ class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalT
     }
     
     func journalCalled(sizeTrait: SizeTrait,id: NSManagedObjectID) -> Void {
-        let storyboard = UIStoryboard(name: "TheJournal", bundle: nil)
-        let controller:JournalVC = storyboard.instantiateViewController(withIdentifier: "JournalVC") as! JournalVC
-        let navigator = UINavigationController.init(rootViewController: controller)
-        controller.navigationItem.leftItemsSupplementBackButton = true
-        controller.navigationItem.leftBarButtonItem = self.splitVC?.displayModeButtonItem
-        controller.id = id
-        self.splitVC?.showDetailViewController(navigator, sender:self)
-        nc.post(name:Notification.Name(rawValue:"FJkJOURNALLISTSEGUE"),
+        if Device.IS_IPAD {
+            let storyboard = UIStoryboard(name: "TheJournal", bundle: nil)
+            let controller:JournalVC = storyboard.instantiateViewController(withIdentifier: "JournalVC") as! JournalVC
+            let navigator = UINavigationController.init(rootViewController: controller)
+            controller.navigationItem.leftItemsSupplementBackButton = true
+            controller.navigationItem.leftBarButtonItem = self.splitVC?.displayModeButtonItem
+            controller.id = id
+            self.splitVC?.showDetailViewController(navigator, sender:self)
+        }
+        nc.post(name:Notification.Name(rawValue: "FJkJOURNALLISTSEGUE"),
                 object: nil,
                 userInfo: nil)
     }
@@ -652,35 +633,33 @@ class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalT
     }
     
     @objc func ics214Called(objectID: NSManagedObjectID)-> Void{
-        //        let storyboard = UIStoryboard(name: "ICS214Form", bundle: nil)
-        //        let controller:ICS214DetailViewController = storyboard.instantiateViewController(withIdentifier: "ICS214DetailViewController") as! ICS214DetailViewController
-        let storyboard = UIStoryboard(name: "NewICS214", bundle: nil)
-        let controller  = storyboard.instantiateViewController(identifier: "NewICS214DetailTVC") as! NewICS214DetailTVC
-        let navigator = UINavigationController.init(rootViewController: controller)
-        controller.navigationItem.leftItemsSupplementBackButton = true
-        controller.navigationItem.leftBarButtonItem = self.splitVC?.displayModeButtonItem
-        //        controller.managedObjectContext = context
-        controller.delegate = self
-        //        controller.myShift = .ics214
-        //        controller.titleName = "ICS 214"
-        controller.objectID = objectID
-        self.splitVC?.showDetailViewController(navigator, sender:self)
+        
+        if Device.IS_IPAD {
+            let storyboard = UIStoryboard(name: "NewICS214", bundle: nil)
+            let controller  = storyboard.instantiateViewController(identifier: "NewICS214DetailTVC") as! NewICS214DetailTVC
+            let navigator = UINavigationController.init(rootViewController: controller)
+            controller.navigationItem.leftItemsSupplementBackButton = true
+            controller.navigationItem.leftBarButtonItem = self.splitVC?.displayModeButtonItem
+            controller.delegate = self
+            controller.objectID = objectID
+            self.splitVC?.showDetailViewController(navigator, sender:self)
+        }
         nc.post(name:Notification.Name(rawValue:"FJkICS214FORMLISTCALLED"),
                 object: nil,
                 userInfo: nil)
     }
     
     @objc func alarmFormCalled(object: NSManagedObjectID)-> Void{
-        let storyboard = UIStoryboard(name: "Form", bundle: nil)
-        let controller: ARC_FormTVC = storyboard.instantiateViewController(withIdentifier: "ARC_FormTVC") as! ARC_FormTVC
-        let navigator = UINavigationController.init(rootViewController: controller)
-        controller.navigationItem.leftItemsSupplementBackButton = true
-        controller.navigationItem.leftBarButtonItem = self.splitVC?.displayModeButtonItem
-        //        controller.managedObjectContext = context
-        controller.objectID = object
-        controller.delegate = self
-        //        controller.titleName = "CRR Smoke Alarm Inspection Form"
-        self.splitVC?.showDetailViewController(navigator, sender:self)
+        if Device.IS_IPAD {
+            let storyboard = UIStoryboard(name: "Form", bundle: nil)
+            let controller: ARC_FormTVC = storyboard.instantiateViewController(withIdentifier: "ARC_FormTVC") as! ARC_FormTVC
+            let navigator = UINavigationController.init(rootViewController: controller)
+            controller.navigationItem.leftItemsSupplementBackButton = true
+            controller.navigationItem.leftBarButtonItem = self.splitVC?.displayModeButtonItem
+            controller.objectID = object
+            controller.delegate = self
+            self.splitVC?.showDetailViewController(navigator, sender:self)
+        }
         nc.post(name:Notification.Name(rawValue:"FJkARCFORMLISTCALLED"),
                 object: nil,
                 userInfo: nil)

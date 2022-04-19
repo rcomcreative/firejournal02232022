@@ -84,6 +84,7 @@ extension IncidentPhotoCollectionCell {
     }
     
     func configureIconsHierarchy() {
+        
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(photoCollectionViewTapped(gr:)))
      
          tapGR.numberOfTapsRequired = 1

@@ -184,9 +184,7 @@ class SettingsTheProfileTVC: UITableViewController,CLLocationManagerDelegate {
                 self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"Settins The Profile TVC deal here"])
             }
             DispatchQueue.main.async {
-                nc.post(name:Notification.Name(rawValue:FJkFJUserModifiedSendToCloud),
-                        object: nil,
-                        userInfo: ["objectID": self.objectID!])
+                self.nc.post(name: .fireJournalUserModifiedSendToCloud , object: nil, userInfo: ["objectID": self.objectID! ])
             }
             switch compact {
             case .compact:
@@ -416,39 +414,11 @@ extension SettingsTheProfileTVC {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let row = indexPath.row
         switch row {
-        case 0, 1, 2, 3, 4, 5 :
-            print("here is the row you are tapping on \(row)")
-            break
-        case 6:
-            getThePlatoonVC()
-                //            if Device.IS_IPHONE {
-                //                presentModal(type: FJSettings.platoon, sizeTrait: compact)
-                //            } else {
-                //                delegate?.profileSettingsGetData(type:FJSettings.platoon,compact:compact)
-                //            }
-        case 7:
-            if Device.IS_IPHONE {
-                presentModal(type: FJSettings.rank, sizeTrait: compact)
-            } else {
-                delegate?.profileSettingsGetData(type:FJSettings.rank,compact:compact)
-            }
-        case 8:
-            if Device.IS_IPHONE {
-                presentModal(type: FJSettings.assignment, sizeTrait: compact)
-            } else {
-                delegate?.profileSettingsGetData(type:FJSettings.assignment,compact:compact)
-            }
         case 9:
             if Device.IS_IPHONE {
                 presentModal(type: FJSettings.fdid, sizeTrait: compact)
             } else {
                 delegate?.profileSettingsGetData(type:FJSettings.fdid,compact:compact)
-            }
-        case 10:
-            if Device.IS_IPHONE {
-                presentModal(type: FJSettings.apparatus, sizeTrait: compact)
-            } else {
-                delegate?.profileSettingsGetData(type:FJSettings.apparatus,compact:compact)
             }
         default: break
         }
@@ -651,9 +621,7 @@ extension SettingsTheProfileTVC: NewAddressFieldsButtonsCellDelegate {
                 self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"Settins The Profile TVC deal here"])
             }
             DispatchQueue.main.async {
-                nc.post(name:Notification.Name(rawValue:FJkFJUserModifiedSendToCloud),
-                        object: nil,
-                        userInfo: ["objectID": self.objectID!])
+                self.nc.post(name: .fireJournalUserModifiedSendToCloud , object: nil, userInfo: ["objectID": self.fju.objectID])
             }
         }   catch let error as NSError {
             let nserror = error

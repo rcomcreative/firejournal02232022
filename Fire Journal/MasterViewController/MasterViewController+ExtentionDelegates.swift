@@ -75,6 +75,18 @@ extension MasterViewController: ListTVCDelegate {
 
 extension MasterViewController: OpenModalScrollVCDelegate {
     
+    func agreementAndFormCompleted(objectID: NSManagedObjectID, userTimeObjectID: NSManagedObjectID) {
+        self.dismiss(animated: true, completion: {
+            self.firstTimeAgreementAccepted = true
+            self.theUserTimeObjectID = userTimeObjectID
+            self.theUserObjectID = objectID
+            self.theUser = self.context.object(with: self.theUserObjectID) as? FireJournalUser
+            self.theUserTime = self.context.object(with: self.theUserTimeObjectID) as? UserTime
+            let segue = "showDetail"
+            self.performSegue(withIdentifier: segue, sender: self)
+        })
+    }
+    
         //    MARK: -OpenModalScrollVCDelegate
     func allCompleted(yesNo: Bool) {
         self.dismiss(animated: true, completion: {
@@ -549,7 +561,15 @@ extension MasterViewController: MyShiftCellDelegate {
                                 userInfo: ["sizeTrait": compact,"objectID":id])
                     }
                 } else {
-                    
+                    if Device.IS_IPAD {
+                        DispatchQueue.main.async {
+                            self.nc.post(name: .fireJournalPresentNewJournal, object: nil)
+                        }
+                    } else {
+                        journalEmpty = true
+                        let segue = "showDetail"
+                        performSegue(withIdentifier: segue, sender: self)
+                    }
                 }
             case .incidents:
                 print("Incidents")
@@ -564,7 +584,7 @@ extension MasterViewController: MyShiftCellDelegate {
                     case .compact:
                         vcLaunch.incidentCalled(sizeTrait: compact, id: id)
                     case .regular:
-                        nc.post(name:Notification.Name(rawValue:FJkINCIDENT_FROM_MASTER),object: nil, userInfo: ["sizeTrait":compact, "objectID": id])
+                        nc.post(name:Notification.Name(rawValue: FJkINCIDENT_FROM_MASTER),object: nil, userInfo: ["sizeTrait":compact, "objectID": id])
                     }
                 } else {
                     print("needanincident")
@@ -637,9 +657,22 @@ extension MasterViewController: MyShiftCellDelegate {
                 }
             case .forms:
                 if Device.IS_IPHONE {
-                    self.myShift = MenuItems.forms
-                    let segue = "showDetail"
-                    performSegue(withIdentifier: segue, sender: self)
+                    slideInTransitioningDelgate.direction = .bottom
+                    slideInTransitioningDelgate.disableCompactHeight = true
+                    let storyBoard : UIStoryboard = UIStoryboard(name: "FormModal", bundle:nil)
+                    let formListModalVC = storyBoard.instantiateViewController(withIdentifier: "FormListModalVC") as! FormListModalVC
+                    formListModalVC.delegate = self
+                    formListModalVC.transitioningDelegate = slideInTransitioningDelgate
+                    formListModalVC.title = ""
+                    if Device.IS_IPHONE {
+                        formListModalVC.modalPresentationStyle = .formSheet
+                    } else {
+                        formListModalVC.modalPresentationStyle = .custom
+                    }
+                    if theUser != nil {
+                        formListModalVC.userID = theUser.objectID
+                    }
+                    self.present(formListModalVC, animated: true, completion: nil)
                 } else {
                     nc.post(name:Notification.Name(rawValue: FJkLOADFORMMODAL),object:nil)
                 }
@@ -720,6 +753,25 @@ extension MasterViewController: MyShiftCellDelegate {
             default:
                 print("default")
             }
+        }
+    }
+    
+}
+
+extension MasterViewController: FormListModalVCDelegate {
+    
+    func formListModalCancelled() {
+        print("master dismissed")
+    }
+    
+    
+    
+    func formListModalChosen(type: IncidentTypes, index: IndexPath) {
+        dismiss(animated: true, completion: nil)
+        switch type {
+        case .ics214Form: print("ics")
+        case .arcForm: print("arc")
+        default: break
         }
     }
     

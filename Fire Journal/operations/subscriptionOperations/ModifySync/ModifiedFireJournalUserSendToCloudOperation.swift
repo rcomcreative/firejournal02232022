@@ -14,7 +14,6 @@ import CloudKit
 class ModifiedFireJournalUserSendToCloudOperation: FJOperation {
     
     let context: NSManagedObjectContext
-    var bkgrdContext:NSManagedObjectContext!
     let pendingOperations = PendingOperations()
     var thread:Thread!
     let nc = NotificationCenter.default
@@ -27,6 +26,7 @@ class ModifiedFireJournalUserSendToCloudOperation: FJOperation {
     var stop:Bool = false
     var recordGuid:String = ""
     var ckRecord:CKRecord!
+    var dateFormatter = DateFormatter()
     
     init(_ context: NSManagedObjectContext, objectID: NSManagedObjectID) {
         self.context = context
@@ -48,10 +48,9 @@ class ModifiedFireJournalUserSendToCloudOperation: FJOperation {
          }
         
         print("starting ModifiedFireJournalUserSendToCloudOperation")
-        bkgrdContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        bkgrdContext.persistentStoreCoordinator = context.persistentStoreCoordinator
+        
         thread = Thread(target:self, selector:#selector(checkTheThread), object:nil)
-        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: bkgrdContext)
+        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: context)
         executing(true)
         
         if(objectID) != nil {
@@ -71,7 +70,6 @@ class ModifiedFireJournalUserSendToCloudOperation: FJOperation {
         
         if let ckr = fjUser.fjuCKR {
             guard let  archivedData = ckr as? Data else { return }
-//            let unarchiver = NSKeyedUnarchiver(forReadingWith: archivedData!)
             do {
             let unarchiver = try NSKeyedUnarchiver.init(forReadingFrom: archivedData)
                  ckRecord = CKRecord(coder: unarchiver)
@@ -102,6 +100,19 @@ class ModifiedFireJournalUserSendToCloudOperation: FJOperation {
             
             
            
+        } else {
+            ckRecord = fjUser.newFireJournalUserForCloud(dateFormatter: dateFormatter)
+            
+            let coder = NSKeyedArchiver(requiringSecureCoding: true)
+            ckRecord.encodeSystemFields(with: coder)
+            let data = coder.encodedData
+            self.fjUser.fjuCKR = data as NSObject
+            self.fjUser.fjpUserBackedUp = true
+            
+            privateDatabase.save(ckRecord, completionHandler: { record, error in
+                
+                self.saveToCD()
+            })
         }
         
         guard isCancelled == false else {
@@ -120,9 +131,9 @@ class ModifiedFireJournalUserSendToCloudOperation: FJOperation {
     
     fileprivate func saveToCD() {
         do {
-            try bkgrdContext.save()
+            try context.save()
             DispatchQueue.main.async {
-                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.bkgrdContext,userInfo:["info":"Modified FJUser Send to cloud Operation"])
+                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"Modified FJUser Send to cloud Operation"])
             }
             DispatchQueue.main.async {
                 print("Modified FIREJOURNALUSERToCloudOperation has run and now is finished")

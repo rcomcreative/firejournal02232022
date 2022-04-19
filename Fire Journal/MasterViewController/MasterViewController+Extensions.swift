@@ -13,6 +13,9 @@ extension MasterViewController {
     
     func theAgreementsAccepted() {
         agreementAccepted = userDefaults.bool(forKey: FJkUserAgreementAgreed)
+        if theUser == nil {
+            getTheUser()
+        }
         if let guid = userDefaults.string(forKey: FJkUSERTIMEGUID) {
             startEndGuid = guid
         }
@@ -207,6 +210,27 @@ extension MasterViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
+            
+            if theUser != nil {
+                controller.fjuObjectID = theUser.objectID
+            }
+            if theUserTime != nil {
+                controller.userTimeObjectID = theUserTime.objectID
+            }
+            if firstTimeAgreementAccepted {
+                controller.startEndShift = true
+                controller.firstTimeAgreementAccepted = true
+                firstTimeAgreementAccepted = false
+                agreementAccepted = true
+                userDefaults.set(true, forKey: FJkUserAgreementAgreed)
+            }
+            if journalEmpty {
+                DispatchQueue.main.async {
+                    self.nc.post(name: .fireJournalPresentNewJournal, object: nil)
+                }
+                journalEmpty = false
+            }
+            
             switch shiftMine {
             case .incidents:
                 controller.incidentModalCalled = true

@@ -26,7 +26,8 @@ class DetailViewController: UIViewController {
     let device = (UIApplication.shared.delegate as? AppDelegate)?.device
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var theFireJournalUser: FireJournalUser!
-    var fireJournalUser:FireJournalUserOnboard!
+    var fjuObjectID: NSManagedObjectID!
+    var userTimeObjectID: NSManagedObjectID!
     var entity:String = ""
     var attribute:String = ""
     var sortAttribute:String = ""
@@ -69,6 +70,7 @@ class DetailViewController: UIViewController {
     var weatherWindSpeed: String = ""
     var cellCount: Int = 7
     var compact: SizeTrait = .regular
+    var firstTimeAgreementAccepted: Bool = false
     
     let configureShiftStartCVCellRegistration =  UICollectionView.CellRegistration<ShiftStartCVCell, UserTime> { (cell, indexPath, userTime) in
         cell.tag = 0
@@ -157,99 +159,136 @@ class DetailViewController: UIViewController {
         launchNC.callNotifications()
         registerNotifications()
         
-        agreementAccepted = userDefaults.bool(forKey: FJkUserAgreementAgreed)
+        self.title = "Dashboard"
         
-        
-        
-        if agreementAccepted {
-            
+        if firstTimeAgreementAccepted {
+            if fjuObjectID != nil {
+                theFireJournalUser = context.object(with: fjuObjectID) as? FireJournalUser
+            }
+            if userTimeObjectID != nil {
+                theUserTime = context.object(with: userTimeObjectID) as? UserTime
+                
+            }
             getTheStatus()
-
-            if theStatus.guidString != "" {
-                startEndShift = false
-                userDefaults.set(startEndShift, forKey: FJkSTARTSHIFTENDSHIFTBOOL)
-                if theFireJournalUser == nil {
-                    getTheUser()
-                }
-                if theUserTime == nil {
-                    if let guid = theStatus.guidString {
-                        getTheUserTime(guid)
-                    }
-                }
-                getTheCompletedShift()
-                if theExpiredUserTime == nil {
-                    theExpiredUserTime = theUserTime
-                }
-            } else {
-                startEndShift = true
-                userDefaults.set(startEndShift, forKey: FJkSTARTSHIFTENDSHIFTBOOL)
-                if theFireJournalUser == nil {
-                    getTheUser()
-                }
-                let startShiftDate: Date = Date()
-                let guidDate = GuidFormatter.init(date: startShiftDate)
-                let guid = guidDate.formatGuid()
-                let theUserGuid = "78."+guid
-                theUserTime = UserTime.init(context: context)
-                theUserTime.userTimeGuid = theUserGuid
-                theUserTime.userStartShiftTime = startShiftDate
-                theUserTime.shiftCompleted = false
-                if theStatus != nil {
-                    theStatus.guidString = theUserGuid
-                    theStatus.shiftDate = startShiftDate
-                }
-                if theFireJournalUser != nil {
-                    var userName: String = ""
-                    if let user = theFireJournalUser.userName {
-                        userName = user
-                    }
-                    if userName == "" {
-                        if let first = theFireJournalUser.firstName {
-                            userName = first
-                        }
-                        if let last = theFireJournalUser.lastName {
-                            userName = userName + " " + last
-                        }
-                        if userName != "" {
-                            theFireJournalUser.userName = userName
-                        }
-                    }
-                    theUserTime.fireJournalUser = theFireJournalUser
-                    if let platoon = theFireJournalUser.tempPlatoon {
-                        theUserTime.startShiftPlatoon = platoon
-                    }
-                    if let station = theFireJournalUser.fireStation {
-                        theUserTime.startShiftFireStation = station
-                    }
-                }
-                getTheCompletedShift()
-                if theExpiredUserTime == nil {
-                    theExpiredUserTime = theUserTime
-                }
+            if theFireJournalUser != nil && theUserTime != nil && theStatus != nil {
+                startShiftTapped()
             }
-            if context.hasChanges {
-                do {
-                    try context.save()
-                    DispatchQueue.main.async {
-                        self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"Shift updated merge that"])
-                    }
-                } catch let error as NSError {
-                    let theError: String = error.localizedDescription
-                    let error = "There was an error in saving " + theError
-                    errorAlert(errorMessage: error)
-                }
+            DispatchQueue.main.async {
+                self.nc.post(name:Notification.Name(rawValue: FJkOPENWEATHER_UPDATENow),object: nil)
             }
-            
-            
+            theExpiredUserTime = theUserTime
             getThisShiftsIncidents(theUserTime)
             getThisShiftsIncidents(theUserTime)
             getIncidentMonthTotals()
             
             configuredashboardCollectionView()
-            
         } else {
-            presentAgreement()
-            userDefaults.set(false, forKey: FJkDONTSHOWSTARTSHIFTALERTAGAIN)
+            
+            agreementAccepted = userDefaults.bool(forKey: FJkUserAgreementAgreed)
+            if agreementAccepted {
+                
+                getTheStatus()
+                
+                if theStatus.guidString != "" {
+                    
+                    userDefaults.set(startEndShift, forKey: FJkSTARTSHIFTENDSHIFTBOOL)
+                    if theFireJournalUser == nil {
+                        getTheUser()
+                    }
+                    if theUserTime == nil {
+                        if let guid = theStatus.guidString {
+                            getTheUserTime(guid)
+                        }
+                    }
+                    if theUserTime != nil {
+                        if !theUserTime.shiftCompleted {
+                            startEndShift = true
+                        }
+                        if theUserTime.userEndShiftTime == nil {
+                            startEndShift = false
+                        }
+                    }
+                    getTheCompletedShift()
+                    if theExpiredUserTime == nil {
+                        theExpiredUserTime = theUserTime
+                    }
+                } else {
+                    startEndShift = true
+                    
+                    if theFireJournalUser == nil {
+                        getTheUser()
+                    }
+                    if let guid = theStatus.guidString {
+                        getTheUserTime(guid)
+                        if theUserTime == nil || theUserTime.shiftCompleted {
+                            let startShiftDate: Date = Date()
+                            let guidDate = GuidFormatter.init(date: startShiftDate)
+                            let guid = guidDate.formatGuid()
+                            let theUserGuid = "78."+guid
+                            theUserTime = UserTime.init(context: context)
+                            theUserTime.userTimeGuid = theUserGuid
+                            theUserTime.userStartShiftTime = startShiftDate
+                            theUserTime.shiftCompleted = false
+                            if theStatus != nil {
+                                theStatus.guidString = theUserGuid
+                                theStatus.shiftDate = startShiftDate
+                            }
+                        }
+                    }
+                    
+                    if theFireJournalUser != nil {
+                        var userName: String = ""
+                        if let user = theFireJournalUser.userName {
+                            userName = user
+                        }
+                        if userName == "" {
+                            if let first = theFireJournalUser.firstName {
+                                userName = first
+                            }
+                            if let last = theFireJournalUser.lastName {
+                                userName = userName + " " + last
+                            }
+                            if userName != "" {
+                                theFireJournalUser.userName = userName
+                            }
+                        }
+                        theUserTime.fireJournalUser = theFireJournalUser
+                        if let platoon = theFireJournalUser.tempPlatoon {
+                            theUserTime.startShiftPlatoon = platoon
+                        }
+                        if let station = theFireJournalUser.fireStation {
+                            theUserTime.startShiftFireStation = station
+                        }
+                    }
+                    getTheCompletedShift()
+                    if theExpiredUserTime == nil {
+                        theExpiredUserTime = theUserTime
+                    }
+                }
+                if context.hasChanges {
+                    do {
+                        try context.save()
+                        DispatchQueue.main.async {
+                            self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"Shift updated merge that"])
+                        }
+                    } catch let error as NSError {
+                        let theError: String = error.localizedDescription
+                        let error = "There was an error in saving " + theError
+                        errorAlert(errorMessage: error)
+                    }
+                }
+                
+                
+                getThisShiftsIncidents(theUserTime)
+                getThisShiftsIncidents(theUserTime)
+                getIncidentMonthTotals()
+                
+                configuredashboardCollectionView()
+                
+            } else {
+                presentAgreement()
+                userDefaults.set(false, forKey: FJkDONTSHOWSTARTSHIFTALERTAGAIN)
+            }
         }
         
         
@@ -257,7 +296,7 @@ class DetailViewController: UIViewController {
     
     
     
-//    MARK: -ALERTS-
+        //    MARK: -ALERTS-
     
     func errorAlert(errorMessage: String) {
         let alert = UIAlertController.init(title: "Error", message: errorMessage, preferredStyle: .alert)

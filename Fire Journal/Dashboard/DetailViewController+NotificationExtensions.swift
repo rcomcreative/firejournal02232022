@@ -50,6 +50,8 @@ extension DetailViewController {
         
         nc.addObserver(self, selector: #selector(checkOnTheVersion(nc:)), name: NSNotification.Name(rawValue: FJkLETSCHECKTHEVERSION), object: nil)
         
+        nc.addObserver(self, selector: #selector(presentNewJournalForEmptyJournalA(nc:)), name: .fireJournalPresentNewJournal, object: nil)
+        
     }
     
         //    MARK: -NOTIFICATION FUNCTIONS-
@@ -86,8 +88,7 @@ extension DetailViewController {
     }
     
     @objc func loadTheFormModal(ns: Notification) {
-        myShift = .forms
-        presentModal(menuType: myShift, title: "Choose a Form Type")
+        presentFormsModal()
     }
     
     func presentModal(menuType: MenuItems, title: String) {
@@ -140,10 +141,7 @@ extension DetailViewController {
     }
     
     @objc func newUserCreated(notification:Notification)-> Void {
-        if let userInfo = notification.userInfo as! [String: Any]?
-        {
-            self.fireJournalUser = userInfo["user"] as? FireJournalUserOnboard
-        }
+        
     }
     
     @objc func noConnectionCalled(ns: Notification) {
@@ -154,14 +152,7 @@ extension DetailViewController {
     }
     
     @objc func startShiftForDash(ns: Notification)-> Void {
-            //           if let userInfo = ns.userInfo as! [String: Any]?
-            //           {
-            ////               startShiftStructure = userInfo["startShift"] as? StartShiftData
-            ////               self.userDefaults.set(0, forKey: FJkSTARTUPDATEENDSHIFT)
-            ////               self.userDefaults.set(true, forKey: FJkSTARTSHIFTENDSHIFTBOOL)
-            ////               self.userDefaults.synchronize()
-            ////               startEndShift = true
-            //           }
+            
     }
     
         /// notification from cloudkit download is concluded
@@ -323,7 +314,7 @@ extension DetailViewController: ModalTVCDelegate {
             let int = theCount(entity: "ICS214Form")
             if int != 0 {
                 let objectID = fetchTheLatest(shift: shift)
-                nc.post(name:Notification.Name(rawValue:FJkICS214_FROM_MASTER),
+                nc.post(name:Notification.Name(rawValue: FJkICS214_FROM_MASTER),
                         object: nil,
                         userInfo: ["objectID": objectID, "shift": shift])
             } else {

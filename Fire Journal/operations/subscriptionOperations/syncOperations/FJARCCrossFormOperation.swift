@@ -13,8 +13,8 @@ import CloudKit
 
 
 class FJARCCrossFormLoader: FJOperation {
+
     let context: NSManagedObjectContext
-    var bkgrdContext:NSManagedObjectContext!
     let pendingOperations = PendingOperations()
     var thread:Thread!
     let nc = NotificationCenter.default
@@ -45,10 +45,9 @@ class FJARCCrossFormLoader: FJOperation {
             return
         }
         
-        bkgrdContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        bkgrdContext.persistentStoreCoordinator = context.persistentStoreCoordinator
+        
         thread = Thread(target:self, selector:#selector(checkTheThread), object:nil)
-        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: bkgrdContext)
+        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: self.context)
         executing(true)
         
         let count = theCounter()
@@ -135,9 +134,9 @@ class FJARCCrossFormLoader: FJOperation {
     
     fileprivate func saveToCD() {
         do {
-            try bkgrdContext.save()
+            try self.context.save()
             DispatchQueue.main.async {
-                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.bkgrdContext,userInfo:["info":"FJARCROSS FORM Operation here"])
+                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object: self.context ,userInfo:["info":"FJARCROSS FORM Operation here"])
             }
             DispatchQueue.main.async {
                     self.nc.post(name:Notification.Name(rawValue:FJkCKZoneRecordsCALLED),
@@ -192,7 +191,7 @@ class FJARCCrossFormLoader: FJOperation {
     private func newARCrossFormFromCloud(ckRecord: CKRecord)->Void {
         let fjARCrossRecord = ckRecord
         
-        let fjuARCForm = ARCrossForm.init(entity: NSEntityDescription.entity(forEntityName: "ARCrossForm", in: bkgrdContext)!, insertInto: bkgrdContext)
+        let fjuARCForm = ARCrossForm(context: self.context)
         
         //     MARK: -INTEGERS
         fjuARCForm.campaignCount = fjARCrossRecord["campaignCount"] ?? 0
@@ -418,9 +417,9 @@ class FJARCCrossFormLoader: FJOperation {
     
     fileprivate func saveTheCD() {
         do {
-            try self.bkgrdContext.save()
+            try self.context.save()
             DispatchQueue.main.async {
-                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.bkgrdContext,userInfo:["info":"FJARCROSS FORM Operation here"])
+                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object: self.context ,userInfo:["info":"FJARCROSS FORM Operation here"])
             }
             print("ARCrossForm+CustomAdditions.swift we have saved from the cloud")
         } catch {

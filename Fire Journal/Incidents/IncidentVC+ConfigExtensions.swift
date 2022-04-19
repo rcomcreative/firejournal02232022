@@ -12,6 +12,7 @@ import Foundation
 import CoreData
 import MapKit
 import CoreLocation
+import PhotosUI
 
 extension IncidentVC {
     
@@ -33,6 +34,7 @@ extension IncidentVC {
         let labelFrame = label.frame
         theFloat = labelFrame.height
         label.removeFromSuperview()
+        theFloat = theFloat - 400
         if theFloat < 44 {
             theFloat = 88
         }
@@ -294,6 +296,35 @@ extension IncidentVC {
         return cell
     }
     
+        /// build the button for choosing camera type with IncidentTypes.allincidents and red color
+        /// - Parameters:
+        ///   - cell: CameraTVCell
+        ///   - index: index row cell resides
+        /// - Returns: returns list of camera types
+    func configureCameraTVCell(_ cell: CameraTVCell, index: IndexPath) -> CameraTVCell {
+        cell.tag = index.row
+        cell.indexPath = index
+        let section = index.section
+        let row = index.row
+        cell.delegate = self
+        switch section {
+        case 0:
+            switch row {
+            case 29:
+                cell.type = IncidentTypes.allIncidents
+                cell.aBackgroundColor = "FJIconRed"
+            default: break
+            }
+        default: break
+        }
+        return cell
+    }
+    
+    func configureIncidentPhotoCollectionCell(_ cell: IncidentPhotoCollectionCell, index: IndexPath) -> IncidentPhotoCollectionCell {
+        cell.photos = self.validPhotos
+        return cell
+    }
+    
     func configureIncidentEditBarTVC(_ cell: IncidentEditBarTVC, index: IndexPath) -> IncidentEditBarTVC {
         cell.tag = index.row
         cell.delegate = self
@@ -538,7 +569,7 @@ extension IncidentVC {
                 cell.type = IncidentTypes.thirdAction
                 cell.aBackgroundColor = "FJIconRed"
                 cell.aChoice = ""
-            case 29:
+            case 31:
                 cell.type = IncidentTypes.tags
                 cell.aBackgroundColor = "FJIconRed"
                 cell.aChoice = ""
@@ -793,6 +824,33 @@ extension IncidentVC {
     
 }
 
+extension IncidentVC: IncidentPhotoCollectionCellDelegate {
+    
+    
+    func theIncidentCellHasBeenTapped(photo: Photo) {
+        
+        let storyboard = UIStoryboard(name: "FullImage", bundle: nil)
+        
+        guard let navController = storyboard.instantiateViewController(withIdentifier: "FullNC") as? UINavigationController,
+              let fullImageVC = navController.topViewController as? FullImageVC else {
+            return
+        }
+        
+        let taskContext = photoProvider.persistentContainer.newBackgroundContext()
+        
+        spinner.startAnimating()
+        
+        guard let theGuid = photo.guid else { return }
+        fullImageVC.fullImage = photo.getImage(with: taskContext, guid: theGuid)
+        
+        present(navController, animated: true) {
+            self.spinner.stopAnimating()
+        }
+        
+    }
+    
+}
+
 extension IncidentVC: ModalLableSingleDateFieldCellDelegate {
     
     func modalSingleDatePickerTapped(index: IndexPath, tag: Int, date: Date) {
@@ -1023,7 +1081,7 @@ extension IncidentVC: TagsVCDelegate {
             if theTagsHeight < 100 {
                 theTagsHeight = 88
             }
-            incidentTableView.reloadRows(at: [IndexPath(row: 30, section: 0)], with: .automatic)
+            incidentTableView.reloadRows(at: [IndexPath(row: 32, section: 0)], with: .automatic)
         }
     }
     

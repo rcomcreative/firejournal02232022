@@ -101,14 +101,14 @@ extension ProfileLabelTextFieldTVCell {
         } else {
             
             NSLayoutConstraint.activate([
-                subjectL.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 34),
+                subjectL.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 26),
                 subjectL.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 7),
                 subjectL.widthAnchor.constraint(equalToConstant: 200),
                 subjectL.heightAnchor.constraint(equalToConstant: 40),
                 
-                descriptionTF.leadingAnchor.constraint(equalTo: subjectL.trailingAnchor, constant:  20),
+                descriptionTF.leadingAnchor.constraint(equalTo: subjectL.trailingAnchor, constant:  5),
                 descriptionTF.topAnchor.constraint(equalTo: subjectL.topAnchor),
-                descriptionTF.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant:  -35),
+                descriptionTF.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant:  -10),
                 descriptionTF.heightAnchor.constraint(equalToConstant: 40),
             ])
         }
@@ -138,6 +138,11 @@ extension ProfileLabelTextFieldTVCell: UITextFieldDelegate {
             textFieldValue = text
             delegate?.profileDescriptionChanged(text: textFieldValue, tag: self.tag)
         }
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
         return true
     }
     

@@ -125,6 +125,12 @@
         var bkgrndTask: BkgrndTask?
         var firstRun: Bool = false
         
+        lazy var theUserProvider: FireJournalUserProvider = {
+            let provider = FireJournalUserProvider(with: (UIApplication.shared.delegate as! AppDelegate).persistentContainer)
+            return provider
+        }()
+        var theUserContext: NSManagedObjectContext!
+        
         //    MARK: -INIT-
         private init(name: String) {
             self.cloudKitName = name
@@ -240,7 +246,7 @@
             
             nc.addObserver(self, selector:#selector(newFireJournalUserSendToTheCloud(notification:)),name:NSNotification.Name(rawValue: FJkFJUserNEWSendToCloud), object: nil)
             
-            nc.addObserver(self, selector:#selector(modifiedFireJournalUserSendToTheCloud(notification:)),name:NSNotification.Name(rawValue: FJkFJUserModifiedSendToCloud), object: nil)
+            nc.addObserver(self, selector:  #selector(modifiedFireJournalUserSendToTheCloud(notification:)),name: .fireJournalUserModifiedSendToCloud , object: nil)
             
             nc.addObserver(self, selector:#selector(newICS214SendToCloud(notification:)),name:NSNotification.Name(rawValue: FJkNEWICS214FormCreated), object: nil)
             
@@ -612,13 +618,11 @@
         
         //    MARK: -CLOUDKIT CHANGES-
         func getCloudKitChanges(zoneIDs: [CKRecordZone.ID], completionHandler: (() -> Void)? = nil) {
-//            registerBackgroundTask()
-            // Get the last CKZoneToken
+
             if let data = userDefaults.data(forKey: FJkCKZondChangeToken) {
                 do {
                     if let token = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? CKServerChangeToken {
                         sharedDBChangeToken = token
-                        //                    print("here is the token \(String(describing: sharedDBChangeToken))")
                     }
                 } catch {
                     print("there wasn't a token as such")
@@ -659,8 +663,6 @@
                         case TheEntities.fjArcForm.rawValue:
                             self?.cloudType = CloudTypes.arcForm
                             self?.arcCrossFormRs.append(record)
-                        //                        countF += 1
-                        //                        print("here is arcCross count \(countF)")
                         case TheEntities.fjUserTime.rawValue:
                             self?.cloudType = CloudTypes.userTime
                             self?.userTimeRs.append(record)
@@ -730,32 +732,7 @@
                                     self?.deleteFromCloudWithGeneratedID(guid: id)
                                 }
                             }
-                            //                        if searchString == "01" {
-                            //                            self?.pendingOperations.nfirsIncidentTypeQueue.isSuspended = true
-                            //                            let deleteFromJournalGuidOperation = DeleteFromCloudWithGuidSyncOperation.init(self!.context, theGuid: id, theEntity: "Journal", theAttribute: "fjpJGuidForReference")
-                            //                            self?.pendingOperations.nfirsIncidentTypeQueue.addOperation(deleteFromJournalGuidOperation)
-                            //                            self?.pendingOperations.nfirsIncidentTypeQueue.isSuspended = false
-                            //                        } else if searchString == "02" {
-                            //                            self?.pendingOperations.nfirsIncidentTypeQueue.isSuspended = true
-                            //                            let deleteFromIncidentGuidOperation = DeleteFromCloudWithGuidSyncOperation.init(self!.context, theGuid: id, theEntity: "Incident", theAttribute: "fjpIncGuidForReference")
-                            //                            self?.pendingOperations.nfirsIncidentTypeQueue.addOperation(deleteFromIncidentGuidOperation)
-                            //                            self?.pendingOperations.nfirsIncidentTypeQueue.isSuspended = false
-                            //                        } else if searchString == "30" {
-                            //                            self?.pendingOperations.nfirsIncidentTypeQueue.isSuspended = true
-                            //                            let deleteFromICS214FormGuidOperation = DeleteFromCloudWithGuidSyncOperation.init(self!.context, theGuid: id, theEntity: "ICS214Form", theAttribute: "ics214Guid")
-                            //                            self?.pendingOperations.nfirsIncidentTypeQueue.addOperation(deleteFromICS214FormGuidOperation)
-                            //                            self?.pendingOperations.nfirsIncidentTypeQueue.isSuspended = false
-                            //                        } else if searchString == "40" {
-                            //                            self?.pendingOperations.nfirsIncidentTypeQueue.isSuspended = true
-                            //                            let deleteFromARCrossFormGuidOperation = DeleteFromCloudWithGuidSyncOperation.init(self!.context, theGuid: id, theEntity: "ARCrossForm", theAttribute: "arcFormGuid")
-                            //                            self?.pendingOperations.nfirsIncidentTypeQueue.addOperation(deleteFromARCrossFormGuidOperation)
-                            //                            self?.pendingOperations.nfirsIncidentTypeQueue.isSuspended = false
-                            //                        } else if !id.hasWhiteSpace {
-                            //                            self?.pendingOperations.nfirsIncidentTypeQueue.isSuspended = true
-                            //                            let deleteFromCloudWithGeneratedIDSyncOperation = DeleteFromCloudWithGeneratedIDSyncOperation.init(self!.context, theCKRecordIDName: id)
-                            //                            self?.pendingOperations.nfirsIncidentTypeQueue.addOperation(deleteFromCloudWithGeneratedIDSyncOperation)
-                            //                            self?.pendingOperations.nfirsIncidentTypeQueue.isSuspended = false
-                            //                        }
+                            
                         }
                     }
                     
@@ -797,7 +774,7 @@
                     print(count)
                     
                     DispatchQueue.main.async {
-                        self?.nc.post(name:Notification.Name(rawValue:FJkCKZoneRecordsCALLED),
+                        self?.nc.post(name:Notification.Name(rawValue: FJkCKZoneRecordsCALLED),
                                       object: nil,
                                       userInfo: ["recordEntity":TheEntities.fjIncident])
                         completionHandler?()
@@ -849,7 +826,7 @@
         
         //    MARK: -ZONE RECORDS CALLED-
         @objc func zoneRecordsCalled(notification: Notification)->Void {
-//            registerBackgroundTask()
+
             if let userInfo = notification.userInfo as! [String: Any]?
             {
                 recordEntity = userInfo["recordEntity"] as? TheEntities ?? TheEntities.fjUser
@@ -862,7 +839,8 @@
                     if !fjuserRs.isEmpty {
                         userSyncOperation.userSyncQueue.isSuspended = false
                         var fjUsers = Array(NSOrderedSet(array: fjuserRs)) as! [CKRecord]
-                        let fjUserLoader = FJIUserSyncOperation.init(context, ckArray: fjuserRs)
+                        theUserContext = theUserProvider.persistentContainer.newBackgroundContext()
+                        let fjUserLoader = FJIUserSyncOperation.init(theUserContext, ckArray: fjuserRs)
                         userSyncOperation.userSyncQueue.addOperation(fjUserLoader)
                         userSyncOperation.userSyncQueue.isSuspended = true
                         fjuserRs.removeAll()
@@ -880,7 +858,8 @@
                         journalSyncOperation.journalSyncQueue.isSuspended = true
                         var fjJournals = Array(NSOrderedSet(array: journalRs)) as! [CKRecord]
                         print("here is journalRs count: \(journalRs.count)")
-                        let fjJournalLoader = FJJournalLoader.init(context, ckArray: journalRs)
+                        theUserContext = theUserProvider.persistentContainer.newBackgroundContext()
+                        let fjJournalLoader = FJJournalLoader.init(theUserContext, ckArray: journalRs)
                         journalSyncOperation.journalSyncQueue.addOperation(fjJournalLoader)
                         journalSyncOperation.journalSyncQueue.isSuspended = false
                         journalRs.removeAll()
@@ -906,7 +885,8 @@
                     if !incidentRs.isEmpty {
                         incidentSyncOperation.incidentSyncQueue.isSuspended = true
                         var fjIncidents = Array(NSOrderedSet(array: incidentRs)) as! [CKRecord]
-                        let fjIncidentLoader = FJIncidentLoader.init(context, ckArray: fjIncidents)
+                        theUserContext = theUserProvider.persistentContainer.newBackgroundContext()
+                        let fjIncidentLoader = FJIncidentLoader.init(theUserContext, ckArray: fjIncidents)
                         incidentSyncOperation.incidentSyncQueue.addOperation(fjIncidentLoader)
                         incidentSyncOperation.incidentSyncQueue.isSuspended = false
                         incidentRs.removeAll()
@@ -923,7 +903,8 @@
                     if !userTimRs.isEmpty {
                         userTimeSyncOperation.userTimeSyncQueue.isSuspended = true
                         var fjUserTimes = Array(NSOrderedSet(array: userTimRs)) as! [CKRecord]
-                        let fjUserTimeLoader = FJUserTimeSyncOperation.init(context,ckArray: fjUserTimes)
+                        theUserContext = theUserProvider.persistentContainer.newBackgroundContext()
+                        let fjUserTimeLoader = FJUserTimeSyncOperation.init(theUserContext,ckArray: fjUserTimes)
                         userTimeSyncOperation.userTimeSyncQueue.addOperation(fjUserTimeLoader)
                         userTimeSyncOperation.userTimeSyncQueue.isSuspended = false
                         userTimRs.removeAll()
@@ -940,7 +921,8 @@
                     if !ics214Rs.isEmpty {
                         ics214SyncOperation.ics214SyncQueue.isSuspended = true
                         var fjics214s = Array(NSOrderedSet(array: ics214Rs)) as! [CKRecord]
-                        let fjICS214Loader = FJICS214Loader.init(context, ckArray: fjics214s)
+                        theUserContext = theUserProvider.persistentContainer.newBackgroundContext()
+                        let fjICS214Loader = FJICS214Loader.init(theUserContext, ckArray: fjics214s)
                         ics214SyncOperation.ics214SyncQueue.addOperation(fjICS214Loader)
                         ics214SyncOperation.ics214SyncQueue.isSuspended = false
                         ics214Rs.removeAll()
@@ -957,7 +939,8 @@
                     if !arcCrossFormRs.isEmpty {
                         arcFormSyncOperation.arcFormSyncQueue.isSuspended = true
                         var fjARCFormss = Array(NSOrderedSet(array: arcCrossFormRs)) as! [CKRecord]
-                        let fjARCFormLoader = FJARCCrossFormLoader.init(context, ckArray: fjARCFormss)
+                        theUserContext = theUserProvider.persistentContainer.newBackgroundContext()
+                        let fjARCFormLoader = FJARCCrossFormLoader.init(theUserContext, ckArray: fjARCFormss)
                         arcFormSyncOperation.arcFormSyncQueue.addOperation(fjARCFormLoader)
                         arcFormSyncOperation.arcFormSyncQueue.isSuspended = false
                         arcCrossFormRs.removeAll()
@@ -974,7 +957,8 @@
                     if !userAttendeesRs.isEmpty {
                         userAttendeeSyncOperation.userAttendeeSyncQueue.isSuspended = true
                         var fjUserAttendees = Array(NSOrderedSet(array: userAttendeesRs)) as! [CKRecord]
-                        let fjUserAtteendeesLoader = FJUserAttendeesFromCloudSyncingOperation.init(context, ckArray: fjUserAttendees)
+                        theUserContext = theUserProvider.persistentContainer.newBackgroundContext()
+                        let fjUserAtteendeesLoader = FJUserAttendeesFromCloudSyncingOperation.init(theUserContext, ckArray: fjUserAttendees)
                         userAttendeeSyncOperation.userAttendeeSyncQueue.addOperation(fjUserAtteendeesLoader)
                         userAttendeeSyncOperation.userAttendeeSyncQueue.isSuspended = false
                         fjUserAttendeeRs.removeAll()
@@ -991,7 +975,8 @@
                     if !fjICS214ActivityLogRs.isEmpty {
                         ics214ActivityLogSyncOperation.ics214ActivityLogSyncQueue.isSuspended = true
                         var fjICS214ALs = Array(NSOrderedSet(array: fjICS214ActivityLogRs)) as! [CKRecord]
-                        let ics214ALogLoader = FJICS214ActivityLogOperation.init(context, ckArray: fjICS214ALs)
+                        theUserContext = theUserProvider.persistentContainer.newBackgroundContext()
+                        let ics214ALogLoader = FJICS214ActivityLogOperation.init(theUserContext, ckArray: fjICS214ALs)
                         ics214ActivityLogSyncOperation.ics214ActivityLogSyncQueue.addOperation(ics214ALogLoader)
                         ics214ActivityLogSyncOperation.ics214ActivityLogSyncQueue.isSuspended = false
                         fjICS214ActivityLogRs.removeAll()
@@ -1008,7 +993,8 @@
                     if !fjICS214PersonnelRs.isEmpty {
                         ics214PersonalSyncOperation.ics214PersonalSyncQueue.isSuspended = true
                         var fjICS214Ps = Array(NSOrderedSet(array: fjICS214PersonnelRs)) as! [CKRecord]
-                        let ics214Personnel = FJICS214PersonnelOperation.init(context, ckArray: fjICS214Ps)
+                        theUserContext = theUserProvider.persistentContainer.newBackgroundContext()
+                        let ics214Personnel = FJICS214PersonnelOperation.init(theUserContext, ckArray: fjICS214Ps)
                         ics214PersonalSyncOperation.ics214PersonalSyncQueue.addOperation(ics214Personnel)
                         ics214PersonalSyncOperation.ics214PersonalSyncQueue.isSuspended = false
                         fjICS214PersonnelRs.removeAll()
@@ -1032,7 +1018,8 @@
                     } else {
                         fdResourcesSyncOperation.fdResourcesSyncQueue.isSuspended = true
                         var fjUserFDResources = Array(NSOrderedSet(array: fjUserFDResourcesRs)) as! [CKRecord]
-                        let ufdResources = FJUserFDResourcesSyncOperation.init(context, ckArray: fjUserFDResources, firstRun: firstRun)
+                        theUserContext = theUserProvider.persistentContainer.newBackgroundContext()
+                        let ufdResources = FJUserFDResourcesSyncOperation.init(theUserContext, ckArray: fjUserFDResources, firstRun: firstRun)
                         fdResourcesSyncOperation.fdResourcesSyncQueue.addOperation(ufdResources)
                         fdResourcesSyncOperation.fdResourcesSyncQueue.isSuspended = false
                         fjUserFDResourcesRs.removeAll()
@@ -1333,7 +1320,8 @@
                 pendingOperations.nfirsIncidentTypeQueue.isSuspended = true
                 print("here we are in cloudkit ModifiedFireJournalUserSendToCloudOperation")
                 if objectID != nil {
-                    let modifiedFireJournalUserToCloudOperation = ModifiedFireJournalUserSendToCloudOperation.init(context, objectID: objectID!)
+                    theUserContext = theUserProvider.persistentContainer.newBackgroundContext()
+                    let modifiedFireJournalUserToCloudOperation = ModifiedFireJournalUserSendToCloudOperation.init(theUserContext, objectID: objectID!)
                     pendingOperations.nfirsIncidentTypeQueue.addOperation(modifiedFireJournalUserToCloudOperation)
                 }
                 pendingOperations.nfirsIncidentTypeQueue.isSuspended = false

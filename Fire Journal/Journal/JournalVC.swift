@@ -45,6 +45,8 @@ class JournalVC: SpinnerViewController, UIImagePickerControllerDelegate, UINavig
     
     var itemProvider: [NSItemProvider] = []
     var iterator: IndexingIterator<[NSItemProvider]>?
+    var child: SpinnerViewController!
+    var childAdded: Bool = false
     var photosAvailable: Bool = false
     var journalImage: UIImage!
     var cameraType: Bool = false
@@ -325,6 +327,41 @@ class JournalVC: SpinnerViewController, UIImagePickerControllerDelegate, UINavig
                 self.photosAvailable = true
             }
         
+        }
+    }
+    
+        /// creates a spinner view to hold the scene while data is downloaded from cloudkit
+        /// posts to master to lock all the buttons down
+    func createSpinnerView() {
+        child = SpinnerViewController()
+        childAdded = true
+            // add the spinner view controller
+        addChild(child)
+        child.view.frame = view.frame
+        view.addSubview(child.view)
+        child.didMove(toParent: self)
+        nc.post(name:Notification.Name(rawValue: FJkLOCKMASTERDOWNFORDOWNLOAD),
+                object: nil,
+                userInfo: nil)
+    }
+    
+        /// observer on FJkLocationsAllUpdatedToSC
+        /// - Parameter ns: no user info
+    func removeSpinnerUpdate() {
+        if childAdded {
+            DispatchQueue.main.async {
+                    // then remove the spinner view controller
+                self.child.willMove(toParent: nil)
+                self.child.view.removeFromSuperview()
+                self.child.removeFromParent()
+                self.nc.post(name:Notification.Name(rawValue: FJkLOCKMASTERDOWNFORDOWNLOAD),
+                             object: nil,
+                             userInfo: nil)
+                self.nc.post(name:Notification.Name(rawValue: FJkLETSCHECKTHEVERSION),
+                             object: nil,
+                             userInfo: nil)
+            }
+            childAdded = false
         }
     }
 

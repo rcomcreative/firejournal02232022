@@ -94,20 +94,3 @@ extension StartShiftFDResourcesCell: UserFDResourceCustomEditCVCellDelegate {
         delegate?.aResourceHasBeenTappedForEditing(resource: resource)
     }
 }
-
-//extension StartShiftFDResourcesCell {
-//
-//    func setstartShiftCVDataSourceDelegate<D: UICollectionViewDataSource & UICollectionViewDelegate>(_ dataSourceDelegate: D, forRow row: Int) {
-//
-//        startShiftCV.delegate = dataSourceDelegate
-//        startShiftCV.dataSource = dataSourceDelegate
-//        startShiftCV.tag = row
-//        startShiftCV.setContentOffset(startShiftCV.contentOffset, animated:false) // Stops collection view if it was scrolling.
-//        startShiftCV.reloadData()
-//    }
-//
-//    var collectionViewOffset: CGFloat {
-//        set { startShiftCV.contentOffset.x = newValue }
-//        get { return startShiftCV.contentOffset.x }
-//    }
-//}

@@ -1,10 +1,10 @@
-    //
-    //  JournalVC+PhotoExtensions.swift
-    //  Fire Journal
-    //
-    //  Created by DuRand Jones on 4/1/22.
-    //  Copyright © 2022 PureCommand, LLC. All rights reserved.
-    //
+//
+//  IncidentVC+PhotoExtentions.swift
+//  Fire Journal
+//
+//  Created by DuRand Jones on 4/18/22.
+//  Copyright © 2022 PureCommand, LLC. All rights reserved.
+//
 
 
 import UIKit
@@ -14,7 +14,7 @@ import MapKit
 import CoreLocation
 import PhotosUI
 
-extension JournalVC: CameraTVCellDelegate, PHPickerViewControllerDelegate {
+extension IncidentVC: CameraTVCellDelegate, PHPickerViewControllerDelegate {
     
     
     func galleryChosen(tag: Int) {
@@ -69,18 +69,17 @@ extension JournalVC: CameraTVCellDelegate, PHPickerViewControllerDelegate {
                 DispatchQueue.main.async {
                     self.removeSpinnerUpdate()
                 }
-                    //                self.saveJournal(self) {
+
                 print("saved")
-                self.theJournal = self.context.object(with: self.id) as? Journal
-                self.validPhotos =  self.theJournal.photo?.allObjects as! [Photo]
+                self.theIncident = self.context.object(with: self.id) as? Incident
+                self.validPhotos =  self.theIncident.photo?.allObjects as! [Photo]
                 print("here is validPhotos \(self.validPhotos.count)")
                 self.photosAvailable = true
-                self.journalTableView.reloadRows(at: [IndexPath.init(row:8, section: 0)], with: .automatic)
-                    //                }
+                self.incidentTableView.reloadRows(at: [IndexPath.init(row: 30, section: 0)], with: .automatic)
+                    
             }
         }
     }
-    
     
     func processTheImages(completionHandler: (() -> Void)? = nil)  {
         for item in itemProvider {
@@ -100,8 +99,8 @@ extension JournalVC: CameraTVCellDelegate, PHPickerViewControllerDelegate {
                                     try data.write(to: url)
                                     print("file saved")
                                     self.taskContext = self.photoProvider.persistentContainer.newBackgroundContext()
-                                    let objectID = self.theJournal.objectID
-                                    self.photoProvider.addPhotoToJournal(imageData: data, imageURL: url, journalid: objectID, taskContext: self.taskContext) {
+                                    let objectID = self.theIncident.objectID
+                                    self.photoProvider.addPhotoIncident(imageData: data, imageURL: url, incidentid: objectID, taskContext: self.taskContext) {
                                         completionHandler?()
                                     }
                                 } catch {
@@ -127,11 +126,9 @@ extension JournalVC: CameraTVCellDelegate, PHPickerViewControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         picker.dismiss(animated: true, completion: {
-//            DispatchQueue.main.async {
-//                self.createSpinnerView()
-//            }
+
             if self.cameraType {
-                guard let image = info[.editedImage] as? UIImage, let data = image.jpegData(compressionQuality: 1) else {
+                guard let image = info[.editedImage] as? UIImage, let _ = image.jpegData(compressionQuality: 1 ) else {
                     print("No image found")
                     self.photosAvailable = false
                     fatalError("###\(#function): Failed to get JPG data and URL of the picked image!")
@@ -145,19 +142,19 @@ extension JournalVC: CameraTVCellDelegate, PHPickerViewControllerDelegate {
                         try data.write(to: url)
                         print("file saved")
                         self.taskContext = self.photoProvider.persistentContainer.newBackgroundContext()
-                        let objectID = self.theJournal.objectID
+                        let objectID = self.theIncident.objectID
                         self.photoProvider.addPhotoToJournal(imageData: data, imageURL: url, journalid: objectID, taskContext: self.taskContext) {
                             
                             self.photosAvailable = true
-                            self.saveJournal(self) {
+                            self.saveIncident(self) {
 //                                DispatchQueue.main.async {
 //                                    self.removeSpinnerUpdate()
 //                                }
-                                guard let attachments = self.theJournal.photo?.allObjects as? [Photo] else { return }
+                                guard let attachments = self.theIncident.photo?.allObjects as? [Photo] else { return }
                                 self.validPhotos = attachments.filter { return !($0.imageData == nil) }
                                 
                                 
-                                self.journalTableView.reloadRows(at: [IndexPath.init(row:8, section: 0)], with: .automatic)
+                                self.incidentTableView.reloadRows(at: [IndexPath.init(row: 30, section: 0)], with: .automatic)
                                     // print out the image size as a test
                                 print(image.size)
                             }
@@ -176,17 +173,15 @@ extension JournalVC: CameraTVCellDelegate, PHPickerViewControllerDelegate {
                               //                return
                       }
                 self.taskContext = self.photoProvider.persistentContainer.newBackgroundContext()
-                let objectID = self.theJournal.objectID
-                self.photoProvider.addPhotoToJournal(imageData: data, imageURL: url, journalid: objectID, taskContext: self.taskContext) {
-                    self.saveJournal(self) {
+                let objectID = self.theIncident.objectID
+                self.photoProvider.addPhotoIncident(imageData: data, imageURL: url, incidentid: objectID, taskContext: self.taskContext) {
+                    self.saveIncident(self) {
                         
                         self.photosAvailable = true
-                        guard let attachments = self.theJournal.photo?.allObjects as? [Photo] else { return }
+                        guard let attachments = self.theIncident.photo?.allObjects as? [Photo] else { return }
                         self.validPhotos = attachments.filter { return !($0.imageData == nil) }
                         
-                        self.journalTableView.reloadRows(at: [IndexPath.init(row:8, section: 0)], with: .automatic)
-                            // print out the image size as a test
-                        print(image.size)
+                        self.incidentTableView.reloadRows(at: [IndexPath.init(row: 30, section: 0)], with: .automatic)
                     }
                 }
             }
@@ -196,5 +191,42 @@ extension JournalVC: CameraTVCellDelegate, PHPickerViewControllerDelegate {
         
     }
     
+        /// creates a spinner view to hold the scene while data is downloaded from cloudkit
+        /// posts to master to lock all the buttons down
+    func createSpinnerView() {
+        child = SpinnerViewController()
+        childAdded = true
+            // add the spinner view controller
+        addChild(child)
+        child.view.frame = view.frame
+        view.addSubview(child.view)
+        child.didMove(toParent: self)
+        nc.post(name:Notification.Name(rawValue: FJkLOCKMASTERDOWNFORDOWNLOAD),
+                object: nil,
+                userInfo: nil)
+    }
+    
+        /// observer on FJkLocationsAllUpdatedToSC
+        /// - Parameter ns: no user info
+    func removeSpinnerUpdate() {
+        if childAdded {
+            DispatchQueue.main.async {
+                    // then remove the spinner view controller
+                self.child.willMove(toParent: nil)
+                self.child.view.removeFromSuperview()
+                self.child.removeFromParent()
+                self.nc.post(name:Notification.Name(rawValue: FJkLOCKMASTERDOWNFORDOWNLOAD),
+                             object: nil,
+                             userInfo: nil)
+                self.nc.post(name:Notification.Name(rawValue: FJkLETSCHECKTHEVERSION),
+                             object: nil,
+                             userInfo: nil)
+            }
+            childAdded = false
+        }
+    }
     
 }
+
+    
+     

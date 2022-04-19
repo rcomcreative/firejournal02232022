@@ -12,8 +12,8 @@ import CoreData
 import CloudKit
 
 class FJICS214ActivityLogOperation: FJOperation {
+    
     let context: NSManagedObjectContext
-    var bkgrdContext:NSManagedObjectContext!
     var thread:Thread!
     let nc = NotificationCenter.default
     let myContainer = CKContainer.init(identifier: FJkCLOUDKITDATABASENAME)
@@ -47,10 +47,9 @@ class FJICS214ActivityLogOperation: FJOperation {
             return
         }
         
-        bkgrdContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        bkgrdContext.persistentStoreCoordinator = context.persistentStoreCoordinator
+        
         thread = Thread(target:self, selector:#selector(checkTheThread), object:nil)
-        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: bkgrdContext)
+        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: self.context)
         executing(true)
         fetchedICS214s = getAllTheForms()
         
@@ -123,9 +122,9 @@ class FJICS214ActivityLogOperation: FJOperation {
     
     fileprivate func saveALToCD() {
         do {
-        try bkgrdContext.save()
+        try self.context.save()
         DispatchQueue.main.async {
-            self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.bkgrdContext,userInfo:["info":"FJICS214 ACTIVITY LOG Operation here"])
+            self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object: self.context ,userInfo:["info":"FJICS214 ACTIVITY LOG Operation here"])
         }
        } catch let error as NSError {
                 let nserror = error
@@ -138,9 +137,9 @@ class FJICS214ActivityLogOperation: FJOperation {
     
     fileprivate func saveToCD() {
         do {
-            try bkgrdContext.save()
+            try self.context.save()
             DispatchQueue.main.async {
-                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.bkgrdContext,userInfo:["info":"FJICS214 ACTIVITY LOG Operation here"])
+                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object: self.context ,userInfo:["info":"FJICS214 ACTIVITY LOG Operation here"])
             }
             let nc = NotificationCenter.default
             DispatchQueue.main.async {
@@ -202,8 +201,8 @@ class FJICS214ActivityLogOperation: FJOperation {
         let predicateCan = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [predicate])
         fetchRequest.predicate = predicateCan
         do {
-            let count = try bkgrdContext.count(for:fetchRequest)
-            fjICS214ALogA = try bkgrdContext.fetch(fetchRequest) as! [ICS214ActivityLog]
+            let count = try self.context.count(for:fetchRequest)
+            fjICS214ALogA = try self.context.fetch(fetchRequest) as! [ICS214ActivityLog]
             if !fjICS214ALogA.isEmpty {
                 fjICS214ALog = fjICS214ALogA.last!
             }
@@ -225,7 +224,7 @@ class FJICS214ActivityLogOperation: FJOperation {
         
         if ics214Form != nil {
         if let _ = ics214Form.ics214Guid {
-            let fjuICS214ALog = ICS214ActivityLog.init(entity: NSEntityDescription.entity(forEntityName: "ICS214ActivityLog", in: bkgrdContext)!, insertInto: bkgrdContext)
+            let fjuICS214ALog = ICS214ActivityLog(context: self.context)
             if let modDate:Date = fjICS214ALogR["ics214AcivityModDate"] {
                 fjuICS214ALog.ics214AcivityModDate = modDate
             }
@@ -260,7 +259,7 @@ class FJICS214ActivityLogOperation: FJOperation {
         fetchRequest.predicate = predicateCan
         fetchRequest.returnsObjectsAsFaults = false
         do {
-            let fetched = try bkgrdContext.fetch(fetchRequest) as! [ICS214Form]
+            let fetched = try self.context.fetch(fetchRequest) as! [ICS214Form]
             if fetched.isEmpty {} else {
                 ics214 = fetched.last!
             }

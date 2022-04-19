@@ -86,6 +86,7 @@ extension ARC_arcLabelTextFieldCell: UITextFieldDelegate {
         if let text = textField.text {
             delegate?.theTextFieldHitReturnKey(text: text, indexPath: indexPath, tag: self.tag)
         }
+        textField.resignFirstResponder()
         return true
     }
     

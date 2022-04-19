@@ -12,8 +12,9 @@ import Foundation
 import CoreData
 import MapKit
 import CoreLocation
+import PhotosUI
 
-class IncidentVC: UIViewController {
+class IncidentVC:  SpinnerViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     lazy var getUserLocation: GetTheUserLocation = { return GetTheUserLocation.init() }()
     var theUserRegion: MKCoordinateRegion?
@@ -54,6 +55,12 @@ class IncidentVC: UIViewController {
     }()
     var nfirsIncidentTypeContext: NSManagedObjectContext!
     
+    lazy var photoProvider: PhotoProvider = {
+        let provider = PhotoProvider(with: (UIApplication.shared.delegate as! AppDelegate).persistentContainer)
+        return provider
+    }()
+    var taskContext: NSManagedObjectContext!
+    
     let nc = NotificationCenter.default
     let userDefaults = UserDefaults.standard
     let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
@@ -63,6 +70,14 @@ class IncidentVC: UIViewController {
     lazy var slideInTransitioningDelgate = SlideInPresentationManager()
     private let vcLaunch = VCLaunch()
     private var launchNC: LaunchNotifications!
+    
+    var itemProvider: [NSItemProvider] = []
+    var iterator: IndexingIterator<[NSItemProvider]>?
+    var child: SpinnerViewController!
+    var childAdded: Bool = false
+    var photosAvailable: Bool = false
+    var journalImage: UIImage!
+    var cameraType: Bool = false
     
     var id: NSManagedObjectID!
     var theUserTime: UserTime!
@@ -92,11 +107,6 @@ class IncidentVC: UIViewController {
     var utGuid: String = ""
     var compact:SizeTrait = .regular
     var dataTVC: ModalDataTVC!
-    
-    var itemProvider: [NSItemProvider] = []
-    var iterator: IndexingIterator<[NSItemProvider]>?
-    var photosAvailable: Bool = false
-    var cameraType: Bool = false
 
     
     var alertUp: Bool = false
@@ -202,13 +212,23 @@ class IncidentVC: UIViewController {
             navigationItem.leftBarButtonItem = listButton
             navigationItem.setLeftBarButtonItems([listButton], animated: true)
             navigationItem.leftItemsSupplementBackButton = false
+            let regularBarButtonTextAttributes: [NSAttributedString.Key: Any] = [
+                .foregroundColor: UIColor.black,
+                .font: UIFont.systemFont(ofSize: 22, weight: UIFont.Weight(rawValue: 150))
+            ]
+            listButton.setTitleTextAttributes(regularBarButtonTextAttributes, for: .normal)
+            listButton.setTitleTextAttributes(regularBarButtonTextAttributes, for: .highlighted)
         }
         
         
-        if (Device.IS_IPHONE){
-            self.navigationController?.navigationBar.backgroundColor = UIColor.white
-            let navigationBarAppearace = UINavigationBar.appearance()
-            navigationBarAppearace.tintColor = UIColor.black
+        if (Device.IS_IPHONE){self.navigationController?.navigationBar.barTintColor = UIColor(named: "FJIconRed")
+            self.navigationController?.navigationBar.isTranslucent = false
+            let regularBarButtonTextAttributes: [NSAttributedString.Key: Any] = [
+                .foregroundColor: UIColor.black,
+                .font: UIFont.systemFont(ofSize: 22, weight: UIFont.Weight(rawValue: 150))
+            ]
+            saveButton.setTitleTextAttributes(regularBarButtonTextAttributes, for: .normal)
+            saveButton.setTitleTextAttributes(regularBarButtonTextAttributes, for: .highlighted)
         } else {
             let navigationBarAppearace = UINavigationBar.appearance()
             navigationBarAppearace.tintColor = UIColor.black
@@ -384,6 +404,29 @@ class IncidentVC: UIViewController {
         }
         getTheUser()
         getTheLastUserTime()
+    }
+    
+    func saveIncident(_ sender:Any, completionBlock: () -> ()) {
+        do {
+            try context.save()
+            self.taskContext = self.photoProvider.persistentContainer.newBackgroundContext()
+            if !self.validPhotos.isEmpty {
+                self.photoProvider.saveImageDataiIfNeeded(for: self.theJournal.photo!, taskContext: self.taskContext)  {
+                    DispatchQueue.main.async {
+                        self.nc.post(name: .fireJournalCameraPhotoSaved, object: nil)
+                    }
+                }
+            }
+            DispatchQueue.main.async {
+                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"Updated journal merge that"])
+            }
+            completionBlock()
+        } catch let error as NSError {
+            let nserror = error
+            
+            let errorMessage = "Journal saveToCD The context was unable to save due to \(nserror), \(nserror.userInfo)"
+            print(errorMessage)
+        }
     }
     
 }

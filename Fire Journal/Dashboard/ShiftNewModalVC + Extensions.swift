@@ -308,6 +308,7 @@ extension ShiftNewModalVC: UITableViewDataSource {
     
     func configureSubjectLabelTextFieldIndicatorTVCell(_ cell: SubjectLabelTextFieldIndicatorTVCell, index: IndexPath) -> SubjectLabelTextFieldIndicatorTVCell {
         let row = index.row
+        cell.delegate = self
         switch row {
         case 2:
             cell.subjectL.text = "Fire Station"
@@ -315,6 +316,7 @@ extension ShiftNewModalVC: UITableViewDataSource {
             cell.indicatorB.isHidden = true
             cell.indicatorB.alpha = 0.0
             cell.indicatorB.isEnabled = false
+            cell.tag = row
             if theUserTime != nil {
                 if let station = theUser.fireStation {
                     cell.subjectTF.text = station
@@ -348,6 +350,18 @@ extension ShiftNewModalVC: UITableViewDataSource {
         
         
         return cell
+    }
+    
+}
+
+extension ShiftNewModalVC: SubjectLabelTextFieldIndicatorTVCellDelegate {
+    
+    func theTextFieldWasEdited(theText: String, tag: Int) {
+        switch tag {
+        case 2:
+            theUserTime.startShiftFireStation = theText
+        default: break
+        }
     }
     
 }

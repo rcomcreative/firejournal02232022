@@ -71,6 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     }()
     var userContext: NSManagedObjectContext!
     
+    
     //    MARK -LOCATION FOR WEATHER-
     func determineLocation() {
         if (CLLocationManager.locationServicesEnabled()) {
@@ -192,6 +193,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                 if let fdid = self.fdidProvider.buildTheFDIDs(theGuidDate: Date(), backgroundContext: self.fdidContext) {
                     print("fdids are done")
                 }
+            }
+            DispatchQueue.main.async {
+                self.userContext = self.userProvider.persistentContainer.newBackgroundContext()
+                let loadTheUserFromCloud = LoadTheUserFromCloud(context: self.userContext)
+                loadTheUserFromCloud.getCloudUser()
             }
             self.cloud.firstRun = true
         }
@@ -384,7 +390,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         if sharedDBChangeToken != nil {
             let encodedData = try! NSKeyedArchiver.archivedData(withRootObject: sharedDBChangeToken!, requiringSecureCoding: false)
             userDefaults.set(encodedData, forKey: FJkCKServerChangeToken)
-            userDefaults.synchronize()
+
         }
         
     }
@@ -469,8 +475,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     func fetchAnyChangesWeMissed(firstRun: Bool)->Void {
         self.cloud.firstRun = firstRun
         print("Starting to check for changes")
-        bkgrndTask?.registerBackgroundTask()
-        thereIsBackgroundTask = true
+//        bkgrndTask?.registerBackgroundTask()
+//        thereIsBackgroundTask = true
         sharedDBChangeToken = userDefaults.object(forKey: FJkCKServerChangeToken) as? CKServerChangeToken
         var changesOperation: CKFetchDatabaseChangesOperation!
         changesOperation = CKFetchDatabaseChangesOperation(previousServerChangeToken: sharedDBChangeToken)

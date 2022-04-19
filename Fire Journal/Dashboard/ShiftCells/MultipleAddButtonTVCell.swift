@@ -192,15 +192,15 @@ extension MultipleAddButtonTVCell {
                 config.baseBackgroundColor = UIColor(named: theBackgroundColor)
             case .firstAction:
                 config.image = UIImage(systemName: "list.bullet.circle")
-                config.title = " NFIRS Actions Taken 1"
+                config.title = " NFIRS Actions #1"
                 config.baseBackgroundColor = UIColor(named: theBackgroundColor)
             case .secondAction:
                 config.image = UIImage(systemName: "list.bullet.circle")
-                config.title = " NFIRS Actions Taken 2"
+                config.title = " NFIRS Actions #2"
                 config.baseBackgroundColor = UIColor(named: theBackgroundColor)
             case .thirdAction:
                 config.image = UIImage(systemName: "list.bullet.circle")
-                config.title = " NFIRS Actions Taken 3"
+                config.title = " NFIRS Actions #3"
                 config.baseBackgroundColor = UIColor(named: theBackgroundColor)
             case .alarm:
                 config.image = UIImage(systemName: "square.and.pencil")
