@@ -14,7 +14,7 @@ class OnboardOne: UIViewController {
     @IBOutlet weak var logoHeaderIV: UIImageView!
     @IBOutlet weak var subjectL: UILabel!
     @IBOutlet weak var descriptionL: UILabel!
-    let body:BodyText = .onboard1
+    let body: BodyText = .onboard1
     
     override func viewDidLoad() {
         super.viewDidLoad()

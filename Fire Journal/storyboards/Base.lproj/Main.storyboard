@@ -3631,7 +3631,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="500" height="1025"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tvc-colorField" translatesAutoresizingMaskIntoConstraints="NO" id="OQG-4z-NCP">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OQG-4z-NCP">
                                 <rect key="frame" x="0.0" y="30" width="500" height="1005"/>
                             </imageView>
                             <scrollView autoresizesSubviews="NO" clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" indicatorStyle="black" delaysContentTouches="NO" canCancelContentTouches="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XJH-vX-YMt">
@@ -3646,7 +3646,7 @@
                                     <constraint firstAttribute="width" constant="183" id="Aqb-Zc-yeb"/>
                                     <constraint firstAttribute="height" constant="37" id="eCG-U0-aNy"/>
                                 </constraints>
-                                <color key="pageIndicatorTintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="pageIndicatorTintColor" systemColor="labelColor"/>
                                 <color key="currentPageIndicatorTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="movePages:" destination="oVK-uw-KjQ" eventType="valueChanged" id="ab2-eP-rky"/>
@@ -3659,7 +3659,7 @@
                                     <constraint firstAttribute="width" constant="55" id="vAl-HQ-GMw"/>
                                 </constraints>
                                 <state key="normal" title="START">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleColor" systemColor="labelColor"/>
                                 </state>
                                 <connections>
                                     <action selector="letsGoTapped:" destination="oVK-uw-KjQ" eventType="touchUpInside" id="d7b-vM-4bf"/>
@@ -3671,8 +3671,9 @@
                                     <constraint firstAttribute="width" constant="38" id="3Zy-K7-mz6"/>
                                     <constraint firstAttribute="height" constant="34" id="mU6-Ci-XSs"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="SKIP">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleColor" systemColor="labelColor"/>
                                 </state>
                                 <connections>
                                     <action selector="skipBTapped:" destination="oVK-uw-KjQ" eventType="touchUpInside" id="H4R-t9-Rcq"/>

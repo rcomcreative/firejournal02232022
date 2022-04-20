@@ -214,6 +214,29 @@ extension TheShiftNoteVC {
         self.view.addSubview(notesTV)
         self.view.addSubview(timeStampB)
         
+        if Device.IS_IPHONE {
+        
+            NSLayoutConstraint.activate([
+                
+                notesTitleL.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 30),
+                notesTitleL.topAnchor.constraint(equalTo: newModalHeaderV.bottomAnchor, constant: 20),
+                notesTitleL.heightAnchor.constraint(equalToConstant: 30),
+                notesTitleL.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant:  -35),
+                
+                notesTV.leadingAnchor.constraint(equalTo: notesTitleL.leadingAnchor),
+                notesTV.topAnchor.constraint(equalTo: notesTitleL.bottomAnchor, constant: 20),
+                notesTV.trailingAnchor.constraint(equalTo: notesTitleL.trailingAnchor),
+                notesTV.heightAnchor.constraint(equalToConstant: 300),
+                
+                timeStampB.trailingAnchor.constraint(equalTo: notesTitleL.trailingAnchor),
+                timeStampB.topAnchor.constraint(equalTo: notesTV.bottomAnchor, constant: 10),
+                timeStampB.heightAnchor.constraint(equalToConstant: 50),
+                timeStampB.widthAnchor.constraint(equalToConstant: 50),
+                
+            ])
+            
+        } else {
+        
         NSLayoutConstraint.activate([
             
             notesTitleL.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 30),
@@ -232,6 +255,7 @@ extension TheShiftNoteVC {
             timeStampB.widthAnchor.constraint(equalToConstant: 50),
             
         ])
+        }
     }
     
     

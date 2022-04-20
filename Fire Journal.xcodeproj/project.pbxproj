@@ -194,6 +194,18 @@
 		1351025D280E24E1005A605F /* FormListModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1351025C280E24E1005A605F /* FormListModalVC.swift */; };
 		1351025F280E2E91005A605F /* FormDescriptionTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1351025E280E2E91005A605F /* FormDescriptionTVCell.swift */; };
 		13510261280E482E005A605F /* FormModal.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13510260280E482E005A605F /* FormModal.storyboard */; };
+		1351A2CB280F2A0500D00A5C /* Mapping65to66.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1351A2CA280F2A0400D00A5C /* Mapping65to66.xcmappingmodel */; };
+		1351A2CD280F2C7C00D00A5C /* PromotionJournalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1351A2CC280F2C7C00D00A5C /* PromotionJournalVC.swift */; };
+		1351A2D0280F3AA000D00A5C /* NewOnboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1351A2CF280F3AA000D00A5C /* NewOnboarding.storyboard */; };
+		1351A2D2280F519B00D00A5C /* NewOnboardOneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1351A2D1280F519B00D00A5C /* NewOnboardOneVC.swift */; };
+		1351A2D4280F640300D00A5C /* NewOnboardTwoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1351A2D3280F640300D00A5C /* NewOnboardTwoVC.swift */; };
+		1351A2D6280F658F00D00A5C /* NewOnboardThreeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1351A2D5280F658E00D00A5C /* NewOnboardThreeVC.swift */; };
+		1351A2D8280F6CA100D00A5C /* NewOnboardFourVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1351A2D7280F6CA100D00A5C /* NewOnboardFourVC.swift */; };
+		1351A2DA280F6CB300D00A5C /* NewOnboardFiveVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1351A2D9280F6CB300D00A5C /* NewOnboardFiveVC.swift */; };
+		1351A2DC280F6CC100D00A5C /* NewOnboardSixVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1351A2DB280F6CC100D00A5C /* NewOnboardSixVC.swift */; };
+		1351A2DE280F6CCE00D00A5C /* NewOnboardSevenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1351A2DD280F6CCE00D00A5C /* NewOnboardSevenVC.swift */; };
+		1351A2E0280F6CDD00D00A5C /* NewOnboardEightVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1351A2DF280F6CDD00D00A5C /* NewOnboardEightVC.swift */; };
+		1351A2E2280F6CEC00D00A5C /* NewOnboardNineVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1351A2E1280F6CEC00D00A5C /* NewOnboardNineVC.swift */; };
 		1352C68D22B067990025D671 /* Mapping27to28.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1352C68C22B067990025D671 /* Mapping27to28.xcmappingmodel */; };
 		13532E8427E3B09C00F41CB7 /* Mapping56to57.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 13532E8327E3B09C00F41CB7 /* Mapping56to57.xcmappingmodel */; };
 		135364AF27EFBF6D00DBAA48 /* JournalNewModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135364AE27EFBF6D00DBAA48 /* JournalNewModalVC.swift */; };
@@ -1365,6 +1377,19 @@
 		1351025C280E24E1005A605F /* FormListModalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormListModalVC.swift; sourceTree = "<group>"; };
 		1351025E280E2E91005A605F /* FormDescriptionTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormDescriptionTVCell.swift; sourceTree = "<group>"; };
 		13510260280E482E005A605F /* FormModal.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FormModal.storyboard; sourceTree = "<group>"; };
+		1351A2C9280F21B400D00A5C /* FireJournal66.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FireJournal66.xcdatamodel; sourceTree = "<group>"; };
+		1351A2CA280F2A0400D00A5C /* Mapping65to66.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = Mapping65to66.xcmappingmodel; sourceTree = "<group>"; };
+		1351A2CC280F2C7C00D00A5C /* PromotionJournalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionJournalVC.swift; sourceTree = "<group>"; };
+		1351A2CF280F3AA000D00A5C /* NewOnboarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewOnboarding.storyboard; sourceTree = "<group>"; };
+		1351A2D1280F519B00D00A5C /* NewOnboardOneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOnboardOneVC.swift; sourceTree = "<group>"; };
+		1351A2D3280F640300D00A5C /* NewOnboardTwoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOnboardTwoVC.swift; sourceTree = "<group>"; };
+		1351A2D5280F658E00D00A5C /* NewOnboardThreeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOnboardThreeVC.swift; sourceTree = "<group>"; };
+		1351A2D7280F6CA100D00A5C /* NewOnboardFourVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOnboardFourVC.swift; sourceTree = "<group>"; };
+		1351A2D9280F6CB300D00A5C /* NewOnboardFiveVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOnboardFiveVC.swift; sourceTree = "<group>"; };
+		1351A2DB280F6CC100D00A5C /* NewOnboardSixVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOnboardSixVC.swift; sourceTree = "<group>"; };
+		1351A2DD280F6CCE00D00A5C /* NewOnboardSevenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOnboardSevenVC.swift; sourceTree = "<group>"; };
+		1351A2DF280F6CDD00D00A5C /* NewOnboardEightVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOnboardEightVC.swift; sourceTree = "<group>"; };
+		1351A2E1280F6CEC00D00A5C /* NewOnboardNineVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOnboardNineVC.swift; sourceTree = "<group>"; };
 		1352C68B22B066C50025D671 /* FireJournal28.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FireJournal28.xcdatamodel; sourceTree = "<group>"; };
 		1352C68C22B067990025D671 /* Mapping27to28.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = Mapping27to28.xcmappingmodel; sourceTree = "<group>"; };
 		13532E8227E3ADE700F41CB7 /* FireJournal57.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FireJournal57.xcdatamodel; sourceTree = "<group>"; };
@@ -2536,6 +2561,14 @@
 			path = DashBoardCollectionViewCells;
 			sourceTree = "<group>";
 		};
+		1351A2CE280F2C8200D00A5C /* PromotionJournal */ = {
+			isa = PBXGroup;
+			children = (
+				1351A2CC280F2C7C00D00A5C /* PromotionJournalVC.swift */,
+			);
+			path = PromotionJournal;
+			sourceTree = "<group>";
+		};
 		1358ACC42485B2BF00F5125E /* Incidents */ = {
 			isa = PBXGroup;
 			children = (
@@ -2952,6 +2985,7 @@
 				13A6D71F27F7B9A0008CA1D9 /* JournalVC+PhotoExtensions.swift */,
 				13E23B9E27F4F4550033BCA6 /* JournalEditTVCell.swift */,
 				13E23BA227F5108E0033BCA6 /* JournalTagsCViewTVCell.swift */,
+				1351A2CE280F2C8200D00A5C /* PromotionJournal */,
 			);
 			path = Journal;
 			sourceTree = "<group>";
@@ -2972,6 +3006,7 @@
 		13D48DE9231ED3E100EDC9F8 /* MappingModels */ = {
 			isa = PBXGroup;
 			children = (
+				1351A2CA280F2A0400D00A5C /* Mapping65to66.xcmappingmodel */,
 				13B40CA027FFAE55005BD7E6 /* Mapping64to65.xcmappingmodel */,
 				13B40C9D27FFA9D6005BD7E6 /* Mapping63to64.xcmappingmodel */,
 				13CCD11227F629370052BCBE /* Mapping62to63.xcmappingmodel */,
@@ -3507,6 +3542,7 @@
 				13F3E7D3219B7E8A0044CF41 /* NFIRSFormGroup.storyboard */,
 				130C530C27DC02EE00750CC4 /* OnBoard.storyboard */,
 				13F3E7CD219B7E8A0044CF41 /* Onboarding.storyboard */,
+				1351A2CF280F3AA000D00A5C /* NewOnboarding.storyboard */,
 				13431903245C9012008EBAFF /* OpenFDResources.storyboard */,
 				13117A4D2352546800AD6069 /* Platoons.storyboard */,
 				139895A927E2A63D008A57DF /* RelieveSupervisor.storyboard */,
@@ -3985,11 +4021,13 @@
 				13F3E936219B80BE0044CF41 /* OnboardFourVC.swift */,
 				13F3E925219B80BE0044CF41 /* OnboardNineVC.swift */,
 				13F3E918219B80BE0044CF41 /* OnboardOne.swift */,
+				13DE9C1F28079FC40081A61E /* OnboardProfileFormVC.swift */,
 				13F3E916219B80BE0044CF41 /* OnboardSevenVC.swift */,
 				13F3E91C219B80BE0044CF41 /* OnboardSixVC.swift */,
 				13F3E926219B80BE0044CF41 /* OnboardTenVC.swift */,
 				13F3E91A219B80BE0044CF41 /* OnboardThreeVC.swift */,
 				13F3E912219B80BE0044CF41 /* OnboardTwoVC.swift */,
+				13431905245C90BA008EBAFF /* OpenFDResourcesTVC.swift */,
 				13F3E931219B80BE0044CF41 /* OpenModalAgreementVC.swift */,
 				13F3E927219B80BE0044CF41 /* OpenModalEight.swift */,
 				13F3E923219B80BE0044CF41 /* OpenModalEightV.xib */,
@@ -4013,8 +4051,15 @@
 				13F3E91E219B80BE0044CF41 /* OpenModelBV.swift */,
 				13F3E920219B80BE0044CF41 /* OpenModelBV.xib */,
 				13F3E92A219B80BE0044CF41 /* OpenModelNine.swift */,
-				13431905245C90BA008EBAFF /* OpenFDResourcesTVC.swift */,
-				13DE9C1F28079FC40081A61E /* OnboardProfileFormVC.swift */,
+				1351A2D1280F519B00D00A5C /* NewOnboardOneVC.swift */,
+				1351A2D3280F640300D00A5C /* NewOnboardTwoVC.swift */,
+				1351A2D5280F658E00D00A5C /* NewOnboardThreeVC.swift */,
+				1351A2D7280F6CA100D00A5C /* NewOnboardFourVC.swift */,
+				1351A2D9280F6CB300D00A5C /* NewOnboardFiveVC.swift */,
+				1351A2DB280F6CC100D00A5C /* NewOnboardSixVC.swift */,
+				1351A2DD280F6CCE00D00A5C /* NewOnboardSevenVC.swift */,
+				1351A2DF280F6CDD00D00A5C /* NewOnboardEightVC.swift */,
+				1351A2E1280F6CEC00D00A5C /* NewOnboardNineVC.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -4419,6 +4464,7 @@
 				130C530427DBF80D00750CC4 /* NewAddressFieldsButtonsCell.xib in Resources */,
 				13F3EA4C219B80BF0044CF41 /* CrewModalCell.xib in Resources */,
 				13117A4E2352546800AD6069 /* Platoons.storyboard in Resources */,
+				1351A2D0280F3AA000D00A5C /* NewOnboarding.storyboard in Resources */,
 				13C96DD225310A5800C5195F /* ARC_TextViewCell.xib in Resources */,
 				1332C49727DAA2F500E13733 /* ShiftNew.storyboard in Resources */,
 				13D6F70227EBDD8600CCFCFD /* IncidentShortTVWithDirectionalCell.xib in Resources */,
@@ -4524,11 +4570,13 @@
 				138FF6FE253780C500EB28F5 /* MoveLocationToLocationSCOperation.swift in Sources */,
 				13DE9C2028079FC40081A61E /* OnboardProfileFormVC.swift in Sources */,
 				13A6D71827F7AE9F008CA1D9 /* IncidentPhotoCollectionCell.swift in Sources */,
+				1351A2DA280F6CB300D00A5C /* NewOnboardFiveVC.swift in Sources */,
 				13BF8B5D27F255140056C25E /* TheJournalNoteVC.swift in Sources */,
 				13DD441F21CEB2EB006C3FB9 /* AllModifiedICS214ActivityLogOperation.swift in Sources */,
 				13C96E1C25310A7300C5195F /* EntityType.swift in Sources */,
 				13C10A7827EB9FA4004CD6C2 /* IncidentVC+TVCExtensions.swift in Sources */,
 				134B13BC2277B2CA006E7617 /* ICS214TeamData.swift in Sources */,
+				1351A2E2280F6CEC00D00A5C /* NewOnboardNineVC.swift in Sources */,
 				1387CF8A23FC9B4500043305 /* FJSettings.swift in Sources */,
 				13F3EA2E219B80BF0044CF41 /* DataTVC.swift in Sources */,
 				13F3EAE6219B80BF0044CF41 /* dismissSaveCell.swift in Sources */,
@@ -4540,6 +4588,7 @@
 				1395810421BAE85200764AA3 /* FJUTagsOperation.swift in Sources */,
 				139D330E23415F86009CD7AE /* BackgroundOperation.swift in Sources */,
 				13F3EB8A219B80BF0044CF41 /* OpenModalFour.swift in Sources */,
+				1351A2D4280F640300D00A5C /* NewOnboardTwoVC.swift in Sources */,
 				13CAF8B227F3A257000FE0CA /* Mapping61to62.xcmappingmodel in Sources */,
 				132304B221B1E0BE006013D3 /* Mapping9to10.xcmappingmodel in Sources */,
 				13F3EA1E219B80BF0044CF41 /* ModalResourceDataTVC.swift in Sources */,
@@ -4612,6 +4661,7 @@
 				13F6EE8621C1DFF4002ED5F0 /* NewUserTimeOperation.swift in Sources */,
 				139AB2132804D0690091D024 /* BuildFromNFIRSIncidentType.swift in Sources */,
 				13F3EA22219B80BF0044CF41 /* CrewModalTVC.swift in Sources */,
+				1351A2CB280F2A0500D00A5C /* Mapping65to66.xcmappingmodel in Sources */,
 				132304B721B1E0BE006013D3 /* Mapping4to5Model.xcmappingmodel in Sources */,
 				13BA68D623FDC6E800427FCE /* UserFDResource.swift in Sources */,
 				13942750253E3EDE00EE7DF7 /* Mapping47to48.xcmappingmodel in Sources */,
@@ -4753,6 +4803,7 @@
 				131E4B6022EA629B0017FEB5 /* SettingMyFDResourcesTVC.swift in Sources */,
 				13A7CA1F2307452F008CBB20 /* Mapping35to36.xcmappingmodel in Sources */,
 				13B01479235651F7008E53F4 /* JournalModalTVC.swift in Sources */,
+				1351A2CD280F2C7C00D00A5C /* PromotionJournalVC.swift in Sources */,
 				13F3EB16219B80BF0044CF41 /* LabelDoubleTextFieldDirectionalCell.swift in Sources */,
 				1395810E21BAE8DB00764AA3 /* FJNFIRSStreetTypeOperation.swift in Sources */,
 				13DD446921CEC228006C3FB9 /* ModifyNFIRSStreetTypeOperation.swift in Sources */,
@@ -4794,6 +4845,7 @@
 				137087CB24AA9C2400979391 /* NewICS214ActivityLog.swift in Sources */,
 				1325145B22C433A80076056F /* ModifyUserFDResourcesOperation.swift in Sources */,
 				13B3551A240AF4C00072155E /* EndShiftData.swift in Sources */,
+				1351A2DC280F6CC100D00A5C /* NewOnboardSixVC.swift in Sources */,
 				13A2D6D82409E2BC00824015 /* SubjectLabelTextFieldTVCell.swift in Sources */,
 				13F6EE8C21C1E036002ED5F0 /* FJUserTimeSyncOperation.swift in Sources */,
 				13A6D71A27F7AEC8008CA1D9 /* CameraTVCell.swift in Sources */,
@@ -4831,6 +4883,7 @@
 				13C96D9525310A4100C5195F /* ResidenceSyncFromCloudOperation.swift in Sources */,
 				13C96DD825310A5800C5195F /* ARC_CampaignNameCell.swift in Sources */,
 				13DE9C242807A7290081A61E /* OnboardHeaderV.swift in Sources */,
+				1351A2D2280F519B00D00A5C /* NewOnboardOneVC.swift in Sources */,
 				134FF4F1244525430064ABF3 /* UpdateCrewCVCell.swift in Sources */,
 				13BE99A02564487100DC9BC4 /* UserRankBackedUpOperation.swift in Sources */,
 				131EB07221A8A38C004651A7 /* CrewMemberHeaderV.swift in Sources */,
@@ -4847,6 +4900,7 @@
 				13F3EA82219B80BF0044CF41 /* PlatoonOperation.swift in Sources */,
 				13368BF721CAC4C300D75B3B /* ModifyICS214ToCloudOperation.swift in Sources */,
 				13F3E980219B80BF0044CF41 /* IncidentLocationButtonCell.swift in Sources */,
+				1351A2E0280F6CDD00D00A5C /* NewOnboardEightVC.swift in Sources */,
 				13D880522249387700135D50 /* StartShiftData.swift in Sources */,
 				130C530B27DC026600750CC4 /* OnBoardMapVC.swift in Sources */,
 				13F3EA00219B80BF0044CF41 /* CompletedThreeFieldExpandedCell.swift in Sources */,
@@ -4955,6 +5009,7 @@
 				138F25DC27D952CE00C76CF7 /* Mapping51to52.xcmappingmodel in Sources */,
 				13A4D47C21AB415300CD4A81 /* SettingsUserHeaderV.swift in Sources */,
 				137087CD24ABCAFA00979391 /* NewICS214Data.swift in Sources */,
+				1351A2D6280F658F00D00A5C /* NewOnboardThreeVC.swift in Sources */,
 				13F3EA7A219B80BF0044CF41 /* ActionsTakenOperation.swift in Sources */,
 				13DD443F21CEBFF9006C3FB9 /* FJUserResourcesSyncOperation.swift in Sources */,
 				138FE27921A5EE5600FAE7FF /* SettingsCrewTVC.swift in Sources */,
@@ -4964,6 +5019,7 @@
 				134FF4E8244525430064ABF3 /* StartShiftEditResourceVC.swift in Sources */,
 				13D0793021A4B82D00068B0A /* FireJournalSettingsCell.swift in Sources */,
 				130C52FE27DBDF3200750CC4 /* Mapping52to53.xcmappingmodel in Sources */,
+				1351A2DE280F6CCE00D00A5C /* NewOnboardSevenVC.swift in Sources */,
 				13DD442B21CEBD2E006C3FB9 /* UserPlatoon+CustomAdditions.swift in Sources */,
 				13A2D6D92409E2BC00824015 /* SwitchLeftAlignedTVCell.swift in Sources */,
 				13755B4922A7E2E600487D42 /* DeleteFromCloudWithGeneratedIDSyncOperation.swift in Sources */,
@@ -5198,6 +5254,7 @@
 				13BE99B225644FA200DC9BC4 /* LocalPartnerBackedUpOperation.swift in Sources */,
 				13638C5D252E849000EEC932 /* NationalPartners+Extensions.swift in Sources */,
 				13E6FD0C228B446200E7175E /* DeleteICS214ActivityLogAssociatedWithFormOperation.swift in Sources */,
+				1351A2D8280F6CA100D00A5C /* NewOnboardFourVC.swift in Sources */,
 				13C96DF125310A5800C5195F /* ARC_ChooseACampaignCell.swift in Sources */,
 				13A2D6E02409E2BC00824015 /* SwitchCenteredTVCell.swift in Sources */,
 				137E982F21BC4CD300E72B2A /* NewIncidentToCloudOperation.swift in Sources */,
@@ -5415,7 +5472,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Fire Journal/Fire Journal.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4.0.08;
+				CURRENT_PROJECT_VERSION = 4.0.09;
 				DEVELOPMENT_TEAM = 8Y2CT58NL3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5455,7 +5512,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Fire Journal/Fire Journal.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4.0.08;
+				CURRENT_PROJECT_VERSION = 4.0.09;
 				DEVELOPMENT_TEAM = 8Y2CT58NL3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5574,6 +5631,7 @@
 		1323048221B1E0BD006013D3 /* CommandJournal.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				1351A2C9280F21B400D00A5C /* FireJournal66.xcdatamodel */,
 				13B40C9F27FFAA41005BD7E6 /* FireJournal65.xcdatamodel */,
 				13B40C9C27FFA95E005BD7E6 /* FireJournal64.xcdatamodel */,
 				13CCD11127F628390052BCBE /* FireJournal63.xcdatamodel */,
@@ -5641,7 +5699,7 @@
 				1323049D21B1E0BD006013D3 /* FireJournal12.xcdatamodel */,
 				1323049E21B1E0BD006013D3 /* FireJournal8.xcdatamodel */,
 			);
-			currentVersion = 13B40C9F27FFAA41005BD7E6 /* FireJournal65.xcdatamodel */;
+			currentVersion = 1351A2C9280F21B400D00A5C /* FireJournal66.xcdatamodel */;
 			path = CommandJournal.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
