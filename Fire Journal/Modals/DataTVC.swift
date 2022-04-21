@@ -215,7 +215,7 @@ class DataTVC: UITableViewController,dismissSaveCellDelegate,LabelTextFieldCellD
         tableView.reloadData()
     }
     
-    func labelTextFieldFinishedEditing(text: String, myShift: MenuItems) {
+    func labelTextFieldFinishedEditing(text: String, myShift: MenuItems, tag: Int) {
         switch myShift {
         case .journal,.personal:
             switch journalType {

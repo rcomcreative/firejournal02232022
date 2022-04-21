@@ -782,7 +782,7 @@ extension StartShiftModalTVC: LabelTextFieldCellDelegate {
         startShiftStructure.ssRelieving = text
     }
     
-    func labelTextFieldFinishedEditing(text: String, myShift: MenuItems) {
+    func labelTextFieldFinishedEditing(text: String, myShift: MenuItems, tag: Int) {
         startShiftStructure.ssRelieving = text
     }
     

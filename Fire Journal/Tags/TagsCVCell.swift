@@ -39,13 +39,13 @@ extension TagsCVCell {
         tagL.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(tagL)
         
-        theBackgroundView.backgroundColor = UIColor(named: self.platoonColor)
-        theBackgroundView.layer.cornerRadius = 8
+        theBackgroundView.backgroundColor = UIColor.clear //UIColor(named: self.platoonColor)
+        theBackgroundView.layer.cornerRadius = 0 //8
         
         tagL.textAlignment = .center
         tagL.font = .systemFont(ofSize: 10, weight: UIFont.Weight(rawValue: 100))
-        tagL.textColor = .white
-        tagL.adjustsFontForContentSizeCategory = true
+        tagL.textColor = .label
+        tagL.adjustsFontForContentSizeCategory = false
         tagL.lineBreakMode = NSLineBreakMode.byWordWrapping
         tagL.numberOfLines = 0
         

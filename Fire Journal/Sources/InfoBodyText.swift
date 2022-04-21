@@ -71,6 +71,8 @@ enum InfoBodyText:String {
     case editIncidentDescription = "You can change the incident number, alarm time and the type of incident in this area."
 
 
+    case newProjectSubject = "New Project"
+    case newProjectDescription = "Start a new entry covering a project that may be a study session, training, etc. You'll be able to add a study group, photos, address and tags once you've started the project. All projects will be listed under the menu as Projects."
     case newIncidentSubject = "New Incident"
     case newIncident = "Start a new incident by indicating if this is an emergency or non-emergency response. Then, tap on the clock to set an Alarm time. Tap on the glove to locate an address on a map, or tap on the pin to select the location where you’re standing. You may update the address later, and you may use the microphone or keyboard to manually enter an address. Tap on the green dot under your resources to select the apparatus from your station that are resopnding."
     case newJournalEntrySubject = "New Journal Entry"
@@ -124,6 +126,10 @@ enum InfoBodyText:String {
     case newStaffEntry = "Add new staff either manually or from your contact list. If there is a photo associated with the individual in your contacts, that photo will auto-populate on this staffing pop-over. Alternatively, you can add a new, separate photo just for use in Station Command. You can also manage their rank (by category), and assigned platoon."
     case tagsSubject = "Tags"
     case tagsDescription = "Add tags to the list of tags, this will available in any form using tags in Fire Journal."
+    case projectOverviewSubject = "Project Overview Note"
+    case projectOverviewDescription = "Create a note that covers an overview of this project. Hit the time stamp button to add your name and time, then tap the save button when you are finished"
+    case projectClassNoteSubject = "Project Notes"
+    case projectClassNoteDescription = "Create a note that covers all that you did during this project, you can come back and add more information as the project evolves, adding time stamps to each entry by tapping the time stamp button and then the save button to exit."
     case journalOverviewSubject = "Journal Overview"
     case journalOverviewDescription = "Create note that covers an overview of this journal entry.  Hit the time stamp button to add your name and the time, then tap the save button when you are finished."
     case journalDiscussionSubject = "Journal Discussion"

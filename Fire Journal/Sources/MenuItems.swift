@@ -74,4 +74,5 @@ public enum MenuItems:Int {
     case incidentTimer
     case userFDResource
     case finished
+    case projects
 }

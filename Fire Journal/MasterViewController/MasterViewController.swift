@@ -76,11 +76,9 @@ class MasterViewController: UITableViewController,UISplitViewControllerDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-            //        MARK: -BACKGROUNDCONTEXT-
-        backgroundContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
-        backgroundContext.undoManager = nil
-        backgroundContext.automaticallyMergesChangesFromParent = true
-        backgroundContext.parent = context
+        vcLaunch.splitVC = self.splitViewController
+        launchNC = LaunchNotifications.init(launchVC: vcLaunch)
+        launchNC.callNotifications()
         
         if let split = splitViewController {
             self.splitViewController?.delegate = self

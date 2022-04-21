@@ -12,7 +12,7 @@ protocol LabelTextFieldCellDelegate: AnyObject {
     func incidentLabelTFEditing(text:String, myShift: MenuItems, type: IncidentTypes)
     func incidentLabelTFFinishedEditing(text:String,myShift:MenuItems, type: IncidentTypes)
     func labelTextFieldEditing(text: String, myShift: MenuItems)
-    func labelTextFieldFinishedEditing(text: String, myShift: MenuItems)
+    func labelTextFieldFinishedEditing(text: String, myShift: MenuItems, tag: Int)
     func userInfoTextFieldEditing(text:String, myShift: MenuItems, journalType: JournalTypes )
     func userInfoTextFieldFinishedEditing(text:String, myShift: MenuItems, journalType: JournalTypes )
 }
@@ -34,7 +34,7 @@ class LabelTextFieldCell: UITableViewCell, UITextFieldDelegate {
             }
         }
     }
-    var journalType:JournalTypes!
+    var journalType: JournalTypes!
     
 
     override func awakeFromNib() {
@@ -62,6 +62,8 @@ class LabelTextFieldCell: UITableViewCell, UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if myShift == .incidents {
             self.descriptionTF.keyboardType = .namePhonePad
+            self.descriptionTF.enablesReturnKeyAutomatically = true
+            self.descriptionTF.returnKeyType = .done
             self.descriptionTF.reloadInputViews()
         }
         return true
@@ -70,29 +72,34 @@ class LabelTextFieldCell: UITableViewCell, UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         switch myShift {
         case .incidents:
-            descriptionTF.keyboardType = .numberPad
+            self.descriptionTF.keyboardType = .numbersAndPunctuation
+            self.descriptionTF.returnKeyType = .default
+        case .projects:
+            self.descriptionTF.keyboardType = .default
+            self.descriptionTF.returnKeyType = .default
         default:
             descriptionTF.keyboardType = .emailAddress
         }
-        let text = textField.text ?? ""
-        if journalType == nil {
-            delegate?.labelTextFieldEditing(text: text, myShift: myShift)
-        } else {
-        switch journalType {
-        case .userInfo:
-            delegate?.userInfoTextFieldEditing(text:text, myShift: myShift, journalType: journalType )
-        case .fireStation:
-            delegate?.userInfoTextFieldEditing(text:text, myShift: myShift, journalType: journalType )
-        default:
-            print("no")
-        }
+        if let text = textField.text {
+            if journalType == nil {
+                delegate?.labelTextFieldEditing(text: text, myShift: myShift)
+            } else {
+            switch journalType {
+            case .userInfo:
+                delegate?.userInfoTextFieldEditing(text:text, myShift: myShift, journalType: journalType )
+            case .fireStation:
+                delegate?.userInfoTextFieldEditing(text:text, myShift: myShift, journalType: journalType )
+            default:
+                print("no")
+            }
+            }
         }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         let text = textField.text ?? ""
         if journalType == nil {
-            delegate?.labelTextFieldFinishedEditing(text: text, myShift: myShift)
+            delegate?.labelTextFieldFinishedEditing(text: text, myShift: myShift, tag: self.tag)
         } else {
             switch journalType {
             case .userInfo?:
@@ -108,7 +115,7 @@ class LabelTextFieldCell: UITableViewCell, UITextFieldDelegate {
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         let text = textField.text ?? ""
         if journalType == nil {
-            delegate?.labelTextFieldFinishedEditing(text: text, myShift: myShift)
+            delegate?.labelTextFieldFinishedEditing(text: text, myShift: myShift, tag: self.tag)
         }
         return true
     }

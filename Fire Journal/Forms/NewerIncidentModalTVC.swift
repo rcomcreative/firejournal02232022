@@ -760,7 +760,7 @@ extension NewerIncidentModalTVC: LabelTextFieldCellDelegate {
     func labelTextFieldEditing(text: String, myShift: MenuItems){
         incidentStructure.incidentNumber = text
     }
-    func labelTextFieldFinishedEditing(text: String, myShift: MenuItems){
+    func labelTextFieldFinishedEditing(text: String, myShift: MenuItems, tag: Int){
         incidentStructure.incidentNumber = text
     }
     func userInfoTextFieldEditing(text:String, myShift: MenuItems, journalType: JournalTypes ){}

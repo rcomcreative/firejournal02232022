@@ -232,6 +232,10 @@
             
             nc.addObserver(self, selector:#selector(newJournalSendToCloud(notification:)),name:NSNotification.Name(rawValue: FJkCKNewJournalCreated), object: nil)
             
+            nc.addObserver(self, selector:#selector(newProjectSendToCloud(nc:)),name: .fireJournalNewProjectCreatedSendToCloud, object: nil)
+            
+            nc.addObserver(self, selector:#selector(modifiedProjectSendToCloud(nc:)),name: .fireJournalProjectModifiedSendToCloud, object: nil)
+            
             nc.addObserver(self, selector:#selector(newStartEndSendToCloud(notification:)),name:NSNotification.Name(rawValue: FJkCKNewStartEndCreated), object: nil)
             
             nc.addObserver(self, selector:#selector(modifiedStartEndSendToCloud(notification:)),name:NSNotification.Name(rawValue: FJkCKMODIFIEDSTARTENDTOCLOUD), object: nil)
@@ -1280,6 +1284,31 @@
                 if objectID != nil {
                     let modifyJournalToCloud = ModifyJournalToCloudOperation.init(context, objectID: objectID!)
                     pendingOperations.nfirsIncidentTypeQueue.addOperation(modifyJournalToCloud)
+                }
+                pendingOperations.nfirsIncidentTypeQueue.isSuspended = false
+            }
+        }
+        
+//        MARK: -PROJECT TO CLOUD-
+        @objc private func newProjectSendToCloud(nc: Notification) {
+            if let userInfo = nc.userInfo as! [String: Any]? {
+                let objectID = userInfo["objectID"] as? NSManagedObjectID
+                pendingOperations.nfirsIncidentTypeQueue.isSuspended = true
+                if objectID != nil {
+//                    let newJournalToCloud = NewJournalToCloudOperation.init(context, objectID: objectID!)
+//                    pendingOperations.nfirsIncidentTypeQueue.addOperation(newJournalToCloud)
+                }
+                pendingOperations.nfirsIncidentTypeQueue.isSuspended = false
+            }
+        }
+        
+        @objc private func modifiedProjectSendToCloud(nc: Notification) {
+            if let userInfo = nc.userInfo as! [String: Any]? {
+                let objectID = userInfo["objectID"] as? NSManagedObjectID
+                pendingOperations.nfirsIncidentTypeQueue.isSuspended = true
+                if objectID != nil {
+//                    let newJournalToCloud = NewJournalToCloudOperation.init(context, objectID: objectID!)
+//                    pendingOperations.nfirsIncidentTypeQueue.addOperation(newJournalToCloud)
                 }
                 pendingOperations.nfirsIncidentTypeQueue.isSuspended = false
             }

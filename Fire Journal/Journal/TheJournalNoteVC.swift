@@ -209,18 +209,10 @@ extension TheJournalNoteVC {
                 if let notes = theJournal.journalOverviewSC as? String {
                     notesTV.text = notes
                 }
-            case .arrivalNote:
+            case .discussion:
                     if let notes = theJournal.journalDiscussionSC as? String {
                         notesTV.text = notes
                     }
-            case .controlledNote:
-                if let notes = theJournal.journalNextStepsSC as? String {
-                    notesTV.text = notes
-                }
-            case .lastUnitStandingNote:
-                if let notes = theJournal.journalSummarySC as? String {
-                    notesTV.text = notes
-                }
             default: break
             }
             notesTV.setNeedsDisplay()
@@ -244,24 +236,48 @@ extension TheJournalNoteVC {
         self.view.addSubview(notesTV)
         self.view.addSubview(timeStampB)
         
-        NSLayoutConstraint.activate([
+        if Device.IS_IPHONE {
+            NSLayoutConstraint.activate([
+                
+                notesTitleL.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 30),
+                notesTitleL.topAnchor.constraint(equalTo: newModalHeaderV.bottomAnchor, constant: 20),
+                notesTitleL.heightAnchor.constraint(equalToConstant: 30),
+                notesTitleL.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant:  -35),
+                
+                notesTV.leadingAnchor.constraint(equalTo: notesTitleL.leadingAnchor),
+                notesTV.topAnchor.constraint(equalTo: notesTitleL.bottomAnchor, constant: 20),
+                notesTV.trailingAnchor.constraint(equalTo: notesTitleL.trailingAnchor),
+                notesTV.heightAnchor.constraint(equalToConstant: 300),
+                
+                timeStampB.trailingAnchor.constraint(equalTo: notesTitleL.trailingAnchor),
+                timeStampB.topAnchor.constraint(equalTo: notesTV.bottomAnchor, constant: 10),
+                timeStampB.heightAnchor.constraint(equalToConstant: 50),
+                timeStampB.widthAnchor.constraint(equalToConstant: 50),
+                
+            ])
             
-            notesTitleL.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 30),
-            notesTitleL.topAnchor.constraint(equalTo: newModalHeaderV.bottomAnchor, constant: 20),
-            notesTitleL.heightAnchor.constraint(equalToConstant: 30),
-            notesTitleL.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant:  -35),
-            
-            notesTV.leadingAnchor.constraint(equalTo: notesTitleL.leadingAnchor),
-            notesTV.topAnchor.constraint(equalTo: notesTitleL.bottomAnchor, constant: 20),
-            notesTV.trailingAnchor.constraint(equalTo: notesTitleL.trailingAnchor),
-            notesTV.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -95),
-            
-            timeStampB.trailingAnchor.constraint(equalTo: notesTitleL.trailingAnchor),
-            timeStampB.topAnchor.constraint(equalTo: notesTV.bottomAnchor, constant: 10),
-            timeStampB.heightAnchor.constraint(equalToConstant: 50),
-            timeStampB.widthAnchor.constraint(equalToConstant: 50),
-            
-        ])
+        } else {
+            NSLayoutConstraint.activate([
+                
+                notesTitleL.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 30),
+                notesTitleL.topAnchor.constraint(equalTo: newModalHeaderV.bottomAnchor, constant: 20),
+                notesTitleL.heightAnchor.constraint(equalToConstant: 30),
+                notesTitleL.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant:  -35),
+                
+                notesTV.leadingAnchor.constraint(equalTo: notesTitleL.leadingAnchor),
+                notesTV.topAnchor.constraint(equalTo: notesTitleL.bottomAnchor, constant: 20),
+                notesTV.trailingAnchor.constraint(equalTo: notesTitleL.trailingAnchor),
+                notesTV.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -95),
+                
+                timeStampB.trailingAnchor.constraint(equalTo: notesTitleL.trailingAnchor),
+                timeStampB.topAnchor.constraint(equalTo: notesTV.bottomAnchor, constant: 10),
+                timeStampB.heightAnchor.constraint(equalToConstant: 50),
+                timeStampB.widthAnchor.constraint(equalToConstant: 50),
+                
+            ])
+        }
+        
+        
     }
     
     

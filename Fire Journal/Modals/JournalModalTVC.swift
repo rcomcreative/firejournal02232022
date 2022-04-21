@@ -484,7 +484,7 @@ extension JournalModalTVC: LabelTextFieldCellDelegate {
          journalStructure.journalTitle = text
     }
     
-    func labelTextFieldFinishedEditing(text: String, myShift: MenuItems) {
+    func labelTextFieldFinishedEditing(text: String, myShift: MenuItems, tag: Int) {
         journalStructure.journalTitle = text
     }
     

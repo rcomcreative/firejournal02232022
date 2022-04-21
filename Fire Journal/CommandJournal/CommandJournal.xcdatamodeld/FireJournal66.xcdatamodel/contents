@@ -83,7 +83,7 @@
         <relationship name="journalDetail" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Journal" inverseName="journalARCFormDetails" inverseEntity="Journal"/>
         <relationship name="localPartnerInto" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="LocalPartners" inverseName="localPartnerDetail" inverseEntity="LocalPartners"/>
         <relationship name="residentsInfo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Residence" inverseName="residenceDetail" inverseEntity="Residence"/>
-        <relationship name="tags" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="Tag" inverseName="crrForm" inverseEntity="Tag"/>
+        <relationship name="tags" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Tag" inverseName="crrForm" inverseEntity="Tag"/>
         <relationship name="theLocation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FCLocation" inverseName="arcrossForm" inverseEntity="FCLocation"/>
         <relationship name="userTime" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserTime" inverseName="arcForm" inverseEntity="UserTime"/>
         <uniquenessConstraints>
@@ -666,7 +666,7 @@
         <relationship name="ics214IncidentInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Incident" inverseName="ics214Detail" inverseEntity="Incident"/>
         <relationship name="ics214JournalInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Journal" inverseName="journalICS214Details" inverseEntity="Journal"/>
         <relationship name="ics214PersonneDetail" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ICS214Personnel" inverseName="ics214PersonnelInfo" inverseEntity="ICS214Personnel"/>
-        <relationship name="tags" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="Tag" inverseName="ics214" inverseEntity="Tag"/>
+        <relationship name="tags" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Tag" inverseName="ics214" inverseEntity="Tag"/>
         <relationship name="theLocation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FCLocation" inverseName="ics214" inverseEntity="FCLocation"/>
         <relationship name="userTime" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserTime" inverseName="ics214" inverseEntity="UserTime"/>
     </entity>
@@ -758,7 +758,7 @@
         <relationship name="requiredModulesDetails" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="IncidentNFIRSRequiredModules" inverseName="requiredModuleInfo" inverseEntity="IncidentNFIRSRequiredModules"/>
         <relationship name="sectionLDetails" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="IncidentNFIRSsecL" inverseName="sectionLInfo" inverseEntity="IncidentNFIRSsecL"/>
         <relationship name="sectionMDetails" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="IncidentNFIRSsecM" inverseName="sectionMInfo" inverseEntity="IncidentNFIRSsecM"/>
-        <relationship name="tag" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="UserTags" inverseName="incident" inverseEntity="UserTags"/>
+        <relationship name="tag" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UserTags" inverseName="incident" inverseEntity="UserTags"/>
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tag" inverseName="incident" inverseEntity="Tag"/>
         <relationship name="teamMemberDetails" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="IncidentTeam" inverseName="teamMemberInfo" inverseEntity="IncidentTeam"/>
         <relationship name="theLocation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FCLocation" inverseName="incident" inverseEntity="FCLocation"/>
@@ -1162,8 +1162,8 @@
         <relationship name="journalPhotoDetails" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="JournalPhotos" inverseName="journalPhotoInfo" inverseEntity="JournalPhotos"/>
         <relationship name="journalTagDetails" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="JournalTags" inverseName="journalTagInfo" inverseEntity="JournalTags"/>
         <relationship name="photo" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Photo" inverseName="journal" inverseEntity="Photo"/>
-        <relationship name="tag" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="UserTags" inverseName="journal" inverseEntity="UserTags"/>
-        <relationship name="tags" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="Tag" inverseName="journal" inverseEntity="Tag"/>
+        <relationship name="tag" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UserTags" inverseName="journal" inverseEntity="UserTags"/>
+        <relationship name="tags" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Tag" inverseName="journal" inverseEntity="Tag"/>
         <relationship name="theLocation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FCLocation" inverseName="journal" inverseEntity="FCLocation"/>
         <relationship name="userTime" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserTime" inverseName="journal" inverseEntity="UserTime"/>
         <fetchIndex name="byFjpJournalSearchDateIndex">
@@ -1884,6 +1884,7 @@
         <element name="NFIRSStreetType" positionX="-324" positionY="-108" width="128" height="178"/>
         <element name="Photo" positionX="-387" positionY="-90" width="128" height="194"/>
         <element name="Products" positionX="-306" positionY="-90" width="128" height="823"/>
+        <element name="PromotionJournal" positionX="-432" positionY="-135" width="128" height="179"/>
         <element name="Residence" positionX="-414" positionY="-126" width="128" height="133"/>
         <element name="StartUp" positionX="-351" positionY="-135" width="128" height="150"/>
         <element name="Status" positionX="-432" positionY="-135" width="128" height="89"/>
@@ -1913,6 +1914,5 @@
         <element name="UserTags" positionX="-360" positionY="-144" width="128" height="209"/>
         <element name="UserTheStates" positionX="-423" positionY="-135" width="128" height="193"/>
         <element name="UserTime" positionX="-432" positionY="-144" width="128" height="614"/>
-        <element name="PromotionJournal" positionX="-432" positionY="-135" width="128" height="179"/>
     </elements>
 </model>

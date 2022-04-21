@@ -151,6 +151,21 @@ extension ListTVC {
                     self.splitVC?.showDetailViewController(navigator, sender:self)
                 }
             }
+        case .projects:
+            if let project = _fetchedResultsController?.object(at: indexPath) as? PromotionJournal {
+                id = project.objectID
+                if (Device.IS_IPHONE){
+                    delegate?.journalObjectChosen(type:myShift, id:id, compact: compact)
+                } else {
+                        let storyboard = UIStoryboard(name: "Promotion", bundle: nil)
+                        let controller: PromotionJournalVC = storyboard.instantiateViewController(withIdentifier: "PromotionJournalVC") as! PromotionJournalVC
+                        let navigator = UINavigationController.init(rootViewController: controller)
+                        controller.navigationItem.leftItemsSupplementBackButton = true
+                        controller.navigationItem.leftBarButtonItem = self.splitVC?.displayModeButtonItem
+                        controller.id = id
+                        self.splitVC?.showDetailViewController(navigator, sender:self)
+                }
+            }
         case .personal:
             if let journal = _fetchedResultsController?.object(at: indexPath) as? Journal {
                 id = journal.objectID

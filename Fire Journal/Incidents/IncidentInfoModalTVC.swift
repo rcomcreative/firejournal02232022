@@ -290,7 +290,7 @@ extension IncidentInfoModalTVC: LabelTextFieldCellDelegate {
         incidentStructure.incidentNumber = text
     }
     
-    func labelTextFieldFinishedEditing(text: String, myShift: MenuItems) {
+    func labelTextFieldFinishedEditing(text: String, myShift: MenuItems, tag: Int) {
         incidentStructure.incidentNumber = text
     }
     

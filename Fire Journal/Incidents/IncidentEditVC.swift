@@ -348,7 +348,7 @@ extension IncidentEditVC: LabelTextFieldCellDelegate {
         theIncident.incidentNumber = text
     }
     
-    func labelTextFieldFinishedEditing(text: String, myShift: MenuItems) {
+    func labelTextFieldFinishedEditing(text: String, myShift: MenuItems, tag: Int) {
         theIncident.incidentNumber = text
     }
     

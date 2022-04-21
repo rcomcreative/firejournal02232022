@@ -339,7 +339,7 @@
             default:break
             }
         }
-        func labelTextFieldFinishedEditing(text: String, myShift: MenuItems){
+        func labelTextFieldFinishedEditing(text: String, myShift: MenuItems, tag: Int){
             switch myShift {
             case .incidents:
                 incidentStructure.incidentNumber = text

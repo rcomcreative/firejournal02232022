@@ -17,6 +17,7 @@ extension MasterViewController {
     func addObserversForMaster() {
         nc.addObserver(self, selector: #selector(compactOrRegular(ns:)), name:NSNotification.Name(rawValue: FJkCOMPACTORREGULAR), object: nil)
         nc.addObserver(self, selector: #selector(listOfJournalCalled(ns:)), name:NSNotification.Name(rawValue: FJkJOURNALLISTSEGUE), object: nil)
+        nc.addObserver(self, selector: #selector(listOfProjectsCalled(ns:)), name: .fireJournalProjectListCalled , object: nil)
         nc.addObserver(self, selector: #selector(incidentListCalled(ns:)), name:NSNotification.Name(rawValue: FJkINCIDENTLISTCALLED), object: nil)
         nc.addObserver(self, selector: #selector(mapListCalled(ns:)), name:NSNotification.Name(rawValue: FJkMAPSLISTCALLED), object: nil)
         nc.addObserver(self, selector: #selector(listOfPersonalCalled(ns:)), name:NSNotification.Name(rawValue: FJkPERSONALLISTCALLED), object: nil)
@@ -238,6 +239,20 @@ extension MasterViewController {
         controller.entity = "Journal"
         controller.attribute = "journalModDate"
         controller.journalPersonal = true
+        controller.splitVC = self.splitViewController
+        self.splitViewController?.show(navigator, sender: self)
+    }
+    
+    @objc func listOfProjectsCalled(ns: Notification) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller:ListTVC = storyboard.instantiateViewController(withIdentifier: "ListTVC") as! ListTVC
+        let navigator = UINavigationController.init(rootViewController: controller)
+        navigator.navigationItem.leftItemsSupplementBackButton = true
+        controller.compact = compact
+        controller.myShift = MenuItems.projects
+        controller.delegate = self
+        controller.entity = "PromotionJournal"
+        controller.attribute = "promotionDate"
         controller.splitVC = self.splitViewController
         self.splitViewController?.show(navigator, sender: self)
     }

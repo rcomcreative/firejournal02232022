@@ -467,7 +467,7 @@ extension EndShiftModalTVC: LabelTextFieldCellDelegate {
         endShiftStructure.esRelieving = text
     }
     
-    func labelTextFieldFinishedEditing(text: String, myShift: MenuItems) {
+    func labelTextFieldFinishedEditing(text: String, myShift: MenuItems, tag: Int) {
         endShiftStructure.esRelieving = text
     }
     

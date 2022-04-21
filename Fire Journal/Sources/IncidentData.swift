@@ -499,6 +499,9 @@ public enum IncidentTypes: Int {
     case nextSteps
     case summary
     case theRanks
+    case theProject
+    case theProjectOverview
+    case theProjectClassNote
 }
 
 public enum NFIRSModule:Int {

@@ -973,7 +973,7 @@ class ModalTVC: UITableViewController, StartShiftOvertimeSwitchDelegate,dismissU
     func userInfoTextFieldEditing(text:String, myShift: MenuItems, journalType: JournalTypes){}
     func userInfoTextFieldFinishedEditing(text:String, myShift: MenuItems, journalType: JournalTypes ){}
     
-    func labelTextFieldFinishedEditing(text: String, myShift: MenuItems) {
+    func labelTextFieldFinishedEditing(text: String, myShift: MenuItems, tag: Int) {
         switch myShift {
         case .startShift:
             startShiftStructure.ssRelieving = text

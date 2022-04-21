@@ -307,6 +307,7 @@ extension JournalNewModalVC: UITableViewDataSource {
             cell.modalTitleL.setNeedsDisplay()
             return cell
         }
+
     
     func configureMultipleAddButtonTVCell(_ cell: MultipleAddButtonTVCell, index: IndexPath) -> MultipleAddButtonTVCell {
         cell.tag = index.row
@@ -453,7 +454,7 @@ extension JournalNewModalVC: MultipleAddButtonTVCellDelegate {
                 theJournalNoteVC.modalPresentationStyle = .formSheet
                 theJournalNoteVC.isModalInPresentation = true
                 theJournalNoteVC.theType = IncidentTypes.overview
-                theJournalNoteVC.isIncidentNote = true
+                theJournalNoteVC.isIncidentNote = false
                 if theJournal != nil {
                     theJournalNoteVC.journalObID = theJournal.objectID
                     theJournalNoteVC.delegate = self
@@ -566,7 +567,7 @@ extension JournalNewModalVC: LabelTextFieldCellDelegate {
         theJournal.journalHeader = text
     }
     
-    func labelTextFieldFinishedEditing(text: String, myShift: MenuItems) {
+    func labelTextFieldFinishedEditing(text: String, myShift: MenuItems, tag: Int) {
         theJournal.journalHeader = text
     }
     

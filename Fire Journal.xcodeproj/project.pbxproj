@@ -323,6 +323,7 @@
 		138B2DA922DE4913003C8B0E /* Fire JournalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F3E76E219B72050044CF41 /* Fire JournalTests.swift */; };
 		138B71E8229DE07B0048C6C0 /* DeleteFromListOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138B71E7229DE07B0048C6C0 /* DeleteFromListOperation.swift */; };
 		138BF28524D095460031E6C6 /* ICS214ToCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138BF28424D095460031E6C6 /* ICS214ToCloud.swift */; };
+		138DAED328107A3B007602AE /* Promotion.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 138DAED228107A3B007602AE /* Promotion.storyboard */; };
 		138F15A6219F7224007173C6 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138F15A4219F7224007173C6 /* Reachability.swift */; };
 		138F15B5219F86D8007173C6 /* LoadUserItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138F15B4219F86D8007173C6 /* LoadUserItems.swift */; };
 		138F15B7219F8F2E007173C6 /* FireJournalUserOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138F15B6219F8F2E007173C6 /* FireJournalUserOperation.swift */; };
@@ -609,6 +610,14 @@
 		13C96E3325310A8000C5195F /* FormHeaderV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C96E2D25310A8000C5195F /* FormHeaderV.swift */; };
 		13C96E3425310A8000C5195F /* MapHeaderV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13C96E2E25310A8000C5195F /* MapHeaderV.xib */; };
 		13CAD27421D7B9E4003CF110 /* StoreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CAD27321D7B9E4003CF110 /* StoreVC.swift */; };
+		13CAD401281082DB00E025BC /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CAD400281082DB00E025BC /* UITableView+Extension.swift */; };
+		13CAD4032810847100E025BC /* NewPromotionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CAD4022810847100E025BC /* NewPromotionVC.swift */; };
+		13CAD4052810848E00E025BC /* NewPromotion.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13CAD4042810848E00E025BC /* NewPromotion.storyboard */; };
+		13CAD4072810A3FA00E025BC /* NewPromotionVC+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CAD4062810A3FA00E025BC /* NewPromotionVC+Extensions.swift */; };
+		13CAD40A2810B2DC00E025BC /* Mapping66to67.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 13CAD4092810B2DC00E025BC /* Mapping66to67.xcmappingmodel */; };
+		13CAD40D2810B7E900E025BC /* Mapping67to68.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 13CAD40C2810B7E900E025BC /* Mapping67to68.xcmappingmodel */; };
+		13CAD40F2810C0CF00E025BC /* PromotionNoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CAD40E2810C0CF00E025BC /* PromotionNoteVC.swift */; };
+		13CAD4112810C1A800E025BC /* PromotionNote.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13CAD4102810C1A800E025BC /* PromotionNote.storyboard */; };
 		13CAF8B227F3A257000FE0CA /* Mapping61to62.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 13CAF8B127F3A257000FE0CA /* Mapping61to62.xcmappingmodel */; };
 		13CAF8B427F3AFB9000FE0CA /* StatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CAF8B327F3AFB9000FE0CA /* StatusProvider.swift */; };
 		13CAF8B627F3B81F000FE0CA /* TheShiftNoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CAF8B527F3B81F000FE0CA /* TheShiftNoteVC.swift */; };
@@ -1520,6 +1529,7 @@
 		1389DEC9245B7D0D00A90715 /* TheFDResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheFDResource.swift; sourceTree = "<group>"; };
 		138B71E7229DE07B0048C6C0 /* DeleteFromListOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteFromListOperation.swift; sourceTree = "<group>"; };
 		138BF28424D095460031E6C6 /* ICS214ToCloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICS214ToCloud.swift; sourceTree = "<group>"; };
+		138DAED228107A3B007602AE /* Promotion.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Promotion.storyboard; sourceTree = "<group>"; };
 		138F15A4219F7224007173C6 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		138F15B4219F86D8007173C6 /* LoadUserItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadUserItems.swift; sourceTree = "<group>"; };
 		138F15B6219F8F2E007173C6 /* FireJournalUserOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireJournalUserOperation.swift; sourceTree = "<group>"; };
@@ -1821,6 +1831,16 @@
 		13C96E2D25310A8000C5195F /* FormHeaderV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormHeaderV.swift; sourceTree = "<group>"; };
 		13C96E2E25310A8000C5195F /* MapHeaderV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapHeaderV.xib; sourceTree = "<group>"; };
 		13CAD27321D7B9E4003CF110 /* StoreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreVC.swift; sourceTree = "<group>"; };
+		13CAD400281082DB00E025BC /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
+		13CAD4022810847100E025BC /* NewPromotionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPromotionVC.swift; sourceTree = "<group>"; };
+		13CAD4042810848E00E025BC /* NewPromotion.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewPromotion.storyboard; sourceTree = "<group>"; };
+		13CAD4062810A3FA00E025BC /* NewPromotionVC+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewPromotionVC+Extensions.swift"; sourceTree = "<group>"; };
+		13CAD4082810B1CF00E025BC /* FireJournal67.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FireJournal67.xcdatamodel; sourceTree = "<group>"; };
+		13CAD4092810B2DC00E025BC /* Mapping66to67.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = Mapping66to67.xcmappingmodel; sourceTree = "<group>"; };
+		13CAD40B2810B79E00E025BC /* FireJournal68.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FireJournal68.xcdatamodel; sourceTree = "<group>"; };
+		13CAD40C2810B7E900E025BC /* Mapping67to68.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = Mapping67to68.xcmappingmodel; sourceTree = "<group>"; };
+		13CAD40E2810C0CF00E025BC /* PromotionNoteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionNoteVC.swift; sourceTree = "<group>"; };
+		13CAD4102810C1A800E025BC /* PromotionNote.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PromotionNote.storyboard; sourceTree = "<group>"; };
 		13CAF8B027F3A045000FE0CA /* FireJournal62.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FireJournal62.xcdatamodel; sourceTree = "<group>"; };
 		13CAF8B127F3A257000FE0CA /* Mapping61to62.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = Mapping61to62.xcmappingmodel; sourceTree = "<group>"; };
 		13CAF8B327F3AFB9000FE0CA /* StatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusProvider.swift; sourceTree = "<group>"; };
@@ -2565,6 +2585,9 @@
 			isa = PBXGroup;
 			children = (
 				1351A2CC280F2C7C00D00A5C /* PromotionJournalVC.swift */,
+				13CAD4022810847100E025BC /* NewPromotionVC.swift */,
+				13CAD4062810A3FA00E025BC /* NewPromotionVC+Extensions.swift */,
+				13CAD40E2810C0CF00E025BC /* PromotionNoteVC.swift */,
 			);
 			path = PromotionJournal;
 			sourceTree = "<group>";
@@ -2838,6 +2861,7 @@
 				13B6361A2534BA7D0014DB63 /* ARCFormToCloud.swift */,
 				130C531127DC2CAC00750CC4 /* Stack.swift */,
 				13EA351F27E4FF420058D6EE /* NewStaff.swift */,
+				13CAD400281082DB00E025BC /* UITableView+Extension.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -3006,6 +3030,8 @@
 		13D48DE9231ED3E100EDC9F8 /* MappingModels */ = {
 			isa = PBXGroup;
 			children = (
+				13CAD40C2810B7E900E025BC /* Mapping67to68.xcmappingmodel */,
+				13CAD4092810B2DC00E025BC /* Mapping66to67.xcmappingmodel */,
 				1351A2CA280F2A0400D00A5C /* Mapping65to66.xcmappingmodel */,
 				13B40CA027FFAE55005BD7E6 /* Mapping64to65.xcmappingmodel */,
 				13B40C9D27FFA9D6005BD7E6 /* Mapping63to64.xcmappingmodel */,
@@ -3562,6 +3588,9 @@
 				13E23BA027F4F4710033BCA6 /* TheJournal.storyboard */,
 				13DE9C2128079FDC0081A61E /* OnboardProfileForm.storyboard */,
 				13510260280E482E005A605F /* FormModal.storyboard */,
+				138DAED228107A3B007602AE /* Promotion.storyboard */,
+				13CAD4042810848E00E025BC /* NewPromotion.storyboard */,
+				13CAD4102810C1A800E025BC /* PromotionNote.storyboard */,
 			);
 			path = storyboards;
 			sourceTree = "<group>";
@@ -4335,6 +4364,7 @@
 				13D6F6F227EBD92C00CCFCFD /* DashboardDataLabelCell.xib in Resources */,
 				13D6F70827EBDE6E00CCFCFD /* AddressFieldsButtonsCell.xib in Resources */,
 				13F3EB62219B80BF0044CF41 /* startShiftOvertimeSwitchCell.xib in Resources */,
+				138DAED328107A3B007602AE /* Promotion.storyboard in Resources */,
 				13F3EB2A219B80BF0044CF41 /* ImageTextFieldTextViewCell.xib in Resources */,
 				13F3EAC4219B80BF0044CF41 /* CouncilWard.plist in Resources */,
 				13C96DEC25310A5800C5195F /* ARC_LabelExtendedTextFieldCell.xib in Resources */,
@@ -4439,6 +4469,7 @@
 				13F3EA44219B80BF0044CF41 /* CellHeader.xib in Resources */,
 				13F3EAF0219B80BF0044CF41 /* LabelTextFieldCell.xib in Resources */,
 				1383467227E40FEF00B40A4D /* StaffContact.storyboard in Resources */,
+				13CAD4052810848E00E025BC /* NewPromotion.storyboard in Resources */,
 				13F40B9627E101F400D02972 /* IncidentEdit.storyboard in Resources */,
 				1390D2E227E8F56300EE3DFD /* IncidentNote.storyboard in Resources */,
 				13F3EBAA219B80BF0044CF41 /* Onboard1.xib in Resources */,
@@ -4461,6 +4492,7 @@
 				13F3EAAA219B80BF0044CF41 /* FireDistrict.plist in Resources */,
 				1378071622FDEA6000B842D0 /* UserFDResourceCustomCVCell.xib in Resources */,
 				13F3EAB8219B80BF0044CF41 /* CompletedModules.plist in Resources */,
+				13CAD4112810C1A800E025BC /* PromotionNote.storyboard in Resources */,
 				130C530427DBF80D00750CC4 /* NewAddressFieldsButtonsCell.xib in Resources */,
 				13F3EA4C219B80BF0044CF41 /* CrewModalCell.xib in Resources */,
 				13117A4E2352546800AD6069 /* Platoons.storyboard in Resources */,
@@ -4595,6 +4627,7 @@
 				13F3EA16219B80BF0044CF41 /* NewIncidentDetailTVC.swift in Sources */,
 				13108F3A2549D1110073AD1C /* LocalIncidentTypeReloadOperation.swift in Sources */,
 				13CE8A6027CEA6D50022EA0D /* IncidentMonthTotalsProvider.swift in Sources */,
+				13CAD4032810847100E025BC /* NewPromotionVC.swift in Sources */,
 				13A2D6D62409E2BC00824015 /* SubjectLabelTextFieldIndicatorTVCell.swift in Sources */,
 				133EE01C2445433E0042CB8E /* PendingOperation.swift in Sources */,
 				134FF4E7244525430064ABF3 /* UpdateShiftEditResourceVC.swift in Sources */,
@@ -4613,6 +4646,7 @@
 				13F3E7EC219B80990044CF41 /* NewIncidentMapAnnotation.swift in Sources */,
 				13F3E9F4219B80BF0044CF41 /* CompletedTwoFieldCellwTextV.swift in Sources */,
 				13D8804C224937D500135D50 /* MenuItems.swift in Sources */,
+				13CAD40F2810C0CF00E025BC /* PromotionNoteVC.swift in Sources */,
 				1390D2DF27E8F54F00EE3DFD /* TagsCVCell.swift in Sources */,
 				13E3D64F21AC63BA00D414DD /* SettingsProfileDataTVC.swift in Sources */,
 				13B6862824106E290022AFB5 /* RelieveSupervisorContactsHeaderV.swift in Sources */,
@@ -4740,6 +4774,7 @@
 				13DD442121CEB2FF006C3FB9 /* AllModifiedICS214PersonnelOperation.swift in Sources */,
 				1374C17022455201008ED7F3 /* LabelInstructionWSwitchCell.swift in Sources */,
 				1395810821BAE89500764AA3 /* FJUAttendeeOperation.swift in Sources */,
+				13CAD4072810A3FA00E025BC /* NewPromotionVC+Extensions.swift in Sources */,
 				13C96DDC25310A5800C5195F /* ARC_TwoButtonCell.swift in Sources */,
 				1379FDDD24578E4B00FC7C72 /* TodayEndShiftData.swift in Sources */,
 				13B37D532446521100F27A34 /* Mapping41to42.xcmappingmodel in Sources */,
@@ -4913,6 +4948,7 @@
 				13C96E0E25310A6300C5195F /* TypeTVC+Extensions.swift in Sources */,
 				13C96DED25310A5800C5195F /* ARC_SignatureCell.swift in Sources */,
 				13F3E96A219B80BF0044CF41 /* MapVC.swift in Sources */,
+				13CAD40A2810B2DC00E025BC /* Mapping66to67.xcmappingmodel in Sources */,
 				13F3EA4A219B80BF0044CF41 /* TagsCell.swift in Sources */,
 				1374C174224595B6008ED7F3 /* LargeLabelWSwitchCell.swift in Sources */,
 				13D880502249384E00135D50 /* JournalData.swift in Sources */,
@@ -5159,6 +5195,7 @@
 				13108F342549D0EB0073AD1C /* PlatoonReloadOperation.swift in Sources */,
 				13568708225D191A003171FC /* NFIRSLabelTimeButtonCell.swift in Sources */,
 				13F3EB32219B80BF0044CF41 /* TextViewCell.swift in Sources */,
+				13CAD401281082DB00E025BC /* UITableView+Extension.swift in Sources */,
 				13F3EA6A219B80BF0044CF41 /* UserAssignmentsOperation.swift in Sources */,
 				13F3EB7E219B80BF0044CF41 /* OpenModalV.swift in Sources */,
 				13E8871C2411A9E100E312F9 /* Device.swift in Sources */,
@@ -5308,6 +5345,7 @@
 				13F3E986219B80BF0044CF41 /* IncidentSingleEntryCell.swift in Sources */,
 				13DD446121CEC1DE006C3FB9 /* ModifyUserTagsOperation.swift in Sources */,
 				130C531727DCE27300750CC4 /* Mapping54to55.xcmappingmodel in Sources */,
+				13CAD40D2810B7E900E025BC /* Mapping67to68.xcmappingmodel in Sources */,
 				13DD444121CEC00A006C3FB9 /* fjUserResourcesGroupsSyncOperation.swift in Sources */,
 				13F3E964219B80BF0044CF41 /* IncidentTVC.swift in Sources */,
 				13C04A0821C05B8700266492 /* IncidentNotesTextViewCell.swift in Sources */,
@@ -5631,6 +5669,8 @@
 		1323048221B1E0BD006013D3 /* CommandJournal.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				13CAD40B2810B79E00E025BC /* FireJournal68.xcdatamodel */,
+				13CAD4082810B1CF00E025BC /* FireJournal67.xcdatamodel */,
 				1351A2C9280F21B400D00A5C /* FireJournal66.xcdatamodel */,
 				13B40C9F27FFAA41005BD7E6 /* FireJournal65.xcdatamodel */,
 				13B40C9C27FFA95E005BD7E6 /* FireJournal64.xcdatamodel */,
@@ -5699,7 +5739,7 @@
 				1323049D21B1E0BD006013D3 /* FireJournal12.xcdatamodel */,
 				1323049E21B1E0BD006013D3 /* FireJournal8.xcdatamodel */,
 			);
-			currentVersion = 1351A2C9280F21B400D00A5C /* FireJournal66.xcdatamodel */;
+			currentVersion = 13CAD40B2810B79E00E025BC /* FireJournal68.xcdatamodel */;
 			path = CommandJournal.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

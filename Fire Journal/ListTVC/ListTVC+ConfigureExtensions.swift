@@ -276,6 +276,16 @@ extension ListTVC: NSFetchedResultsControllerDelegate {
             let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.context, sectionNameKeyPath: nil, cacheName: "Master-Incident")
             aFetchedResultsController.delegate = self
             _fetchedResultsController = aFetchedResultsController
+        case .projects:
+            let predicate = NSPredicate(format: "%K != nil",attribute)
+            let predicateCan = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [predicate])
+            fetchRequest.predicate = predicateCan
+            let sectionSortDescriptor = NSSortDescriptor(key: "promotionDate", ascending: false)
+            let sortDescriptors = [sectionSortDescriptor]
+            fetchRequest.sortDescriptors = sortDescriptors
+            let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.context, sectionNameKeyPath: nil, cacheName: nil)
+            aFetchedResultsController.delegate = self
+            _fetchedResultsController = aFetchedResultsController
         case .maps:
             
                 let predicate = NSPredicate(format: "%K != nil", attribute)

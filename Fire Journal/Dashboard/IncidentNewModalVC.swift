@@ -86,6 +86,11 @@ New Incident
         launchNC.callNotifications()
         nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: context)
         
+        nc.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        nc.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        view.addGestureRecognizer(tapGesture)
+        
         if let obj = userTimeObjectID {
             theUserTime = context.object(with: obj) as? UserTime
         }
@@ -110,6 +115,23 @@ New Incident
         if getUserLocation.currentLocation == nil {
             getUserLocation.determineLocation()
         }
+    }
+    
+    @objc func keyboardWillShow(notification: Notification) {
+        if let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height {
+            print("Notification: Keyboard will show")
+            incidentTableView.setBottomInset(to: keyboardHeight)
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: Notification) {
+        print("Notification: Keyboard will hide")
+        incidentTableView.setBottomInset(to: 0.0)
+    }
+    
+        /// Used with gesture recognizer for dismissing keyboard
+    @objc func hideKeyboard() {
+        view.endEditing(true)
     }
     
         // MARK: -context notification

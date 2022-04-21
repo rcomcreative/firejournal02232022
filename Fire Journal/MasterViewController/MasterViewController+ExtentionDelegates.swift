@@ -769,10 +769,88 @@ extension MasterViewController: FormListModalVCDelegate {
     func formListModalChosen(type: IncidentTypes, index: IndexPath) {
         dismiss(animated: true, completion: nil)
         switch type {
-        case .ics214Form: print("ics")
-        case .arcForm: print("arc")
+        case .ics214Form:
+            let int = theCount(entity: "ICS214Form")
+            if int != 0 {
+                let objectID = fetchTheLatest(shift: MenuItems.ics214)
+                nc.post(name:Notification.Name(rawValue: FJkICS214_FROM_MASTER),
+                        object: nil,
+                        userInfo: ["objectID": objectID, "shift": MenuItems.ics214])
+            } else {
+                slideInTransitioningDelgate.direction = .bottom
+                slideInTransitioningDelgate.disableCompactHeight = true
+                let vc: NewICS214ModalTVC = vcLaunch.modalICS214NewCalled()
+                vc.title = "New ICS 214"
+                vc.delegate = self
+                vc.transitioningDelegate = slideInTransitioningDelgate
+                vc.modalPresentationStyle = .custom
+                self.present(vc, animated: true, completion: nil)
+            }
+        case .arcForm:
+            let int = theCount(entity: "ARCrossForm")
+            if int != 0 {
+                let objectID = fetchTheLatest(shift: MenuItems.arcForm)
+                nc.post(name:Notification.Name(rawValue: FJkARCFORM_FROM_MASTER),
+                        object: nil,
+                        userInfo: ["objectID": objectID, "shift": MenuItems.arcForm])
+            } else {
+                slideInTransitioningDelgate.direction = .bottom
+                slideInTransitioningDelgate.disableCompactHeight = true
+                let vc:ARC_ViewController = vcLaunch.modalARCFormNewCalled()
+                vc.title = "New ARC Form"
+                vc.transitioningDelegate = slideInTransitioningDelgate
+                vc.modalPresentationStyle = .custom
+                self.present(vc, animated: true, completion: nil)
+            }
         default: break
         }
+    }
+
+    func fetchTheLatest(shift: MenuItems)->NSManagedObjectID {
+        var objectID:NSManagedObjectID!
+        switch shift {
+        case .ics214:
+            var ics214 = [ICS214Form]()
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "ICS214Form")
+            let sort = NSSortDescriptor(key: "ics214FromTime", ascending: true)
+            request.sortDescriptors = [sort]
+            do {
+                ics214 = try context.fetch(request) as! [ICS214Form]
+                let form = ics214.last
+                objectID = form?.objectID
+            }  catch let error as NSError {
+                let nserror = error
+                let errorMessage = "\(nserror):\(nserror.localizedDescription)\(nserror.userInfo)"
+                print("there were zero ICS214 Forms available \(errorMessage)")
+            }
+        case .arcForm:
+            var arcForm = [ARCrossForm]()
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "ARCrossForm")
+            let sort = NSSortDescriptor(key: "arcCreationDate", ascending: true)
+            request.sortDescriptors = [sort]
+            do {
+                arcForm = try context.fetch(request) as! [ARCrossForm]
+                if !arcForm.isEmpty {
+                    let form = arcForm.last
+                    objectID = form?.objectID
+                } else {
+                    
+                }
+            } catch let error as NSError {
+                print("DashboardVC line 1475 Error: \(error.localizedDescription)")
+            }
+        default: break
+        }
+        return objectID
+    }
+
+    
+}
+
+extension MasterViewController: NewICS214ModalTVCDelegate {
+    
+    func theCancelCalledOnNewICS214Modal() {
+        self.dismiss(animated: true, completion: nil)
     }
     
 }

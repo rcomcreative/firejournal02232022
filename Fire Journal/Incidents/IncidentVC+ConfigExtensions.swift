@@ -982,7 +982,7 @@ extension IncidentVC: MultipleAddButtonTVCellDelegate {
             presentModal(menuType: MenuItems.incidents , title: "Actions Taken", type: IncidentTypes.secondAction, index: index)
         case 26:
             presentModal(menuType: MenuItems.incidents , title: "Actions Taken", type: IncidentTypes.thirdAction, index: index)
-        case 29:
+        case 31:
             let storyBoard : UIStoryboard = UIStoryboard(name: "Tags", bundle:nil)
             if let tagsVC = storyBoard.instantiateViewController(withIdentifier: "TagsVC") as? TagsVC {
                 tagsVC.modalPresentationStyle = .formSheet
@@ -1535,7 +1535,7 @@ extension IncidentVC: LabelTextFieldCellDelegate {
         theIncident.incidentNumber = text
     }
     
-    func labelTextFieldFinishedEditing(text: String, myShift: MenuItems) {
+    func labelTextFieldFinishedEditing(text: String, myShift: MenuItems, tag: Int) {
         theIncident.incidentNumber = text
     }
     

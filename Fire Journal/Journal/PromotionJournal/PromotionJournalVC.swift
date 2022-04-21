@@ -64,14 +64,14 @@ class PromotionJournalVC: SpinnerViewController, UIImagePickerControllerDelegate
     var id: NSManagedObjectID!
     var theUserTime: UserTime!
     var theUser: FireJournalUser!
-    var theJournal: Journal!
+    var theProject: PromotionJournal!
     var theJournalLocation: FCLocation!
-    var theJournalTags = [Tag]()
+    var theProjectTags = [Tag]()
     var thePhoto: Photo!
     var theTags = [Tag]()
     var validPhotos = [Photo]()
     var utGuid: String = ""
-    var compact:SizeTrait = .regular
+    var compact: SizeTrait = .regular
     
     var alertUp: Bool = false
     var journalTableView: UITableView!
@@ -91,6 +91,8 @@ class PromotionJournalVC: SpinnerViewController, UIImagePickerControllerDelegate
     var theTagString: String = " "
     var theTagsAvailable: Bool = false
     var theTagsHeight: CGFloat = 0
+    
+    var projectImageName: String = "ICONS_training"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -180,9 +182,7 @@ class PromotionJournalVC: SpinnerViewController, UIImagePickerControllerDelegate
     func closeItUp() {
         if  Device.IS_IPHONE {
             DispatchQueue.main.async {
-                self.nc.post(name:Notification.Name(rawValue: FJkJOURNALLISTSEGUE ),
-                             object: nil,
-                             userInfo: nil)
+                self.nc.post(name: .fireJournalProjectListCalled, object: nil, userInfo: nil)
             }
         }
     }

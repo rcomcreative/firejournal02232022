@@ -91,6 +91,11 @@ New Journal
         launchNC.callNotifications()
         nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: context)
         
+        nc.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        nc.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        view.addGestureRecognizer(tapGesture)
+        
         if let obj = userTimeObjectID {
             theUserTime = context.object(with: obj) as? UserTime
         }
@@ -127,6 +132,23 @@ New Journal
     func roundViews() {
         view.layer.cornerRadius = 20
         view.clipsToBounds = true
+    }
+    
+    @objc func keyboardWillShow(notification: Notification) {
+        if let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height {
+            print("Notification: Keyboard will show")
+            journalTableView.setBottomInset(to: keyboardHeight)
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: Notification) {
+        print("Notification: Keyboard will hide")
+        journalTableView.setBottomInset(to: 0.0)
+    }
+    
+        /// Used with gesture recognizer for dismissing keyboard
+    @objc func hideKeyboard() {
+        view.endEditing(true)
     }
     
     func buildTheJournal() {
