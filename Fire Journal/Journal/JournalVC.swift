@@ -191,7 +191,7 @@ class JournalVC: SpinnerViewController, UIImagePickerControllerDelegate, UINavig
         self.validPhotos.removeAll()
         self.validPhotos = attachments.filter { return !($0.imageData == nil) }
         self.validPhotos = self.validPhotos.sorted(by: { $0.photoDate! < $1.photoDate! })
-        self.journalTableView.reloadRows(at: [IndexPath.init(row:8, section: 0)], with: .automatic)
+        self.journalTableView.reloadRows(at: [IndexPath.init(row: 8, section: 0)], with: .automatic)
         print("this is for the save!!!!")
     }
     
@@ -225,11 +225,13 @@ class JournalVC: SpinnerViewController, UIImagePickerControllerDelegate, UINavig
     func saveJournal(_ sender:Any, completionBlock: () -> ()) {
         do {
             try context.save()
-            self.taskContext = self.photoProvider.persistentContainer.newBackgroundContext()
             if !self.validPhotos.isEmpty {
-                self.photoProvider.saveImageDataiIfNeeded(for: self.theJournal.photo!, taskContext: self.taskContext)  {
-                    DispatchQueue.main.async {
-                        self.nc.post(name: .fireJournalCameraPhotoSaved, object: nil)
+                DispatchQueue.global(qos: .background).async {
+                    self.taskContext = self.photoProvider.persistentContainer.newBackgroundContext()
+                    self.photoProvider.saveImageDataiIfNeeded(for: self.theJournal.photo!, taskContext: self.taskContext)  {
+                        DispatchQueue.main.async {
+                            self.nc.post(name: .fireJournalCameraPhotoSaved, object: nil)
+                        }
                     }
                 }
             }

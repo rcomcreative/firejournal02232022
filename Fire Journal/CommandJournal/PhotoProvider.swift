@@ -19,6 +19,7 @@ class PhotoProvider {
     var staff: UserAttendees!
     var theIncident: Incident!
     var theJournal: Journal!
+    var theProject: PromotionJournal!
     var theType: IncidentTypes!
     
     init(with persistentContainer: NSPersistentContainer) {
@@ -62,6 +63,45 @@ class PhotoProvider {
             if shouldSave {
                 save(context: taskContext)
             }
+            guard let theGuid = photo.guid else { return }
+            destinationURL = photo.imageURL(guid: theGuid)
+        }
+        
+        DispatchQueue.global().async {
+            var nsError: NSError?
+            NSFileCoordinator().coordinate(writingItemAt: destinationURL!, options: .forReplacing, error: &nsError,
+                                           byAccessor: { (newURL: URL) -> Void in
+                do {
+                    try imageData.write(to: newURL, options: .atomic)
+                } catch {
+                    print("###\(#function): Failed to save an image file: \(destinationURL!)")
+                }
+            })
+            if let nsError = nsError {
+                print("###\(#function): \(nsError.localizedDescription)")
+            }
+        }
+        completionBlock()
+    }
+    
+    func addPhotoToProject(imageData: Data, imageURL: URL, projectID: NSManagedObjectID, taskContext: NSManagedObjectContext, shouldSave: Bool = true, completionBlock: () -> () ) {
+        self.context = taskContext
+        self.theProject = self.context.object(with: projectID) as? PromotionJournal
+        self.theType = .theProject
+        let thumbnailImage = Photo.thumbnail(from: imageData, thumbnailPixelSize: 80)
+        var destinationURL: URL? // to hold the attachment.imageURL for later use
+        
+        taskContext.performAndWait {
+            photo = Photo(context: taskContext)
+            photo.promotionGuid = self.theProject.projectGuid
+            photo.photoDate = Date()
+            photo.guid = UUID()
+            self.theProject.addToPhotos(photo)
+            photo.image = thumbnailImage // transient
+            if shouldSave {
+                save(context: taskContext)
+            }
+            
             guard let theGuid = photo.guid else { return }
             destinationURL = photo.imageURL(guid: theGuid)
         }

@@ -64,6 +64,10 @@ extension CameraTVCell {
                 config.image = UIImage(systemName: "camera.circle")
                 config.title = " Add Photo"
                 config.baseBackgroundColor = UIColor(named: theBackgroundColor)
+            case .theProject:
+                config.image = UIImage(systemName: "camera.circle")
+                config.title = " Add Photo"
+                config.baseBackgroundColor = UIColor(named: theBackgroundColor)
             default: break
             }
             config.baseForegroundColor = .white

@@ -83,7 +83,7 @@ class PromotionNoteVC: UIViewController {
                     notes = note as! String
                 }
             case .theProjectClassNote:
-                noteTitle = ""
+                noteTitle = "Project Notes"
                 if let note = thePromotion.studyClassNote {
                     notes = note as! String
                 }

@@ -171,6 +171,7 @@ class IncidentVC:  SpinnerViewController, UIImagePickerControllerDelegate, UINav
             //        MARK: additional notifications
         nc.addObserver(self, selector: #selector(compactOrRegular(ns:)), name:NSNotification.Name(rawValue: FJkCOMPACTORREGULAR), object: nil)
         nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: context)
+        nc.addObserver(self, selector: #selector(getThePhotos(notification:)), name: .fireJournalCameraPhotoSaved, object: nil)
         
         
         setUpNavigationButton()
@@ -255,6 +256,15 @@ class IncidentVC:  SpinnerViewController, UIImagePickerControllerDelegate, UINav
             let errorMessage = "IncidentEdit saveToCD The context was unable to save due to \(nserror), \(nserror.userInfo)"
             print(errorMessage)
         }
+    }
+    
+    @objc func getThePhotos(notification: Notification)  {
+        guard let attachments = self.theIncident.photo?.allObjects as? [Photo] else { return }
+        self.validPhotos.removeAll()
+        self.validPhotos = attachments.filter { return !($0.imageData == nil) }
+        self.validPhotos = self.validPhotos.sorted(by: { $0.photoDate! < $1.photoDate! })
+        self.incidentTableView.reloadRows(at: [IndexPath.init(row: 30, section: 0)], with: .automatic)
+        print("this is for the save!!!!")
     }
     
     @objc private func returnToList(_ sender:Any) {
@@ -409,11 +419,13 @@ class IncidentVC:  SpinnerViewController, UIImagePickerControllerDelegate, UINav
     func saveIncident(_ sender:Any, completionBlock: () -> ()) {
         do {
             try context.save()
-            self.taskContext = self.photoProvider.persistentContainer.newBackgroundContext()
             if !self.validPhotos.isEmpty {
-                self.photoProvider.saveImageDataiIfNeeded(for: self.theJournal.photo!, taskContext: self.taskContext)  {
-                    DispatchQueue.main.async {
-                        self.nc.post(name: .fireJournalCameraPhotoSaved, object: nil)
+                DispatchQueue.global(qos: .background).async {
+                    self.taskContext = self.photoProvider.persistentContainer.newBackgroundContext()
+                    self.photoProvider.saveImageDataiIfNeeded(for: self.theJournal.photo!, taskContext: self.taskContext)  {
+                        DispatchQueue.main.async {
+                            self.nc.post(name: .fireJournalCameraPhotoSaved, object: nil)
+                        }
                     }
                 }
             }

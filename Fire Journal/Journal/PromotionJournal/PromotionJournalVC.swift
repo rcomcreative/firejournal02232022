@@ -65,7 +65,8 @@ class PromotionJournalVC: SpinnerViewController, UIImagePickerControllerDelegate
     var theUserTime: UserTime!
     var theUser: FireJournalUser!
     var theProject: PromotionJournal!
-    var theJournalLocation: FCLocation!
+    var theLocation: FCLocation!
+    var locationAvailable: Bool = false
     var theProjectTags = [Tag]()
     var thePhoto: Photo!
     var theTags = [Tag]()
@@ -74,19 +75,22 @@ class PromotionJournalVC: SpinnerViewController, UIImagePickerControllerDelegate
     var compact: SizeTrait = .regular
     
     var alertUp: Bool = false
-    var journalTableView: UITableView!
+    var projectTableView: UITableView!
     var yesNo: Bool = false
     var segmentType: MenuItems = .station
     var dateFormatter = DateFormatter()
-    var typeNameA = ["100515IconSet_092016_Stationboard c0l0r","ICONS_training"]
+    var typeNameA = ["ICONS_training"]
     
     var theOverviewNotes: String = " "
     var theOverviewNotesAvailable: Bool = false
     var theOverviewNotesHeight: CGFloat = 0
     
-    var theTrainingNotes: String = " "
-    var theTrainingNotesAvailable: Bool = false
-    var theTrainingNotesHeight: CGFloat = 0
+    var theProjectNotes: String = " "
+    var theProjectNotesAvailable: Bool = false
+    var theProjectNotesHeight: CGFloat = 0
+    
+    var theProjectCrew: String = ""
+    var theProjectCrewAvailable: Bool = false
     
     var theTagString: String = " "
     var theTagsAvailable: Bool = false
@@ -105,6 +109,17 @@ class PromotionJournalVC: SpinnerViewController, UIImagePickerControllerDelegate
         nc.addObserver(self, selector: #selector(compactOrRegular(ns:)), name:NSNotification.Name(rawValue: FJkCOMPACTORREGULAR), object: nil)
         nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: context)
         nc.addObserver(self, selector: #selector(photoErrorAlert(notification:)), name: .fireJournalPhotoErrorCalled, object: nil)
+        
+        setUpNavigationButton()
+        getTheTags()
+        
+        if id != nil {
+            getUserLocation.determineLocation()
+            buildTheProject()
+            if theProject != nil {
+                configureTheProjectTableView()
+            }
+        }
         
     }
     
@@ -137,7 +152,7 @@ class PromotionJournalVC: SpinnerViewController, UIImagePickerControllerDelegate
     
     func setUpNavigationButton() {
         
-        let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(savePromotion(_:)))
+        let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(savedProject(_:)))
         
         navigationItem.rightBarButtonItem = saveButton
         
@@ -171,8 +186,111 @@ class PromotionJournalVC: SpinnerViewController, UIImagePickerControllerDelegate
         }
     }
     
-    @objc func savePromotion(_ sender: Any) {
+    func buildTheProject() {
         
+        theProject = context.object(with: id) as? PromotionJournal
+        if theProject != nil {
+            if theProject.user != nil {
+                theUser = theProject.user
+            }
+            if theProject.shift != nil {
+                theUserTime = theProject.shift
+            }
+            if theProject.theLocation != nil {
+                theLocation = theProject.theLocation
+                locationAvailable = true
+            }
+            
+            if theProject.tags != nil {
+                theProjectTags = theProject.tags?.allObjects as! [Tag]
+                theTagsAvailable = true
+                theProjectTags = theProjectTags.sorted { $0.name! < $1.name! }
+                let count = theProjectTags.count
+                let counted = count / 6
+                theTagsHeight = CGFloat(counted * 44)
+                if theTagsHeight < 100 {
+                    theTagsHeight = 88
+                }
+            }
+            
+            if let overview = theProject.overview as? String {
+                theOverviewNotes = overview
+                theOverviewNotesAvailable = true
+                theOverviewNotesHeight = configureLabelHeight(text: theOverviewNotes)
+            }
+            
+            if let projectNotes = theProject.studyClassNote as? String {
+                theProjectNotes = projectNotes
+                theProjectNotesAvailable = true
+                theProjectNotesHeight = configureLabelHeight(text: theProjectNotes)
+            }
+            
+            
+            guard let attachments = self.theProject.photos?.allObjects as? [Photo] else { return }
+            self.validPhotos.removeAll()
+            self.validPhotos = attachments.filter { return !($0.imageData == nil) }
+            self.validPhotos = self.validPhotos.sorted(by: { $0.photoDate! < $1.photoDate! })
+            if !self.validPhotos.isEmpty {
+                self.photosAvailable = true
+            }
+            
+        }
+    }
+    
+    @objc func savedProject(_ sender: Any) {
+        do {
+            try context.save()
+            if !self.validPhotos.isEmpty {
+                DispatchQueue.global(qos: .background).async {
+                    self.taskContext = self.photoProvider.persistentContainer.newBackgroundContext()
+                    self.photoProvider.saveImageDataiIfNeeded(for: self.theProject.photos!, taskContext: self.taskContext)  {
+                        DispatchQueue.main.async {
+                            self.nc.post(name: .fireJournalCameraPhotoSaved, object: nil)
+                        }
+                    }
+                }
+            }
+            DispatchQueue.main.async {
+                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"Updated project merge that"])
+            }
+            let objectID = theProject.objectID
+            DispatchQueue.main.async {
+                self.nc.post(name: .fireJournalProjectModifiedSendToCloud,
+                             object: nil,
+                             userInfo: ["objectID": objectID as NSManagedObjectID])
+            }
+            theAlert(message: "The projectl data has been saved.")
+        } catch let error as NSError {
+            let nserror = error
+            
+            let errorMessage = "Journal saveToCD The context was unable to save due to \(nserror), \(nserror.userInfo)"
+            print(errorMessage)
+        }
+    }
+    
+    func savePromotion(_ sender: Any, completionBlock: () -> ()) {
+        do {
+            try context.save()
+            if !self.validPhotos.isEmpty {
+                DispatchQueue.global(qos: .background).async {
+                    self.taskContext = self.photoProvider.persistentContainer.newBackgroundContext()
+                    self.photoProvider.saveImageDataiIfNeeded(for: self.theProject.photos!, taskContext: self.taskContext)  {
+                        DispatchQueue.main.async {
+                            self.nc.post(name: .fireJournalCameraPhotoSaved, object: nil)
+                        }
+                    }
+                }
+            }
+            DispatchQueue.main.async {
+                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"Updated journal merge that"])
+            }
+            completionBlock()
+        } catch let error as NSError {
+            let nserror = error
+            
+            let errorMessage = "Journal saveToCD The context was unable to save due to \(nserror), \(nserror.userInfo)"
+            print(errorMessage)
+        }
     }
     
     @objc private func returnToList(_ sender:Any) {
