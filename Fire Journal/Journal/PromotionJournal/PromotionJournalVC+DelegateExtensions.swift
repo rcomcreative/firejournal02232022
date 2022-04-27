@@ -201,11 +201,144 @@ extension PromotionJournalVC: MultipleAddButtonTVCellDelegate {
                     self.present(thePromotionNoteVC , animated: true, completion: nil)
                 }
             }
+        case 7:
+            slideInTransitioningDelgate.direction = .bottom
+            slideInTransitioningDelgate.disableCompactHeight = true
+            let storyBoard : UIStoryboard = UIStoryboard(name: "RelieveSupervisor", bundle:nil)
+            let relieveSupervisorVC = storyBoard.instantiateViewController(withIdentifier: "RelieveSupervisorVC") as! RelieveSupervisorVC
+            relieveSupervisorVC.delegate = self
+            relieveSupervisorVC.headerTitle = "Project Crew"
+            relieveSupervisorVC.transitioningDelegate = slideInTransitioningDelgate
+            relieveSupervisorVC.modalPresentationStyle = .custom
+            self.present(relieveSupervisorVC, animated: true, completion: nil)
+        case 12:
+            let storyBoard : UIStoryboard = UIStoryboard(name: "Tags", bundle:nil)
+            if let tagsVC = storyBoard.instantiateViewController(withIdentifier: "TagsVC") as? TagsVC {
+                tagsVC.modalPresentationStyle = .formSheet
+                tagsVC.isModalInPresentation = true
+                tagsVC.delegate = self
+                self.present(tagsVC, animated: true, completion: nil)
+            }
         default: break
         }
     }
     
     func multiTitleChosen(type: IncidentTypes, title: String, index: IndexPath) {
+    }
+    
+    
+}
+
+extension PromotionJournalVC: RelieveSupervisorVCDelegate {
+    
+    func relieveSupervisorCancel() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func relieveSupervisorChosen(relieveSupervisor: [UserAttendees], relieveOrSupervisor: Bool) {
+        theProjectCrewAvailable = true
+        for crew in relieveSupervisor {
+            if let name = crew.attendee {
+                let result = theProjectCrewA.filter { $0.fullName == name }
+                if result.isEmpty {
+                    let projectCrew = PromotionCrew(context: context)
+                    projectCrew.fullName = name
+                    projectCrew.guid = UUID()
+                    projectCrew.promotionGuid = theProject.guid
+                    theProject.addToCrew(projectCrew)
+                    theProjectCrewA.append(projectCrew)
+                    theProjectCrew = theProjectCrew + name + "\n\n"
+                }
+            }
+        }
+        if context.hasChanges {
+            do {
+                try context.save()
+                DispatchQueue.main.async {
+                    self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"Updated Incident merge that"])
+                }
+                let objectID = theProject.objectID
+                DispatchQueue.main.async {
+                    self.nc.post(name:Notification.Name(rawValue :FJkCKModifyJournalToCloud),
+                                 object: nil,
+                                 userInfo: ["objectID": objectID as NSManagedObjectID])
+                }
+//                    TODO: - PromotionJournalCrew to cloud-
+                theAlert(message: "The project data has been saved.")
+            } catch let error as NSError {
+                let nserror = error
+                
+                let errorMessage = "projectEdit saveToCD The context was unable to save due to \(nserror), \(nserror.userInfo)"
+                print(errorMessage)
+            }
+        }
+        
+        projectTableView.reloadRows(at: [IndexPath(row: 8, section: 0)], with: .automatic)
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
+}
+
+extension PromotionJournalVC: TagsVCDelegate {
+    
+    func tagsSubmitted(tags: [Tag]) {
+        if !tags.isEmpty {
+            theTagsAvailable = true
+            for tag in tags {
+                if !theProjectTags.isEmpty {
+                    let result = theProjectTags.filter { $0 == tag }
+                    if result.isEmpty {
+                        let projectTag = PromotionJournalTags(context: context)
+                        projectTag.tag = tag.name
+                        if let guid = theProject.projectGuid {
+                            projectTag.promotionGuid = guid
+                        }
+                        projectTag.guid = UUID.init()
+                        theProject.addToPromotionTag(projectTag)
+                        theProjectTags.append(projectTag)
+                    }
+                } else {
+                    let projectTag = PromotionJournalTags(context: context)
+                    projectTag.tag = tag.name
+                    if let guid = theProject.projectGuid {
+                        projectTag.promotionGuid = guid
+                    }
+                    projectTag.guid = UUID.init()
+                    theProject.addToPromotionTag(projectTag)
+                    theProjectTags.append(projectTag)
+                }
+            }
+            if context.hasChanges {
+                do {
+                    try context.save()
+                    DispatchQueue.main.async {
+                        self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"Updated Incident merge that"])
+                    }
+                    let objectID = theProject.objectID
+                    DispatchQueue.main.async {
+                        self.nc.post(name:Notification.Name(rawValue :FJkCKModifyJournalToCloud),
+                                     object: nil,
+                                     userInfo: ["objectID": objectID as NSManagedObjectID])
+                    }
+//                    TODO: - PromotionJournalTag to cloud-
+                    theAlert(message: "The project data has been saved.")
+                } catch let error as NSError {
+                    let nserror = error
+                    
+                    let errorMessage = "projectEdit saveToCD The context was unable to save due to \(nserror), \(nserror.userInfo)"
+                    print(errorMessage)
+                }
+            }
+
+            let count = theProjectTags.count
+            let counted = count / 6
+            theTagsHeight = CGFloat(counted * 44)
+            if theTagsHeight < 100 {
+                theTagsHeight = 88
+            }
+            projectTableView.reloadRows(at: [IndexPath(row: 13, section: 0)], with: .automatic)
+        }
     }
     
     
@@ -401,6 +534,54 @@ extension PromotionJournalVC: OnBoardAddressSearchDelegate {
             
         })
     }
+    
+}
+
+extension PromotionJournalVC: PromotionPhotoCollectionCellDelegate {
+    
+    func thePromotionCellHasBeenTapped(photo: Photo) {
+        
+        let storyboard = UIStoryboard(name: "FullImage", bundle: nil)
+        
+        guard let navController = storyboard.instantiateViewController(withIdentifier: "FullNC") as? UINavigationController,
+              let fullImageVC = navController.topViewController as? FullImageVC else {
+            return
+        }
+        
+        let taskContext = photoProvider.persistentContainer.newBackgroundContext()
+        
+        spinner.startAnimating()
+        
+        guard let theGuid = photo.guid else { return }
+        fullImageVC.fullImage = photo.getImage(with: taskContext, guid: theGuid)
+        
+        present(navController, animated: true) {
+            self.spinner.stopAnimating()
+        }
+        
+    }
+    
+    func thePromotionPhotoCellObjectID(objectID: NSManagedObjectID) {
+        
+        let photo = context.object(with: objectID) as? Photo
+        let storyboard = UIStoryboard(name: "FullImage", bundle: nil)
+        
+        guard let navController = storyboard.instantiateViewController(withIdentifier: "FullNC") as? UINavigationController,
+              let fullImageVC = navController.topViewController as? FullImageVC else {
+            return
+        }
+        spinner.startAnimating()
+        
+        taskContext = photoProvider.persistentContainer.newBackgroundContext()
+        guard let theGuid = photo?.guid else { return }
+        fullImageVC.fullImage = photo?.getImage(with: taskContext, guid: theGuid)
+        
+        present(navController, animated: true) {
+            self.spinner.stopAnimating()
+        }
+        
+    }
+    
     
 }
 

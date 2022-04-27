@@ -592,6 +592,17 @@ extension MasterViewController: MyShiftCellDelegate {
                     let segue = "showDetail"
                     performSegue(withIdentifier: segue, sender: self)
                 }
+            case .projects:
+                print("Projects")
+                entity = "PromotionJournal"
+                attribute = "projectGuid"
+                let int:Int = theCountProject()
+                if int != 0 {
+                    getTheData(myShift: myShift)
+                    let project = fetched.last as! PromotionJournal
+                    let id = project.objectID
+                    
+                }
             case .personal:
                 print("Personal")
                 entity = "Journal"

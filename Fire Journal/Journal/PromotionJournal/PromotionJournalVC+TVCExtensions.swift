@@ -25,8 +25,8 @@ extension PromotionJournalVC: UITableViewDelegate {
         projectTableView.register(MultipleAddButtonTVCell.self, forCellReuseIdentifier: "MultipleAddButtonTVCell")
         projectTableView.register(UINib(nibName: "LabelCell", bundle: nil), forCellReuseIdentifier: "LabelCell")
         projectTableView.register(UINib(nibName: "NewAddressFieldsButtonsCell", bundle: nil), forCellReuseIdentifier: "NewAddressFieldsButtonsCell")
-        projectTableView.register(JournalTagsCViewTVCell.self, forCellReuseIdentifier: "JournalTagsCViewTVCell")
-        projectTableView.register(JournalPhotoCollectionCell.self, forCellReuseIdentifier: "JournalPhotoCollectionCell")
+        projectTableView.register(PromotionTagsCViewTVCell.self, forCellReuseIdentifier: "PromotionTagsCViewTVCell")
+        projectTableView.register(PromotionPhotoCollectionCell.self, forCellReuseIdentifier: "PromotionPhotoCollectionCell")
         projectTableView.register(CameraTVCell.self, forCellReuseIdentifier: "CameraTVCell")
     }
     
@@ -74,7 +74,12 @@ extension PromotionJournalVC: UITableViewDataSource {
         case 7:
             return 85
         case 8:
-            return 88
+            if theProjectCrewAvailable {
+                let count = theProjectCrewA.count
+                return CGFloat(44 * count)
+            } else {
+                return 0
+            }
         case 9:
             if Device.IS_IPHONE {
                 return 390
@@ -184,10 +189,10 @@ extension PromotionJournalVC: UITableViewDataSource {
             return cell
         case 11:
             if photosAvailable {
-                var cell = tableView.dequeueReusableCell(withIdentifier: "JournalPhotoCollectionCell", for: indexPath) as! JournalPhotoCollectionCell
-                cell = configureJournalPhotoCollectionCell(cell, index: indexPath)
+                var cell = tableView.dequeueReusableCell(withIdentifier: "PromotionPhotoCollectionCell", for: indexPath) as! PromotionPhotoCollectionCell
+                cell = configurePromotionPhotoCollectionCell(cell, index: indexPath)
                 cell.configure(index: indexPath)
-//                cell.delegate = self
+                cell.delegate = self
                 cell.bringSubviewToFront(cell.photoCollectionView)
                 return cell
             } else {
@@ -200,9 +205,9 @@ extension PromotionJournalVC: UITableViewDataSource {
             cell.configureTheButton()
             return cell
         case 13:
-            var cell = tableView.dequeueReusableCell(withIdentifier: "JournalTagsCViewTVCell", for: indexPath) as! JournalTagsCViewTVCell
-            cell = configureJournalTagsCViewTVCell(cell, index: indexPath)
-//            cell.configure(theJournal: theJournal)
+            var cell = tableView.dequeueReusableCell(withIdentifier: "PromotionTagsCViewTVCell", for: indexPath) as! PromotionTagsCViewTVCell
+            cell = configurePromotionTagsCViewTVCell(cell, index: indexPath)
+            cell.configure(project: theProject)
             return cell
         default:
             var cell = tableView.dequeueReusableCell(withIdentifier: "LabelTextFieldCell", for: indexPath) as! LabelTextFieldCell
@@ -211,12 +216,12 @@ extension PromotionJournalVC: UITableViewDataSource {
         }
     }
     
-    func configureJournalPhotoCollectionCell(_ cell: JournalPhotoCollectionCell, index: IndexPath) -> JournalPhotoCollectionCell {
+    func configurePromotionPhotoCollectionCell(_ cell: PromotionPhotoCollectionCell, index: IndexPath) -> PromotionPhotoCollectionCell {
         cell.photos = self.validPhotos
         return cell
     }
     
-    func configureJournalTagsCViewTVCell(_ cell: JournalTagsCViewTVCell, index: IndexPath ) -> JournalTagsCViewTVCell {
+    func configurePromotionTagsCViewTVCell(_ cell: PromotionTagsCViewTVCell, index: IndexPath ) -> PromotionTagsCViewTVCell {
         cell.tag = index.row
         return cell
     }
@@ -445,6 +450,10 @@ extension PromotionJournalVC: UITableViewDataSource {
                 cell.type = IncidentTypes.theProjectClassNote
                 cell.aBackgroundColor = "FJBlueColor"
                 cell.aChoice = ""
+            case 12:
+                cell.type = IncidentTypes.tags
+                cell.aBackgroundColor = "FJBlueColor"
+                cell.aChoice = ""
             default: break
             }
         default: break
@@ -465,6 +474,10 @@ extension PromotionJournalVC: UITableViewDataSource {
         switch row {
         case 4:
             cell.modalTitleL.text = theOverviewNotes
+        case 6:
+            cell.modalTitleL.text = theProjectNotes
+        case 8:
+            cell.modalTitleL.text = theProjectCrew
         default: break
         }
         cell.modalTitleL.setNeedsDisplay()

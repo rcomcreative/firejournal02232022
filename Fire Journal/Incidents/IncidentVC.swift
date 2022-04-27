@@ -89,7 +89,7 @@ class IncidentVC:  SpinnerViewController, UIImagePickerControllerDelegate, UINav
     var theIncidentLocal: IncidentLocal!
     var theIncidentNFIRS: IncidentNFIRS!
     var theIncidentNotes: IncidentNotes!
-    var theIncidentTags = [Tag]()
+    var theIncidentTags = [IncidentTags]()
     var theActionsTaken: ActionsTaken!
     var theIncidentMap: IncidentMap!
     var theIncidentNFIRSCompleteMods: IncidentNFIRSCompleteMods!
@@ -360,10 +360,10 @@ class IncidentVC:  SpinnerViewController, UIImagePickerControllerDelegate, UINav
                 theNFIRSIncidentTypeHeight = configureLabelHeight(text: text)
             }
         }
-        if theIncident.incidentTagDetails != nil {
-            theIncidentTags = theIncident.tags?.allObjects as! [Tag]
+        if theIncident.incidentTags != nil {
+            theIncidentTags = theIncident.incidentTags?.allObjects as! [IncidentTags]
             theTagsAvailable = true
-            theIncidentTags = theIncidentTags.sorted { $0.name! < $1.name! }
+            theIncidentTags = theIncidentTags.sorted { $0.incidentTag! < $1.incidentTag! }
             let count = theIncidentTags.count
             let counted = count / 6
             theTagsHeight = CGFloat(counted * 44)

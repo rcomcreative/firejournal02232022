@@ -1043,12 +1043,36 @@ extension IncidentVC: TagsVCDelegate {
                 if !theIncidentTags.isEmpty {
                     let result = theIncidentTags.filter { $0 == tag }
                     if result.isEmpty {
-                        theIncident.addToTags(tag)
-                        theIncidentTags.append(tag)
+                        let incidentTag = IncidentTags(context: context)
+                        incidentTag.incidentTag = tag.name
+                        if let guid = theIncident.fjpIncGuidForReference {
+                            incidentTag.incidentGuid = guid
+                        }
+                        if let incidentModDate = theIncident.incidentModDate {
+                            let jGuidDate = GuidFormatter.init(date: incidentModDate)
+                            let jGuid:String = jGuidDate.formatGuid()
+                            let guid = "21." + jGuid
+                            incidentTag.incidentGuid = guid
+                            incidentTag.guid = UUID()
+                        }
+                        theIncident.addToIncidentTags(incidentTag)
+                        theIncidentTags.append(incidentTag)
                     }
                 } else {
-                    theIncident.addToTags(tag)
-                    theIncidentTags.append(tag)
+                    let incidentTag = IncidentTags(context: context)
+                    incidentTag.incidentTag = tag.name
+                    if let guid = theIncident.fjpIncGuidForReference {
+                        incidentTag.incidentGuid = guid
+                    }
+                    if let incidentModDate = theIncident.incidentModDate {
+                        let jGuidDate = GuidFormatter.init(date: incidentModDate)
+                        let jGuid:String = jGuidDate.formatGuid()
+                        let guid = "21." + jGuid
+                        incidentTag.incidentGuid = guid
+                        incidentTag.guid = UUID()
+                    }
+                    theIncident.addToIncidentTags(incidentTag)
+                    theIncidentTags.append(incidentTag)
                 }
             }
             if context.hasChanges {
@@ -1066,6 +1090,7 @@ extension IncidentVC: TagsVCDelegate {
                     DispatchQueue.main.async {
                         self.nc.removeObserver(self, name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
                     }
+//                    TODO: -INCIDENTTAGS TO CLOUD-
                     theAlert(message: "The incident data has been saved.")
                 } catch let error as NSError {
                     let nserror = error

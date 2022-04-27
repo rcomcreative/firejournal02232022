@@ -39,6 +39,9 @@ extension RelieveSupervisorVC {
         
         relieveSupervisorTableView.rowHeight = UITableView.automaticDimension
         relieveSupervisorTableView.estimatedRowHeight = 300
+        if crew {
+            relieveSupervisorTableView.allowsMultipleSelection = true
+        }
         
         NSLayoutConstraint.activate([
             relieveSupervisorTableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10),
@@ -100,6 +103,20 @@ extension RelieveSupervisorVC: UITableViewDataSource {
             selected.append(cell.contact!)
         }
     }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        
+        let cell = tableView.cellForRow(at: indexPath)! as! CrewCell
+        cell.isSelected = false
+        let name = cell.contact?.attendee ?? ""
+        let result = selected.filter { $0.attendee == name }
+        if !result.isEmpty {
+            if let attendee = cell.contact {
+                selected.remove(object: attendee)
+            }
+        }
+        
+     }
     
 }
 

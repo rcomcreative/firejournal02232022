@@ -228,12 +228,34 @@ extension JournalVC: TagsVCDelegate {
                 if !theJournalTags.isEmpty {
                     let result = theJournalTags.filter { $0 == tag }
                     if result.isEmpty {
-                        theJournal.addToTags(tag)
-                        theJournalTags.append(tag)
+                        let journalTag = JournalTags(context: context)
+                        journalTag.journalTag = tag.name
+                        if let guid = theJournal.fjpJGuidForReference {
+                            journalTag.fjpJournalReference = guid
+                        }
+                        if let journalModDate = theJournal.journalModDate {
+                            let jGuidDate = GuidFormatter.init(date: journalModDate)
+                            let jGuid:String = jGuidDate.formatGuid()
+                            let guid = "71." + jGuid
+                            journalTag.journalGuid = guid
+                        }
+                        theJournal.addToJournalTags(journalTag)
+                        theJournalTags.append(journalTag)
                     }
                 } else {
-                    theJournal.addToTags(tag)
-                    theJournalTags.append(tag)
+                    let journalTag = JournalTags(context: context)
+                    journalTag.journalTag = tag.name
+                    if let guid = theJournal.fjpJGuidForReference {
+                        journalTag.fjpJournalReference = guid
+                    }
+                    if let journalModDate = theJournal.journalModDate {
+                        let jGuidDate = GuidFormatter.init(date: journalModDate)
+                        let jGuid:String = jGuidDate.formatGuid()
+                        let guid = "71." + jGuid
+                        journalTag.journalGuid = guid
+                    }
+                    theJournal.addToJournalTags(journalTag)
+                    theJournalTags.append(journalTag)
                 }
             }
             if context.hasChanges {
@@ -248,6 +270,7 @@ extension JournalVC: TagsVCDelegate {
                                      object: nil,
                                      userInfo: ["objectID": objectID as NSManagedObjectID])
                     }
+//                    TODO: - JournalTag to cloud-
                     theAlert(message: "The journal data has been saved.")
                 } catch let error as NSError {
                     let nserror = error

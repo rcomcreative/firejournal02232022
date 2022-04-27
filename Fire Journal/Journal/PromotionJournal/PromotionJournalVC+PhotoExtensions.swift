@@ -99,7 +99,7 @@ extension PromotionJournalVC: CameraTVCellDelegate, PHPickerViewControllerDelega
                                     print("file saved")
                                     self.taskContext = self.photoProvider.persistentContainer.newBackgroundContext()
                                     let objectID = self.theProject.objectID
-                                    self.photoProvider.addPhotoToJournal(imageData: data, imageURL: url, journalid: objectID, taskContext: self.taskContext) {
+                                    self.photoProvider.addPhotoToProject(imageData: data, imageURL: url, projectID: objectID, taskContext: self.taskContext) {
                                         completionHandler?()
                                     }
                                 } catch {

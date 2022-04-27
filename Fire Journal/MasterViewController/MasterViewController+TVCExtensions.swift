@@ -56,7 +56,7 @@ extension MasterViewController {
             return cell
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: "MyShiftCell", for: indexPath) as! MyShiftCell
-            configureCell(cell, withMyShift: .personal)
+            configureCell(cell, withMyShift: .projects)
             return cell
         case 4:
             let cell = tableView.dequeueReusableCell(withIdentifier: "MyShiftCell", for: indexPath) as! MyShiftCell

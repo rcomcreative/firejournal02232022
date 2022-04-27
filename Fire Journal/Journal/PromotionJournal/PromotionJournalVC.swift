@@ -67,7 +67,7 @@ class PromotionJournalVC: SpinnerViewController, UIImagePickerControllerDelegate
     var theProject: PromotionJournal!
     var theLocation: FCLocation!
     var locationAvailable: Bool = false
-    var theProjectTags = [Tag]()
+    var theProjectTags = [PromotionJournalTags]()
     var thePhoto: Photo!
     var theTags = [Tag]()
     var validPhotos = [Photo]()
@@ -91,6 +91,7 @@ class PromotionJournalVC: SpinnerViewController, UIImagePickerControllerDelegate
     
     var theProjectCrew: String = ""
     var theProjectCrewAvailable: Bool = false
+    var theProjectCrewA = [PromotionCrew]()
     
     var theTagString: String = " "
     var theTagsAvailable: Bool = false
@@ -202,9 +203,9 @@ class PromotionJournalVC: SpinnerViewController, UIImagePickerControllerDelegate
             }
             
             if theProject.tags != nil {
-                theProjectTags = theProject.tags?.allObjects as! [Tag]
+                theProjectTags = theProject.promotionTag?.allObjects as! [PromotionJournalTags]
                 theTagsAvailable = true
-                theProjectTags = theProjectTags.sorted { $0.name! < $1.name! }
+                theProjectTags = theProjectTags.sorted { $0.tag! < $1.tag! }
                 let count = theProjectTags.count
                 let counted = count / 6
                 theTagsHeight = CGFloat(counted * 44)
@@ -232,6 +233,41 @@ class PromotionJournalVC: SpinnerViewController, UIImagePickerControllerDelegate
             self.validPhotos = self.validPhotos.sorted(by: { $0.photoDate! < $1.photoDate! })
             if !self.validPhotos.isEmpty {
                 self.photosAvailable = true
+            }
+            
+            if theProject.crew != nil {
+                theProjectCrewAvailable = true
+                theProjectCrew = ""
+                if let theCrew = theProject.crew?.allObjects as? [PromotionCrew] {
+                    for crew in theCrew {
+                        var theName: String = ""
+                        var theRank: String = ""
+                        if let fullname = crew.fullName {
+                            theName = fullname
+                        }
+                        if theName == "" {
+                            if let first = crew.first {
+                                theName = first
+                            }
+                            if let last = crew.last {
+                                theName = theName + " " + last
+                            }
+                        }
+                        if let rank = crew.rank {
+                            theRank = rank
+                        }
+                        if theName != "" {
+                            theProjectCrew = theName
+                            if theRank != "" {
+                                theProjectCrew = theProjectCrew + " " + theRank + "\n"
+                            }
+                        }
+                        let result = theProjectCrewA.filter { $0 == crew }
+                        if result.isEmpty {
+                            theProjectCrewA.append(crew)
+                        }
+                    }
+                }
             }
             
         }

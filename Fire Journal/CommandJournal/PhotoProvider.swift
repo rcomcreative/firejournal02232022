@@ -49,6 +49,7 @@ class PhotoProvider {
             photo.journalGuid = self.theJournal.journalGuid
             photo.photoDate = Date()
             photo.guid = UUID()
+            photo.journalGuid = theJournal.journalGuid
             self.theJournal.journalPhotoTaken = true
             photo.journal = self.theJournal
             photo.image = thumbnailImage // transient
@@ -96,6 +97,7 @@ class PhotoProvider {
             photo.promotionGuid = self.theProject.projectGuid
             photo.photoDate = Date()
             photo.guid = UUID()
+            photo.promotionGuid = self.theProject.projectGuid
             self.theProject.addToPhotos(photo)
             photo.image = thumbnailImage // transient
             if shouldSave {
@@ -136,6 +138,7 @@ class PhotoProvider {
             photo.incidentGuid = self.theIncident.incidentGuid
             photo.photoDate = Date()
             photo.guid = UUID()
+            photo.incidentGuid = theIncident.incidentGuid
             self.theIncident.incidentPhotoTaken = true
             self.theIncident.addToPhoto(photo)
             photo.image = thumbnailImage // transient

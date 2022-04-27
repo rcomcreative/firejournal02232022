@@ -66,7 +66,7 @@ class JournalVC: SpinnerViewController, UIImagePickerControllerDelegate, UINavig
     var theUser: FireJournalUser!
     var theJournal: Journal!
     var theJournalLocation: FCLocation!
-    var theJournalTags = [Tag]()
+    var theJournalTags = [JournalTags]()
     var thePhoto: Photo!
     var theTags = [Tag]()
     var validPhotos = [Photo]()
@@ -294,9 +294,9 @@ class JournalVC: SpinnerViewController, UIImagePickerControllerDelegate, UINavig
             
             
             if theJournal.journalTagDetails != nil {
-                theJournalTags = theJournal.tags?.allObjects as! [Tag]
+                theJournalTags = theJournal.journalTags?.allObjects as! [JournalTags]
                 theTagsAvailable = true
-                theJournalTags = theJournalTags.sorted { $0.name! < $1.name! }
+                theJournalTags = theJournalTags.sorted { $0.journalTag! < $1.journalTag! }
                 let count = theJournalTags.count
                 let counted = count / 6
                 theTagsHeight = CGFloat(counted * 44)

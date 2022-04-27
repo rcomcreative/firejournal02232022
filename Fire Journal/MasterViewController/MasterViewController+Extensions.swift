@@ -328,6 +328,13 @@ extension MasterViewController {
             let sectionSortDescriptor = NSSortDescriptor(key: "journalCreationDate", ascending: true)
             let sortDescriptors = [sectionSortDescriptor]
             fetchRequest.sortDescriptors = sortDescriptors
+        case .projects:
+            let predicate = NSPredicate(format: "%K != %@", attribute, "")
+            let predicateCan = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [predicate])
+            fetchRequest.predicate = predicateCan
+            let sectionSortDescriptor = NSSortDescriptor(key: "promotionDate", ascending: true)
+            let sortDescriptors = [sectionSortDescriptor]
+            fetchRequest.sortDescriptors = sortDescriptors
         default:
             print("noting")
         }
@@ -341,6 +348,8 @@ extension MasterViewController {
                 self.fetched = try context.fetch(fetchRequest) as! [Incident]
             case .personal:
                 self.fetched = try context.fetch(fetchRequest) as! [Journal]
+            case .projects:
+                self.fetched = try context.fetch(fetchRequest) as! [PromotionJournal]
             default:
                 print("noting to search")
             }
@@ -381,6 +390,22 @@ extension MasterViewController {
 
     func theCount(entity: String)->Int {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity )
+        do {
+            let count = try context.count(for:fetchRequest)
+            return count
+        } catch let error as NSError {
+            print("Error: \(error.localizedDescription)")
+            return 0
+        }
+    }
+    
+    func theCountProject() -> Int {
+        let entity = "PromotionJournal"
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity )
+        let predicate1 = NSPredicate(format: "%K != %@","projectGuid", "")
+        let predicateCan = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [predicate1])
+        fetchRequest.predicate = predicateCan
+        print(fetchRequest)
         do {
             let count = try context.count(for:fetchRequest)
             return count

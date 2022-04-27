@@ -40,6 +40,7 @@ class RelieveSupervisorVC: UIViewController {
     var newOfficer: UserAttendees!
     var relieveSupervisorContactsTVC: RelieveSupervisorContactsTVC!
     var staffContactsVC: StaffContactsVC!
+    var crew: Bool = false
     
     var imageAvailable: Bool = false
     var contactImage: UIImage!

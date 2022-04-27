@@ -13,9 +13,9 @@ import CoreData
 class IncidentTagsCViewTVCell: UITableViewCell {
     
     var tagCollectionView:UICollectionView!
-    var tagDataSource: UICollectionViewDiffableDataSource<Section, Tag>!
-    var currentTagSnapshot: NSDiffableDataSourceSnapshot<Section,Tag>! = nil
-    var theTagArray = [Tag]()
+    var tagDataSource: UICollectionViewDiffableDataSource<Section, IncidentTags>!
+    var currentTagSnapshot: NSDiffableDataSourceSnapshot<Section,IncidentTags>! = nil
+    var theTagArray = [IncidentTags]()
     var platoonColor: String = "FJIconRed"
     var theColor: UIColor!
     var theIncident: Incident!
@@ -48,7 +48,7 @@ extension IncidentTagsCViewTVCell {
     
     func buildTheTags() {
         
-        if let incidentTags = theIncident.tags?.allObjects as? [Tag] {
+        if let incidentTags = theIncident.incidentTags?.allObjects as? [IncidentTags] {
             theTagArray = incidentTags
         }
         
@@ -122,16 +122,16 @@ extension IncidentTagsCViewTVCell {
     }
     
     func createDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<TagsCVCell,Tag> { (cell, indexPath, tag ) in
-                cell.configure(tag: tag, platoonColor: self.platoonColor)
+        let cellRegistration = UICollectionView.CellRegistration<IncidentTagsCVCell,IncidentTags> { (cell, indexPath, tag ) in
+                cell.configure(tag: tag)
             }
         
-        tagDataSource = UICollectionViewDiffableDataSource<Section, Tag>(collectionView:  tagCollectionView) { (collectionView: UICollectionView, indexPath: IndexPath, identifier: Tag) -> UICollectionViewCell? in
+        tagDataSource = UICollectionViewDiffableDataSource<Section, IncidentTags>(collectionView:  tagCollectionView) { (collectionView: UICollectionView, indexPath: IndexPath, identifier: IncidentTags ) -> UICollectionViewCell? in
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: identifier)
         }
         
         //        let navButtons = navBarController.generateButtons()
-        currentTagSnapshot = NSDiffableDataSourceSnapshot < Section, Tag>()
+        currentTagSnapshot = NSDiffableDataSourceSnapshot < Section, IncidentTags>()
         currentTagSnapshot.appendSections([.main])
         theTagArray.forEach {
             let row = $0
