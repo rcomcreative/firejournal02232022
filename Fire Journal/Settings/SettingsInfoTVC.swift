@@ -116,47 +116,56 @@ class SettingsInfoTVC: UITableViewController {
     
     func cloudText()->String {
         let cloud = """
-        Advanced management and reporting
+        Advanced Reporting and Career Tracking
 
-        Firefighters understand the importance of membership. Being a member of your department brings a wealth of benefits. The same is true for Fire Journal Membership. Once you become a member, the capabilities of Fire Journal are enhanced, and you’ll gain new and valuable benefits as well.
+        As a firefighter, you understand the importance of keeping track of important milestones in your life and career. Being a “member” of your department is something to be proud of - to know that you’re serving your community to the best of your ability.
 
-        Some of the immediate benefits include:
+        Fire Journal Membership brings a never before seen level of accountability and service history to firefighters everywhere. Once you become a member, the capabilities of Fire Journal (the iOS app) are extended, and you’ll gain important insight about your firefighting career.
 
-        — Automatic backup of your journal, incident, and form data
-        — Automatic sync between your iOS devices and the cloud
-        — Access to a fully functional secure Cloud environment: Use Fire Journal on a laptop (PC and Mac)
-        — Track and report on journal and incident entries over time
-        — Evaluate history of calls for service via an online detailed map
-        — Generate reports on calls for service, response mix, and performance
-        — Share form data in appropriate Government formats (PDF files)
-        — Journal and Incident calendaring
-        — Expanded search capabilities
-        — 24/7 Customer Support Portal (includes a wealth of support options)
+        Fire Journal Members adds reporting and analysis to your career - how much are you working? What are the important fires or rescues you’ve participated in? How has your career evolved over time? If you’re working on promoting, track some or all of your study sessions, partners, and test results. There’s really no limit to the ways Fire Journal Membership can benefit you and your firefighting career.
 
-        There’s more as well. Your subscription, whether monthly or annually will provide you with access to all current and upcoming capabilities on your iOS devices and in the cloud. The tools available to you as a subscribed member are easy to use, work in any modern browser, as well as in your iOS devices (run Fire Journal on your iPhone and iPad!), and provides you with insight into how your fire station’s operations can be improved, resulting in better response times, firefighter productivity, and overall satsifaction.
+        CAPABILITIES:
+        Fire Journal Membership builds on the functions found in the free downoadable app. Some of the immediate benefits include:
 
-        Best of all, Membership is inexpensive, and you can TRY IT FOR 90 DAYS FREE.
-        Then, $59.99 annually, (a $4.99 monthly value), or $7.99 monthly (or 95.88 over 12 months)
+        Automatic backup of your journal, projects, incidents, and form data
+        Automatic sync between your iOS devices (for example, an iPhone and an iPad) - Fire Journal is a “universal app”
+        Secure access to a private cloud environment, configured specifically for you (access the cloud from your iOS device, or from a Mac or PC computer)
+        Track and review trends and reports related to journal entries and incidents
+        Evaluate history of calls for service, types of incidents, and what took place from arrival to clearing the scene
+        Review your journal and incident history via a map, highlighting key incidents and related activities while on scene
+        Share form data from ICS-214 and other forms in Government approved formats (as PDF files)
+        Utilize Journal and Incident calendaring
+        Utilize search functions to find what you need, when you need it
+        24/7 access to your own Fire Journal customer support portal
 
-        An annual subscription for membership is the best value.
+        As new capabilities are introduced to Fire Journal Membership, you’ll gain acces without having to change the status or longevity of your membership.
 
-        Learn more about Fire Journal Membership http://purecommand.com/firejournal-membership/
+        Best of all, Fire Journal Membership is extremely affordable, and can be purchased as either a recurring monthly subscription, or as a single payment annual subscription (best savings). Every membership starts off with 60 days of FREE access to Fire Journal Cloud. If you decide its not for you, follow Apple’s guidelines and cancel your subscription. It’s that easy.
 
-        MONTHLY — $7.99
-        TRY IT FOR 90 DAYS FREE, then automatically charged to your iTunes account every month. You may unsubscribe in System Preferences.
+        INVESTMENT:
+        With either plan, you get the first 60 days of Fire Journal Membership for free. During that time period, if you decide it’s not for you, simply cancel, no questions asked.
 
-        ANUALLY — $59.99
-        Equal to $4.99 a month, but charged once on an annual basis.
-        TRY IT FOR 90 DAYS FREE, then automatically charged to your iTunes account.
+        SILVER PLAN: $7.99 per month, paid each month - no contract required
 
-        Important Subscription Information
-        Fire Journal Membership is a recurring subscription. If you decide to purchase a membership subscription, you’ll receive an initial FREE 90 DAY TRIAL. Once the free trial period concludes, your subscription will automatically renew and payment will be charged to your iTunes account. Auto-Renewal by be disabled at any time by going to your settings in the iTunes store after purchase.
+        GOLD PLAN: $3.33 per month, paid as a single annual payment
 
-        For additional information, please see our Terms of Use http://purecommand.com/terms/
+        The total annual subscription fee (GOLD PLAN) is $39.99. Try Fire Journal Membership for 60 days for FREE, then continue with either plan above. You may upgrade a SILVER PLAN to a GOLD PLAN at any time.
 
-        You may also see our Privacy Policy http://purecommand.com/privacy/
+        NOTE: If you update your devices, you may re-connect your Fire Journal Membership using the “Restore Purchase” button.
 
-        To learn more, visit our website: http://www.purecommand.com
+        IMPORTANT MEMBERSHIP/SUBSCRIPTION INFORMATION:
+        Fire Journal Membership is a recurring subscription. If you decide to purchase a membership subscription, you’ll receive an initial FREE 60 DAY TRIAL. Once the free trial  period concludes, your subscription will automatically engage and payment will be charged to the credit card that is part of your “dot Mac” or “iCloud” membership. You may disable “Auto renewal” at any time by going to “Settings” in the iOS app once you have completed downloading and installing the Fire Journal app into your smartphone device.
+
+        For additional information, please see our terms of use via our website:
+        http://purecommand.com/terms/
+
+        You may also review our Private Policy by visiting our website:
+        http://purecommand.com/privacy/
+
+        To learn more about PureCommand and our support for the fire service, visit our website:
+        httpw://www.purecommand.com
+
+        Thank you for becoming part of the Fire Journal family.
         """
         return cloud
     }

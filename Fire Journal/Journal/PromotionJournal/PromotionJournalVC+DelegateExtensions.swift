@@ -33,6 +33,11 @@ extension PromotionJournalVC {
         let labelFrame = label.frame
         theFloat = labelFrame.height
         label.removeFromSuperview()
+        if Device.IS_IPHONE {
+            theFloat = theFloat - 600
+        } else {
+        theFloat = theFloat - 400
+        }
         if theFloat < 44 {
             theFloat = 88
         }
@@ -207,7 +212,8 @@ extension PromotionJournalVC: MultipleAddButtonTVCellDelegate {
             let storyBoard : UIStoryboard = UIStoryboard(name: "RelieveSupervisor", bundle:nil)
             let relieveSupervisorVC = storyBoard.instantiateViewController(withIdentifier: "RelieveSupervisorVC") as! RelieveSupervisorVC
             relieveSupervisorVC.delegate = self
-            relieveSupervisorVC.headerTitle = "Project Crew"
+            relieveSupervisorVC.headerTitle = "Crew"
+            relieveSupervisorVC.crew = true
             relieveSupervisorVC.transitioningDelegate = slideInTransitioningDelgate
             relieveSupervisorVC.modalPresentationStyle = .custom
             self.present(relieveSupervisorVC, animated: true, completion: nil)
@@ -247,7 +253,7 @@ extension PromotionJournalVC: RelieveSupervisorVCDelegate {
                     projectCrew.promotionGuid = theProject.guid
                     theProject.addToCrew(projectCrew)
                     theProjectCrewA.append(projectCrew)
-                    theProjectCrew = theProjectCrew + name + "\n\n"
+                    theProjectCrew = theProjectCrew + name + ", "
                 }
             }
         }
@@ -258,11 +264,11 @@ extension PromotionJournalVC: RelieveSupervisorVCDelegate {
                     self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"Updated Incident merge that"])
                 }
                 let objectID = theProject.objectID
-                DispatchQueue.main.async {
-                    self.nc.post(name:Notification.Name(rawValue :FJkCKModifyJournalToCloud),
-                                 object: nil,
-                                 userInfo: ["objectID": objectID as NSManagedObjectID])
-                }
+//                DispatchQueue.main.async {
+//                    self.nc.post(name:Notification.Name(rawValue :FJkCKModifyJournalToCloud),
+//                                 object: nil,
+//                                 userInfo: ["objectID": objectID as NSManagedObjectID])
+//                }
 //                    TODO: - PromotionJournalCrew to cloud-
                 theAlert(message: "The project data has been saved.")
             } catch let error as NSError {
@@ -316,11 +322,11 @@ extension PromotionJournalVC: TagsVCDelegate {
                         self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"Updated Incident merge that"])
                     }
                     let objectID = theProject.objectID
-                    DispatchQueue.main.async {
-                        self.nc.post(name:Notification.Name(rawValue :FJkCKModifyJournalToCloud),
-                                     object: nil,
-                                     userInfo: ["objectID": objectID as NSManagedObjectID])
-                    }
+//                    DispatchQueue.main.async {
+//                        self.nc.post(name:Notification.Name(rawValue :FJkCKModifyJournalToCloud),
+//                                     object: nil,
+//                                     userInfo: ["objectID": objectID as NSManagedObjectID])
+//                    }
 //                    TODO: - PromotionJournalTag to cloud-
                     theAlert(message: "The project data has been saved.")
                 } catch let error as NSError {
@@ -347,7 +353,7 @@ extension PromotionJournalVC: TagsVCDelegate {
 extension PromotionJournalVC: PromotionNoteVCDelegate {
     
     func thePromotionNoteHasBeenUpdated(text: String, index: IndexPath, type: IncidentTypes) {
-        let indexPath = IndexPath(row: 4, section: 0)
+        var indexPath: IndexPath!
         switch type {
         case .theProjectOverview:
             theOverviewNotesAvailable = true
@@ -356,6 +362,7 @@ extension PromotionJournalVC: PromotionNoteVCDelegate {
             if theProject != nil {
                 theProject.overview = theOverviewNotes as NSObject
             }
+            indexPath = IndexPath(row: 4, section: 0)
         case .theProjectClassNote:
             theProjectNotesAvailable = true
             theProjectNotes = text
@@ -363,6 +370,7 @@ extension PromotionJournalVC: PromotionNoteVCDelegate {
             if theProject != nil {
                 theProject.studyClassNote = theProjectNotes as NSObject
             }
+            indexPath = IndexPath(row: 6, section: 0)
         default: break
         }
         projectTableView.reloadRows(at: [indexPath], with: .automatic)
@@ -420,7 +428,7 @@ extension PromotionJournalVC: NewAddressFieldsButtonsCellDelegate {
             }
             
             switch tag {
-            case 6:
+            case 9:
                 self.theLocation.location = location
                 self.theLocation.latitude = location.coordinate.latitude
                 self.theLocation.longitude = location.coordinate.longitude
@@ -492,7 +500,7 @@ extension PromotionJournalVC: OnBoardAddressSearchDelegate {
             }
             if count != 0 {
                 switch tag {
-                case 6:
+                case 9:
                     self.theLocation.location = theLocation
                     self.theLocation.latitude = location.latitude
                     self.theLocation.longitude = location.longitude

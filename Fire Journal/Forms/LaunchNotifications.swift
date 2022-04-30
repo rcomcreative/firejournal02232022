@@ -23,6 +23,7 @@ class LaunchNotifications {
     func callNotifications() {
         nc.addObserver(self, selector:#selector(incidentCalled(notification:)), name:NSNotification.Name(rawValue: FJkINCIDENT_FROM_MASTER), object: nil)
         nc.addObserver(self, selector:#selector(journalCalled(notification:)), name:NSNotification.Name(rawValue: FJkJOURNAL_FROM_MASTER), object: nil)
+        nc.addObserver(self, selector: #selector(projectCalled(nc:)), name: .fireJournalProjectFromMaster, object: nil)
         nc.addObserver(self, selector:#selector(mapsCalled(notification:)), name:NSNotification.Name(rawValue: FJkMAPS_FROM_MASTER), object: nil)
         nc.addObserver(self, selector:#selector(settingsCalled(notification:)), name:NSNotification.Name(rawValue: FJkSETTINGS_FROM_MASTER), object: nil)
         nc.addObserver(self, selector:#selector(storeCalled(notification:)), name:NSNotification.Name(rawValue: FJkSTORE_FROM_MASTER), object: nil)
@@ -195,6 +196,16 @@ class LaunchNotifications {
             compact = userInfo["sizeTrait"] as? SizeTrait
             let id = userInfo["objectID"] as? NSManagedObjectID ?? nil
             vcLaunch.incidentCalled(sizeTrait: compact,id:id!)
+        }
+    }
+    
+    @objc func projectCalled(nc: Notification) -> Void {
+        if let userInfo = nc.userInfo as! [String: Any]?
+        {
+            compact = userInfo["sizeTrait"] as? SizeTrait
+            if let id = userInfo["objectID"] as? NSManagedObjectID {
+                vcLaunch.projectCalled(sizeTrait: compact, id: id)
+            }
         }
     }
     

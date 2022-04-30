@@ -141,7 +141,7 @@ class TheJournalNoteVC: UIViewController {
     
     func infoAlert() {
         let alert = UIAlertController.init(title: theSubject, message: theMessage, preferredStyle: .alert)
-        let okAction = UIAlertAction.init(title: "Okay", style: .default, handler: {_ in
+        let okAction = UIAlertAction.init(title: "Got it!", style: .default, handler: {_ in
             self.alertUp = false
         })
         alert.addAction(okAction)

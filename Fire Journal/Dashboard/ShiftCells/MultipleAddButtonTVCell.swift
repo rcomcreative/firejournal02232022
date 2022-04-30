@@ -274,6 +274,10 @@ extension MultipleAddButtonTVCell {
                 config.image = UIImage(systemName: "square.and.pencil")
                 config.title = " Project Notes"
                 config.baseBackgroundColor = UIColor(named: theBackgroundColor)
+            case .theProjectCrew:
+                config.image = UIImage(systemName: "person.3.sequence")
+                config.title = " Project Crew"
+                config.baseBackgroundColor = UIColor(named: theBackgroundColor)
             default: break
             }
             config.baseForegroundColor = .white

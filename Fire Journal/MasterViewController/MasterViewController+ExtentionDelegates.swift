@@ -33,6 +33,13 @@ extension MasterViewController: ListTVCDelegate {
             case .regular:
                 vcLaunch.incidentCalled(sizeTrait: compact, id: id)
             }
+        case .projects:
+            switch compact {
+            case .compact:
+                vcLaunch.projectCalledFromList(sizeTrait: compact, id: id)
+            case .regular:
+                vcLaunch.projectCalled(sizeTrait: compact, id: id)
+            }
         case .personal:
             switch compact {
             case .compact:
@@ -91,7 +98,6 @@ extension MasterViewController: OpenModalScrollVCDelegate {
     func allCompleted(yesNo: Bool) {
         self.dismiss(animated: true, completion: {
             self.userDefaults.set(true, forKey: FJkFIRSTRUNFORDATAFROMCLOUDKIT)
-            self.userDefaults.synchronize()
             self.theAgreementsAccepted()
             self.freshDeskRequest()
             self.appDelegate.fetchAnyChangesWeMissed(firstRun: true)
@@ -137,12 +143,11 @@ extension MasterViewController: SettingsTVCDelegate {
             let navigator = UINavigationController.init(rootViewController: vc)
             self.present(navigator, animated: true, completion: nil)
         case .cloud:
-            let vc:SettingsInfoTVC = vcLaunch.modalSettingsCloudCalled()
-            vc.titleName = "Fire Journal Cloud"
+            let vc: SettingsInfoVC = vcLaunch.modalSettingsCloudCalled()
             vc.compact = compact
             vc.collapsed = collapsed
             vc.delegate = self
-            vc.settingType = FJSettings.cloud
+            vc.settingsType = FJSettings.cloud
             let navigator = UINavigationController.init(rootViewController: vc)
             self.present(navigator, animated: true, completion: nil)
         case .crewMembers:
@@ -211,21 +216,19 @@ extension MasterViewController: SettingsTVCDelegate {
             let navigator = UINavigationController.init(rootViewController: vc)
             self.present(navigator, animated: true, completion: nil)
         case .terms:
-            let vc:SettingsInfoTVC = vcLaunch.modalSettingsCloudCalled()
-            vc.titleName = "Fire Journal Cloud"
+            let vc: SettingsInfoVC = vcLaunch.modalSettingsCloudCalled()
             vc.compact = compact
             vc.collapsed = collapsed
             vc.delegate = self
-            vc.settingType = FJSettings.terms
+            vc.settingsType = FJSettings.terms
             let navigator = UINavigationController.init(rootViewController: vc)
             self.present(navigator, animated: true, completion: nil)
         case .privacy:
-            let vc:SettingsInfoTVC = vcLaunch.modalSettingsCloudCalled()
-            vc.titleName = "Fire Journal Cloud"
+            let vc: SettingsInfoVC = vcLaunch.modalSettingsCloudCalled()
             vc.compact = compact
             vc.collapsed = collapsed
             vc.delegate = self
-            vc.settingType = FJSettings.privacy
+            vc.settingsType = FJSettings.privacy
             let navigator = UINavigationController.init(rootViewController: vc)
             self.present(navigator, animated: true, completion: nil)
         case .contacts:
@@ -323,6 +326,17 @@ extension MasterViewController: SettingsInfoDelegate {
         self.navigationController?.popToRootViewController(animated: true)
         myShiftCellTapped(myShift: MenuItems.settings)
     }
+    
+}
+
+extension MasterViewController: SettingsInfoVCDelegate {
+    
+    func settingsInfoReturnToSettings() {
+            self.dismiss(animated: true, completion: nil)
+            self.navigationController?.popToRootViewController(animated: true)
+            myShiftCellTapped(myShift: MenuItems.settings)
+    }
+    
     
 }
 
@@ -601,7 +615,30 @@ extension MasterViewController: MyShiftCellDelegate {
                     getTheData(myShift: myShift)
                     let project = fetched.last as! PromotionJournal
                     let id = project.objectID
-                    
+                    switch compact {
+                    case .compact:
+                        vcLaunch.projectCalled(sizeTrait: compact, id: id)
+                    case .regular: break
+                    }
+                } else {
+                    slideInTransitioningDelgate.direction = .bottom
+                    slideInTransitioningDelgate.disableCompactHeight = true
+                    let storyBoard : UIStoryboard = UIStoryboard(name: "NewPromotion", bundle:nil)
+                    let promotionNewModalVC = storyBoard.instantiateInitialViewController() as! NewPromotionVC
+                    promotionNewModalVC.transitioningDelegate = slideInTransitioningDelgate
+                    if theUserTime != nil {
+                        promotionNewModalVC.userTimeObjectID = theUserTime.objectID
+                    if Device.IS_IPHONE {
+                        promotionNewModalVC.modalPresentationStyle = .formSheet
+                    } else {
+                        promotionNewModalVC.modalPresentationStyle = .custom
+                    }
+                        promotionNewModalVC.delegate = self
+                    self.present(promotionNewModalVC,animated: true)
+                    } else {
+                        let errorMessage = "A shift needs to be started to create journal entries."
+                        errorAlert(errorMessage: errorMessage)
+                    }
                 }
             case .personal:
                 print("Personal")
@@ -766,6 +803,21 @@ extension MasterViewController: MyShiftCellDelegate {
             }
         }
     }
+    
+}
+
+extension MasterViewController: NewPromotionVCDelegate {
+    
+    func newPromotionCanceled() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func newPromotionCreated(objectID: NSManagedObjectID) {
+        self.dismiss(animated: true, completion: {
+            self.nc.post(name: .fireJournalProjectFromMaster,object: nil, userInfo: ["sizeTrait":SizeTrait.regular,"objectID": objectID])
+        })
+    }
+    
     
 }
 

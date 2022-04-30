@@ -92,6 +92,7 @@ class PromotionJournalVC: SpinnerViewController, UIImagePickerControllerDelegate
     var theProjectCrew: String = ""
     var theProjectCrewAvailable: Bool = false
     var theProjectCrewA = [PromotionCrew]()
+    var theProjectCrewNames = [String]()
     
     var theTagString: String = " "
     var theTagsAvailable: Bool = false
@@ -158,7 +159,7 @@ class PromotionJournalVC: SpinnerViewController, UIImagePickerControllerDelegate
         navigationItem.rightBarButtonItem = saveButton
         
         if Device.IS_IPHONE {
-            let listButton = UIBarButtonItem(title: "Journal", style: .plain, target: self, action: #selector(returnToList(_:)))
+            let listButton = UIBarButtonItem(title: "Projects", style: .plain, target: self, action: #selector(returnToList(_:)))
             navigationItem.leftBarButtonItem = listButton
             navigationItem.setLeftBarButtonItems([listButton], animated: true)
             navigationItem.leftItemsSupplementBackButton = false
@@ -200,6 +201,10 @@ class PromotionJournalVC: SpinnerViewController, UIImagePickerControllerDelegate
             if theProject.theLocation != nil {
                 theLocation = theProject.theLocation
                 locationAvailable = true
+            } else {
+                theLocation = FCLocation(context: context)
+                theLocation.guid = UUID()
+                theProject.theLocation = theLocation
             }
             
             if theProject.tags != nil {
@@ -257,15 +262,15 @@ class PromotionJournalVC: SpinnerViewController, UIImagePickerControllerDelegate
                             theRank = rank
                         }
                         if theName != "" {
-                            theProjectCrew = theName
-                            if theRank != "" {
-                                theProjectCrew = theProjectCrew + " " + theRank + "\n"
-                            }
+                            theProjectCrewNames.append(theName)
                         }
                         let result = theProjectCrewA.filter { $0 == crew }
                         if result.isEmpty {
                             theProjectCrewA.append(crew)
                         }
+                    }
+                    if !theProjectCrewA.isEmpty {
+                        theProjectCrew = theProjectCrewNames.joined(separator: ", ")
                     }
                 }
             }

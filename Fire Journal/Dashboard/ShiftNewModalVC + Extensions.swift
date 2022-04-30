@@ -662,6 +662,7 @@ extension ShiftNewModalVC: ShiftModalHeaderVDelegate {
     
     
     func shiftModalCancelBTapped() {
+        delegate?.shiftCancelled()
         dismiss(animated: true, completion: nil)
     }
     

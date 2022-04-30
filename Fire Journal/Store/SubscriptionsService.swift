@@ -141,7 +141,6 @@ import CoreData
                 getAppReceipt()
                 //                let subscribed = subscriptionsService.subscribed
                 self.userDefaults.set(subscribed, forKey: FJkSUBCRIPTIONBought)
-                self.userDefaults.synchronize()
             }
             
         }

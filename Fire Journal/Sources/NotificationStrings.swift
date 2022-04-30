@@ -20,6 +20,7 @@ extension Notification.Name {
     static let fireJournalProjectListCalled = Notification.Name("fireJournalProjectListCalled")
     static let fireJournalNewProjectCreatedSendToCloud = Notification.Name("fireJournalNewProjectCreatedSendToCloud")
     static let fireJournalProjectModifiedSendToCloud = Notification.Name("fireJournalProjectModifiedSendToCloud")
+    static let fireJournalProjectFromMaster = Notification.Name("fireJournalProjectFromMaster")
 }
 
 let FConnectName = "FireJournal"

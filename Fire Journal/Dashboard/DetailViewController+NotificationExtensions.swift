@@ -52,6 +52,8 @@ extension DetailViewController {
         
         nc.addObserver(self, selector: #selector(presentNewJournalForEmptyJournalA(nc:)), name: .fireJournalPresentNewJournal, object: nil)
         
+        nc.addObserver(self, selector:#selector(myFreshDeskUpdated(ns:)),name:NSNotification.Name(rawValue: FJkFRESHDESK_UPDATED), object: nil)
+        
     }
     
         //    MARK: -NOTIFICATION FUNCTIONS-
@@ -160,6 +162,7 @@ extension DetailViewController {
         /// - Parameter ns: notification no userinfo included
         /// - Returns: removes spinner and tells Master to remove lock on buttons
     @objc func newContentForDashboard(ns: Notification)->Void {
+        
         if agreementAccepted {
             entity = "FireJournalUser"
             attribute = "userGuid"
@@ -194,7 +197,6 @@ extension DetailViewController {
                         count = 0
                     }
                     self.userDefaults.set(count, forKey: FJkALERTBACKUPCOMPLETED)
-                    self.userDefaults.synchronize()
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         self.nc.post(name:Notification.Name(rawValue:FJkSTOREINALERTTAPPED),
                                      object: nil,
@@ -209,7 +211,6 @@ extension DetailViewController {
                         count = 0
                     }
                     self.userDefaults.set(count, forKey: FJkALERTBACKUPCOMPLETED)
-                    self.userDefaults.synchronize()
                     if self.firstRun {
                         self.firstRun = false
                         

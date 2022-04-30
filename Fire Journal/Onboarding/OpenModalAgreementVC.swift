@@ -52,7 +52,6 @@ class OpenModalAgreementVC: UIViewController, UITextViewDelegate {
             print("I disagree")
             DispatchQueue.main.async {
                 self.userDefaults.set(false, forKey: FJkUserAgreementAgreed)
-                self.userDefaults.synchronize()
             }
             self.dismiss(animated: true, completion: nil)
             self.delegate?.theAgreementAgreedTo(yesNo: false)
@@ -64,7 +63,6 @@ class OpenModalAgreementVC: UIViewController, UITextViewDelegate {
     @IBAction func termsAgreedUpon(_ send: Any) {
         DispatchQueue.main.async {
             self.userDefaults.set(true, forKey: FJkUserAgreementAgreed)
-            self.userDefaults.synchronize()
         }
         self.dismiss(animated: true, completion: nil)
         delegate?.theAgreementAgreedTo(yesNo: true)

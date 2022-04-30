@@ -250,7 +250,6 @@ class UserFDResourcesPointOfTruthOperation: FJOperation {
             print(savedRecords ?? "no saved records")
             DispatchQueue.main.async {
                 self.userDefaults.set(true, forKey: FJkUserFDResourcesPointOfTruthOperationHasRun)
-                self.userDefaults.synchronize()
                 self.executing(false)
                 self.operation = "UserFDResourcesPointOfTruthOperation"
                 self.finish(true)

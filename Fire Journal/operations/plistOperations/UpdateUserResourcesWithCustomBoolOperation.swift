@@ -92,7 +92,6 @@ class UpdateUserResourcesWithCustomBoolOperation: FJOperation {
             DispatchQueue.main.async {
                 
                self.userDefaults.set(true, forKey: FJkSETTINGSUSERRESOURCESCUSTOMCOMMITTED)
-               self.userDefaults.synchronize()
                 self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.bkgrdContext,userInfo:["info":"UpdateUserResourcesWithCustomBoolOperation has run"])
             }
             DispatchQueue.main.async {

@@ -48,7 +48,6 @@ class FireJournalUserLoader: FJOperation {
         
         DispatchQueue.main.async {
             self.userDefaults.set(false, forKey: FJkFJUSERSavedToCoreDataFromCloud)
-            self.userDefaults.synchronize()
         }
         bkgrdContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         bkgrdContext.persistentStoreCoordinator = context.persistentStoreCoordinator
@@ -252,7 +251,6 @@ class FireJournalUserLoader: FJOperation {
                         object: nil,
                         userInfo: ["ckRecordType":CKRecordsToLoad.fJkCKRFireJournalUser])
                 self.userDefaults.set(false, forKey: FJkFJUSERSavedToCoreDataFromCloud)
-                self.userDefaults.synchronize()
                 self.executing(false)
                 self.finish(true)
                 self.bkgrndTask?.endBackgroundTask()
@@ -278,7 +276,6 @@ class FireJournalUserLoader: FJOperation {
                         object: nil,
                         userInfo: ["ckRecordType":CKRecordsToLoad.fJkCKRFireJournalUser])
                 self.userDefaults.set(true, forKey: FJkFJUSERSavedToCoreDataFromCloud)
-                self.userDefaults.synchronize()
                 self.executing(false)
                 self.finish(true)
                 self.bkgrndTask?.endBackgroundTask()
@@ -292,7 +289,6 @@ class FireJournalUserLoader: FJOperation {
             print(error)
             DispatchQueue.main.async {
                 self.userDefaults.set(false, forKey: FJkFJUSERSavedToCoreDataFromCloud)
-                self.userDefaults.synchronize()
                 self.executing(false)
                 self.finish(true)
                 self.bkgrndTask?.endBackgroundTask()

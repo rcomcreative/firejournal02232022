@@ -154,7 +154,7 @@ New Project
         let message: InfoBodyText = .newProjectSubject
         let title: InfoBodyText = .newProjectDescription
         let alert = UIAlertController.init(title: title.rawValue, message: message.rawValue, preferredStyle: .alert)
-        let okAction = UIAlertAction.init(title: "Okay", style: .default, handler: {_ in
+        let okAction = UIAlertAction.init(title: "Got it!", style: .default, handler: {_ in
             self.alertUp = false
         })
         alert.addAction(okAction)

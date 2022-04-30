@@ -471,6 +471,14 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
 }
 
 extension DetailViewController: ShiftNewModalVCDelegate {
+  
+    func shiftCancelled() {
+        if firstTimeAgreementAccepted {
+           self.freshDeskRequest()
+            firstTimeAgreementAccepted = false
+        }
+    }
+    
     
     func dismissShiftStartModal() {
         startEndShift = false
@@ -478,10 +486,10 @@ extension DetailViewController: ShiftNewModalVCDelegate {
         self.dashboardCollectionView.reloadSections(IndexSet(integer: DashboardSections.shift.rawValue))
         self.dashboardCollectionView.reloadSections(IndexSet(integer: DashboardSections.status.rawValue))
         if firstTimeAgreementAccepted {
-            let userFromCloud = userDefaults.bool(forKey: FJkFJUSERSavedToCoreDataFromCloud)
-            if userFromCloud {
+//            let userFromCloud = userDefaults.bool(forKey: FJkFJUSERSavedToCoreDataFromCloud)
+//            if userFromCloud {
                 self.freshDeskRequest()
-            }
+//            }
             firstTimeAgreementAccepted = false
         }
 
@@ -836,23 +844,14 @@ extension DetailViewController: OpenModalScrollVCDelegate {
         let fresh = self.userDefaults.bool(forKey: FJkFRESHDESK_UPDATED)
         DispatchQueue.main.async {
             if !fresh {
-                let title:String = "Sync with CRM"
-                let message:String = "We would like add your info to our CRM for customer service."
+                let title: String = InfoBodyText.syncWithCRMSubject.rawValue
+                let message: String = InfoBodyText.syncWithCRM.rawValue
                 let alert = UIAlertController.init(title: title, message: message, preferredStyle: .alert)
                 var userIsFromCloud: Bool = false
-                let okAction = UIAlertAction.init(title: "Yes Thank you", style: .default, handler: {_ in
+                let okAction = UIAlertAction.init(title: "YES! I’m in.", style: .default, handler: {_ in
                     self.alertUp = false
                     DispatchQueue.main.async {
-                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: FJkFRESHDESK_UPDATENow), object: nil, userInfo: nil)
-                        userIsFromCloud = self.userDefaults.bool(forKey: FJkFJUSERSavedToCoreDataFromCloud)
-                        if userIsFromCloud {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                print("Timer fired!")
-                                self.goingToStartADownloadFromCloud()
-                            }
-                        } else {
-                            print("no longer using resources")
-                        }
+                        self.nc.post(name: NSNotification.Name(rawValue: FJkFRESHDESK_UPDATENow), object: nil, userInfo: nil)
                     }
                 })
                 alert.addAction(okAction)
@@ -861,8 +860,7 @@ extension DetailViewController: OpenModalScrollVCDelegate {
                     let fresh = false
                     DispatchQueue.main.async {
                         self.userDefaults.set(fresh, forKey: FJkFRESHDESK_UPDATED)
-                        self.userDefaults.synchronize()
-                        userIsFromCloud = self.userDefaults.bool(forKey: FJkFJUSERSavedToCoreDataFromCloud)
+                        let userIsFromCloud = self.userDefaults.bool(forKey: FJkFJUSERSavedToCoreDataFromCloud)
                         if userIsFromCloud {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                 print("Timer fired!")
@@ -877,6 +875,34 @@ extension DetailViewController: OpenModalScrollVCDelegate {
                 self.present(alert, animated: true, completion: nil)
                 self.alertUp = true
             }
+        }
+    }
+    
+        //    MARK: -FRESHDESK
+    @objc func myFreshDeskUpdated(ns: Notification) {
+        if !alertUp {
+            let title: InfoBodyText = .syncedWithCRMSubject
+            let message: InfoBodyText = .syncedWithCRM
+            let alert = UIAlertController.init(title: title.rawValue, message: message.rawValue, preferredStyle: .alert)
+            let okAction = UIAlertAction.init(title: "Thanks", style: .default, handler: {_ in
+                self.alertUp = false
+                let fresh = true
+                DispatchQueue.main.async {
+                    self.userDefaults.set(fresh, forKey: FJkFRESHDESK_UPDATED)
+                }
+                let userIsFromCloud = self.userDefaults.bool(forKey: FJkFJUSERSavedToCoreDataFromCloud)
+                if userIsFromCloud {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        print("Timer fired!")
+                        self.goingToStartADownloadFromCloud()
+                    }
+                } else {
+                    print("no longer using resources")
+                }
+            })
+            alert.addAction(okAction)
+            self.present(alert, animated: true, completion: nil)
+            alertUp = true
         }
     }
     

@@ -19,7 +19,109 @@ class NewOnboardNineVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .red
+    }
+    
+    override func viewWillLayoutSubviews() {
+        configure()
+    }
+    
+    func configure() {
+        
+        theBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+        theIconIV.translatesAutoresizingMaskIntoConstraints = false
+        fireL.translatesAutoresizingMaskIntoConstraints = false
+        journalL.translatesAutoresizingMaskIntoConstraints = false
+        titleL.translatesAutoresizingMaskIntoConstraints = false
+        descriptionL.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.view.addSubview(theBackgroundView)
+        self.view.addSubview(theIconIV)
+        self.view.addSubview(fireL)
+        self.view.addSubview(journalL)
+        self.view.addSubview(titleL)
+        self.view.addSubview(descriptionL)
+        setUpObjects()
+        buildTheNSLayouts()
+    }
+    
+    func setUpObjects() {
+        
+        theBackgroundView.backgroundColor = UIColor(named: "FJBlueColor")
+        
+        let iconImage = UIImage(named: "flameLogoCutOut")
+        if iconImage != nil {
+            theIconIV.image = iconImage
+        }
+        
+        fireL.textAlignment = .left
+        fireL.font = .systemFont(ofSize: 34, weight: UIFont.Weight(rawValue: 100))
+        fireL.textColor = .white
+        fireL.adjustsFontForContentSizeCategory = false
+        fireL.lineBreakMode = NSLineBreakMode.byWordWrapping
+        fireL.numberOfLines = 0
+        fireL.text = "Fire"
+        
+        journalL.textAlignment = .left
+        journalL.font = .systemFont(ofSize: 34, weight: UIFont.Weight(rawValue: 100))
+        journalL.textColor = .white
+        journalL.adjustsFontForContentSizeCategory = false
+        journalL.lineBreakMode = NSLineBreakMode.byWordWrapping
+        journalL.numberOfLines = 0
+        journalL.text = "Journal"
+        
+        titleL.textAlignment = .left
+        titleL.font = .systemFont(ofSize: 30)
+        titleL.textColor = .label
+        titleL.adjustsFontForContentSizeCategory = false
+        titleL.lineBreakMode = NSLineBreakMode.byWordWrapping
+        titleL.numberOfLines = 0
+        titleL.text = "Getting Started"
+        
+        descriptionL.textAlignment = .left
+        descriptionL.font = .systemFont(ofSize: 20)
+        descriptionL.textColor = .label
+        descriptionL.adjustsFontForContentSizeCategory = false
+        descriptionL.lineBreakMode = NSLineBreakMode.byWordWrapping
+        descriptionL.numberOfLines = 0
+        descriptionL.text = """
+Now that you have a basic understanding of how Fire Journal works, it’s time to get started. Feel free to experiment, and remember that you may delete anything you don’t like, so you can’t do anything that is “wrong.” This is your chance to keep track of the things you do while on duty - protecting yourself with accurate accountability, and creating a useful history of the important work you do to save lives and property!
+"""
+    }
+    
+    func buildTheNSLayouts() {
+        NSLayoutConstraint.activate([
+            
+            theBackgroundView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            theBackgroundView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            theBackgroundView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            theBackgroundView.heightAnchor.constraint(equalToConstant: 175),
+            
+            theIconIV.centerYAnchor.constraint(equalTo: theBackgroundView.centerYAnchor),
+            theIconIV.centerXAnchor.constraint(equalTo: theBackgroundView.centerXAnchor, constant: -75),
+            theIconIV.heightAnchor.constraint(equalToConstant: 130),
+            theIconIV.widthAnchor.constraint(equalToConstant: 130),
+            
+            fireL.leadingAnchor.constraint(equalTo: theIconIV.trailingAnchor, constant: 20),
+            fireL.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -10),
+            fireL.centerYAnchor.constraint(equalTo: theIconIV.centerYAnchor, constant: -20),
+            fireL.heightAnchor.constraint(equalToConstant: 30),
+            
+            journalL.leadingAnchor.constraint(equalTo: fireL.leadingAnchor),
+            journalL.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -10),
+            journalL.centerYAnchor.constraint(equalTo: fireL.bottomAnchor, constant: 25),
+            journalL.heightAnchor.constraint(equalToConstant: 30),
+            
+            titleL.leadingAnchor.constraint(equalTo: theBackgroundView.leadingAnchor, constant: 25),
+            titleL.topAnchor.constraint(equalTo: theBackgroundView.bottomAnchor, constant: 10),
+            titleL.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -25),
+            titleL.heightAnchor.constraint(equalToConstant: 45),
+            
+            descriptionL.leadingAnchor.constraint(equalTo: titleL.leadingAnchor),
+            descriptionL.trailingAnchor.constraint(equalTo: titleL.trailingAnchor),
+            descriptionL.topAnchor.constraint(equalTo: titleL.bottomAnchor, constant: 10),
+            descriptionL.heightAnchor.constraint(equalToConstant: 280),
+            
+            ])
     }
     
 

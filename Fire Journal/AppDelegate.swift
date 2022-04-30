@@ -375,7 +375,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             print(self.zoneIDs)
             self.cloud.getCloudKitChanges(zoneIDs: self.zoneIDs)
             self.userDefaults.set(true, forKey: FJkCHANGESINFROMCLOUD)
-            self.userDefaults.synchronize()
             if self.thereIsBackgroundTask {
                 self.bkgrndTask?.endBackgroundTask()
                 self.thereIsBackgroundTask = false
@@ -475,8 +474,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     func fetchAnyChangesWeMissed(firstRun: Bool)->Void {
         self.cloud.firstRun = firstRun
         print("Starting to check for changes")
-//        bkgrndTask?.registerBackgroundTask()
-//        thereIsBackgroundTask = true
         sharedDBChangeToken = userDefaults.object(forKey: FJkCKServerChangeToken) as? CKServerChangeToken
         var changesOperation: CKFetchDatabaseChangesOperation!
         changesOperation = CKFetchDatabaseChangesOperation(previousServerChangeToken: sharedDBChangeToken)
@@ -509,7 +506,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                 self.cloud.getCloudKitChanges(zoneIDs: self.zoneIDs)
             }
             self.userDefaults.set(true, forKey: FJkCHANGESINFROMCLOUD)
-            self.userDefaults.synchronize()
             if self.thereIsBackgroundTask {
                 self.bkgrndTask?.endBackgroundTask()
                 self.thereIsBackgroundTask = false
@@ -691,7 +687,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                     subscriptionsService.getAppReceipt()
                     let subscribed = subscriptionsService.subscribed
                     self.userDefaults.set(subscribed, forKey: FJkSUBCRIPTIONBought)
-                    self.userDefaults.synchronize()
                 }
             }
             
@@ -719,7 +714,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                 if error == nil {
                     print("we have a subscription \(String(describing: subscriptions))")
                     self.userDefaults.set(true, forKey: FJkSUBSCRIPTIONIsLocallyCached)
-                    self.userDefaults.synchronize()
                 } else {
                     print("NSModifySubscriptionCompleteionBlock error \(String(describing: error))")
                     print("Push registration FAILED")
@@ -776,7 +770,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                 subscriptionsService.getAppReceipt()
                 let subscribed = subscriptionsService.subscribed
                 self.userDefaults.set(subscribed, forKey: FJkSUBCRIPTIONBought)
-                self.userDefaults.synchronize()
             }
             
         }

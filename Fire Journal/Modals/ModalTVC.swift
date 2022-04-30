@@ -1132,11 +1132,9 @@ class ModalTVC: UITableViewController, StartShiftOvertimeSwitchDelegate,dismissU
         switch myShift {
         case .startShift:
             self.userDefaults.set(4, forKey: FJkSTARTUPDATEENDSHIFT)
-            self.userDefaults.synchronize()
             delegate?.dismissTapped(shift: myShift)
         case .updateShift, .endShift:
             self.userDefaults.set(0, forKey: FJkSTARTUPDATEENDSHIFT)
-            self.userDefaults.synchronize()
             delegate?.dismissTapped(shift: myShift)
         default:
             self.dismiss(animated: true, completion: nil)

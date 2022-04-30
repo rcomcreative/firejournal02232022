@@ -86,6 +86,10 @@ extension ListTVC {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
                 return cell
             }
+        case .projects:
+            var cell = tableView.dequeueReusableCell(withIdentifier: "LinkeJournalCell", for: indexPath) as! LinkeJournalCell
+            cell = configureProjectCell(cell, indexPath: indexPath)
+            return cell
         case .personal:
             var cell = tableView.dequeueReusableCell(withIdentifier: "LinkeJournalCell", for: indexPath) as! LinkeJournalCell
             cell = configurePrivateJournalCell(cell, indexPath: indexPath)
@@ -377,6 +381,28 @@ extension ListTVC {
             } else {
                 cell.journalLocationL.text = theAddress
             }
+        }
+        return cell
+    }
+    
+    func configureProjectCell(_ cell: LinkeJournalCell, indexPath: IndexPath) -> LinkeJournalCell {
+        if let project = _fetchedResultsController?.object(at: indexPath) as? PromotionJournal {
+            let imageType = "ICONS_training"
+            if let image = UIImage(named: imageType) {
+                cell.journalTypeIV.image = image
+            }
+            if let color = UIColor(named: "FJDarkBlue") {
+                cell.journalHeader.textColor = color
+            }
+            if let header = project.projectName {
+                cell.journalHeader.text = header
+            }
+            if let theModDate = project.promotionDate {
+                let fullyFormattedDate = FullDateFormat.init(date:theModDate)
+                let projectDate:String = fullyFormattedDate.formatFullyTheDate()
+                cell.journalDateL.text = projectDate
+            }
+            cell.journalLocationL.text = ""
         }
         return cell
     }

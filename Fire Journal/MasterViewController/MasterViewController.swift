@@ -62,16 +62,32 @@ class MasterViewController: UITableViewController,UISplitViewControllerDelegate,
     }()
     var plistContext: NSManagedObjectContext!
     
+    lazy var statusProvider: StatusProvider = {
+        let provider = StatusProvider(with: (UIApplication.shared.delegate as! AppDelegate).persistentContainer)
+        return provider
+    }()
+    var statusContext: NSManagedObjectContext!
+    var theStatusA = [Status]()
+    
+    
+    lazy var userTimeProvider: UserTimeProvider = {
+        let provider = UserTimeProvider(with: (UIApplication.shared.delegate as! AppDelegate).persistentContainer)
+        return provider
+    }()
+    var userTimeContext: NSManagedObjectContext!
+    
     
     lazy var theUserProvider: FireJournalUserProvider = {
         let provider = FireJournalUserProvider(with: (UIApplication.shared.delegate as! AppDelegate).persistentContainer)
         return provider
     }()
+    
     var theUserContext: NSManagedObjectContext!
     var theUser: FireJournalUser!
     var theUserObjectID: NSManagedObjectID!
     var theUserTime: UserTime!
     var theUserTimeObjectID: NSManagedObjectID!
+    var theStatus: Status!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,6 +120,7 @@ class MasterViewController: UITableViewController,UISplitViewControllerDelegate,
         } else {
             if theUser == nil {
                 getTheUser()
+                getTheStatus()
             }
         }
         

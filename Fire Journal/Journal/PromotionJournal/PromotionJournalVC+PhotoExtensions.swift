@@ -73,7 +73,7 @@ extension PromotionJournalVC: CameraTVCellDelegate, PHPickerViewControllerDelega
                 self.validPhotos =  self.theProject.photos?.allObjects as! [Photo]
                 print("here is validPhotos \(self.validPhotos.count)")
                 self.photosAvailable = true
-                self.projectTableView.reloadRows(at: [IndexPath.init(row:8, section: 0)], with: .automatic)
+                self.projectTableView.reloadRows(at: [IndexPath.init(row: 11, section: 0)], with: .automatic)
                     //                }
             }
         }

@@ -80,6 +80,7 @@ extension MasterViewController {
     }
     
     @objc func newContentForDashboard(ns: Notification)->Void {
+        
         if Device.IS_IPHONE {
             if agreementAccepted {
                 entity = "FireJournalUser"
@@ -114,7 +115,6 @@ extension MasterViewController {
                             count = 0
                         }
                         self.userDefaults.set(count, forKey: FJkALERTBACKUPCOMPLETED)
-                        self.userDefaults.synchronize()
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                             self.nc.post(name:Notification.Name(rawValue:FJkSTOREINALERTTAPPED),
                                          object: nil,
@@ -134,7 +134,6 @@ extension MasterViewController {
                             count = 0
                         }
                         self.userDefaults.set(count, forKey: FJkALERTBACKUPCOMPLETED)
-                        self.userDefaults.synchronize()
                         if self.firstRun {
                                 //                        self.fdResourcesPointOfTruthFirstTime()
                             self.firstRun = false
@@ -169,7 +168,6 @@ extension MasterViewController {
                 let fresh = true
                 DispatchQueue.main.async {
                     self.userDefaults.set(fresh, forKey: FJkFRESHDESK_UPDATED)
-                    self.userDefaults.synchronize()
                 }
             })
             alert.addAction(okAction)

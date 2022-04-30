@@ -29,7 +29,7 @@ extension MasterViewController {
                 let message: InfoBodyText = .syncWithCRM
                 let alert = UIAlertController.init(title: title.rawValue, message: message.rawValue, preferredStyle: .alert)
                 var userIsFromCloud: Bool = false
-                let okAction = UIAlertAction.init(title: "Yes Thank you", style: .default, handler: {_ in
+                let okAction = UIAlertAction.init(title: "YES! I’m in.", style: .default, handler: {_ in
                     self.alertUp = false
                     DispatchQueue.main.async {
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: FJkFRESHDESK_UPDATENow), object: nil, userInfo: nil)
@@ -50,7 +50,6 @@ extension MasterViewController {
                     let fresh = false
                     DispatchQueue.main.async {
                         self.userDefaults.set(fresh, forKey: FJkFRESHDESK_UPDATED)
-                        self.userDefaults.synchronize()
                         userIsFromCloud = self.userDefaults.bool(forKey: FJkFJUSERSavedToCoreDataFromCloud)
                         if userIsFromCloud {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
@@ -99,7 +98,7 @@ extension MasterViewController {
     private func goingToStartADownloadFromCloud() {
         if Device.IS_IPHONE {
             if !alertUp {
-                let count:Int = self.userDefaults.integer(forKey: FJkALERTBACKUPCOMPLETED)
+                let count: Int = self.userDefaults.integer(forKey: FJkALERTBACKUPCOMPLETED)
                 if count == 0 {
                     let title: InfoBodyText = .cloudDataSubject
                     let message: InfoBodyText = .cloudData
@@ -199,6 +198,32 @@ extension MasterViewController {
         let aUser = users.last
         if let id = aUser?.objectID {
             theUser = context.object(with: id) as? FireJournalUser
+        }
+    }
+    
+    func getTheStatus() {
+        statusContext = statusProvider.persistentContainer.newBackgroundContext()
+        if let status = statusProvider.getTheStatus(context: statusContext) {
+            if !status.isEmpty {
+                let aStatus = status.last
+                if let id = aStatus?.objectID {
+                    theStatus = context.object(with: id) as? Status
+                    if let guid = theStatus.guidString {
+                        if guid != "" {
+                            userTimeContext = userTimeProvider.persistentContainer.newBackgroundContext()
+                            guard let userTime = userTimeProvider.getTheShift(userTimeContext, guid) else {
+                                let errorMessage = "A start shift is needed to retrieve the incidents of the day"
+                                errorAlert(errorMessage: errorMessage)
+                                return
+                            }
+                            let uTime = userTime.last
+                            if let id = uTime?.objectID {
+                                theUserTime  = context.object(with: id) as? UserTime
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
     
@@ -514,7 +539,6 @@ extension MasterViewController {
                      object: nil,
                      userInfo: nil )
         self.userDefaults.set(true, forKey: FJkUserFDResourcesPointOfTruthOperationHasRun)
-        self.userDefaults.synchronize()
     }
     
     

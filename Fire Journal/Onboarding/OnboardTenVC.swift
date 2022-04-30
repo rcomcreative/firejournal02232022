@@ -21,13 +21,13 @@ class OnboardTenVC: UIViewController {
     }
     
     override func viewWillLayoutSubviews() {
-        let attributedParagraph:NSMutableParagraphStyle = NSMutableParagraphStyle.init()
-        attributedParagraph.lineSpacing = 1
-        let attributedString:NSAttributedString = NSAttributedString.init(string: body.rawValue, attributes: [NSAttributedString.Key.paragraphStyle: attributedParagraph])
-        descriptionL.attributedText = attributedString
-        descriptionL.lineBreakMode = NSLineBreakMode.byWordWrapping
-        descriptionL.numberOfLines = 0
-        descriptionL.setNeedsDisplay()
+//        let attributedParagraph:NSMutableParagraphStyle = NSMutableParagraphStyle.init()
+//        attributedParagraph.lineSpacing = 1
+//        let attributedString:NSAttributedString = NSAttributedString.init(string: body.rawValue, attributes: [NSAttributedString.Key.paragraphStyle: attributedParagraph])
+//        descriptionL.attributedText = attributedString
+//        descriptionL.lineBreakMode = NSLineBreakMode.byWordWrapping
+//        descriptionL.numberOfLines = 0
+//        descriptionL.setNeedsDisplay()
     }
 
 }

@@ -16,6 +16,7 @@ import CoreLocation
 protocol ShiftNewModalVCDelegate: AnyObject {
     func dismissShiftStartModal()
     func noUserFound()
+    func shiftCancelled()
 }
 
 class ShiftNewModalVC: UIViewController {

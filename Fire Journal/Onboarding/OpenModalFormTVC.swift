@@ -606,13 +606,11 @@ class OpenModalFormTVC: UITableViewController,CLLocationManagerDelegate,UITextFi
             }
             DispatchQueue.main.async {
                 self.userDefaults.set(true, forKey: FJkUserAgreementAgreed)
-                self.userDefaults.synchronize()
             }
         } else {
             alertUser(first:firstNameB,last:lastNameB,email:emailB,fireStation:fireStationB)
             DispatchQueue.main.async {
                 self.userDefaults.set(false, forKey: FJkUserAgreementAgreed)
-                self.userDefaults.synchronize()
             }
         }
     }

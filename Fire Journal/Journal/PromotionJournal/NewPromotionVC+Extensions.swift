@@ -222,7 +222,7 @@ extension NewPromotionVC: UITableViewDataSource {
         case 0:
             switch row {
             case 3:
-                cell.type = IncidentTypes.theProject
+                cell.type = IncidentTypes.theProjectOverview
                 cell.aBackgroundColor = "FJBlueColor"
                 cell.aChoice = ""
             default: break

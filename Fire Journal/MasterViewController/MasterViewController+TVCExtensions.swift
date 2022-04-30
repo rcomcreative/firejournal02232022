@@ -168,7 +168,7 @@ extension MasterViewController {
             
             cell.myShiftL.textColor = tintColor
             cell.myShiftL.text = "Incidents"
-        case .personal:
+        case .projects:
             let backgroundI = UIImage(named: "ICONS_04202022_traing_white")
             
             if let image = backgroundI {

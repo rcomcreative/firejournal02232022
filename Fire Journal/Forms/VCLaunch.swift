@@ -330,13 +330,13 @@ class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalT
         return controller
     }
     
-    func modalSettingsCloudCalled() -> SettingsInfoTVC {
+    func modalSettingsCloudCalled() -> SettingsInfoVC {
         slideInTransitioningDelgate.direction = .right
         slideInTransitioningDelgate.disableCompactHeight = true
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller:SettingsInfoTVC = storyboard.instantiateViewController(withIdentifier:"SettingsInfoTVC") as! SettingsInfoTVC
+        let storyboard = UIStoryboard(name: "SettingsInfo", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier:"SettingsInfoVC") as! SettingsInfoVC
         controller.transitioningDelegate = slideInTransitioningDelgate
-        controller.titleName = "Fire Journal Cloud"
+        controller.settingsType = FJSettings.cloud
         return controller
     }
     
@@ -354,23 +354,23 @@ class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalT
         return controller
     }
     
-    func modalSettingsTermsCalled() -> SettingsInfoTVC {
+    func modalSettingsTermsCalled() -> SettingsInfoVC {
         slideInTransitioningDelgate.direction = .right
         slideInTransitioningDelgate.disableCompactHeight = true
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller:SettingsInfoTVC = storyboard.instantiateViewController(withIdentifier:"SettingsInfoTVC") as! SettingsInfoTVC
+        let storyboard = UIStoryboard(name: "SettingsInfo", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier:"SettingsInfoVC") as! SettingsInfoVC
         controller.transitioningDelegate = slideInTransitioningDelgate
-        controller.titleName = "Fire Journal Cloud"
+        controller.settingsType = FJSettings.terms
         return controller
     }
     
-    func modalSettingsPrivacyCalled() -> SettingsInfoTVC {
+    func modalSettingsPrivacyCalled() -> SettingsInfoVC {
         slideInTransitioningDelgate.direction = .right
         slideInTransitioningDelgate.disableCompactHeight = true
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller:SettingsInfoTVC = storyboard.instantiateViewController(withIdentifier:"SettingsInfoTVC") as! SettingsInfoTVC
+        let storyboard = UIStoryboard(name: "SettingsInfo", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier:"SettingsInfoVC") as! SettingsInfoVC
         controller.transitioningDelegate = slideInTransitioningDelgate
-        controller.titleName = "Fire Journal Cloud"
+        controller.settingsType = FJSettings.privacy
         return controller
     }
     
@@ -665,6 +665,29 @@ class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalT
                 userInfo: nil)
     }
     
+    func projectCalled(sizeTrait: SizeTrait, id: NSManagedObjectID) -> Void {
+        if Device.IS_IPAD {
+            let storyboard = UIStoryboard(name: "Promotion", bundle: nil)
+            let controller = storyboard.instantiateViewController(withIdentifier: "PromotionJournalVC") as! PromotionJournalVC
+            let navigator = UINavigationController.init(rootViewController: controller)
+            controller.navigationItem.leftItemsSupplementBackButton = true
+            controller.navigationItem.leftBarButtonItem = self.splitVC?.displayModeButtonItem
+            controller.id = id
+            self.splitVC?.showDetailViewController(navigator, sender:self)
+        }
+        nc.post(name: .fireJournalProjectListCalled, object: nil, userInfo: nil)
+    }
+    
+    func projectCalledFromList(sizeTrait: SizeTrait, id: NSManagedObjectID) -> Void {
+        let storyboard = UIStoryboard(name: "Promotion", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "PromotionJournalVC") as! PromotionJournalVC
+        let navigator = UINavigationController.init(rootViewController: controller)
+        controller.navigationItem.leftItemsSupplementBackButton = true
+        controller.navigationItem.leftBarButtonItem = self.splitVC?.displayModeButtonItem
+        controller.id = id
+        self.splitVC?.showDetailViewController(navigator, sender:self)
+    }
+    
     func personalCalled(sizeTrait: SizeTrait,id: NSManagedObjectID) -> Void {
         print("hey let's go journal")
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -705,11 +728,10 @@ class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalT
     }
     
     func settingsCloudCalled(compact: SizeTrait)-> Void {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller:SettingsInfoTVC = storyboard.instantiateViewController(withIdentifier:"SettingsInfoTVC") as! SettingsInfoTVC
+        let storyboard = UIStoryboard(name: "SettingsInfoVC", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier:"SettingsInfoVC") as! SettingsInfoVC
         let navigator = UINavigationController.init(rootViewController: controller)
-        controller.titleName = "Fire Journal Cloud"
-        controller.settingType = FJSettings.cloud
+        controller.settingsType = FJSettings.cloud
         controller.compact = compact
         self.splitVC?.showDetailViewController(navigator, sender:self)
     }
@@ -797,21 +819,19 @@ class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalT
     }
     
     func settingsTermsCalled(compact: SizeTrait)-> Void {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller:SettingsInfoTVC = storyboard.instantiateViewController(withIdentifier:"SettingsInfoTVC") as! SettingsInfoTVC
+        let storyboard = UIStoryboard(name: "SettingsInfo", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier:"SettingsInfoVC") as! SettingsInfoVC
         let navigator = UINavigationController.init(rootViewController: controller)
-        controller.titleName = "Fire Journal Terms and Conditions"
-        controller.settingType = FJSettings.terms
+        controller.settingsType = FJSettings.terms
         controller.compact = compact
         self.splitVC?.showDetailViewController(navigator, sender:self)
     }
     
     func settingsPrivacyCalled(compact: SizeTrait)-> Void {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller:SettingsInfoTVC = storyboard.instantiateViewController(withIdentifier:"SettingsInfoTVC") as! SettingsInfoTVC
+        let storyboard = UIStoryboard(name: "SettingsInfo", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier:"SettingsInfoVC") as! SettingsInfoVC
         let navigator = UINavigationController.init(rootViewController: controller)
-        controller.titleName = "Fire Journal User Privacy"
-        controller.settingType = FJSettings.privacy
+        controller.settingsType = FJSettings.privacy
         controller.compact = compact
         self.splitVC?.showDetailViewController(navigator, sender:self)
     }

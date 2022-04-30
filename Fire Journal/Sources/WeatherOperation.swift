@@ -104,7 +104,6 @@ class WeatherOperation: FJOperation, URLSessionDelegate {
                     self.userDefaults.set(self.humidity, forKey: FJkHUMIDITY)
                     self.userDefaults.set(wind, forKey: FJkWINDSPEEDDIRECTION)
                     self.userDefaults.set(Date(),forKey: FJkOPENWEATHER_DATETIME)
-                    self.userDefaults.synchronize()
                     DispatchQueue.main.async {
                         self.nc.post(name:Notification.Name(rawValue:FJkWEATHERHASBEENUPDATED), object: nil, userInfo:[FJkTEMPERATURE:self.temp,FJkHUMIDITY:self.humidity,FJkWINDSPEEDDIRECTION:wind])
 

@@ -805,7 +805,6 @@
             DispatchQueue.main.async {
                 let encodedData = try! NSKeyedArchiver.archivedData(withRootObject: self.sharedDBChangeToken!, requiringSecureCoding: false)
                 self.userDefaults.set(encodedData, forKey: FJkCKZondChangeToken)
-                self.userDefaults.synchronize()
                 self.endBackgroundTask()
             }
         }
@@ -1029,7 +1028,6 @@
                         fjUserFDResourcesRs.removeAll()
                         fjUserFDResources.removeAll()
                         userDefaults.set(false, forKey: FJkFIRSTRUNFORDATAFROMCLOUDKIT)
-                        self.userDefaults.synchronize()
                         self.firstRun = false
                     }
                 case TheEntities.fjCrews:
@@ -1076,7 +1074,7 @@
                                  userInfo: nil)
                 }
                 self.userDefaults.set(true, forKey: FJkUserFDResourcesPointOfTruthOperationHasRun)
-                self.userDefaults.synchronize()
+                
             }
         }
         

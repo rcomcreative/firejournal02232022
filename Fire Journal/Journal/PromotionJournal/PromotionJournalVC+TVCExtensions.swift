@@ -76,7 +76,7 @@ extension PromotionJournalVC: UITableViewDataSource {
         case 8:
             if theProjectCrewAvailable {
                 let count = theProjectCrewA.count
-                return CGFloat(44 * count)
+                return 88
             } else {
                 return 0
             }
@@ -172,7 +172,8 @@ extension PromotionJournalVC: UITableViewDataSource {
                 cell = configureLabelCell(cell, index: indexPath)
                 return cell
             } else {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "LabelTextFieldCell", for: indexPath) as! LabelTextFieldCell
+                    var cell = tableView.dequeueReusableCell(withIdentifier: "LabelTextFieldCell", for: indexPath) as! LabelTextFieldCell
+                cell = configureLabelTextFieldCell(cell, index: indexPath)
                     return cell
             }
         case 9:
@@ -196,7 +197,8 @@ extension PromotionJournalVC: UITableViewDataSource {
                 cell.bringSubviewToFront(cell.photoCollectionView)
                 return cell
             } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "LabelTextFieldCell", for: indexPath) as! LabelTextFieldCell
+                var cell = tableView.dequeueReusableCell(withIdentifier: "LabelTextFieldCell", for: indexPath) as! LabelTextFieldCell
+                cell = configureLabelTextFieldCell(cell, index: indexPath)
                 return cell
             }
         case 12:
@@ -448,6 +450,10 @@ extension PromotionJournalVC: UITableViewDataSource {
                 cell.aChoice = ""
             case 5:
                 cell.type = IncidentTypes.theProjectClassNote
+                cell.aBackgroundColor = "FJBlueColor"
+                cell.aChoice = ""
+            case 7:
+                cell.type = IncidentTypes.theProjectCrew
                 cell.aBackgroundColor = "FJBlueColor"
                 cell.aChoice = ""
             case 12:

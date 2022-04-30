@@ -180,7 +180,6 @@ class ARC_ViewController: UIViewController {
         self.dismiss(animated: true, completion: {
             if self.userSkipped {
                 self.userDefaults.set(false, forKey: FJkFirstRun )
-                self.userDefaults.synchronize()
             } else {
                 self.downloadUsersData()
             }
