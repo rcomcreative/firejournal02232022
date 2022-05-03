@@ -44,20 +44,33 @@
                             <action selector="indicatorBTapped:" destination="xa7-l7-R6H" eventType="touchUpInside" id="0pX-mW-mD7"/>
                         </connections>
                     </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oxn-5Q-aWx">
+                        <rect key="frame" x="0.0" y="0.0" width="328" height="88"/>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain"/>
+                        <connections>
+                            <action selector="contactsBTapped:" destination="xa7-l7-R6H" eventType="touchUpInside" id="DxB-Yt-9wD"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="0aM-nW-jxM" secondAttribute="trailing" constant="10" id="12d-R4-aYw"/>
                     <constraint firstItem="0aM-nW-jxM" firstAttribute="top" secondItem="4po-JS-mYm" secondAttribute="top" constant="10" id="InE-6S-xyk"/>
+                    <constraint firstItem="oxn-5Q-aWx" firstAttribute="top" secondItem="4po-JS-mYm" secondAttribute="top" id="JMa-9j-DBm"/>
                     <constraint firstItem="0aM-nW-jxM" firstAttribute="leading" secondItem="4po-JS-mYm" secondAttribute="leading" constant="20" id="Nmm-33-jr2"/>
+                    <constraint firstAttribute="bottom" secondItem="oxn-5Q-aWx" secondAttribute="bottom" id="OWp-JQ-EV5"/>
                     <constraint firstItem="eXz-4i-mnE" firstAttribute="leading" secondItem="4po-JS-mYm" secondAttribute="leading" constant="16" id="QMT-Jr-Wy3"/>
                     <constraint firstAttribute="trailing" secondItem="MEX-fh-ihK" secondAttribute="trailing" constant="16" id="RNW-Zv-uUG"/>
                     <constraint firstItem="MEX-fh-ihK" firstAttribute="leading" secondItem="eXz-4i-mnE" secondAttribute="trailing" constant="15" id="XeX-5P-CGA"/>
                     <constraint firstItem="MEX-fh-ihK" firstAttribute="centerY" secondItem="eXz-4i-mnE" secondAttribute="centerY" id="bi6-oz-9IP"/>
+                    <constraint firstItem="oxn-5Q-aWx" firstAttribute="leading" secondItem="4po-JS-mYm" secondAttribute="leading" id="de9-Dn-S3c"/>
                     <constraint firstItem="eXz-4i-mnE" firstAttribute="top" secondItem="0aM-nW-jxM" secondAttribute="bottom" constant="8" id="nmj-Cj-8LL"/>
+                    <constraint firstAttribute="trailing" secondItem="oxn-5Q-aWx" secondAttribute="trailing" constant="-8" id="zsr-9k-5vb"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="bm3-sD-PD6"/>
             <connections>
+                <outlet property="contactsB" destination="oxn-5Q-aWx" id="yc2-9x-omb"/>
                 <outlet property="indicatorB" destination="MEX-fh-ihK" id="brg-iZ-7mX"/>
                 <outlet property="subjectL" destination="0aM-nW-jxM" id="2FX-7m-DTT"/>
                 <outlet property="subjectTF" destination="eXz-4i-mnE" id="RnK-wA-SSK"/>

@@ -840,11 +840,12 @@
                                     <constraint firstAttribute="height" constant="300" id="Qqh-MV-8Gh"/>
                                 </constraints>
                                 <string key="text">Now that you have a basic understanding of how Fire Journal works, it’s time to get started. Feel free to experiment, and remember that you may delete anything you don’t like, so you can’t do anything that is “wrong.” This is your chance to keep track of the things you do while on duty - protecting yourself with accurate accountability, and creating a useful history of the important work you do to save lives and property!</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="v3z-dK-RzX"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="TG0-Dx-w64" firstAttribute="leading" secondItem="0cw-Mg-fB7" secondAttribute="leading" id="5fI-NR-zqn"/>

@@ -78,14 +78,12 @@ class NewOnboardSixVC: UIViewController {
         titleL.text = "Journal"
         
         descriptionL.textAlignment = .left
-        descriptionL.font = .systemFont(ofSize: 20)
+        descriptionL.font = .systemFont(ofSize: 19)
         descriptionL.textColor = .label
         descriptionL.adjustsFontForContentSizeCategory = false
         descriptionL.lineBreakMode = NSLineBreakMode.byWordWrapping
         descriptionL.numberOfLines = 0
-        descriptionL.text = """
-Say goodbye to paper journals. You’ve seen those paper journals that track a fire company’s activities… Now, for the first time, you can track and manage your own career using Fire Journal. From morning line-up to fire prevention to shopping, union issues, or anything you would ordinarily write into a journal - Fire Journal provides it. Bonus: use the built-in mic on your smartphone to record each entry - no typing required.
-"""
+        descriptionL.text = InfoBodyText.onboardSixVCText.rawValue
     }
     
     func buildTheNSLayouts() {
@@ -119,7 +117,7 @@ Say goodbye to paper journals. You’ve seen those paper journals that track a f
             descriptionL.leadingAnchor.constraint(equalTo: titleL.leadingAnchor),
             descriptionL.trailingAnchor.constraint(equalTo: titleL.trailingAnchor),
             descriptionL.topAnchor.constraint(equalTo: titleL.bottomAnchor, constant: 10),
-            descriptionL.heightAnchor.constraint(equalToConstant: 280),
+            descriptionL.heightAnchor.constraint(equalToConstant: 300),
             
             ])
     }

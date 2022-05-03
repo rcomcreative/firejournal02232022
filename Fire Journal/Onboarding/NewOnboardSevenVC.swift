@@ -78,14 +78,12 @@ class NewOnboardSevenVC: UIViewController {
         titleL.text = "Incidents"
         
         descriptionL.textAlignment = .left
-        descriptionL.font = .systemFont(ofSize: 20)
+        descriptionL.font = .systemFont(ofSize: 19)
         descriptionL.textColor = .label
         descriptionL.adjustsFontForContentSizeCategory = false
         descriptionL.lineBreakMode = NSLineBreakMode.byWordWrapping
         descriptionL.numberOfLines = 0
-        descriptionL.text = """
-Once you clear an incident, you may enter a variety of data about that incident and use it as a historical record of your firefighting career. Enter as much or as little as you want, but note you can be pretty detailed about each response (emergency and non-emergency) as you’d like. Each response creates a tracking pin in the onboard map.
-"""
+        descriptionL.text = InfoBodyText.onboardSevenVCText.rawValue
     }
     
     func buildTheNSLayouts() {
@@ -119,7 +117,7 @@ Once you clear an incident, you may enter a variety of data about that incident 
             descriptionL.leadingAnchor.constraint(equalTo: titleL.leadingAnchor),
             descriptionL.trailingAnchor.constraint(equalTo: titleL.trailingAnchor),
             descriptionL.topAnchor.constraint(equalTo: titleL.bottomAnchor, constant: 10),
-            descriptionL.heightAnchor.constraint(equalToConstant: 280),
+            descriptionL.heightAnchor.constraint(equalToConstant: 300),
             
             ])
     }

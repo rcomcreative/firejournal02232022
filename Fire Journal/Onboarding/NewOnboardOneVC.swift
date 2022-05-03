@@ -79,15 +79,12 @@ class NewOnboardOneVC: UIViewController {
         titleL.text = "Welcome!"
         
         descriptionL.textAlignment = .left
-        descriptionL.font = .systemFont(ofSize: 20)
+        descriptionL.font = .systemFont(ofSize: 19)
         descriptionL.textColor = .label
         descriptionL.adjustsFontForContentSizeCategory = false
         descriptionL.lineBreakMode = NSLineBreakMode.byWordWrapping
         descriptionL.numberOfLines = 0
-        descriptionL.text = """
-We’re delighted that you’ve chosen to manage your firefighting career with Fire Journal. Using this easy-to-use and informative app, you will have never before seen capabilities to manage and track important aspects of your career.
-The following screens will help explain how to get started.
-"""
+        descriptionL.text = InfoBodyText.onboardOneVCText.rawValue
     }
     
     func buildTheNSLayouts() {
@@ -121,7 +118,7 @@ The following screens will help explain how to get started.
             descriptionL.leadingAnchor.constraint(equalTo: titleL.leadingAnchor),
             descriptionL.trailingAnchor.constraint(equalTo: titleL.trailingAnchor),
             descriptionL.topAnchor.constraint(equalTo: titleL.bottomAnchor, constant: 10),
-            descriptionL.heightAnchor.constraint(equalToConstant: 250),
+            descriptionL.heightAnchor.constraint(equalToConstant: 300),
             
             ])
     }

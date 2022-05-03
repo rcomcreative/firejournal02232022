@@ -78,14 +78,12 @@ class NewOnboardFourVC: UIViewController {
         titleL.text = "Customizing"
         
         descriptionL.textAlignment = .left
-        descriptionL.font = .systemFont(ofSize: 20)
+        descriptionL.font = .systemFont(ofSize: 19)
         descriptionL.textColor = .label
         descriptionL.adjustsFontForContentSizeCategory = false
         descriptionL.lineBreakMode = NSLineBreakMode.byWordWrapping
         descriptionL.numberOfLines = 0
-        descriptionL.text = """
-Fire Journal allows you to customize a number of functions within the app. As an example, we include three shift options (A, B, C), but if your department only uses two, then delete one. Or, if you use four platoons, add one. You’ll find this type of customization is available (typically via the Settings function) for a number of options. Fire Journal makes it easy to configure the app to be perfect for you and your department.
-"""
+        descriptionL.text = InfoBodyText.onboardFourVCText.rawValue
     }
     
     func buildTheNSLayouts() {
@@ -119,7 +117,7 @@ Fire Journal allows you to customize a number of functions within the app. As an
             descriptionL.leadingAnchor.constraint(equalTo: titleL.leadingAnchor),
             descriptionL.trailingAnchor.constraint(equalTo: titleL.trailingAnchor),
             descriptionL.topAnchor.constraint(equalTo: titleL.bottomAnchor, constant: 10),
-            descriptionL.heightAnchor.constraint(equalToConstant: 280),
+            descriptionL.heightAnchor.constraint(equalToConstant: 300),
             
             ])
     }

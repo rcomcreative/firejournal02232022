@@ -66,11 +66,8 @@ enum InfoBodyText:String {
     case myFireStationResourcesSupportNotes2 = "Use Fire/EMS Resources to set up your list of apparatuses for your fire station. Once this list is selected, you'll be able to access each apparatus here, where you can also add Shop Number, Description, Type, Manufacturer, Personnel Count and ID."
     case myProfileSupportNotesSubject = "My Profile Support Notes"
     case myProfileSupportNotes = "Your profile helps with keeping your journal, incidents, projects, and forms filled out correctly. As you change assignments, or promote, updating your profile will then automatically update any place where your name or assignment details are auto-loaded."
-
     case editIncidentSubject = "Edit Incident"
     case editIncidentDescription = "You can change the incident number, alarm time and the type of incident in this area."
-
-
     case newProjectSubject = "New Project Journal Entry"
     case newProjectDescription = "Create a Topic/Title, Date/Time, and then the content of your entry. The project journal is designed to be a private journal just for you - and can relate to promotional studies, union issues, drills, or anything that is not response or fire station related issues. Use the time stamp to separate each entry."
     case newIncidentSubject = "New Incident"
@@ -119,7 +116,6 @@ enum InfoBodyText:String {
     case streetTypeAreEmpty = "The default street types are missing, shall we load them into the app? This may take a moment."
     case localIncidentTypesAreEmptySubject = "Local Incident Types"
     case localIncidentTypesAreEmpty = "The default local incident types are missing, shall we load them into the app? This may take a moment."
-
     case mapErrorSubject = "Location Error"
     case mapErrorDescription = "Experiencing some difficulty connecting the map with your location. Please try again."
     case newStaffSubject = "New Staff"
@@ -151,6 +147,32 @@ enum InfoBodyText:String {
     case onboardUserSaveErrorMessage = "A good deal of Journal and Incident reporting is dependent on the following fields needing to be filled out:\n"
     case onboardInfoSubject = "Your Profile"
     case onboardInfoDescription = "Filling out your profile helps with ensuring Fire Journal is set up for your first shift."
-
-
+    case onboardOneVCText = """
+We’re delighted that you’ve chosen to manage your firefighting career with Fire Journal. Using this easy-to-use and informative app, you will have never before seen capabilities to manage and track important aspects of your career.
+    The following screens will help explain how to get started.
+"""
+    case onboardTwoVCText = """
+Because you may be using Fire Journal at any time of day or night, it’s important that you have access to answers when you need them. Start with our FAQs for common issue. Need more specific help? Fire Journal includes FREE 24/7 online support help. Open a support ticket, and we’ll get back to you quickly. Register at the conclusion of this presentation and you’ll be all set!
+"""
+    case onboardThreeVCText = """
+The first thing you should do is create a profile for yourself. Once completed, many of your actions will pre-load into various sections of the app, including in journals, incidents, and other places. It should only take you a few minutes to get your Settings completely configured.
+"""
+    case onboardFourVCText = """
+Fire Journal allows you to customize a number of functions within the app. As an example, we include three shift options (A, B, C), but if your department only uses two, then delete one. Or, if you use four platoons, add one. You’ll find this type of customization is available (typically via the Settings function) for a number of options. Fire Journal makes it easy to configure the app to be perfect for you and your department.
+"""
+    case onboardFiveVCText = """
+Start each workday by tapping on the HOME button. That wil ltake you to the main dashboard for Fire Journal. Tap on “Start Shift” and enter in any data you feel would be important. Then, using the + buttons, add a new journal entry, or a new incident, etc. You may also use the main navigation column to make selections. When you’re done for the day, tap on “End Shift” and now the time, date, and any notes from the just completed workday.
+"""
+    case onboardSixVCText = """
+Say goodbye to paper journals. You’ve seen those paper journals that track a fire company’s activities… Now, for the first time, you can track and manage your own career using Fire Journal. From morning line-up to fire prevention to shopping, union issues, or anything you would ordinarily write into a journal - Fire Journal provides it. Bonus: use the built-in mic on your smartphone to record each entry - no typing required.
+"""
+    case onboardSevenVCText = """
+Once you clear an incident, you may enter a variety of data about that incident and use it as a historical record of your firefighting career. Enter as much or as little as you want, but note you can be pretty detailed about each response (emergency and non-emergency) as you’d like. Each response creates a tracking pin in the onboard map.
+"""
+    case onboardEightVCText = """
+The maps function in Fire Journal is one of the most useful tools available for tracking your firefighting career. Create a historical map of every fire, EMS call, or rescue you participate in. Every time you enter incident data, a pin on the map is automatically created. Open maps and tap on any pin - and the details of that incident are displayed.
+"""
+    case onboardNineVCText = """
+Now that you have a basic understanding of how Fire Journal works, it’s time to get started. Feel free to experiment, and remember that you may delete anything you don’t like, so you can’t do anything that is “wrong.” This is your chance to keep track of the things you do while on duty - protecting yourself with accurate accountability, and creating a useful history of the important work you do to save lives and property!
+"""
 }

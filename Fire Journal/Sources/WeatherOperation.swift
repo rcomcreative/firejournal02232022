@@ -99,7 +99,7 @@ class WeatherOperation: FJOperation, URLSessionDelegate {
                     self.temp = "\(self.temp)°"
                     self.humidity = "\(self.humidity)%"
                     let wind = "\(self.degrees) \(self.speed) mph"
-//                    print("here is the temp: \(self.temp)\nhere is humidity: \(self.humidity)\nhere is the wind: \(self.speed) \(self.degrees)")
+                    print("here is the temp: \(self.temp)\nhere is humidity: \(self.humidity)\nhere is the wind: \(self.speed) \(self.degrees)")
                     self.userDefaults.set(self.temp, forKey: FJkTEMPERATURE)
                     self.userDefaults.set(self.humidity, forKey: FJkHUMIDITY)
                     self.userDefaults.set(wind, forKey: FJkWINDSPEEDDIRECTION)

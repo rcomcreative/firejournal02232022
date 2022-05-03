@@ -278,7 +278,9 @@ class DetailViewController: UIViewController {
                     }
                 }
                 
-                
+                DispatchQueue.main.async {
+                    self.nc.post(name:Notification.Name(rawValue: FJkOPENWEATHER_UPDATENow),object: nil)
+                }
                 getThisShiftsIncidents(theUserTime)
                 getThisShiftsIncidents(theUserTime)
                 getIncidentMonthTotals()

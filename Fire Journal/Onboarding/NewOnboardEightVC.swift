@@ -78,14 +78,12 @@ class NewOnboardEightVC: UIViewController {
         titleL.text = "Maps"
         
         descriptionL.textAlignment = .left
-        descriptionL.font = .systemFont(ofSize: 20)
+        descriptionL.font = .systemFont(ofSize: 19)
         descriptionL.textColor = .label
         descriptionL.adjustsFontForContentSizeCategory = false
         descriptionL.lineBreakMode = NSLineBreakMode.byWordWrapping
         descriptionL.numberOfLines = 0
-        descriptionL.text = """
-The maps function in Fire Journal is one of the most useful tools available for tracking your firefighting career. Create a historical map of every fire, EMS call, or rescue you participate in. Every time you enter incident data, a pin on the map is automatically created. Open maps and tap on any pin - and the details of that incident are displayed.
-"""
+        descriptionL.text = InfoBodyText.onboardEightVCText.rawValue
     }
     
     func buildTheNSLayouts() {
@@ -119,7 +117,7 @@ The maps function in Fire Journal is one of the most useful tools available for 
             descriptionL.leadingAnchor.constraint(equalTo: titleL.leadingAnchor),
             descriptionL.trailingAnchor.constraint(equalTo: titleL.trailingAnchor),
             descriptionL.topAnchor.constraint(equalTo: titleL.bottomAnchor, constant: 10),
-            descriptionL.heightAnchor.constraint(equalToConstant: 280),
+            descriptionL.heightAnchor.constraint(equalToConstant: 300),
             
             ])
     }

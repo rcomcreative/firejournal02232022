@@ -78,14 +78,12 @@ class NewOnboardFiveVC: UIViewController {
         titleL.text = "Your Shift"
         
         descriptionL.textAlignment = .left
-        descriptionL.font = .systemFont(ofSize: 20)
+        descriptionL.font = .systemFont(ofSize: 19)
         descriptionL.textColor = .label
         descriptionL.adjustsFontForContentSizeCategory = false
         descriptionL.lineBreakMode = NSLineBreakMode.byWordWrapping
         descriptionL.numberOfLines = 0
-        descriptionL.text = """
-Start each workday by tapping on the HOME button. That wil ltake you to the main dashboard for Fire Journal. Tap on “Start Shift” and enter in any data you feel would be important. Then, using the + buttons, add a new journal entry, or a new incident, etc. You may also use the main navigation column to make selections. When you’re done for the day, tap on “End Shift” and now the time, date, and any notes from the just completed workday.
-"""
+        descriptionL.text = InfoBodyText.onboardFiveVCText.rawValue
     }
     
     func buildTheNSLayouts() {
@@ -119,7 +117,7 @@ Start each workday by tapping on the HOME button. That wil ltake you to the main
             descriptionL.leadingAnchor.constraint(equalTo: titleL.leadingAnchor),
             descriptionL.trailingAnchor.constraint(equalTo: titleL.trailingAnchor),
             descriptionL.topAnchor.constraint(equalTo: titleL.bottomAnchor, constant: 10),
-            descriptionL.heightAnchor.constraint(equalToConstant: 280),
+            descriptionL.heightAnchor.constraint(equalToConstant: 300),
             
             ])
     }

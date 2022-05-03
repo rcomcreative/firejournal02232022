@@ -227,49 +227,81 @@ Apparatus
         supervisorL.text = "Supervisor"
         
         status2L.textAlignment = .left
-        status2L.font = .systemFont(ofSize: 22)
+        if Device.IS_IPHONE {
+            status2L.font = .systemFont(ofSize: 20)
+        } else {
+            status2L.font = .systemFont(ofSize: 22)
+        }
         status2L.textColor = .label
         status2L.adjustsFontForContentSizeCategory = false
         status2L.text = status
         
         date2L.textAlignment = .left
-        date2L.font = .systemFont(ofSize: 22)
+        if Device.IS_IPHONE {
+            date2L.font = .systemFont(ofSize: 20)
+        } else {
+            date2L.font = .systemFont(ofSize: 22)
+        }
         date2L.textColor = .label
         date2L.adjustsFontForContentSizeCategory = false
         date2L.text = theDate
         
         time2L.textAlignment = .left
-        time2L.font = .systemFont(ofSize: 22)
+        if Device.IS_IPHONE {
+            time2L.font = .systemFont(ofSize: 20)
+        } else {
+            time2L.font = .systemFont(ofSize: 22)
+        }
         time2L.textColor = .label
         time2L.adjustsFontForContentSizeCategory = false
         time2L.text = theTime
         
         platoon2L.textAlignment = .left
-        platoon2L.font = .systemFont(ofSize: 22, weight: UIFont.Weight(rawValue: 300))
+        if Device.IS_IPHONE {
+            platoon2L.font = .systemFont(ofSize: 20, weight: UIFont.Weight(rawValue: 300))
+        } else {
+            platoon2L.font = .systemFont(ofSize: 22, weight: UIFont.Weight(rawValue: 300))
+        }
         platoon2L.textColor = thePlatoonColor
         platoon2L.adjustsFontForContentSizeCategory = false
         platoon2L.text = thePlatoon
         
         station2L.textAlignment = .left
-        station2L.font = .systemFont(ofSize: 22)
+        if Device.IS_IPHONE {
+            station2L.font = .systemFont(ofSize: 20)
+        } else {
+            station2L.font = .systemFont(ofSize: 22)
+        }
         station2L.textColor = .label
         station2L.adjustsFontForContentSizeCategory = false
         station2L.text = theStation
         
         assignment2L.textAlignment = .left
-        assignment2L.font = .systemFont(ofSize: 22)
+        if Device.IS_IPHONE {
+            assignment2L.font = .systemFont(ofSize: 20)
+        } else {
+            assignment2L.font = .systemFont(ofSize: 22)
+        }
         assignment2L.textColor = .label
         assignment2L.adjustsFontForContentSizeCategory = false
         assignment2L.text = theAssignment
         
         apparatus2L.textAlignment = .left
-        apparatus2L.font = .systemFont(ofSize: 22)
+        if Device.IS_IPHONE {
+            apparatus2L.font = .systemFont(ofSize: 20)
+        } else {
+            apparatus2L.font = .systemFont(ofSize: 22)
+        }
         apparatus2L.textColor = .label
         apparatus2L.adjustsFontForContentSizeCategory = false
         apparatus2L.text = theAssignedApparatus
         
         supervisor2L.textAlignment = .left
-        supervisor2L.font = .systemFont(ofSize: 22)
+        if Device.IS_IPHONE {
+            supervisor2L.font = .systemFont(ofSize: 20)
+        } else {
+            supervisor2L.font = .systemFont(ofSize: 22)
+        }
         supervisor2L.textColor = .label
         supervisor2L.adjustsFontForContentSizeCategory = false
         supervisor2L.text = theSupervisor
@@ -302,80 +334,80 @@ Apparatus
             statusL.widthAnchor.constraint(equalToConstant: 150),
             statusL.heightAnchor.constraint(equalToConstant: 30),
             
-            status2L.leadingAnchor.constraint(equalTo: statusL.trailingAnchor,constant: 15),
+            status2L.leadingAnchor.constraint(equalTo: statusL.trailingAnchor,constant: 10),
             status2L.topAnchor.constraint(equalTo: statusL.topAnchor),
             status2L.heightAnchor.constraint(equalToConstant: 30),
-            status2L.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -20),
+            status2L.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -10),
             
             dateL.leadingAnchor.constraint(equalTo: shiftIconIV.leadingAnchor),
             dateL.topAnchor.constraint(equalTo: statusL.bottomAnchor, constant: 10),
             dateL.widthAnchor.constraint(equalToConstant: 150),
             dateL.heightAnchor.constraint(equalToConstant: 30),
             
-            date2L.leadingAnchor.constraint(equalTo: dateL.trailingAnchor,constant: 15),
+            date2L.leadingAnchor.constraint(equalTo: dateL.trailingAnchor,constant: 10),
             date2L.topAnchor.constraint(equalTo: dateL.topAnchor),
             date2L.heightAnchor.constraint(equalToConstant: 30),
-            date2L.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -20),
+            date2L.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -10),
             
             timeL.leadingAnchor.constraint(equalTo: shiftIconIV.leadingAnchor),
             timeL.topAnchor.constraint(equalTo: dateL.bottomAnchor, constant: 10),
             timeL.widthAnchor.constraint(equalToConstant: 150),
             timeL.heightAnchor.constraint(equalToConstant: 30),
             
-            time2L.leadingAnchor.constraint(equalTo: timeL.trailingAnchor,constant: 15),
+            time2L.leadingAnchor.constraint(equalTo: timeL.trailingAnchor,constant: 10),
             time2L.topAnchor.constraint(equalTo: timeL.topAnchor),
             time2L.heightAnchor.constraint(equalToConstant: 30),
-            time2L.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -20),
+            time2L.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -10),
             
             platoonL.leadingAnchor.constraint(equalTo: shiftIconIV.leadingAnchor),
             platoonL.topAnchor.constraint(equalTo: timeL.bottomAnchor, constant: 10),
             platoonL.widthAnchor.constraint(equalToConstant: 150),
             platoonL.heightAnchor.constraint(equalToConstant: 30),
             
-            platoon2L.leadingAnchor.constraint(equalTo: platoonL.trailingAnchor,constant: 15),
+            platoon2L.leadingAnchor.constraint(equalTo: platoonL.trailingAnchor,constant: 10),
             platoon2L.topAnchor.constraint(equalTo: platoonL.topAnchor),
             platoon2L.heightAnchor.constraint(equalToConstant: 30),
-            platoon2L.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -20),
+            platoon2L.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -10),
             
             stationL.leadingAnchor.constraint(equalTo: shiftIconIV.leadingAnchor),
             stationL.topAnchor.constraint(equalTo: platoonL.bottomAnchor, constant: 10),
             stationL.widthAnchor.constraint(equalToConstant: 150),
             stationL.heightAnchor.constraint(equalToConstant: 30),
             
-            station2L.leadingAnchor.constraint(equalTo: stationL.trailingAnchor,constant: 15),
+            station2L.leadingAnchor.constraint(equalTo: stationL.trailingAnchor,constant: 10),
             station2L.topAnchor.constraint(equalTo: stationL.topAnchor),
             station2L.heightAnchor.constraint(equalToConstant: 30),
-            station2L.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -20),
+            station2L.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -10),
             
             assignmentL.leadingAnchor.constraint(equalTo: shiftIconIV.leadingAnchor),
             assignmentL.topAnchor.constraint(equalTo: stationL.bottomAnchor, constant: 10),
             assignmentL.widthAnchor.constraint(equalToConstant: 150),
             assignmentL.heightAnchor.constraint(equalToConstant: 30),
             
-            assignment2L.leadingAnchor.constraint(equalTo: assignmentL.trailingAnchor,constant: 15),
+            assignment2L.leadingAnchor.constraint(equalTo: assignmentL.trailingAnchor,constant: 10),
             assignment2L.topAnchor.constraint(equalTo: assignmentL.topAnchor),
             assignment2L.heightAnchor.constraint(equalToConstant: 30),
-            assignment2L.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -20),
+            assignment2L.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -10),
             
             apparatusL.leadingAnchor.constraint(equalTo: shiftIconIV.leadingAnchor),
             apparatusL.topAnchor.constraint(equalTo: assignmentL.bottomAnchor, constant: 10),
             apparatusL.widthAnchor.constraint(equalToConstant: 150),
             apparatusL.heightAnchor.constraint(equalToConstant: 45),
             
-            apparatus2L.leadingAnchor.constraint(equalTo: apparatusL.trailingAnchor,constant: 15),
+            apparatus2L.leadingAnchor.constraint(equalTo: apparatusL.trailingAnchor,constant: 10),
             apparatus2L.centerYAnchor.constraint(equalTo: apparatusL.centerYAnchor),
             apparatus2L.heightAnchor.constraint(equalToConstant: 30),
-            apparatus2L.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -20),
+            apparatus2L.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -10),
             
             supervisorL.leadingAnchor.constraint(equalTo: shiftIconIV.leadingAnchor),
             supervisorL.topAnchor.constraint(equalTo: apparatusL.bottomAnchor, constant: 10),
             supervisorL.widthAnchor.constraint(equalToConstant: 150),
             supervisorL.heightAnchor.constraint(equalToConstant: 30),
             
-            supervisor2L.leadingAnchor.constraint(equalTo: supervisorL.trailingAnchor,constant: 15),
+            supervisor2L.leadingAnchor.constraint(equalTo: supervisorL.trailingAnchor,constant: 10),
             supervisor2L.topAnchor.constraint(equalTo: supervisorL.topAnchor),
             supervisor2L.heightAnchor.constraint(equalToConstant: 30),
-            supervisor2L.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -20),
+            supervisor2L.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -10),
             
             ])
         } else {

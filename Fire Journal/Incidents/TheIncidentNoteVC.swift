@@ -1,9 +1,9 @@
-//
-//  TheIncidentNoteVC.swift
-//  Fire Journal
-//
-//  Created by DuRand Jones on 3/21/22.
-//
+    //
+    //  TheIncidentNoteVC.swift
+    //  Fire Journal
+    //
+    //  Created by DuRand Jones on 3/21/22.
+    //
 
 import UIKit
 import CloudKit
@@ -17,7 +17,7 @@ class TheIncidentNoteVC: UIViewController {
     
     weak var delegate: TheIncidentNoteVCDelegate? = nil
     
- let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     var incidentNotesObID: NSManagedObjectID!
     var incidentTimerObjID: NSManagedObjectID!
@@ -58,10 +58,10 @@ class TheIncidentNoteVC: UIViewController {
         nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: context)
         
         if isIncidentNote {
-        guard let objectID = incidentNotesObID  else {
-            self.dismiss(animated: true, completion: nil)
-            return
-        }
+            guard let objectID = incidentNotesObID  else {
+                self.dismiss(animated: true, completion: nil)
+                return
+            }
             theIncidentNotes = context.object(with: objectID) as? IncidentNotes
             if theIncidentNotes.incidentNotesInfo != nil {
                 theIncident = theIncidentNotes.incidentNotesInfo
@@ -70,10 +70,10 @@ class TheIncidentNoteVC: UIViewController {
                 }
             }
         } else {
-        
-        guard let timeObjectID = incidentTimerObjID else {
-            self.dismiss(animated: true, completion: nil)
-            return
+            
+            guard let timeObjectID = incidentTimerObjID else {
+                self.dismiss(animated: true, completion: nil)
+                return
             }
             theIncidentTime = context.object(with: timeObjectID) as? IncidentTimer
             if theIncidentTime.incidentTimerInfo != nil {
@@ -124,12 +124,22 @@ class TheIncidentNoteVC: UIViewController {
             }
         }
         
+        
+        if Device.IS_IPHONE {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+            view.addGestureRecognizer(tapGesture)
+        }
+        
         configureNewModalHeaderV()
         configureLabel()
         configureTV()
         configureButton()
         configureNSLayouts()
         
+    }
+    
+    @objc func hideKeyboard() {
+        view.endEditing(true)
     }
     
         // MARK: -context notification
@@ -245,9 +255,9 @@ extension TheIncidentNoteVC {
                     notesTV.text = notes
                 }
             case .arrivalNote:
-                    if let notes = theIncidentTime.incidentArrivalNotesSC as? String {
-                        notesTV.text = notes
-                    }
+                if let notes = theIncidentTime.incidentArrivalNotesSC as? String {
+                    notesTV.text = notes
+                }
             case .controlledNote:
                 if let notes = theIncidentTime.incidentControlledNotesSC as? String {
                     notesTV.text = notes
@@ -270,6 +280,7 @@ extension TheIncidentNoteVC {
         
         let image = UIImage(systemName:  "clock.badge.checkmark.fill")
         timeStampB.setImage(image, for: .normal)
+        timeStampB.setTitleColor(UIColor(named: "FJIconRed"), for: .normal)
         timeStampB.addTarget(self, action: #selector(timeStampBWasTapped(_:)), for: .touchUpInside)
         
     }
@@ -283,24 +294,47 @@ extension TheIncidentNoteVC {
         self.view.addSubview(notesTV)
         self.view.addSubview(timeStampB)
         
-        NSLayoutConstraint.activate([
+        if Device.IS_IPHONE {
+            NSLayoutConstraint.activate([
+                
+                notesTitleL.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 30),
+                notesTitleL.topAnchor.constraint(equalTo: newModalHeaderV.bottomAnchor, constant: 20),
+                notesTitleL.heightAnchor.constraint(equalToConstant: 30),
+                notesTitleL.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant:  -35),
+                
+                notesTV.leadingAnchor.constraint(equalTo: notesTitleL.leadingAnchor),
+                notesTV.topAnchor.constraint(equalTo: notesTitleL.bottomAnchor, constant: 20),
+                notesTV.trailingAnchor.constraint(equalTo: notesTitleL.trailingAnchor),
+                notesTV.heightAnchor.constraint(equalToConstant: 300),
+                
+                timeStampB.trailingAnchor.constraint(equalTo: notesTitleL.trailingAnchor),
+                timeStampB.topAnchor.constraint(equalTo: notesTitleL.topAnchor),
+                timeStampB.heightAnchor.constraint(equalToConstant: 50),
+                timeStampB.widthAnchor.constraint(equalToConstant: 50),
+                
+            ])
             
-            notesTitleL.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 30),
-            notesTitleL.topAnchor.constraint(equalTo: newModalHeaderV.bottomAnchor, constant: 20),
-            notesTitleL.heightAnchor.constraint(equalToConstant: 30),
-            notesTitleL.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant:  -35),
+        } else {
             
-            notesTV.leadingAnchor.constraint(equalTo: notesTitleL.leadingAnchor),
-            notesTV.topAnchor.constraint(equalTo: notesTitleL.bottomAnchor, constant: 20),
-            notesTV.trailingAnchor.constraint(equalTo: notesTitleL.trailingAnchor),
-            notesTV.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -95),
-            
-            timeStampB.trailingAnchor.constraint(equalTo: notesTitleL.trailingAnchor),
-            timeStampB.topAnchor.constraint(equalTo: notesTV.bottomAnchor, constant: 10),
-            timeStampB.heightAnchor.constraint(equalToConstant: 50),
-            timeStampB.widthAnchor.constraint(equalToConstant: 50),
-            
-        ])
+            NSLayoutConstraint.activate([
+                
+                notesTitleL.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 30),
+                notesTitleL.topAnchor.constraint(equalTo: newModalHeaderV.bottomAnchor, constant: 20),
+                notesTitleL.heightAnchor.constraint(equalToConstant: 30),
+                notesTitleL.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant:  -35),
+                
+                notesTV.leadingAnchor.constraint(equalTo: notesTitleL.leadingAnchor),
+                notesTV.topAnchor.constraint(equalTo: notesTitleL.bottomAnchor, constant: 20),
+                notesTV.trailingAnchor.constraint(equalTo: notesTitleL.trailingAnchor),
+                notesTV.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -95),
+                
+                timeStampB.trailingAnchor.constraint(equalTo: notesTitleL.trailingAnchor),
+                timeStampB.topAnchor.constraint(equalTo: notesTV.bottomAnchor, constant: 10),
+                timeStampB.heightAnchor.constraint(equalToConstant: 50),
+                timeStampB.widthAnchor.constraint(equalToConstant: 50),
+                
+            ])
+        }
     }
     
     func errorAlert(errorMessage: String) {
@@ -392,7 +426,7 @@ extension TheIncidentNoteVC: NewModalHeaderVDelegate {
                     delegate?.theNoteHasBeenUpdated(text: notes, index: index, type: theType )
                     self.dismiss(animated: true, completion: nil)
                 }
-                    
+                
             }
         } else {
             errorAlert(errorMessage: "The time stamp needs to be tapped before you can save this note.")

@@ -28,7 +28,7 @@ extension JournalVC {
         let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: 44))
         label.numberOfLines = 0
         label.lineBreakMode = NSLineBreakMode.byWordWrapping
-        label.font = .systemFont(ofSize: 18)
+        label.font = .systemFont(ofSize: 15)
         label.text = text
         label.sizeToFit()
         let labelFrame = label.frame

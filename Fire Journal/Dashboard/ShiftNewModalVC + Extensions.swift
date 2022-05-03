@@ -37,7 +37,7 @@ extension ShiftNewModalVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 9
+        return 11
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -51,7 +51,7 @@ extension ShiftNewModalVC: UITableViewDataSource {
             } else {
             return 60
             }
-        case 2, 5, 6:
+        case 2:
             return 88
         case 3, 4:
             if Device.IS_IPHONE {
@@ -59,9 +59,21 @@ extension ShiftNewModalVC: UITableViewDataSource {
             } else {
             return 55
             }
-        case 7:
+        case 5, 7, 9:
            return 85
+        case 6:
+            if relieveAvailable {
+                return 44
+            } else {
+                return 0
+            }
         case 8:
+            if superAvailable {
+                return 44
+            } else {
+                return 0
+            }
+        case 10:
             if discussionAvailable {
                 return discussionHeight
             } else {
@@ -91,7 +103,7 @@ extension ShiftNewModalVC: UITableViewDataSource {
             cell.configureDatePickersHoldingV()
             return cell
             }
-        case 2, 5, 6:
+        case 2:
             var cell = tableView.dequeueReusableCell(withIdentifier: "SubjectLabelTextFieldIndicatorTVCell", for: indexPath) as! SubjectLabelTextFieldIndicatorTVCell
             cell = configureSubjectLabelTextFieldIndicatorTVCell(cell, index: indexPath)
             return cell
@@ -101,12 +113,30 @@ extension ShiftNewModalVC: UITableViewDataSource {
             cell.selectionStyle = .none
             cell.configureTheButton()
             return cell
-        case 7:
+        case 5, 7, 9:
             var cell = tableView.dequeueReusableCell(withIdentifier: "MultipleAddButtonTVCell", for: indexPath) as! MultipleAddButtonTVCell
             cell = configureMultipleAddButtonTVCell(cell, index: indexPath)
             cell.configureTheButton()
             return cell
+        case 6:
+            if relieveAvailable {
+                var cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath) as! LabelCell
+                cell = configureLabelCell(cell, index: indexPath)
+                return cell
+            } else {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "LabelTextFieldCell", for: indexPath) as! LabelTextFieldCell
+                    return cell
+            }
         case 8:
+            if superAvailable {
+                var cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath) as! LabelCell
+                cell = configureLabelCell(cell, index: indexPath)
+                return cell
+            } else {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "LabelTextFieldCell", for: indexPath) as! LabelTextFieldCell
+                    return cell
+            }
+        case 10:
             if discussionAvailable {
                 var cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath) as! LabelCell
                 cell = configureLabelCell(cell, index: indexPath)
@@ -165,15 +195,31 @@ extension ShiftNewModalVC: UITableViewDataSource {
     func configureLabelCell(_ cell: LabelCell, index: IndexPath) -> LabelCell {
         cell.tag = index.row
         let row = index.row
-        cell.modalTitleL.font = cell.modalTitleL.font.withSize(15)
-        cell.modalTitleL.adjustsFontSizeToFitWidth = true
-        cell.modalTitleL.lineBreakMode = NSLineBreakMode.byWordWrapping
-        cell.modalTitleL.numberOfLines = 0
         cell.infoB.isHidden = true
         cell.infoB.alpha = 0.0
         cell.infoB.isEnabled = false
         switch row {
+        case 6:
+            cell.modalTitleL.font = cell.modalTitleL.font.withSize(22)
+            cell.modalTitleL.adjustsFontSizeToFitWidth = true
+            if theUserTime != nil {
+                if let relief = theUserTime.startShiftRelieving {
+                    cell.modalTitleL.text = relief
+                }
+            }
         case 8:
+            cell.modalTitleL.font = cell.modalTitleL.font.withSize(22)
+            cell.modalTitleL.adjustsFontSizeToFitWidth = true
+            if theUserTime != nil {
+                if let theSuper = theUserTime.startShiftSupervisor {
+                    cell.modalTitleL.text = theSuper
+                }
+            }
+        case 10:
+            cell.modalTitleL.font = cell.modalTitleL.font.withSize(15)
+            cell.modalTitleL.adjustsFontSizeToFitWidth = true
+            cell.modalTitleL.lineBreakMode = NSLineBreakMode.byWordWrapping
+            cell.modalTitleL.numberOfLines = 0
             cell.modalTitleL.text = discussionNote
         default: break
         }
@@ -190,7 +236,15 @@ extension ShiftNewModalVC: UITableViewDataSource {
         switch section {
         case 0:
             switch row {
+            case 5:
+                cell.type = IncidentTypes.relieving
+                cell.aBackgroundColor = "FJBlueColor"
+                cell.aChoice = ""
             case 7:
+                cell.type = IncidentTypes.supervisor
+                cell.aBackgroundColor = "FJBlueColor"
+                cell.aChoice = ""
+            case 9:
                 cell.type = IncidentTypes.startShiftNotes
                 cell.aBackgroundColor = "FJBlueColor"
                 cell.aChoice = ""
@@ -226,6 +280,18 @@ extension ShiftNewModalVC: UITableViewDataSource {
             cell.type = IncidentTypes.assignment
             if theUserTime != nil {
                 cell.theSubjectTF.text = theUserTime.startShiftAssignment
+                cell.theSubjectTF.font = .systemFont(ofSize: 22)
+            }
+        case 5:
+            cell.type = IncidentTypes.relieving
+            if theUserTime != nil {
+                cell.theSubjectTF.text = theUserTime.startShiftRelieving
+                cell.theSubjectTF.font = .systemFont(ofSize: 22)
+            }
+        case 6:
+            cell.type = IncidentTypes.supervisor
+            if theUserTime != nil {
+                cell.theSubjectTF.text = theUserTime.startShiftSupervisor
                 cell.theSubjectTF.font = .systemFont(ofSize: 22)
             }
         default: break
@@ -308,7 +374,6 @@ extension ShiftNewModalVC: UITableViewDataSource {
     
     func configureSubjectLabelTextFieldIndicatorTVCell(_ cell: SubjectLabelTextFieldIndicatorTVCell, index: IndexPath) -> SubjectLabelTextFieldIndicatorTVCell {
         let row = index.row
-        cell.delegate = self
         switch row {
         case 2:
             cell.subjectL.text = "Fire Station"
@@ -316,33 +381,14 @@ extension ShiftNewModalVC: UITableViewDataSource {
             cell.indicatorB.isHidden = true
             cell.indicatorB.alpha = 0.0
             cell.indicatorB.isEnabled = false
+            cell.contactsB.isHidden = true
+            cell.contactsB.isEnabled = false
+            cell.delegate = self
             cell.tag = row
             if theUserTime != nil {
                 if let station = theUser.fireStation {
                     cell.subjectTF.text = station
                     theUserTime.startShiftFireStation = station
-                }
-            }
-        case 5:
-            cell.subjectL.text = "Relieving"
-            cell.indicatorB.tintColor = UIColor(named: "FJGreenColor")
-            cell.indicatorB.isHidden = false
-            cell.indicatorB.alpha = 100.0
-            cell.indicatorB.isEnabled = true
-            if theUserTime != nil {
-                if let relieving = theUserTime.startShiftRelieving {
-                    cell.subjectTF.text = relieving
-                }
-            }
-        case 6:
-            cell.subjectL.text = "Supervisor"
-            cell.indicatorB.tintColor = UIColor(named: "FJGreenColor")
-            cell.indicatorB.isHidden = false
-            cell.indicatorB.alpha = 100.0
-            cell.indicatorB.isEnabled = true
-            if theUserTime != nil {
-                if let supervisor = theUserTime.startShiftSupervisor {
-                    cell.subjectTF.text = supervisor
                 }
             }
         default: break
@@ -355,6 +401,10 @@ extension ShiftNewModalVC: UITableViewDataSource {
 }
 
 extension ShiftNewModalVC: SubjectLabelTextFieldIndicatorTVCellDelegate {
+    
+    func getTheContacts(tag: Int) {
+        shiftTableView.selectRow(at: IndexPath(row: tag, section: 0), animated: false, scrollPosition: .middle)
+    }
     
     func theTextFieldWasEdited(theText: String, tag: Int) {
         switch tag {
@@ -371,7 +421,41 @@ extension ShiftNewModalVC: MultipleAddButtonTVCellDelegate {
     func multiAddBTapped(type: IncidentTypes, index: IndexPath) {
         let row = index.row
         switch row {
+        case 5:
+            slideInTransitioningDelgate.direction = .bottom
+            slideInTransitioningDelgate.disableCompactHeight = true
+            let storyBoard : UIStoryboard = UIStoryboard(name: "RelieveSupervisor", bundle:nil)
+            let relieveSupervisorVC = storyBoard.instantiateViewController(withIdentifier: "RelieveSupervisorVC") as! RelieveSupervisorVC
+            relieveSupervisorVC.delegate = self
+    
+            relieveSupervisorVC.relievingOrSupervisor = true
+            relieveSupervisorVC.headerTitle = "Relieving"
+    
+            relieveSupervisorVC.menuType = MenuItems.endShift
+            relieveSupervisorVC.transitioningDelegate = slideInTransitioningDelgate
+            if Device.IS_IPHONE {
+                relieveSupervisorVC.modalPresentationStyle = .formSheet
+            } else {
+                relieveSupervisorVC.modalPresentationStyle = .custom
+            }
+            self.present(relieveSupervisorVC, animated: true, completion: nil)
         case 7:
+            let storyBoard : UIStoryboard = UIStoryboard(name: "RelieveSupervisor", bundle:nil)
+            let relieveSupervisorVC = storyBoard.instantiateViewController(withIdentifier: "RelieveSupervisorVC") as! RelieveSupervisorVC
+            relieveSupervisorVC.delegate = self
+    
+            relieveSupervisorVC.relievingOrSupervisor = false
+            relieveSupervisorVC.headerTitle = "Supervisor"
+    
+            relieveSupervisorVC.menuType = MenuItems.endShift
+            relieveSupervisorVC.transitioningDelegate = slideInTransitioningDelgate
+            if Device.IS_IPHONE {
+                relieveSupervisorVC.modalPresentationStyle = .formSheet
+            } else {
+                relieveSupervisorVC.modalPresentationStyle = .custom
+            }
+            self.present(relieveSupervisorVC, animated: true, completion: nil)
+        case 9:
             let storyboard = UIStoryboard(name: "TheShiftNote", bundle: nil)
             if let theShiftNoteVC = storyboard.instantiateViewController(withIdentifier: "TheShiftNoteVC") as? TheShiftNoteVC {
                 theShiftNoteVC.modalPresentationStyle = .formSheet
@@ -459,7 +543,8 @@ extension ShiftNewModalVC: RelieveSupervisorVCDelegate {
                 if let relieving = relief.attendee {
                     theUserTime.startShiftRelieving = relieving
                 }
-                shiftTableView.reloadRows(at: [IndexPath(row: 5, section: 0)], with: .automatic)
+                relieveAvailable = true
+                shiftTableView.reloadRows(at: [IndexPath(row: 6, section: 0)], with: .automatic)
             }
         } else {
             if let theSuper = relieveSupervisor.last {
@@ -467,7 +552,8 @@ extension ShiftNewModalVC: RelieveSupervisorVCDelegate {
                     theUserTime.startShiftSupervisor = supervisor
                 }
             }
-            shiftTableView.reloadRows(at: [IndexPath(row: 6, section: 0)], with: .automatic)
+            superAvailable = true
+            shiftTableView.reloadRows(at: [IndexPath(row: 8, section: 0)], with: .automatic)
         }
         dismiss(animated: true, completion: nil)
     }

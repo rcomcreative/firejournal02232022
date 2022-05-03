@@ -78,14 +78,12 @@ class NewOnboardTwoVC: UIViewController {
         titleL.text = "Support"
         
         descriptionL.textAlignment = .left
-        descriptionL.font = .systemFont(ofSize: 20)
+        descriptionL.font = .systemFont(ofSize: 19)
         descriptionL.textColor = .label
         descriptionL.adjustsFontForContentSizeCategory = false
         descriptionL.lineBreakMode = NSLineBreakMode.byWordWrapping
         descriptionL.numberOfLines = 0
-        descriptionL.text = """
-Because you may be using Fire Journal at any time of day or night, it’s important that you have access to answers when you need them. Start with our FAQs for common issue. Need more specific help? Fire Journal includes FREE 24/7 online support help. Open a support ticket, and we’ll get back to you quickly. Register at the conclusion of this presentation and you’ll be all set!
-"""
+        descriptionL.text = InfoBodyText.onboardTwoVCText.rawValue
     }
     
     func buildTheNSLayouts() {
@@ -119,7 +117,7 @@ Because you may be using Fire Journal at any time of day or night, it’s import
             descriptionL.leadingAnchor.constraint(equalTo: titleL.leadingAnchor),
             descriptionL.trailingAnchor.constraint(equalTo: titleL.trailingAnchor),
             descriptionL.topAnchor.constraint(equalTo: titleL.bottomAnchor, constant: 10),
-            descriptionL.heightAnchor.constraint(equalToConstant: 250),
+            descriptionL.heightAnchor.constraint(equalToConstant: 300),
             
             ])
     }

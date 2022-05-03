@@ -138,6 +138,10 @@ extension MultipleAddButtonTVCell {
                 config.image = UIImage(systemName: "person.badge.clock.fill")
                 config.title = " Supervisor"
                 config.baseBackgroundColor = UIColor(named: theBackgroundColor)
+            case .relieving:
+                config.image = UIImage(systemName: "person.badge.clock.fill")
+                config.title = " Relieving"
+                config.baseBackgroundColor = UIColor(named: theBackgroundColor)
             case .apparatus:
                 config.image = UIImage(systemName: "car.2.fill")
                 config.title = " Apparatus Status"

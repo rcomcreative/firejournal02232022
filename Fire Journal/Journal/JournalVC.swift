@@ -198,10 +198,12 @@ class JournalVC: SpinnerViewController, UIImagePickerControllerDelegate, UINavig
     @objc func savedJournal(_ sender: Any) {
         do {
             try context.save()
-            self.taskContext = self.photoProvider.persistentContainer.newBackgroundContext()
             if !self.validPhotos.isEmpty {
-                self.photoProvider.saveImageDataiIfNeeded(for: self.theJournal.photo!, taskContext: self.taskContext)  {
-                    print("we saved it all")
+                if self.theJournal.photo != nil {
+                    self.taskContext = self.photoProvider.persistentContainer.newBackgroundContext()
+                    self.photoProvider.saveImageDataiIfNeeded(for: self.theJournal.photo!, taskContext: self.taskContext)  {
+                        print("we saved it all")
+                    }
                 }
             }
             DispatchQueue.main.async {

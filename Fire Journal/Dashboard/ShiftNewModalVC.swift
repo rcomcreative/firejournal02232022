@@ -50,6 +50,8 @@ class ShiftNewModalVC: UIViewController {
     var theStatusOID: NSManagedObjectID!
     var theUser: FireJournalUser!
     var utGuid: String = ""
+    var relieveAvailable: Bool = false
+    var superAvailable: Bool = false
     var discussionAvailable: Bool = false
     var discussionHeight: CGFloat = 0.0
     var discussionNote: String = ""
@@ -199,6 +201,7 @@ extension ShiftNewModalVC {
         shiftTableView.delegate = self
         shiftTableView.dataSource = self
         shiftTableView.separatorStyle = .none
+        shiftTableView.allowsSelection = true
         
         shiftTableView.rowHeight = UITableView.automaticDimension
         shiftTableView.estimatedRowHeight = 300

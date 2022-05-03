@@ -10,6 +10,7 @@ import UIKit
 
 protocol SubjectLabelTextFieldIndicatorTVCellDelegate: AnyObject {
     func theTextFieldWasEdited(theText: String, tag: Int)
+    func getTheContacts(tag: Int)
 }
 
 class SubjectLabelTextFieldIndicatorTVCell: UITableViewCell {
@@ -20,6 +21,7 @@ class SubjectLabelTextFieldIndicatorTVCell: UITableViewCell {
     @IBOutlet weak var subjectL: UILabel!
     @IBOutlet weak var subjectTF: UITextField!
     @IBOutlet weak var indicatorB: UIButton!
+    @IBOutlet weak var contactsB: UIButton!
     
     private var theValue: String = ""
     var textFieldValue: String = "" {
@@ -35,14 +37,15 @@ class SubjectLabelTextFieldIndicatorTVCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     @IBAction func indicatorBTapped(_ sender: Any) {
         
     }
     
+    @IBAction func contactsBTapped(_ sender: Any) {
+        delegate?.getTheContacts(tag: self.tag)
+    }
     
 }
 

@@ -78,14 +78,12 @@ class NewOnboardThreeVC: UIViewController {
         titleL.text = "Settings"
         
         descriptionL.textAlignment = .left
-        descriptionL.font = .systemFont(ofSize: 20)
+        descriptionL.font = .systemFont(ofSize: 19)
         descriptionL.textColor = .label
         descriptionL.adjustsFontForContentSizeCategory = false
         descriptionL.lineBreakMode = NSLineBreakMode.byWordWrapping
         descriptionL.numberOfLines = 0
-        descriptionL.text = """
-The first thing you should do is create a profile for yourself. Once completed, many of your actions will pre-load into various sections of the app, including in journals, incidents, and other places. It should only take you a few minutes to get your Settings completely configured.
-"""
+        descriptionL.text = InfoBodyText.onboardThreeVCText.rawValue
     }
     
     func buildTheNSLayouts() {
@@ -119,7 +117,7 @@ The first thing you should do is create a profile for yourself. Once completed, 
             descriptionL.leadingAnchor.constraint(equalTo: titleL.leadingAnchor),
             descriptionL.trailingAnchor.constraint(equalTo: titleL.trailingAnchor),
             descriptionL.topAnchor.constraint(equalTo: titleL.bottomAnchor, constant: 10),
-            descriptionL.heightAnchor.constraint(equalToConstant: 250),
+            descriptionL.heightAnchor.constraint(equalToConstant: 300),
             
             ])
     }
