@@ -394,11 +394,23 @@ extension IncidentVC {
         cell.typeSegment.setTitle("EMS", forSegmentAt: 1)
         cell.typeSegment.setTitle("Rescue", forSegmentAt: 2)
         
-        if theIncident.situationIncidentImage == "" {
-            theIncident.situationIncidentImage = "Fire"
-            theIncident.incidentEntryTypeImageName = "100515IconSet_092016_fireboard"
-            segmentType = MenuItems.fire
+       
+        
+        if let type = theIncident.situationIncidentImage {
+            if type == "Fire" {
+                segmentType = MenuItems.fire
+            } else if type == "EMS" {
+                segmentType = MenuItems.ems
+            } else if type == "Rescue" {
+                segmentType = MenuItems.rescue
+            }
+        } else {
+                theIncident.situationIncidentImage = "Fire"
+                theIncident.incidentEntryTypeImageName = "100515IconSet_092016_fireboard"
+                segmentType = MenuItems.fire
         }
+        
+        
         
         switch segmentType {
         case .fire:
@@ -1001,7 +1013,7 @@ extension IncidentVC: MultipleAddButtonTVCellDelegate {
         slideInTransitioningDelgate.direction = .bottom
         slideInTransitioningDelgate.disableCompactHeight = true
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        dataTVC = storyBoard.instantiateViewController(withIdentifier: "ModalDataTVC") as! ModalDataTVC
+        dataTVC = storyBoard.instantiateViewController(withIdentifier: "ModalDataTVC") as? ModalDataTVC
         dataTVC.delegate = self
         dataTVC.transitioningDelegate = slideInTransitioningDelgate
         dataTVC.headerTitle = title

@@ -336,13 +336,28 @@ extension JournalNewModalVC: UITableViewDataSource {
         cell.subjectL.text = "Journal Type"
         cell.typeSegment.selectedSegmentTintColor = UIColor(named: "FJBlueColor")
         cell.myShift = .journal
+        let normalTextAttributes: [NSAttributedString.Key : AnyObject] = [ NSAttributedString.Key.foregroundColor : UIColor.white,
+                        ]
+        cell.typeSegment.setTitleTextAttributes(normalTextAttributes, for: .selected)
+        cell.typeSegment.selectedSegmentTintColor = UIColor(named: "FJBlueColor")
         cell.typeSegment.removeAllSegments()
         cell.typeSegment.insertSegment(withTitle: "Station", at: 0, animated: false)
         cell.typeSegment.insertSegment(withTitle: "Community", at: 1, animated: false)
         cell.typeSegment.insertSegment(withTitle: "Members", at: 2, animated: false)
         cell.typeSegment.insertSegment(withTitle: "Training", at: 3, animated: false)
         
-        if theJournal.journalEntryTypeImageName == "" {
+        
+        if let station = theJournal.journalEntryType {
+            if station == "Station" {
+                segmentType = MenuItems.station
+            } else if station == "Community" {
+                segmentType = MenuItems.community
+            } else if station == "Members" {
+                segmentType = MenuItems.members
+            } else if station == "Training" {
+                segmentType = MenuItems.training
+            }
+        } else {
             theJournal.journalEntryType = "Station"
             theJournal.journalEntryTypeImageName = "100515IconSet_092016_Stationboard c0l0r"
             segmentType = MenuItems.station

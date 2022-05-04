@@ -80,6 +80,7 @@ class JournalVC: SpinnerViewController, UIImagePickerControllerDelegate, UINavig
     var segmentType: MenuItems = .station
     var dateFormatter = DateFormatter()
     var typeNameA = ["100515IconSet_092016_Stationboard c0l0r","ICONS_communityboard color","ICONS_Membersboard color","ICONS_training"]
+    var journalEditVC: JournalEditVC!
     
     
     var theOverviewNotes: String = " "

@@ -52,7 +52,7 @@ extension JournalVC: UITableViewDataSource {
         let row = indexPath.row
         switch row {
         case 0:
-            return 165
+            return 185
         case 1:
             return 290
         case 2:
@@ -106,6 +106,7 @@ extension JournalVC: UITableViewDataSource {
         case 0:
             var cell = tableView.dequeueReusableCell(withIdentifier: "JournalEditTVCell", for: indexPath) as! JournalEditTVCell
             cell = configureJournalEditTVCell(cell, index: indexPath)
+            cell.selectionStyle = .none
             cell.configureEditButton()
             return cell
         case 1:

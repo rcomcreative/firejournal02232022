@@ -36,7 +36,7 @@ extension ShiftEndModalVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 6
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -49,16 +49,22 @@ extension ShiftEndModalVC: UITableViewDataSource {
             return 60
             }
         case 1:
-            return 88
+            return 85
         case 2:
+            if relieveAvailable {
+                return 44
+            } else {
+                return 0
+            }
+        case 3:
             if Device.IS_IPHONE {
                 return 100
             } else {
                 return 55
             }
-        case 3:
-            return 85
         case 4:
+            return 85
+        case 5:
             if discussionAvailable {
                 return discussionHeight
             } else {
@@ -85,28 +91,39 @@ extension ShiftEndModalVC: UITableViewDataSource {
             return cell
             }
         case 1:
-            var cell = tableView.dequeueReusableCell(withIdentifier: "SubjectLabelTextFieldIndicatorTVCell", for: indexPath) as! SubjectLabelTextFieldIndicatorTVCell
-            cell = configureSubjectLabelTextFieldIndicatorTVCell(cell, index: indexPath)
-            return cell
-        case 2:
-            var cell = tableView.dequeueReusableCell(withIdentifier: "RankTVCell", for: indexPath) as! RankTVCell
-            cell = configureRankTVCell(cell, index: indexPath)
-            cell.selectionStyle = .none
-            cell.configureTheButton()
-            return cell
-        case 3:
             var cell = tableView.dequeueReusableCell(withIdentifier: "MultipleAddButtonTVCell", for: indexPath) as! MultipleAddButtonTVCell
-            cell = configureMultipleAddButtonTVCell(cell, index: indexPath)
-            cell.configureTheButton()
-            return cell
-        case 4:
-            if discussionAvailable {
+                cell = configureMultipleAddButtonTVCell(cell, index: indexPath)
+                cell.configureTheButton()
+                return cell
+        case 2:
+            if relieveAvailable {
                 var cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath) as! LabelCell
                 cell = configureLabelCell(cell, index: indexPath)
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "LabelTextFieldCell", for: indexPath) as! LabelTextFieldCell
                 return cell
+            }
+        case 3:
+            var cell = tableView.dequeueReusableCell(withIdentifier: "RankTVCell", for: indexPath) as! RankTVCell
+            cell = configureRankTVCell(cell, index: indexPath)
+            cell.selectionStyle = .none
+            cell.configureTheButton()
+            return cell
+        case 4:
+            var cell = tableView.dequeueReusableCell(withIdentifier: "MultipleAddButtonTVCell", for: indexPath) as! MultipleAddButtonTVCell
+            cell = configureMultipleAddButtonTVCell(cell, index: indexPath)
+            cell.configureTheButton()
+            return cell
+        case 5:
+            if discussionAvailable {
+                var cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath) as! LabelCell
+                cell = configureLabelCell(cell, index: indexPath)
+                return cell
+            } else {
+                var cell = tableView.dequeueReusableCell(withIdentifier: "LabelTextFieldCell", for: indexPath) as! LabelTextFieldCell
+                    cell = configureLabelTextFieldCell(cell, index: indexPath)
+                 return cell
             }
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "CellIdentifier", for: indexPath)
@@ -121,6 +138,15 @@ extension ShiftEndModalVC: UITableViewDataSource {
             presentCrew()
         default: break
         }
+    }
+    
+    func configureLabelTextFieldCell(_ cell: LabelTextFieldCell, index: IndexPath) -> LabelTextFieldCell {
+            cell.subjectL.isHidden = true
+            cell.subjectL.alpha = 0.0
+            cell.descriptionTF.isHidden = true
+            cell.descriptionTF.isEnabled = false
+            cell.descriptionTF.alpha = 0.0
+        return cell
     }
     
     func configureLabelDateiPhoneTVCell(_ cell: LabelDateiPhoneTVCell, index: IndexPath) -> LabelDateiPhoneTVCell {
@@ -157,7 +183,6 @@ extension ShiftEndModalVC: UITableViewDataSource {
     func configureLabelCell(_ cell: LabelCell, index: IndexPath) -> LabelCell {
         cell.tag = index.row
         let row = index.row
-        cell.modalTitleL.font = cell.modalTitleL.font.withSize(15)
         cell.modalTitleL.adjustsFontSizeToFitWidth = true
         cell.modalTitleL.lineBreakMode = NSLineBreakMode.byWordWrapping
         cell.modalTitleL.numberOfLines = 0
@@ -165,7 +190,11 @@ extension ShiftEndModalVC: UITableViewDataSource {
         cell.infoB.alpha = 0.0
         cell.infoB.isEnabled = false
         switch row {
-        case 4:
+        case 2:
+            cell.modalTitleL.font = cell.modalTitleL.font.withSize(22)
+            cell.modalTitleL.text = theUserTime.enShiftRelievedBy
+        case 5:
+            cell.modalTitleL.font = cell.modalTitleL.font.withSize(15)
             cell.modalTitleL.text = discussionNote
         default: break
         }
@@ -182,7 +211,11 @@ extension ShiftEndModalVC: UITableViewDataSource {
         switch section {
         case 0:
             switch row {
-            case 3:
+            case 1:
+                cell.type = IncidentTypes.relieving
+                cell.aBackgroundColor = "FJBlueColor"
+                cell.aChoice = ""
+            case 4:
                 cell.type = IncidentTypes.endShiftNotes
                 cell.aBackgroundColor = "FJBlueColor"
                 cell.aChoice = ""
@@ -208,8 +241,9 @@ extension ShiftEndModalVC: UITableViewDataSource {
         cell.delegate = self
         cell.indexPath = index
         cell.theSubjectTF.font = UIFont.preferredFont(forTextStyle: .caption1)
+        cell.theSubjectTF.text = ""
         switch row {
-        case 2:
+        case 3:
             cell.type = IncidentTypes.leaveWork
             if theUserTime != nil {
                 cell.theSubjectTF.text = theUserTime.endShiftLeaveWork
@@ -286,7 +320,25 @@ extension ShiftEndModalVC: MultipleAddButtonTVCellDelegate {
     func multiAddBTapped(type: IncidentTypes, index: IndexPath) {
         let row = index.row
         switch row {
-        case 3:
+        case 1:
+            slideInTransitioningDelgate.direction = .bottom
+            slideInTransitioningDelgate.disableCompactHeight = true
+            let storyBoard : UIStoryboard = UIStoryboard(name: "RelieveSupervisor", bundle:nil)
+            let relieveSupervisorVC = storyBoard.instantiateViewController(withIdentifier: "RelieveSupervisorVC") as! RelieveSupervisorVC
+            relieveSupervisorVC.delegate = self
+    
+            relieveSupervisorVC.relievingOrSupervisor = true
+            relieveSupervisorVC.headerTitle = "Relieving"
+    
+            relieveSupervisorVC.menuType = MenuItems.endShift
+            relieveSupervisorVC.transitioningDelegate = slideInTransitioningDelgate
+            if Device.IS_IPHONE {
+                relieveSupervisorVC.modalPresentationStyle = .formSheet
+            } else {
+                relieveSupervisorVC.modalPresentationStyle = .custom
+            }
+            self.present(relieveSupervisorVC, animated: true, completion: nil)
+        case 4:
             let storyboard = UIStoryboard(name: "TheShiftNote", bundle: nil)
             if let theShiftNoteVC = storyboard.instantiateViewController(withIdentifier: "TheShiftNoteVC") as? TheShiftNoteVC {
                 theShiftNoteVC.modalPresentationStyle = .formSheet
@@ -591,7 +643,8 @@ extension ShiftEndModalVC: RelieveSupervisorVCDelegate {
     func relieveSupervisorChosen(relieveSupervisor: [UserAttendees], relieveOrSupervisor: Bool) {
         let crew = relieveSupervisor.first
         theUserTime.enShiftRelievedBy = crew?.attendee
-        shiftTableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
+        self.relieveAvailable = true
+        shiftTableView.reloadRows(at: [IndexPath(row: 2, section: 0)], with: .automatic)
         self.dismiss(animated: true, completion: nil)
     }
     

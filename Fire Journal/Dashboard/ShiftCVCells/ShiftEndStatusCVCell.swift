@@ -70,11 +70,12 @@ class ShiftEndStatusCVCell: UICollectionViewCell {
 extension ShiftEndStatusCVCell {
     
     func configure(_ userTime: UserTime) {
-        if userTime.shiftCompleted == false {
+        self.userTime = userTime
+        if self.userTime.shiftCompleted == false {
             self.getTheUserTime()
         }
         getTheShiftIncidentCount()
-        dateFormatter.dateFormat = "EEE MMM, dd"
+        dateFormatter.dateFormat = "EEE MMM dd, YYYY"
         configureTheObjects()
         configureData()
         configureImageAndLabel()
@@ -195,25 +196,43 @@ extension ShiftEndStatusCVCell {
         incidentsL.text = "Incidents"
         
         status2L.textAlignment = .left
-        status2L.font = .systemFont(ofSize: 22)
+        if Device.IS_IPHONE {
+            status2L.font = .systemFont(ofSize: 20)
+        } else {
+            status2L.font = .systemFont(ofSize: 22)
+        }
         status2L.textColor = .label
         status2L.adjustsFontForContentSizeCategory = false
         status2L.text = status
         
         date2L.textAlignment = .left
-        date2L.font = .systemFont(ofSize: 22)
+        if Device.IS_IPHONE {
+            date2L.font = .systemFont(ofSize: 20)
+        } else {
+            date2L.font = .systemFont(ofSize: 22)
+        }
         date2L.textColor = .label
         date2L.adjustsFontForContentSizeCategory = false
         date2L.text = theDate
         
         time2L.textAlignment = .left
-        time2L.font = .systemFont(ofSize: 22, weight: UIFont.Weight(rawValue: 300))
+        
+        if Device.IS_IPHONE {
+            time2L.font = .systemFont(ofSize: 20)
+        } else {
+            time2L.font = .systemFont(ofSize: 22)
+        }
         time2L.textColor = .label
         time2L.adjustsFontForContentSizeCategory = false
         time2L.text = theTime
         
         incidents2L.textAlignment = .left
-        incidents2L.font = .systemFont(ofSize: 22)
+        
+        if Device.IS_IPHONE {
+            incidents2L.font = .systemFont(ofSize: 20)
+        } else {
+            incidents2L.font = .systemFont(ofSize: 22)
+        }
         incidents2L.textColor = .label
         incidents2L.adjustsFontForContentSizeCategory = false
         incidents2L.text = theIncidentCount
@@ -245,40 +264,40 @@ extension ShiftEndStatusCVCell {
             statusL.widthAnchor.constraint(equalToConstant: 150),
             statusL.heightAnchor.constraint(equalToConstant: 30),
             
-            status2L.leadingAnchor.constraint(equalTo: statusL.trailingAnchor,constant: 15),
+            status2L.leadingAnchor.constraint(equalTo: statusL.trailingAnchor,constant: 10),
             status2L.topAnchor.constraint(equalTo: statusL.topAnchor),
             status2L.heightAnchor.constraint(equalToConstant: 30),
-            status2L.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -20),
+            status2L.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -10),
             
             dateL.leadingAnchor.constraint(equalTo: shiftIconIV.leadingAnchor),
             dateL.topAnchor.constraint(equalTo: statusL.bottomAnchor, constant: 10),
             dateL.widthAnchor.constraint(equalToConstant: 150),
             dateL.heightAnchor.constraint(equalToConstant: 30),
             
-            date2L.leadingAnchor.constraint(equalTo: dateL.trailingAnchor,constant: 15),
+            date2L.leadingAnchor.constraint(equalTo: dateL.trailingAnchor,constant: 10),
             date2L.topAnchor.constraint(equalTo: dateL.topAnchor),
             date2L.heightAnchor.constraint(equalToConstant: 30),
-            date2L.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -20),
+            date2L.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -10),
             
             timeL.leadingAnchor.constraint(equalTo: shiftIconIV.leadingAnchor),
             timeL.topAnchor.constraint(equalTo: dateL.bottomAnchor, constant: 10),
             timeL.widthAnchor.constraint(equalToConstant: 150),
             timeL.heightAnchor.constraint(equalToConstant: 30),
             
-            time2L.leadingAnchor.constraint(equalTo: timeL.trailingAnchor,constant: 15),
+            time2L.leadingAnchor.constraint(equalTo: timeL.trailingAnchor,constant: 10),
             time2L.topAnchor.constraint(equalTo: timeL.topAnchor),
             time2L.heightAnchor.constraint(equalToConstant: 30),
-            time2L.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -20),
+            time2L.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -10),
             
             incidentsL.leadingAnchor.constraint(equalTo: shiftIconIV.leadingAnchor),
             incidentsL.topAnchor.constraint(equalTo: timeL.bottomAnchor, constant: 10),
             incidentsL.widthAnchor.constraint(equalToConstant: 150),
             incidentsL.heightAnchor.constraint(equalToConstant: 30),
             
-            incidents2L.leadingAnchor.constraint(equalTo: incidentsL.trailingAnchor,constant: 15),
+            incidents2L.leadingAnchor.constraint(equalTo: incidentsL.trailingAnchor,constant: 10),
             incidents2L.topAnchor.constraint(equalTo: incidentsL.topAnchor),
             incidents2L.heightAnchor.constraint(equalToConstant: 30),
-            incidents2L.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -20),
+            incidents2L.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -10),
             
             ])
         } else {

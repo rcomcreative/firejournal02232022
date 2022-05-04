@@ -298,7 +298,7 @@ extension RankTVCell {
                 NSLayoutConstraint.activate([
                     
                     newB.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 10),
-                    newB.widthAnchor.constraint(equalToConstant: 279),
+                    newB.widthAnchor.constraint(equalToConstant: 300),
                     newB.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 26),
                     newB.heightAnchor.constraint(equalToConstant: 45),
                     

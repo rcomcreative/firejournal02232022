@@ -181,6 +181,7 @@ extension TheShiftNoteVC {
         notesTV.isUserInteractionEnabled = true
         notesTV.delegate = self
         notesTV.isScrollEnabled = true
+        notesTV.text = ""
         if theUserTime != nil {
             switch theType {
             case .startShiftNotes:
@@ -229,7 +230,7 @@ extension TheShiftNoteVC {
                 notesTV.heightAnchor.constraint(equalToConstant: 300),
                 
                 timeStampB.trailingAnchor.constraint(equalTo: notesTitleL.trailingAnchor),
-                timeStampB.topAnchor.constraint(equalTo: notesTV.bottomAnchor, constant: 10),
+                timeStampB.topAnchor.constraint(equalTo: notesTitleL.topAnchor),
                 timeStampB.heightAnchor.constraint(equalToConstant: 50),
                 timeStampB.widthAnchor.constraint(equalToConstant: 50),
                 

@@ -114,7 +114,7 @@ extension SettingsInfoVC {
             
             theHeaderView.leadingAnchor.constraint(equalTo: theBackgroundView.leadingAnchor),
             theHeaderView.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor),
-            theHeaderView.topAnchor.constraint(equalTo: theBackgroundView.topAnchor),
+            theHeaderView.topAnchor.constraint(equalTo: theBackgroundView.topAnchor, constant: 44),
             theHeaderView.heightAnchor.constraint(equalToConstant: 100),
             
             headerL.leadingAnchor.constraint(equalTo: theHeaderView.leadingAnchor, constant: 25),
@@ -146,8 +146,9 @@ extension SettingsInfoVC {
         
         
         if (Device.IS_IPHONE){
-            self.navigationController?.navigationBar.barTintColor = UIColor(named: "FJBlueColor")
-            self.navigationController?.navigationBar.isTranslucent = false
+            self.navigationController?.navigationBar.backgroundColor = UIColor.white
+            let navigationBarAppearace = UINavigationBar.appearance()
+            navigationBarAppearace.tintColor = UIColor.black
         } else {
             let navigationBarAppearace = UINavigationBar.appearance()
             navigationBarAppearace.tintColor = UIColor.black

@@ -254,6 +254,8 @@
 		1368B8EB22E24A4A0005B06E /* UserFDResourcesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1368B8EA22E24A4A0005B06E /* UserFDResourcesTests.swift */; };
 		136990E22405DD44007558D8 /* MapInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 136990E12405DD44007558D8 /* MapInfo.storyboard */; };
 		136990E52405EBC6007558D8 /* Mapping39to40.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 136990E42405EBC6007558D8 /* Mapping39to40.xcmappingmodel */; };
+		136CF49F2821ADCA00994371 /* JournalEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136CF49E2821ADCA00994371 /* JournalEditVC.swift */; };
+		136CF4A12821ADE300994371 /* JournalEdit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 136CF4A02821ADE300994371 /* JournalEdit.storyboard */; };
 		136E321D281333650014DE80 /* PromotionPhotoCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136E321C281333650014DE80 /* PromotionPhotoCollectionCell.swift */; };
 		136E354B24CCCBF400B5FC85 /* NewICS214HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136E354924CCCBF400B5FC85 /* NewICS214HeaderCell.swift */; };
 		136E354C24CCCBF400B5FC85 /* NewICS214HeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 136E354A24CCCBF400B5FC85 /* NewICS214HeaderCell.xib */; };
@@ -1474,6 +1476,8 @@
 		136990E12405DD44007558D8 /* MapInfo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MapInfo.storyboard; sourceTree = "<group>"; };
 		136990E32405E971007558D8 /* FireJournal40.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FireJournal40.xcdatamodel; sourceTree = "<group>"; };
 		136990E42405EBC6007558D8 /* Mapping39to40.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = Mapping39to40.xcmappingmodel; sourceTree = "<group>"; };
+		136CF49E2821ADCA00994371 /* JournalEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEditVC.swift; sourceTree = "<group>"; };
+		136CF4A02821ADE300994371 /* JournalEdit.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = JournalEdit.storyboard; sourceTree = "<group>"; };
 		136E321C281333650014DE80 /* PromotionPhotoCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionPhotoCollectionCell.swift; sourceTree = "<group>"; };
 		136E354924CCCBF400B5FC85 /* NewICS214HeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewICS214HeaderCell.swift; sourceTree = "<group>"; };
 		136E354A24CCCBF400B5FC85 /* NewICS214HeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewICS214HeaderCell.xib; sourceTree = "<group>"; };
@@ -3056,6 +3060,7 @@
 				13A6D71F27F7B9A0008CA1D9 /* JournalVC+PhotoExtensions.swift */,
 				13E23B9E27F4F4550033BCA6 /* JournalEditTVCell.swift */,
 				13E23BA227F5108E0033BCA6 /* JournalTagsCViewTVCell.swift */,
+				136CF49E2821ADCA00994371 /* JournalEditVC.swift */,
 				1351A2CE280F2C8200D00A5C /* PromotionJournal */,
 			);
 			path = Journal;
@@ -3645,6 +3650,7 @@
 				13CAD4042810848E00E025BC /* NewPromotion.storyboard */,
 				13CAD4102810C1A800E025BC /* PromotionNote.storyboard */,
 				13DB37E5281C9C9000B77FD8 /* SettingsInfo.storyboard */,
+				136CF4A02821ADE300994371 /* JournalEdit.storyboard */,
 			);
 			path = storyboards;
 			sourceTree = "<group>";
@@ -4498,6 +4504,7 @@
 				13F3EB08219B80BF0044CF41 /* ControllerLabelCell.xib in Resources */,
 				13F3E982219B80BF0044CF41 /* IncidentIndicatorCell.xib in Resources */,
 				13F3EA52219B80BF0044CF41 /* CrewCell.xib in Resources */,
+				136CF4A12821ADE300994371 /* JournalEdit.storyboard in Resources */,
 				137087CF24AE6E2200979391 /* NewICS214ResourcesAssigned.storyboard in Resources */,
 				139895AA27E2A63D008A57DF /* RelieveSupervisor.storyboard in Resources */,
 				137D5DAE27D809480059ED36 /* ShiftEnd.storyboard in Resources */,
@@ -5089,6 +5096,7 @@
 				137D108A2401C5F5001BF865 /* DateExtension.swift in Sources */,
 				13BE999A2564483500DC9BC4 /* UserTimeBackedUpOperation.swift in Sources */,
 				13F3E9D2219B80BF0044CF41 /* FormTwoInputCell.swift in Sources */,
+				136CF49F2821ADCA00994371 /* JournalEditVC.swift in Sources */,
 				13F3E99A219B80BF0044CF41 /* IncidentDatesCell.swift in Sources */,
 				13DD445921CEC0F7006C3FB9 /* NewNFIRSStreetTypeOperation.swift in Sources */,
 				13C96DD725310A5800C5195F /* ARC_AdminSegmentCell.swift in Sources */,

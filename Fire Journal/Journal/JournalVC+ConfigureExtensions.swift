@@ -550,9 +550,28 @@ extension JournalVC: JournalInfoCellDelegate {
 extension JournalVC: JournalEditTVCellDelegate {
     
     func editBTapped() {
-        let errorMessage = "This is not available yet."
-        errorAlert(errorMessage: errorMessage)
+            let storyBoard : UIStoryboard = UIStoryboard(name: "JournalEdit", bundle:nil)
+            journalEditVC = storyBoard.instantiateViewController(withIdentifier: "JournalEditVC") as? JournalEditVC
+        journalEditVC.modalPresentationStyle = .formSheet
+        journalEditVC.isModalInPresentation = true
+        journalEditVC.delegate = self
+        journalEditVC.objectID = theJournal.objectID
+            self.present(journalEditVC, animated: true, completion: nil)
+    }
+    
+    
+}
 
+extension JournalVC: JournalEditVCDelegate {
+    
+    func journalEditSaveTapped(objectID: NSManagedObjectID) {
+        theJournal = context.object(with: objectID) as? Journal
+        journalTableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+        self.journalEditVC.dismiss(animated: true, completion: nil)
+    }
+    
+    func journalEditCancelTapped() {
+        self.journalEditVC.dismiss(animated: true, completion: nil)
     }
     
     

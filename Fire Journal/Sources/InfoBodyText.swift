@@ -74,6 +74,8 @@ enum InfoBodyText:String {
     case newIncident = "Start a new incident by indicating if this is an emergency or non-emergency response. Then, tap on the clock to set an Alarm time. Tap on the glove to locate an address on a map, or tap on the pin to select the location where you’re standing. You may update the address later, and you may use the microphone or keyboard to manually enter an address. Tap on the green dot under your resources to select the apparatus from your station that are resopnding."
     case newJournalEntrySubject = "New Journal Entry"
     case newJournalEntry = "Start a new journal entry by creating a topic/title, entering the date/time, and the type of activity. Next, add any notes about the topic/title. Is this related to the morning (line up) meeting? Training? A drill? Note you can timestamp each journal entry as well. You may add any number of notes to the journal throughout the day."
+    case editJournalHeaderSubject = "Edit Journal"
+    case editJournalHeaderDescription = "You can change the title, date and type of Journal entry here."
     case newPersonalEntrySubject = "New Personal Journal Entry"
     case newPersonalEntry = "Create a topic or title and manage a personal journal. These entries are separate from the main journal and are private. Create an overview here, and then save the topic. Once saved, you may enter your thoughts, either as a single entry, or as multiple entries on the same topic. Use the time stamp to separate each entry."
     case nfirsIncidentTypeSubject = "NFIRS Incident Type"

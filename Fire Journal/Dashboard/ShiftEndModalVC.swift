@@ -70,6 +70,7 @@ Shift
     var superOrRelief: Bool = false
     var relieveOrSupervisor: String = ""
     var relievedByGuid: String = ""
+    var relieveAvailable: Bool = false
     
     
     override func viewDidLoad() {

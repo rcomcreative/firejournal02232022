@@ -171,8 +171,10 @@ extension IncidentEditVC: UITableViewDelegate {
     
     func registerCellsForTable() {
         incidentTableView.register(UINib(nibName: "LabelSingleDateFieldCell", bundle: nil), forCellReuseIdentifier: "LabelSingleDateFieldCell")
+        incidentTableView.register(UINib(nibName: "LabelDateiPhoneTVCell", bundle: nil), forCellReuseIdentifier: "LabelDateiPhoneTVCell")
         incidentTableView.register(UINib(nibName: "SegmentCell", bundle: nil), forCellReuseIdentifier: "SegmentCell")
         incidentTableView.register(UINib(nibName: "LabelTextFieldCell", bundle: nil), forCellReuseIdentifier: "LabelTextFieldCell")
+       
     }
     
 }
@@ -193,7 +195,11 @@ extension IncidentEditVC: UITableViewDataSource {
         case 0:
             return 85
         case 1:
+            if Device.IS_IPHONE {
+                return 100
+            } else {
             return 60
+            }
         case 2:
             return 84
         default:
@@ -209,11 +215,17 @@ extension IncidentEditVC: UITableViewDataSource {
             cell = configureLabelTextFieldCell(cell, index: indexPath)
             return cell
         case 1:
+            if Device.IS_IPHONE {
+                var cell = tableView.dequeueReusableCell(withIdentifier: "LabelDateiPhoneTVCell", for: indexPath) as! LabelDateiPhoneTVCell
+                cell = configureLabelDateiPhoneTVCell(cell, index: indexPath)
+                return cell
+            } else {
             var cell = tableView.dequeueReusableCell(withIdentifier: "LabelSingleDateFieldCell", for: indexPath) as! LabelSingleDateFieldCell
             cell = configureLabelSingleDateFieldCell(cell, index: indexPath)
             cell.configureTheLabel(width: 125)
             cell.configureDatePickersHoldingV()
             return cell
+            }
         case 2:
             var cell = tableView.dequeueReusableCell(withIdentifier: "SegmentCell", for: indexPath) as! SegmentCell
             cell = configureSegmentCell(cell, index: indexPath)
@@ -222,6 +234,35 @@ extension IncidentEditVC: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CellIdentifier", for: indexPath)
             return cell
         }
+    }
+    
+    func configureLabelDateiPhoneTVCell(_ cell: LabelDateiPhoneTVCell, index: IndexPath) -> LabelDateiPhoneTVCell {
+        let row = index.row
+        cell.tag = row
+        cell.delegate = self
+        cell.index = index
+        let section = index.section
+        switch section {
+        case 0:
+            switch row {
+            case 2:
+                cell.datePicker.datePickerMode = .dateAndTime
+                cell.theSubject = "Date/Time"
+                if theIncident != nil {
+                    if let alarmTime = theIncidentTime.incidentAlarmDateTime {
+                        cell.theFirstDose = alarmTime
+                    } else {
+                        if let alarmTime = theIncident.incidentModDate {
+                            cell.theFirstDose = alarmTime
+                            theIncidentTime.incidentAlarmDateTime = alarmTime
+                        }
+                    }
+                }
+            default: break
+            }
+        default: break
+        }
+        return cell
     }
     
     func configureLabelTextFieldCell(_ cell: LabelTextFieldCell, index: IndexPath) -> LabelTextFieldCell {
@@ -254,10 +295,18 @@ extension IncidentEditVC: UITableViewDataSource {
         cell.typeSegment.setTitle("EMS", forSegmentAt: 1)
         cell.typeSegment.setTitle("Rescue", forSegmentAt: 2)
         
-        if theIncident.situationIncidentImage == "" {
-            theIncident.situationIncidentImage = "Fire"
-            theIncident.incidentEntryTypeImageName = "100515IconSet_092016_fireboard"
-            segmentType = MenuItems.fire
+        if let type = theIncident.situationIncidentImage {
+            if type == "Fire" {
+                segmentType = MenuItems.fire
+            } else if type == "EMS" {
+                segmentType = MenuItems.ems
+            } else if type == "Rescue" {
+                segmentType = MenuItems.rescue
+            }
+        } else {
+                theIncident.situationIncidentImage = "Fire"
+                theIncident.incidentEntryTypeImageName = "100515IconSet_092016_fireboard"
+                segmentType = MenuItems.fire
         }
         
         switch segmentType {
@@ -300,6 +349,14 @@ extension IncidentEditVC: UITableViewDataSource {
         default: break
         }
         return cell
+    }
+    
+}
+
+extension IncidentEditVC: LabelDateiPhoneTVCellDelegate {
+    
+    func theDatePickerTapped(_ theDate: Date, index: IndexPath) {
+        theIncidentTime.incidentAlarmDateTime = theDate
     }
     
 }

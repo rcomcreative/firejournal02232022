@@ -18,9 +18,9 @@ class JournalEditTVCell: UITableViewCell {
     weak var delegate: JournalEditTVCellDelegate? = nil
     
     let editB = UIButton(primaryAction: nil)
-    let theJournalTitleTF = UITextField()
-    let theJournalAddressTF = UITextField()
-    let theJournalDateTF = UITextField()
+    let theJournalTitleL = UILabel()
+    let theJournalAddressL = UILabel()
+    let theJournalDateL = UILabel()
     let theJournalIconIV = UIImageView()
     let theBackgroundView = UIView()
     
@@ -72,15 +72,15 @@ extension JournalEditTVCell {
     func configure() {
         
         theBackgroundView.translatesAutoresizingMaskIntoConstraints = false
-        theJournalTitleTF.translatesAutoresizingMaskIntoConstraints = false
-        theJournalAddressTF.translatesAutoresizingMaskIntoConstraints = false
-        theJournalDateTF.translatesAutoresizingMaskIntoConstraints = false
+        theJournalTitleL.translatesAutoresizingMaskIntoConstraints = false
+        theJournalAddressL.translatesAutoresizingMaskIntoConstraints = false
+        theJournalDateL.translatesAutoresizingMaskIntoConstraints = false
         theJournalIconIV.translatesAutoresizingMaskIntoConstraints = false
         
         self.contentView.addSubview(theBackgroundView)
-        self.contentView.addSubview(theJournalTitleTF)
-        self.contentView.addSubview(theJournalAddressTF)
-        self.contentView.addSubview(theJournalDateTF)
+        self.contentView.addSubview(theJournalTitleL)
+        self.contentView.addSubview(theJournalAddressL)
+        self.contentView.addSubview(theJournalDateL)
         self.contentView.addSubview(theJournalIconIV)
         configureLabelsAndImage()
         configureNSLayout()
@@ -88,31 +88,37 @@ extension JournalEditTVCell {
     
     func configureLabelsAndImage() {
         
-        theJournalTitleTF.textAlignment = .left
+        theJournalTitleL.textAlignment = .left
         if theJournalNumber == "No journal title was indicated." {
-            theJournalTitleTF.font = .systemFont(ofSize: 18)
+            theJournalTitleL.font = .systemFont(ofSize: 18)
         } else {
-            theJournalTitleTF.font = .systemFont(ofSize: 22, weight: UIFont.Weight(rawValue: 300))
+            theJournalTitleL.font = .systemFont(ofSize: 22, weight: UIFont.Weight(rawValue: 300))
         }
-        theJournalTitleTF.textColor = .label
-        theJournalTitleTF.adjustsFontForContentSizeCategory = false
+        theJournalTitleL.textColor = .label
+        theJournalTitleL.adjustsFontForContentSizeCategory = false
+        theJournalTitleL.lineBreakMode = NSLineBreakMode.byWordWrapping
+        theJournalTitleL.numberOfLines = 0
         if theJournalNumber == "No journal title was indicated." {
-            theJournalTitleTF.text = theJournalNumber
+            theJournalTitleL.text = theJournalNumber
         } else {
-            theJournalTitleTF.text = theJournalNumber
+            theJournalTitleL.text = theJournalNumber
         }
         
-        theJournalAddressTF.textAlignment = .left
-        theJournalAddressTF.font = .systemFont(ofSize: 18)
-        theJournalAddressTF.textColor = .label
-        theJournalAddressTF.adjustsFontForContentSizeCategory = false
-        theJournalAddressTF.text = theJournalAddress
+        theJournalAddressL.textAlignment = .left
+        theJournalAddressL.font = .systemFont(ofSize: 18)
+        theJournalAddressL.textColor = .label
+        theJournalAddressL.adjustsFontForContentSizeCategory = false
+        theJournalAddressL.lineBreakMode = NSLineBreakMode.byWordWrapping
+        theJournalAddressL.numberOfLines = 0
+        theJournalAddressL.text = theJournalAddress
         
-        theJournalDateTF.textAlignment = .left
-        theJournalDateTF.font = .systemFont(ofSize: 18)
-        theJournalDateTF.textColor = .label
-        theJournalDateTF.adjustsFontForContentSizeCategory = false
-        theJournalDateTF.text = theJournalTime
+        theJournalDateL.textAlignment = .left
+        theJournalDateL.font = .systemFont(ofSize: 18)
+        theJournalDateL.textColor = .label
+        theJournalDateL.adjustsFontForContentSizeCategory = false
+        theJournalDateL.lineBreakMode = NSLineBreakMode.byWordWrapping
+        theJournalDateL.numberOfLines = 0
+        theJournalDateL.text = theJournalTime
         
         if let image = theImage {
             theJournalIconIV.image = image
@@ -134,20 +140,19 @@ extension JournalEditTVCell {
             theJournalIconIV.topAnchor.constraint(equalTo: theBackgroundView.topAnchor, constant: 65),
             theJournalIconIV.leadingAnchor.constraint(equalTo: theBackgroundView.leadingAnchor, constant: 20),
             
-            theJournalTitleTF.topAnchor.constraint(equalTo: theJournalIconIV.topAnchor),
-            theJournalTitleTF.leadingAnchor.constraint(equalTo: theJournalIconIV.trailingAnchor, constant: 7),
-            theJournalTitleTF.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -35),
-            theJournalTitleTF.heightAnchor.constraint(equalToConstant: 25),
+            theJournalTitleL.topAnchor.constraint(equalTo: theJournalIconIV.topAnchor),
+            theJournalTitleL.leadingAnchor.constraint(equalTo: theJournalIconIV.trailingAnchor, constant: 7),
+            theJournalTitleL.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -35),
             
-            theJournalDateTF.topAnchor.constraint(equalTo: theJournalTitleTF.bottomAnchor, constant: 10),
-            theJournalDateTF.leadingAnchor.constraint(equalTo: theJournalTitleTF.leadingAnchor),
-            theJournalDateTF.heightAnchor.constraint(equalToConstant: 20),
-            theJournalDateTF.trailingAnchor.constraint(equalTo: theJournalTitleTF.trailingAnchor),
+            theJournalDateL.topAnchor.constraint(equalTo: theJournalTitleL.bottomAnchor, constant: 10),
+            theJournalDateL.leadingAnchor.constraint(equalTo: theJournalTitleL.leadingAnchor),
+            theJournalDateL.heightAnchor.constraint(equalToConstant: 20),
+            theJournalDateL.trailingAnchor.constraint(equalTo: theJournalTitleL.trailingAnchor),
             
-            theJournalAddressTF.topAnchor.constraint(equalTo: theJournalDateTF.bottomAnchor, constant: 10),
-            theJournalAddressTF.leadingAnchor.constraint(equalTo: theJournalTitleTF.leadingAnchor),
-            theJournalAddressTF.heightAnchor.constraint(equalToConstant: 20),
-            theJournalAddressTF.trailingAnchor.constraint(equalTo: theJournalTitleTF.trailingAnchor),
+            theJournalAddressL.topAnchor.constraint(equalTo: theJournalDateL.bottomAnchor, constant: 10),
+            theJournalAddressL.leadingAnchor.constraint(equalTo: theJournalTitleL.leadingAnchor),
+            theJournalAddressL.heightAnchor.constraint(equalToConstant: 20),
+            theJournalAddressL.trailingAnchor.constraint(equalTo: theJournalTitleL.trailingAnchor),
             
             ])
         
