@@ -148,6 +148,7 @@ extension MasterViewController: SettingsTVCDelegate {
             vc.collapsed = collapsed
             vc.delegate = self
             vc.settingsType = FJSettings.cloud
+            vc.userObjectID = theUser.objectID
             let navigator = UINavigationController.init(rootViewController: vc)
             self.present(navigator, animated: true, completion: nil)
         case .crewMembers:
@@ -221,6 +222,7 @@ extension MasterViewController: SettingsTVCDelegate {
             vc.collapsed = collapsed
             vc.delegate = self
             vc.settingsType = FJSettings.terms
+            vc.userObjectID = theUser.objectID
             let navigator = UINavigationController.init(rootViewController: vc)
             self.present(navigator, animated: true, completion: nil)
         case .privacy:
@@ -229,6 +231,7 @@ extension MasterViewController: SettingsTVCDelegate {
             vc.collapsed = collapsed
             vc.delegate = self
             vc.settingsType = FJSettings.privacy
+            vc.userObjectID = theUser.objectID
             let navigator = UINavigationController.init(rootViewController: vc)
             self.present(navigator, animated: true, completion: nil)
         case .contacts:
@@ -780,7 +783,7 @@ extension MasterViewController: MyShiftCellDelegate {
                 case .regular:
                     let available = userDefaults.bool(forKey: FJkInternetConnectionAvailable)
                     if available {
-                        nc.post(name:Notification.Name(rawValue:FJkSTORE_FROM_MASTER),
+                        nc.post(name:Notification.Name(rawValue: FJkSTORE_FROM_MASTER),
                                 object: nil,
                                 userInfo: ["objectID":"", "date":"","arcFormGuid":""])
                     } else {

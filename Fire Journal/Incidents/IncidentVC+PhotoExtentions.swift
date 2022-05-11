@@ -71,19 +71,31 @@ extension IncidentVC: CameraTVCellDelegate, PHPickerViewControllerDelegate {
                 }
 
                 print("saved")
-                self.theIncident = self.context.object(with: self.id) as? Incident
+                
+                
                 self.validPhotos =  self.theIncident.photo?.allObjects as! [Photo]
                 print("here is validPhotos \(self.validPhotos.count)")
                 self.photosAvailable = true
-                self.incidentTableView.reloadRows(at: [IndexPath.init(row: 30, section: 0)], with: .automatic)
-                    
+                DispatchQueue.main.async {
+                    self.savePhotoIncident(self) {
+                        guard let attachments = self.theIncident.photo?.allObjects as? [Photo] else { return }
+                        self.validPhotos = attachments.filter { return !($0.imageData == nil) }
+                        
+                        
+                        self.incidentTableView.reloadRows(at: [IndexPath.init(row: 30, section: 0)], with: .automatic)
+                            // print out the image size as a test
+//                        print(image.size)
+                    }
+                }
             }
         }
     }
     
     func processTheImages(completionHandler: (() -> Void)? = nil)  {
+        let counter = itemProvider.count
+        var count = 0
         for item in itemProvider {
-            
+            count += 1
             if item.canLoadObject(ofClass: UIImage.self )
             {
                 item.loadObject(ofClass: UIImage.self) { (image, error) in
@@ -100,8 +112,11 @@ extension IncidentVC: CameraTVCellDelegate, PHPickerViewControllerDelegate {
                                     print("file saved")
                                     self.taskContext = self.photoProvider.persistentContainer.newBackgroundContext()
                                     let objectID = self.theIncident.objectID
-                                    self.photoProvider.addPhotoIncident(imageData: data, imageURL: url, incidentid: objectID, taskContext: self.taskContext) {
-                                        completionHandler?()
+                                    self.photoProvider.addPhotoIncident(imageData: data, imageURL: url, incidentid: objectID, taskContext: self.photoProvider.persistentContainer.viewContext) { incidentid in                                        print(image.size)
+                                        self.theIncident = self.context.object(with: incidentid) as? Incident
+                                        if count == counter {
+                                            completionHandler?()
+                                        }
                                     }
                                 } catch {
                                     print("error saving file:", error)
@@ -133,6 +148,7 @@ extension IncidentVC: CameraTVCellDelegate, PHPickerViewControllerDelegate {
                     self.photosAvailable = false
                     fatalError("###\(#function): Failed to get JPG data and URL of the picked image!")
                 }
+                DispatchQueue.global(qos: .background).async {
                 let guid = UUID()
                 let fileName = guid.uuidString + ".jpg"
                 let url = CloudKitManager.attachmentFolder.appendingPathComponent(fileName)
@@ -143,28 +159,29 @@ extension IncidentVC: CameraTVCellDelegate, PHPickerViewControllerDelegate {
                         print("file saved")
                         self.taskContext = self.photoProvider.persistentContainer.newBackgroundContext()
                         let objectID = self.theIncident.objectID
-                        self.photoProvider.addPhotoToJournal(imageData: data, imageURL: url, journalid: objectID, taskContext: self.taskContext) {
+                        self.photoProvider.addPhotoIncident(imageData: data, imageURL: url, incidentid: objectID, taskContext: self.photoProvider.persistentContainer.viewContext) { incidentid in
                             
                             self.photosAvailable = true
-                            self.saveIncident(self) {
-//                                DispatchQueue.main.async {
-//                                    self.removeSpinnerUpdate()
-//                                }
-                                guard let attachments = self.theIncident.photo?.allObjects as? [Photo] else { return }
-                                self.validPhotos = attachments.filter { return !($0.imageData == nil) }
-                                
-                                
-                                self.incidentTableView.reloadRows(at: [IndexPath.init(row: 30, section: 0)], with: .automatic)
-                                    // print out the image size as a test
-                                print(image.size)
+                            
+                            DispatchQueue.main.async {
+                                self.savePhotoIncident(self) {
+                                    guard let attachments = self.theIncident.photo?.allObjects as? [Photo] else { return }
+                                    self.validPhotos = attachments.filter { return !($0.imageData == nil) }
+                                    
+                                    
+                                    self.incidentTableView.reloadRows(at: [IndexPath.init(row: 30, section: 0)], with: .automatic)
+                                        // print out the image size as a test
+                                    print(image.size)
+                                }
                             }
                         }
                     } catch {
                         print("error saving file:", error)
                     }
                 }
-                
+                }
             } else {
+                DispatchQueue.global(qos: .background).async {
                 guard let image = info[.editedImage] as? UIImage, let data = image.jpegData(compressionQuality: 1),
                       let url = info[.imageURL] as? URL else {
                           print("No image found")
@@ -174,8 +191,9 @@ extension IncidentVC: CameraTVCellDelegate, PHPickerViewControllerDelegate {
                       }
                 self.taskContext = self.photoProvider.persistentContainer.newBackgroundContext()
                 let objectID = self.theIncident.objectID
-                self.photoProvider.addPhotoIncident(imageData: data, imageURL: url, incidentid: objectID, taskContext: self.taskContext) {
-                    self.saveIncident(self) {
+                self.photoProvider.addPhotoIncident(imageData: data, imageURL: url, incidentid: objectID, taskContext: self.photoProvider.persistentContainer.viewContext) { incidentid in
+                    DispatchQueue.main.async {
+                    self.savePhotoIncident(self) {
                         
                         self.photosAvailable = true
                         guard let attachments = self.theIncident.photo?.allObjects as? [Photo] else { return }
@@ -183,12 +201,14 @@ extension IncidentVC: CameraTVCellDelegate, PHPickerViewControllerDelegate {
                         
                         self.incidentTableView.reloadRows(at: [IndexPath.init(row: 30, section: 0)], with: .automatic)
                     }
+                    }
                 }
             }
         }
                        
-        )
         
+        }
+     )
     }
     
         /// creates a spinner view to hold the scene while data is downloaded from cloudkit

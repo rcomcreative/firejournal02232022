@@ -115,7 +115,7 @@ class TheShiftNoteVC: UIViewController {
     
     
     func errorAlert(errorMessage: String) {
-        let alert = UIAlertController.init(title: "Error", message: errorMessage, preferredStyle: .alert)
+        let alert = UIAlertController.init(title: "Required Action:", message: errorMessage, preferredStyle: .alert)
         let okAction = UIAlertAction.init(title: "Okay", style: .default, handler: {_ in
             self.alertUp = false
         })
@@ -294,7 +294,7 @@ extension TheShiftNoteVC {
                 do {
                     try context.save()
                     DispatchQueue.main.async {
-                        self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"The Shift NoteVC merge that"])
+                        self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object: self.context,userInfo:["info":"The Shift NoteVC merge that","status": false])
                     }
                 } catch let error as NSError {
                     let theError: String = error.localizedDescription
@@ -365,7 +365,7 @@ extension TheShiftNoteVC: NewModalHeaderVDelegate {
                     
             }
         } else {
-            errorAlert(errorMessage: "The time stamp needs to be tapped before you can save this note.")
+            errorAlert(errorMessage: "Please enter a time stamp prior to saving.")
         }
     }
     

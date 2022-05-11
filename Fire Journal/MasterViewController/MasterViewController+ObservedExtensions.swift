@@ -32,6 +32,7 @@ extension MasterViewController {
         nc.addObserver(self, selector: #selector(lockdownButtons(ns:)), name: NSNotification.Name(rawValue: FJkLOCKMASTERDOWNFORDOWNLOAD), object: nil)
         if Device.IS_IPHONE {
             nc.addObserver(self, selector: #selector(changeTheLocationsToSC(ns:)), name: NSNotification.Name(rawValue: FJkChangeTheLocationsTOLOCATIONSSC), object: nil)
+            nc.addObserver(self, selector: #selector(saveStatusToCloud(ns:)), name: .fireJournalStatusNewToCloud, object: nil)
         }
     }
     
@@ -40,6 +41,20 @@ extension MasterViewController {
     @objc func managedObjectContextDidSave(notification: Notification) {
         DispatchQueue.main.async {
             self.managedObjectContext?.mergeChanges(fromContextDidSave: notification)
+        }
+    }
+    
+//    MARK: -STATUS SAVE-
+    @objc func saveStatusToCloud(ns:Notification) {
+        if let userInfo = ns.userInfo as! [String: Any]? {
+            if let objectID = userInfo["objectID"] as? NSManagedObjectID {
+                DispatchQueue.global().async {
+                    self.statusContext = self.statusProvider.persistentContainer.viewContext
+                    self.statusProvider.createStatusCKRecord(self.statusContext, objectID) { status in
+                        print("status has been updated in the cloud \(status)")
+                    }
+                }
+            }
         }
     }
     
@@ -149,10 +164,20 @@ extension MasterViewController {
     }
     
     @objc func myProfileCalled(ns: Notification) {
+        var id: NSManagedObjectID!
+        if let userInfo = ns.userInfo as! [String: Any]?
+        {
+            if let objectID = userInfo["userObjID"] as? NSManagedObjectID {
+                id = objectID
+            }
+        }
         let vc: SettingsTheProfileTVC = vcLaunch.myProfileCalled(compact: compact)
         vc.delegate = self
         vc.titleName = ""
         vc.compact = compact
+        if id != nil {
+            vc.objectID = id
+        }
         let navigator = UINavigationController.init(rootViewController: vc)
         self.splitViewController?.showDetailViewController(navigator, sender:self)
     }

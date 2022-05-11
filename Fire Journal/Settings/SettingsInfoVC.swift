@@ -8,6 +8,7 @@
 
 import UIKit
 import Foundation
+import CoreData
 
 protocol SettingsInfoVCDelegate: AnyObject {
     func settingsInfoReturnToSettings()
@@ -31,11 +32,18 @@ class SettingsInfoVC: UIViewController {
     let theHeaderView = UIView()
     let headerL = UILabel()
     let descriptionTV = UITextView()
+    var userObjectID: NSManagedObjectID!
+    var theUser: FireJournalUser!
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         vcLaunch.splitVC = self.splitViewController
+        if userObjectID != nil {
+            vcLaunch.userID = userObjectID
+            theUser = context.object(with: userObjectID) as? FireJournalUser
+        }
         launchNC = LaunchNotifications.init(launchVC: vcLaunch)
         launchNC.callNotifications()
         configureNavigationHeader()
@@ -150,9 +158,9 @@ extension SettingsInfoVC {
             let navigationBarAppearace = UINavigationBar.appearance()
             navigationBarAppearace.tintColor = UIColor.black
         } else {
-            let navigationBarAppearace = UINavigationBar.appearance()
-            navigationBarAppearace.tintColor = UIColor.black
-            navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.black]
+                self.navigationController?.navigationBar.backgroundColor = UIColor.white
+                let navigationBarAppearace = UINavigationBar.appearance()
+                navigationBarAppearace.tintColor = UIColor.black
         }
     }
     
@@ -173,9 +181,11 @@ extension SettingsInfoVC {
             delegate?.settingsInfoReturnToSettings()
         } else {
             DispatchQueue.main.async {
-                self.nc.post(name:Notification.Name(rawValue:FJkSETTINGS_FROM_MASTER),
-                             object: nil,
-                             userInfo: ["sizeTrait":self.compact])
+                if let id = self.userObjectID {
+                    self.nc.post(name:Notification.Name(rawValue: FJkSETTINGS_FROM_MASTER),
+                                 object: nil,
+                                 userInfo: ["sizeTrait":self.compact, "userObjID": id])
+                }
             }
         }
     }

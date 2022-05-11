@@ -91,7 +91,7 @@ extension CameraTVCell {
             
             NSLayoutConstraint.activate([
                 cameraB.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
-                cameraB.widthAnchor.constraint(equalToConstant: 300),
+                cameraB.widthAnchor.constraint(equalToConstant: 335),
                 cameraB.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 26),
                 cameraB.heightAnchor.constraint(equalToConstant: 45),
             ])

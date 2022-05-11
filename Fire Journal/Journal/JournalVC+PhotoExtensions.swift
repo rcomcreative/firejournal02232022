@@ -101,7 +101,7 @@ extension JournalVC: CameraTVCellDelegate, PHPickerViewControllerDelegate {
                                     print("file saved")
                                     self.taskContext = self.photoProvider.persistentContainer.newBackgroundContext()
                                     let objectID = self.theJournal.objectID
-                                    self.photoProvider.addPhotoToJournal(imageData: data, imageURL: url, journalid: objectID, taskContext: self.taskContext) {
+                                    self.photoProvider.addPhotoToJournal(imageData: data, imageURL: url, journalid: objectID, taskContext: self.photoProvider.persistentContainer.viewContext) {
                                         completionHandler?()
                                     }
                                 } catch {
@@ -127,15 +127,15 @@ extension JournalVC: CameraTVCellDelegate, PHPickerViewControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         picker.dismiss(animated: true, completion: {
-//            DispatchQueue.main.async {
-//                self.createSpinnerView()
-//            }
+
+            
             if self.cameraType {
                 guard let image = info[.editedImage] as? UIImage, let data = image.jpegData(compressionQuality: 1) else {
                     print("No image found")
                     self.photosAvailable = false
                     fatalError("###\(#function): Failed to get JPG data and URL of the picked image!")
                 }
+                DispatchQueue.global(qos: .background).async {
                 let guid = UUID()
                 let fileName = guid.uuidString + ".jpg"
                 let url = CloudKitManager.attachmentFolder.appendingPathComponent(fileName)
@@ -146,8 +146,8 @@ extension JournalVC: CameraTVCellDelegate, PHPickerViewControllerDelegate {
                         print("file saved")
                         self.taskContext = self.photoProvider.persistentContainer.newBackgroundContext()
                         let objectID = self.theJournal.objectID
-                        self.photoProvider.addPhotoToJournal(imageData: data, imageURL: url, journalid: objectID, taskContext: self.taskContext) {
-                            
+                        self.photoProvider.addPhotoToJournal(imageData: data, imageURL: url, journalid: objectID, taskContext: self.photoProvider.persistentContainer.viewContext) {
+                            DispatchQueue.main.async {
                             self.photosAvailable = true
                             self.saveJournal(self) {
 //                                DispatchQueue.main.async {
@@ -161,13 +161,15 @@ extension JournalVC: CameraTVCellDelegate, PHPickerViewControllerDelegate {
                                     // print out the image size as a test
                                 print(image.size)
                             }
+                            }
                         }
                     } catch {
                         print("error saving file:", error)
                     }
                 }
-                
+                }
             } else {
+                DispatchQueue.global(qos: .background).async {
                 guard let image = info[.editedImage] as? UIImage, let data = image.jpegData(compressionQuality: 1),
                       let url = info[.imageURL] as? URL else {
                           print("No image found")
@@ -177,7 +179,8 @@ extension JournalVC: CameraTVCellDelegate, PHPickerViewControllerDelegate {
                       }
                 self.taskContext = self.photoProvider.persistentContainer.newBackgroundContext()
                 let objectID = self.theJournal.objectID
-                self.photoProvider.addPhotoToJournal(imageData: data, imageURL: url, journalid: objectID, taskContext: self.taskContext) {
+                self.photoProvider.addPhotoToJournal(imageData: data, imageURL: url, journalid: objectID, taskContext: self.photoProvider.persistentContainer.viewContext) {
+                    DispatchQueue.main.async {
                     self.saveJournal(self) {
                         
                         self.photosAvailable = true
@@ -188,10 +191,11 @@ extension JournalVC: CameraTVCellDelegate, PHPickerViewControllerDelegate {
                             // print out the image size as a test
                         print(image.size)
                     }
+                    }
                 }
             }
         }
-                       
+        }
         )
         
     }

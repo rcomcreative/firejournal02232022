@@ -47,6 +47,7 @@ class ShiftEndModalVC: UIViewController {
     var theUserTimeOID: NSManagedObjectID!
     var theUser: FireJournalUser!
     var theStatus: Status!
+    var theJournal: Journal!
     var theStatusObj: NSManagedObjectID!
     var utGuid: String = ""
     

@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol SegmentCellDelegate:class{
+protocol SegmentCellDelegate: AnyObject {
     func sectionChosen(type: MenuItems)
 }
 

@@ -287,13 +287,13 @@ extension ShiftEndModalVC: UITableViewDataSource {
                 cell.datePicker.datePickerMode = .dateAndTime
                 cell.theSubject = "Date/Time"
                 if theUserTime != nil {
-                    if let relievingTime = theUserTime.userEndShiftTime {
-                        cell.theFirstDose = relievingTime
-                    } else {
+//                    if let relievingTime = theUserTime.userEndShiftTime {
+//                        cell.theFirstDose = relievingTime
+//                    } else {
                         let endShiftDate = Date()
                         cell.theFirstDose = endShiftDate
                         theUserTime.userEndShiftTime = endShiftDate
-                    }
+//                    }
                 } else {
                     let endShiftDate = Date()
                     cell.theFirstDose = endShiftDate
@@ -499,6 +499,12 @@ extension ShiftEndModalVC: ShiftModalHeaderVDelegate {
                                      object: nil,
                                      userInfo: ["objectID": objectID as NSManagedObjectID])
                     }
+                    DispatchQueue.main.async {
+                        self.nc.post(name: .fireJournalStatusNewToCloud, object: nil, userInfo: ["objectID": self.theStatus.objectID])
+                    }
+                    DispatchQueue.main.async {
+                            self.nc.post(name: Notification.Name(rawValue: FJkCKModifyJournalToCloud), object: nil, userInfo: ["objectID": self.theJournal.objectID])
+                    }
                     delegate?.dismissShiftEndModal()
                 } catch let error as NSError {
                     let theError: String = error.localizedDescription
@@ -544,7 +550,7 @@ extension ShiftEndModalVC: ShiftModalHeaderVDelegate {
     }
     
     func buildTheEndShiftJournal() {
-        let theJournal = Journal(context: context)
+        theJournal = Journal(context: context)
         let journalModDate = Date()
         let jGuidDate = GuidFormatter.init(date:journalModDate)
         let searchDate = FormattedDate.init(date:journalModDate)

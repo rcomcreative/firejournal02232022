@@ -8,9 +8,11 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 protocol IncidentPhotoCollectionCellDelegate: AnyObject {
     func theIncidentCellHasBeenTapped(photo: Photo)
+    func theIncidentPhotoCellObjectID(objectID: NSManagedObjectID)
 }
 
 
@@ -20,7 +22,7 @@ class IncidentPhotoCollectionCell: UITableViewCell {
         case main
     }
     
-    var photoCollectionView: InteractiveCollectionView! = nil
+    var photoCollectionView: UICollectionView! = nil
     let backgroundGView = UIView()
     var indexPath: IndexPath!
     
@@ -85,11 +87,8 @@ extension IncidentPhotoCollectionCell {
     
     func configureIconsHierarchy() {
         
-        let tapGR = UITapGestureRecognizer(target: self, action: #selector(photoCollectionViewTapped(gr:)))
-     
-         tapGR.numberOfTapsRequired = 1
-         photoCollectionView = InteractiveCollectionView(frame: .zero, collectionViewLayout: createIconsLayout())
-         photoCollectionView.addGestureRecognizer(tapGR)
+       
+         photoCollectionView = UICollectionView(frame: .zero, collectionViewLayout: createIconsLayout())
         photoCollectionView.translatesAutoresizingMaskIntoConstraints = false
         photoCollectionView.backgroundColor = .systemBackground
         photoCollectionView.tag = 1
@@ -162,7 +161,11 @@ extension IncidentPhotoCollectionCell {
 extension IncidentPhotoCollectionCell: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        MARK InteractiveCollectionView works with the gesture recognizer instead
+        guard let cell = collectionView.cellForItem(at: indexPath) as? PhotoCCell else { return }
+        if cell.objectID != nil {
+            guard let id = cell.objectID else { return }
+            delegate?.theIncidentPhotoCellObjectID(objectID: id)
+        }
     }
     
 }

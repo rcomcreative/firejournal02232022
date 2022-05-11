@@ -166,6 +166,7 @@ New Incident
         
         theIncidentLocation = FCLocation(context: context)
         theIncidentLocation.guid = UUID()
+        theIncidentLocation.incidentGuid = theIncident.fjpIncGuidForReference
         theIncidentLocation.incident = theIncident
         
         theIncidentTime = IncidentTimer(context: context)

@@ -216,6 +216,12 @@ class JournalVC: SpinnerViewController, UIImagePickerControllerDelegate, UINavig
                              object: nil,
                              userInfo: ["objectID": objectID as NSManagedObjectID])
             }
+            
+            DispatchQueue.main.async {
+                let objectID = self.theJournalLocation.objectID
+                    self.nc.post(name: .fireJournalModifyFCLocationToCloud, object: nil, userInfo: ["objectID": objectID as NSManagedObjectID])
+            }
+            
             theAlert(message: "The journal data has been saved.")
         } catch let error as NSError {
             let nserror = error
@@ -289,9 +295,17 @@ class JournalVC: SpinnerViewController, UIImagePickerControllerDelegate, UINavig
             getTheLastUserTime()
             if theJournal.theLocation != nil {
                 theJournalLocation = theJournal.theLocation
+                if theJournalLocation.journalGuid == nil {
+                    if let guid = theJournal.fjpJGuidForReference {
+                        theJournalLocation.journalGuid = guid
+                    }
+                }
             } else {
                 theJournalLocation = FCLocation(context: context)
                 theJournalLocation.guid = UUID.init()
+                if let guid = theJournal.fjpJGuidForReference {
+                    theJournalLocation.journalGuid = guid
+                }
                 theJournal.theLocation = theJournalLocation
             }
             

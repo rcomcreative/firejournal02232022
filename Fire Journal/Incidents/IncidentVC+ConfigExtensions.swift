@@ -837,6 +837,26 @@ extension IncidentVC {
 }
 
 extension IncidentVC: IncidentPhotoCollectionCellDelegate {
+   
+    func theIncidentPhotoCellObjectID(objectID: NSManagedObjectID) {
+        let photo = context.object(with: objectID) as? Photo
+        let storyboard = UIStoryboard(name: "FullImage", bundle: nil)
+        
+        guard let navController = storyboard.instantiateViewController(withIdentifier: "FullNC") as? UINavigationController,
+              let fullImageVC = navController.topViewController as? FullImageVC else {
+            return
+        }
+        spinner.startAnimating()
+        
+        taskContext = photoProvider.persistentContainer.newBackgroundContext()
+        guard let theGuid = photo?.guid else { return }
+        fullImageVC.fullImage = photo?.getImage(with: taskContext, guid: theGuid)
+        
+        present(navController, animated: true) {
+            self.spinner.stopAnimating()
+        }
+    }
+    
     
     
     func theIncidentCellHasBeenTapped(photo: Photo) {

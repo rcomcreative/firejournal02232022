@@ -37,6 +37,7 @@ import CoreData
     var subscribed:Bool = false
     var fjUserGuid = ""
     var fjUserEmail = ""
+    var theUserName = ""
     var productID = ""
     var productsRequest = SKProductsRequest()
     var fjProducts = [SKProduct]()
@@ -51,9 +52,9 @@ import CoreData
     var suscribe = UserDefaults.standard.integer(forKey: "fireJournal_connect_group")
     var productIdentifiers:NSSet
     
-    var fetched: [FireJournalUser]!
-    //    var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    var fju: FireJournalUser!
+    var fetched = [FireJournalUser]()
+    var context: NSManagedObjectContext!
+    var theUser: FireJournalUser!
     let userDefaults = UserDefaults.standard
     var subscriptionBought: Bool = false
     var subscriptionIsLocallyCached: Bool = false
@@ -62,6 +63,12 @@ import CoreData
     var bgTask : UIBackgroundTaskIdentifier = .invalid
     var bkgrndTask: BkgrndTask?
     var thereIsBackgroundTask: Bool = false
+    
+    lazy var userProvider: FireJournalUserProvider = {
+        let provider = FireJournalUserProvider(with: (UIApplication.shared.delegate as! AppDelegate).persistentContainer)
+        return provider
+    }()
+    var userContext: NSManagedObjectContext!
     
     private var formatter: NumberFormatter = {
         let formatter = NumberFormatter()
@@ -76,8 +83,6 @@ import CoreData
                                    QUARTERLY_SUBSCRIPTION_PRODUCT_ID,
                                    YEARLY_SUBSCRIPTION_PRODUCT_ID
         )
-        bkgrndTask = BkgrndTask.init(bkgrndTask: bgTask)
-        bkgrndTask?.operation = "SubscriptionService"
         super.init()
         print("SubscriptionsService init")
     }
@@ -91,59 +96,37 @@ import CoreData
      @param n nil
      */
     private func getTheUser(entity: String, attribute: String, sortAttribute: String) {
-        if !thereIsBackgroundTask {
-            bkgrndTask?.registerBackgroundTask()
-            thereIsBackgroundTask = true
-        }
+        
         subscriptionBought = userDefaults.bool(forKey: FJkSUBCRIPTIONBought)
         subscriptionIsLocallyCached = userDefaults.bool(forKey: FJkSUBSCRIPTIONIsLocallyCached)
         
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity )
-        var predicate = NSPredicate.init()
-        predicate = NSPredicate(format: "%K != %@", attribute, "")
-        let sectionSortDescriptor = NSSortDescriptor(key: sortAttribute, ascending: true)
-        let sortDescriptors = [sectionSortDescriptor]
-        fetchRequest.sortDescriptors = sortDescriptors
-        fetchRequest.predicate = predicate
-        fetchRequest.fetchBatchSize = 20
-        
-        //        fetched = try! context.fetch(fetchRequest) as! [FireJournalUser]
-        
-        if fetched.isEmpty {
-            print("no user available")
-            return
-        } else {
-            fju = fetched.last
-            if let guid = fju.userGuid {
+        userContext = userProvider.persistentContainer.newBackgroundContext()
+        if let users = userProvider.getTheUser(userContext) {
+            let user = users.last
+            if let objectID = user?.objectID {
+                theUser = context.object(with: objectID) as? FireJournalUser
+            }
+        }
+        if theUser != nil {
+            if let guid = theUser.userGuid {
                 fjUserGuid = guid
             }
-            if let email = fju.emailAddress {
+            if let email = theUser.emailAddress {
                 fjUserEmail = email
             }
-            if let uName = fju.userName {
-                print("here is the userName \(uName)")
-            } else {
-                var fName = ""
-                var lName = ""
-                if let first:String = fju.firstName {
-                    fName = first
-                }
-                if let last:String = fju.lastName {
-                    lName = last
-                }
-                fju.userName = "\(fName) \(lName)"
-                fju.fjpUserModDate = Date()
-                fju.fjpUserBackedUp = false
-                //                saveToCD()
+            if let userName = theUser.userName {
+                theUserName = userName
             }
-            self.fetchAvailableProducts()
-            if !subscriptionBought {
-                getAppReceipt()
-                //                let subscribed = subscriptionsService.subscribed
-                self.userDefaults.set(subscribed, forKey: FJkSUBCRIPTIONBought)
-            }
-            
         }
+           
+        self.fetchAvailableProducts()
+        
+        if !subscriptionBought {
+            getAppReceipt()
+            self.userDefaults.set(subscribed, forKey: FJkSUBCRIPTIONBought)
+        }
+        
+        
         productsRequest = SKProductsRequest(productIdentifiers: productIdentifiers as! Set<String>)
         productsRequest.delegate = self
         productsRequest.start()
@@ -153,11 +136,7 @@ import CoreData
     
     
     /// MARK: Fetch products if userGuid is provided
-    @objc func fetchAvailableProducts() {
-        if !thereIsBackgroundTask {
-            bkgrndTask?.registerBackgroundTask()
-            thereIsBackgroundTask = true
-        }
+    func fetchAvailableProducts() {
         productsRequest = SKProductsRequest(productIdentifiers: productIdentifiers as! Set<String>)
         productsRequest.delegate = self
         productsRequest.start()

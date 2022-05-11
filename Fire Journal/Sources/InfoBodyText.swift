@@ -76,6 +76,8 @@ enum InfoBodyText:String {
     case newJournalEntry = "Start a new journal entry by creating a topic/title, entering the date/time, and the type of activity. Next, add any notes about the topic/title. Is this related to the morning (line up) meeting? Training? A drill? Note you can timestamp each journal entry as well. You may add any number of notes to the journal throughout the day."
     case editJournalHeaderSubject = "Edit Journal"
     case editJournalHeaderDescription = "You can change the title, date and type of Journal entry here."
+    case editProjectHeaderSubject = "Edit Project"
+    case editProjectHeaderDescription = "You can change the title and date of the project entry here."
     case newPersonalEntrySubject = "New Personal Journal Entry"
     case newPersonalEntry = "Create a topic or title and manage a personal journal. These entries are separate from the main journal and are private. Create an overview here, and then save the topic. Once saved, you may enter your thoughts, either as a single entry, or as multiple entries on the same topic. Use the time stamp to separate each entry."
     case nfirsIncidentTypeSubject = "NFIRS Incident Type"
@@ -176,5 +178,65 @@ The maps function in Fire Journal is one of the most useful tools available for 
 """
     case onboardNineVCText = """
 Now that you have a basic understanding of how Fire Journal works, it’s time to get started. Feel free to experiment, and remember that you may delete anything you don’t like, so you can’t do anything that is “wrong.” This is your chance to keep track of the things you do while on duty - protecting yourself with accurate accountability, and creating a useful history of the important work you do to save lives and property!
+"""
+    case theStoreMembershipText = """
+    As a firefighter, you understand the importance of keeping track of important milestones in your life and career. Being a “member” of your department is something to be proud of - to know that you’re serving your community to the best of your ability.
+
+    Fire Journal Membership brings a never before seen level of accountability and service history to firefighters everywhere. Once you become a member, the capabilities of Fire Journal (the iOS app) are extended, and you’ll gain important insight about your firefighting career.
+
+    Fire Journal Members adds reporting and analysis to your career - how much are you working? What are the important fires or rescues you’ve participated in? How has your career evolved over time? If you’re working on promoting, track some or all of your study sessions, partners, and test results. There’s really no limit to the ways Fire Journal Membership can benefit you and your firefighting career.
+
+    CAPABILITIES:
+    Fire Journal Membership builds on the functions found in the free downoadable app. Some of the immediate benefits include:
+
+    Automatic backup of your journal, projects, incidents, and form data
+    Automatic sync between your iOS devices (for example, an iPhone and an iPad) - Fire Journal is a “universal app”
+    Secure access to a private cloud environment, configured specifically for you (access the cloud from your iOS device, or from a Mac or PC computer)
+    Track and review trends and reports related to journal entries and incidents
+    Evaluate history of calls for service, types of incidents, and what took place from arrival to clearing the scene
+    Review your journal and incident history via a map, highlighting key incidents and related activities while on scene
+    Share form data from ICS-214 and other forms in Government approved formats (as PDF files)
+    Utilize Journal and Incident calendaring
+    Utilize search functions to find what you need, when you need it
+    24/7 access to your own Fire Journal customer support portal
+
+    As new capabilities are introduced to Fire Journal Membership, you’ll gain acces without having to change the status or longevity of your membership.
+
+    Best of all, Fire Journal Membership is extremely affordable, and can be purchased as either a recurring monthly subscription, or as a single payment annual subscription (best savings). Every membership starts off with 60 days of FREE access to Fire Journal Cloud. If you decide its not for you, follow Apple’s guidelines and cancel your subscription. It’s that easy.
+
+    INVESTMENT:
+    With either plan, you get the first 60 days of Fire Journal Membership for free. During that time period, if you decide it’s not for you, simply cancel, no questions asked.
+
+    SILVER PLAN: $7.99 per month, paid each month - no contract required
+
+    GOLD PLAN: $3.33 per month, paid as a single annual payment
+
+    The total annual subscription fee (GOLD PLAN) is $39.99. Try Fire Journal Membership for 60 days for FREE, then continue with either plan above. You may upgrade a SILVER PLAN to a GOLD PLAN at any time.
+
+    NOTE: If you update your devices, you may re-connect your Fire Journal Membership using the “Restore Purchase” button below.
+"""
+    case theStoreMembershipText2 = """
+TRY IT FOR 60 DAYS FREE, then automatically charged to your iTunes account every month. You may unsubscribe in System Preferences.
+"""
+    case theStoreMembershipText3 = """
+GOLD PLAN: $3.33 per month, paid as a single annual payment
+
+    The total annual subscription fee (GOLD PLAN) is $39.99. Try Fire Journal Membership for 60 days for FREE, then continue with either plan above. You may upgrade a SILVER PLAN to a GOLD PLAN at any time.
+    TRY IT FOR 60 DAYS FREE, then automatically charged to your iTunes account.
+"""
+    case theStoreMembershipText4 = """
+IMPORTANT MEMBERSHIP/SUBSCRIPTION INFORMATION:
+    Fire Journal Membership is a recurring subscription. If you decide to purchase a membership subscription, you’ll receive an initial FREE 60 DAY TRIAL. Once the free trial  period concludes, your subscription will automatically engage and payment will be charged to the credit card that is part of your “dot Mac” or “iCloud” membership. You may disable “Auto renewal” at any time by going to “Settings” in the iOS app once you have completed downloading and installing the Fire Journal app into your smartphone device.
+
+    For additional information, please see our terms of use via our website:
+    http://purecommand.com/terms/
+
+    You may also review our Private Policy by visiting our website:
+    http://purecommand.com/privacy/
+
+    To learn more about PureCommand and our support for the fire service, visit our website:
+    http://www.purecommand.com/
+
+    Thank you for becoming part of the Fire Journal family.
 """
 }

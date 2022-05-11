@@ -762,8 +762,6 @@ extension DetailViewController: OpenModalScrollVCDelegate {
             self.userDefaults.set(true, forKey: FJkFIRSTRUNFORDATAFROMCLOUDKIT)
             self.theAgreementsAccepted()
             self.firstTimeAgreementAccepted = true
-//            self.freshDeskRequest()
-//            self.appDelegate.fetchAnyChangesWeMissed(firstRun: true)
             DispatchQueue.main.async {
                 self.nc.post(name:Notification.Name(rawValue: FJkOPENWEATHER_UPDATENow),object: nil)
             }
@@ -778,9 +776,6 @@ extension DetailViewController: OpenModalScrollVCDelegate {
                 self.startShiftTapped()
             }
             self.configuredashboardCollectionView()
-//            self.dashboardCollectionView.reloadSections(IndexSet(integer: DashboardSections.shift.rawValue))
-//            self.dashboardCollectionView.reloadSections(IndexSet(integer: DashboardSections.status.rawValue))
-//            self.dashboardCollectionView.reloadSections(IndexSet(integer: DashboardSections.weather.rawValue))
         })
     }
     

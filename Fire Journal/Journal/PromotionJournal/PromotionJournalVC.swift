@@ -97,6 +97,7 @@ class PromotionJournalVC: SpinnerViewController, UIImagePickerControllerDelegate
     var theTagString: String = " "
     var theTagsAvailable: Bool = false
     var theTagsHeight: CGFloat = 0
+    var thePromotionEditVC: PromotionEditVC!
     
     var projectImageName: String = "ICONS_training"
 
@@ -200,10 +201,16 @@ class PromotionJournalVC: SpinnerViewController, UIImagePickerControllerDelegate
             }
             if theProject.theLocation != nil {
                 theLocation = theProject.theLocation
+                if let guid = theProject.projectGuid {
+                    theLocation.promotionGuid = guid
+                }
                 locationAvailable = true
             } else {
                 theLocation = FCLocation(context: context)
                 theLocation.guid = UUID()
+                if let guid = theProject.projectGuid {
+                    theLocation.promotionGuid = guid
+                }
                 theProject.theLocation = theLocation
             }
             
@@ -300,6 +307,12 @@ class PromotionJournalVC: SpinnerViewController, UIImagePickerControllerDelegate
                              object: nil,
                              userInfo: ["objectID": objectID as NSManagedObjectID])
             }
+            
+            DispatchQueue.main.async {
+                let objectID = self.theLocation.objectID
+                    self.nc.post(name: .fireJournalModifyFCLocationToCloud, object: nil, userInfo: ["objectID": objectID as NSManagedObjectID])
+            }
+            
             theAlert(message: "The projectl data has been saved.")
         } catch let error as NSError {
             let nserror = error

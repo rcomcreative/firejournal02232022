@@ -162,9 +162,11 @@ class SettingsTheProfileTVC: UITableViewController,CLLocationManagerDelegate {
         if  Device.IS_IPHONE {
             delegate?.theProfileReturnToSettings(compact: compact)
         } else {
-            nc.post(name:Notification.Name(rawValue:FJkSETTINGS_FROM_MASTER),
+            if let id = self.objectID {
+            nc.post(name:Notification.Name(rawValue: FJkSETTINGS_FROM_MASTER),
                     object: nil,
-                    userInfo: ["sizeTrait":compact])
+                    userInfo: ["sizeTrait":compact,"userObjID": id])
+            }
         }
     }
     

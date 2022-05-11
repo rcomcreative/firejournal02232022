@@ -62,6 +62,8 @@ extension ListTVC {
             navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewJournalModalEntry(_:)))
         case .personal:
             navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewPersonalNewEntryModal(_:)))
+        case .projects:
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewProject(_:)))
         default:
             navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewJournalModalEntry(_:)))
         }
@@ -178,6 +180,27 @@ extension ListTVC {
         personalNewEntrylModalTVC.context = context
         personalNewEntrylModalTVC.delegate = self
         self.present(personalNewEntrylModalTVC,animated: true)
+    }
+    
+    @objc func addNewProject(_ sender: Any) {
+        slideInTransitioningDelgate.direction = .bottom
+        slideInTransitioningDelgate.disableCompactHeight = true
+        let storyBoard : UIStoryboard = UIStoryboard(name: "NewPromotion", bundle:nil)
+        let promotionNewModalVC = storyBoard.instantiateInitialViewController() as! NewPromotionVC
+        promotionNewModalVC.transitioningDelegate = slideInTransitioningDelgate
+        if theUserTime != nil {
+            promotionNewModalVC.userTimeObjectID = theUserTime.objectID
+        if Device.IS_IPHONE {
+            promotionNewModalVC.modalPresentationStyle = .formSheet
+        } else {
+            promotionNewModalVC.modalPresentationStyle = .custom
+        }
+            promotionNewModalVC.delegate = self
+        self.present(promotionNewModalVC,animated: true)
+        } else {
+            let errorMessage = "A shift needs to be started to create journal entries."
+            errorAlert(errorMessage: errorMessage)
+        }
     }
     
     @IBAction func addNewJournalModalEntry(_ sender:Any) {

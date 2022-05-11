@@ -318,7 +318,7 @@ extension ShiftNewModalVC: UITableViewDataSource {
         switch section {
         case 0:
             switch row {
-            case 0:
+            case 1:
                 cell.datePicker.datePickerMode = .dateAndTime
                 cell.theSubject = "Date/Time"
                 if theUserTime != nil {
@@ -679,6 +679,7 @@ extension ShiftNewModalVC: ShiftModalHeaderVDelegate {
                 if let guid = theUserTime.userTimeGuid {
                     self.userDefaults.set(guid, forKey: FJkUSERTIMEGUID)
                     self.theStatus.guidString = guid
+                    self.theStatus.shiftDate = self.theUserTime.userStartShiftTime
                     theUserTime.shiftCompleted = false
                 } else {
                     var guidDate: GuidFormatter!
@@ -692,6 +693,7 @@ extension ShiftNewModalVC: ShiftModalHeaderVDelegate {
                     theUserTime.userTimeGuid = theUserGuid
                     self.userDefaults.set(theUserGuid, forKey: FJkUSERTIMEGUID)
                     self.theStatus.guidString = guid
+                    self.theStatus.shiftDate = self.theUserTime.userStartShiftTime
                     theUserTime.shiftCompleted = false
                 }
                 do {
@@ -701,9 +703,15 @@ extension ShiftNewModalVC: ShiftModalHeaderVDelegate {
                     }
                     let objectID = theUserTime.objectID
                     DispatchQueue.main.async {
-                        self.nc.post(name:Notification.Name(rawValue:FJkCKNewStartEndCreated),
+                        self.nc.post(name: Notification.Name(rawValue: FJkCKNewStartEndCreated),
                                 object: nil,
                                 userInfo: ["objectID": objectID as NSManagedObjectID])
+                    }
+                    DispatchQueue.main.async {
+                        self.nc.post(name: .fireJournalStatusNewToCloud, object: nil, userInfo: ["objectID": self.theStatus.objectID])
+                    }
+                    DispatchQueue.main.async {
+                        self.nc.post(name: Notification.Name(rawValue: FJkCKModifyJournalToCloud), object: nil, userInfo: ["objectID": self.theJournal.objectID])
                     }
                     delegate?.dismissShiftStartModal()
                 } catch let error as NSError {
@@ -757,7 +765,7 @@ extension ShiftNewModalVC: ShiftModalHeaderVDelegate {
     }
     
     func buildTheStartShiftJournal() {
-        let theJournal = Journal(context: context)
+        theJournal = Journal(context: context)
         let journalModDate = Date()
         let jGuidDate = GuidFormatter.init(date:journalModDate)
         let searchDate = FormattedDate.init(date:journalModDate)

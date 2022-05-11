@@ -165,6 +165,26 @@ extension ListTVC: PersonalNewEntryModalTVCDelegate {
     
 }
 
+extension ListTVC: NewPromotionVCDelegate {
+   
+    func newPromotionCanceled() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func newPromotionCreated(objectID: NSManagedObjectID) {
+        entity = "PromotionJournal"
+        attribute = "promotionDate"
+        let shift = MenuItems.projects
+        delegate?.journalObjectChosen(type: shift,id: objectID,compact: compact)
+        _ = getTheDataForTheList()
+        tableView.reloadData()
+        self.dismiss(animated: true, completion: nil)
+        nc.post(name: .fireJournalProjectFromMaster, object: nil, userInfo:  ["sizeTrait": compact,"objectID": objectID])
+    }
+    
+    
+}
+
 extension ListTVC: IncidentNewModalVCDelegate {
     
     func incidentNewCancelled() {

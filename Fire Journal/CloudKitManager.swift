@@ -131,6 +131,12 @@
         }()
         var theUserContext: NSManagedObjectContext!
         
+        lazy var theFCLocationProvider: FCLocationProvider = {
+            let provider = FCLocationProvider(with: (UIApplication.shared.delegate as! AppDelegate).persistentContainer)
+            return provider
+        }()
+        var theFCLocationContext: NSManagedObjectContext!
+        
         //    MARK: -INIT-
         private init(name: String) {
             self.cloudKitName = name
@@ -229,6 +235,8 @@
             nc.addObserver(self, selector:#selector(zoneRecordsCalled(notification:)),name:NSNotification.Name(rawValue: FJkCKZoneRecordsCALLED), object: nil)
             
             nc.addObserver(self, selector:#selector(newIncidentSendToCloud(notification:)),name:NSNotification.Name(rawValue: FJkCKNewIncidentCreated), object: nil)
+            
+            nc.addObserver(self, selector: #selector(fcLocationSendToCloud(ns:)), name: .fireJournalModifyFCLocationToCloud, object: nil)
             
             nc.addObserver(self, selector:#selector(newJournalSendToCloud(notification:)),name:NSNotification.Name(rawValue: FJkCKNewJournalCreated), object: nil)
             
@@ -329,6 +337,21 @@
             nc.addObserver(self, selector: #selector(reloadTheLocalIncidentType(ns:)), name: NSNotification.Name(rawValue: FJkReloadLocalIncidentTypesCalled ), object: nil )
             
             
+        }
+        
+//        MARK: -FCLocation to the cloud-
+        @objc func fcLocationSendToCloud(ns: Notification) {
+            if let userInfo = ns.userInfo as! [String: Any]? {
+                if let objectID = userInfo["objectID"] as? NSManagedObjectID {
+                    DispatchQueue.global().async {
+                        self.theFCLocationContext = self.theFCLocationProvider.persistentContainer.viewContext
+                        let _ = self.theFCLocationProvider.updateFCLocationToCloud(self.theFCLocationContext, objectID) { theLocation in
+                            print("here is the location that was saved \(theLocation)")
+                        }
+                        
+                    }
+                }
+            }
         }
         
         //    MARK: -RELOAD ROUTINES-

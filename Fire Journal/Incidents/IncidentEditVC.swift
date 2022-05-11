@@ -245,7 +245,7 @@ extension IncidentEditVC: UITableViewDataSource {
         switch section {
         case 0:
             switch row {
-            case 2:
+            case 1:
                 cell.datePicker.datePickerMode = .dateAndTime
                 cell.theSubject = "Date/Time"
                 if theIncident != nil {

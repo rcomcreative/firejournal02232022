@@ -382,9 +382,30 @@ extension PromotionJournalVC: PromotionNoteVCDelegate {
 extension PromotionJournalVC: JournalEditTVCellDelegate {
     
     func editBTapped() {
-        let errorMessage = "This is not available yet."
-        errorAlert(errorMessage: errorMessage)
+        let storyBoard : UIStoryboard = UIStoryboard(name: "PromotionEdit", bundle:nil)
+        thePromotionEditVC = storyBoard.instantiateViewController(withIdentifier: "PromotionEditVC") as? PromotionEditVC
+        thePromotionEditVC.modalPresentationStyle = .formSheet
+        thePromotionEditVC.isModalInPresentation = true
+        thePromotionEditVC.delegate = self
+        thePromotionEditVC.objectID = theProject.objectID
+        self.present(thePromotionEditVC, animated: true, completion: nil)
+        
+    }
+    
+    
+}
 
+extension PromotionJournalVC: PromotionEditVCDelegate {
+    func promotionEditSaveTapped(objectID: NSManagedObjectID) {
+        theProject = context.object(with: objectID) as? PromotionJournal
+        let index1: IndexPath = IndexPath(row: 1, section: 0)
+        let index2: IndexPath = IndexPath(row: 0, section: 0)
+        projectTableView.reloadRows(at: [index1, index2], with: .automatic)
+        thePromotionEditVC.dismiss(animated: true, completion: nil)
+    }
+    
+    func promotionEditCancelTapped() {
+        thePromotionEditVC.dismiss(animated: true, completion: nil)
     }
     
     

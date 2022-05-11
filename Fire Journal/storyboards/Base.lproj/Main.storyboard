@@ -2697,7 +2697,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Arm-wq-HPj">
-                                            <rect key="frame" x="8" y="0.0" width="398" height="48"/>
+                                            <rect key="frame" x="20" y="0.0" width="374" height="48"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                             <color key="textColor" systemColor="darkTextColor"/>
@@ -3118,7 +3118,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="ObQ-4S-Cez">
-                            <rect key="frame" x="0.0" y="0.0" width="500" height="0.0"/>
+                            <rect key="frame" x="0.0" y="0.0" width="500" height="1160"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Crew" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kpz-UA-64g">
@@ -3187,7 +3187,7 @@
                                     </connections>
                                 </textField>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bar10x10" translatesAutoresizingMaskIntoConstraints="NO" id="tVC-zB-9FL">
-                                    <rect key="frame" x="-1" y="-1" width="500" height="1"/>
+                                    <rect key="frame" x="-1" y="869" width="500" height="1"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="1" id="ZOn-fp-B9B"/>
                                     </constraints>
@@ -3325,7 +3325,7 @@
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CrewModalCell" id="n0D-Oc-mTN">
-                                <rect key="frame" x="0.0" y="44.666666030883789" width="500" height="43.666667938232422"/>
+                                <rect key="frame" x="0.0" y="1204.6666660308838" width="500" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="n0D-Oc-mTN" id="Kno-Sb-zFx">
                                     <rect key="frame" x="0.0" y="0.0" width="500" height="43.666667938232422"/>
@@ -7024,15 +7024,15 @@ http://purecommand.com/privacy/</string>
                                                 <exclude reference="Twg-hX-T0U"/>
                                                 <exclude reference="e9B-yq-x4i"/>
                                                 <exclude reference="xUJ-Lb-lkM"/>
+                                                <exclude reference="G29-TM-tzq"/>
+                                                <exclude reference="HlI-r4-zf0"/>
+                                                <exclude reference="eZO-Jg-YDf"/>
+                                                <exclude reference="sHH-tC-GVL"/>
                                                 <exclude reference="17i-u9-Ua6"/>
                                                 <exclude reference="FCp-WC-f8b"/>
                                                 <exclude reference="XhU-Oy-r1R"/>
                                                 <exclude reference="dB7-qf-ZYp"/>
                                                 <exclude reference="x07-Ab-ZhX"/>
-                                                <exclude reference="G29-TM-tzq"/>
-                                                <exclude reference="HlI-r4-zf0"/>
-                                                <exclude reference="eZO-Jg-YDf"/>
-                                                <exclude reference="sHH-tC-GVL"/>
                                             </mask>
                                         </variation>
                                         <variation key="heightClass=compact">
@@ -7053,14 +7053,14 @@ http://purecommand.com/privacy/</string>
                                                 <include reference="e9B-yq-x4i"/>
                                                 <exclude reference="nE7-yP-Y7H"/>
                                                 <exclude reference="zQJ-5q-7QA"/>
-                                                <include reference="17i-u9-Ua6"/>
-                                                <exclude reference="30U-Ks-j0R"/>
-                                                <include reference="FCp-WC-f8b"/>
-                                                <exclude reference="Pry-ku-M28"/>
                                                 <include reference="G29-TM-tzq"/>
                                                 <exclude reference="Uyp-1D-bjG"/>
                                                 <include reference="sHH-tC-GVL"/>
                                                 <exclude reference="vQ8-Uj-Xoa"/>
+                                                <include reference="17i-u9-Ua6"/>
+                                                <exclude reference="30U-Ks-j0R"/>
+                                                <include reference="FCp-WC-f8b"/>
+                                                <exclude reference="Pry-ku-M28"/>
                                             </mask>
                                         </variation>
                                         <variation key="widthClass=compact">
@@ -7081,15 +7081,15 @@ http://purecommand.com/privacy/</string>
                                                 <exclude reference="nE7-yP-Y7H"/>
                                                 <include reference="xUJ-Lb-lkM"/>
                                                 <exclude reference="zQJ-5q-7QA"/>
+                                                <include reference="HlI-r4-zf0"/>
+                                                <exclude reference="Uyp-1D-bjG"/>
+                                                <include reference="eZO-Jg-YDf"/>
+                                                <exclude reference="vQ8-Uj-Xoa"/>
                                                 <exclude reference="30U-Ks-j0R"/>
                                                 <exclude reference="Pry-ku-M28"/>
                                                 <include reference="XhU-Oy-r1R"/>
                                                 <include reference="dB7-qf-ZYp"/>
                                                 <exclude reference="x07-Ab-ZhX"/>
-                                                <include reference="HlI-r4-zf0"/>
-                                                <exclude reference="Uyp-1D-bjG"/>
-                                                <include reference="eZO-Jg-YDf"/>
-                                                <exclude reference="vQ8-Uj-Xoa"/>
                                             </mask>
                                         </variation>
                                         <variation key="heightClass=regular-widthClass=compact">
@@ -8011,16 +8011,16 @@ Once the Free Public Beta Trial has concluded, you will have the selected subscr
                                                         <rect key="frame" x="14" y="8" width="378" height="60"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start Shift" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wVf-tL-jSp">
-                                                                <rect key="frame" x="0.0" y="0.0" width="106.66666666666667" height="60"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="120" height="60"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="26"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="47Q-F4-Hey">
-                                                                <rect key="frame" x="106.66666666666666" y="0.0" width="271.33333333333337" height="60"/>
+                                                                <rect key="frame" x="120" y="0.0" width="258" height="60"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vWC-wh-3FV">
-                                                                        <rect key="frame" x="211.33333333333334" y="0.0" width="60.000000000000028" height="60"/>
+                                                                        <rect key="frame" x="198" y="0.0" width="60" height="60"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="60" id="M02-G9-aje"/>
                                                                             <constraint firstAttribute="width" constant="60" id="gOI-v0-0mS"/>
@@ -8608,7 +8608,7 @@ Once the Free Public Beta Trial has concluded, you will have the selected subscr
                                                                 <rect key="frame" x="0.0" y="68" width="365" height="28"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2019 Total Campaigns" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SCX-gg-OU2">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="147.33333333333334" height="28"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="147" height="28"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -8617,7 +8617,7 @@ Once the Free Public Beta Trial has concluded, you will have the selected subscr
                                                                         </variation>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0bZ-jx-hzd">
-                                                                        <rect key="frame" x="147.33333333333337" y="0.0" width="217.66666666666663" height="28"/>
+                                                                        <rect key="frame" x="147" y="0.0" width="218" height="28"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -8808,7 +8808,7 @@ Once the Free Public Beta Trial has concluded, you will have the selected subscr
                                                                 <rect key="frame" x="0.0" y="34" width="365" height="28"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2019 Total Campaigns" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AFC-fV-7o1">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="147.33333333333334" height="28"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="147" height="28"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -8817,7 +8817,7 @@ Once the Free Public Beta Trial has concluded, you will have the selected subscr
                                                                         </variation>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kUx-h2-d7p">
-                                                                        <rect key="frame" x="147.33333333333337" y="0.0" width="217.66666666666663" height="28"/>
+                                                                        <rect key="frame" x="147" y="0.0" width="218" height="28"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -8835,7 +8835,7 @@ Once the Free Public Beta Trial has concluded, you will have the selected subscr
                                                                 <rect key="frame" x="0.0" y="68" width="365" height="28"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Smoke Alarms Installed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TII-qM-Pt9">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="155.66666666666666" height="28"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="155" height="28"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -8844,7 +8844,7 @@ Once the Free Public Beta Trial has concluded, you will have the selected subscr
                                                                         </variation>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GLL-1t-rQ1">
-                                                                        <rect key="frame" x="155.66666666666663" y="0.0" width="209.33333333333337" height="28"/>
+                                                                        <rect key="frame" x="155" y="0.0" width="210" height="28"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -8862,7 +8862,7 @@ Once the Free Public Beta Trial has concluded, you will have the selected subscr
                                                                 <rect key="frame" x="0.0" y="102" width="365" height="28"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="C02 Alarms Installed " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Kh-4z-Lcp">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="141.33333333333334" height="28"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="141" height="28"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -8871,7 +8871,7 @@ Once the Free Public Beta Trial has concluded, you will have the selected subscr
                                                                         </variation>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tsb-bt-ZWv">
-                                                                        <rect key="frame" x="141.33333333333337" y="0.0" width="223.66666666666663" height="28"/>
+                                                                        <rect key="frame" x="141" y="0.0" width="224" height="28"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -8889,7 +8889,7 @@ Once the Free Public Beta Trial has concluded, you will have the selected subscr
                                                                 <rect key="frame" x="0.0" y="136" width="365" height="28"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2019 Total Smoke Alarms" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lLp-oR-so2">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="169" height="28"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="167.66666666666666" height="28"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -8898,7 +8898,7 @@ Once the Free Public Beta Trial has concluded, you will have the selected subscr
                                                                         </variation>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fyx-Bd-lpx">
-                                                                        <rect key="frame" x="169" y="0.0" width="196" height="28"/>
+                                                                        <rect key="frame" x="167.66666666666663" y="0.0" width="197.33333333333337" height="28"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -8916,7 +8916,7 @@ Once the Free Public Beta Trial has concluded, you will have the selected subscr
                                                                 <rect key="frame" x="0.0" y="170" width="365" height="28"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2019 Total C02 Alarms" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2bD-6z-JSb">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="151" height="28"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="150.33333333333334" height="28"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -8925,7 +8925,7 @@ Once the Free Public Beta Trial has concluded, you will have the selected subscr
                                                                         </variation>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ibE-wx-HdY">
-                                                                        <rect key="frame" x="151" y="0.0" width="214" height="28"/>
+                                                                        <rect key="frame" x="150.33333333333337" y="0.0" width="214.66666666666663" height="28"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -9019,18 +9019,21 @@ Once the Free Public Beta Trial has concluded, you will have the selected subscr
                                                 <exclude reference="077-Av-fyn"/>
                                                 <exclude reference="PoX-0E-YfW"/>
                                                 <exclude reference="clf-OI-OK1"/>
-                                                <exclude reference="1DS-Nl-2TL"/>
-                                                <exclude reference="2ud-Tt-uIb"/>
-                                                <exclude reference="6Wy-Af-q72"/>
-                                                <exclude reference="9mN-ap-OJa"/>
-                                                <exclude reference="BBL-IP-tWQ"/>
-                                                <exclude reference="dxu-G7-FPq"/>
                                                 <exclude reference="0ac-U7-F4u"/>
                                                 <exclude reference="9Qn-l4-MuV"/>
                                                 <exclude reference="Ijm-hT-Kiy"/>
                                                 <exclude reference="b44-DQ-D6D"/>
                                                 <exclude reference="wTV-Gl-biR"/>
                                                 <exclude reference="yaa-nt-gld"/>
+                                                <exclude reference="1DS-Nl-2TL"/>
+                                                <exclude reference="2ud-Tt-uIb"/>
+                                                <exclude reference="6Wy-Af-q72"/>
+                                                <exclude reference="9mN-ap-OJa"/>
+                                                <exclude reference="BBL-IP-tWQ"/>
+                                                <exclude reference="dxu-G7-FPq"/>
+                                                <exclude reference="6Nq-v2-SJ5"/>
+                                                <exclude reference="9gD-r6-iyn"/>
+                                                <exclude reference="jAE-Au-QAk"/>
                                                 <exclude reference="N6d-nR-eO5"/>
                                                 <exclude reference="THr-rS-k9M"/>
                                                 <exclude reference="YsH-76-1rp"/>
@@ -9039,9 +9042,6 @@ Once the Free Public Beta Trial has concluded, you will have the selected subscr
                                                 <exclude reference="mki-AS-Q6r"/>
                                                 <exclude reference="qMB-kb-JCD"/>
                                                 <exclude reference="wbQ-GO-bCZ"/>
-                                                <exclude reference="6Nq-v2-SJ5"/>
-                                                <exclude reference="9gD-r6-iyn"/>
-                                                <exclude reference="jAE-Au-QAk"/>
                                             </mask>
                                         </variation>
                                         <variation key="heightClass=compact">
@@ -9049,21 +9049,21 @@ Once the Free Public Beta Trial has concluded, you will have the selected subscr
                                                 <exclude reference="R5W-sB-K81"/>
                                                 <exclude reference="Yie-oY-H4H"/>
                                                 <include reference="clf-OI-OK1"/>
-                                                <include reference="1DS-Nl-2TL"/>
-                                                <include reference="6Wy-Af-q72"/>
-                                                <exclude reference="7d7-69-Pxv"/>
-                                                <exclude reference="JZR-kL-bd5"/>
                                                 <include reference="Ijm-hT-Kiy"/>
                                                 <exclude reference="Mks-1b-eSh"/>
                                                 <exclude reference="Ouf-8y-YCl"/>
                                                 <include reference="b44-DQ-D6D"/>
                                                 <include reference="yaa-nt-gld"/>
-                                                <exclude reference="JKf-go-i3J"/>
-                                                <include reference="THr-rS-k9M"/>
-                                                <include reference="mki-AS-Q6r"/>
+                                                <include reference="1DS-Nl-2TL"/>
+                                                <include reference="6Wy-Af-q72"/>
+                                                <exclude reference="7d7-69-Pxv"/>
+                                                <exclude reference="JZR-kL-bd5"/>
                                                 <include reference="9gD-r6-iyn"/>
                                                 <exclude reference="Lam-kB-bKf"/>
                                                 <exclude reference="MvX-rr-0Y0"/>
+                                                <exclude reference="JKf-go-i3J"/>
+                                                <include reference="THr-rS-k9M"/>
+                                                <include reference="mki-AS-Q6r"/>
                                             </mask>
                                         </variation>
                                         <variation key="widthClass=compact">
@@ -9071,17 +9071,21 @@ Once the Free Public Beta Trial has concluded, you will have the selected subscr
                                                 <include reference="077-Av-fyn"/>
                                                 <exclude reference="R5W-sB-K81"/>
                                                 <exclude reference="Yie-oY-H4H"/>
+                                                <include reference="0ac-U7-F4u"/>
+                                                <include reference="9Qn-l4-MuV"/>
+                                                <exclude reference="Mks-1b-eSh"/>
+                                                <exclude reference="Ouf-8y-YCl"/>
+                                                <include reference="wTV-Gl-biR"/>
                                                 <include reference="2ud-Tt-uIb"/>
                                                 <exclude reference="7d7-69-Pxv"/>
                                                 <exclude reference="9mN-ap-OJa"/>
                                                 <include reference="BBL-IP-tWQ"/>
                                                 <exclude reference="JZR-kL-bd5"/>
                                                 <include reference="dxu-G7-FPq"/>
-                                                <include reference="0ac-U7-F4u"/>
-                                                <include reference="9Qn-l4-MuV"/>
-                                                <exclude reference="Mks-1b-eSh"/>
-                                                <exclude reference="Ouf-8y-YCl"/>
-                                                <include reference="wTV-Gl-biR"/>
+                                                <include reference="6Nq-v2-SJ5"/>
+                                                <exclude reference="Lam-kB-bKf"/>
+                                                <exclude reference="MvX-rr-0Y0"/>
+                                                <include reference="jAE-Au-QAk"/>
                                                 <exclude reference="4iD-By-Uo5"/>
                                                 <exclude reference="JKf-go-i3J"/>
                                                 <exclude reference="N6d-nR-eO5"/>
@@ -9091,10 +9095,6 @@ Once the Free Public Beta Trial has concluded, you will have the selected subscr
                                                 <exclude reference="qMB-kb-JCD"/>
                                                 <exclude reference="wbQ-GO-bCZ"/>
                                                 <exclude reference="yFw-vx-m3N"/>
-                                                <include reference="6Nq-v2-SJ5"/>
-                                                <exclude reference="Lam-kB-bKf"/>
-                                                <exclude reference="MvX-rr-0Y0"/>
-                                                <include reference="jAE-Au-QAk"/>
                                             </mask>
                                         </variation>
                                         <variation key="heightClass=regular-widthClass=compact">
@@ -9189,17 +9189,17 @@ Once the Free Public Beta Trial has concluded, you will have the selected subscr
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="7aH-iY-JeA"/>
                                 <exclude reference="47X-mC-AKO"/>
                                 <exclude reference="tco-gO-4wb"/>
-                                <exclude reference="7aH-iY-JeA"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="constraints">
+                                <include reference="7aH-iY-JeA"/>
                                 <include reference="47X-mC-AKO"/>
                                 <exclude reference="cvX-Ez-gQT"/>
                                 <include reference="tco-gO-4wb"/>
-                                <include reference="7aH-iY-JeA"/>
                             </mask>
                         </variation>
                     </view>
@@ -9327,19 +9327,19 @@ Once the Free Public Beta Trial has concluded, you will have the selected subscr
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Store_Gradient_Background" translatesAutoresizingMaskIntoConstraints="NO" id="IXF-oR-1R4">
-                                <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="1366"/>
                             </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dNt-Rg-k9S">
-                                <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="1366"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ooQ-kR-vvI" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="-80" width="1024" height="1446"/>
+                                        <rect key="frame" x="0.0" y="-80" width="414" height="1446"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="cloudCircleLogo-1" translatesAutoresizingMaskIntoConstraints="NO" id="0lU-6r-rJP" userLabel="pureCommandLabel">
-                                                <rect key="frame" x="0.0" y="72" width="1024" height="313"/>
+                                                <rect key="frame" x="0.0" y="72" width="414" height="313"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Fire Journal Cloud" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RaV-5Q-pEv" userLabel="SubjectL">
-                                                <rect key="frame" x="0.0" y="338" width="1024" height="65"/>
+                                                <rect key="frame" x="0.0" y="338" width="414" height="65"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="65" id="afX-10-ax4"/>
                                                 </constraints>
@@ -9351,7 +9351,7 @@ Once the Free Public Beta Trial has concluded, you will have the selected subscr
                                                 </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Advanced Reporting and Management" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LHy-XK-gZg" userLabel="SubTitleL">
-                                                <rect key="frame" x="0.0" y="403" width="1024" height="55"/>
+                                                <rect key="frame" x="0.0" y="403" width="414" height="55"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="55" id="RuF-AL-E9j"/>
                                                 </constraints>
@@ -9363,7 +9363,7 @@ Once the Free Public Beta Trial has concluded, you will have the selected subscr
                                                 </variation>
                                             </label>
                                             <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FCZ-bZ-O6q" userLabel="DescriptionTV">
-                                                <rect key="frame" x="80" y="468" width="864" height="470"/>
+                                                <rect key="frame" x="80" y="468" width="254" height="470"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="470" id="SFB-CA-cjc"/>
@@ -9661,14 +9661,15 @@ http://purecommand.com/privacy/</string>
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1524"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Store_Gradient_Background" translatesAutoresizingMaskIntoConstraints="NO" id="tpw-1s-9GO">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tpw-1s-9GO">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1524"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </imageView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PuB-96-bTg">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="1524"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PuB-96-bTg">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1800"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9PQ-nf-Hla" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="-80" width="768" height="1800"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9PQ-nf-Hla" userLabel="Content View">
+                                        <rect key="frame" x="0.0" y="-80" width="768" height="1700"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cloudCircleLogo-1" translatesAutoresizingMaskIntoConstraints="NO" id="Jad-vT-0x1" userLabel="pureCommandLabel">
                                                 <rect key="frame" x="0.0" y="60" width="768" height="139"/>
@@ -9686,7 +9687,6 @@ http://purecommand.com/privacy/</string>
                                                     </constraint>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="36"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                                 <variation key="widthClass=regular">
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="55"/>
@@ -9700,21 +9700,20 @@ http://purecommand.com/privacy/</string>
                                                     </constraint>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                                 <variation key="widthClass=regular">
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
                                                 </variation>
                                             </label>
                                             <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IOF-ry-dWb" userLabel="DescriptionTV">
-                                                <rect key="frame" x="20" y="262" width="728" height="700"/>
+                                                <rect key="frame" x="20" y="262" width="728" height="950"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="600" id="c3S-s4-Gi4">
-                                                        <variation key="heightClass=regular-widthClass=compact" constant="700"/>
+                                                        <variation key="heightClass=regular-widthClass=compact" constant="950"/>
                                                     </constraint>
                                                 </constraints>
-                                                <mutableString key="text">As a firefighter, you understand the importance of keeping track of important milestones in your life and career. Being a “member” of your department is something to be proud of - to know that you’re serving your community to the best of your ability. 
+                                                <string key="text">As a firefighter, you understand the importance of keeping track of important milestones in your life and career. Being a “member” of your department is something to be proud of - to know that you’re serving your community to the best of your ability. 
 
 Fire Journal Membership brings a never before seen level of accountability and service history to firefighters everywhere. Once you become a member, the capabilities of Fire Journal (the iOS app) are extended, and you’ll gain important insight about your firefighting career. 
 
@@ -9747,8 +9746,8 @@ GOLD PLAN: $3.33 per month, paid as a single annual payment
 
 The total annual subscription fee (GOLD PLAN) is $39.99. Try Fire Journal Membership for 60 days for FREE, then continue with either plan above. You may upgrade a SILVER PLAN to a GOLD PLAN at any time. 
 
-NOTE: If you update your devices, you may re-connect your Fire Journal Membership using the “Restore Purchase” button below. </mutableString>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+NOTE: If you update your devices, you may re-connect your Fire Journal Membership using the “Restore Purchase” button below. </string>
+                                                <color key="textColor" systemColor="labelColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>
@@ -9756,15 +9755,15 @@ NOTE: If you update your devices, you may re-connect your Fire Journal Membershi
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="11"/>
                                                 </variation>
                                             </textView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="5MS-lD-YD1">
-                                                <rect key="frame" x="20" y="987" width="728" height="375"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="5MS-lD-YD1">
+                                                <rect key="frame" x="20" y="1237" width="728" height="375"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3I3-9B-8XA" userLabel="QuarterlyView">
                                                         <rect key="frame" x="0.0" y="0.0" width="728" height="150"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tI1-ib-JYj">
                                                                 <rect key="frame" x="0.0" y="0.0" width="728" height="102"/>
-                                                                <state key="normal" backgroundImage="Store_Button_Background"/>
+                                                                <state key="normal" backgroundImage="store_silver_background"/>
                                                                 <state key="selected" backgroundImage="Store_Button_Background-highlightSelect"/>
                                                                 <state key="highlighted" backgroundImage="Store_Button_Background-highlightSelect"/>
                                                                 <connections>
@@ -9805,7 +9804,6 @@ NOTE: If you update your devices, you may re-connect your Fire Journal Membershi
                                                                 <rect key="frame" x="1" y="105" width="726" height="28.666666666666657"/>
                                                                 <string key="text">TRY IT FOR 60 DAYS FREE, then automatically charged to your iTunes account every month. You may unsubscribe in System Preferences.</string>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                                 <variation key="widthClass=regular">
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -9830,12 +9828,12 @@ NOTE: If you update your devices, you may re-connect your Fire Journal Membershi
                                                             <constraint firstItem="IPx-K2-uks" firstAttribute="leading" secondItem="kXj-bi-pqE" secondAttribute="trailing" id="pMY-xK-VbU"/>
                                                         </constraints>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LQc-QE-Ipu" userLabel="AnnualView">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LQc-QE-Ipu" userLabel="AnnualView">
                                                         <rect key="frame" x="0.0" y="175" width="728" height="200"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nyD-7I-TeD">
                                                                 <rect key="frame" x="0.0" y="0.0" width="728" height="102"/>
-                                                                <state key="normal" backgroundImage="Store_Button_Background"/>
+                                                                <state key="normal" backgroundImage="store_gold_background"/>
                                                                 <state key="selected" backgroundImage="Store_Button_Background-highlightSelect"/>
                                                                 <state key="highlighted" backgroundImage="Store_Button_Background-highlightSelect"/>
                                                                 <connections>
@@ -9873,16 +9871,15 @@ NOTE: If you update your devices, you may re-connect your Fire Journal Membershi
                                                                 </variation>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lwn-1u-AqW">
-                                                                <rect key="frame" x="1" y="105" width="726" height="71.666666666666686"/>
+                                                                <rect key="frame" x="1" y="105" width="726" height="120"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="71.666666666666686" id="3PS-hg-fE0"/>
+                                                                    <constraint firstAttribute="height" constant="120" id="3PS-hg-fE0"/>
                                                                 </constraints>
                                                                 <string key="text">GOLD PLAN: $3.33 per month, paid as a single annual payment
 
 The total annual subscription fee (GOLD PLAN) is $39.99. Try Fire Journal Membership for 60 days for FREE, then continue with either plan above. You may upgrade a SILVER PLAN to a GOLD PLAN at any time.      
 TRY IT FOR 60 DAYS FREE, then automatically charged to your iTunes account.</string>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                                 <variation key="widthClass=regular">
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -9899,7 +9896,7 @@ TRY IT FOR 60 DAYS FREE, then automatically charged to your iTunes account.</str
                                                             <constraint firstItem="lwn-1u-AqW" firstAttribute="top" secondItem="nyD-7I-TeD" secondAttribute="bottom" constant="3" id="Exk-Ma-hG5"/>
                                                             <constraint firstAttribute="trailing" secondItem="BCy-Ah-ngE" secondAttribute="trailing" constant="30" id="G3g-rL-1ms"/>
                                                             <constraint firstAttribute="trailing" secondItem="lwn-1u-AqW" secondAttribute="trailing" constant="1" id="GvI-tf-6bh"/>
-                                                            <constraint firstAttribute="height" constant="200" id="Lri-Xq-zZC"/>
+                                                            <constraint firstAttribute="height" constant="300" id="Lri-Xq-zZC"/>
                                                             <constraint firstItem="lwn-1u-AqW" firstAttribute="leading" secondItem="LQc-QE-Ipu" secondAttribute="leading" constant="1" id="Mb2-34-MmB"/>
                                                             <constraint firstItem="nyD-7I-TeD" firstAttribute="width" secondItem="LQc-QE-Ipu" secondAttribute="width" id="Pti-iq-mph"/>
                                                             <constraint firstItem="BCy-Ah-ngE" firstAttribute="height" secondItem="Ut2-No-w9V" secondAttribute="height" id="ax3-4X-Ubi"/>
@@ -9909,15 +9906,17 @@ TRY IT FOR 60 DAYS FREE, then automatically charged to your iTunes account.</str
                                                     </view>
                                                 </subviews>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="gKV-0b-7jJ">
-                                                <rect key="frame" x="20" y="1377" width="728" height="100"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="gKV-0b-7jJ">
+                                                <rect key="frame" x="20" y="1627" width="728" height="100"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xEi-ow-fnY" userLabel="LoginB">
                                                         <rect key="frame" x="0.0" y="0.0" width="728" height="40"/>
+                                                        <color key="backgroundColor" name="FJIconRed"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="2sd-A5-C2k"/>
                                                         </constraints>
-                                                        <state key="normal" title="LOGIN" backgroundImage="Login_Button_Background"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                                        <state key="normal" title="LOGIN"/>
                                                         <state key="selected" backgroundImage="Login_Button_Background_highSelect"/>
                                                         <state key="highlighted" backgroundImage="Login_Button_Background_highSelect"/>
                                                         <connections>
@@ -9926,10 +9925,12 @@ TRY IT FOR 60 DAYS FREE, then automatically charged to your iTunes account.</str
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yiI-lq-63c" userLabel="RestoreB">
                                                         <rect key="frame" x="0.0" y="60" width="728" height="40"/>
+                                                        <color key="backgroundColor" name="FJBlueColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="ct4-2Z-4Wd"/>
                                                         </constraints>
-                                                        <state key="normal" title="RESTORE PURCHASE" backgroundImage="Restore_Button_Background"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                                        <state key="normal" title="RESTORE PURCHASE"/>
                                                         <state key="selected" backgroundImage="Restore_Button_Background_SelectHigh"/>
                                                         <state key="highlighted" backgroundImage="Restore_Button_Background_SelectHigh"/>
                                                         <connections>
@@ -9938,10 +9939,10 @@ TRY IT FOR 60 DAYS FREE, then automatically charged to your iTunes account.</str
                                                     </button>
                                                 </subviews>
                                             </stackView>
-                                            <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y6k-VC-pL1" userLabel="SubscriptionTV">
-                                                <rect key="frame" x="20" y="1489" width="728" height="286"/>
+                                            <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y6k-VC-pL1" userLabel="SubscriptionTV">
+                                                <rect key="frame" x="20" y="1739" width="728" height="66"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <mutableString key="text">IMPORTANT MEMBERSHIP/SUBSCRIPTION INFORMATION:
+                                                <string key="text">IMPORTANT MEMBERSHIP/SUBSCRIPTION INFORMATION:
 Fire Journal Membership is a recurring subscription. If you decide to purchase a membership subscription, you’ll receive an initial FREE 60 DAY TRIAL. Once the free trial  period concludes, your subscription will automatically engage and payment will be charged to the credit card that is part of your “dot Mac” or “iCloud” membership. You may disable “Auto renewal” at any time by going to “Settings” in the iOS app once you have completed downloading and installing the Fire Journal app into your smartphone device.
 
 For additional information, please see our terms of use via our website:
@@ -9953,8 +9954,8 @@ http://purecommand.com/privacy/
 To learn more about PureCommand and our support for the fire service, visit our website:
 httpw://www.purecommand.com
 
-Thank you for becoming part of the Fire Journal family. </mutableString>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+Thank you for becoming part of the Fire Journal family. </string>
+                                                <color key="textColor" systemColor="labelColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>
@@ -9966,7 +9967,7 @@ Thank you for becoming part of the Fire Journal family. </mutableString>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="gKV-0b-7jJ" firstAttribute="top" secondItem="5MS-lD-YD1" secondAttribute="bottom" constant="15" id="8Fd-nf-IKO"/>
-                                            <constraint firstItem="y6k-VC-pL1" firstAttribute="bottom" secondItem="9PQ-nf-Hla" secondAttribute="bottom" constant="75" id="IHm-So-1ui"/>
+                                            <constraint firstItem="y6k-VC-pL1" firstAttribute="bottom" secondItem="9PQ-nf-Hla" secondAttribute="bottom" constant="105" id="IHm-So-1ui"/>
                                             <constraint firstItem="2oi-Cn-Pbc" firstAttribute="top" secondItem="cTy-R2-D8r" secondAttribute="bottom" id="J6E-Gh-cb8"/>
                                             <constraint firstItem="Jad-vT-0x1" firstAttribute="leading" secondItem="cTy-R2-D8r" secondAttribute="leading" id="LUq-w0-5rU"/>
                                             <constraint firstItem="IOF-ry-dWb" firstAttribute="leading" secondItem="9PQ-nf-Hla" secondAttribute="leading" constant="60" identifier="ContentView2DescrionTVLeading" id="PFQ-EQ-L1X">
@@ -11040,7 +11041,7 @@ Status</string>
                                                                 <rect key="frame" x="0.0" y="68" width="365" height="28"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2019 Total Campaigns" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rke-fd-LwI">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="147.33333333333334" height="28"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="147" height="28"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                         <color key="textColor" systemColor="darkTextColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -11049,7 +11050,7 @@ Status</string>
                                                                         </variation>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6CB-cG-Gaw">
-                                                                        <rect key="frame" x="147.33333333333337" y="0.0" width="217.66666666666663" height="28"/>
+                                                                        <rect key="frame" x="147" y="0.0" width="218" height="28"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                         <color key="textColor" systemColor="darkTextColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -11193,7 +11194,7 @@ Alarms</string>
                                                                 <rect key="frame" x="0.0" y="34" width="365" height="28"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2019 Total Campaigns" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iXq-lb-OnN">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="147.33333333333334" height="28"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="147" height="28"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                         <color key="textColor" systemColor="darkTextColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -11202,7 +11203,7 @@ Alarms</string>
                                                                         </variation>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJc-eC-0AP">
-                                                                        <rect key="frame" x="147.33333333333337" y="0.0" width="217.66666666666663" height="28"/>
+                                                                        <rect key="frame" x="147" y="0.0" width="218" height="28"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                         <color key="textColor" systemColor="darkTextColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -11220,7 +11221,7 @@ Alarms</string>
                                                                 <rect key="frame" x="0.0" y="68" width="365" height="28"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Smoke Alarms Installed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Met-MY-UKW">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="155.66666666666666" height="28"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="155" height="28"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                         <color key="textColor" systemColor="darkTextColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -11229,7 +11230,7 @@ Alarms</string>
                                                                         </variation>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u58-Ah-Qi2">
-                                                                        <rect key="frame" x="155.66666666666663" y="0.0" width="209.33333333333337" height="28"/>
+                                                                        <rect key="frame" x="155" y="0.0" width="210" height="28"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                         <color key="textColor" systemColor="darkTextColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -11247,7 +11248,7 @@ Alarms</string>
                                                                 <rect key="frame" x="0.0" y="102" width="365" height="28"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="C02 Alarms Installed " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SyL-vQ-mvg">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="141.33333333333334" height="28"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="141" height="28"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                         <color key="textColor" systemColor="darkTextColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -11256,7 +11257,7 @@ Alarms</string>
                                                                         </variation>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h8g-FI-FWE">
-                                                                        <rect key="frame" x="141.33333333333337" y="0.0" width="223.66666666666663" height="28"/>
+                                                                        <rect key="frame" x="141" y="0.0" width="224" height="28"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                         <color key="textColor" systemColor="darkTextColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -11274,7 +11275,7 @@ Alarms</string>
                                                                 <rect key="frame" x="0.0" y="136" width="365" height="28"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2019 Total Smoke Alarms" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lYd-qU-2dr">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="169" height="28"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="167.66666666666666" height="28"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                         <color key="textColor" systemColor="darkTextColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -11283,7 +11284,7 @@ Alarms</string>
                                                                         </variation>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9rY-VG-uGK">
-                                                                        <rect key="frame" x="169" y="0.0" width="196" height="28"/>
+                                                                        <rect key="frame" x="167.66666666666663" y="0.0" width="197.33333333333337" height="28"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                         <color key="textColor" systemColor="darkTextColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -11301,7 +11302,7 @@ Alarms</string>
                                                                 <rect key="frame" x="0.0" y="169.99999999999977" width="365" height="28"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2019 Total C02 Alarms" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="688-w9-Drq">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="151" height="28"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="150.33333333333334" height="28"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                         <color key="textColor" systemColor="darkTextColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -11310,7 +11311,7 @@ Alarms</string>
                                                                         </variation>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dma-UW-ivg">
-                                                                        <rect key="frame" x="151" y="0.0" width="214" height="28"/>
+                                                                        <rect key="frame" x="150.33333333333337" y="0.0" width="214.66666666666663" height="28"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                         <color key="textColor" systemColor="darkTextColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -11420,8 +11421,6 @@ Alarms</string>
                                                 <exclude reference="SGb-VZ-vqT"/>
                                                 <exclude reference="kUU-fT-kIj"/>
                                                 <exclude reference="sgw-0u-7a6"/>
-                                                <exclude reference="9r1-Pg-zxS"/>
-                                                <exclude reference="cui-gG-O9k"/>
                                                 <exclude reference="4gZ-aX-JwH"/>
                                                 <exclude reference="AZa-c9-aYf"/>
                                                 <exclude reference="FOG-ye-0jI"/>
@@ -11430,6 +11429,8 @@ Alarms</string>
                                                 <exclude reference="OmP-fv-qom"/>
                                                 <exclude reference="VXq-7Y-zY5"/>
                                                 <exclude reference="gL2-hE-qvZ"/>
+                                                <exclude reference="9r1-Pg-zxS"/>
+                                                <exclude reference="cui-gG-O9k"/>
                                                 <exclude reference="8xh-zT-yAW"/>
                                                 <exclude reference="BCC-ee-4Cn"/>
                                                 <exclude reference="HEH-2c-J1s"/>
@@ -11482,8 +11483,6 @@ Alarms</string>
                                                 <exclude reference="IG7-GP-Bdg"/>
                                                 <exclude reference="qOs-vi-Tu2"/>
                                                 <include reference="sgw-0u-7a6"/>
-                                                <include reference="9r1-Pg-zxS"/>
-                                                <exclude reference="QKh-7g-mgC"/>
                                                 <include reference="4gZ-aX-JwH"/>
                                                 <exclude reference="BKG-aP-H9W"/>
                                                 <include reference="Lt1-b5-1SG"/>
@@ -11491,6 +11490,8 @@ Alarms</string>
                                                 <include reference="OmP-fv-qom"/>
                                                 <include reference="VXq-7Y-zY5"/>
                                                 <exclude reference="mZI-xo-1cK"/>
+                                                <include reference="9r1-Pg-zxS"/>
+                                                <exclude reference="QKh-7g-mgC"/>
                                                 <exclude reference="BCC-ee-4Cn"/>
                                                 <include reference="HEH-2c-J1s"/>
                                                 <include reference="HMW-QH-CtJ"/>
@@ -11664,10 +11665,18 @@ Alarms</string>
         <image name="searchPin" width="200" height="200"/>
         <image name="seperator" width="357" height="2"/>
         <image name="startGreenButton" width="80" height="28"/>
+        <image name="store_gold_background" width="812" height="102"/>
+        <image name="store_silver_background" width="812" height="102"/>
         <image name="tvc-colorField" width="10" height="10"/>
         <image name="worldMaps19c5fb-blue2" width="659" height="659"/>
+        <namedColor name="FJBlueColor">
+            <color red="0.046999998390674591" green="0.32499998807907104" blue="0.67799997329711914" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="FJGreenColor">
             <color red="0.24899999797344208" green="0.82700002193450928" blue="0.1289999932050705" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="FJIconRed">
+            <color red="0.93699997663497925" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="SeparatorColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

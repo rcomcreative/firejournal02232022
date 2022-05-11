@@ -130,7 +130,7 @@ class TheJournalNoteVC: UIViewController {
     
     
     func errorAlert(errorMessage: String) {
-        let alert = UIAlertController.init(title: "Error", message: errorMessage, preferredStyle: .alert)
+        let alert = UIAlertController.init(title: "Required Action:", message: errorMessage, preferredStyle: .alert)
         let okAction = UIAlertAction.init(title: "Okay", style: .default, handler: {_ in
             self.alertUp = false
         })
@@ -404,7 +404,7 @@ extension TheJournalNoteVC: NewModalHeaderVDelegate {
                     
             }
         } else {
-            errorAlert(errorMessage: "The time stamp needs to be tapped before you can save this note.")
+            errorAlert(errorMessage: "Please enter a time stamp prior to saving.")
         }
     }
     

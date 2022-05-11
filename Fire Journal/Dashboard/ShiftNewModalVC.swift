@@ -49,6 +49,7 @@ class ShiftNewModalVC: UIViewController {
     var theStatus: Status!
     var theStatusOID: NSManagedObjectID!
     var theUser: FireJournalUser!
+    var theJournal: Journal!
     var utGuid: String = ""
     var relieveAvailable: Bool = false
     var superAvailable: Bool = false

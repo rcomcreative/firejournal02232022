@@ -54,9 +54,28 @@ extension DetailViewController {
         
         nc.addObserver(self, selector:#selector(myFreshDeskUpdated(ns:)),name:NSNotification.Name(rawValue: FJkFRESHDESK_UPDATED), object: nil)
         
+        if Device.IS_IPAD {
+            nc.addObserver(self, selector: #selector(saveStatusToCloud(ns:)), name: .fireJournalStatusNewToCloud, object: nil)
+        }
+        
     }
     
         //    MARK: -NOTIFICATION FUNCTIONS-
+    
+        //    MARK: -STATUS SAVE-
+            @objc func saveStatusToCloud(ns:Notification) {
+                if let userInfo = ns.userInfo as! [String: Any]? {
+                    if let objectID = userInfo["objectID"] as? NSManagedObjectID {
+                        DispatchQueue.global().async {
+                            self.statusContext = self.statusProvider.persistentContainer.viewContext
+                            self.statusProvider.createStatusCKRecord(self.statusContext, objectID) { status in
+                                print("status has been updated in the cloud \(status)")
+                            }
+                        }
+                    }
+                }
+            }
+        
     
     
     @objc func compactOrRegular(ns: Notification) {

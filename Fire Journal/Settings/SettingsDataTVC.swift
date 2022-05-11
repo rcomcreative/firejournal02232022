@@ -46,7 +46,8 @@ class SettingsDataTVC: UITableViewController, NSFetchedResultsControllerDelegate
     var collapsed:Bool = false
     weak var delegate:SettingsDataDelegate? = nil
     var alertUp: Bool = false
-    
+    var objectID: NSManagedObjectID!
+    var theUser: FireJournalUser!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +58,10 @@ class SettingsDataTVC: UITableViewController, NSFetchedResultsControllerDelegate
         vcLaunch.splitVC = self.splitViewController
         launchNC = LaunchNotifications.init(launchVC: vcLaunch)
         launchNC.callNotifications()
+        if objectID != nil {
+            theUser = context.object(with: objectID) as? FireJournalUser
+            vcLaunch.userID = objectID
+        }
         bkgrdContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         bkgrdContext.persistentStoreCoordinator = context.persistentStoreCoordinator
         nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: bkgrdContext)
@@ -168,11 +173,14 @@ class SettingsDataTVC: UITableViewController, NSFetchedResultsControllerDelegate
         if collapsed {
             delegate?.settingsDataBackToSettings()
         } else {
-        nc.post(name:Notification.Name(rawValue:FJkSETTINGS_FROM_MASTER),
-                object: nil,
-                userInfo: ["sizeTrait":compact])
+            if let id = objectID {
+                nc.post(name:Notification.Name(rawValue: FJkSETTINGS_FROM_MASTER),
+                        object: nil,
+                        userInfo: ["sizeTrait":compact,"userObjID": id])
+                }
         }
     }
+    
     @IBAction func updateTheData(_ sender: Any) {
         if collapsed {
             delegate?.settingsDataBackToSettings()

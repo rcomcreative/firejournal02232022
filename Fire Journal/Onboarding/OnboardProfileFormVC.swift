@@ -252,10 +252,15 @@ extension OnboardProfileFormVC: OnboardHeaderVDelegate {
             do {
                 try context.save()
                 DispatchQueue.main.async {
-                    self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"FireJournalUser merge that"])
+                    self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"FireJournalUser merge that","status": false])
                 }
                 delegate?.theOnboardFormIsComplete(objectID: self.objectID, userTimeObjectID: self.theUserTime.objectID)
+                DispatchQueue.main.async {
                 self.nc.post(name: .fireJournalUserModifiedSendToCloud , object: nil, userInfo: ["objectID": self.theFireJournalUser.objectID])
+                }
+                DispatchQueue.main.async {
+                self.nc.post(name: .fireJournalStatusNewToCloud, object: nil, userInfo: ["objectID": self.theStatus.objectID])
+                }
                 self.dismiss(animated: true, completion: nil)
             } catch let error as NSError {
                 let theError: String = error.localizedDescription

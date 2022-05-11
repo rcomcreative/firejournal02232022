@@ -49,7 +49,7 @@ class ModifiedFireJournalUserSendToCloudOperation: FJOperation {
         
         print("starting ModifiedFireJournalUserSendToCloudOperation")
         
-        thread = Thread(target:self, selector:#selector(checkTheThread), object:nil)
+        thread = Thread(target:self, selector: #selector(checkTheThread), object:nil)
         nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: context)
         executing(true)
         
@@ -125,7 +125,7 @@ class ModifiedFireJournalUserSendToCloudOperation: FJOperation {
     }
     
     @objc func checkTheThread() {
-        let testThread:Bool = thread.isMainThread
+        let testThread: Bool = thread.isMainThread
         print("here is testThread \(testThread) and \(Thread.current)")
     }
     

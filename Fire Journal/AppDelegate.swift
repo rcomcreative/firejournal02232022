@@ -71,6 +71,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     }()
     var userContext: NSManagedObjectContext!
     
+    lazy var statusProvider: StatusProvider = {
+        let provider = StatusProvider(with: (UIApplication.shared.delegate as! AppDelegate).persistentContainer)
+        return provider
+    }()
+    var statusContext: NSManagedObjectContext!
+    
     
     //    MARK -LOCATION FOR WEATHER-
     func determineLocation() {
@@ -124,10 +130,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        bkgrndTask = BkgrndTask.init(bkgrndTask: bgTask)
-        bkgrndTask?.operation = "AppDelegate"
-        bkgrndTask?.registerBackgroundTask()
-        thereIsBackgroundTask = true
+//        bkgrndTask = BkgrndTask.init(bkgrndTask: bgTask)
+//        bkgrndTask?.operation = "AppDelegate"
+//        bkgrndTask?.registerBackgroundTask()
+//        thereIsBackgroundTask = true
         UIDevice.current.beginGeneratingDeviceOrientationNotifications()
         addObservers()
         
@@ -182,6 +188,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             getTheUser(entity: "FireJournalUser", attribute: "userGuid", sortAttribute: "lastName")
             let reach = userDefaults.bool(forKey: FJkInternetConnectionAvailable)
             if reach {
+                DispatchQueue.global(qos: .background).async {
+                    self.statusContext = self.statusProvider.persistentContainer.viewContext
+                    self.statusProvider.getStatusFromCloud(self.statusContext) { status in
+                        print("here is the status \(status)")
+                    }
+                }
                 fetchAnyChangesWeMissed(firstRun: firstRun)
                 determineLocation()
             }
@@ -189,15 +201,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             userDefaults.synchronize()
         } else {
             DispatchQueue.global(qos: .background).async {
+                self.userContext = self.userProvider.persistentContainer.newBackgroundContext()
+                let loadTheUserFromCloud = LoadTheUserFromCloud(context: self.userContext)
+                loadTheUserFromCloud.getCloudUser()
+            }
+            DispatchQueue.global(qos: .background).async {
                 self.fdidContext = self.fdidProvider.persistentContainer.newBackgroundContext()
                 if let fdid = self.fdidProvider.buildTheFDIDs(theGuidDate: Date(), backgroundContext: self.fdidContext) {
                     print("fdids are done")
                 }
-            }
-            DispatchQueue.main.async {
-                self.userContext = self.userProvider.persistentContainer.newBackgroundContext()
-                let loadTheUserFromCloud = LoadTheUserFromCloud(context: self.userContext)
-                loadTheUserFromCloud.getCloudUser()
             }
             self.cloud.firstRun = true
         }
@@ -651,6 +663,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         
         if self.fetched.isEmpty {
             print("no user available")
+            subscriptionsService.context = managedObjectContext
             subscriptionsService.fetchAvailableProducts()
             return
         } else {

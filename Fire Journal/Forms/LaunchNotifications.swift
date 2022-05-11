@@ -87,7 +87,9 @@ class LaunchNotifications {
         if let userInfo = notification.userInfo as! [String: Any]?
     {
         compact = userInfo["sizeTrait"] as? SizeTrait
-        vcLaunch.settingsPrivacyCalled(compact: compact)
+         if let id = userInfo["userObjID"] as? NSManagedObjectID {
+            vcLaunch.settingsPrivacyCalled(compact: compact, objectID: id)
+                }
         }
     }
     
@@ -95,7 +97,9 @@ class LaunchNotifications {
         if let userInfo = notification.userInfo as! [String: Any]?
     {
         compact = userInfo["sizeTrait"] as? SizeTrait
-        vcLaunch.settingsTermsCalled(compact: compact)
+            if let id = userInfo["userObjID"] as? NSManagedObjectID {
+                vcLaunch.settingsTermsCalled(compact: compact, objectID: id)
+            }
         }
     }
     
@@ -103,7 +107,9 @@ class LaunchNotifications {
         if let userInfo = notification.userInfo as! [String: Any]?
     {
         compact = userInfo["sizeTrait"] as? SizeTrait
-        vcLaunch.settingsLocalIncidentTypesCalled(compact: compact)
+            if let id = userInfo["userObjID"] as? NSManagedObjectID {
+            vcLaunch.settingsLocalIncidentTypesCalled(compact: compact, objectID: id)
+            }
         }
     }
     
@@ -151,7 +157,9 @@ class LaunchNotifications {
         if let userInfo = notification.userInfo as! [String: Any]?
     {
         compact = userInfo["sizeTrait"] as? SizeTrait
-        vcLaunch.settingsTagsCalled(compact: compact)
+            if let objectID = userInfo["userObjID"] as? NSManagedObjectID {
+                vcLaunch.settingsTagsCalled(compact: compact, objectID: objectID)
+            }
         }
     }
     
@@ -167,7 +175,9 @@ class LaunchNotifications {
         if let userInfo = notification.userInfo as! [String: Any]?
         {
             compact = userInfo["sizeTrait"] as? SizeTrait
-            vcLaunch.settingsCloudCalled(compact: compact)
+            if let objectID = userInfo["userObjID"] as? NSManagedObjectID {
+                vcLaunch.settingsCloudCalled(compact: compact, objectID: objectID)
+            }
         }
     }
     
@@ -222,7 +232,9 @@ class LaunchNotifications {
         if let userInfo = notification.userInfo as! [String: Any]?
         {
             compact = userInfo["sizeTrait"] as? SizeTrait
-            vcLaunch.settingsCalled(sizeTrait: compact)
+            if let objectID = userInfo["userObjID"] as? NSManagedObjectID {
+                vcLaunch.settingsCalled(sizeTrait: compact, objectID: objectID)
+            }
         }
     }
     

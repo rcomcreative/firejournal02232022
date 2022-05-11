@@ -99,7 +99,7 @@ extension PromotionJournalVC: CameraTVCellDelegate, PHPickerViewControllerDelega
                                     print("file saved")
                                     self.taskContext = self.photoProvider.persistentContainer.newBackgroundContext()
                                     let objectID = self.theProject.objectID
-                                    self.photoProvider.addPhotoToProject(imageData: data, imageURL: url, projectID: objectID, taskContext: self.taskContext) {
+                                    self.photoProvider.addPhotoToProject(imageData: data, imageURL: url, projectID: objectID, taskContext: self.photoProvider.persistentContainer.viewContext) {
                                         completionHandler?()
                                     }
                                 } catch {
@@ -134,6 +134,7 @@ extension PromotionJournalVC: CameraTVCellDelegate, PHPickerViewControllerDelega
                     self.photosAvailable = false
                     fatalError("###\(#function): Failed to get JPG data and URL of the picked image!")
                 }
+                DispatchQueue.global(qos: .background).async {
                 let guid = UUID()
                 let fileName = guid.uuidString + ".jpg"
                 let url = CloudKitManager.attachmentFolder.appendingPathComponent(fileName)
@@ -144,8 +145,8 @@ extension PromotionJournalVC: CameraTVCellDelegate, PHPickerViewControllerDelega
                         print("file saved")
                         self.taskContext = self.photoProvider.persistentContainer.newBackgroundContext()
                         let objectID = self.theProject.objectID
-                        self.photoProvider.addPhotoToProject(imageData: data, imageURL: url, projectID: objectID, taskContext: self.taskContext) {
-                            
+                        self.photoProvider.addPhotoToProject(imageData: data, imageURL: url, projectID: objectID, taskContext: self.photoProvider.persistentContainer.viewContext) {
+                            DispatchQueue.main.async {
                             self.photosAvailable = true
                             self.savePromotion(self) {
                                 guard let attachments = self.theProject.photos?.allObjects as? [Photo] else { return }
@@ -156,13 +157,15 @@ extension PromotionJournalVC: CameraTVCellDelegate, PHPickerViewControllerDelega
                                     // print out the image size as a test
                                 print(image.size)
                             }
+                            }
                         }
                     } catch {
                         print("error saving file:", error)
                     }
                 }
-                
+                }
             } else {
+                DispatchQueue.global(qos: .background).async {
                 guard let image = info[.editedImage] as? UIImage, let data = image.jpegData(compressionQuality: 1),
                       let url = info[.imageURL] as? URL else {
                           print("No image found")
@@ -172,7 +175,8 @@ extension PromotionJournalVC: CameraTVCellDelegate, PHPickerViewControllerDelega
                       }
                 self.taskContext = self.photoProvider.persistentContainer.newBackgroundContext()
                 let objectID = self.theProject.objectID
-                self.photoProvider.addPhotoToProject(imageData: data, imageURL: url, projectID: objectID, taskContext: self.taskContext) {
+                self.photoProvider.addPhotoToProject(imageData: data, imageURL: url, projectID: objectID, taskContext: self.photoProvider.persistentContainer.viewContext) {
+                    DispatchQueue.main.async {
                     self.savePromotion(self) {
                         
                         self.photosAvailable = true
@@ -182,8 +186,10 @@ extension PromotionJournalVC: CameraTVCellDelegate, PHPickerViewControllerDelega
                         self.projectTableView.reloadRows(at: [IndexPath.init(row: 11, section: 0)], with: .automatic)
                         print(image.size)
                     }
+                    }
                 }
             }
+        }
         }
                        
         )

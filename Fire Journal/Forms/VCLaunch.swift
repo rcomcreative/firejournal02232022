@@ -37,14 +37,18 @@ class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalT
     func profileReturnToSettings(compact:SizeTrait) {
         self.splitVC.dismiss(animated: true, completion: nil)
         self.splitVC.navigationController?.popToRootViewController(animated: true)
-        settingsCalled(sizeTrait:compact)
+        if userID != nil {
+            settingsCalled(sizeTrait:compact, objectID: userID)
+        }
     }
     
     
     func profileSettingsGetData(type:FJSettings,compact:SizeTrait){}
     
     func profileSavedNowGoToSettings(compact:SizeTrait) {
-        settingsCalled(sizeTrait:compact)
+        if userID != nil {
+            settingsCalled(sizeTrait:compact, objectID: userID)
+        }
     }
     
     //    MARK: -SETTINGSTVCDELEGATE
@@ -147,6 +151,7 @@ class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalT
     //    MARK: - presentation Delegate
     lazy var slideInTransitioningDelgate = SlideInPresentationManager()
     var alertI:Int = 0
+    var userID: NSManagedObjectID!
     
     func journalSaveTapped() {
         //            //    MARK: -TODO-
@@ -287,7 +292,8 @@ class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalT
         }
     }
     
-    func settingsCalled(sizeTrait: SizeTrait)->Void {
+    func settingsCalled(sizeTrait: SizeTrait, objectID: NSManagedObjectID)->Void {
+        self.userID = objectID
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller:SettingsTVC = storyboard.instantiateViewController(withIdentifier: "SettingsTVC") as! SettingsTVC
         let navigator = UINavigationController.init(rootViewController: controller)
@@ -296,6 +302,23 @@ class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalT
         controller.delegate = self
         controller.myShift = .settings
         controller.titleName = "Settings"
+        controller.userObjectID = objectID
+//        let navigationBarAppearace = UINavigationBar.appearance()
+//        if #available(iOS 13.0, *) {
+//            navigationBarAppearace.barTintColor = UIColor.systemBackground
+//            navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.label]
+//            navigationBarAppearace.tintColor = .link
+//        } else {
+//            navigationBarAppearace.barTintColor = UIColor.black
+//            navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.black]
+//        }
+        
+        let regularBarButtonTextAttributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.white,
+            .font: UIFont.systemFont(ofSize: 22, weight: UIFont.Weight(rawValue: 150))
+        ]
+        navigator.navigationItem.leftBarButtonItem?.setTitleTextAttributes(regularBarButtonTextAttributes, for: .normal)
+        navigator.navigationItem.leftBarButtonItem?.setTitleTextAttributes(regularBarButtonTextAttributes, for: .highlighted)
         let navigationBarAppearace = UINavigationBar.appearance()
         if #available(iOS 13.0, *) {
             navigationBarAppearace.barTintColor = UIColor.systemBackground
@@ -487,9 +510,9 @@ class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalT
     /// Either use the NewStoreBetaVC for Beta Testing - has monthly subscription
     /// or use the NewStoreVC for sending to AppStore for distribution
     func storeCalled()->Void {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let storyboard = UIStoryboard(name: "TheStore", bundle: nil)
         //        let controller:NewStoreBetaVC = storyboard.instantiateViewController(withIdentifier: "NewStoreBetaVC") as! NewStoreBetaVC
-        let controller:NewStoreVC = storyboard.instantiateViewController(withIdentifier: "NewStoreVC") as! NewStoreVC
+        let controller: TheStoreVC = storyboard.instantiateViewController(withIdentifier: "TheStoreVC") as! TheStoreVC
         let navigator = UINavigationController.init(rootViewController: controller)
         controller.navigationItem.leftItemsSupplementBackButton = true
         controller.navigationItem.leftBarButtonItem = self.splitVC?.displayModeButtonItem
@@ -727,12 +750,14 @@ class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalT
         return controller
     }
     
-    func settingsCloudCalled(compact: SizeTrait)-> Void {
-        let storyboard = UIStoryboard(name: "SettingsInfoVC", bundle: nil)
+    func settingsCloudCalled(compact: SizeTrait, objectID: NSManagedObjectID)-> Void {
+        self.userID = objectID
+        let storyboard = UIStoryboard(name: "SettingsInfo", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier:"SettingsInfoVC") as! SettingsInfoVC
         let navigator = UINavigationController.init(rootViewController: controller)
         controller.settingsType = FJSettings.cloud
         controller.compact = compact
+        controller.userObjectID = self.userID
         self.splitVC?.showDetailViewController(navigator, sender:self)
     }
     
@@ -747,14 +772,15 @@ class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalT
         self.splitVC?.showDetailViewController(navigator, sender:self)
     }
     
-    func settingsTagsCalled(compact: SizeTrait)-> Void {
-        
+    func settingsTagsCalled(compact: SizeTrait, objectID: NSManagedObjectID)-> Void {
+        self.userID = objectID
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller:SettingsDataTVC = storyboard.instantiateViewController(withIdentifier:"SettingsDataTVC") as! SettingsDataTVC
         let navigator = UINavigationController.init(rootViewController: controller)
         controller.titleName = "Fire Journal Tags"
         controller.settingType = FJSettings.tags
         controller.compact = compact
+        controller.objectID = self.userID
         self.splitVC?.showDetailViewController(navigator, sender:self)
     }
     
@@ -808,31 +834,37 @@ class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalT
         self.splitVC?.showDetailViewController(navigator, sender:self)
     }
     
-    func settingsLocalIncidentTypesCalled(compact: SizeTrait)-> Void {
+    func settingsLocalIncidentTypesCalled(compact: SizeTrait, objectID: NSManagedObjectID)-> Void {
+        self.userID = objectID
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller:SettingsDataTVC = storyboard.instantiateViewController(withIdentifier:"SettingsDataTVC") as! SettingsDataTVC
         let navigator = UINavigationController.init(rootViewController: controller)
         controller.titleName = "Fire Journal Local Incident Types"
         controller.settingType = FJSettings.localIncidentTypes
         controller.compact = compact
+        controller.objectID = self.userID
         self.splitVC?.showDetailViewController(navigator, sender:self)
     }
     
-    func settingsTermsCalled(compact: SizeTrait)-> Void {
+    func settingsTermsCalled(compact: SizeTrait, objectID: NSManagedObjectID)-> Void {
+        self.userID = objectID
         let storyboard = UIStoryboard(name: "SettingsInfo", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier:"SettingsInfoVC") as! SettingsInfoVC
         let navigator = UINavigationController.init(rootViewController: controller)
         controller.settingsType = FJSettings.terms
         controller.compact = compact
+        controller.userObjectID = self.userID
         self.splitVC?.showDetailViewController(navigator, sender:self)
     }
     
-    func settingsPrivacyCalled(compact: SizeTrait)-> Void {
+    func settingsPrivacyCalled(compact: SizeTrait, objectID: NSManagedObjectID)-> Void {
+        self.userID = objectID
         let storyboard = UIStoryboard(name: "SettingsInfo", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier:"SettingsInfoVC") as! SettingsInfoVC
         let navigator = UINavigationController.init(rootViewController: controller)
         controller.settingsType = FJSettings.privacy
         controller.compact = compact
+        controller.userObjectID = self.userID
         self.splitVC?.showDetailViewController(navigator, sender:self)
     }
     
@@ -964,6 +996,15 @@ extension VCLaunch: ARC_FormDelegate {
     
     func theFormWantsNewForm() {
         //        <#code#>
+    }
+    
+    
+}
+
+extension VCLaunch: TheStoreVCDelegate {
+    
+    func theStoreSubscriptionPurchased() {
+//        <#code#>
     }
     
     

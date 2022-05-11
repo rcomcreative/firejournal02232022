@@ -52,10 +52,16 @@ extension IncidentNewModalVC: ModalHeaderSaveDismissDelegate {
                 }
                 let objectID = theIncident.objectID
                 DispatchQueue.main.async {
-                    self.nc.post(name:Notification.Name(rawValue:FJkCKNewIncidentCreated),
+                    self.nc.post(name:Notification.Name(rawValue: FJkCKNewIncidentCreated),
                                  object: nil,
                                  userInfo: ["objectID": objectID as NSManagedObjectID])
                 }
+                
+                DispatchQueue.main.async {
+                    let objectID = self.theIncidentLocation.objectID
+                        self.nc.post(name: .fireJournalModifyFCLocationToCloud, object: nil, userInfo: ["objectID": objectID as NSManagedObjectID])
+                }
+                
                 DispatchQueue.main.async {
                     self.nc.removeObserver(self, name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
                 }

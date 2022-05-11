@@ -205,7 +205,6 @@ class SettingsTVC: UITableViewController {
     
     
     private func launchSettingsPage(_ settings:FJSettings) {
-        let nc = NotificationCenter.default
         switch settings {
         case .myProfile:
             switch compact {
@@ -227,7 +226,7 @@ class SettingsTVC: UITableViewController {
                 }
             } else {
                 if userObjectID != nil {
-                    nc.post(name:Notification.Name(rawValue:FJkSETTINGSFJCLOUDCalled),
+                    nc.post(name:Notification.Name(rawValue: FJkSETTINGSFJCLOUDCalled),
                             object: nil,
                             userInfo: ["sizeTrait":compact, "userObjID": userObjectID!])
                 }
@@ -257,7 +256,7 @@ class SettingsTVC: UITableViewController {
                     }
                 } else {
                     if userObjectID != nil {
-                        nc.post(name:Notification.Name(rawValue:FJkSETTINGSTAGSCalled),
+                        nc.post(name:Notification.Name(rawValue: FJkSETTINGSTAGSCalled),
                                 object: nil,
                                 userInfo: ["sizeTrait":compact, "userObjID": userObjectID!])
                     }
@@ -546,7 +545,7 @@ extension SettingsTVC {
             if userObjectID != nil {
                 nc.post(name:Notification.Name(rawValue:FJkSETTINGLOCALINCIDENTTYPECalled),
                         object: nil,
-                        userInfo: ["sizeTrait":compact])
+                        userInfo: ["sizeTrait":compact, "userObjID": userObjectID!])
             }
         }
     }

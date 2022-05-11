@@ -412,17 +412,25 @@ class IncidentVC:  SpinnerViewController, UIImagePickerControllerDelegate, UINav
                 theIncidentNotesHeight = configureLabelHeight(text: note)
             }
         }
+        if theIncident.photo != nil {
+            if let thePhotos = theIncident.photo?.allObjects as? [Photo] {
+                if !thePhotos.isEmpty {
+                    validPhotos = thePhotos
+                    photosAvailable = true
+                }
+            }
+        }
         getTheUser()
         getTheLastUserTime()
     }
     
-    func saveIncident(_ sender:Any, completionBlock: () -> ()) {
+    func savePhotoIncident(_ sender:Any, completionBlock: () -> ()) {
         do {
             try context.save()
             if !self.validPhotos.isEmpty {
                 DispatchQueue.global(qos: .background).async {
                     self.taskContext = self.photoProvider.persistentContainer.newBackgroundContext()
-                    self.photoProvider.saveImageDataiIfNeeded(for: self.theJournal.photo!, taskContext: self.taskContext)  {
+                    self.photoProvider.saveImageDataiIfNeeded(for: self.theIncident.photo!, taskContext: self.taskContext)  {
                         DispatchQueue.main.async {
                             self.nc.post(name: .fireJournalCameraPhotoSaved, object: nil)
                         }

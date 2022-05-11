@@ -136,14 +136,12 @@ class NewStoreVC: UIViewController {
     @IBAction func quarterlyBTapped(_ sender: Any) {
         fjSKProduct = nil
         defaults.set(false, forKey: "subscriptionBought")
-        defaults.synchronize()
         purchaseQuarterlyProduct()
     }
     @IBAction func annualBTapped(_ sender: Any) {
          fjSKProduct = nil
-               defaults.set(false, forKey: "subscriptionBought")
-               defaults.synchronize()
-               purchaseAnnualProduct()
+           defaults.set(false, forKey: "subscriptionBought")
+           purchaseAnnualProduct()
     }
     @IBAction func loginBTapped(_ sender: Any) {
         let available = defaults.bool(forKey: FJkInternetConnectionAvailable)

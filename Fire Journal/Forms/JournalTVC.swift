@@ -142,6 +142,7 @@ class JournalTVC: UITableViewController,JournalInfoCellDelegate, LabelTextViewDi
         dataTVC.modalPresentationStyle = .custom
         self.present(dataTVC, animated: true, completion: nil)
     }
+    
     fileprivate func presentModalTwo(menuType: MenuItems, title: String, type: JournalTypes) {
         slideInTransitioningDelgate.direction = .bottom
         slideInTransitioningDelgate.disableCompactHeight = true

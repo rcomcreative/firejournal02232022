@@ -177,6 +177,9 @@ New Journal
         }
         theJournalLocation = FCLocation(context: context)
         theJournalLocation.guid = UUID.init()
+        if let guid = theJournal.fjpJGuidForReference {
+            theJournalLocation.journalGuid = guid
+        }
         theJournal.theLocation = theJournalLocation
         theJournal.journalEntryType = "Station"
         theJournal.journalEntryTypeImageName = "100515IconSet_092016_Stationboard c0l0r"
