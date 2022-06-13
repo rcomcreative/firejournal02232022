@@ -48,7 +48,7 @@ class FCLocationProvider: NSObject {
                 fcLocationR["theEntity"] = "FCLocation"
                 fcLocationR["longitude"] = self.fcLocation.longitude
                 fcLocationR["latitude"] = self.fcLocation.latitude
-                fcLocationR["location"] = self.fcLocation.location
+                fcLocationR.encryptedValues["location"] = self.fcLocation.location
                 if let guid = self.fcLocation.guid {
                     fcLocationR["guid"] = guid.uuidString
                 }
@@ -135,7 +135,7 @@ class FCLocationProvider: NSObject {
                 fcLocationR["theEntity"] = "FCLocation"
                 fcLocationR["longitude"] = self.fcLocation.longitude
                 fcLocationR["latitude"] = self.fcLocation.latitude
-                fcLocationR["location"] = self.fcLocation.location
+                fcLocationR.encryptedValues["location"] = self.fcLocation.location
                 if let guid = self.fcLocation.guid {
                     fcLocationR["guid"] = guid.uuidString
                 }

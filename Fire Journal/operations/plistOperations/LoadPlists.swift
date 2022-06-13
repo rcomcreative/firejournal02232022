@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CoreData
 
-class LoadPlists {
+class LoadPlists: NSObject {
     let context: NSManagedObjectContext
     let pendingOperations = PendingOperations()
     var thread:Thread!
@@ -18,8 +18,14 @@ class LoadPlists {
     
     init(_ context: NSManagedObjectContext) {
         self.context = context
+        super.init()
         thread = Thread(target:self, selector:#selector(runTheOperations), object:nil)
         nc.addObserver(self, selector:#selector(nextPlisyCalled(notification:)), name:NSNotification.Name(rawValue: FJkPLISTSCALLED), object: nil)
+    }
+    
+    deinit {
+        nc.removeObserver(NSNotification.Name(rawValue: FJkPLISTSCALLED))
+        print("LoadPlists deinited")
     }
     
     @objc func nextPlisyCalled(notification:Notification) -> Void {

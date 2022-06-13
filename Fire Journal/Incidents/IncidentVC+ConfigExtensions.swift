@@ -1071,14 +1071,17 @@ extension IncidentVC: TagsVCDelegate {
     func tagsSubmitted(tags: [Tag]) {
         if !tags.isEmpty {
             theTagsAvailable = true
+            theIncident.incidentTagsAvailable = true
+            var theTagsObjectIDsA = [NSManagedObjectID]()
+            var incidentTag: IncidentTags!
             for tag in tags {
                 if !theIncidentTags.isEmpty {
                     let result = theIncidentTags.filter { $0 == tag }
                     if result.isEmpty {
-                        let incidentTag = IncidentTags(context: context)
+                        incidentTag = IncidentTags(context: context)
                         incidentTag.incidentTag = tag.name
                         if let guid = theIncident.fjpIncGuidForReference {
-                            incidentTag.incidentGuid = guid
+                            incidentTag.incidentReference = guid
                         }
                         if let incidentModDate = theIncident.incidentModDate {
                             let jGuidDate = GuidFormatter.init(date: incidentModDate)
@@ -1091,10 +1094,10 @@ extension IncidentVC: TagsVCDelegate {
                         theIncidentTags.append(incidentTag)
                     }
                 } else {
-                    let incidentTag = IncidentTags(context: context)
+                    incidentTag = IncidentTags(context: context)
                     incidentTag.incidentTag = tag.name
                     if let guid = theIncident.fjpIncGuidForReference {
-                        incidentTag.incidentGuid = guid
+                        incidentTag.incidentReference = guid
                     }
                     if let incidentModDate = theIncident.incidentModDate {
                         let jGuidDate = GuidFormatter.init(date: incidentModDate)
@@ -1106,29 +1109,40 @@ extension IncidentVC: TagsVCDelegate {
                     theIncident.addToIncidentTags(incidentTag)
                     theIncidentTags.append(incidentTag)
                 }
+                if context.hasChanges {
+                    do {
+                        try context.save()
+                        DispatchQueue.main.async {
+                            self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"Updated Incident merge that"])
+                        }
+                        
+    //                    TODO: -INCIDENTTAGS TO CLOUD-
+                        theAlert(message: "The incident data has been saved.")
+                    } catch let error as NSError {
+                        let nserror = error
+                        
+                        let errorMessage = "IncidentEdit saveToCD The context was unable to save due to \(nserror), \(nserror.userInfo)"
+                        print(errorMessage)
+                    }
+                }
+                
+                let objectID = incidentTag.objectID
+                theTagsObjectIDsA.append(objectID)
             }
-            if context.hasChanges {
-                do {
-                    try context.save()
-                    DispatchQueue.main.async {
-                        self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"Updated Incident merge that"])
-                    }
-                    let objectID = theIncident.objectID
-                    DispatchQueue.main.async {
-                        self.nc.post(name:Notification.Name(rawValue :FJkCKModifyIncidentToCloud),
-                                     object: nil,
-                                     userInfo: ["objectID": objectID as NSManagedObjectID])
-                    }
-                    DispatchQueue.main.async {
-                        self.nc.removeObserver(self, name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
-                    }
-//                    TODO: -INCIDENTTAGS TO CLOUD-
-                    theAlert(message: "The incident data has been saved.")
-                } catch let error as NSError {
-                    let nserror = error
-                    
-                    let errorMessage = "IncidentEdit saveToCD The context was unable to save due to \(nserror), \(nserror.userInfo)"
-                    print(errorMessage)
+            
+            
+            let objectID = theIncident.objectID
+            DispatchQueue.main.async {
+                self.nc.post(name:Notification.Name(rawValue :FJkCKModifyIncidentToCloud),
+                             object: nil,
+                             userInfo: ["objectID": objectID as NSManagedObjectID])
+            }
+            
+            if !theTagsObjectIDsA.isEmpty {
+                DispatchQueue.global(qos: .background).async {
+                    self.nc.post(name: .fireJournalIncidentTagsToCloud,
+                                 object: nil,
+                                 userInfo: ["objectIDs": theTagsObjectIDsA as [NSManagedObjectID]])
                 }
             }
 
@@ -1471,7 +1485,8 @@ extension IncidentVC: NewAddressFieldsButtonsCellDelegate {
                         
                         self.theIncident.locationAvailable = true
                         let index = IndexPath(row: 2, section: 0)
-                        self.incidentTableView.reloadRows(at: [index], with: .automatic)
+                        let index1 = IndexPath(row: 0, section: 0)
+                        self.incidentTableView.reloadRows(at: [index1, index], with: .automatic)
                         
                     }
                 }
@@ -1538,7 +1553,8 @@ extension IncidentVC: OnBoardAddressSearchDelegate {
                         
                         self.theIncident.locationAvailable = true
                         let index = IndexPath(row: 2, section: 0)
-                        self.incidentTableView.reloadRows(at: [index], with: .automatic)
+                        let index1 = IndexPath(row: 0, section: 0)
+                        self.incidentTableView.reloadRows(at: [index1, index], with: .automatic)
                     }
                 default: break
                 }

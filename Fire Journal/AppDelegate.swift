@@ -32,12 +32,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     var subscriptionIsLocallyCached: Bool = false
     var agreementAgreedTo: Bool = false
     var firstRun: Bool = false
+    var theStatus: Status!
     
     let myContainer = CKContainer.init(identifier: FJkCLOUDKITDATABASENAME)
     var privateDatabase:CKDatabase!
     var sharedDBChangeToken:CKServerChangeToken!
     var zoneIDs = [CKRecordZone.ID]()
     let cloud = CloudKitManager.shared
+    let theOnlyStatus = StatusManager.shared
+    
     let nc = NotificationCenter.default
     
     var bkgrdContext:NSManagedObjectContext!
@@ -51,6 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     
     let pendingOperations = PendingOperations()
     let weatherPendingOperations = WeatherPendingOperations()
+    var fcLocationUpdated: Bool = false
     private var currentLocation: CLLocation?
     
     /// A `OSLog` with my subsystem, so I can focus on my log statements and not those triggered
@@ -76,6 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         return provider
     }()
     var statusContext: NSManagedObjectContext!
+    var status: Status!
     
     
     //    MARK -LOCATION FOR WEATHER-
@@ -192,16 +197,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                     self.statusContext = self.statusProvider.persistentContainer.viewContext
                     self.statusProvider.getStatusFromCloud(self.statusContext) { status in
                         print("here is the status \(status)")
+//                        let updated = status.locationMovedToFCLocation
+//                        let id = status.objectID
+//                        let context = self.persistentContainer.viewContext
+//                        self.theStatus = context.object(with: id) as? Status
+//                        self.userDefaults.set(updated, forKey: FJkFCLocationUpdateToIncidentRan)
+//                            self.fcLocationUpdated = self.userDefaults.bool(forKey: FJkFCLocationUpdateToIncidentRan)
+//                            if !self.fcLocationUpdated {
+//                                           DispatchQueue.global(qos: .background).async {
+//                                               self.nc.post(name: .fireJournalUpdateIncidentLocationToFCLocation, object: nil)
+//                                           }
+//                                       }
+                        
                     }
                 }
-                fetchAnyChangesWeMissed(firstRun: firstRun)
+                
+               
+                
+                self.fetchAnyChangesWeMissed(firstRun: self.firstRun)
+                
                 determineLocation()
             }
             userDefaults.set(false, forKey: FJkUserFDResourcesPointOfTruthOperationHasRun)
             userDefaults.synchronize()
         } else {
             DispatchQueue.global(qos: .background).async {
-                self.userContext = self.userProvider.persistentContainer.newBackgroundContext()
+                self.userContext = self.userProvider.persistentContainer.viewContext
                 let loadTheUserFromCloud = LoadTheUserFromCloud(context: self.userContext)
                 loadTheUserFromCloud.getCloudUser()
             }
@@ -228,6 +249,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         nc.addObserver(self, selector:#selector(zoneRecordsCalled(notification:)),name:NSNotification.Name(rawValue: FJkFJSHOULDRunSYNC), object: nil)
         //        MARK: -OBSERVE NEW FIRE STATION-
         nc.addObserver(self, selector: #selector(getTheNotificationChanges(nc:)), name: NSNotification.Name(rawValue: FJkRECIEVEDRemoteNotification), object: nil)
+        nc.addObserver(self, selector: #selector(addressesUpdated(ns:)), name: .fireJournalFCLocationsUpdated, object: nil)
+    }
+    
+    
+    @objc func addressesUpdated(ns: Notification) {
+        userDefaults.set(true, forKey: FJkFCLocationUpdateToIncidentRan)
+        DispatchQueue.global(qos: .background).async {
+        self.statusContext = self.statusProvider.persistentContainer.viewContext
+            if self.theStatus == nil {
+            if let theStatus = self.statusProvider.getTheStatus(context: self.statusContext) {
+                let aStatus = theStatus.last
+                if let id = aStatus?.objectID {
+                    let context = self.persistentContainer.viewContext
+                    self.theStatus = context.object(with: id) as? Status
+                    self.statusProvider.addFCLocationsToStatus(objectID: self.theStatus.objectID, self.statusContext) { status in
+                        print("here is the status \(status)")
+                        self.userDefaults.set(true, forKey: FJkFCLocationUpdateToIncidentRan)
+                        
+                        self.statusProvider.createStatusCKRecord(self.statusContext, self.status.objectID) { status in
+                            print("here is the status \(status)")
+                        }
+                    }
+                }
+                
+            }
+            } else {
+                self.statusProvider.addFCLocationsToStatus(objectID: self.theStatus.objectID, self.statusContext) { status in
+                    print("here is the status \(status)")
+                    self.userDefaults.set(true, forKey: FJkFCLocationUpdateToIncidentRan)
+                    
+                    self.statusProvider.createStatusCKRecord(self.statusContext, self.theStatus.objectID) { status in
+                        print("here is the status \(status)")
+                    }
+                }
+                
+            }
+            
+        }
+            
+        
     }
     
     @objc func detectOrientation(ns: Notification) {
@@ -295,7 +356,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     @objc private func zoneRecordsCalled(notification: Notification) {
         if agreementAgreedTo {
             getTheUserForStore(entity: "FireJournalUser", attribute: "userGuid", sortAttribute: "lastName")
-            fetchAnyChangesWeMissed(firstRun: firstRun)
+//            DispatchQueue.global(qos: .background).async {
+                self.fetchAnyChangesWeMissed(firstRun: self.firstRun)
+//            }
         }
     }
     
@@ -667,6 +730,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             subscriptionsService.fetchAvailableProducts()
             return
         } else {
+            subscriptionsService.context = managedObjectContext
             fju = self.fetched.last
             if fju.fjuLocation != nil {
                 userDefaults.set(false, forKey: FJkMoveTheLocationsToLocationsSC)

@@ -116,10 +116,8 @@ class SettingsDataTVC: UITableViewController, NSFetchedResultsControllerDelegate
         {
             compact = userInfo["compact"] as? SizeTrait ?? .regular
             switch compact {
-            case .compact:
-                print("compact SETTING DATA")
-            case .regular:
-                print("regular SETTING DATA")
+            case .compact: break
+            case .regular: break
             }
         }
         
@@ -131,9 +129,9 @@ class SettingsDataTVC: UITableViewController, NSFetchedResultsControllerDelegate
         case .tags?:
             subject = "Fire Journal Tags"
             descriptionText = "At various places within Fire Journal, you have the option of adding Tags. This will assit you in finding or categorizing your incidents and other activities. If you cannot find a tag you’d like to use, create it here, in Settings. Add the name of the new tag in the field below, then tap on the + button. Do this as often as you need to.To delete a tag, swipe left."
-            entity = "UserTags"
-            attribute = "userTag"
-            sortAttribute = "userTag"
+            entity = "Tag"
+            attribute = "name"
+            sortAttribute = "name"
         case .rank?:
             subject = "Fire Journal Rank"
             descriptionText = "If you do not find the appropriate rank when using Forms, Incidents, or other aspects of Fire Journal, you may add a new rank within Settings. Simply type in the rank in the field below, then tap on the + button. To delete a rank, swipe left."
@@ -253,8 +251,8 @@ class SettingsDataTVC: UITableViewController, NSFetchedResultsControllerDelegate
     func configureCell(_ cell: UITableViewCell, at indexPath: IndexPath) {
         switch settingType {
         case .tags?:
-            let tags:UserTags =  _fetchedResultsController?.object(at: indexPath) as! UserTags
-            cell.textLabel?.text = tags.userTag
+            let tags: Tag  =  _fetchedResultsController?.object(at: indexPath) as! Tag
+            cell.textLabel?.text = tags.name
         case .rank?:
             let rank:UserRank =  _fetchedResultsController?.object(at: indexPath) as! UserRank
             cell.textLabel?.text = rank.rank
@@ -416,19 +414,15 @@ extension SettingsDataTVC: SettingsUserHeaderDelegate {
         }
     
     func saveButtonTapped(){}
+    
     func addNewItemTapped(new: String) {
         newEntry = new
         let modDate = Date()
         switch settingType {
         case .tags?:
-            let tag = UserTags.init(entity: NSEntityDescription.entity(forEntityName: "UserTags", in: context)!, insertInto: context)
-            tag.userTag = newEntry
-            let guidDate = GuidFormatter.init(date:modDate)
-            let guid = guidDate.formatGuid()
-            tag.userTagGuid = "74."+guid
-            tag.userTagModDate = modDate
-            tag.entryState = EntryState.new.rawValue
-            tag.userTagBackup = false
+            let tag = Tag(context: context)
+            tag.name = newEntry
+            tag.guid = UUID()
         case .rank?:
             let rank = UserRank.init(entity: NSEntityDescription.entity(forEntityName: "UserRank", in: context)!, insertInto: context)
             rank.rank = newEntry

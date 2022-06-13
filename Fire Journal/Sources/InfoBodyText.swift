@@ -156,7 +156,7 @@ We’re delighted that you’ve chosen to manage your firefighting career with F
     The following screens will help explain how to get started.
 """
     case onboardTwoVCText = """
-Because you may be using Fire Journal at any time of day or night, it’s important that you have access to answers when you need them. Start with our FAQs for common issue. Need more specific help? Fire Journal includes FREE 24/7 online support help. Open a support ticket, and we’ll get back to you quickly. Register at the conclusion of this presentation and you’ll be all set!
+Because you may be using Fire Journal at any time of day or night, it’s important that you have access to answers when you need them. Start with our FAQs for common issues. Need more specific help? Fire Journal includes FREE 24/7 online support help. Open a support ticket, and we’ll get back to you quickly. Register at the conclusion of this presentation and you’ll be all set!
 """
     case onboardThreeVCText = """
 The first thing you should do is create a profile for yourself. Once completed, many of your actions will pre-load into various sections of the app, including in journals, incidents, and other places. It should only take you a few minutes to get your Settings completely configured.
@@ -165,7 +165,7 @@ The first thing you should do is create a profile for yourself. Once completed, 
 Fire Journal allows you to customize a number of functions within the app. As an example, we include three shift options (A, B, C), but if your department only uses two, then delete one. Or, if you use four platoons, add one. You’ll find this type of customization is available (typically via the Settings function) for a number of options. Fire Journal makes it easy to configure the app to be perfect for you and your department.
 """
     case onboardFiveVCText = """
-Start each workday by tapping on the HOME button. That wil ltake you to the main dashboard for Fire Journal. Tap on “Start Shift” and enter in any data you feel would be important. Then, using the + buttons, add a new journal entry, or a new incident, etc. You may also use the main navigation column to make selections. When you’re done for the day, tap on “End Shift” and now the time, date, and any notes from the just completed workday.
+Start each workday by tapping on the HOME button. That will take you to the main dashboard for Fire Journal. Tap on “Start Shift” and enter in any data you feel would be important. Then, using the + buttons, add a new journal entry, or a new incident, etc. You may also use the main navigation column to make selections. When you’re done for the day, tap on “End Shift” and now the time, date, and any notes from the just completed workday.
 """
     case onboardSixVCText = """
 Say goodbye to paper journals. You’ve seen those paper journals that track a fire company’s activities… Now, for the first time, you can track and manage your own career using Fire Journal. From morning line-up to fire prevention to shopping, union issues, or anything you would ordinarily write into a journal - Fire Journal provides it. Bonus: use the built-in mic on your smartphone to record each entry - no typing required.

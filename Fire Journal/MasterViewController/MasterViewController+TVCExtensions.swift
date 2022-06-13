@@ -38,6 +38,11 @@ extension MasterViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 11
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let row = indexPath.row
+        print("here is the row \(row)")
+    }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let row = indexPath.row
@@ -156,7 +161,7 @@ extension MasterViewController {
             cell.myShiftL.textColor = tintColor
             cell.myShiftL.text = "Journal"
         case .incidents:
-            let backgroundI = UIImage(named: "ICONS_Incident Data white")
+            let backgroundI = UIImage(named: "ICONS_06092022_IncidentForm_white")
             
             if let image = backgroundI {
                 cell.myShiftIV.image = image

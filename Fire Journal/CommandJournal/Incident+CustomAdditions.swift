@@ -59,6 +59,23 @@ extension Incident {
         fjIncidentR["incidentDateSearch"] = self.incidentDateSearch
         fjIncidentR["incidentDayOfWeek"] = self.incidentDayOfWeek
         fjIncidentR["incidentDayOfYear"] = self.incidentDayOfYear
+        if self.locationAvailable {
+            fjIncidentR["locationAvailable"] = 1
+        } else {
+                fjIncidentR["locationAvailable"] = 0
+        }
+        if self.incidentTagsAvailable {
+            fjIncidentR["incidentTagsAvailable"] = 1
+        } else {
+                fjIncidentR["incidentTagsAvailable"] = 0
+        }
+        if self.incidentPhotoTaken != nil {
+            if self.incidentPhotoTaken == 1 {
+                fjIncidentR["incidentPhotoTaken"] = true
+            } else {
+                fjIncidentR["incidentPhotoTaken"] = false
+            }
+        }
         fjIncidentR["incidentEntryTypeImageName"] = self.incidentEntryTypeImageName
         if let location = self.incidentLocation {
             fjIncidentR["incidentLocation"] = location as! CLLocation
@@ -83,7 +100,7 @@ extension Incident {
         fjIncidentR["incidentNFIRSDataDate"] = self.incidentNFIRSDataDate
         fjIncidentR["incidentNFIRSDataSaved"] = self.incidentNFIRSDataSaved
         fjIncidentR["incidentNumber"] = self.incidentNumber
-        fjIncidentR["incidentPhotoTaken"] = self.incidentPhotoTaken
+        
         fjIncidentR["incidentSearchDate"] = self.incidentSearchDate
         fjIncidentR["incidentStreetHyway"] = self.incidentStreetHyway
         fjIncidentR["incidentStreetNumber"] = self.incidentStreetNumber
@@ -868,6 +885,24 @@ extension Incident {
         fjIncidentR["incidentDayOfWeek"] = self.incidentDayOfWeek
         fjIncidentR["incidentDayOfYear"] = self.incidentDayOfYear
         fjIncidentR["incidentEntryTypeImageName"] = self.incidentEntryTypeImageName
+        
+        if self.locationAvailable {
+            fjIncidentR["locationAvailable"] = 1
+        } else {
+                fjIncidentR["locationAvailable"] = 0
+        }
+        if self.incidentTagsAvailable {
+            fjIncidentR["incidentTagsAvailable"] = 1
+        } else {
+                fjIncidentR["incidentTagsAvailable"] = 0
+        }
+        if self.incidentPhotoTaken != nil {
+            if self.incidentPhotoTaken == 1 {
+                fjIncidentR["incidentPhotoTaken"] = 1
+            } else {
+                fjIncidentR["incidentPhotoTaken"] = 0
+            }
+        }
         
         
         var location:CLLocation!

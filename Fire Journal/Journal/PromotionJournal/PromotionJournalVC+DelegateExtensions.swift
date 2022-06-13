@@ -1,10 +1,10 @@
-//
-//  PromotionJournalVC+DelegateExtensions.swift
-//  Fire Journal
-//
-//  Created by DuRand Jones on 4/21/22.
-//  Copyright © 2022 PureCommand, LLC. All rights reserved.
-//
+    //
+    //  PromotionJournalVC+DelegateExtensions.swift
+    //  Fire Journal
+    //
+    //  Created by DuRand Jones on 4/21/22.
+    //  Copyright © 2022 PureCommand, LLC. All rights reserved.
+    //
 
 import UIKit
 import Foundation
@@ -36,7 +36,7 @@ extension PromotionJournalVC {
         if Device.IS_IPHONE {
             theFloat = theFloat - 600
         } else {
-        theFloat = theFloat - 400
+            theFloat = theFloat - 400
         }
         if theFloat < 44 {
             theFloat = 88
@@ -111,12 +111,12 @@ extension PromotionJournalVC {
                 projectTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -10),
             ])
         } else {
-        NSLayoutConstraint.activate([
-            projectTableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10),
-            projectTableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10),
-            projectTableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 15),
-            projectTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -10),
-        ])
+            NSLayoutConstraint.activate([
+                projectTableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10),
+                projectTableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10),
+                projectTableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 15),
+                projectTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -10),
+            ])
         }
     }
     
@@ -214,6 +214,7 @@ extension PromotionJournalVC: MultipleAddButtonTVCellDelegate {
             relieveSupervisorVC.delegate = self
             relieveSupervisorVC.headerTitle = "Crew"
             relieveSupervisorVC.crew = true
+            relieveSupervisorVC.supervisor = false
             relieveSupervisorVC.transitioningDelegate = slideInTransitioningDelgate
             relieveSupervisorVC.modalPresentationStyle = .custom
             self.present(relieveSupervisorVC, animated: true, completion: nil)
@@ -247,37 +248,42 @@ extension PromotionJournalVC: RelieveSupervisorVCDelegate {
             if let name = crew.attendee {
                 let result = theProjectCrewA.filter { $0.fullName == name }
                 if result.isEmpty {
-                    let projectCrew = PromotionCrew(context: context)
-                    projectCrew.fullName = name
-                    projectCrew.guid = UUID()
-                    projectCrew.promotionGuid = theProject.guid
+                    self.projectCrew = PromotionCrew(context: context)
+                    self.projectCrew.fullName = name
+                    self.projectCrew.guid = UUID()
+                    self.projectCrew.promotionGuid = theProject.guid
                     theProject.addToCrew(projectCrew)
                     theProjectCrewA.append(projectCrew)
                     theProjectCrew = theProjectCrew + name + ", "
+                    if context.hasChanges {
+                        do {
+                            try context.save()
+                            DispatchQueue.main.async {
+                                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"Project merge that"])
+                            }
+                            DispatchQueue.global(qos: .background).async {
+                                let objectID = self.theProject.objectID
+                                self.nc.post(name: .fireJournalProjectModifiedSendToCloud,
+                                             object: nil,
+                                             userInfo: ["objectID": objectID as NSManagedObjectID])
+                            }
+                            DispatchQueue.global(qos: .background).async {
+                                let objectID = self.projectCrew.objectID
+                                self.nc.post(name: .fireJournalProjectCrewSendToCloud,
+                                             object: nil,
+                                             userInfo: ["objectID": objectID as NSManagedObjectID])
+                            }
+                        } catch let error as NSError {
+                            let nserror = error
+                            
+                            let errorMessage = "projectEdit saveToCD The context was unable to save due to \(nserror), \(nserror.userInfo)"
+                            print(errorMessage)
+                        }
+                    }
                 }
             }
         }
-        if context.hasChanges {
-            do {
-                try context.save()
-                DispatchQueue.main.async {
-                    self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"Updated Incident merge that"])
-                }
-                let objectID = theProject.objectID
-//                DispatchQueue.main.async {
-//                    self.nc.post(name:Notification.Name(rawValue :FJkCKModifyJournalToCloud),
-//                                 object: nil,
-//                                 userInfo: ["objectID": objectID as NSManagedObjectID])
-//                }
-//                    TODO: - PromotionJournalCrew to cloud-
-                theAlert(message: "The project data has been saved.")
-            } catch let error as NSError {
-                let nserror = error
-                
-                let errorMessage = "projectEdit saveToCD The context was unable to save due to \(nserror), \(nserror.userInfo)"
-                print(errorMessage)
-            }
-        }
+        
         
         projectTableView.reloadRows(at: [IndexPath(row: 8, section: 0)], with: .automatic)
         self.dismiss(animated: true, completion: nil)
@@ -291,52 +297,68 @@ extension PromotionJournalVC: TagsVCDelegate {
     func tagsSubmitted(tags: [Tag]) {
         if !tags.isEmpty {
             theTagsAvailable = true
+            theProject.projectTagsAvailable = true
+            var theTagsObjectIDsA = [NSManagedObjectID]()
             for tag in tags {
                 if !theProjectTags.isEmpty {
                     let result = theProjectTags.filter { $0 == tag }
                     if result.isEmpty {
-                        let projectTag = PromotionJournalTags(context: context)
-                        projectTag.tag = tag.name
+                        self.projectTag = PromotionJournalTags(context: context)
+                        self.projectTag.tag = tag.name
                         if let guid = theProject.projectGuid {
-                            projectTag.promotionGuid = guid
+                            self.projectTag.promotionGuid = guid
                         }
-                        projectTag.guid = UUID.init()
-                        theProject.addToPromotionTag(projectTag)
-                        theProjectTags.append(projectTag)
+                        self.projectTag.guid = UUID.init()
+                        theProject.addToPromotionTag(self.projectTag)
+                        theProjectTags.append(self.projectTag)
                     }
                 } else {
-                    let projectTag = PromotionJournalTags(context: context)
-                    projectTag.tag = tag.name
+                    self.projectTag = PromotionJournalTags(context: context)
+                    self.projectTag.tag = tag.name
                     if let guid = theProject.projectGuid {
-                        projectTag.promotionGuid = guid
+                        self.projectTag.promotionGuid = guid
                     }
-                    projectTag.guid = UUID.init()
-                    theProject.addToPromotionTag(projectTag)
-                    theProjectTags.append(projectTag)
+                    self.projectTag.guid = UUID.init()
+                    theProject.addToPromotionTag(self.projectTag)
+                    theProjectTags.append(self.projectTag)
+                }
+                if context.hasChanges {
+                    do {
+                        try context.save()
+                        DispatchQueue.main.async {
+                            self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"ProjectTag merge that"])
+                        }
+                        
+                    } catch let error as NSError {
+                        let nserror = error
+                        
+                        let errorMessage = "projectTag saveToCD The context was unable to save due to \(nserror), \(nserror.userInfo)"
+                        print(errorMessage)
+                    }
+                }
+                
+                let objectID = self.projectTag.objectID
+                theTagsObjectIDsA.append(objectID)
+                
+                
+                
+            }
+            
+            DispatchQueue.global(qos: .background).async {
+                                let objectID = self.theProject.objectID
+                                self.nc.post(name: .fireJournalProjectModifiedSendToCloud,
+                                             object: nil,
+                                             userInfo: ["objectID": objectID as NSManagedObjectID])
+           }
+            
+            if !theTagsObjectIDsA.isEmpty {
+                DispatchQueue.global(qos: .background).async {
+                    self.nc.post(name: .fireJournalProjectTagSendToCloud,
+                                 object: nil,
+                                 userInfo: ["objectIDs": theTagsObjectIDsA as [NSManagedObjectID]])
                 }
             }
-            if context.hasChanges {
-                do {
-                    try context.save()
-                    DispatchQueue.main.async {
-                        self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"Updated Incident merge that"])
-                    }
-                    let objectID = theProject.objectID
-//                    DispatchQueue.main.async {
-//                        self.nc.post(name:Notification.Name(rawValue :FJkCKModifyJournalToCloud),
-//                                     object: nil,
-//                                     userInfo: ["objectID": objectID as NSManagedObjectID])
-//                    }
-//                    TODO: - PromotionJournalTag to cloud-
-                    theAlert(message: "The project data has been saved.")
-                } catch let error as NSError {
-                    let nserror = error
-                    
-                    let errorMessage = "projectEdit saveToCD The context was unable to save due to \(nserror), \(nserror.userInfo)"
-                    print(errorMessage)
-                }
-            }
-
+            
             let count = theProjectTags.count
             let counted = count / 6
             theTagsHeight = CGFloat(counted * 44)
@@ -400,7 +422,7 @@ extension PromotionJournalVC: PromotionEditVCDelegate {
         theProject = context.object(with: objectID) as? PromotionJournal
         let index1: IndexPath = IndexPath(row: 1, section: 0)
         let index2: IndexPath = IndexPath(row: 0, section: 0)
-        projectTableView.reloadRows(at: [index1, index2], with: .automatic)
+        projectTableView.reloadRows(at: [index2, index1], with: .automatic)
         thePromotionEditVC.dismiss(animated: true, completion: nil)
     }
     
@@ -487,6 +509,7 @@ extension PromotionJournalVC: NewAddressFieldsButtonsCellDelegate {
                         }
                         
                         self.locationAvailable = true
+                        self.theProject.locationAvailable = true
                         let index = IndexPath(row: 9, section: 0)
                         self.projectTableView.reloadRows(at: [index], with: .automatic)
                         
@@ -554,6 +577,7 @@ extension PromotionJournalVC: OnBoardAddressSearchDelegate {
                         }
                         
                         self.locationAvailable = true
+                        self.theProject.locationAvailable = true
                         let index = IndexPath(row: 9, section: 0)
                         self.projectTableView.reloadRows(at: [index], with: .automatic)
                     }
@@ -574,8 +598,8 @@ extension PromotionJournalVC: PromotionPhotoCollectionCellDelegate {
         
         guard let navController = storyboard.instantiateViewController(withIdentifier: "FullNC") as? UINavigationController,
               let fullImageVC = navController.topViewController as? FullImageVC else {
-            return
-        }
+                  return
+              }
         
         let taskContext = photoProvider.persistentContainer.newBackgroundContext()
         
@@ -597,8 +621,8 @@ extension PromotionJournalVC: PromotionPhotoCollectionCellDelegate {
         
         guard let navController = storyboard.instantiateViewController(withIdentifier: "FullNC") as? UINavigationController,
               let fullImageVC = navController.topViewController as? FullImageVC else {
-            return
-        }
+                  return
+              }
         spinner.startAnimating()
         
         taskContext = photoProvider.persistentContainer.newBackgroundContext()

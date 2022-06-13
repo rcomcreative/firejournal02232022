@@ -169,6 +169,106 @@ class UserTimeSyncOperation {
     }()
 }
 
+class PromotionJournalSyncOperation {
+    lazy var promotionJournalSyncQueue: OperationQueue = {
+        var queue = OperationQueue()
+        queue.name = "PromotionJournal sync queue"
+        queue.maxConcurrentOperationCount = 1
+        queue.qualityOfService = .background
+        return queue
+    }()
+}
+
+class PromotionCrewSyncOperation {
+    lazy var promotionCrewSyncQueue: OperationQueue = {
+        var queue = OperationQueue()
+        queue.name = "PromotionCrewl sync queue"
+        queue.maxConcurrentOperationCount = 1
+        queue.qualityOfService = .background
+        return queue
+    }()
+}
+
+class IncidentTagsSyncOperation {
+    lazy var incidenTagsSyncQueue: OperationQueue = {
+        var queue = OperationQueue()
+        queue.name = "IncidentTags sync queue"
+        queue.maxConcurrentOperationCount = 1
+        queue.qualityOfService = .background
+        return queue
+    }()
+}
+
+class JournalTagsSyncOperation {
+    lazy var journalTagsSyncQueue: OperationQueue = {
+        var queue = OperationQueue()
+        queue.name = "JournalTags sync queue"
+        queue.maxConcurrentOperationCount = 1
+        queue.qualityOfService = .background
+        return queue
+    }()
+}
+
+class PromotionTagsSyncOperation {
+    lazy var promotionTagsSyncQueue: OperationQueue = {
+        var queue = OperationQueue()
+        queue.name = "PromotionTags sync queue"
+        queue.maxConcurrentOperationCount = 1
+        queue.qualityOfService = .background
+        return queue
+    }()
+}
+
+class FCLocationSyncOperation {
+    lazy var fcLocationSyncQueue: OperationQueue = {
+        var queue = OperationQueue()
+        queue.name = "FCLocation sync queue"
+        queue.maxConcurrentOperationCount = 1
+        queue.qualityOfService = .background
+        return queue
+    }()
+}
+
+class PhotoSyncOperation {
+    lazy var photoSyncQueue: OperationQueue = {
+        var queue = OperationQueue()
+        queue.name = "Photo sync queue"
+        queue.maxConcurrentOperationCount = 1
+        queue.qualityOfService = .background
+        return queue
+    }()
+}
+
+class ImageDataSyncOperation {
+    lazy var imageDataSyncQueue: OperationQueue = {
+        var queue = OperationQueue()
+        queue.name = "ImageData sync queue"
+        queue.maxConcurrentOperationCount = 1
+        queue.qualityOfService = .background
+        return queue
+    }()
+}
+
+class StatusSyncOperation {
+    lazy var statusSyncQueue: OperationQueue = {
+        var queue = OperationQueue()
+        queue.name = "Status sync queue"
+        queue.maxConcurrentOperationCount = 1
+        queue.qualityOfService = .background
+        return queue
+    }()
+}
+
+class TagsSyncOperation {
+    lazy var tagsSyncQueue: OperationQueue = {
+        var queue = OperationQueue()
+        queue.name = "Tags sync queue"
+        queue.maxConcurrentOperationCount = 1
+        queue.qualityOfService = .background
+        return queue
+    }()
+}
+
 class ICS214SyncOperation {
     lazy var ics214SyncQueue: OperationQueue = {
         var queue = OperationQueue()

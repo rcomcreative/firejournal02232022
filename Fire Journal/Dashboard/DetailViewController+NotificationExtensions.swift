@@ -56,11 +56,14 @@ extension DetailViewController {
         
         if Device.IS_IPAD {
             nc.addObserver(self, selector: #selector(saveStatusToCloud(ns:)), name: .fireJournalStatusNewToCloud, object: nil)
+            
+            
         }
         
     }
     
         //    MARK: -NOTIFICATION FUNCTIONS-
+    
     
         //    MARK: -STATUS SAVE-
             @objc func saveStatusToCloud(ns:Notification) {

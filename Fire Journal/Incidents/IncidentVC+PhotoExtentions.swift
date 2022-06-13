@@ -196,6 +196,7 @@ extension IncidentVC: CameraTVCellDelegate, PHPickerViewControllerDelegate {
                     self.savePhotoIncident(self) {
                         
                         self.photosAvailable = true
+                        self.theIncident.incidentPhotoTaken = true
                         guard let attachments = self.theIncident.photo?.allObjects as? [Photo] else { return }
                         self.validPhotos = attachments.filter { return !($0.imageData == nil) }
                         

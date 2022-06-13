@@ -156,21 +156,18 @@ class MasterViewController: UITableViewController,UISplitViewControllerDelegate,
             // MARK: -COMPACT/REGULAR TRAIT
         if (self.view.traitCollection.horizontalSizeClass == .compact) {
             floatPercent = 0.1028
-                //
-            print(".compact IN THE MASTER")
             compact = .compact
-            nc.post(name:Notification.Name(rawValue:FJkCOMPACTORREGULAR),
+            nc.post(name:Notification.Name(rawValue: FJkCOMPACTORREGULAR),
                     object: nil,
                     userInfo: ["compact":compact])
         } else {
             floatPercent = 0.1338
-            print(".regular IN THE MASTER")
             compact = .regular
-            nc.post(name:Notification.Name(rawValue:FJkCOMPACTORREGULAR),
+            nc.post(name:Notification.Name(rawValue: FJkCOMPACTORREGULAR),
                     object: nil,
                     userInfo: ["compact":compact])
         }
-        print(floatPercent)
+//        print(floatPercent)
         
     }
     

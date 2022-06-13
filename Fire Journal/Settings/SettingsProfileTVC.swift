@@ -225,10 +225,8 @@ class SettingsProfileTVC: UITableViewController,CLLocationManagerDelegate,UIText
         {
             compact = userInfo["compact"] as? SizeTrait ?? .regular
             switch compact {
-            case .compact:
-                print("compact SETTING PROFILE")
-            case .regular:
-                print("regular SETTING PROFILE")
+            case .compact: break
+            case .regular: break
             }
         }
         

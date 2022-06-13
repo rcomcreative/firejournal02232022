@@ -400,7 +400,7 @@ Status
         incrementCount -= 1
         forewardB.isHidden = false
         let count: EachMonthsTotal!
-        if incrementCount == 0 {
+        if incrementCount == 0 || incrementCount < 0 {
             backB.isHidden = true
         }
         count = theCountsForTheButtons[incrementCount]

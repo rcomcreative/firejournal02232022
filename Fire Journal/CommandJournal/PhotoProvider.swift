@@ -73,14 +73,17 @@ class PhotoProvider: NSObject {
             guard let theGuid = photo.guid else { return }
             destinationURL = photo.imageURL(guid: theGuid)
         }
-        
-        self.buildPhotoCKRecord(self.context, photo.objectID) { photo in
+        DispatchQueue.global().async {
+            self.buildPhotoCKRecord(self.context, self.photo.objectID) { photo in
             print("here is the photo saved to cloud \(photo)")
         }
+        }
         
-        self.buildImageDataCKRecord(self.context, theImageData.objectID) {
+        DispatchQueue.global().async {
+            self.buildImageDataCKRecord(self.context, self.theImageData.objectID) {
             imageData in
             print("here is the imageData saved to cloud \(imageData)")
+        }
         }
         
         DispatchQueue.global().async {
@@ -130,13 +133,17 @@ class PhotoProvider: NSObject {
             destinationURL = photo.imageURL(guid: theGuid)
         }
         
-        self.buildPhotoCKRecord(self.context, photo.objectID) { photo in
+        DispatchQueue.global().async {
+            self.buildPhotoCKRecord(self.context, self.photo.objectID) { photo in
             print("here is the photo saved to cloud \(photo)")
         }
+        }
         
-        self.buildImageDataCKRecord(self.context, theImageData.objectID) {
+        DispatchQueue.global().async {
+            self.buildImageDataCKRecord(self.context, self.theImageData.objectID) {
             imageData in
             print("here is the imageData saved to cloud \(imageData)")
+        }
         }
         
         DispatchQueue.global().async {
@@ -185,13 +192,17 @@ class PhotoProvider: NSObject {
             destinationURL = photo.imageURL(guid: theGuid)
         }
         
-        self.buildPhotoCKRecord(self.context, photo.objectID) { photo in
+        DispatchQueue.global().async {
+            self.buildPhotoCKRecord(self.context, self.photo.objectID) { photo in
             print("here is the photo saved to cloud \(photo)")
         }
+        }
         
-        self.buildImageDataCKRecord(self.context, theImageData.objectID) {
+        DispatchQueue.global().async {
+            self.buildImageDataCKRecord(self.context, self.theImageData.objectID) {
             imageData in
             print("here is the imageData saved to cloud \(imageData)")
+        }
         }
         
         DispatchQueue.global().async {
@@ -233,12 +244,30 @@ class PhotoProvider: NSObject {
             staff.photo = photo
             photo.image = thumbnailImage // transient
             
+            theImageData = ImageData(context: self.context)
+            theImageData.data = imageData
+            theImageData.photoGuid = photo.guid
+            photo.imageData = theImageData
+            
             if shouldSave {
                 save(context: taskContext)
             }
             
             guard let theGuid = photo.guid else { return }
             destinationURL = photo.imageURL(guid: theGuid)
+        }
+        
+        DispatchQueue.global().async {
+            self.buildPhotoCKRecord(self.context, self.photo.objectID) { photo in
+            print("here is the photo saved to cloud \(photo)")
+        }
+        }
+        
+        DispatchQueue.global().async {
+            self.buildImageDataCKRecord(self.context, self.theImageData.objectID) {
+            imageData in
+            print("here is the imageData saved to cloud \(imageData)")
+        }
         }
         
         DispatchQueue.global().async {
@@ -310,11 +339,14 @@ class PhotoProvider: NSObject {
             if let guid = self.photo.promotionGuid {
                 photoR["promotionGuid"] = guid
             }
+            if let guid = self.photo.userAttendeeGuid {
+                photoR["userAttendeeGuid"] = guid.uuidString
+            }
             if let theDate = self.photo.photoDate {
                 photoR["photoDate"] = theDate
             }
             guard let theGuid = photo.guid else { return }
-            let destinationURL = photo.imageURL(guid: theGuid)
+            let destinationURL = photo.assetURL(guid: theGuid)
             if let image = photo.image {
             asset = createAsset(image, destinationURL)
                 if asset != nil {
@@ -337,7 +369,11 @@ class PhotoProvider: NSObject {
             self.photo.photoCKR = data as NSObject
             
             privateDatabase.save(photoR, completionHandler: { record, error in
-                
+                if error != nil {
+                    print("error \(error?.localizedDescription)")
+                } else {
+                    print("here is the photo record \(record)")
+                }
                 do {
                     try self.context.save()
                     DispatchQueue.main.async {
@@ -382,7 +418,7 @@ class PhotoProvider: NSObject {
             let imageDataRef = CKRecord.Reference(recordID: imageDataRID, action: .deleteSelf)
             imageDataR["theEntity"] = "ImageData"
             imageDataR["photoGuid"] = recordName
-            let destinationURL = photo.imageURL(guid: theImageData.photoGuid!)
+            let destinationURL = photo.assetURL(guid: theImageData.photoGuid!)
             if theImageData.data != nil {
                 if let image = UIImage.init(data: theImageData.data!) {
                     asset = createAsset(image, destinationURL)
@@ -471,27 +507,27 @@ class PhotoProvider: NSObject {
             
                 //            Load image data using a taskContext. Reset the context after saving each image.
             let attachmentObjectID = attachment.objectID
-            taskContext.perform {
-                guard let attachment = taskContext.object(with: attachmentObjectID) as? Photo else { return }
+            self.context.perform {
+                guard let attachment = self.context.object(with: attachmentObjectID) as? Photo else { return }
                 
                 
-                let imageData = ImageData(context: taskContext)
+                let imageData = ImageData(context: self.context)
                 imageData.data = data
                 imageData.photoGuid = attachment.guid
                 imageData.attachment = attachment
                 
                 print("###\(#function): Saving an ImageData entity and then resetting the context.")
                 do {
-                    try taskContext.save()
+                    try self.context .save()
                     DispatchQueue.main.async {
-                        self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"Photo save merge that"])
+                        self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object: self.context,userInfo:["info":"Photo save merge that"])
                     }
                 } catch let error as NSError {
                     let theError: String = error.localizedDescription
                     let error = "There was an error in saving " + theError
                     print(error)
                 }
-                taskContext.reset() // lower the memory footprint
+                self.context.reset() // lower the memory footprint
                 
                 newAttachmentCount -= 1
                 if newAttachmentCount == 0 {

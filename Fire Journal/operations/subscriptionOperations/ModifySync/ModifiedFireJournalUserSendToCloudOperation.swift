@@ -14,6 +14,7 @@ import CloudKit
 class ModifiedFireJournalUserSendToCloudOperation: FJOperation {
     
     let context: NSManagedObjectContext
+    var bkgrdContext:NSManagedObjectContext!
     let pendingOperations = PendingOperations()
     var thread:Thread!
     let nc = NotificationCenter.default
@@ -35,27 +36,28 @@ class ModifiedFireJournalUserSendToCloudOperation: FJOperation {
         super.init()
     }
     
+    deinit {
+        nc.removeObserver(NSNotification.Name.NSManagedObjectContextDidSave)
+    }
+    
     override func main() {
-         
-         //        MARK: -FJOperation operation-
-         operation = "ModifiedFireJournalUserSendToCloudOperation"
-         
-         guard isCancelled == false else {
-             executing(false)
-             finish(true)
-             self.nc.removeObserver(self, name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
-             return
-         }
         
-        print("starting ModifiedFireJournalUserSendToCloudOperation")
+        guard isCancelled == false else {
+            executing(false)
+            finish(true)
+            return
+        }
         
-        thread = Thread(target:self, selector: #selector(checkTheThread), object:nil)
-        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: context)
+        
+        bkgrdContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        bkgrdContext.persistentStoreCoordinator = context.persistentStoreCoordinator
+        thread = Thread(target:self, selector: #selector(checkTheThread), object: nil)
+        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: self.bkgrdContext)
         executing(true)
         
         if(objectID) != nil {
             do {
-                try fjUser = context.existingObject(with: objectID!) as? FireJournalUser
+                try fjUser = bkgrdContext.existingObject(with: objectID!) as? FireJournalUser
             } catch {
                 let nserror = error as NSError
                 print("The FireJournalUser New context was unable to find an Incident tied to this objectID to \(nserror.localizedDescription) \(nserror.userInfo)")
@@ -131,9 +133,9 @@ class ModifiedFireJournalUserSendToCloudOperation: FJOperation {
     
     fileprivate func saveToCD() {
         do {
-            try context.save()
+            try bkgrdContext.save()
             DispatchQueue.main.async {
-                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"Modified FJUser Send to cloud Operation"])
+                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.bkgrdContext,userInfo:["info":"Modified FJUser Send to cloud Operation"])
             }
             DispatchQueue.main.async {
                 print("Modified FIREJOURNALUSERToCloudOperation has run and now is finished")

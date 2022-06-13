@@ -209,8 +209,74 @@ class DetailViewController: UIViewController {
                         }
                     }
                     getTheCompletedShift()
-                    if theExpiredUserTime == nil {
-                        theExpiredUserTime = theUserTime
+                    if theUserTime != nil {
+                        if theExpiredUserTime == nil {
+                            theExpiredUserTime = theUserTime
+                        }
+                    } else {
+                        let startShiftDate: Date = Date()
+                        let guidDate = GuidFormatter.init(date: startShiftDate)
+                        let guid = guidDate.formatGuid()
+                        let theUserGuid = "78."+guid
+                        theUserTime = UserTime.init(context: context)
+                        theUserTime.userTimeGuid = theUserGuid
+                        theUserTime.userStartShiftTime = startShiftDate
+                        theUserTime.shiftCompleted = false
+                        if theStatus != nil {
+                            theStatus.guidString = theUserGuid
+                            theStatus.shiftDate = startShiftDate
+                        }
+                        if theFireJournalUser != nil {
+                            var userName: String = ""
+                            if let user = theFireJournalUser.userName {
+                                userName = user
+                            }
+                            if userName == "" {
+                                if let first = theFireJournalUser.firstName {
+                                    userName = first
+                                }
+                                if let last = theFireJournalUser.lastName {
+                                    userName = userName + " " + last
+                                }
+                                if userName != "" {
+                                    theFireJournalUser.userName = userName
+                                }
+                            }
+                            theUserTime.fireJournalUser = theFireJournalUser
+                            if let platoon = theFireJournalUser.tempPlatoon {
+                                theUserTime.startShiftPlatoon = platoon
+                            }
+                            if let station = theFireJournalUser.fireStation {
+                                theUserTime.startShiftFireStation = station
+                            }
+                        }
+                        if theExpiredUserTime == nil {
+                            theExpiredUserTime = theUserTime
+                        }
+                        if context.hasChanges {
+                            do {
+                                try context.save()
+                                DispatchQueue.main.async {
+                                    self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"Shift updated merge that"])
+                                }
+                                DispatchQueue.global(qos: .background).async {
+                                    let objectID = self.theUserTime.objectID
+                                    self.nc.post(name:Notification.Name(rawValue: FJkCKNewStartEndCreated),
+                                            object: nil,
+                                            userInfo: ["objectID": objectID as NSManagedObjectID])
+                                }
+                                DispatchQueue.global(qos: .background).async {
+                                    let objectID = self.theStatus.objectID
+                                    self.nc.post(name: .fireJournalStatusNewToCloud,
+                                            object: nil,
+                                            userInfo: ["objectID": objectID as NSManagedObjectID])
+                                }
+                            } catch let error as NSError {
+                                let theError: String = error.localizedDescription
+                                let error = "There was an error in saving " + theError
+                                errorAlert(errorMessage: error)
+                            }
+                        }
                     }
                 } else {
                     startEndShift = true
@@ -303,6 +369,16 @@ class DetailViewController: UIViewController {
     func errorAlert(errorMessage: String) {
         let alert = UIAlertController.init(title: "Error", message: errorMessage, preferredStyle: .alert)
         let okAction = UIAlertAction.init(title: "Okay", style: .default, handler: {_ in
+            self.alertUp = false
+        })
+        alert.addAction(okAction)
+        alertUp = true
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func infoAlert(theSubject: String, theMessage: String) {
+        let alert = UIAlertController.init(title: theSubject, message: theMessage, preferredStyle: .alert)
+        let okAction = UIAlertAction.init(title: "Got it!", style: .default, handler: {_ in
             self.alertUp = false
         })
         alert.addAction(okAction)

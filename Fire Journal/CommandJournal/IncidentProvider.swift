@@ -7,6 +7,7 @@
 //
 import UIKit
 import CoreData
+import CloudKit
 
 class IncidentProvider: NSObject, NSFetchedResultsControllerDelegate {
     
@@ -24,6 +25,15 @@ class IncidentProvider: NSObject, NSFetchedResultsControllerDelegate {
     var yearCInt: Int!
     var monthCInt: Int!
     
+    
+    var ckRecord: CKRecord!
+    var theIncidentTagCKRecords = [CKRecord]()
+    var theIncidentTag: IncidentTags!
+    let myContainer = CKContainer.init(identifier: FJkCLOUDKITDATABASENAME)
+    var privateDatabase: CKDatabase!
+    var context: NSManagedObjectContext!
+    let nc = NotificationCenter.default
+    
     private var fetchedResultsController: NSFetchedResultsController<Incident>? = nil
     var _fetchedResultsController: NSFetchedResultsController<Incident> {
         if fetchedResultsController != nil {
@@ -31,10 +41,6 @@ class IncidentProvider: NSObject, NSFetchedResultsControllerDelegate {
             return fetchedResultsController!
         }
         return fetchedResultsController!
-    }
-    
-    deinit {
-        print("IncidentProvider is being deinitialized")
     }
     
     var fetchedObjects: [Incident] {
@@ -45,13 +51,29 @@ class IncidentProvider: NSObject, NSFetchedResultsControllerDelegate {
     
     init(with persistentContainer: NSPersistentContainer) {
         self.persistentContainer = persistentContainer
+        self.privateDatabase = myContainer.privateCloudDatabase
+        super.init()
+    }
+    
+    deinit {
+        nc.removeObserver(NSNotification.Name.NSManagedObjectContextDidSave)
+        print("IncidentProvider is being deinitialized")
+    }
+    
+        // MARK: -
+        // MARK: Notification Handling
+    @objc func managedObjectContextDidSave(notification: Notification) {
+        DispatchQueue.main.async {
+            self.context.mergeChanges(fromContextDidSave: notification)
+        }
     }
     
     func getTodaysIncidents(context: NSManagedObjectContext, userTime: UserTime ) -> [Incident]? {
+        self.context = context
         var theIncidents = [Incident]()
         if let startDate = userTime.userStartShiftTime {
             _ = buildTheDay(startDate)
-            _ = getTheDaysIncidents(firstDate, context: context)
+            _ = getTheDaysIncidents(firstDate, context: self.context)
             theIncidents = fetchedObjects
         } else {
             return nil
@@ -94,6 +116,7 @@ class IncidentProvider: NSObject, NSFetchedResultsControllerDelegate {
         ///   - context: backgroundContext
         /// - Returns: returns a list of incidents
     func getTheDaysIncidents(_ theDate: Date, context: NSManagedObjectContext) -> [Incident]? {
+        self.context = context
         let fetchRequest: NSFetchRequest<Incident> = Incident.fetchRequest()
 
         var predicate = NSPredicate.init()
@@ -109,7 +132,7 @@ class IncidentProvider: NSObject, NSFetchedResultsControllerDelegate {
         let sortDescriptors = [sectionSortDescriptor]
         fetchRequest.sortDescriptors = sortDescriptors
         
-        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.context, sectionNameKeyPath: nil, cacheName: nil)
         aFetchedResultsController.delegate = self
         fetchedResultsController = aFetchedResultsController
         do {
@@ -118,6 +141,113 @@ class IncidentProvider: NSObject, NSFetchedResultsControllerDelegate {
             print("TodaysIncidentsForDashboard line 92 Fetch Error: \(error.localizedDescription)")
         }
         return fetchedObjects
+    }
+    
+    func theIncidentTagsToCloud(_ context: NSManagedObjectContext, _ objectIDs: [NSManagedObjectID], completionHandler: ( @escaping ( _ theTags: [CKRecord]) -> Void )) {
+        
+        self.context = context
+        
+        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: self.context)
+        
+        self.theIncidentTagCKRecords.removeAll()
+        for objectID in objectIDs {
+            
+            self.theIncidentTag = nil
+            self.ckRecord = nil
+            
+            self.theIncidentTag = self.context.object(with: objectID) as? IncidentTags
+            if let ckr = self.theIncidentTag.incidentTagCKR {
+                guard let  archivedData = ckr as? Data else { return }
+                do {
+                    let unarchiver = try NSKeyedUnarchiver.init(forReadingFrom: archivedData)
+                    self.ckRecord = CKRecord(coder: unarchiver)
+                    self.ckRecord["theEntity"] = "IncidenTags"
+                    if let tag = self.theIncidentTag.incidentTag {
+                    self.ckRecord["incidentTag"] = tag
+                    }
+                    if let incidentGuid = self.theIncidentTag.incidentGuid {
+                    self.ckRecord["incidentGuid"] = incidentGuid
+                    }
+                    if let guid = self.theIncidentTag.guid {
+                        self.ckRecord["guid"] = guid.uuidString
+                    }
+                    if let incidentReference = self.theIncidentTag.incidentReference {
+                        self.ckRecord["incidentReference"] = incidentReference
+                    }
+                } catch {
+                    print("nothing here ")
+                }
+            } else {
+                if let guid = self.theIncidentTag.guid {
+                    let theGuid = guid.uuidString
+                    let recordName = theGuid
+                    let theIncidentTagRZ = CKRecordZone.init(zoneName: "FireJournalShare")
+                    let theIncidentTagRID = CKRecord.ID(recordName: recordName, zoneID: theIncidentTagRZ.zoneID)
+                    self.ckRecord = CKRecord.init(recordType: "IncidentTags", recordID: theIncidentTagRID)
+                    let theIncidentTagRef = CKRecord.Reference(recordID: theIncidentTagRID, action: .deleteSelf)
+                    self.ckRecord["theEntity"] = "IncidentTags"
+                    if let tag = self.theIncidentTag.incidentTag {
+                    self.ckRecord["incidentTag"] = tag
+                    }
+                    if let incidentGuid = self.theIncidentTag.incidentGuid {
+                    self.ckRecord["incidentGuid"] = incidentGuid
+                    }
+                    if let guid = self.theIncidentTag.guid {
+                        self.ckRecord["guid"] = guid.uuidString
+                    }
+                    if let incidentReference = self.theIncidentTag.incidentReference {
+                        self.ckRecord["incidentReference"] = incidentReference
+                    }
+                    
+                    do {
+                        let data = try NSKeyedArchiver.archivedData(withRootObject: theIncidentTagRef, requiringSecureCoding: true)
+                        self.theIncidentTag.incidentTagReference = data as NSObject
+                        
+                    } catch {
+                        print("journalTagsReference to data failed line 514 Incident+Custom")
+                    }
+                    
+                    let coder = NSKeyedArchiver(requiringSecureCoding: true)
+                    self.ckRecord.encodeSystemFields(with: coder)
+                    let data = coder.encodedData
+                    self.theIncidentTag.incidentTagCKR = data as NSObject
+                    
+                }
+            }
+
+            self.theIncidentTagCKRecords.append(ckRecord)
+            
+        }
+           
+        let modifyCKOperation = CKModifyRecordsOperation.init(recordsToSave: theIncidentTagCKRecords, recordIDsToDelete: nil)
+        modifyCKOperation.savePolicy = .changedKeys
+        modifyCKOperation.modifyRecordsResultBlock = { [unowned self] result in
+            switch result {
+            case .success(_):
+                
+                do {
+                    try self.context.save()
+                    DispatchQueue.main.async {
+                        self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object: self.context,userInfo:["info":"promotionTags save merge that"])
+                    }
+                } catch let error as NSError {
+                    let theError: String = error.localizedDescription
+                    let error = "There was an error in saving " + theError
+                    print(error)
+                }
+                
+                completionHandler(self.theIncidentTagCKRecords)
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    completionHandler(self.theIncidentTagCKRecords)
+                    let error = "\(String(describing: error)):\(String(describing: error.localizedDescription))"
+                    print("here is the incidentTags operation error \(error)")
+                }
+            }
+        }
+        
+        privateDatabase.add(modifyCKOperation)
+            
     }
     
     

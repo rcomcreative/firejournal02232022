@@ -32,6 +32,7 @@ class TagsReloadOperation: FJOperation {
     var thread:Thread!
     let dateFormatter = DateFormatter()
     var fetched:Array<Any>!
+    var builtFromTagsPlist: BuiltFromTagsPlist!
     
     init(_ context: NSManagedObjectContext) {
         self.context = context
@@ -90,13 +91,17 @@ class TagsReloadOperation: FJOperation {
                 
                 let list = UserTagsList.init(display: display, tag: aTag, date: Date())
                 
-                let tag = UserTags.init(entity:NSEntityDescription.entity(forEntityName: "UserTags", in: bkgrdContext)!, insertInto: bkgrdContext)
-                tag.displayOrder = Int64(list.displayOrder)
-                tag.entryState = list.entryState.rawValue
-                tag.userTag = list.theTag
-                tag.userTagModDate = list.theTagDate
-                tag.userTagGuid = list.theTagGuid
-                tag.userTagBackup = false
+                let theTag = Tag(context: bkgrdContext)
+                theTag.name = list.theTag
+                theTag.guid = UUID()
+                
+//                let tag = UserTags.init(entity:NSEntityDescription.entity(forEntityName: "UserTags", in: bkgrdContext)!, insertInto: bkgrdContext)
+//                tag.displayOrder = Int64(list.displayOrder)
+//                tag.entryState = list.entryState.rawValue
+//                tag.userTag = list.theTag
+//                tag.userTagModDate = list.theTagDate
+//                tag.userTagGuid = list.theTagGuid
+//                tag.userTagBackup = false
             }
             
             saveToCDAndPost()

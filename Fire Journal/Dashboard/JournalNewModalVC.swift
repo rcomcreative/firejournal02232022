@@ -165,6 +165,9 @@ New Journal
         theJournal.fjpJournalModifiedDate = journalModDate
         theJournal.journalDateSearch = sDate
         theJournal.fjpUserReference = theUser.userGuid
+        theJournal.locationAvailable = false
+        theJournal.journalTagsAvailable = false
+        theJournal.journalPhotoTaken = false
         theJournal.journalGuid = UUID()
         theJournal.fireJournalUserInfo = theUser
         if theUserTime != nil {

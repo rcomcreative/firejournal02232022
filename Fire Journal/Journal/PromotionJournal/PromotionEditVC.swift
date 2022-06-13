@@ -157,11 +157,12 @@ extension PromotionEditVC: ModalHeaderSaveDismissDelegate {
                 DispatchQueue.main.async {
                     self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"Promotion journal edit merge that"])
                 }
-//                DispatchQueue.main.async {
-//                    self.nc.post(name:Notification.Name(rawValue:FJkCKModifyJournalToCloud),
-//                                 object: nil,
-//                                 userInfo: ["objectID": self.objectID as NSManagedObjectID])
-//                }
+                DispatchQueue.main.async {
+                    let objectID = self.theProject.objectID
+                    self.nc.post(name: .fireJournalProjectModifiedSendToCloud,
+                                 object: nil,
+                                 userInfo: ["objectID": objectID as NSManagedObjectID])
+                }
                 DispatchQueue.main.async {
                     self.nc.removeObserver(self, name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
                 }

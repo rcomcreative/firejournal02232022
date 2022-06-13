@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="ipad12_9" orientation="portrait" layout="fullscreen" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina3_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,28 +12,45 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cell-back" translatesAutoresizingMaskIntoConstraints="NO" id="3CK-ae-22L">
-                                <rect key="frame" x="0.0" y="20" width="1024" height="1346"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                             </imageView>
                             <imageView clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="purecommand-logo" translatesAutoresizingMaskIntoConstraints="NO" id="rKD-CX-SIa">
-                                <rect key="frame" x="392" y="573" width="240" height="240"/>
+                                <rect key="frame" x="40" y="120" width="240" height="240"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="240" id="SXf-XU-mO3"/>
                                     <constraint firstAttribute="width" constant="240" id="wbR-TQ-6oS"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fire Journal" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R9K-cS-wdT">
+                                <rect key="frame" x="0.0" y="360" width="320" height="96"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="96" id="0gT-00-iz4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="80"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
+                                </variation>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="3CK-ae-22L" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" id="5ju-Cy-VLC"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="R9K-cS-wdT" secondAttribute="trailing" id="GOk-mA-sn7"/>
                             <constraint firstItem="rKD-CX-SIa" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="M6R-nh-0KC"/>
                             <constraint firstItem="rKD-CX-SIa" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="UWQ-r1-ZbI"/>
+                            <constraint firstItem="R9K-cS-wdT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="V50-NV-CRr"/>
                             <constraint firstItem="3CK-ae-22L" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="WKm-5b-lhA"/>
                             <constraint firstItem="3CK-ae-22L" firstAttribute="height" secondItem="6Tk-OE-BBY" secondAttribute="height" id="hPZ-Sk-vgs"/>
+                            <constraint firstItem="R9K-cS-wdT" firstAttribute="top" secondItem="rKD-CX-SIa" secondAttribute="bottom" constant="47" id="meZ-uE-gw9">
+                                <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                            </constraint>
                             <constraint firstItem="3CK-ae-22L" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="rmU-Lp-ku4"/>
                         </constraints>
                     </view>

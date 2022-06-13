@@ -231,8 +231,12 @@ class SettingsTheProfileTVC: UITableViewController,CLLocationManagerDelegate {
         controller.delegate = self
         controller.transitioningDelegate = slideInTransitioningDelgate
         controller.modalPresentationStyle = .custom
+        if Device.IS_IPHONE {
         let navigator = UINavigationController.init(rootViewController: controller)
         self.present(navigator, animated: true, completion: nil)
+        } else {
+            self.present(controller, animated: true, completion: nil)
+        }
     }
     
     
@@ -420,7 +424,8 @@ extension SettingsTheProfileTVC {
             if Device.IS_IPHONE {
                 presentModal(type: FJSettings.fdid, sizeTrait: compact)
             } else {
-                delegate?.profileSettingsGetData(type:FJSettings.fdid,compact:compact)
+                presentModal(type: FJSettings.fdid, sizeTrait: compact)
+//                delegate?.profileSettingsGetData(type:FJSettings.fdid,compact:compact)
             }
         default: break
         }
@@ -691,7 +696,11 @@ extension SettingsTheProfileTVC: NewAddressFieldsButtonsCellDelegate {
                     self.saveTheLocation()
                 } else {
                     self.theLocation = FCLocation(context: self.context)
+                    self.theLocation.guid = UUID()
                     self.fju.theLocation = self.theLocation
+                    if let guid = self.fju.userGuid {
+                        self.theLocation.userGuid = guid
+                    }
                     self.theLocation.location = location
                     self.theLocation.latitude = location.coordinate.latitude
                     self.theLocation.longitude = location.coordinate.longitude
@@ -803,6 +812,11 @@ extension SettingsTheProfileTVC: OnBoardAddressSearchDelegate {
                         self.saveTheLocation()
                     } else {
                         self.theLocation = FCLocation(context: self.context)
+                        self.theLocation.guid = UUID()
+                        self.fju.theLocation = self.theLocation
+                        if let guid = self.fju.userGuid {
+                            self.theLocation.userGuid = guid
+                        }
                         self.fju.theLocation = self.theLocation
                         self.theLocation.location = theUserLocation
                         self.theLocation.latitude = location.latitude
@@ -856,7 +870,8 @@ extension SettingsTheProfileTVC: MultipleAddButtonTVCellDelegate {
         if Device.IS_IPHONE {
             presentModal(type: FJSettings.fdid, sizeTrait: compact)
         } else {
-            delegate?.profileSettingsGetData(type:FJSettings.fdid,compact:compact)
+            presentModal(type: FJSettings.fdid, sizeTrait: compact)
+//            delegate?.profileSettingsGetData(type:FJSettings.fdid,compact:compact)
         }
     }
     

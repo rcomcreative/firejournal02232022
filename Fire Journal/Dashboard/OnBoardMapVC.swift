@@ -32,7 +32,7 @@ class OnBoardMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelega
     var streetNum:String = ""
     var streetName:String = ""
     var zip:String = ""
-    var pinAnnotationView:MKPinAnnotationView!
+    var pinAnnotationView: MKPinAnnotationView!
     var capturedCoordinate: CLLocationCoordinate2D!
     var address: String = ""
     var type: IncidentTypes = .station
@@ -129,6 +129,8 @@ class OnBoardMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelega
             case .journal:
                 annotationView!.image = UIImage(named: "mapPins11022021_stationPinBlue")
             case .allIncidents:
+                annotationView!.image = UIImage(named: "mapPins07212021_stationPin")
+            case .theProject:
                 annotationView!.image = UIImage(named: "mapPins07212021_stationPin")
             default: break
             }

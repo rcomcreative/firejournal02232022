@@ -20,15 +20,24 @@ extension Notification.Name {
     static let fireJournalProjectListCalled = Notification.Name("fireJournalProjectListCalled")
     static let fireJournalNewProjectCreatedSendToCloud = Notification.Name("fireJournalNewProjectCreatedSendToCloud")
     static let fireJournalProjectModifiedSendToCloud = Notification.Name("fireJournalProjectModifiedSendToCloud")
+    static let fireJournalProjectCrewSendToCloud = Notification.Name("fireJournalProjectCrewSendToCloud")
+    static let fireJournalProjectTagSendToCloud = Notification.Name("fireJournalProjectTagSendToCloud")
     static let fireJournalProjectFromMaster = Notification.Name("fireJournalProjectFromMaster")
     static let fireJournalStatusNewToCloud = Notification.Name("fireJournalStatusNewToCloud")
     static let fireJournalModifyJournalToCloud = Notification.Name("fireJournalModifyJournalToCloud")
     static let fireJournalModifyFCLocationToCloud = Notification.Name("fireJournalModifyFCLocationToCloud")
+    static let fireJournalJournalTagsToCloud = Notification.Name("fireJournalJournalTagsToCloud")
+    static let fireJournalIncidentTagsToCloud = Notification.Name("fireJournalIncidentTagsToCloud")
+    static let fireJournalUpdateIncidentLocationToFCLocation = Notification.Name("fireJournalUpdateIncidentLocationToFCLocation")
+    static let fireJournalUpdateJournalLocationToFCLocation = Notification.Name("fireJournalUpdateJournalLocationToFCLocation")
+    static let fireJournalFCLocationsUpdated = Notification.Name("fireJournalFCLocationsUpdated")
 }
 
 let FConnectName = "FireJournal"
 let FJkCLOUDKITCONTAINERNAME = "iCloud.com.purecommand.FireJournal2017"
+let FJkSTATUSCONTAINERNAME = "iCloud.com.purecommand.FireJournal2017"
 let FJkRECIEVEDRemoteNotification = "FJkRECIEVEDRemoteNotification"
+let FJkFCLocationUpdateToIncidentRan = "FJkFCLocationUpdateToIncidentRan"
 let FJkMASTERRELOADDETAIL = "FJkMASTERRELOADDETAIL"
 let FJkJOURNAL_FROM_MASTER = "FJkJOURNAL_FROM_MASTER"
 let FJkJOURNAL_FROM_DETAIL = "FJkJOURNAL_FROM_DETAIL"

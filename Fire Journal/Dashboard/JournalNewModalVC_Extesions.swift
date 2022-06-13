@@ -65,8 +65,8 @@ extension JournalNewModalVC {
     }
     
     func presentAlert() {
-        let message: InfoBodyText = .newIncidentSubject
-        let title: InfoBodyText = .newIncident
+        let message: InfoBodyText = .newJournalEntry
+        let title: InfoBodyText = .newJournalEntrySubject
         let alert = UIAlertController.init(title: title.rawValue, message: message.rawValue, preferredStyle: .alert)
         let okAction = UIAlertAction.init(title: "Okay", style: .default, handler: {_ in
             self.alertUp = false

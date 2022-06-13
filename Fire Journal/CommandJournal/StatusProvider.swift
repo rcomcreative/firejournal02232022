@@ -68,7 +68,7 @@ class StatusProvider: NSObject, NSFetchedResultsControllerDelegate {
         let fetchRequest: NSFetchRequest<Status> = Status.fetchRequest()
         fetchRequest.fetchBatchSize = 20
         
-        let sectionSortDescriptor = NSSortDescriptor(key: "guidString", ascending: true)
+        let sectionSortDescriptor = NSSortDescriptor(key: "agreementDate", ascending: false)
         let sortDescriptors = [sectionSortDescriptor]
         fetchRequest.sortDescriptors = sortDescriptors
         
@@ -83,6 +83,83 @@ class StatusProvider: NSObject, NSFetchedResultsControllerDelegate {
         return fetchedObjects
     }
     
+//    func statusFromCloud(_ context: NSManagedObjectContext) -> Status? {
+//        self.context = context
+//        var status: Status? = nil
+//        let predicate = NSPredicate(format: "TRUEPREDICATE")
+//        let predicateCan = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [predicate])
+//        let sort = NSSortDescriptor(key: "shiftDate", ascending: false)
+//        let query = CKQuery.init(recordType: "Status", predicate: predicateCan)
+//        query.sortDescriptors = [sort]
+//        let operation = CKQueryOperation(query: query)
+//        
+//        var statusRecordsA = [CKRecord]()
+//        
+//        operation.recordMatchedBlock = { recordid, result in
+//            switch result {
+//            case .success(let record):
+//                statusRecordsA.append(record)
+//            case .failure(let error):
+//                print("error on retrieving status \(error)")
+//            }
+//        }
+//        
+//        operation.queryResultBlock = { [unowned self] result in
+//            switch result {
+//            case .success(_):
+//                if !statusRecordsA.isEmpty {
+//                    let theResult = statusRecordsA.sorted(by: { return $0.creationDate! < $1.creationDate! })
+//                    self.ckRecord = theResult.last!
+//                    self.status = Status(context: self.context)
+//                    
+//                    if let fcLocationChanged = ckRecord["locationMovedToFCLocation"] as? Int64 {
+//                        if fcLocationChanged == 1 {
+//                            self.status.locationMovedToFCLocation = true
+//                        } else {
+//                            self.status.locationMovedToFCLocation = false
+//                        }
+//                    }
+//                    
+//                    if let theDate = ckRecord["shiftDate"] as? Date {
+//                        self.status.shiftDate = theDate
+//                            if let guid: String = ckRecord["guidString"] as? String {
+//                                if guid == "" {
+//                                    self.status.guidString = guid
+//                                }
+//                            }
+//                    }
+//                    
+//                        if let agreementDate = ckRecord["agreementDate"] as? Date {
+//                            self.status.agreementDate = agreementDate
+//                            self.status.agreement = true
+//                        }
+//                    
+//                    do {
+//                        try self.context.save()
+//                        DispatchQueue.main.async {
+//                            self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object: self.context,userInfo:["info":"status save merge that","status": true])
+//                        }
+//                    } catch let error as NSError {
+//                        let theError: String = error.localizedDescription
+//                        let error = "There was an error in saving " + theError
+//                        print(error)
+//                    }
+//                    
+//                    return self.status
+//                    
+//                }
+//            case .failure(let error):
+//                DispatchQueue.main.async {
+//                    
+//                    let error = "\(String(describing: error)):\(String(describing: error.localizedDescription))"
+//                    print("here is the status operation error \(error)")
+//                }
+//            }
+//        }
+//        
+//        privateDatabase.add(operation)
+//    }
+    
     func getStatusFromCloud(_ context: NSManagedObjectContext, completionHandler: ( @escaping (_ status: Status) -> Void)) {
         self.context = context
         var status: Status!
@@ -92,7 +169,7 @@ class StatusProvider: NSObject, NSFetchedResultsControllerDelegate {
         let query = CKQuery.init(recordType: "Status", predicate: predicateCan)
         query.sortDescriptors = [sort]
         let operation = CKQueryOperation(query: query)
-        operation.resultsLimit = 1
+//        operation.resultsLimit = 1
         
         var statusRecordsA = [CKRecord]()
         
@@ -109,7 +186,9 @@ class StatusProvider: NSObject, NSFetchedResultsControllerDelegate {
             switch result {
             case .success(_):
                 if !statusRecordsA.isEmpty {
-                    self.ckRecord = statusRecordsA.last!
+                    let theResult = statusRecordsA.sorted(by: { return $0.creationDate! < $1.creationDate! })
+//                    let result = statusRecordsA.sorted(by: { $0.creationDate! > $0.creationDate! })
+                    self.ckRecord = theResult.last!
                     status = updateTheStatus(self.ckRecord, self.context)
                     completionHandler(status)
                 }
@@ -130,51 +209,120 @@ class StatusProvider: NSObject, NSFetchedResultsControllerDelegate {
         self.context = context
         if let statusA = getTheStatus(context: self.context) {
             if !statusA.isEmpty {
-                status = statusA.last
-                
-                if let theDate = ckRecord["shiftDate"] as? Date {
-                    if theDate == status.shiftDate {
-                        if let guid: String = ckRecord["guidString"] as? String {
-                            if guid == "" {
-                                status.guidString = guid
+                if let theADate = ckRecord["agreementDate"] as? Date {
+                    var result = statusA.filter { $0.agreementDate == theADate }
+                    if !result.isEmpty {
+                        status = result.last
+                        
+                        if let fcLocationChanged = ckRecord["locationMovedToFCLocation"] as? Int64 {
+                            if fcLocationChanged == 1 {
+                                status.locationMovedToFCLocation = true
+                            } else {
+                                status.locationMovedToFCLocation = false
                             }
-                        } else {
-                            if let shiftDate = status.shiftDate {
-                                if theDate > shiftDate {
-                                    status.shiftDate = theDate
-                                    if let guid: String = ckRecord["guidString"] as? String {
+                        }
+                        
+                        if let theDate = ckRecord["shiftDate"] as? Date {
+                            if theDate == status.shiftDate {
+                                if let guid: String = ckRecord["guidString"] as? String {
+                                    if guid == "" {
                                         status.guidString = guid
+                                    }
+                                } else {
+                                    if let shiftDate = status.shiftDate {
+                                        if theDate > shiftDate {
+                                            status.shiftDate = theDate
+                                            if let guid: String = ckRecord["guidString"] as? String {
+                                                status.guidString = guid
+                                            }
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
-                }
-                
-                if let agreementDate = status.agreementDate {
-                    if let aDate: Date = ckRecord["agreementDate"] as? Date {
-                        if aDate < agreementDate {
-                            status.agreementDate = aDate
+                        
+//                        if let agreementDate = status.agreementDate {
+//                            if let aDate: Date = ckRecord["agreementDate"] as? Date {
+//                                if aDate < agreementDate {
+//                                    status.agreementDate = aDate
+//                                }
+//                            }
+//                        }
+                        
+                        do {
+                            try self.context.save()
+                            DispatchQueue.main.async {
+                                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object: self.context,userInfo:["info":"status save merge that","status": true])
+                            }
+                        } catch let error as NSError {
+                            let theError: String = error.localizedDescription
+                            let error = "There was an error in saving " + theError
+                            print(error)
                         }
+                    } else {
+                        self.status = Status(context: self.context)
+                        if let fcLocationChanged = ckRecord["locationMovedToFCLocation"] as? Int64 {
+                            if fcLocationChanged == 1 {
+                                self.status.locationMovedToFCLocation = true
+                            } else {
+                                self.status.locationMovedToFCLocation = false
+                            }
+                        }
+
+                        if let theDate = ckRecord["shiftDate"] as? Date {
+                            self.status.shiftDate = theDate
+                        }
+                        if let shiftGuid = ckRecord["guidString"] as? String {
+                            self.status.guidString = shiftGuid
+                        }
+                        
+                        if let aDate = ckRecord["agreementDate"] as? Date {
+                            self.status.agreementDate = aDate
+                            self.status.agreement = true
+                        }
+                        
+                        let coder = NSKeyedArchiver(requiringSecureCoding: true)
+                        ckRecord.encodeSystemFields(with: coder)
+                        let data = coder.encodedData
+                        self.status.statusCKR = data as NSObject
+                        
+                        do {
+                            try self.context.save()
+                            DispatchQueue.main.async {
+                                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object: self.context,userInfo:["info":"status save merge that","status": true])
+                            }
+                        } catch let error as NSError {
+                            let theError: String = error.localizedDescription
+                            let error = "There was an error in saving " + theError
+                            print(error)
+                        }
+                        
                     }
                 }
                 
-                do {
-                    try self.context.save()
-                    DispatchQueue.main.async {
-                        self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object: self.context,userInfo:["info":"status save merge that","status": true])
-                    }
-                } catch let error as NSError {
-                    let theError: String = error.localizedDescription
-                    let error = "There was an error in saving " + theError
-                    print(error)
-                }
                 
             }
         }
         
         
         return status
+    }
+    
+    func addFCLocationsToStatus(objectID: NSManagedObjectID, _ context: NSManagedObjectContext, completionHander: ( @escaping (_ status: Status) -> Void )) {
+        self.context = context
+        self.status = self.context.object(with: objectID) as? Status
+        self.status.locationMovedToFCLocation = true
+        do {
+            try self.context.save()
+            DispatchQueue.main.async {
+                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object: self.context,userInfo:["info":"status save merge that", "status": true ])
+            }
+        } catch let error as NSError {
+            let theError: String = error.localizedDescription
+            let error = "There was an error in saving " + theError
+            print(error)
+        }
+        completionHander(self.status)
     }
     
     func createStatusCKRecord(_ context: NSManagedObjectContext, _ objectID: NSManagedObjectID, completionHandler: ( @escaping (_ status: Status) -> Void)) {
@@ -196,6 +344,11 @@ class StatusProvider: NSObject, NSFetchedResultsControllerDelegate {
                         statusR["agreement"] = 1
                     } else {
                         statusR["agreement"] = 0
+                    }
+                    if self.status.locationMovedToFCLocation {
+                        statusR["locationMovedToFCLocation"] = 1
+                    } else {
+                        statusR["locationMovedToFCLocation"] = 0
                     }
                     let modifyCKOperation = CKModifyRecordsOperation.init(recordsToSave: [statusR], recordIDsToDelete: nil)
                     modifyCKOperation.savePolicy = .changedKeys
@@ -251,6 +404,11 @@ class StatusProvider: NSObject, NSFetchedResultsControllerDelegate {
                     statusR["agreement"] = 1
                 } else {
                     statusR["agreement"] = 0
+                }
+                if self.status.locationMovedToFCLocation {
+                    statusR["locationMovedToFCLocation"] = 1
+                } else {
+                    statusR["locationMovedToFCLocation"] = 0
                 }
                 do {
                     let data = try NSKeyedArchiver.archivedData(withRootObject: statusRef, requiringSecureCoding: true)

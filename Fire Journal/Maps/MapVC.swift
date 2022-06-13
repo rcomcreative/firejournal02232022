@@ -1,10 +1,10 @@
-//
-//  MapVC.swift
-//  dashboard
-//
-//  Created by DuRand Jones on 9/14/18.
-//  Copyright © 2018 PureCommand LLC. All rights reserved.
-//
+    //
+    //  MapVC.swift
+    //  dashboard
+    //
+    //  Created by DuRand Jones on 9/14/18.
+    //  Copyright © 2018 PureCommand LLC. All rights reserved.
+    //
 
 import UIKit
 import Foundation
@@ -14,14 +14,14 @@ import CoreData
 
 
 protocol MapVCDelegate: AnyObject {
-
+    
     func mapTapped()
 }
 
 
 
 class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, NSFetchedResultsControllerDelegate {
-    //    MARK: -PROPERTIES
+        //    MARK: -PROPERTIES
     weak var delegate:MapVCDelegate? = nil
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var titleName:String = ""
@@ -32,7 +32,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, NSF
     var myShift:MenuItems! = nil
     var firstLoad:Bool = true
     
-    // MARK: -OBJECTS
+        // MARK: -OBJECTS
     @IBOutlet weak var mapV: MKMapView!
     var locationManager:CLLocationManager!
     private var currentLocation: CLLocation?
@@ -66,6 +66,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, NSF
     var locations = [NewIncidentMapAnnotation]()
     var mapLocations = [NewIncidentMapAnnotation]()
     var mapAnnotationViews = [MKPinAnnotationView]()
+    var theAnnotationCollection = [NewIncidentMapAnnotation]()
     var allLocations = [CLLocation]()
     var annotationClicked:Bool = false
     let nc = NotificationCenter.default
@@ -100,7 +101,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, NSF
         self.countOfIncidentTF.layer.cornerRadius = 6
         self.countOfIncidentTF.clipsToBounds = true
     }
-
+    
     
     @IBAction func mapVCBTapped(_ sender: Any) {
         presentAlert()
@@ -238,14 +239,14 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, NSF
         let editVC  = storyboard.instantiateViewController(identifier: "MapInfoVC") as! MapInfoVC
         editVC.delegate = self
         switch mapType {
-            case .satellite:
-                editVC.type = 0
-            case .hybrid:
-                editVC.type = 1
-            case .standard:
-                editVC.type = 2
-            default:
-                break
+        case .satellite:
+            editVC.type = 0
+        case .hybrid:
+            editVC.type = 1
+        case .standard:
+            editVC.type = 2
+        default:
+            break
         }
         present(editVC, animated: true )
     }
@@ -305,13 +306,13 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, NSF
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         self.navigationController?.navigationBar.barTintColor = UIColor(named: "FJBlueColor")
         self.navigationController?.navigationBar.isTranslucent = false
         roundViews()
         self.title = titleName
         getTheUser(userGuid: "")
-        //        getTheFireStationLocation()
+            //        getTheFireStationLocation()
         vcLaunch.splitVC = self.splitViewController
         launchNC = LaunchNotifications.init(launchVC: vcLaunch)
         launchNC.callNotifications()
@@ -354,13 +355,13 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, NSF
             getAllMapLocations(type: incidentType,entity: "Incident")
         }
         
-        //        MARK: - INCIDENT,FIRE,EMS,RESCUE PIN TO OPEN
+            //        MARK: - INCIDENT,FIRE,EMS,RESCUE PIN TO OPEN
         nc.addObserver(self, selector:#selector(incidentChosenForDisplay(notification:)),name:NSNotification.Name(rawValue: FJkINCIDENTCHOSENFORMAP), object: nil)
         
-        //        MARK: - ICS214 PIN TO OPEN
+            //        MARK: - ICS214 PIN TO OPEN
         nc.addObserver(self, selector:#selector(incidentChosenForDisplay(notification:)),name:NSNotification.Name(rawValue: FJkICS214CHOSENFORMAP), object: nil)
         
-        //        MARK: - ARCFORM PIN TO OPEN
+            //        MARK: - ARCFORM PIN TO OPEN
         nc.addObserver(self, selector:#selector(incidentChosenForDisplay(notification:)),name:NSNotification.Name(rawValue: FJkARCFORMCHOSENFORMAP), object: nil)
         
         
@@ -372,37 +373,49 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, NSF
         mapV.mapType = mapType
         mapV.delegate = self
         
-//        satelliteB.setBackgroundImage(ButtonsForFJ092018.imageOfBackgroundBlueGradient, for: .normal)
-//        satelliteB.layer.cornerRadius = 3
-//        satelliteB.layer.masksToBounds = true
-//
-//        hybredB.setBackgroundImage(ButtonsForFJ092018.imageOfBackgroundBlueGradient, for: .normal)
-//        hybredB.layer.cornerRadius = 3
-//        hybredB.layer.masksToBounds = true
-//
-//        streetB.setBackgroundImage(ButtonsForFJ092018.imageOfBackgroundBlueGradient, for: .normal)
-//        streetB.layer.cornerRadius = 3
-//        streetB.layer.masksToBounds = true
+            //        satelliteB.setBackgroundImage(ButtonsForFJ092018.imageOfBackgroundBlueGradient, for: .normal)
+            //        satelliteB.layer.cornerRadius = 3
+            //        satelliteB.layer.masksToBounds = true
+            //
+            //        hybredB.setBackgroundImage(ButtonsForFJ092018.imageOfBackgroundBlueGradient, for: .normal)
+            //        hybredB.layer.cornerRadius = 3
+            //        hybredB.layer.masksToBounds = true
+            //
+            //        streetB.setBackgroundImage(ButtonsForFJ092018.imageOfBackgroundBlueGradient, for: .normal)
+            //        streetB.layer.cornerRadius = 3
+            //        streetB.layer.masksToBounds = true
         
-//        allIncidentB.setBackgroundImage(BuildButtons.allIncidentsIcon, for: .normal)
-//        fireIncidentsB.setBackgroundImage(BuildButtons.fireIncidentsIcon, for: .normal)
-//        emsIncidentsB.setBackgroundImage(BuildButtons.emsIncidentsIcon, for: .normal)
-//        rescueIncidentB.setBackgroundImage(BuildButtons.rescueIncidentsIcon, for: .normal)
-//        ics214B.setBackgroundImage(BuildButtons.ics214Icon, for: .normal)
-//        arcFormB.setBackgroundImage(BuildButtons.ARCFormIcon, for: .normal)
-//        myFireStationLocation.setBackgroundImage(BuildButtons.YourFireStationLocationIcon, for: .normal)
-//        myLocationB.setBackgroundImage(BuildButtons.YourLocationIcon, for: .normal)
+            //        allIncidentB.setBackgroundImage(BuildButtons.allIncidentsIcon, for: .normal)
+            //        fireIncidentsB.setBackgroundImage(BuildButtons.fireIncidentsIcon, for: .normal)
+            //        emsIncidentsB.setBackgroundImage(BuildButtons.emsIncidentsIcon, for: .normal)
+            //        rescueIncidentB.setBackgroundImage(BuildButtons.rescueIncidentsIcon, for: .normal)
+            //        ics214B.setBackgroundImage(BuildButtons.ics214Icon, for: .normal)
+            //        arcFormB.setBackgroundImage(BuildButtons.ARCFormIcon, for: .normal)
+            //        myFireStationLocation.setBackgroundImage(BuildButtons.YourFireStationLocationIcon, for: .normal)
+            //        myLocationB.setBackgroundImage(BuildButtons.YourLocationIcon, for: .normal)
         determineLocation()
     }
     
     @objc func incidentChosenForDisplay(notification: Notification) {
+            //        var theAnnotationCollection = [NewIncidentMapAnnotation]()
         if let userInfo = notification.userInfo as! [String: Any]?
         {
             if let id = userInfo["objectID"] as? NSManagedObjectID {
-                for annotationView:MKPinAnnotationView in mapAnnotationViews {
-                    let pinannotation:NewIncidentMapAnnotation = annotationView.annotation as! NewIncidentMapAnnotation
-                    let pinObjectID = pinannotation.objectID
-                    if id == pinObjectID {
+                    //                for annotationView:MKPinAnnotationView in mapAnnotationViews {
+                    //                    let pinannotation: NewIncidentMapAnnotation = annotationView.annotation as! NewIncidentMapAnnotation
+                    //                    theAnnotationCollection.append(pinannotation)
+                    ////                    let pinObjectID = pinannotation.objectID
+                    ////                    if id == pinObjectID {
+                    ////                        mapV.selectAnnotation(pinannotation, animated: true)
+                    ////                    }
+                    //                }
+                for mapLocation in mapLocations {
+                    print("here is the objectID \(mapLocation.objectID) and the type \(mapLocation.type)")
+                }
+                
+                let result = mapLocations.filter { $0.objectID == id }
+                if !result.isEmpty {
+                    if let pinannotation = result.last {
                         mapV.selectAnnotation(pinannotation, animated: true)
                     }
                 }
@@ -429,18 +442,14 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, NSF
         self.selectedAnnotation = view.annotation as? NewIncidentMapAnnotation
         let center = self.selectedAnnotation?.coordinate
         let defaultL = CLLocationCoordinate2D(latitude: (currentLocation?.coordinate.latitude)!, longitude:(currentLocation?.coordinate.longitude)!)
-
-               let region = MKCoordinateRegion(center: center ?? defaultL, span:MKCoordinateSpan(latitudeDelta: 0.001225, longitudeDelta: 0.001123))
-
-        //        mapV.setCenter(center!, animated: true)
+        
+        let region = MKCoordinateRegion(center: center ?? defaultL, span:MKCoordinateSpan(latitudeDelta: 0.001225, longitudeDelta: 0.001123))
+        
+            //        mapV.setCenter(center!, animated: true)
         mapV.setRegion(region, animated: true)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        //        if !userLocationPicked {
-        //            getTheFireStationLocation()
-        //        }
         
         if !annotationClicked {
             
@@ -452,8 +461,8 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, NSF
                 userLocation = locations[0] as CLLocation
                 currentLocation = userLocation
             }
-            //locations[0] as CLLocation
-            //            currentLocation = userLocation
+                //locations[0] as CLLocation
+                //            currentLocation = userLocation
             locationManager.stopUpdatingLocation()
             
             let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude:userLocation.coordinate.longitude)
@@ -474,28 +483,98 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, NSF
             }
             
             annotationClicked = true
-            //            print(mapAnnotationViews)
+                //            print(mapAnnotationViews)
         }
     }
     
     func plotTheFireStation() {
-        let location: CLLocation = currentLocation!
-        pointAnnotation = NewIncidentMapAnnotation()
-        let coordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude:location.coordinate.longitude)
-        pointAnnotation.coordinate = coordinate
-        let type:kAnnotationType = .annotationFireStation
-        pointAnnotation.type = type
-        pointAnnotation.title = fireStationAddress
-        pinAnnotationView = MKPinAnnotationView(annotation: pointAnnotation, reuseIdentifier: "AnnotationIdentifier")
-        pointAnnotation.title = address
-        mapLocations.append(pointAnnotation)
-        self.mapAnnotationViews.append(pinAnnotationView)
-        mapV.addAnnotation(pointAnnotation)
+        if let theLocation = currentLocation {
+            let location: CLLocation = theLocation
+            
+            pointAnnotation = NewIncidentMapAnnotation()
+            let coordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude:location.coordinate.longitude)
+            pointAnnotation.coordinate = coordinate
+            let type:kAnnotationType = .annotationFireStation
+            pointAnnotation.type = type
+            pointAnnotation.title = fireStationAddress
+            pinAnnotationView = MKPinAnnotationView(annotation: pointAnnotation, reuseIdentifier: "AnnotationIdentifier")
+            pointAnnotation.title = address
+            mapLocations.append(pointAnnotation)
+            self.mapAnnotationViews.append(pinAnnotationView)
+            mapV.addAnnotation(pointAnnotation)
+        }
     }
     
     func plotTheIncident() {
         for incident in self.fetched {
-            if incident.incidentLocationSC != nil {
+            if incident.theLocation != nil {
+                if let theLocation = incident.theLocation {
+                    if let incidentLocation = theLocation.location {
+                        self.allLocations.append(incidentLocation)
+                        pointAnnotation = NewIncidentMapAnnotation()
+                        let coordinate = CLLocationCoordinate2D(latitude: incidentLocation.coordinate.latitude, longitude: incidentLocation.coordinate.longitude)
+                        pointAnnotation.coordinate = coordinate
+                        let pinType = incident.situationIncidentImage
+                        var type: kAnnotationType = .annotationFire
+                        if pinType == "Fire" {
+                            type = .annotationFire
+                        } else if pinType == "EMS" {
+                            type = .annotationEMS
+                        } else if pinType == "Rescue" {
+                            type = .annotationRescue
+                        }
+                        pointAnnotation.type = type
+                        let objectID = incident.objectID
+                        pointAnnotation.objectID = objectID
+                        var address:String = ""
+                        var sub:String = ""
+                        
+                        if let number = theLocation.streetNumber {
+                            self.streetNum = number
+                            address = self.streetNum
+                        }
+                        if let name = theLocation.streetName {
+                            self.streetName = name
+                            address = address+" \(self.streetName)"
+                        }
+                        if let cityName = theLocation.city {
+                            self.city = cityName
+                            address = address+" \(self.city)"
+                        }
+                        if let zipCode = theLocation.zip {
+                            self.zip = zipCode
+                            address = address+" \(self.zip)"
+                        }
+                        if let number = incident.incidentNumber {
+                            sub = "Incident #\(number)"
+                        }
+                        let theModDate:Date = incident.incidentModDate ?? Date()
+                        let fullyFormattedDate = FullDateFormat.init(date:theModDate)
+                        let incidentDate:String = fullyFormattedDate.formatFullyTheDate()
+                        sub = sub+" \(incidentDate)"
+                        var incidentType:String = "Fire"
+                        if let iType = incident.situationIncidentImage {
+                            incidentType = iType
+                            sub = sub+" \(incidentType)"
+                        }
+                        var emergencyIncident:String = ""
+                        if let emergency = incident.incidentType {
+                            emergencyIncident = emergency
+                            sub = sub+" \(emergencyIncident)"
+                        }
+                        
+                        
+                        pointAnnotation.title = address
+                        pointAnnotation.subtitle = sub
+                        pinAnnotationView = MKPinAnnotationView(annotation: pointAnnotation, reuseIdentifier: "AnnotationIdentifier")
+                        pointAnnotation.title = address
+                        mapLocations.append(pointAnnotation)
+                        self.mapAnnotationViews.append(pinAnnotationView)
+                        mapV.addAnnotation(pointAnnotation)
+                        
+                    }
+                }
+            } else {
                 if let location = incident.incidentLocationSC {
                     guard let  archivedData = location as? Data else { return }
                     do {
@@ -567,8 +646,9 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, NSF
                         print("something's going on here")
                     }
                 }
-                
             }
+            
+            
         }
     }
     
@@ -576,7 +656,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, NSF
         for ics214 in self.ics214Fetched {
             var location:CLLocation!
             
-            /// arcLocation unarchived from secureCodeing
+                /// arcLocation unarchived from secureCodeing
             if ics214.ics214LocationSC != nil {
                 if let theLocation = ics214.ics214LocationSC {
                     guard let  archivedData = theLocation as? Data else { return }
@@ -624,70 +704,70 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, NSF
                 if let guidString = ics214.incidentGuid {
                     getTheIncidentLocation(guid: guidString)
                     
-                    /// arcLocation unarchived from secureCodeing
+                        /// arcLocation unarchived from secureCodeing
                     if incident.incidentLocationSC != nil {
-                            if let theLocation = incident.incidentLocationSC {
-                                guard let  archivedData = theLocation as? Data else { return }
-                                do {
-                                    guard let unarchivedLocation = try NSKeyedUnarchiver.unarchivedObject(ofClass: CLLocation.self , from: archivedData) else { return  }
-                                    location = unarchivedLocation
-                                    self.allLocations.append(location)
-                                    pointAnnotation = NewIncidentMapAnnotation()
-                                    let coordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude:location.coordinate.longitude)
-                                    pointAnnotation.coordinate = coordinate
-                                    let type:kAnnotationType = .annotationICS214
-                                    let objectID = ics214.objectID
-                                    pointAnnotation.objectID = objectID
-                                    pointAnnotation.type = type
-                                    var address:String = ""
-                                    var sub:String = ""
-                                    let incidentAddress:IncidentAddress = incident.incidentAddressDetails!
-                                    if let number = incidentAddress.streetNumber {
-                                        self.streetNum = number
-                                        address = self.streetNum
-                                    }
-                                    if let name = incidentAddress.streetHighway {
-                                        self.streetName = name
-                                        address = address+" \(self.streetName)"
-                                    }
-                                    if let cityName = incidentAddress.city {
-                                        self.city = cityName
-                                        address = address+" \(self.city)"
-                                    }
-                                    if let zipCode = incidentAddress.zip {
-                                        self.zip = zipCode
-                                        address = address+" \(self.zip)"
-                                    }
-                                    if let number = incident.incidentNumber {
-                                        sub = "Incident #\(number)"
-                                    }
-                                    let theModDate:Date = incident.incidentModDate ?? Date()
-                                    let fullyFormattedDate = FullDateFormat.init(date:theModDate)
-                                    let incidentDate:String = fullyFormattedDate.formatFullyTheDate()
-                                    sub = sub+" \(incidentDate)"
-                                    var incidentType:String = "Fire"
-                                    if let iType = incident.situationIncidentImage {
-                                        incidentType = iType
-                                        sub = sub+" \(incidentType)"
-                                    }
-                                    var emergencyIncident:String = ""
-                                    if let emergency = incident.incidentType {
-                                        emergencyIncident = emergency
-                                        sub = sub+" \(emergencyIncident)"
-                                    }
-                                    
-                                    
-                                    pointAnnotation.title = address
-                                    pointAnnotation.subtitle = sub
-                                    pinAnnotationView = MKPinAnnotationView(annotation: pointAnnotation, reuseIdentifier: "AnnotationIdentifier")
-                                    pointAnnotation.title = address
-                                    mapLocations.append(pointAnnotation)
-                                    self.mapAnnotationViews.append(pinAnnotationView)
-                                    mapV.addAnnotation(pointAnnotation)
-                                } catch {
-                                    print("boy there was an error here")
+                        if let theLocation = incident.incidentLocationSC {
+                            guard let  archivedData = theLocation as? Data else { return }
+                            do {
+                                guard let unarchivedLocation = try NSKeyedUnarchiver.unarchivedObject(ofClass: CLLocation.self , from: archivedData) else { return  }
+                                location = unarchivedLocation
+                                self.allLocations.append(location)
+                                pointAnnotation = NewIncidentMapAnnotation()
+                                let coordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude:location.coordinate.longitude)
+                                pointAnnotation.coordinate = coordinate
+                                let type:kAnnotationType = .annotationICS214
+                                let objectID = ics214.objectID
+                                pointAnnotation.objectID = objectID
+                                pointAnnotation.type = type
+                                var address:String = ""
+                                var sub:String = ""
+                                let incidentAddress:IncidentAddress = incident.incidentAddressDetails!
+                                if let number = incidentAddress.streetNumber {
+                                    self.streetNum = number
+                                    address = self.streetNum
                                 }
+                                if let name = incidentAddress.streetHighway {
+                                    self.streetName = name
+                                    address = address+" \(self.streetName)"
+                                }
+                                if let cityName = incidentAddress.city {
+                                    self.city = cityName
+                                    address = address+" \(self.city)"
+                                }
+                                if let zipCode = incidentAddress.zip {
+                                    self.zip = zipCode
+                                    address = address+" \(self.zip)"
+                                }
+                                if let number = incident.incidentNumber {
+                                    sub = "Incident #\(number)"
+                                }
+                                let theModDate:Date = incident.incidentModDate ?? Date()
+                                let fullyFormattedDate = FullDateFormat.init(date:theModDate)
+                                let incidentDate:String = fullyFormattedDate.formatFullyTheDate()
+                                sub = sub+" \(incidentDate)"
+                                var incidentType:String = "Fire"
+                                if let iType = incident.situationIncidentImage {
+                                    incidentType = iType
+                                    sub = sub+" \(incidentType)"
+                                }
+                                var emergencyIncident:String = ""
+                                if let emergency = incident.incidentType {
+                                    emergencyIncident = emergency
+                                    sub = sub+" \(emergencyIncident)"
+                                }
+                                
+                                
+                                pointAnnotation.title = address
+                                pointAnnotation.subtitle = sub
+                                pinAnnotationView = MKPinAnnotationView(annotation: pointAnnotation, reuseIdentifier: "AnnotationIdentifier")
+                                pointAnnotation.title = address
+                                mapLocations.append(pointAnnotation)
+                                self.mapAnnotationViews.append(pinAnnotationView)
+                                mapV.addAnnotation(pointAnnotation)
+                            } catch {
+                                print("boy there was an error here")
                             }
+                        }
                         
                     }
                 }
@@ -717,7 +797,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, NSF
         for arcForm in self.ccrFetched {
             var location:CLLocation!
             
-            /// arcLocation unarchived from secureCodeing
+                /// arcLocation unarchived from secureCodeing
             if arcForm.arcLocationSC != nil {
                 if let theLocation = arcForm.arcLocationSC {
                     guard let  archivedData = theLocation as? Data else { return }
@@ -787,7 +867,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, NSF
             
             if placemarks?.count != 0 {
                 let pm = placemarks![0]
-                //                print(pm.locality!)
+                    //                print(pm.locality!)
                 self.city = "\(pm.locality ?? "")"
                 self.streetNum = "\(pm.subThoroughfare ?? "")"
                 self.streetName = "\(pm.thoroughfare ?? "")"
@@ -802,7 +882,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, NSF
                 print("Problem with the data received from geocoder")
             }
             
-            //            handler(addressS)
+                //            handler(addressS)
         })
         
     }
@@ -819,7 +899,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, NSF
             
             if placemarks?.count != 0 {
                 let pm = placemarks![0]
-                //                print(pm.locality!)
+                    //                print(pm.locality!)
                 self.city = "\(pm.locality ?? "")"
                 self.streetNum = "\(pm.subThoroughfare ?? "")"
                 self.streetName = "\(pm.thoroughfare ?? "")"
@@ -827,13 +907,13 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, NSF
                 self.zip = "\(pm.postalCode ?? "")"
                 
                 addressS = "\(self.streetNum) \(self.streetName),\(self.city) \(self.state) \(self.zip)"
-                //                print("here is the address \(addressS)")
+                    //                print("here is the address \(addressS)")
             }
             else {
                 print("Problem with the data received from geocoder")
             }
             
-            //            handler(addressS)
+                //            handler(addressS)
         })
         return addressS
     }
@@ -861,7 +941,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, NSF
         let pinImage = customPointAnnotation.imageForMapPin(type:customPointAnnotation.type)
         
         annotationView?.image = pinImage
-        //            UIImage(named: customPointAnnotation.pinCustomImageName)
+            //            UIImage(named: customPointAnnotation.pinCustomImageName)
         
         return annotationView
         
@@ -875,12 +955,12 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, NSF
     func mapView(_ mapView: MKMapView, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         let mapAnnotation = annotationView.annotation as! NewIncidentMapAnnotation
         objectID = mapAnnotation.objectID
-//        print("here is objectID \(objectID) and here is the type \(theType)")
+            //        print("here is objectID \(objectID) and here is the type \(theType)")
         switch theType {
         case .fire, .ems, .rescue,.allIncidents:
             segue = incidentSegue
         case .ics214Form:
-           segue = ics214Segue
+            segue = ics214Segue
         case .arcForm:
             segue = arcSegue
         default: break
@@ -890,21 +970,21 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, NSF
     
     @IBAction func useAddressBTapped(_ sender: Any) {
         delegate?.mapTapped()
-        //        if currentLocation != nil {
-        ////            delegate?.theAddressHasBeenChosen(addressStreetNum: streetNum, addressStreetName: streetName, addressCity: city, addressState: state, addressZip: zip, location: currentLocation!)
-        //        } else {
-        //            delegate?.mapTapped()
-        //        }
+            //        if currentLocation != nil {
+            ////            delegate?.theAddressHasBeenChosen(addressStreetNum: streetNum, addressStreetName: streetName, addressCity: city, addressState: state, addressZip: zip, location: currentLocation!)
+            //        } else {
+            //            delegate?.mapTapped()
+            //        }
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+            // Dispose of any resources that can be recreated.
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-//        launchNC.removeNC()
+            //        launchNC.removeNC()
     }
     
     private func getAllMapLocations(type: IncidentTypes,entity: String) {
@@ -959,8 +1039,8 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, NSF
             let sectionSortDescriptor = NSSortDescriptor(key: "arcCreationDate", ascending: false)
             let sortDescriptors = [sectionSortDescriptor]
             fetchRequest.sortDescriptors = sortDescriptors
-        case .userLocation:break
-        default:break
+        case .userLocation: break
+        default: break
         }
         
         
@@ -1047,7 +1127,7 @@ extension MapVC {
 
 
 extension MapVC: IncidentTVCDelegate {
-
+    
     func incidentTapped() {
         self.dismiss(animated: true, completion: nil)
     }
@@ -1070,7 +1150,7 @@ extension MapVC: ARC_FormDelegate {
     }
     
     func theFormWantsNewForm() {
-//        <#code#>
+            //        <#code#>
     }
     
     
@@ -1082,13 +1162,13 @@ extension MapVC: MapInfoVCDelegate {
     }
     func segmentChosen(type: Int) {
         switch type {
-            case 0:
-                satelliteBTapped(self)
-            case 1:
-                hybredBTapped(self)
-            case 2:
-                streetBTapped(self)
-            default: break
+        case 0:
+            satelliteBTapped(self)
+        case 1:
+            hybredBTapped(self)
+        case 2:
+            streetBTapped(self)
+        default: break
         }
         self.dismiss(animated: true, completion: nil)
     }

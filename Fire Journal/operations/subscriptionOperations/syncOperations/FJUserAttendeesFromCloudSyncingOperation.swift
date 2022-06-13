@@ -14,23 +14,36 @@ import CloudKit
 class FJUserAttendeesFromCloudSyncingOperation: FJOperation {
     
     let context: NSManagedObjectContext
+    var bkgrdContext:NSManagedObjectContext!
     let pendingOperations = PendingOperations()
     var thread:Thread!
     let nc = NotificationCenter.default
     let myContainer = CKContainer.init(identifier: FJkCLOUDKITDATABASENAME)
     var privateDatabase:CKDatabase!
     var fjUserAttendeesA = [UserAttendees]()
-    var fjUserAttendees:UserAttendees!
+    var fjUserAttendees: UserAttendees!
     var ckRecordA = [CKRecord]()
     var count: Int = 0
     var stop:Bool = false
     var recordGuid:String = ""
+    
+    var theUser: FireJournalUser!
+    
+    lazy var theUserProvider: FireJournalUserProvider = {
+        let provider = FireJournalUserProvider(with: (UIApplication.shared.delegate as! AppDelegate).persistentContainer)
+        return provider
+    }()
+    var theUserContext: NSManagedObjectContext!
     
     init(_ context: NSManagedObjectContext, ckArray: [CKRecord]) {
         self.context = context
         self.ckRecordA = ckArray
         self.privateDatabase = self.myContainer.privateCloudDatabase
         super.init()
+    }
+    
+    deinit {
+        nc.removeObserver(NSNotification.Name.NSManagedObjectContextDidSave)
     }
     
     override func main() {
@@ -44,9 +57,10 @@ class FJUserAttendeesFromCloudSyncingOperation: FJOperation {
             return
         }
         
-        
-        thread = Thread(target:self, selector:#selector(checkTheThread), object:nil)
-        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: self.context)
+        bkgrdContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        bkgrdContext.persistentStoreCoordinator = context.persistentStoreCoordinator
+        thread = Thread(target:self, selector: #selector(checkTheThread), object: nil)
+        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: self.bkgrdContext)
         executing(true)
         
         let count = theCounter()
@@ -71,7 +85,8 @@ class FJUserAttendeesFromCloudSyncingOperation: FJOperation {
     func theCounter()->Int {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "UserAttendees" )
         do {
-            let count = try context.count(for:fetchRequest)
+            let count = try bkgrdContext.count(for:fetchRequest)
+            fjUserAttendeesA = try bkgrdContext.fetch(fetchRequest) as! [UserAttendees]
             return count
         } catch let error as NSError {
             print("Error: \(error.localizedDescription)")
@@ -81,13 +96,8 @@ class FJUserAttendeesFromCloudSyncingOperation: FJOperation {
     
     func chooseNewWithGuid(withCompletion completion: () -> Void ) {
         for record in ckRecordA {
-            if let guid:String = record["attendeeGuid"] {
-                recordGuid = guid
-                count = theCount(guid: recordGuid)
-                if count == 0 {
+//            print("here is new attendee")
                     newFromCloud(record: record)
-                }
-            }
         }
         completion()
     }
@@ -95,12 +105,14 @@ class FJUserAttendeesFromCloudSyncingOperation: FJOperation {
     func chooseNewOrUpdate(withCompletion completion: () -> Void ) {
         for record in ckRecordA {
             if let guid:String = record["attendeeGuid"] {
-                recordGuid = guid
-                count = theCount(guid: recordGuid)
-                if count == 0 {
+                let result = fjUserAttendeesA.filter { $0.attendeeGuid == guid }
+                if result.isEmpty {
+//                    print("here is new attendee")
                     newFromCloud(record: record)
                 } else {
-//                    fjUserAttendees.updateUserAttendeesFromTheCloud(ckRecord: record)
+//                    print("here is modified attendee")
+                    fjUserAttendees = result.last
+                    updateAttendeeFromCloud(fjUserAttendeeRecord: record, fjUserAttendees: fjUserAttendees)
                 }
             }
         }
@@ -112,64 +124,85 @@ class FJUserAttendeesFromCloudSyncingOperation: FJOperation {
         print("here is testThread \(testThread) and \(Thread.current)")
     }
     
-    private func newFromCloud(record: CKRecord)->Void {
-        let fjUserAttendeeRecord = record
-        var name = fjUserAttendeeRecord["attendee"] as? String
-        name = name?.trimmingCharacters(in: .whitespaces)
+    func updateAttendeeFromCloud(fjUserAttendeeRecord: CKRecord, fjUserAttendees: UserAttendees) {
         
-        let named:Bool = checkForName(name: name!)
+        if let attendeeGuid = fjUserAttendeeRecord["attendeeGuid"] as? String {
+            fjUserAttendees.attendeeGuid = attendeeGuid
+        }
+        if let attendee = fjUserAttendeeRecord["attendee"] as? String {
+            fjUserAttendees.attendee = attendee
+        }
+        if let attendeeEmail = fjUserAttendeeRecord["attendeeEmail"] as? String {
+            fjUserAttendees.attendeeEmail = attendeeEmail
+        }
+        if let attendeePhone = fjUserAttendeeRecord["attendeePhone"] as? String {
+            fjUserAttendees.attendeePhone = attendeePhone
+        }
+        if let attendeeHomeAgency = fjUserAttendeeRecord["attendeeHomeAgency"] as? String {
+            fjUserAttendees.attendeeHomeAgency = attendeeHomeAgency
+        }
+        if let attendeeICSPosition = fjUserAttendeeRecord["attendeeICSPosition"] as? String {
+            fjUserAttendees.attendeeICSPosition = attendeeICSPosition
+        }
+        if let attendeeModDate = fjUserAttendeeRecord["attendeeModDate"] as? Date {
+            fjUserAttendees.attendeeModDate = attendeeModDate
+        }
         
-        if !named {
-            let fjUserAttendees = UserAttendees(context: self.context)
-            fjUserAttendees.attendeeGuid = fjUserAttendeeRecord["attendeeGuid"]
-            fjUserAttendees.attendee = name
-            fjUserAttendees.attendeeEmail = fjUserAttendeeRecord["attendeeEmail"]
-            fjUserAttendees.attendeePhone = fjUserAttendeeRecord["attendeePhone"]
-            fjUserAttendees.attendeeHomeAgency = fjUserAttendeeRecord["attendeeHomeAgency"]
-            fjUserAttendees.attendeeICSPosition = fjUserAttendeeRecord["attendeeICSPosition"]
-            fjUserAttendees.attendeeBackUp = true
-            fjUserAttendees.attendeeModDate = fjUserAttendeeRecord["attendeeModDate"]
+        if let staffGuid = fjUserAttendeeRecord["staffGuid"] as? String {
+            fjUserAttendees.staffGuid = UUID(uuidString: staffGuid)
+        }
+        
             let coder = NSKeyedArchiver(requiringSecureCoding: true)
             fjUserAttendeeRecord.encodeSystemFields(with: coder)
             let data = coder.encodedData
             fjUserAttendees.fjUserAttendeeCKR = data as NSObject
-            do {
-                try self.context.save()
-                DispatchQueue.main.async {
-                    self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object: self.context ,userInfo:["info":"FJuser Attendees from cloud syncing Operation"])
-                }
-            } catch let error as NSError {
-                let nserror = error
-                print("The context was unable to save due to \(nserror.localizedDescription) \(nserror.userInfo)")
-            }
-        }
-//        print("here is fjUserAttendees \(fjUserAttendees)")
+        
     }
     
-    private func checkForName(name: String)->Bool {
-        var nameHere: Bool = false
-        let attribute = "attendee"
-        let entity = "UserAttendees"
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity )
-        let predicate = NSPredicate(format: "%K == %@", attribute, name)
-        let predicateCan = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [predicate])
-        fetchRequest.predicate = predicateCan
-        do {
-            let count = try context.count(for:fetchRequest)
-            if count > 0 {
-                nameHere = true
-            }
-        } catch let error as NSError {
-            print("Error: \(error.localizedDescription)")
+    private func newFromCloud(record: CKRecord)->Void {
+        
+        let fjUserAttendeeRecord = record
+        
+        let fjUserAttendees = UserAttendees(context: bkgrdContext)
+        if let attendeeGuid = fjUserAttendeeRecord["attendeeGuid"] as? String {
+            fjUserAttendees.attendeeGuid = attendeeGuid
         }
-        return nameHere
+        if let attendee = fjUserAttendeeRecord["attendee"] as? String {
+            fjUserAttendees.attendee = attendee
+        }
+        if let attendeeEmail = fjUserAttendeeRecord["attendeeEmail"] as? String {
+            fjUserAttendees.attendeeEmail = attendeeEmail
+        }
+        if let attendeePhone = fjUserAttendeeRecord["attendeePhone"] as? String {
+            fjUserAttendees.attendeePhone = attendeePhone
+        }
+        if let attendeeHomeAgency = fjUserAttendeeRecord["attendeeHomeAgency"] as? String {
+            fjUserAttendees.attendeeHomeAgency = attendeeHomeAgency
+        }
+        if let attendeeICSPosition = fjUserAttendeeRecord["attendeeICSPosition"] as? String {
+            fjUserAttendees.attendeeICSPosition = attendeeICSPosition
+        }
+        if let attendeeModDate = fjUserAttendeeRecord["attendeeModDate"] as? Date {
+            fjUserAttendees.attendeeModDate = attendeeModDate
+        }
+        
+        if let staffGuid = fjUserAttendeeRecord["staffGuid"] as? String {
+            fjUserAttendees.staffGuid = UUID(uuidString: staffGuid)
+        }
+            let coder = NSKeyedArchiver(requiringSecureCoding: true)
+            fjUserAttendeeRecord.encodeSystemFields(with: coder)
+            let data = coder.encodedData
+            fjUserAttendees.fjUserAttendeeCKR = data as NSObject
+           
+        
     }
     
     fileprivate func saveToCD() {
+        
         do {
-            try self.context.save()
+            try self.bkgrdContext.save()
             DispatchQueue.main.async {
-                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object: self.context  ,userInfo:["info":"FJuser Attendees from cloud syncing Operation"])
+                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object: self.bkgrdContext ,userInfo:["info":"FJuser Attendees from cloud syncing Operation"])
             }
             DispatchQueue.main.async {
                 self.nc.post(name:Notification.Name(rawValue:FJkCKZoneRecordsCALLED),
@@ -183,6 +216,7 @@ class FJUserAttendeesFromCloudSyncingOperation: FJOperation {
             let nserror = error
             print("The context was unable to save due to \(nserror.localizedDescription) \(nserror.userInfo)")
         }
+        
     }
     
     // MARK: -
@@ -192,25 +226,5 @@ class FJUserAttendeesFromCloudSyncingOperation: FJOperation {
             self.context.mergeChanges(fromContextDidSave: notification)
         }
     }
-    
-    private func theCount(guid: String)->Int {
-        let attribute = "attendeeGuid"
-        let entity = "UserAttendees"
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity )
-        let predicate = NSPredicate(format: "%K == %@", attribute, guid)
-        let predicateCan = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [predicate])
-        fetchRequest.predicate = predicateCan
-        do {
-            let count = try context.count(for:fetchRequest)
-            fjUserAttendeesA = try context.fetch(fetchRequest) as! [UserAttendees]
-            fjUserAttendees = fjUserAttendeesA.last
-            return count
-        } catch let error as NSError {
-            print("Error: \(error.localizedDescription)")
-            return 0
-        }
-    }
-    
-//    let trimmedString = string.trimmingCharacters(in: .whitespaces)
     
 }

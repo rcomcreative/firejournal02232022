@@ -45,6 +45,9 @@ class RelieveSupervisorVC: UIViewController {
     var imageAvailable: Bool = false
     var contactImage: UIImage!
     var validPhotos = [Photo]()
+    var supervisor: Bool = true
+    var attendees = [UserAttendees]()
+    var cleanedAttendees = [UserAttendees]()
     
     var fetchedResultsController: NSFetchedResultsController<UserAttendees>? = nil
     var _fetchedResultsController: NSFetchedResultsController<UserAttendees> {
@@ -73,7 +76,15 @@ class RelieveSupervisorVC: UIViewController {
         nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: context)
         
         roundViews()
-        _ = getAllAttendees()
+        _ = getAllAttendees(supervisor: supervisor)
+        if !supervisor {
+            for attendee in fetchedObjects {
+                let result = cleanedAttendees.filter { $0.attendee == attendee.attendee }
+                if result.isEmpty {
+                    cleanedAttendees.append(attendee)
+                }
+            }
+        }
         
         configureRelieveSupervisorHeaderV()
         configureRelieveSupervisorTableView()

@@ -163,9 +163,13 @@ New Incident
         theIncident.incidentType = "Emergency"
         theIncident.userTime = theUserTime
         theIncident.fireJournalUserIncInfo = theUser
+        theIncident.locationAvailable = false
+        theIncident.incidentPhotoTaken = false
+        theIncident.incidentTagsAvailable = false
         
         theIncidentLocation = FCLocation(context: context)
         theIncidentLocation.guid = UUID()
+        theIncidentLocation.modDate = incidentModDate
         theIncidentLocation.incidentGuid = theIncident.fjpIncGuidForReference
         theIncidentLocation.incident = theIncident
         
@@ -288,8 +292,8 @@ extension IncidentNewModalVC {
     
     
     func presentAlert() {
-        let message: InfoBodyText = .newIncidentSubject
-        let title: InfoBodyText = .newIncident
+        let title: InfoBodyText = .newIncidentSubject
+        let message: InfoBodyText = .newIncident
         let alert = UIAlertController.init(title: title.rawValue, message: message.rawValue, preferredStyle: .alert)
         let okAction = UIAlertAction.init(title: "Okay", style: .default, handler: {_ in
             self.alertUp = false

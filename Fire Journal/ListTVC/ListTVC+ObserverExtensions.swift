@@ -40,10 +40,8 @@ extension ListTVC {
         {
             compact = userInfo["compact"] as? SizeTrait ?? .regular
             switch compact {
-            case .compact:
-                print("compact MASTER")
-            case .regular:
-                print("regular MASTER")
+            case .compact: break
+            case .regular: break
             }
         }
     }

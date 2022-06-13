@@ -151,8 +151,8 @@ New Project
     }
     
     func presentAlert() {
-        let message: InfoBodyText = .newProjectSubject
-        let title: InfoBodyText = .newProjectDescription
+        let title: InfoBodyText = .newProjectSubject
+        let message: InfoBodyText = .newProjectDescription
         let alert = UIAlertController.init(title: title.rawValue, message: message.rawValue, preferredStyle: .alert)
         let okAction = UIAlertAction.init(title: "Got it!", style: .default, handler: {_ in
             self.alertUp = false
@@ -176,6 +176,9 @@ New Project
         if theUserTime != nil {
             thePromotion.shift = theUserTime
         }
+        thePromotion.locationAvailable = false
+        thePromotion.projectTagsAvailable = false
+        thePromotion.projectPhotosAvailable = false
     }
 
 }

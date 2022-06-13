@@ -154,20 +154,7 @@ class SettingsCrewTVC: UITableViewController,CrewMemberHeaderVDelegate, NSFetche
     
     
     
-    @objc func compactOrRegular(ns: Notification) {
-//        if let userInfo = ns.userInfo as! [String: Any]?
-//        {
-//            compact = userInfo["compact"] as? SizeTrait ?? .regular
-//            switch compact {
-//            case .compact:
-//                print("compact SETTING CREW")
-//            case .regular:
-//                print("regular SETTING CREW")
-//            }
-//        }
-//        
-//        self.tableView.reloadData()
-    }
+    @objc func compactOrRegular(ns: Notification) { }
     
     
     @IBAction func goBackToSettings(_ sender: Any) {

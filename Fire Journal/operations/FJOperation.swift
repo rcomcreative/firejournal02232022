@@ -38,7 +38,7 @@ class FJOperation: Operation {
     }
     
     override var isExecuting: Bool {
-        registerBackgroundTask()
+//        registerBackgroundTask()
         print("executing")
         return _executing
     }
@@ -55,7 +55,7 @@ class FJOperation: Operation {
     
     override var isFinished: Bool {
         print("is finished")
-        endBackgroundTask()
+//        endBackgroundTask()
         return _finished
     }
     

@@ -214,10 +214,8 @@ class IncidentTVC: UITableViewController,CLLocationManagerDelegate,NSFetchedResu
         {
             compact = userInfo["compact"] as? SizeTrait ?? .regular
             switch compact {
-            case .compact:
-                print("compact JOURNAL")
-            case .regular:
-                print("regular JOURNAL")
+            case .compact: break
+            case .regular: break
             }
         }
         self.tableView.reloadData()

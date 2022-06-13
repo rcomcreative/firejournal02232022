@@ -142,9 +142,10 @@ extension RelieveSupervisorVC: RelieveSupervisorHeaderVDelegate {
             newOfficer.attendeeModDate = group.attendeeDate
             newOfficer.attendeeGuid = group.attendeeGuid
             newOfficer.defaultCrewMember = group.overtimeB
+            newOfficer.staffGuid = UUID()
             newOfficer.supervisor = true
             saveSupervisor()
-            _ = getAllAttendees()
+            _ = getAllAttendees(supervisor: supervisor)
             relieveSupervisorTableView.reloadData()
         }
     }
@@ -220,7 +221,7 @@ extension RelieveSupervisorVC: StaffContactsVCDelegate {
             contactImageToURL()
         }
         saveSupervisor()
-        _ = getAllAttendees()
+        _ = getAllAttendees(supervisor: supervisor)
         relieveSupervisorTableView.reloadData()
     }
     
@@ -279,7 +280,7 @@ extension RelieveSupervisorVC: RelieveSupervisorContactsTVCDelegate {
                 newOfficer.defaultCrewMember = group.overtimeB
                 newOfficer.supervisor = true
                 saveSupervisor()
-                _ = getAllAttendees()
+                _ = getAllAttendees(supervisor: supervisor)
                 relieveSupervisorTableView.reloadData()
             }
         }
@@ -290,16 +291,23 @@ extension RelieveSupervisorVC: RelieveSupervisorContactsTVCDelegate {
 
 extension RelieveSupervisorVC: NSFetchedResultsControllerDelegate {
     
-    func getAllAttendees() -> NSFetchedResultsController<UserAttendees> {
+    func getAllAttendees(supervisor: Bool ) -> NSFetchedResultsController<UserAttendees> {
         
         let fetchRequest: NSFetchRequest<UserAttendees> = UserAttendees.fetchRequest()
         fetchRequest.fetchBatchSize = 20
         
         var predicate = NSPredicate.init()
         var predicate2 = NSPredicate.init()
+        var predicateCan = NSCompoundPredicate.init()
+        if supervisor {
         predicate = NSPredicate(format: "%K != nil", "attendee")
         predicate2 = NSPredicate(format: "supervisor == %@", NSNumber(value:true))
-        let predicateCan = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [predicate,predicate2])
+        predicateCan = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [predicate,predicate2])
+        } else {
+            predicate = NSPredicate(format: "%K != nil", "attendee")
+            
+            predicateCan = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [predicate])
+        }
         fetchRequest.predicate = predicateCan
         
         let sectionSortDescriptor = NSSortDescriptor(key: "attendee", ascending: true)

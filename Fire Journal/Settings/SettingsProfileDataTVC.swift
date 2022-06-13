@@ -109,10 +109,8 @@ class SettingsProfileDataTVC: UITableViewController,NSFetchedResultsControllerDe
         {
             compact = userInfo["compact"] as? SizeTrait ?? .regular
             switch compact {
-            case .compact:
-                print("compact SETTING PROFILE DATA")
-            case .regular:
-                print("regular SETTING PROFILE DATA")
+            case .compact: break
+            case .regular: break
             }
         }
         
@@ -227,9 +225,11 @@ class SettingsProfileDataTVC: UITableViewController,NSFetchedResultsControllerDe
                 }
             } else {
                 DispatchQueue.main.async {
-                    self.nc.post(name:Notification.Name(rawValue:FJkPROFILE_FROM_MASTER),
+                    let objectID = self.theUser.objectID
+                    self.nc.post(name:Notification.Name(rawValue: FJkPROFILE_FROM_MASTER),
                                  object: nil,
-                                 userInfo: ["sizeTrait":self.compact])
+                                 userInfo: ["sizeTrait":self.compact, "userObjID":  objectID])
+                    self.dismiss(animated: true, completion: nil)
                     self.nc.removeObserver(self, name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
                 }
             }

@@ -32,6 +32,12 @@ extension Photo {
         return CloudKitManager.attachmentFolder.appendingPathComponent(fileName)
     }
     
+    func assetURL(guid: UUID) -> URL {
+        let fileName = guid.uuidString + "!" + ".jpg"
+//        return CloudKitManager.attachmentFolder.appendingPathComponent(fileName)
+        return NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(NSUUID().uuidString+".dat")!
+    }
+    
     /**
      Create the thumbnail URL for the current attachment.
      */

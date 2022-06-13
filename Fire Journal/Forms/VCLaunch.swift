@@ -539,7 +539,7 @@ class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalT
     
     func mapCalledPhone(type: IncidentTypes)->Void {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller:MapVC = storyboard.instantiateViewController(withIdentifier: "MapVC") as! MapVC
+        let controller: MapVC = storyboard.instantiateViewController(withIdentifier: "MapVC") as! MapVC
         let navigator = UINavigationController.init(rootViewController: controller)
         controller.navigationItem.leftItemsSupplementBackButton = true
         controller.navigationItem.leftBarButtonItem = self.splitVC?.displayModeButtonItem

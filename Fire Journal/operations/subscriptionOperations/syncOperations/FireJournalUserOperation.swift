@@ -17,6 +17,8 @@ class FireJournalUserLoader: FJOperation {
     
     let context: NSManagedObjectContext
     var bkgrdContext:NSManagedObjectContext!
+    let pendingOperations = PendingOperations()
+    var thread:Thread! 
     var privateDatabase:CKDatabase!
     var fireJournalUsersA = [FireJournalUser]()
     var ckRecordA = [CKRecord]()
@@ -28,21 +30,22 @@ class FireJournalUserLoader: FJOperation {
     var task : UIBackgroundTaskIdentifier = .invalid
     var bkgrndTask: BkgrndTask?
     var fju: FireJournalUser!
+    let nc = NotificationCenter.default
     
     
     init(_ context: NSManagedObjectContext,database: CKDatabase) {
         self.context = context
         self.privateDatabase = database
-        bkgrndTask = BkgrndTask.init(bkgrndTask: task)
-        bkgrndTask?.operation = "FireJournalUserOperation"
-        bkgrndTask?.registerBackgroundTask()
         super.init()
+    }
+    
+    deinit {
+        nc.removeObserver(NSNotification.Name.NSManagedObjectContextDidSave)
     }
     
     override func main() {
         guard isCancelled == false else {
             finish(true)
-            bkgrndTask?.endBackgroundTask()
             return
         }
         
@@ -51,7 +54,6 @@ class FireJournalUserLoader: FJOperation {
         }
         bkgrdContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         bkgrdContext.persistentStoreCoordinator = context.persistentStoreCoordinator
-        let nc = NotificationCenter.default
         nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: bkgrdContext)
         executing(true)
         
@@ -92,7 +94,6 @@ class FireJournalUserLoader: FJOperation {
         
         guard isCancelled == false else {
             finish(true)
-            bkgrndTask?.endBackgroundTask()
             return
         }
         
@@ -274,11 +275,10 @@ class FireJournalUserLoader: FJOperation {
             DispatchQueue.main.async {
                 nc.post(name:Notification.Name(rawValue:FJkLOADUSERITMESCALLED),
                         object: nil,
-                        userInfo: ["ckRecordType":CKRecordsToLoad.fJkCKRFireJournalUser])
+                        userInfo: ["ckRecordType": CKRecordsToLoad.fJkCKRFireJournalUser])
                 self.userDefaults.set(true, forKey: FJkFJUSERSavedToCoreDataFromCloud)
                 self.executing(false)
                 self.finish(true)
-                self.bkgrndTask?.endBackgroundTask()
                 print("FireJournalUserOperation is done save")
                 nc.removeObserver(self, name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
             }
@@ -291,9 +291,19 @@ class FireJournalUserLoader: FJOperation {
                 self.userDefaults.set(false, forKey: FJkFJUSERSavedToCoreDataFromCloud)
                 self.executing(false)
                 self.finish(true)
-                self.bkgrndTask?.endBackgroundTask()
             }
             
+        }
+    }
+    
+    func theCounter()->Int {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ImageData" )
+        do {
+            let count = try context.count(for:fetchRequest)
+            return count
+        } catch let error as NSError {
+            print("Error: \(error.localizedDescription)")
+            return 0
         }
     }
     

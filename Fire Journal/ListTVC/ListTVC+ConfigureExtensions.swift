@@ -296,7 +296,7 @@ extension ListTVC: NSFetchedResultsControllerDelegate {
             let sectionSortDescriptor = NSSortDescriptor(key: "incidentCreationDate", ascending: false)
             let sortDescriptors = [sectionSortDescriptor]
             fetchRequest.sortDescriptors = sortDescriptors
-            let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.context, sectionNameKeyPath: nil, cacheName: "Master-Incident")
+            let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.context, sectionNameKeyPath: nil, cacheName: nil)
             aFetchedResultsController.delegate = self
             _fetchedResultsController = aFetchedResultsController
         case .projects:

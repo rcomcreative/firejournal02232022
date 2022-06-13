@@ -249,6 +249,11 @@ class IncidentVC:  SpinnerViewController, UIImagePickerControllerDelegate, UINav
                              object: nil,
                              userInfo: ["objectID": objectID as NSManagedObjectID])
             }
+            
+            DispatchQueue.main.async {
+                let objectID = self.theIncidentLocation.objectID
+                    self.nc.post(name: .fireJournalModifyFCLocationToCloud, object: nil, userInfo: ["objectID": objectID as NSManagedObjectID])
+            }
             theAlert(message: "The incident data has been saved.")
         } catch let error as NSError {
             let nserror = error
@@ -286,10 +291,8 @@ class IncidentVC:  SpinnerViewController, UIImagePickerControllerDelegate, UINav
         {
             compact = userInfo["compact"] as? SizeTrait ?? .regular
             switch compact {
-            case .compact:
-                print("compact Incident")
-            case .regular:
-                print("regular Incident")
+            case .compact: break
+            case .regular: break
             }
         }
     }

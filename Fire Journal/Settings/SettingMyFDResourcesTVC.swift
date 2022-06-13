@@ -111,10 +111,8 @@ class SettingMyFDResourcesTVC: UITableViewController {
         {
             compact = userInfo["compact"] as? SizeTrait ?? .regular
             switch compact {
-            case .compact:
-                print("compact SETTING DATA")
-            case .regular:
-                print("regular SETTING DATA")
+            case .compact: break
+            case .regular: break
             }
         }
         

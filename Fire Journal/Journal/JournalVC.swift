@@ -183,6 +183,7 @@ class JournalVC: SpinnerViewController, UIImagePickerControllerDelegate, UINavig
         } else {
             let navigationBarAppearace = UINavigationBar.appearance()
             navigationBarAppearace.tintColor = UIColor.black
+            navigationBarAppearace.isTranslucent = false
             navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.black]
         }
     }
@@ -275,10 +276,8 @@ class JournalVC: SpinnerViewController, UIImagePickerControllerDelegate, UINavig
         {
             compact = userInfo["compact"] as? SizeTrait ?? .regular
             switch compact {
-            case .compact:
-                print("compact Incident")
-            case .regular:
-                print("regular Incident")
+            case .compact: break
+            case .regular: break
             }
         }
     }
@@ -303,6 +302,7 @@ class JournalVC: SpinnerViewController, UIImagePickerControllerDelegate, UINavig
             } else {
                 theJournalLocation = FCLocation(context: context)
                 theJournalLocation.guid = UUID.init()
+                theJournalLocation.modDate = theJournal.journalCreationDate
                 if let guid = theJournal.fjpJGuidForReference {
                     theJournalLocation.journalGuid = guid
                 }

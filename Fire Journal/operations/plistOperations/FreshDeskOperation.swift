@@ -79,13 +79,16 @@ class FreshDeskOperation: FJOperation, URLSessionDelegate {
                 if error != nil {
                     let errorMessage = "class FreshDeskOperation: FJOperation JSONSerialization errored out sending your data \(String(describing: error?.localizedDescription)) please copy and report to info@purecommand.com"
                     print(errorMessage)
+                    DispatchQueue.main.async {
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: FJkFRESHDESK_UPDATED), object: nil, userInfo:["freshDesk": false])
+                    }
                     
                     self.executing(false)
                     self.finish(true)
                     
                 } else {
                     DispatchQueue.main.async {
-                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: FJkFRESHDESK_UPDATED), object: nil, userInfo:nil)
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: FJkFRESHDESK_UPDATED), object: nil, userInfo:["freshDesk": true])
                     }
                     
                     self.executing(false)

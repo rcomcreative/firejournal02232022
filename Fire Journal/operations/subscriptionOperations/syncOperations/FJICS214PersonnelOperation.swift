@@ -14,18 +14,20 @@ import CloudKit
 class FJICS214PersonnelOperation: FJOperation {
     
     let context: NSManagedObjectContext
+    var bkgrdContext:NSManagedObjectContext!
     var thread:Thread!
     let nc = NotificationCenter.default
     let myContainer = CKContainer.init(identifier: FJkCLOUDKITDATABASENAME)
     var privateDatabase:CKDatabase!
     var fjICS214PersonnelA = [ICS214Personnel]()
-    var fjICS214Personnel:ICS214Personnel!
-    var fjICS214Form:ICS214Form!
+    var fjICS214Personnel: ICS214Personnel!
+    var fjICS214Form: ICS214Form!
     var ckRecordA = [CKRecord]()
     var count: Int = 0
     var stop:Bool = false
     var recordGuid:String = ""
     var fetchedICS214s = [ICS214Form]()
+    var fetchedUserAttendees = [UserAttendees]()
     var forms = Set<ICS214Personnel>()
     var guids = Set<String>()
     var ics214Guid = ""
@@ -37,10 +39,11 @@ class FJICS214PersonnelOperation: FJOperation {
         super.init()
     }
     
+    deinit {
+        nc.removeObserver(NSNotification.Name.NSManagedObjectContextDidSave)
+    }
+    
     override func main() {
-        
-        //        MARK: -FJOperation operation-
-        operation = "FJICS214PersonnelOperation"
         
         guard isCancelled == false else {
             executing(false)
@@ -49,15 +52,13 @@ class FJICS214PersonnelOperation: FJOperation {
         }
         
         
-        thread = Thread(target:self, selector:#selector(checkTheThread), object:nil)
-        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: self.context)
+        bkgrdContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        bkgrdContext.persistentStoreCoordinator = context.persistentStoreCoordinator
+        thread = Thread(target:self, selector: #selector(checkTheThread), object: nil)
+        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: self.bkgrdContext)
         executing(true)
-        fetchedICS214s = getAllTheForms()
-        
-        for record:CKRecord in ckRecordA {
-            let guid = record["ics214Guid"] ?? ""
-            guids.insert(guid as! String)
-        }
+        getAllTheForms()
+
         
         
         
@@ -86,7 +87,8 @@ class FJICS214PersonnelOperation: FJOperation {
     func theCounter()->Int {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ICS214Personnel" )
         do {
-            let count = try context.count(for:fetchRequest)
+            let count = try bkgrdContext.count(for:fetchRequest)
+            fjICS214PersonnelA = try bkgrdContext.fetch(fetchRequest) as! [ICS214Personnel]
             return count
         } catch let error as NSError {
             print("Error: \(error.localizedDescription)")
@@ -94,35 +96,45 @@ class FJICS214PersonnelOperation: FJOperation {
         }
     }
     
+    private func getAllTheForms() {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ICS214Form" )
+        do {
+            fetchedICS214s  = try bkgrdContext.fetch(fetchRequest) as! [ICS214Form]
+        } catch let error as NSError {
+            print("Error: \(error.localizedDescription)")
+        }
+    }
+    
+    private func getAllTheUserAttendees() {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "UserAttendees")
+        do {
+            fetchedUserAttendees = try bkgrdContext.fetch(fetchRequest) as! [UserAttendees]
+        } catch let error as NSError {
+            print("Error \(error.localizedDescription)")
+        }
+    }
+    
     func chooseNewWithGuid(withCompletion completion: () -> Void ) {
         for record in ckRecordA {
-            if let guid:String = record["ics214PersonelGuid"] {
-                recordGuid = guid
-                count = theCount(guid: recordGuid)
-                if count == 0 {
                     newICS214PersonnelFromCloud(record: record)
-                }
-            }
         }
         completion()
     }
     
     func chooseNewOrUpdate(withCompletion completion: () -> Void ) {
-        for guid in guids {
-            ics214Guid = guid
-            _ = theCountICS214(guid:ics214Guid)
-            deletefromCDPersonnelUpdate()
-            for record in ckRecordA {
-                let ics214G:String = record["ics214Guid"] ?? ""
-                if ics214G == ics214Guid {
+        for record in ckRecordA {
+            if let guid = record["ics214PersonelGuid"] as? String {
+                let result = fjICS214PersonnelA.filter { $0.ics214PersonelGuid == guid }
+                if result.isEmpty {
                     newICS214PersonnelFromCloud(record: record)
+                } else {
+                    fjICS214Personnel = result.last
+                    updateICS214PersonelFromCloud(fjICS214PersonnalR: record, fjuICS214Personnel: fjICS214Personnel)
                 }
             }
         }
         completion()
     }
-    
-    
     
     @objc func checkTheThread() {
         let testThread:Bool = thread.isMainThread
@@ -130,20 +142,19 @@ class FJICS214PersonnelOperation: FJOperation {
     }
     
     fileprivate func saveToCD() {
-        let nc = NotificationCenter.default
+        
         do {
-            try self.context.save()
+            try self.bkgrdContext.save()
             DispatchQueue.main.async {
-                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object: self.context ,userInfo:["info":"FJICS214 PERSONNEL Operation here"])
+                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object: self.bkgrdContext ,userInfo:["info":"FJICS214 PERSONNEL Operation here"])
             }
             DispatchQueue.main.async {
-               
-                nc.post(name:Notification.Name(rawValue:FJkCKZoneRecordsCALLED),
+                self.nc.post(name:Notification.Name(rawValue:FJkCKZoneRecordsCALLED),
                         object: nil,
                         userInfo: ["recordEntity":TheEntities.fjUserFDResource])
                 self.executing(false)
                 self.finish(true)
-                nc.removeObserver(self, name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
+                self.nc.removeObserver(self, name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
             }
         } catch let error as NSError {
             let nserror = error
@@ -153,15 +164,16 @@ class FJICS214PersonnelOperation: FJOperation {
 
             DispatchQueue.main.async {
                 
-                nc.post(name:Notification.Name(rawValue:FJkCKZoneRecordsCALLED),
+                self.nc.post(name:Notification.Name(rawValue:FJkCKZoneRecordsCALLED),
                         object: nil,
                         userInfo: ["recordEntity":TheEntities.fjUserFDResource])
                 self.executing(false)
                 self.finish(true)
-                nc.removeObserver(self, name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
+                self.nc.removeObserver(self, name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
             }
 
         }
+        
     }
     
     // MARK: -
@@ -172,28 +184,13 @@ class FJICS214PersonnelOperation: FJOperation {
         }
     }
     
-    private func getAllTheForms()->[ICS214Form] {
-        var fetchedForm = [ICS214Form]()
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ICS214Form" )
-        let sectionSortDescriptor = NSSortDescriptor(key: "ics214FromTime", ascending: true)
-        let sortDescriptors = [sectionSortDescriptor]
-        fetchRequest.sortDescriptors = sortDescriptors
-        fetchRequest.fetchBatchSize = 20
-        do {
-            fetchedForm  = try context.fetch(fetchRequest) as! [ICS214Form]
-        } catch let error as NSError {
-            print("Error: \(error.localizedDescription)")
-        }
-        return fetchedForm
-    }
-    
     private func deletefromCDPersonnelUpdate() {
         for personnel in fjICS214PersonnelA {
-            self.context.delete(personnel)
+            self.bkgrdContext.delete(personnel)
             do {
-                try self.context.save()
+                try self.bkgrdContext.save()
                 DispatchQueue.main.async {
-                    self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object: self.context ,userInfo:["info":"FJICS214 PERSONNEL Operation here"])
+                    self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object: self.bkgrdContext ,userInfo:["info":"FJICS214 PERSONNEL Operation here"])
                 }
             } catch let error as NSError {
                 let nserror = error
@@ -205,90 +202,26 @@ class FJICS214PersonnelOperation: FJOperation {
         }
     }
     
-    private func theCountICS214(guid: String)->Int {
-        let attribute = "ics214Guid"
-        let entity = "ICS214Personnel"
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity )
-        let predicate = NSPredicate(format: "%K == %@", attribute, guid)
-        let predicateCan = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [predicate])
-        fetchRequest.predicate = predicateCan
-        do {
-            let count = try self.context.count(for:fetchRequest)
-            fjICS214PersonnelA = try self.context.fetch(fetchRequest) as! [ICS214Personnel]
-            return count
-        }  catch let error as NSError {
-            let errorMessage = "FJICS214PersonnelOperation fetchRequest \(fetchRequest) for error \(error.localizedDescription) \(String(describing: error._userInfo))"
-            print(errorMessage)
-            return 0
-        }
-    }
-    
-    private func theCount(guid: String)->Int {
-        let attribute = "ics214PersonelGuid"
-        let entity = "ICS214Personnel"
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity )
-        let predicate = NSPredicate(format: "%K == %@", attribute, guid)
-        let predicateCan = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [predicate])
-        fetchRequest.predicate = predicateCan
-        do {
-            let count = try self.context.count(for:fetchRequest)
-            fjICS214PersonnelA = try self.context.fetch(fetchRequest) as! [ICS214Personnel]
-            if !fjICS214PersonnelA.isEmpty {
-                fjICS214Personnel = fjICS214PersonnelA.last!
-            }
-            return count
-        }  catch let error as NSError {
-            let errorMessage = "FJICS214PersonnelOperation fetchRequest \(fetchRequest) for error \(error.localizedDescription) \(String(describing: error._userInfo))"
-            print(errorMessage)
-            return 0
-        }
-    }
-    
-    private func getTheICS214(guid: String)->Int {
-        var count = 0
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ICS214Form" )
-        let predicate = NSPredicate(format: "%K == %@", "ics214Guid", guid)
-        let predicateCan = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [predicate])
-        fetchRequest.predicate = predicateCan
-        do {
-            let fetched = try self.context.fetch(fetchRequest) as! [ICS214Form]
-            if fetched.isEmpty {
-                count = 0
-            } else {
-                count = count + 1
-                fjICS214Form = fetched.last!
-            }
-        } catch {
-            let nserror = error as NSError
-            print("The context was unable to save due to \(nserror.localizedDescription) \(nserror.userInfo)")
-        }
-        return count
-    }
-    
     private func newICS214PersonnelFromCloud(record: CKRecord)->Void  {
         
         let fjICS214PersonnalR = record
-        let guid:String = fjICS214PersonnalR["ics214Guid"] ?? ""
         
+        let fjuICS214Personnel = ICS214Personnel(context: bkgrdContext)
         
-        let fjuICS214Personnel = ICS214Personnel(context: self.context)
-        
-        fjuICS214Personnel.ics214Guid = fjICS214PersonnalR["ics214Guid"] ?? ""
-        fjuICS214Personnel.ics214PersonelGuid = fjICS214PersonnalR["ics214PersonelGuid"] ?? ""
-        fjuICS214Personnel.userAttendeeGuid = fjICS214PersonnalR["userAttendeeGuid"] ?? ""
-        if guid != "" {
-            let counter = getTheICS214(guid: guid)
-            if counter > 0 {
-
-                
-                if fjICS214Form.ics214Guid != "" {
-                    fjuICS214Personnel.addToIcs214PersonnelInfo(fjICS214Form)
-
-                }
-            }
-            
+        if let ics214PersonelGuid = fjICS214PersonnalR["ics214PersonelGuid"] as? String {
+            fjuICS214Personnel.ics214PersonelGuid = ics214PersonelGuid
         }
-        
+        if let userAttendeeGuid = fjICS214PersonnalR["userAttendeeGuid"] as? String {
+            fjuICS214Personnel.userAttendeeGuid = userAttendeeGuid
+        }
+        if let ics214Guid = fjICS214PersonnalR["ics214Guid"] as? String {
+            fjuICS214Personnel.ics214Guid = ics214Guid
+            let result = fetchedICS214s.filter { $0.ics214Guid == ics214Guid }
+            if !result.isEmpty {
+                let ics214Form = result.last
+                ics214Form?.addToIcs214PersonneDetail(fjuICS214Personnel)
+            }
+        }
         
         let coder = NSKeyedArchiver(requiringSecureCoding: true)
         fjICS214PersonnalR.encodeSystemFields(with: coder)
@@ -296,4 +229,29 @@ class FJICS214PersonnelOperation: FJOperation {
         fjuICS214Personnel.ics214PersonnelCKR = data as NSObject
         
     }
+    
+    func updateICS214PersonelFromCloud( fjICS214PersonnalR: CKRecord, fjuICS214Personnel: ICS214Personnel) {
+        
+        if let ics214PersonelGuid = fjICS214PersonnalR["ics214PersonelGuid"] as? String {
+            fjuICS214Personnel.ics214PersonelGuid = ics214PersonelGuid
+        }
+        if let userAttendeeGuid = fjICS214PersonnalR["userAttendeeGuid"] as? String {
+            fjuICS214Personnel.userAttendeeGuid = userAttendeeGuid
+        }
+        if let ics214Guid = fjICS214PersonnalR["ics214Guid"] as? String {
+            fjuICS214Personnel.ics214Guid = ics214Guid
+            let result = fetchedICS214s.filter { $0.ics214Guid == ics214Guid }
+            if !result.isEmpty {
+                let ics214Form = result.last
+                ics214Form?.addToIcs214PersonneDetail(fjuICS214Personnel)
+            }
+        }
+        
+        let coder = NSKeyedArchiver(requiringSecureCoding: true)
+        fjICS214PersonnalR.encodeSystemFields(with: coder)
+        let data = coder.encodedData
+        fjuICS214Personnel.ics214PersonnelCKR = data as NSObject
+        
+    }
+    
 }

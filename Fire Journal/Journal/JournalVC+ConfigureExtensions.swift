@@ -224,11 +224,14 @@ extension JournalVC: TagsVCDelegate {
     func tagsSubmitted(tags: [Tag]) {
         if !tags.isEmpty {
             theTagsAvailable = true
+            theJournal.journalTagsAvailable = true
+            var theTagsObjectIDsA = [NSManagedObjectID]()
+            var journalTag: JournalTags!
             for tag in tags {
                 if !theJournalTags.isEmpty {
                     let result = theJournalTags.filter { $0 == tag }
                     if result.isEmpty {
-                        let journalTag = JournalTags(context: context)
+                        journalTag = JournalTags(context: context)
                         journalTag.journalTag = tag.name
                         if let guid = theJournal.fjpJGuidForReference {
                             journalTag.fjpJournalReference = guid
@@ -243,7 +246,7 @@ extension JournalVC: TagsVCDelegate {
                         theJournalTags.append(journalTag)
                     }
                 } else {
-                    let journalTag = JournalTags(context: context)
+                    journalTag = JournalTags(context: context)
                     journalTag.journalTag = tag.name
                     if let guid = theJournal.fjpJGuidForReference {
                         journalTag.fjpJournalReference = guid
@@ -257,28 +260,40 @@ extension JournalVC: TagsVCDelegate {
                     theJournal.addToJournalTags(journalTag)
                     theJournalTags.append(journalTag)
                 }
+                if context.hasChanges {
+                                do {
+                                    try context.save()
+                                    DispatchQueue.main.async {
+                                        self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"Updated Incident merge that"])
+                                    }
+
+                                } catch let error as NSError {
+                                    let nserror = error
+                                    
+                                    let errorMessage = "journalEdit saveToCD The context was unable to save due to \(nserror), \(nserror.userInfo)"
+                                    print(errorMessage)
+                                }
+                            }
+                let objectID = journalTag.objectID
+                theTagsObjectIDsA.append(objectID)
             }
-            if context.hasChanges {
-                do {
-                    try context.save()
-                    DispatchQueue.main.async {
-                        self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"Updated Incident merge that"])
-                    }
-                    let objectID = theJournal.objectID
-                    DispatchQueue.main.async {
-                        self.nc.post(name:Notification.Name(rawValue :FJkCKModifyJournalToCloud),
-                                     object: nil,
-                                     userInfo: ["objectID": objectID as NSManagedObjectID])
-                    }
-//                    TODO: - JournalTag to cloud-
-                    theAlert(message: "The journal data has been saved.")
-                } catch let error as NSError {
-                    let nserror = error
-                    
-                    let errorMessage = "journalEdit saveToCD The context was unable to save due to \(nserror), \(nserror.userInfo)"
-                    print(errorMessage)
+            
+            let objectID = theJournal.objectID
+            DispatchQueue.main.async {
+                self.nc.post(name:Notification.Name(rawValue :FJkCKModifyJournalToCloud),
+                             object: nil,
+                             userInfo: ["objectID": objectID as NSManagedObjectID])
+            }
+
+            if !theTagsObjectIDsA.isEmpty {
+                DispatchQueue.global(qos: .background).async {
+                    self.nc.post(name: .fireJournalJournalTagsToCloud,
+                                 object: nil,
+                                 userInfo: ["objectIDs": theTagsObjectIDsA as [NSManagedObjectID]])
                 }
             }
+            
+            theAlert(message: "The journal data has been saved.")
 
             let count = theJournalTags.count
             let counted = count / 6

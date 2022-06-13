@@ -40,7 +40,7 @@ extension MasterViewController {
                                 self.goingToStartADownloadFromCloud()
                             }
                         } else {
-                            self.buildUsersFDResourcesAfterAgreement()
+//                            self.buildUsersFDResourcesAfterAgreement()
                         }
                     }
                 })
@@ -95,7 +95,7 @@ extension MasterViewController {
         self.present(openFDREsourcesTVC, animated: true, completion: nil)
     }
     
-    private func goingToStartADownloadFromCloud() {
+    func goingToStartADownloadFromCloud() {
         if Device.IS_IPHONE {
             if !alertUp {
                 let count: Int = self.userDefaults.integer(forKey: FJkALERTBACKUPCOMPLETED)
@@ -178,9 +178,12 @@ extension MasterViewController {
         do {
             let fetched = try context.fetch(fetchRequest) as! [NFIRSIncidentType]
             if fetched.count == 0 {
-                let plistsLoad = LoadPlists.init(context)
-                plistsLoad.runTheOperations()
-                print("here is plistsLoaded \(plistsLoaded)")
+                DispatchQueue.global(qos: .background).async {
+                    self.plistContext = self.plistProvider.persistentContainer.viewContext
+                    let thePlistsLoad = LoadPlists.init(self.plistContext)
+                    thePlistsLoad.runTheOperations()
+                    print("here is plistsLoaded \(thePlistsLoad)")
+                }
             }
         }  catch let error as NSError {
             let errorMessage = "MasterTVC fetchRequest for plists error \(error.localizedDescription) \(String(describing: error._userInfo))"

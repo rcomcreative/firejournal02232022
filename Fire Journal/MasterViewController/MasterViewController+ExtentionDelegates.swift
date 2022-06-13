@@ -100,7 +100,9 @@ extension MasterViewController: OpenModalScrollVCDelegate {
             self.userDefaults.set(true, forKey: FJkFIRSTRUNFORDATAFROMCLOUDKIT)
             self.theAgreementsAccepted()
             self.freshDeskRequest()
+            DispatchQueue.global(qos: .background).async {
             self.appDelegate.fetchAnyChangesWeMissed(firstRun: true)
+            }
         })
         
     }

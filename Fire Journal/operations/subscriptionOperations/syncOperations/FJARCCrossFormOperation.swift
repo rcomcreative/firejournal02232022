@@ -15,17 +15,34 @@ import CloudKit
 class FJARCCrossFormLoader: FJOperation {
 
     let context: NSManagedObjectContext
+    var bkgrdContext:NSManagedObjectContext!
     let pendingOperations = PendingOperations()
     var thread:Thread!
     let nc = NotificationCenter.default
     let myContainer = CKContainer.init(identifier: FJkCLOUDKITDATABASENAME)
     var privateDatabase:CKDatabase!
     var fjARCFormA = [ARCrossForm]()
-    var fjARCForm:ARCrossForm!
+    var fjARCForm: ARCrossForm!
     var ckRecordA = [CKRecord]()
     var count: Int = 0
     var stop:Bool = false
-    var recordGuid:String = ""
+    var recordGuid = ""
+    
+    var theUser: FireJournalUser!
+    
+    lazy var theUserProvider: FireJournalUserProvider = {
+        let provider = FireJournalUserProvider(with: (UIApplication.shared.delegate as! AppDelegate).persistentContainer)
+        return provider
+    }()
+    var theUserContext: NSManagedObjectContext!
+    
+    var theUserTimeA = [UserTime]()
+    
+    lazy var userTimeProvider: UserTimeProvider = {
+        let provider = UserTimeProvider(with: (UIApplication.shared.delegate as! AppDelegate).persistentContainer)
+        return provider
+    }()
+    var userTimeContext: NSManagedObjectContext!
     
     init(_ context: NSManagedObjectContext, ckArray: [CKRecord]) {
         self.context = context
@@ -34,10 +51,11 @@ class FJARCCrossFormLoader: FJOperation {
         super.init()
     }
     
+    deinit {
+        nc.removeObserver(NSNotification.Name.NSManagedObjectContextDidSave)
+    }
+    
     override func main() {
-        
-        //        MARK: -FJOperation operation-
-        operation = "FJARCCrossFormLoader"
         
         guard isCancelled == false else {
             executing(false)
@@ -46,11 +64,16 @@ class FJARCCrossFormLoader: FJOperation {
         }
         
         
-        thread = Thread(target:self, selector:#selector(checkTheThread), object:nil)
-        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: self.context)
+        bkgrdContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        bkgrdContext.persistentStoreCoordinator = context.persistentStoreCoordinator
+        thread = Thread(target:self, selector: #selector(checkTheThread), object: nil)
+        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: self.bkgrdContext)
+        
         executing(true)
         
         let count = theCounter()
+        getTheUser()
+        getTheUserTime()
         
         if count == 0 {
             chooseNewWithGuid {
@@ -70,11 +93,34 @@ class FJARCCrossFormLoader: FJOperation {
         
     }
     
+    func getTheUser() {
+        theUserContext = theUserProvider.persistentContainer.newBackgroundContext()
+        guard let users = theUserProvider.getTheUser(theUserContext) else {
+            return
+        }
+        let aUser = users.last
+        if let id = aUser?.objectID {
+            theUser = bkgrdContext.object(with: id) as? FireJournalUser
+        }
+    }
+    
+    
+    
+    func getTheUserTime() {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "UserTime" )
+        do {
+            theUserTimeA = try bkgrdContext.fetch(fetchRequest) as! [UserTime]
+        } catch let error as NSError {
+            print("Error: \(error.localizedDescription)")
+        }
+    }
+    
     
     func theCounter()->Int {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ARCrossForm" )
         do {
-            let count = try context.count(for:fetchRequest)
+            let count = try bkgrdContext.count(for:fetchRequest)
+            fjARCFormA = try bkgrdContext.fetch(fetchRequest) as! [ARCrossForm]
             return count
         } catch let error as NSError {
             print("Error: \(error.localizedDescription)")
@@ -83,44 +129,22 @@ class FJARCCrossFormLoader: FJOperation {
     }
     
     func chooseNewWithGuid(withCompletion completion: () -> Void ) {
-//        ckRecordA = Array(Set(ckRecordA))
-        var stringResult = [String]()
-        var ckResult = [CKRecord]()
-        for record in ckRecordA {
-            if stringResult.isEmpty {
-                let guid: String = record["arcFormGuid"] ?? ""
-                stringResult.append(guid)
-                ckResult.append(record)
-            }
-            let guid: String = record["arcFormGuid"] ?? ""
-            let result = stringResult.filter( { $0 == guid })
-            if result.isEmpty {
-                stringResult.append(guid)
-                ckResult.append(record)
-            }
-        }
-        
-        for record in ckResult  {
-            if let guid:String = record["arcFormGuid"] {
-                recordGuid = guid
-                count = theCount(guid: recordGuid)
-                if count == 0 {
+
+        for record in ckRecordA  {
                     newARCrossFormFromCloud(ckRecord: record)
-                }
-            }
         }
         completion()
     }
     
     func chooseNewOrUpdate(withCompletion completion: () -> Void ) {
         for record in ckRecordA {
-            if let guid:String = record["arcFormGuid"] {
-                recordGuid = guid
-                count = theCount(guid: recordGuid)
-                if count == 0 {
+            if let guid = record["arcFormGuid"] as? String  {
+                let result = fjARCFormA.filter { $0.arcFormGuid == guid }
+                if result.isEmpty {
                     newARCrossFormFromCloud(ckRecord: record)
                 } else {
-//                    fjARCForm.updateARCrossFormFromTheCloud(ckRecord: record)
+                    fjARCForm = result.last
+                    updateARCrossFormFromCioud(fjARCrossRecord: record, fjuARCForm: fjARCForm )
                 }
             }
         }
@@ -133,15 +157,16 @@ class FJARCCrossFormLoader: FJOperation {
     }
     
     fileprivate func saveToCD() {
+        
         do {
-            try self.context.save()
+            try self.bkgrdContext.save()
             DispatchQueue.main.async {
-                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object: self.context ,userInfo:["info":"FJARCROSS FORM Operation here"])
+                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object: self.bkgrdContext ,userInfo:["info":"FJARCROSS FORM Operation here"])
             }
             DispatchQueue.main.async {
                     self.nc.post(name:Notification.Name(rawValue:FJkCKZoneRecordsCALLED),
                                  object: nil,
-                                 userInfo: ["recordEntity":TheEntities.fjAttendee])
+                                 userInfo: ["recordEntity":TheEntities.fjICS214ActivityLog])
                 
                 self.executing(false)
                 self.finish(true)
@@ -153,13 +178,14 @@ class FJARCCrossFormLoader: FJOperation {
             DispatchQueue.main.async {
                 self.nc.post(name:Notification.Name(rawValue:FJkCKZoneRecordsCALLED),
                              object: nil,
-                             userInfo: ["recordEntity":TheEntities.fjAttendee])
+                             userInfo: ["recordEntity":TheEntities.fjICS214ActivityLog])
                 
                 self.executing(false)
                 self.finish(true)
                 self.nc.removeObserver(self, name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
             }
         }
+        
     }
     
     // MARK: -
@@ -170,223 +196,188 @@ class FJARCCrossFormLoader: FJOperation {
         }
     }
     
-    private func theCount(guid: String)->Int {
-        let attribute = "arcFormGuid"
-        let entity = "ARCrossForm"
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity )
-        let predicate = NSPredicate(format: "%K == %@", attribute, guid)
-        let predicateCan = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [predicate])
-        fetchRequest.predicate = predicateCan
-        do {
-            let count = try context.count(for:fetchRequest)
-            fjARCFormA = try context.fetch(fetchRequest) as! [ARCrossForm]
-            fjARCForm = fjARCFormA.last
-            return count
-        } catch let error as NSError {
-            print("Error: \(error.localizedDescription)")
-            return 0
-        }
-    }
-    
     private func newARCrossFormFromCloud(ckRecord: CKRecord)->Void {
+        
         let fjARCrossRecord = ckRecord
         
-        let fjuARCForm = ARCrossForm(context: self.context)
+        let fjuARCForm = ARCrossForm(context: bkgrdContext)
         
         //     MARK: -INTEGERS
-        fjuARCForm.campaignCount = fjARCrossRecord["campaignCount"] ?? 0
+        if let campaignCount = fjARCrossRecord["campaignCount"] as? Int64 {
+        fjuARCForm.campaignCount = campaignCount
+        }
         //     MARK: -Strings
-        if let adminName:String = fjARCrossRecord["adminName"] {
+        if let adminName = fjARCrossRecord["adminName"] as? String {
             fjuARCForm.adminName = adminName
         }
-        if let arcFormCampaignGuid:String = fjARCrossRecord["arcFormCampaignGuid"] {
+        if let arcFormCampaignGuid = fjARCrossRecord["arcFormCampaignGuid"] as? String {
             fjuARCForm.arcFormCampaignGuid = arcFormCampaignGuid
         }
-        if let arcFormGuid:String = fjARCrossRecord["arcFormGuid"] {
+        if let arcFormGuid = fjARCrossRecord["arcFormGuid"] as? String {
             fjuARCForm.arcFormGuid = arcFormGuid
         }
-        if let arcLocaitonState:String = fjARCrossRecord["arcLocaitonState"] {
+        if let arcLocaitonState = fjARCrossRecord["arcLocaitonState"] as? String {
             fjuARCForm.arcLocaitonState = arcLocaitonState
         }
-        if let arcLocationAddress:String = fjARCrossRecord["arcLocationAddress"] {
+        if let arcLocationAddress = fjARCrossRecord["arcLocationAddress"] as? String {
             fjuARCForm.arcLocationAddress = arcLocationAddress
         }
-        if let arcLocationAptMobile:String = fjARCrossRecord["arcLocationAptMobile"] {
+        if let arcLocationAptMobile = fjARCrossRecord["arcLocationAptMobile"] as? String {
             fjuARCForm.arcLocationAptMobile = arcLocationAptMobile
         }
-        if let arcLocationCity:String = fjARCrossRecord["arcLocationCity"] {
+        if let arcLocationCity = fjARCrossRecord["arcLocationCity"] as? String {
             fjuARCForm.arcLocationCity = arcLocationCity
         }
-        if let arcLocationZip:String = fjARCrossRecord["arcLocationZip"] {
+        if let arcLocationZip = fjARCrossRecord["arcLocationZip"] as? String {
             fjuARCForm.arcLocationZip = arcLocationZip
         }
-        if let campaignName:String = fjARCrossRecord["campaignName"] {
+        if let campaignName = fjARCrossRecord["campaignName"] as? String {
             fjuARCForm.campaignName = campaignName
         }
-        if let fjUserGuid:String = fjARCrossRecord["fjUserGuid"] {
+        if let fjUserGuid = fjARCrossRecord["fjUserGuid"] as? String {
             fjuARCForm.fjUserGuid = fjUserGuid
         }
-        if let hazard:String = fjARCrossRecord["hazard"] {
+        if let hazard = fjARCrossRecord["hazard"] as? String {
             fjuARCForm.hazard = hazard
         }
-        if let ia17Under:String = fjARCrossRecord["ia17Under"] {
+        if let ia17Under = fjARCrossRecord["ia17Under"] as? String {
             fjuARCForm.ia17Under = ia17Under
         }
-        if let ia65Over:String = fjARCrossRecord["ia65Over"] {
+        if let ia65Over = fjARCrossRecord["ia65Over"] as? String {
             fjuARCForm.ia65Over = ia65Over
         }
-        if let iaDisability:String = fjARCrossRecord["iaDisability"] {
+        if let iaDisability = fjARCrossRecord["iaDisability"] as? String {
             fjuARCForm.iaDisability = iaDisability
         }
-        if let iaNotes:String = fjARCrossRecord["iaNotes"] {
+        if let iaNotes = fjARCrossRecord["iaNotes"] as? String {
             fjuARCForm.iaNotes = iaNotes
         }
-        if let iaNumPeople:String = fjARCrossRecord["iaNumPeople"] {
+        if let iaNumPeople = fjARCrossRecord["iaNumPeople"] as? String {
             fjuARCForm.iaNumPeople = iaNumPeople
         }
-        if let iaPrexistingSA:String = fjARCrossRecord["iaPrexistingSA"] {
+        if let iaPrexistingSA = fjARCrossRecord["iaPrexistingSA"] as? String {
             fjuARCForm.iaPrexistingSA = iaPrexistingSA
         }
-        if let iaVets:String = fjARCrossRecord["iaVets"] {
+        if let iaVets = fjARCrossRecord["iaVets"] as? String {
             fjuARCForm.iaVets = iaVets
         }
-        if let iaWorkingSA:String = fjARCrossRecord["iaWorkingSA"] {
+        if let iaWorkingSA = fjARCrossRecord["iaWorkingSA"] as? String {
             fjuARCForm.iaWorkingSA = iaWorkingSA
         }
-        if let installerName:String = fjARCrossRecord["installerName"] {
+        if let installerName = fjARCrossRecord["installerName"] as? String {
             fjuARCForm.installerName = installerName
         }
-        if let journalGuid:String = fjARCrossRecord["journalGuid"] {
+        if let journalGuid = fjARCrossRecord["journalGuid"] as? String {
             fjuARCForm.journalGuid = journalGuid
         }
-        if let localPartner:String = fjARCrossRecord["localPartner"] {
+        if let localPartner = fjARCrossRecord["localPartner"] as? String {
             fjuARCForm.localPartner = localPartner
         }
-        if let nationalPartner:String = fjARCrossRecord["nationalPartner"] {
+        if let nationalPartner = fjARCrossRecord["nationalPartner"] as? String {
             fjuARCForm.nationalPartner = nationalPartner
         }
-        if let numBatteries:String = fjARCrossRecord["numBatteries"] {
+        if let numBatteries = fjARCrossRecord["numBatteries"] as? String {
             fjuARCForm.numBatteries = numBatteries
         }
-        if let numBedShaker:String = fjARCrossRecord["numBedShaker"] {
+        if let numBedShaker = fjARCrossRecord["numBedShaker"] as? String {
             fjuARCForm.numBedShaker = numBedShaker
         }
-        if let numNewSA:String = fjARCrossRecord["numNewSA"] {
+        if let numNewSA = fjARCrossRecord["numNewSA"] as? String {
             fjuARCForm.numNewSA = numNewSA
         }
-        if let option1:String = fjARCrossRecord["option1"] {
+        if let option1 = fjARCrossRecord["option1"] as? String {
             fjuARCForm.option1 = option1
         }
-        if let option2:String = fjARCrossRecord["option2"] {
+        if let option2 = fjARCrossRecord["option2"] as? String {
             fjuARCForm.option2 = option2
         }
-        if let residentCellNum:String = fjARCrossRecord["residentCellNum"] {
+        if let residentCellNum = fjARCrossRecord["residentCellNum"] as? String {
             fjuARCForm.residentCellNum = residentCellNum
         }
-        if let residentEmail:String = fjARCrossRecord["residentEmail"]{
+        if let residentEmail = fjARCrossRecord["residentEmail"] as? String {
             fjuARCForm.residentEmail = residentEmail
         }
-        if let residentName:String = fjARCrossRecord["residentName"] {
+        if let residentName = fjARCrossRecord["residentName"] as? String {
             fjuARCForm.residentName = residentName
         }
-        if let residentOtherPhone:String = fjARCrossRecord["residentOtherPhone"] {
+        if let residentOtherPhone = fjARCrossRecord["residentOtherPhone"]  as? String {
             fjuARCForm.residentOtherPhone = residentOtherPhone
         }
         //     MARK: -BOOL
-        if fjARCrossRecord["arcBackup"] ?? false {
-            fjuARCForm.arcBackup = true
-        } else {
-            fjuARCForm.arcBackup = false
+        if let arcBackup = fjARCrossRecord["arcBackup"] as? Bool {
+            fjuARCForm.arcBackup = arcBackup
         }
-        if fjARCrossRecord["arcLocationAvailable"] ?? false {
-            fjuARCForm.arcLocationAvailable = true
-        } else {
-            fjuARCForm.arcLocationAvailable = false
+        if let arcLocationAvailable = fjARCrossRecord["arcLocationAvailable"] as? Bool {
+            fjuARCForm.arcLocationAvailable = arcLocationAvailable
         }
-        if fjARCrossRecord["arcMaster"] ?? false {
-            fjuARCForm.arcMaster = true
-        } else {
-            fjuARCForm.arcMaster = false
+        if let arcMaster = fjARCrossRecord["arcMaster"] as? Bool {
+            fjuARCForm.arcMaster = arcMaster
         }
-        if fjARCrossRecord["campaign"] ?? false {
-            fjuARCForm.campaign = true
-        } else {
-            fjuARCForm.campaign = false
+        if let campaign = fjARCrossRecord["campaign"] as? Bool {
+            fjuARCForm.campaign = campaign
         }
-        if fjARCrossRecord["cComplete"] ?? false {
-            fjuARCForm.cComplete = true
-        } else {
-            fjuARCForm.cComplete = false
+        if let cComplete = fjARCrossRecord["cComplete"] as? Bool {
+            fjuARCForm.cComplete = cComplete
         }
-        if fjARCrossRecord["createFEPlan"] ?? false {
-            fjuARCForm.createFEPlan = true
-        } else {
-            fjuARCForm.createFEPlan = false
+        if let createFEPlan = fjARCrossRecord["createFEPlan"] as? Bool {
+            fjuARCForm.createFEPlan = createFEPlan
         }
-        if fjARCrossRecord["installerSigend"] ?? false {
-            fjuARCForm.installerSigend = true
-        } else {
-            fjuARCForm.installerSigend = false
+        if let installerSigend = fjARCrossRecord["installerSigend"] as? Bool {
+            fjuARCForm.installerSigend = installerSigend
         }
-        if fjARCrossRecord["localHazard"] ?? false {
-            fjuARCForm.localHazard = true
-        } else {
-            fjuARCForm.localHazard = false
+        if let localHazard = fjARCrossRecord["localHazard"] as? Bool {
+            fjuARCForm.localHazard = localHazard
         }
-        if fjARCrossRecord["residentContactInfo"] ?? false {
-            fjuARCForm.residentContactInfo = true
-        } else {
-            fjuARCForm.residentContactInfo = false
+        if let residentContactInfo = fjARCrossRecord["residentContactInfo"] as? Bool {
+            fjuARCForm.residentContactInfo = residentContactInfo
         }
-        if fjARCrossRecord["residentSigned"] ?? false {
-            fjuARCForm.residentSigned = true
-        } else {
-            fjuARCForm.residentSigned = false
+        if let residentSigned = fjARCrossRecord["residentSigned"] as? Bool {
+            fjuARCForm.residentSigned = residentSigned
         }
-        if fjARCrossRecord["reviewFEPlan"] ?? false {
-            fjuARCForm.reviewFEPlan = true
-        } else {
-            fjuARCForm.reviewFEPlan = false
+        if let reviewFEPlan = fjARCrossRecord["reviewFEPlan"] as? Bool {
+            fjuARCForm.reviewFEPlan = reviewFEPlan
         }
         //     MARK: -DATE
-        if let adminDate:Date = fjARCrossRecord["adminDate"] {
+        if let adminDate = fjARCrossRecord["adminDate"] as? Date {
             fjuARCForm.adminDate = adminDate
         }
-        if let createDate:Date = fjARCrossRecord["arcCreationDate"] {
+        if let createDate = fjARCrossRecord["arcCreationDate"] as? Date {
             fjuARCForm.arcCreationDate = createDate
         }
-        if let modDate:Date = fjARCrossRecord["arcModDate"] {
+        if let modDate = fjARCrossRecord["arcModDate"] as? Date {
             fjuARCForm.arcModDate = modDate
         }
-        if let endDate:Date = fjARCrossRecord["cEndDate"] {
+        if let endDate = fjARCrossRecord["cEndDate"] as? Date {
             fjuARCForm.cEndDate = endDate
         }
-        if let startDate:Date = fjARCrossRecord["cStartDate"] {
+        if let startDate = fjARCrossRecord["cStartDate"] as? Date {
             fjuARCForm.cStartDate = startDate
         }
-        if let installerDate:Date = fjARCrossRecord["installerDate"] {
+        if let installerDate = fjARCrossRecord["installerDate"] as? Date {
             fjuARCForm.installerDate = installerDate
         }
-        if let residentSignDate:Date = fjARCrossRecord["residentSigDate"] {
+        if let residentSignDate = fjARCrossRecord["residentSigDate"] as? Date {
             fjuARCForm.residentSigDate = residentSignDate
         }
         //     MARK: -ASSETS
         // TODO: -signatures
-        let installerSig: Bool = fjARCrossRecord["installerSigend"] ?? false
-        if installerSig {
-            guard let asset: CKAsset = fjARCrossRecord["installerSignature"] else { return }
-                fjuARCForm.installerSignature = imageDataFromCloudKit(asset: asset )
-         }
-         let residentSig: Bool = fjARCrossRecord["residentSigned"] ?? false
-         if residentSig {
-            guard let asset: CKAsset = fjARCrossRecord["residentSignature"] else { return }
-             fjuARCForm.residentSignature = imageDataFromCloudKit(asset: asset )
-         }
+        if let installerSig = fjARCrossRecord["installerSigend"] as? Bool {
+            if installerSig {
+                guard let asset: CKAsset = fjARCrossRecord["installerSignature"] else { return }
+                    fjuARCForm.installerSignature = imageDataFromCloudKit(asset: asset )
+             }
+        }
+        if let residentSig: Bool = fjARCrossRecord["residentSigned"] as? Bool {
+             if residentSig {
+                guard let asset: CKAsset = fjARCrossRecord["residentSignature"] else { return }
+                 fjuARCForm.residentSignature = imageDataFromCloudKit(asset: asset )
+             }
+        }
         
         //     MARK: -TRANSFORM
         /// arcLocation archived with secureCodeing
-        if fjARCrossRecord["arcLocation"] != nil {
-            let location = fjARCrossRecord["arcLocation"] as! CLLocation
+        
+        if let location = fjARCrossRecord["arcLocation"] as? CLLocation {
             do {
                 let data = try NSKeyedArchiver.archivedData(withRootObject: location, requiringSecureCoding: true)
                 fjuARCForm.arcLocationSC = data as NSObject
@@ -395,11 +386,234 @@ class FJARCCrossFormLoader: FJOperation {
             }
         }
         
+        if let userTimeGuid = fjARCrossRecord["userTimeGuid"] as? String {
+            fjuARCForm.userTimeGuid = userTimeGuid
+            if !theUserTimeA.isEmpty {
+                let result = theUserTimeA.filter { $0.userTimeGuid == userTimeGuid }
+                if !result.isEmpty {
+                    let theUserTime = result.last
+                    fjuARCForm.userTime = theUserTime
+                }
+            }
+        }
+        
+        if theUser != nil {
+            fjuARCForm.fireJournalUserDetail = theUser
+        }
+        
         let coder = NSKeyedArchiver(requiringSecureCoding: true)
         fjARCrossRecord.encodeSystemFields(with: coder)
         let data = coder.encodedData
         fjuARCForm.arcFormCKR = data as NSObject
-        print("fjuARCForm set for save from record guid \(fjuARCForm.arcFormGuid ?? "no guid")")
+        
+    }
+    
+    func updateARCrossFormFromCioud( fjARCrossRecord: CKRecord, fjuARCForm: ARCrossForm) {
+        
+            //     MARK: -INTEGERS
+            if let campaignCount = fjARCrossRecord["campaignCount"] as? Int64 {
+            fjuARCForm.campaignCount = campaignCount
+            }
+            //     MARK: -Strings
+            if let adminName = fjARCrossRecord["adminName"] as? String {
+                fjuARCForm.adminName = adminName
+            }
+            if let arcFormCampaignGuid = fjARCrossRecord["arcFormCampaignGuid"] as? String {
+                fjuARCForm.arcFormCampaignGuid = arcFormCampaignGuid
+            }
+            if let arcFormGuid = fjARCrossRecord["arcFormGuid"] as? String {
+                fjuARCForm.arcFormGuid = arcFormGuid
+            }
+            if let arcLocaitonState = fjARCrossRecord["arcLocaitonState"] as? String {
+                fjuARCForm.arcLocaitonState = arcLocaitonState
+            }
+            if let arcLocationAddress = fjARCrossRecord["arcLocationAddress"] as? String {
+                fjuARCForm.arcLocationAddress = arcLocationAddress
+            }
+            if let arcLocationAptMobile = fjARCrossRecord["arcLocationAptMobile"] as? String {
+                fjuARCForm.arcLocationAptMobile = arcLocationAptMobile
+            }
+            if let arcLocationCity = fjARCrossRecord["arcLocationCity"] as? String {
+                fjuARCForm.arcLocationCity = arcLocationCity
+            }
+            if let arcLocationZip = fjARCrossRecord["arcLocationZip"] as? String {
+                fjuARCForm.arcLocationZip = arcLocationZip
+            }
+            if let campaignName = fjARCrossRecord["campaignName"] as? String {
+                fjuARCForm.campaignName = campaignName
+            }
+            if let fjUserGuid = fjARCrossRecord["fjUserGuid"] as? String {
+                fjuARCForm.fjUserGuid = fjUserGuid
+            }
+            if let hazard = fjARCrossRecord["hazard"] as? String {
+                fjuARCForm.hazard = hazard
+            }
+            if let ia17Under = fjARCrossRecord["ia17Under"] as? String {
+                fjuARCForm.ia17Under = ia17Under
+            }
+            if let ia65Over = fjARCrossRecord["ia65Over"] as? String {
+                fjuARCForm.ia65Over = ia65Over
+            }
+            if let iaDisability = fjARCrossRecord["iaDisability"] as? String {
+                fjuARCForm.iaDisability = iaDisability
+            }
+            if let iaNotes = fjARCrossRecord["iaNotes"] as? String {
+                fjuARCForm.iaNotes = iaNotes
+            }
+            if let iaNumPeople = fjARCrossRecord["iaNumPeople"] as? String {
+                fjuARCForm.iaNumPeople = iaNumPeople
+            }
+            if let iaPrexistingSA = fjARCrossRecord["iaPrexistingSA"] as? String {
+                fjuARCForm.iaPrexistingSA = iaPrexistingSA
+            }
+            if let iaVets = fjARCrossRecord["iaVets"] as? String {
+                fjuARCForm.iaVets = iaVets
+            }
+            if let iaWorkingSA = fjARCrossRecord["iaWorkingSA"] as? String {
+                fjuARCForm.iaWorkingSA = iaWorkingSA
+            }
+            if let installerName = fjARCrossRecord["installerName"] as? String {
+                fjuARCForm.installerName = installerName
+            }
+            if let journalGuid = fjARCrossRecord["journalGuid"] as? String {
+                fjuARCForm.journalGuid = journalGuid
+            }
+            if let localPartner = fjARCrossRecord["localPartner"] as? String {
+                fjuARCForm.localPartner = localPartner
+            }
+            if let nationalPartner = fjARCrossRecord["nationalPartner"] as? String {
+                fjuARCForm.nationalPartner = nationalPartner
+            }
+            if let numBatteries = fjARCrossRecord["numBatteries"] as? String {
+                fjuARCForm.numBatteries = numBatteries
+            }
+            if let numBedShaker = fjARCrossRecord["numBedShaker"] as? String {
+                fjuARCForm.numBedShaker = numBedShaker
+            }
+            if let numNewSA = fjARCrossRecord["numNewSA"] as? String {
+                fjuARCForm.numNewSA = numNewSA
+            }
+            if let option1 = fjARCrossRecord["option1"] as? String {
+                fjuARCForm.option1 = option1
+            }
+            if let option2 = fjARCrossRecord["option2"] as? String {
+                fjuARCForm.option2 = option2
+            }
+            if let residentCellNum = fjARCrossRecord["residentCellNum"] as? String {
+                fjuARCForm.residentCellNum = residentCellNum
+            }
+            if let residentEmail = fjARCrossRecord["residentEmail"] as? String {
+                fjuARCForm.residentEmail = residentEmail
+            }
+            if let residentName = fjARCrossRecord["residentName"] as? String {
+                fjuARCForm.residentName = residentName
+            }
+            if let residentOtherPhone = fjARCrossRecord["residentOtherPhone"]  as? String {
+                fjuARCForm.residentOtherPhone = residentOtherPhone
+            }
+            //     MARK: -BOOL
+            if let arcBackup = fjARCrossRecord["arcBackup"] as? Bool {
+                fjuARCForm.arcBackup = arcBackup
+            }
+            if let arcLocationAvailable = fjARCrossRecord["arcLocationAvailable"] as? Bool {
+                fjuARCForm.arcLocationAvailable = arcLocationAvailable
+            }
+            if let arcMaster = fjARCrossRecord["arcMaster"] as? Bool {
+                fjuARCForm.arcMaster = arcMaster
+            }
+            if let campaign = fjARCrossRecord["campaign"] as? Bool {
+                fjuARCForm.campaign = campaign
+            }
+            if let cComplete = fjARCrossRecord["cComplete"] as? Bool {
+                fjuARCForm.cComplete = cComplete
+            }
+            if let createFEPlan = fjARCrossRecord["createFEPlan"] as? Bool {
+                fjuARCForm.createFEPlan = createFEPlan
+            }
+            if let installerSigend = fjARCrossRecord["installerSigend"] as? Bool {
+                fjuARCForm.installerSigend = installerSigend
+            }
+            if let localHazard = fjARCrossRecord["localHazard"] as? Bool {
+                fjuARCForm.localHazard = localHazard
+            }
+            if let residentContactInfo = fjARCrossRecord["residentContactInfo"] as? Bool {
+                fjuARCForm.residentContactInfo = residentContactInfo
+            }
+            if let residentSigned = fjARCrossRecord["residentSigned"] as? Bool {
+                fjuARCForm.residentSigned = residentSigned
+            }
+            if let reviewFEPlan = fjARCrossRecord["reviewFEPlan"] as? Bool {
+                fjuARCForm.reviewFEPlan = reviewFEPlan
+            }
+            //     MARK: -DATE
+            if let adminDate = fjARCrossRecord["adminDate"] as? Date {
+                fjuARCForm.adminDate = adminDate
+            }
+            if let createDate = fjARCrossRecord["arcCreationDate"] as? Date {
+                fjuARCForm.arcCreationDate = createDate
+            }
+            if let modDate = fjARCrossRecord["arcModDate"] as? Date {
+                fjuARCForm.arcModDate = modDate
+            }
+            if let endDate = fjARCrossRecord["cEndDate"] as? Date {
+                fjuARCForm.cEndDate = endDate
+            }
+            if let startDate = fjARCrossRecord["cStartDate"] as? Date {
+                fjuARCForm.cStartDate = startDate
+            }
+            if let installerDate = fjARCrossRecord["installerDate"] as? Date {
+                fjuARCForm.installerDate = installerDate
+            }
+            if let residentSignDate = fjARCrossRecord["residentSigDate"] as? Date {
+                fjuARCForm.residentSigDate = residentSignDate
+            }
+            //     MARK: -ASSETS
+            // TODO: -signatures
+            if let installerSig = fjARCrossRecord["installerSigend"] as? Bool {
+                if installerSig {
+                    guard let asset: CKAsset = fjARCrossRecord["installerSignature"] else { return }
+                        fjuARCForm.installerSignature = imageDataFromCloudKit(asset: asset )
+                 }
+            }
+            if let residentSig: Bool = fjARCrossRecord["residentSigned"] as? Bool {
+                 if residentSig {
+                    guard let asset: CKAsset = fjARCrossRecord["residentSignature"] else { return }
+                     fjuARCForm.residentSignature = imageDataFromCloudKit(asset: asset )
+                 }
+            }
+            
+            //     MARK: -TRANSFORM
+            /// arcLocation archived with secureCodeing
+            
+            if let location = fjARCrossRecord["arcLocation"] as? CLLocation {
+                do {
+                    let data = try NSKeyedArchiver.archivedData(withRootObject: location, requiringSecureCoding: true)
+                    fjuARCForm.arcLocationSC = data as NSObject
+                } catch {
+                    print("got an error here")
+                }
+            }
+            
+            if let userTimeGuid = fjARCrossRecord["userTimeGuid"] as? String {
+                fjuARCForm.userTimeGuid = userTimeGuid
+                if !theUserTimeA.isEmpty {
+                    let result = theUserTimeA.filter { $0.userTimeGuid == userTimeGuid }
+                    if !result.isEmpty {
+                        let theUserTime = result.last
+                        fjuARCForm.userTime = theUserTime
+                    }
+                }
+            }
+            
+            if theUser != nil {
+                fjuARCForm.fireJournalUserDetail = theUser
+            }
+            
+            let coder = NSKeyedArchiver(requiringSecureCoding: true)
+            fjARCrossRecord.encodeSystemFields(with: coder)
+            let data = coder.encodedData
+            fjuARCForm.arcFormCKR = data as NSObject
+        
     }
     
     func imageDataFromCloudKit(asset: CKAsset) -> Data {
@@ -411,25 +625,6 @@ class FJARCCrossFormLoader: FJOperation {
             print("error in return image f")
         }
         return data
-    }
-    
-    
-    
-    fileprivate func saveTheCD() {
-        do {
-            try self.context.save()
-            DispatchQueue.main.async {
-                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object: self.context ,userInfo:["info":"FJARCROSS FORM Operation here"])
-            }
-            print("ARCrossForm+CustomAdditions.swift we have saved from the cloud")
-        } catch {
-            
-            let nserror = error as NSError
-            
-            let errorMessage = "ARCrossForm+CustomAdditions saveToCD() Unresolved error \(nserror)"
-            print(errorMessage)
-            
-        }
     }
     
 }

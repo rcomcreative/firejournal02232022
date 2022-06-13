@@ -66,6 +66,8 @@ class PromotionJournalVC: SpinnerViewController, UIImagePickerControllerDelegate
     var theUser: FireJournalUser!
     var theProject: PromotionJournal!
     var theLocation: FCLocation!
+    var projectCrew: PromotionCrew!
+    var projectTag: PromotionJournalTags!
     var locationAvailable: Bool = false
     var theProjectTags = [PromotionJournalTags]()
     var thePhoto: Photo!
@@ -145,10 +147,8 @@ class PromotionJournalVC: SpinnerViewController, UIImagePickerControllerDelegate
         {
             compact = userInfo["compact"] as? SizeTrait ?? .regular
             switch compact {
-            case .compact:
-                print("compact Incident")
-            case .regular:
-                print("regular Incident")
+            case .compact: break
+            case .regular: break
             }
         }
     }
@@ -208,10 +208,12 @@ class PromotionJournalVC: SpinnerViewController, UIImagePickerControllerDelegate
             } else {
                 theLocation = FCLocation(context: context)
                 theLocation.guid = UUID()
+                theLocation.modDate = theProject.promotionDate
                 if let guid = theProject.projectGuid {
                     theLocation.promotionGuid = guid
                 }
                 theProject.theLocation = theLocation
+
             }
             
             if theProject.tags != nil {
@@ -290,7 +292,7 @@ class PromotionJournalVC: SpinnerViewController, UIImagePickerControllerDelegate
             try context.save()
             if !self.validPhotos.isEmpty {
                 DispatchQueue.global(qos: .background).async {
-                    self.taskContext = self.photoProvider.persistentContainer.newBackgroundContext()
+                    self.taskContext = self.photoProvider.persistentContainer.viewContext
                     self.photoProvider.saveImageDataiIfNeeded(for: self.theProject.photos!, taskContext: self.taskContext)  {
                         DispatchQueue.main.async {
                             self.nc.post(name: .fireJournalCameraPhotoSaved, object: nil)
@@ -301,18 +303,16 @@ class PromotionJournalVC: SpinnerViewController, UIImagePickerControllerDelegate
             DispatchQueue.main.async {
                 self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"Updated project merge that"])
             }
-            let objectID = theProject.objectID
-            DispatchQueue.main.async {
+            DispatchQueue.global(qos: .background).async {
+                let objectID = self.theProject.objectID
                 self.nc.post(name: .fireJournalProjectModifiedSendToCloud,
                              object: nil,
                              userInfo: ["objectID": objectID as NSManagedObjectID])
             }
-            
-            DispatchQueue.main.async {
+            DispatchQueue.global(qos: .background).async {
                 let objectID = self.theLocation.objectID
                     self.nc.post(name: .fireJournalModifyFCLocationToCloud, object: nil, userInfo: ["objectID": objectID as NSManagedObjectID])
             }
-            
             theAlert(message: "The projectl data has been saved.")
         } catch let error as NSError {
             let nserror = error

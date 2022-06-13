@@ -184,20 +184,33 @@ extension MasterViewController {
     
         //    MARK: -FRESHDESK
     @objc func myFreshDeskUpdated(ns: Notification) {
+        if let userInfo = ns.userInfo as! [String: Any]? {
+            if let info = userInfo["freshDesk"] as? Bool {
         if !alertUp {
             let title: InfoBodyText = .syncedWithCRMSubject
             let message: InfoBodyText = .syncedWithCRM
             let alert = UIAlertController.init(title: title.rawValue, message: message.rawValue, preferredStyle: .alert)
             let okAction = UIAlertAction.init(title: "Thanks for the info", style: .default, handler: {_ in
                 self.alertUp = false
-                let fresh = true
+                let fresh = info
                 DispatchQueue.main.async {
                     self.userDefaults.set(fresh, forKey: FJkFRESHDESK_UPDATED)
+                }
+                let userIsFromCloud = self.userDefaults.bool(forKey: FJkFJUSERSavedToCoreDataFromCloud)
+                if userIsFromCloud {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        print("Timer fired!")
+                        self.goingToStartADownloadFromCloud()
+                    }
+                } else {
+                    print("no longer using resources")
                 }
             })
             alert.addAction(okAction)
             self.present(alert, animated: true, completion: nil)
             alertUp = true
+        }
+            }
         }
     }
     
@@ -210,10 +223,8 @@ extension MasterViewController {
         {
             compact = userInfo["compact"] as? SizeTrait ?? .regular
             switch compact {
-            case .compact:
-                print("compact MASTER")
-            case .regular:
-                print("regular MASTER")
+            case .compact: break
+            case .regular: break
             }
         }
     }

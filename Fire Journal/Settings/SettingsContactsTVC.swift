@@ -108,20 +108,7 @@ class SettingsContactsTVC: UITableViewController,CellHeaderCancelSaveDelegate {
     
     
     
-    @objc func compactOrRegular(ns: Notification) {
-//        if let userInfo = ns.userInfo as! [String: Any]?
-//        {
-//            compact = userInfo["compact"] as? SizeTrait ?? .regular
-//            switch compact {
-//            case .compact:
-//                print("compact SETTING CONTACTS")
-//            case .regular:
-//                print("regular SETTING CONTACTS")
-//            }
-//        }
-//
-//        self.tableView.reloadData()
-    }
+    @objc func compactOrRegular(ns: Notification) {    }
     
     @IBAction func goBackToSettings(_ sender: Any) {
         if collapsed {

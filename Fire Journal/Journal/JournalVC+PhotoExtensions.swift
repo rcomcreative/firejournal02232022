@@ -149,6 +149,7 @@ extension JournalVC: CameraTVCellDelegate, PHPickerViewControllerDelegate {
                         self.photoProvider.addPhotoToJournal(imageData: data, imageURL: url, journalid: objectID, taskContext: self.photoProvider.persistentContainer.viewContext) {
                             DispatchQueue.main.async {
                             self.photosAvailable = true
+                            self.theJournal.journalPhotoTaken = true
                             self.saveJournal(self) {
 //                                DispatchQueue.main.async {
 //                                    self.removeSpinnerUpdate()

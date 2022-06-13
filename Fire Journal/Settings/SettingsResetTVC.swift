@@ -72,10 +72,8 @@ class SettingsResetTVC: UITableViewController {
         {
             compact = userInfo["compact"] as? SizeTrait ?? .regular
             switch compact {
-            case .compact:
-                print("compact SETTING RESET DATA")
-            case .regular:
-                print("regular SETTING RESET DATA")
+            case .compact: break
+            case .regular: break
             }
         }
         

@@ -86,10 +86,8 @@ class SettingsTVC: UITableViewController {
         {
             compact = userInfo["compact"] as? SizeTrait ?? .regular
             switch compact {
-            case .compact:
-                print("compact SETTINGS")
-            case .regular:
-                print("regular SETTINGS")
+            case .compact: break
+            case .regular: break
             }
         }
         
@@ -244,7 +242,7 @@ class SettingsTVC: UITableViewController {
                 }
             }
         case .tags:
-            let count = theCount(entity: "UserTags")
+            let count = theCount(entity: "Tag")
             if count == 0 {
                 if !alertUp {
                     tagsPresentAlert()
@@ -396,7 +394,7 @@ extension SettingsTVC {
             
             let nc = NotificationCenter.default
             DispatchQueue.main.async {
-                nc.post(name:Notification.Name(rawValue:FJkReloadUserTagsCalled),
+                nc.post(name:Notification.Name(rawValue: FJkReloadUserTagsCalled),
                         object: nil,
                         userInfo: nil )
             }

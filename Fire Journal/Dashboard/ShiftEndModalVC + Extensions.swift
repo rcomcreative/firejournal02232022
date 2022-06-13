@@ -212,7 +212,7 @@ extension ShiftEndModalVC: UITableViewDataSource {
         case 0:
             switch row {
             case 1:
-                cell.type = IncidentTypes.relieving
+                cell.type = IncidentTypes.relievedBy
                 cell.aBackgroundColor = "FJBlueColor"
                 cell.aChoice = ""
             case 4:
@@ -328,7 +328,7 @@ extension ShiftEndModalVC: MultipleAddButtonTVCellDelegate {
             relieveSupervisorVC.delegate = self
     
             relieveSupervisorVC.relievingOrSupervisor = true
-            relieveSupervisorVC.headerTitle = "Relieving"
+            relieveSupervisorVC.headerTitle = "Relieved By"
     
             relieveSupervisorVC.menuType = MenuItems.endShift
             relieveSupervisorVC.transitioningDelegate = slideInTransitioningDelgate
@@ -459,29 +459,11 @@ extension ShiftEndModalVC: ShiftModalHeaderVDelegate {
             if theUserTime.userEndShiftTime == nil {
                 theUserTime.userEndShiftTime = Date()
             }
-            if theUserTime.endShiftLeaveWork == nil || theUserTime.endShiftLeaveWork == "" {
-                let cell = shiftTableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! RankTVCell
-                if let work = cell.theSubjectTF.text {
-                    theUserTime.endShiftLeaveWork = work
-                } else {
-                    theUserTime.endShiftLeaveWork = ""
-                }
-            }
             if theUserTime.enShiftRelievedBy == nil || theUserTime.enShiftRelievedBy == "" {
-                let cell = shiftTableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! SubjectLabelTextFieldIndicatorTVCell
-                if let relieved = cell.subjectTF.text {
-                    theUserTime.enShiftRelievedBy = relieved
-                } else {
                     theUserTime.enShiftRelievedBy = ""
-                }
             }
             if theUserTime.endShiftDiscussion == nil || theUserTime.endShiftDiscussion == "" {
-                let cell = shiftTableView.cellForRow(at: IndexPath(row: 3, section: 0)) as! SubjectLabelTextViewTVCell
-                if let discussion = cell.subjectTV.text {
-                    theUserTime.endShiftDiscussion = discussion
-                } else {
                     theUserTime.endShiftDiscussion = ""
-                }
             }
             if theUserTime.enShiftRelievedBy != "", theUserTime.endShiftDiscussion != "" {
                 buildTheEndShiftJournal()

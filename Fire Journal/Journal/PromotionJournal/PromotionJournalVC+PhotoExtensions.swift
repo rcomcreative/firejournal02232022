@@ -99,6 +99,7 @@ extension PromotionJournalVC: CameraTVCellDelegate, PHPickerViewControllerDelega
                                     print("file saved")
                                     self.taskContext = self.photoProvider.persistentContainer.newBackgroundContext()
                                     let objectID = self.theProject.objectID
+                                    self.theProject.projectPhotosAvailable = true
                                     self.photoProvider.addPhotoToProject(imageData: data, imageURL: url, projectID: objectID, taskContext: self.photoProvider.persistentContainer.viewContext) {
                                         completionHandler?()
                                     }
@@ -148,6 +149,7 @@ extension PromotionJournalVC: CameraTVCellDelegate, PHPickerViewControllerDelega
                         self.photoProvider.addPhotoToProject(imageData: data, imageURL: url, projectID: objectID, taskContext: self.photoProvider.persistentContainer.viewContext) {
                             DispatchQueue.main.async {
                             self.photosAvailable = true
+                                self.theProject.projectPhotosAvailable = true
                             self.savePromotion(self) {
                                 guard let attachments = self.theProject.photos?.allObjects as? [Photo] else { return }
                                 self.validPhotos = attachments.filter { return !($0.imageData == nil) }
@@ -177,6 +179,7 @@ extension PromotionJournalVC: CameraTVCellDelegate, PHPickerViewControllerDelega
                 let objectID = self.theProject.objectID
                 self.photoProvider.addPhotoToProject(imageData: data, imageURL: url, projectID: objectID, taskContext: self.photoProvider.persistentContainer.viewContext) {
                     DispatchQueue.main.async {
+                        self.theProject.projectPhotosAvailable = true
                     self.savePromotion(self) {
                         
                         self.photosAvailable = true

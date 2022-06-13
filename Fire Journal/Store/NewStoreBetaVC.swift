@@ -114,10 +114,8 @@ class NewStoreBetaVC: UIViewController {
         {
             compact = userInfo["compact"] as? SizeTrait ?? .regular
             switch compact {
-            case .compact:
-                print("compact STORE")
-            case .regular:
-                print("regular STORE")
+            case .compact: break
+            case .regular: break
             default: break
             }
         }

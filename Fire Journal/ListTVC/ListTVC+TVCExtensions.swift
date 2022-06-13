@@ -195,7 +195,7 @@ extension ListTVC {
             case .incidents, .ems, .fire, .rescue:
                 if let incident = _fetchedResultsController?.object(at: indexPath) as? Incident {
                     id = incident.objectID
-                    self.nc.post(name: NSNotification.Name(rawValue: FJkINCIDENTCHOSENFORMAP), object: nil, userInfo:["objectID":id])
+                    self.nc.post(name: NSNotification.Name(rawValue: FJkINCIDENTCHOSENFORMAP), object: nil, userInfo:["objectID": id])
                 }
             case .ics214:
                 if let ics214 = _fetchedResultsController?.object(at: indexPath) as? ICS214Form {
@@ -450,9 +450,17 @@ extension ListTVC {
                 cell.journalHeader.text = "No incident number was indicated."
             }
             if let theModDate = incident.incidentModDate {
-                let fullyFormattedDate = FullDateFormat.init(date:theModDate)
-                let modDate = fullyFormattedDate.formatFullyTheDate()
-                cell.journalDateL.text = modDate
+                if let incidentTimer = incident.incidentTimerDetails {
+                    if let alarmDate = incidentTimer.incidentAlarmDateTime {
+                        let fullyFormattedDate = FullDateFormat.init(date:alarmDate)
+                        let modDate = fullyFormattedDate.formatFullyTheDate()
+                        cell.journalDateL.text = modDate
+                    }
+                } else {
+                    let fullyFormattedDate = FullDateFormat.init(date: theModDate)
+                    let modDate = fullyFormattedDate.formatFullyTheDate()
+                    cell.journalDateL.text = modDate
+                }
             }
             var theAddress: String = ""
             

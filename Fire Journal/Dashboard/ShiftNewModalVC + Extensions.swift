@@ -386,9 +386,15 @@ extension ShiftNewModalVC: UITableViewDataSource {
             cell.delegate = self
             cell.tag = row
             if theUserTime != nil {
-                if let station = theUser.fireStation {
-                    cell.subjectTF.text = station
-                    theUserTime.startShiftFireStation = station
+                if theUser != nil {
+                    if let station = theUser.fireStation {
+                        cell.subjectTF.text = station
+                        theUserTime.startShiftFireStation = station
+                    }
+                } else {
+                    if let station = theUserTime.startShiftFireStation {
+                        cell.subjectTF.text = station
+                    }
                 }
             }
         default: break
@@ -651,28 +657,31 @@ extension ShiftNewModalVC: ShiftModalHeaderVDelegate {
                 }
             }
             if theUserTime.startShiftRelieving == "" || theUserTime.startShiftRelieving == nil {
+                if relieveAvailable {
                 let cell = shiftTableView.cellForRow(at: IndexPath(row: 5, section: 0)) as! SubjectLabelTextFieldIndicatorTVCell
                 if let relieving = cell.subjectTF.text {
                     theUserTime.startShiftRelieving = relieving
                 } else {
                     theUserTime.startShiftRelieving = ""
                 }
+                } else {
+                    theUserTime.startShiftRelieving = ""
+                }
             }
             if theUserTime.startShiftSupervisor == "" || theUserTime.startShiftSupervisor == nil {
+                if superAvailable {
                 let cell = shiftTableView.cellForRow(at: IndexPath(row: 6, section: 0)) as! SubjectLabelTextFieldIndicatorTVCell
                 if let supervisor = cell.subjectTF.text {
                     theUserTime.startShiftSupervisor = supervisor
                 } else {
                     theUserTime.startShiftSupervisor = ""
                 }
+                } else {
+                    theUserTime.startShiftSupervisor = ""
+                }
             }
             if theUserTime.startShiftDiscussion == "" || theUserTime.startShiftDiscussion == nil {
-                let cell = shiftTableView.cellForRow(at: IndexPath(row: 7, section: 0)) as! SubjectLabelTextViewTVCell
-                if let discussion = cell.subjectTV.text {
-                    theUserTime.startShiftDiscussion = discussion
-                } else {
                     theUserTime.startShiftDiscussion = ""
-                }
             }
             if theUserTime.startShiftFireStation != "",  theUserTime.startShiftPlatoon != "", theUserTime.startShiftAssignment != "", theUserTime.startShiftRelieving != "", theUserTime.startShiftSupervisor != "", theUserTime.startShiftDiscussion != "" {
                 buildTheStartShiftJournal()
@@ -743,7 +752,7 @@ extension ShiftNewModalVC: ShiftModalHeaderVDelegate {
                     messagesA.append(error)
                 }
                 if theUserTime.startShiftDiscussion == "" {
-                    let error = "Assignment needs to be designated."
+                    let error = "Shift discuss needs to be designated."
                     messagesA.append(error)
                 }
                 let theMessage = messagesA.joined(separator: "\n")

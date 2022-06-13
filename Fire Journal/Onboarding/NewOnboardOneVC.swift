@@ -88,6 +88,7 @@ class NewOnboardOneVC: UIViewController {
     }
     
     func buildTheNSLayouts() {
+        
         NSLayoutConstraint.activate([
             
             theBackgroundView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),

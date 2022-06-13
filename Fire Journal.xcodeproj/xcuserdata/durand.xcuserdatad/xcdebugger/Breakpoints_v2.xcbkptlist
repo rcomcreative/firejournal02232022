@@ -7,192 +7,80 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "BA4D9342-E27F-4F51-90C5-4E349014B2E0"
+            uuid = "B6459509-3001-4556-9B33-85FD8AB65B3B"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Fire Journal/CommandJournal/StatusProvider.swift"
+            filePath = "Fire Journal/Maps/MapVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
-            landmarkName = "init(with:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "BA4D9342-E27F-4F51-90C5-4E349014B2E0 - 545313449905d76d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Fire_Journal.StatusProvider.__allocating_init(with: __C.NSPersistentContainer) -&gt; Fire_Journal.StatusProvider"
-                  moduleName = "Fire Journal"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/durand/Documents/development/PCFireJournal-Swift-2018/Fire%20Journal/Fire%20Journal/CommandJournal/StatusProvider.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "24">
-               </Location>
-               <Location
-                  uuid = "BA4D9342-E27F-4F51-90C5-4E349014B2E0 - 7718b7f2ae617cb7"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Fire_Journal.StatusProvider.init(with: __C.NSPersistentContainer) -&gt; Fire_Journal.StatusProvider"
-                  moduleName = "Fire Journal"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/durand/Documents/development/PCFireJournal-Swift-2018/Fire%20Journal/Fire%20Journal/CommandJournal/StatusProvider.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "17"
-                  endingLineNumber = "17"
-                  offsetFromSymbolStart = "132">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "551D7EDE-DDD5-4EAE-B8DF-7E54B8107782"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Fire Journal/CommandJournal/StatusProvider.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
-            landmarkName = "managedObjectContextDidSave(notification:)"
+            startingLineNumber = "274"
+            endingLineNumber = "274"
+            landmarkName = "getTheFireStationLocation()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E2749A8F-370E-42EB-A0A7-D823D723CCBB"
+            uuid = "672A666E-A572-483A-9294-D2BFAF0590B4"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Fire Journal/CommandJournal/StatusProvider.swift"
+            filePath = "Fire Journal/Maps/MapVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "182"
-            endingLineNumber = "182"
-            landmarkName = "createStatusCKRecord(_:_:completionHandler:)"
+            startingLineNumber = "491"
+            endingLineNumber = "491"
+            landmarkName = "plotTheFireStation()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C4E058FC-37EA-4AAB-9700-61143906E35B"
+            uuid = "413F8C2A-3C2A-4198-BE41-BDC55270F1D1"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Fire Journal/CommandJournal/StatusProvider.swift"
+            filePath = "Fire Journal/Maps/MapVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
-            landmarkName = "updateTheStatus(_:_:)"
+            startingLineNumber = "294"
+            endingLineNumber = "294"
+            landmarkName = "getTheFireStationLocation()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "FA9C43D1-7734-47B9-891B-227B08FBB9BB"
+            uuid = "89E5380C-6A21-4B46-8C61-F0693151E296"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Fire Journal/CommandJournal/StatusProvider.swift"
+            filePath = "Fire Journal/Maps/MapVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
-            landmarkName = "managedObjectContextDidSave(notification:)"
+            startingLineNumber = "298"
+            endingLineNumber = "298"
+            landmarkName = "getTheFireStationLocation()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "5C8D87EE-C299-4039-9D85-850ABC45D7B1"
+            uuid = "2CA06F29-5945-452F-A317-095D7B6CED9E"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Fire Journal/Dashboard/ShiftNewModalVC + Extensions.swift"
+            filePath = "Fire Journal/Maps/MapVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
-            landmarkName = "tableView(_:cellForRowAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "905A6965-0911-4E4F-B2E7-DBF5F033E4D1"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Fire Journal/Dashboard/ShiftNewModalVC + Extensions.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
-            landmarkName = "tableView(_:cellForRowAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "EF0B3035-BE08-4D18-ADED-F4F041F40073"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Fire Journal/Dashboard/ShiftNewModalVC + Extensions.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
-            landmarkName = "tableView(_:cellForRowAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "E66E818C-0BCF-41C5-8462-2FB945AECC7A"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Fire Journal/Dashboard/ShiftNewModalVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "F0D7BB92-C365-483E-98B3-6A8FA5C40495"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Fire Journal/Dashboard/ShiftNewModalVC + Extensions.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
-            landmarkName = "tableView(_:cellForRowAt:)"
+            startingLineNumber = "297"
+            endingLineNumber = "297"
+            landmarkName = "getTheFireStationLocation()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

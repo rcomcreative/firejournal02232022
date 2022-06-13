@@ -153,15 +153,25 @@ extension Journal {
         if let over = self.journalOverview as? String {
             journalRecord["journalOverview"] = over
         }
-        if self.journalPhotoTaken != nil {
-            journalRecord["journalPhotoTaken"] = true
+        if self.journalTagsAvailable {
+            journalRecord["journalTagsAvailable"] = true
         } else {
-            journalRecord["journalPhotoTaken"] = false
+            journalRecord["journalTagsAvailable"] = false
+        }
+        if self.locationAvailable {
+            journalRecord["locationAvailable"] = 1
+        } else {
+            journalRecord["locationAvailable"] = 0
+        }
+        if self.journalPhotoTaken != nil {
+            journalRecord["journalPhotoTaken"] = 1
+        } else {
+            journalRecord["journalPhotoTaken"] = 0
         }
         if self.journalPrivate {
-            journalRecord["journalPrivate"]  = true
+            journalRecord["journalPrivate"]  = 1
         } else {
-            journalRecord["journalPrivate"] = false
+            journalRecord["journalPrivate"] = 0
         }
         if let summary = self.journalSummary as? String {
             journalRecord["journalSummary"] = summary
@@ -255,10 +265,20 @@ extension Journal {
         if let over = self.journalOverview as? String {
             journalRecord["journalOverview"] = over
         }
-        if self.journalPhotoTaken != nil {
-            journalRecord["journalPhotoTaken"] = true
+        if self.journalTagsAvailable {
+            journalRecord["journalTagsAvailable"] = 1
         } else {
-            journalRecord["journalPhotoTaken"] = false
+            journalRecord["journalTagsAvailable"] = 0
+        }
+        if self.locationAvailable {
+            journalRecord["locationAvailable"] = 1
+        } else {
+            journalRecord["locationAvailable"] = 0
+        }
+        if self.journalPhotoTaken != nil {
+            journalRecord["journalPhotoTaken"] = 1
+        } else {
+            journalRecord["journalPhotoTaken"] = 0
         }
         if self.journalPrivate {
             journalRecord["journalPrivate"]  = true
@@ -414,6 +434,16 @@ extension Journal {
         }
         if let over =  journalRecord["journalOverview"] as? String {
             self.journalOverview = over as NSObject
+        }
+        if journalRecord["locationAvailable"]  ?? false {
+            self.locationAvailable = true
+        } else {
+            self.locationAvailable = false
+        }
+        if journalRecord["journalTagsAvailable"]  ?? false {
+            self.journalTagsAvailable = true
+        } else {
+            self.journalTagsAvailable = false
         }
         if journalRecord["journalPhotoTaken"]  ?? false {
             self.journalPhotoTaken = true

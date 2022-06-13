@@ -129,10 +129,8 @@ extension PersonalJournalTVC {
         {
             compact = userInfo["compact"] as? SizeTrait ?? .regular
             switch compact {
-            case .compact:
-                print("compact Personal JOURNAL")
-            case .regular:
-                print("regular Personal JOURNAL")
+            case .compact: break
+            case .regular: break
             }
         }
         self.tableView.reloadData()
