@@ -86,6 +86,7 @@ class ListTVC: UITableViewController,UISplitViewControllerDelegate   {
     }()
     var userTimeContext: NSManagedObjectContext!
     var theUserTime: UserTime!
+    var theUserTimeOID: NSManagedObjectID!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,11 +102,16 @@ class ListTVC: UITableViewController,UISplitViewControllerDelegate   {
             self.tableView = UITableView.init(frame: self.view.frame, style: .grouped)
         }
         
+        
         getTheStatus()
         if theStatus != nil {
             if let guid = theStatus.guidString {
                 getTheLastUserTime(guid: guid)
             }
+        }
+        
+        if theUserTimeOID != nil {
+            theUserTime = context.object(with: theUserTimeOID) as? UserTime
         }
         
         configureNavigationBar()

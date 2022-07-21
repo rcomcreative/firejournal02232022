@@ -363,6 +363,16 @@ class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalT
         return controller
     }
     
+    func settingsYourDataCalled() -> SettingsYourDataVC {
+            slideInTransitioningDelgate.direction = .right
+            slideInTransitioningDelgate.disableCompactHeight = true
+        let storyboard = UIStoryboard(name: "SettingsYourData", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier:"SettingsYourDataVC") as! SettingsYourDataVC
+        controller.transitioningDelegate = slideInTransitioningDelgate
+        controller.settingsType = FJSettings.resetData
+        return controller
+    }
+    
     func modalICS214NewCalled() ->NewICS214ModalTVC {
         let storyboard = UIStoryboard(name: "ICS214Form", bundle: nil)
         let controller:NewICS214ModalTVC = storyboard.instantiateViewController(withIdentifier: "NewICS214ModalTVC") as! NewICS214ModalTVC
@@ -520,7 +530,7 @@ class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalT
         self.splitVC?.showDetailViewController(navigator, sender:self)
     }
     
-    func mapCalled(type: IncidentTypes )->Void {
+    func mapCalled(type: IncidentTypes , theUserOID: NSManagedObjectID ) -> Void {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller:MapVC = storyboard.instantiateViewController(withIdentifier: "MapVC") as! MapVC
         let navigator = UINavigationController.init(rootViewController: controller)
@@ -531,19 +541,20 @@ class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalT
         controller.myShift = .maps
         controller.titleName = "Maps"
         controller.incidentType = type
+        controller.theUserOID = theUserOID
         self.splitVC?.showDetailViewController(navigator, sender:self)
         nc.post(name:Notification.Name(rawValue:"FJkMAPSLISTCALLED"),
                 object: nil,
                 userInfo: nil)
     }
     
-    func mapCalledPhone(type: IncidentTypes)->Void {
+    func mapCalledPhone(type: IncidentTypes, theUserOID: NSManagedObjectID ) -> Void {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller: MapVC = storyboard.instantiateViewController(withIdentifier: "MapVC") as! MapVC
         let navigator = UINavigationController.init(rootViewController: controller)
         controller.navigationItem.leftItemsSupplementBackButton = true
         controller.navigationItem.leftBarButtonItem = self.splitVC?.displayModeButtonItem
-        //        controller.managedObjectContext = context
+        controller.theUserOID = theUserOID
         controller.delegate = self
         controller.myShift = .maps
         controller.titleName = "Maps"
@@ -868,13 +879,15 @@ class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalT
         self.splitVC?.showDetailViewController(navigator, sender:self)
     }
     
-    func settingsResetDataCalled(compact: SizeTrait)-> Void {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller:SettingsResetTVC = storyboard.instantiateViewController(withIdentifier:"SettingsResetTVC") as! SettingsResetTVC
+    func settingsResetDataCalled(compact: SizeTrait, objectID: NSManagedObjectID)-> Void {
+        self.userID = objectID
+        let storyboard = UIStoryboard(name: "SettingsYourData", bundle: nil)
+        let controller: SettingsYourDataVC = storyboard.instantiateViewController(withIdentifier:"SettingsYourDataVC") as! SettingsYourDataVC
         let navigator = UINavigationController.init(rootViewController: controller)
         controller.titleName = "Fire Journal Reset Data"
-        controller.settingType = FJSettings.resetData
+        controller.settingsType = FJSettings.resetData
         controller.compact = compact
+        controller.userObjectID = self.userID
         self.splitVC?.showDetailViewController(navigator, sender:self)
     }
     

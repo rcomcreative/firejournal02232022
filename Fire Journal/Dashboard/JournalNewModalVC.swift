@@ -169,9 +169,9 @@ New Journal
         theJournal.journalTagsAvailable = false
         theJournal.journalPhotoTaken = false
         theJournal.journalGuid = UUID()
-        theJournal.fireJournalUserInfo = theUser
+        theUser.addToFireJournalUserDetails(theJournal)
         if theUserTime != nil {
-            theJournal.userTime = theUserTime
+            theUserTime.addToJournal(theJournal)
             theJournal.journalTempPlatoon = theUserTime.startShiftPlatoon
             theJournal.journalTempAssignment = theUserTime.startShiftAssignment
             theJournal.journalFireStation = theUserTime.startShiftFireStation

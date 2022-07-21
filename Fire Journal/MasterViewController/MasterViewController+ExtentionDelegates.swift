@@ -244,10 +244,28 @@ extension MasterViewController: SettingsTVCDelegate {
             vc.settingType = FJSettings.contacts
             let navigator = UINavigationController.init(rootViewController: vc)
             self.present(navigator, animated: true, completion: nil)
-        case .resetData:break
+        case .resetData:
+            let vc: SettingsYourDataVC = vcLaunch.settingsYourDataCalled()
+            vc.compact = compact
+            vc.collapsed = collapsed
+            vc.delegate = self
+            vc.settingsType = FJSettings.privacy
+            vc.userObjectID = theUser.objectID
+            let navigator = UINavigationController.init(rootViewController: vc)
+            self.present(navigator, animated: true, completion: nil)
         default:
             break
         }
+    }
+    
+}
+
+extension MasterViewController: SettingsYourDataVCDelegate {
+   
+    func settingsYourDateReturnToSettings() {
+        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popToRootViewController(animated: true)
+        myShiftCellTapped(myShift: MenuItems.settings)
     }
     
 }
@@ -678,9 +696,15 @@ extension MasterViewController: MyShiftCellDelegate {
                     if int != 0 {
                             //                getTheMapsList()
                         if (Device.IS_IPHONE) {
-                            vcLaunch.mapCalledPhone(type: .allIncidents)
+                            if theUser != nil {
+                                let id = theUser.objectID
+                                vcLaunch.mapCalledPhone(type: .allIncidents, theUserOID: id)
+                            }
                         } else {
-                            vcLaunch.mapCalled(type: .allIncidents)
+                            if theUser != nil {
+                                let id = theUser.objectID
+                            vcLaunch.mapCalled(type: .allIncidents, theUserOID: id)
+                            }
                         }
                     } else {
                         print("needanincident")
@@ -695,11 +719,17 @@ extension MasterViewController: MyShiftCellDelegate {
                     let int = theCount(entity: "Incident")
                     if int != 0 {
                         if (Device.IS_IPHONE) {
-                            vcLaunch.mapCalledPhone(type: .allIncidents)
+                            if theUser != nil {
+                                let id = theUser.objectID
+                                vcLaunch.mapCalledPhone(type: .allIncidents, theUserOID: id)
+                            }
                         } else {
-                            getTheMapsList()
-                            nc.post(name:Notification.Name(rawValue:FJkMAPS_FROM_MASTER),
-                                    object: nil, userInfo: ["sizeTrait":compact])
+                            if theUser != nil {
+                                let id = theUser.objectID
+                                getTheMapsList()
+                                nc.post(name:Notification.Name(rawValue: FJkMAPS_FROM_MASTER),
+                                        object: nil, userInfo: ["sizeTrait": compact,"theUserOID": id])
+                            }
                         }
                     } else {
                         print("needanincident")

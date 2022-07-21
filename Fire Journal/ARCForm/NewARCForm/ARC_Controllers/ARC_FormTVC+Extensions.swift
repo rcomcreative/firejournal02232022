@@ -994,9 +994,15 @@ extension ARC_FormTVC {
             }
             if fromMap {
                 if (Device.IS_IPHONE) {
-                    vcLaunch.mapCalledPhone(type: incidentType)
+                    if fireJournalUser != nil {
+                        let id = fireJournalUser.objectID
+                        vcLaunch.mapCalledPhone(type: incidentType, theUserOID: id)
+                    }
                 } else {
-                    vcLaunch.mapCalled(type: incidentType)
+                    if fireJournalUser != nil {
+                        let id = fireJournalUser.objectID
+                        vcLaunch.mapCalled(type: incidentType, theUserOID: id )
+                    }
                 }
             }
         } catch let error as NSError {
@@ -1049,9 +1055,15 @@ extension ARC_FormTVC: MapFormHeaderVDelegate {
     
     func mapFormHeaderBackBTapped(type: IncidentTypes) {
         if (Device.IS_IPHONE) {
-            vcLaunch.mapCalledPhone(type: type)
+            if fireJournalUser != nil {
+                let id = fireJournalUser.objectID
+                vcLaunch.mapCalledPhone(type: type, theUserOID: id)
+            }
         } else {
-            vcLaunch.mapCalled(type: type)
+            if fireJournalUser != nil {
+                let id = fireJournalUser.objectID
+                vcLaunch.mapCalled(type: type, theUserOID: id)
+            }
         }
     }
     

@@ -82,6 +82,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     var statusContext: NSManagedObjectContext!
     var status: Status!
     
+    var cloudKitAndCoreDataDeleted: Int {
+        get {
+            return userDefaults.integer(forKey: FJkDELETIONCKCD)
+        }
+        set {
+            userDefaults.set(newValue, forKey: FJkDELETIONCKCD)
+            NSUbiquitousKeyValueStore.default.set(newValue, forKey: FJkDELETIONCKCD)
+            print("here is new value: \(newValue)")
+            if newValue == 1 {
+                DispatchQueue.main.async {
+                    self.nc.post(name: .fConDeletionNotificationSentFromCloud, object: nil, userInfo: ["deletion": newValue])
+                }
+            }
+            
+        }
+    }
+    
     
     //    MARK -LOCATION FOR WEATHER-
     func determineLocation() {
@@ -135,10 +152,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-//        bkgrndTask = BkgrndTask.init(bkgrndTask: bgTask)
-//        bkgrndTask?.operation = "AppDelegate"
-//        bkgrndTask?.registerBackgroundTask()
-//        thereIsBackgroundTask = true
+
         UIDevice.current.beginGeneratingDeviceOrientationNotifications()
         addObservers()
         
@@ -147,28 +161,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         }catch{
             print("could not start reachability notifier")
         }
-        
-        // Override point for customization after application launch.
-        let splitViewController = self.window!.rootViewController as! UISplitViewController
-        let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
-        navigationController.topViewController?.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
-        navigationController.topViewController?.navigationItem.leftItemsSupplementBackButton = true
-        splitViewController.delegate = self
-        
-        //        let minimumWidth = CGFloat(splitViewController.view.bounds.width)
-        let minminWidth = CGFloat(splitViewController.view.bounds.width/4)
-        splitViewController.minimumPrimaryColumnWidth = minminWidth
-        splitViewController.maximumPrimaryColumnWidth = minminWidth
-        splitViewController.preferredPrimaryColumnWidthFraction = 0.2
-        
-        splitViewController.preferredDisplayMode = .allVisible
-        
-        let masterNavigationController = splitViewController.viewControllers[0] as! UINavigationController
-        let controller = masterNavigationController.topViewController as! MasterViewController
-        masterNavigationController.title = ""
-        controller.title = ""
-        
-        controller.managedObjectContext = persistentContainer.viewContext
         managedObjectContext = persistentContainer.viewContext
         
         subscriptionBought = userDefaults.bool(forKey: FJkSUBCRIPTIONBought)
@@ -194,20 +186,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             let reach = userDefaults.bool(forKey: FJkInternetConnectionAvailable)
             if reach {
                 DispatchQueue.global(qos: .background).async {
-                    self.statusContext = self.statusProvider.persistentContainer.viewContext
+                    self.nc.post(name: .fConCheckTheCKZone, object: nil)
+                }
+                self.statusContext = self.statusProvider.persistentContainer.viewContext
+                DispatchQueue.global(qos: .background).async {
                     self.statusProvider.getStatusFromCloud(self.statusContext) { status in
-                        print("here is the status \(status)")
-//                        let updated = status.locationMovedToFCLocation
-//                        let id = status.objectID
-//                        let context = self.persistentContainer.viewContext
-//                        self.theStatus = context.object(with: id) as? Status
-//                        self.userDefaults.set(updated, forKey: FJkFCLocationUpdateToIncidentRan)
-//                            self.fcLocationUpdated = self.userDefaults.bool(forKey: FJkFCLocationUpdateToIncidentRan)
-//                            if !self.fcLocationUpdated {
-//                                           DispatchQueue.global(qos: .background).async {
-//                                               self.nc.post(name: .fireJournalUpdateIncidentLocationToFCLocation, object: nil)
-//                                           }
-//                                       }
+                        print("AgreementAgreedTo here is the status \(status)")
                         
                     }
                 }
@@ -222,21 +206,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             userDefaults.synchronize()
         } else {
             DispatchQueue.global(qos: .background).async {
-                self.userContext = self.userProvider.persistentContainer.viewContext
-                let loadTheUserFromCloud = LoadTheUserFromCloud(context: self.userContext)
+                let loadTheUserFromCloud = LoadTheUserFromCloud(context: self.managedObjectContext)
                 loadTheUserFromCloud.getCloudUser()
             }
             DispatchQueue.global(qos: .background).async {
                 self.fdidContext = self.fdidProvider.persistentContainer.newBackgroundContext()
-                if let fdid = self.fdidProvider.buildTheFDIDs(theGuidDate: Date(), backgroundContext: self.fdidContext) {
-                    print("fdids are done")
+                if let fdids = self.fdidProvider.getAllUserFDIDs(context: self.fdidContext) {
+                    if fdids.isEmpty {
+                        if let fdid = self.fdidProvider.buildTheFDIDs(theGuidDate: Date(), backgroundContext: self.fdidContext) {
+                            print("fdids are done")
+                        }
+                    }
                 }
             }
+            userDefaults.set(false, forKey: FJkREMOVEALLDATA)
+            userDefaults.register(defaults: [FJkDELETIONCKCD: 0])
+            userDefaults.register(defaults: [FJkSTATUSCKRECORDNAME: ""])
             self.cloud.firstRun = true
         }
         
+
+        
+            // Override point for customization after application launch.
+            let splitViewController = self.window!.rootViewController as! UISplitViewController
+            let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
+            navigationController.topViewController?.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
+            navigationController.topViewController?.navigationItem.leftItemsSupplementBackButton = true
+            splitViewController.delegate = self
+            
+            //        let minimumWidth = CGFloat(splitViewController.view.bounds.width)
+            let minminWidth = CGFloat(splitViewController.view.bounds.width/4)
+            splitViewController.minimumPrimaryColumnWidth = minminWidth
+            splitViewController.maximumPrimaryColumnWidth = minminWidth
+            splitViewController.preferredPrimaryColumnWidthFraction = 0.2
+            
+            splitViewController.preferredDisplayMode = .allVisible
+            
+            let masterNavigationController = splitViewController.viewControllers[0] as! UINavigationController
+            let controller = masterNavigationController.topViewController as! MasterViewController
+            masterNavigationController.title = ""
+            controller.title = ""
+            
+            controller.managedObjectContext = persistentContainer.viewContext
         userDefaults.set(false, forKey: FJkVERSIONCONTROL)
-        userDefaults.synchronize()
         
         return true
     }
@@ -250,8 +262,104 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         //        MARK: -OBSERVE NEW FIRE STATION-
         nc.addObserver(self, selector: #selector(getTheNotificationChanges(nc:)), name: NSNotification.Name(rawValue: FJkRECIEVEDRemoteNotification), object: nil)
         nc.addObserver(self, selector: #selector(addressesUpdated(ns:)), name: .fireJournalFCLocationsUpdated, object: nil)
+        nc.addObserver(self, selector: #selector(rebuildTheApp(nc:)), name: .fConCKCDDeletionCompleted, object: nil)
+        nc.addObserver(self, selector: #selector(changeToDeletionStatus(nc:)), name: .fConDeletionChangedInternally, object: nil)
+        nc.addObserver(self, selector: #selector(zoneDetected(nc:)), name: .fConCheckTheCKZoneFinished, object: nil)
+        nc.addObserver(self,
+            selector: #selector(ubiquitousKeyValueStoreDidChange(_:)),
+            name: NSUbiquitousKeyValueStore.didChangeExternallyNotification,
+            object: NSUbiquitousKeyValueStore.default)
+        
+        if NSUbiquitousKeyValueStore.default.synchronize() == false {
+            fatalError("This app was not built with the proper entitlement requests.")
+        }
     }
     
+    @objc func zoneDetected(nc: Notification) {
+        guard let userInfo = nc.userInfo else { return }
+        guard let changed = userInfo["theZone"] as? String else {
+            return
+        }
+        if changed == "" {
+            cloudKitAndCoreDataDeleted = 1
+        } else {
+            print("all is still good")
+        }
+        guard let errorMessage = userInfo["errorMessage"] as? String else {
+            return
+        }
+        if errorMessage != "" {
+            print(errorMessage)
+        }
+    }
+    
+    @objc func changeToDeletionStatus(nc: Notification) {
+        
+        guard let userInfo = nc.userInfo else { return }
+        guard let changed = userInfo["deletionInternal"] as? Int else {
+            return
+        }
+        if changed == 1 {
+        cloudKitAndCoreDataDeleted = changed
+        }
+        
+    }
+        //    MARK: -UBIQUITOUSKEYVALUE-
+            @objc
+            func ubiquitousKeyValueStoreDidChange(_ notification: Notification) {
+                
+                guard let userInfo = notification.userInfo else { return }
+                
+                guard let reasonForChange = userInfo[NSUbiquitousKeyValueStoreChangeReasonKey] as? Int else { return }
+                
+                guard let keys =
+                    userInfo[NSUbiquitousKeyValueStoreChangedKeysKey] as? [String] else { return }
+                
+                guard keys.contains(FJkDELETIONCKCD) else { return }
+                
+                if reasonForChange == NSUbiquitousKeyValueStoreAccountChange {
+                    cloudKitAndCoreDataDeleted = userDefaults.integer(forKey: FJkDELETIONCKCD)
+                    return
+                }
+                
+                let possibleDeletionIndexFromiCloud =
+                    NSUbiquitousKeyValueStore.default.longLong(forKey: FJkDELETIONCKCD)
+                
+                
+                if let validDeletionIndex = DeletionCKCD(rawValue: Int(possibleDeletionIndexFromiCloud)) {
+                    cloudKitAndCoreDataDeleted = validDeletionIndex.rawValue
+                    return
+                }
+
+                /** The value isn't something we can understand.
+                     The best way to handle an unexpected value depends on what the value represents, and what your app does.
+                      good rule of thumb is to ignore values you can not interpret and not apply the update.
+                 */
+                Swift.debugPrint("WARNING: Invalid \(FJkDELETIONCKCD) value,")
+                Swift.debugPrint("of \(FJkDELETIONCKCD) received from iCloud. This value will be ignored.")
+            }
+    
+    
+    //    MARK: -REMOVE DATA
+    /**Data has been removed
+     
+     observe fConCKCDDeletionCompleted
+     set JFJkUserAgreemdentAgreed to false
+     reload masterVC
+     reload detailVC
+     */
+    @objc func rebuildTheApp(nc: Notification) {
+        KeychainItem.deleteUserIdentifierFromKeychain()
+        userDefaults.set(false, forKey: FJkUserAgreementAgreed )
+        cloudKitAndCoreDataDeleted = 1
+        self.agreementAgreedTo = false
+        self.firstRun = true
+        self.cloud.firstRun = true
+        DispatchQueue.main.async {
+            self.nc.post(name: .fConDeletedRebuildMaster, object: nil)
+            self.nc.post(name: .fConDeletedRebuildDetail, object: nil)
+        }
+    }
     
     @objc func addressesUpdated(ns: Notification) {
         userDefaults.set(true, forKey: FJkFCLocationUpdateToIncidentRan)
@@ -268,7 +376,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                         self.userDefaults.set(true, forKey: FJkFCLocationUpdateToIncidentRan)
                         
                         self.statusProvider.createStatusCKRecord(self.statusContext, self.status.objectID) { status in
-                            print("here is the status \(status)")
+                            print("addressesUpdated here is the status \(status)")
                         }
                     }
                 }
@@ -276,11 +384,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             }
             } else {
                 self.statusProvider.addFCLocationsToStatus(objectID: self.theStatus.objectID, self.statusContext) { status in
-                    print("here is the status \(status)")
+                    print("addressesUpdated 2 here is the status \(status)")
                     self.userDefaults.set(true, forKey: FJkFCLocationUpdateToIncidentRan)
                     
                     self.statusProvider.createStatusCKRecord(self.statusContext, self.theStatus.objectID) { status in
-                        print("here is the status \(status)")
+                        print("addressesUpdated 3 here is the status \(status)")
                     }
                 }
                 
@@ -294,31 +402,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     @objc func detectOrientation(ns: Notification) {
         switch UIDevice.current.orientation {
         case .unknown:
-//            print("Orientation Unknown")
             orientation = 0
         case UIDeviceOrientation.portrait:
-//            print("Orientation Portrait")
             device = UIDeviceOrientation.portrait.rawValue
             orientation = 1
         case UIDeviceOrientation.portraitUpsideDown:
-//            print("Orientation PortraitUpsideDown")
             device = UIDeviceOrientation.portraitUpsideDown.rawValue
             orientation = 2
         case UIDeviceOrientation.landscapeLeft:
-//            print("Orientation LandscapeLeft")
             device = UIDeviceOrientation.landscapeLeft.rawValue
             orientation = 3
         case UIDeviceOrientation.landscapeRight:
-//            print("Orientation LandscapeRight")
             device = UIDeviceOrientation.landscapeRight.rawValue
             orientation = 4
         case UIDeviceOrientation.faceUp:
-//            print("Orientation FaceUp")
             if orientation == 0 {
                 orientation = 1
             }
         case UIDeviceOrientation.faceDown:
-//            print("Orientation FaceDown")
             if orientation == 0 {
                 orientation = 1
             }
@@ -383,34 +484,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                 return
             }
         }
-//        if agreementAgreedTo {
-            //        let cloudkitNote = CKNotification.init(fromRemoteNotificationDictionary: userInfo)
-            //        let body = cloudkitNote.alertBody
-//            let dict = userInfo as! [String: NSObject]
-//            let notification = CKNotification(fromRemoteNotificationDictionary: dict)!
-//
-//            switch application.applicationState {
-//
-//            case .inactive:
-//                print("Inactive \(String(describing: notification.subscriptionID))")
-//            case .background:
-//                print("Background \(String(describing: notification.subscriptionID))")
-            //            if notification.subscriptionID == "FireJournal" {
-            //                fetchSharedChanges {
-            //                    completionHandler(UIBackgroundFetchResult.newData)
-            //                }
-            //            }
-//            case .active:
-//                if notification.subscriptionID == "FireJournal" {
-//                    fetchSharedChanges {
-//                        completionHandler(UIBackgroundFetchResult.newData)
-//                    }
-//                }
-//            default: break
-//            }
-            //
-            //        completionHandler(UIBackgroundFetchResult.newData)
-//        }
+
     }
     
     

@@ -49,6 +49,7 @@ extension FireJournalUser {
     /// - Returns: returns a CKRecord to send to the dashboard
     func newFireJournalUserForCloud(dateFormatter: DateFormatter) ->CKRecord {
         
+        
         //        MARK: -Create CKRecord-
         var recordName: String = ""
         if let name = self.userGuid {

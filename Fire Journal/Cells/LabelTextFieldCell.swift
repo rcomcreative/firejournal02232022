@@ -97,25 +97,27 @@ class LabelTextFieldCell: UITableViewCell, UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        let text = textField.text ?? ""
-        if journalType == nil {
-            delegate?.labelTextFieldFinishedEditing(text: text, myShift: myShift, tag: self.tag)
-        } else {
-            switch journalType {
-            case .userInfo?:
-                delegate?.userInfoTextFieldFinishedEditing(text:text, myShift: myShift, journalType: journalType )
-            case .fireStation?:
-                delegate?.userInfoTextFieldFinishedEditing(text:text, myShift: myShift, journalType: journalType )
-            default:
-                print("no")
+        if let text = textField.text {
+            if journalType == nil {
+                delegate?.labelTextFieldFinishedEditing(text: text, myShift: myShift, tag: self.tag)
+            } else {
+                switch journalType {
+                case .userInfo?:
+                    delegate?.userInfoTextFieldFinishedEditing(text:text, myShift: myShift, journalType: journalType )
+                case .fireStation?:
+                    delegate?.userInfoTextFieldFinishedEditing(text:text, myShift: myShift, journalType: journalType )
+                default:
+                    print("no")
+                }
             }
         }
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        let text = textField.text ?? ""
-        if journalType == nil {
-            delegate?.labelTextFieldFinishedEditing(text: text, myShift: myShift, tag: self.tag)
+        if let text = textField.text {
+            if journalType == nil {
+                delegate?.labelTextFieldFinishedEditing(text: text, myShift: myShift, tag: self.tag)
+            }
         }
         return true
     }

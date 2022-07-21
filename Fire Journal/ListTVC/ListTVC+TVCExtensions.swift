@@ -58,6 +58,51 @@ extension ListTVC {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        var id: NSManagedObjectID!
+        switch myShift {
+        case .incidents:
+            print("do something")
+            if let incident = _fetchedResultsController?.object(at: indexPath) as? Incident {
+                id = incident.objectID
+            }
+            let previewProvider: () -> PreviewVC? = {
+                return PreviewVC(incidentID: id)
+            }
+            let actionProvider: ([UIMenuElement]) -> UIMenu? = { _ in
+                let edit = UIAction(title: "Edit", image: UIImage(systemName: "square.and.pencil"), identifier: UIAction.Identifier(rawValue: "edit")) { _ in
+                    if (Device.IS_IPHONE){
+                        self.delegate?.journalObjectChosen(type: self.myShift, id: id,compact: self.compact)
+                    } else {
+                        let storyboard = UIStoryboard(name: "IncidentVC", bundle: nil)
+                        let controller:IncidentVC = storyboard.instantiateViewController(withIdentifier: "IncidentVC") as! IncidentVC
+                        let navigator = UINavigationController.init(rootViewController: controller)
+                        controller.navigationItem.leftItemsSupplementBackButton = true
+                        controller.navigationItem.leftBarButtonItem = self.splitVC?.displayModeButtonItem
+                        controller.id = id
+                        self.splitVC?.showDetailViewController(navigator, sender:self)
+                    }
+                }
+//                let editMenu: UIMenu = {
+//                    let edit = UIAction(title: "Edit") { _ in
+//                        // some action
+//                    }
+//                    return UIMenu(title: "Edit..", image: nil, identifier: nil, children: [edit])
+//                }()
+                
+                return UIMenu(title: "", image: nil, identifier: nil, children: [edit])
+            }
+            
+            return UIContextMenuConfiguration(identifier: nil,
+                                              previewProvider: previewProvider,
+                                              actionProvider: actionProvider)
+        default:
+            return UIContextMenuConfiguration(identifier: nil,
+                                              previewProvider: nil,
+                                              actionProvider: nil)
+        }
+    }
+    
     func configureCell( at indexPath: IndexPath)->UITableViewCell {
         switch myShift {
         case .journal:
@@ -462,6 +507,11 @@ extension ListTVC {
                     cell.journalDateL.text = modDate
                 }
             }
+            
+            if cell.journalDateL.text == "" || cell.journalDateL.text == "  " {
+                cell.journalDateL.text = "No date available."
+            }
+            
             var theAddress: String = ""
             
                 if incident.theLocation != nil {
@@ -500,7 +550,7 @@ extension ListTVC {
                     }
                 }
             
-            if cell.journalLocationL.text == "" {
+            if cell.journalLocationL.text == "" || cell.journalLocationL.text == "  "{
                 cell.journalLocationL.text = "No location available"
             }
         }

@@ -77,7 +77,7 @@ extension BuildFromNFIRSIncidentType {
         for (index, value) in displayOrder.enumerated() {
             let type = nfirsStreetTypesString[index]
             let number = nfirsStreetTypeNumber[index]
-            let display:Int = value
+            let display: Int = value
             let incidentType = NFIRSIncidentType(displayOrder: display, incidentTypeName: type, incidentTypeNumber: number)
             let types = NFIRSIncidentTypes(nfirsIncidentTypes: incidentType)
             nitypes.append(types)

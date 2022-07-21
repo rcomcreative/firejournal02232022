@@ -36,6 +36,7 @@
 		130C531A27DD1D0700750CC4 /* Mapping55to56.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 130C531927DD1D0700750CC4 /* Mapping55to56.xcmappingmodel */; };
 		130C572322E65321003EC919 /* CellHeaderW2Buttons.xib in Resources */ = {isa = PBXBuildFile; fileRef = 130C572122E65321003EC919 /* CellHeaderW2Buttons.xib */; };
 		130C572422E65321003EC919 /* CellHeaderW2Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130C572222E65321003EC919 /* CellHeaderW2Buttons.swift */; };
+		130DE0DC28872F95004E6A19 /* DeletionCKCD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130DE0DB28872F95004E6A19 /* DeletionCKCD.swift */; };
 		130E43B724B5116800DE092F /* NewICS214LabelTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130E43B524B5116800DE092F /* NewICS214LabelTextFieldCell.swift */; };
 		130E43B824B5116800DE092F /* NewICS214LabelTextFieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 130E43B624B5116800DE092F /* NewICS214LabelTextFieldCell.xib */; };
 		13108F2B2548DD930073AD1C /* TagsReloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13108F2A2548DD930073AD1C /* TagsReloadOperation.swift */; };
@@ -136,6 +137,9 @@
 		1338B93F23DB6A0900ABECA7 /* CellHeaderForFireEMSResourceEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1338B93E23DB6A0900ABECA7 /* CellHeaderForFireEMSResourceEdit.swift */; };
 		1338B94123DB6A3500ABECA7 /* CellHeaderForFireEMSResourceEdit.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1338B94023DB6A3500ABECA7 /* CellHeaderForFireEMSResourceEdit.xib */; };
 		1338E14C224160BA000EEBDC /* NFIRSsectionHeaderTHFV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1338E14B224160BA000EEBDC /* NFIRSsectionHeaderTHFV.swift */; };
+		1339BF0228821B300053313D /* DeleteZoneIDOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1339BF0128821B300053313D /* DeleteZoneIDOperation.swift */; };
+		1339BF0428821D210053313D /* CKErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1339BF0328821D210053313D /* CKErrorAlert.swift */; };
+		1339BF06288229A10053313D /* DeleteCoreDataForUserOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1339BF05288229A10053313D /* DeleteCoreDataForUserOperation.swift */; };
 		133BBBD3255C475E0028031A /* Incident+ExtensionsFetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133BBBD2255C475E0028031A /* Incident+ExtensionsFetch.swift */; };
 		133C8B5F21C9BC6600BA9F5B /* ICS214Form+CustomAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133C8B5E21C9BC6600BA9F5B /* ICS214Form+CustomAdditions.swift */; };
 		133D19BE23FB54280036FBAF /* T1Autograph.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 133D19BD23FB54280036FBAF /* T1Autograph.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -259,6 +263,9 @@
 		13678CAD2853DF5000F0EB93 /* ARC_TwoButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13C96D9F25310A5100C5195F /* ARC_TwoButtonCell.xib */; };
 		1368B8E622E232930005B06E /* SettingsUserFDResourcesTVC+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1368B8E522E232930005B06E /* SettingsUserFDResourcesTVC+Extension.swift */; };
 		1368B8EB22E24A4A0005B06E /* UserFDResourcesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1368B8EA22E24A4A0005B06E /* UserFDResourcesTests.swift */; };
+		1369340C286FAF1400229BFC /* ShiftIncidentTotals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1369340B286FAF1400229BFC /* ShiftIncidentTotals.swift */; };
+		1369340E2870E4EE00229BFC /* SettingsYourDataVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1369340D2870E4ED00229BFC /* SettingsYourDataVC.swift */; };
+		136934102870E50300229BFC /* SettingsYourData.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1369340F2870E50300229BFC /* SettingsYourData.storyboard */; };
 		136990E22405DD44007558D8 /* MapInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 136990E12405DD44007558D8 /* MapInfo.storyboard */; };
 		136990E52405EBC6007558D8 /* Mapping39to40.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 136990E42405EBC6007558D8 /* Mapping39to40.xcmappingmodel */; };
 		136CF49F2821ADCA00994371 /* JournalEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136CF49E2821ADCA00994371 /* JournalEditVC.swift */; };
@@ -298,6 +305,7 @@
 		1378071A22FDEC0B00B842D0 /* UserFDResourceCustomEditCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1378071822FDEC0B00B842D0 /* UserFDResourceCustomEditCVCell.xib */; };
 		1378071D22FE0C2B00B842D0 /* userFDResourcesCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1378071B22FE0C2B00B842D0 /* userFDResourcesCustomCell.swift */; };
 		1378071E22FE0C2B00B842D0 /* userFDResourcesCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1378071C22FE0C2B00B842D0 /* userFDResourcesCustomCell.xib */; };
+		137934882889E96C003BF705 /* CheckForCKZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137934872889E96C003BF705 /* CheckForCKZone.swift */; };
 		1379FDD524575FDB00FC7C72 /* TodayShiftData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1379FDD424575FDB00FC7C72 /* TodayShiftData.swift */; };
 		1379FDD72457660700FC7C72 /* TodayShiftForDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1379FDD62457660700FC7C72 /* TodayShiftForDashboard.swift */; };
 		1379FDD924577CC000FC7C72 /* UpdateShiftDashbaordData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1379FDD824577CC000FC7C72 /* UpdateShiftDashbaordData.swift */; };
@@ -324,6 +332,18 @@
 		1383466F27E40FDA00B40A4D /* CrewContactListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1383466D27E40FDA00B40A4D /* CrewContactListCell.swift */; };
 		1383467027E40FDA00B40A4D /* CrewContactListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1383466E27E40FDA00B40A4D /* CrewContactListCell.xib */; };
 		1383467227E40FEF00B40A4D /* StaffContact.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1383467127E40FEF00B40A4D /* StaffContact.storyboard */; };
+		138787EE28748A6700409E4D /* SettingsYourDataWarning.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 138787ED28748A6700409E4D /* SettingsYourDataWarning.storyboard */; };
+		138787F028748A7F00409E4D /* SettingsYourDataWarningVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138787EF28748A7F00409E4D /* SettingsYourDataWarningVC.swift */; };
+		138787F32878BB4400409E4D /* SingleJournalBuildFromCloudOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138787F22878BB4400409E4D /* SingleJournalBuildFromCloudOperation.swift */; };
+		138787F52878F53100409E4D /* SingleIncidentBuildFromCloudOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138787F42878F53100409E4D /* SingleIncidentBuildFromCloudOperation.swift */; };
+		138787F72878F54000409E4D /* SingleProjectBuildFromCloudOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138787F62878F54000409E4D /* SingleProjectBuildFromCloudOperation.swift */; };
+		138787F92878F55000409E4D /* SingleICS214BuildFromCloudOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138787F82878F55000409E4D /* SingleICS214BuildFromCloudOperation.swift */; };
+		138787FB2878F90000409E4D /* SingleARCFormBuildFromCloudOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138787FA2878F90000409E4D /* SingleARCFormBuildFromCloudOperation.swift */; };
+		138787FD287E1EF300409E4D /* ICS214Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138787FC287E1EF300409E4D /* ICS214Provider.swift */; };
+		138787FF287F357900409E4D /* SingleICS214ActivityLogOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138787FE287F357900409E4D /* SingleICS214ActivityLogOperation.swift */; };
+		13878801287F359600409E4D /* SingleICS214PersonnelOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13878800287F359600409E4D /* SingleICS214PersonnelOperation.swift */; };
+		138788052880913E00409E4D /* UserAttendeesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138788042880913E00409E4D /* UserAttendeesProvider.swift */; };
+		138788072880B2FF00409E4D /* ARCFormProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138788062880B2FF00409E4D /* ARCFormProvider.swift */; };
 		1387CF8A23FC9B4500043305 /* FJSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1387CF8923FC9B4500043305 /* FJSettings.swift */; };
 		1387CF8C23FC9B7900043305 /* SizeTrait.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1387CF8B23FC9B7900043305 /* SizeTrait.swift */; };
 		1387CF9423FCAF6A00043305 /* SettingMyResourcePhoneTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1387CF8D23FCAF6900043305 /* SettingMyResourcePhoneTVCell.swift */; };
@@ -695,6 +715,7 @@
 		13D0793321A4D8E000068B0A /* SettingsProfileTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D0793221A4D8E000068B0A /* SettingsProfileTVC.swift */; };
 		13D08751240EE57C00F10802 /* RelieveSupervisorHeaderV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D08750240EE57C00F10802 /* RelieveSupervisorHeaderV.swift */; };
 		13D10BA322D5453C0013500B /* NewICS214ModalTVC+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D10BA222D5453C0013500B /* NewICS214ModalTVC+Extensions.swift */; };
+		13D1BC4A286E71B200553CE9 /* AllShiftIncidentCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D1BC49286E71B200553CE9 /* AllShiftIncidentCVCell.swift */; };
 		13D2D4DC21E810870029727E /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13D2D4DA21E810870029727E /* Contacts.framework */; };
 		13D2D4DD21E810870029727E /* ContactsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13D2D4DB21E810870029727E /* ContactsUI.framework */; };
 		13D6F6DC27EBB9EF00CCFCFD /* LabelDateTimeButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F3E8CE219B80BE0044CF41 /* LabelDateTimeButtonCell.swift */; };
@@ -856,6 +877,7 @@
 		13EFC18323FB554E00F7EA52 /* T1Autograph.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 133D19BD23FB54280036FBAF /* T1Autograph.framework */; };
 		13F02C1F22F4E62C0038AB77 /* mapping33to34.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 13F02C1E22F4E62C0038AB77 /* mapping33to34.xcmappingmodel */; };
 		13F02C2122F4E6F90038AB77 /* IncidentPOVNotesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F02C2022F4E6F90038AB77 /* IncidentPOVNotesTVC.swift */; };
+		13F0534D2866370000365609 /* PreviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F0534C2866370000365609 /* PreviewVC.swift */; };
 		13F0E419244E4D7800C99409 /* EachMonthsTotals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F0E418244E4D7800C99409 /* EachMonthsTotals.swift */; };
 		13F1657B2270CF8D00FA717A /* ICS214Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F1657A2270CF8D00FA717A /* ICS214Data.swift */; };
 		13F1ED3423465E95002B4A54 /* UpdateShiftModalTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F1ED3323465E95002B4A54 /* UpdateShiftModalTVC.swift */; };
@@ -1247,6 +1269,7 @@
 		130C531927DD1D0700750CC4 /* Mapping55to56.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = Mapping55to56.xcmappingmodel; sourceTree = "<group>"; };
 		130C572122E65321003EC919 /* CellHeaderW2Buttons.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CellHeaderW2Buttons.xib; sourceTree = "<group>"; };
 		130C572222E65321003EC919 /* CellHeaderW2Buttons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellHeaderW2Buttons.swift; sourceTree = "<group>"; };
+		130DE0DB28872F95004E6A19 /* DeletionCKCD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletionCKCD.swift; sourceTree = "<group>"; };
 		130E43B524B5116800DE092F /* NewICS214LabelTextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewICS214LabelTextFieldCell.swift; sourceTree = SOURCE_ROOT; };
 		130E43B624B5116800DE092F /* NewICS214LabelTextFieldCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewICS214LabelTextFieldCell.xib; sourceTree = SOURCE_ROOT; };
 		13108F2A2548DD930073AD1C /* TagsReloadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsReloadOperation.swift; sourceTree = "<group>"; };
@@ -1381,6 +1404,9 @@
 		1338B93E23DB6A0900ABECA7 /* CellHeaderForFireEMSResourceEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellHeaderForFireEMSResourceEdit.swift; sourceTree = "<group>"; };
 		1338B94023DB6A3500ABECA7 /* CellHeaderForFireEMSResourceEdit.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CellHeaderForFireEMSResourceEdit.xib; sourceTree = "<group>"; };
 		1338E14B224160BA000EEBDC /* NFIRSsectionHeaderTHFV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFIRSsectionHeaderTHFV.swift; sourceTree = "<group>"; };
+		1339BF0128821B300053313D /* DeleteZoneIDOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteZoneIDOperation.swift; sourceTree = "<group>"; };
+		1339BF0328821D210053313D /* CKErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKErrorAlert.swift; sourceTree = "<group>"; };
+		1339BF05288229A10053313D /* DeleteCoreDataForUserOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteCoreDataForUserOperation.swift; sourceTree = "<group>"; };
 		133BBBD2255C475E0028031A /* Incident+ExtensionsFetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Incident+ExtensionsFetch.swift"; path = "MappingModels/Incident+ExtensionsFetch.swift"; sourceTree = "<group>"; };
 		133C8B5E21C9BC6600BA9F5B /* ICS214Form+CustomAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICS214Form+CustomAdditions.swift"; sourceTree = "<group>"; };
 		133D19BD23FB54280036FBAF /* T1Autograph.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = T1Autograph.framework; sourceTree = "<group>"; };
@@ -1514,6 +1540,9 @@
 		1366E36422935FFE007F5D00 /* PersonalJournaTVC+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersonalJournaTVC+Extensions.swift"; sourceTree = "<group>"; };
 		1368B8E522E232930005B06E /* SettingsUserFDResourcesTVC+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsUserFDResourcesTVC+Extension.swift"; sourceTree = "<group>"; };
 		1368B8EA22E24A4A0005B06E /* UserFDResourcesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFDResourcesTests.swift; sourceTree = "<group>"; };
+		1369340B286FAF1400229BFC /* ShiftIncidentTotals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftIncidentTotals.swift; sourceTree = "<group>"; };
+		1369340D2870E4ED00229BFC /* SettingsYourDataVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsYourDataVC.swift; sourceTree = "<group>"; };
+		1369340F2870E50300229BFC /* SettingsYourData.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingsYourData.storyboard; sourceTree = "<group>"; };
 		136990E12405DD44007558D8 /* MapInfo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MapInfo.storyboard; sourceTree = "<group>"; };
 		136990E32405E971007558D8 /* FireJournal40.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FireJournal40.xcdatamodel; sourceTree = "<group>"; };
 		136990E42405EBC6007558D8 /* Mapping39to40.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = Mapping39to40.xcmappingmodel; sourceTree = "<group>"; };
@@ -1557,6 +1586,7 @@
 		1378071822FDEC0B00B842D0 /* UserFDResourceCustomEditCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserFDResourceCustomEditCVCell.xib; sourceTree = "<group>"; };
 		1378071B22FE0C2B00B842D0 /* userFDResourcesCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userFDResourcesCustomCell.swift; sourceTree = "<group>"; };
 		1378071C22FE0C2B00B842D0 /* userFDResourcesCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = userFDResourcesCustomCell.xib; sourceTree = "<group>"; };
+		137934872889E96C003BF705 /* CheckForCKZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckForCKZone.swift; sourceTree = "<group>"; };
 		1379FDD424575FDB00FC7C72 /* TodayShiftData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayShiftData.swift; sourceTree = "<group>"; };
 		1379FDD62457660700FC7C72 /* TodayShiftForDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayShiftForDashboard.swift; sourceTree = "<group>"; };
 		1379FDD824577CC000FC7C72 /* UpdateShiftDashbaordData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateShiftDashbaordData.swift; sourceTree = "<group>"; };
@@ -1585,6 +1615,18 @@
 		1383466D27E40FDA00B40A4D /* CrewContactListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrewContactListCell.swift; sourceTree = "<group>"; };
 		1383466E27E40FDA00B40A4D /* CrewContactListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CrewContactListCell.xib; sourceTree = "<group>"; };
 		1383467127E40FEF00B40A4D /* StaffContact.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = StaffContact.storyboard; sourceTree = "<group>"; };
+		138787ED28748A6700409E4D /* SettingsYourDataWarning.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingsYourDataWarning.storyboard; sourceTree = "<group>"; };
+		138787EF28748A7F00409E4D /* SettingsYourDataWarningVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsYourDataWarningVC.swift; sourceTree = "<group>"; };
+		138787F22878BB4400409E4D /* SingleJournalBuildFromCloudOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleJournalBuildFromCloudOperation.swift; sourceTree = "<group>"; };
+		138787F42878F53100409E4D /* SingleIncidentBuildFromCloudOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleIncidentBuildFromCloudOperation.swift; sourceTree = "<group>"; };
+		138787F62878F54000409E4D /* SingleProjectBuildFromCloudOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleProjectBuildFromCloudOperation.swift; sourceTree = "<group>"; };
+		138787F82878F55000409E4D /* SingleICS214BuildFromCloudOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleICS214BuildFromCloudOperation.swift; sourceTree = "<group>"; };
+		138787FA2878F90000409E4D /* SingleARCFormBuildFromCloudOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleARCFormBuildFromCloudOperation.swift; sourceTree = "<group>"; };
+		138787FC287E1EF300409E4D /* ICS214Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICS214Provider.swift; sourceTree = "<group>"; };
+		138787FE287F357900409E4D /* SingleICS214ActivityLogOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleICS214ActivityLogOperation.swift; sourceTree = "<group>"; };
+		13878800287F359600409E4D /* SingleICS214PersonnelOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleICS214PersonnelOperation.swift; sourceTree = "<group>"; };
+		138788042880913E00409E4D /* UserAttendeesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAttendeesProvider.swift; sourceTree = "<group>"; };
+		138788062880B2FF00409E4D /* ARCFormProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARCFormProvider.swift; sourceTree = "<group>"; };
 		1387CF8923FC9B4500043305 /* FJSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FJSettings.swift; sourceTree = "<group>"; };
 		1387CF8B23FC9B7900043305 /* SizeTrait.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeTrait.swift; sourceTree = "<group>"; };
 		1387CF8D23FCAF6900043305 /* SettingMyResourcePhoneTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingMyResourcePhoneTVCell.swift; sourceTree = "<group>"; };
@@ -1980,6 +2022,7 @@
 		13D0793221A4D8E000068B0A /* SettingsProfileTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsProfileTVC.swift; sourceTree = "<group>"; };
 		13D08750240EE57C00F10802 /* RelieveSupervisorHeaderV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelieveSupervisorHeaderV.swift; sourceTree = "<group>"; };
 		13D10BA222D5453C0013500B /* NewICS214ModalTVC+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewICS214ModalTVC+Extensions.swift"; sourceTree = "<group>"; };
+		13D1BC49286E71B200553CE9 /* AllShiftIncidentCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllShiftIncidentCVCell.swift; sourceTree = "<group>"; };
 		13D2D4DA21E810870029727E /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
 		13D2D4DB21E810870029727E /* ContactsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ContactsUI.framework; path = System/Library/Frameworks/ContactsUI.framework; sourceTree = SDKROOT; };
 		13D6F6E327EBC4C300CCFCFD /* MasterViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MasterViewController+Extensions.swift"; sourceTree = "<group>"; };
@@ -2139,6 +2182,7 @@
 		13F02C1D22F4E4A60038AB77 /* FireJournal34.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FireJournal34.xcdatamodel; sourceTree = "<group>"; };
 		13F02C1E22F4E62C0038AB77 /* mapping33to34.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = mapping33to34.xcmappingmodel; sourceTree = "<group>"; };
 		13F02C2022F4E6F90038AB77 /* IncidentPOVNotesTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncidentPOVNotesTVC.swift; sourceTree = "<group>"; };
+		13F0534C2866370000365609 /* PreviewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewVC.swift; sourceTree = "<group>"; };
 		13F0E418244E4D7800C99409 /* EachMonthsTotals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EachMonthsTotals.swift; sourceTree = "<group>"; };
 		13F1657A2270CF8D00FA717A /* ICS214Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICS214Data.swift; sourceTree = "<group>"; };
 		13F1ED3323465E95002B4A54 /* UpdateShiftModalTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateShiftModalTVC.swift; sourceTree = "<group>"; };
@@ -2589,6 +2633,8 @@
 				131E4B5F22EA629B0017FEB5 /* SettingMyFDResourcesTVC.swift */,
 				1368B8E722E233510005B06E /* SettingsCells */,
 				13AB7ECF23DA70DF009AC32E /* SettimgsMyFireEMSResourcesEditVC.swift */,
+				1369340D2870E4ED00229BFC /* SettingsYourDataVC.swift */,
+				138787EF28748A7F00409E4D /* SettingsYourDataWarningVC.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -2633,6 +2679,17 @@
 				1351025E280E2E91005A605F /* FormDescriptionTVCell.swift */,
 			);
 			path = ShiftCells;
+			sourceTree = "<group>";
+		};
+		1339BEFE28821AEE0053313D /* DeleteDataBaseOperations */ = {
+			isa = PBXGroup;
+			children = (
+				1339BF0128821B300053313D /* DeleteZoneIDOperation.swift */,
+				1339BF0328821D210053313D /* CKErrorAlert.swift */,
+				1339BF05288229A10053313D /* DeleteCoreDataForUserOperation.swift */,
+				137934872889E96C003BF705 /* CheckForCKZone.swift */,
+			);
+			path = DeleteDataBaseOperations;
 			sourceTree = "<group>";
 		};
 		133EE0202445446C0042CB8E /* CVLayouts */ = {
@@ -2829,6 +2886,7 @@
 		1362018721A33FDE00FB8CAC /* CommandJournal */ = {
 			isa = PBXGroup;
 			children = (
+				1339BEFE28821AEE0053313D /* DeleteDataBaseOperations */,
 				13EA352227E507500058D6EE /* Photo+Image.swift */,
 				13EA352127E507500058D6EE /* PhotoProvider.swift */,
 				1375B23C2802214800FB33FB /* PlistProvider.swift */,
@@ -2841,6 +2899,9 @@
 				1390D2F727EA8BEB00EE3DFD /* TagProvider.swift */,
 				1398D206282B0BC800648CF1 /* FCLocationProvider.swift */,
 				138189DE282C3FB900A913A6 /* ProjectProvider.swift */,
+				138787FC287E1EF300409E4D /* ICS214Provider.swift */,
+				138788042880913E00409E4D /* UserAttendeesProvider.swift */,
+				138788062880B2FF00409E4D /* ARCFormProvider.swift */,
 				1310917A2836C1CA007A7905 /* JournalProvider.swift */,
 				139AB21E280503230091D024 /* LocalIncidentProvider.swift */,
 				1360753C2805EDC300B84636 /* NFIRSActionTakenProvider.swift */,
@@ -2926,15 +2987,29 @@
 			path = SettingsResourcesCellsAndHeader;
 			sourceTree = "<group>";
 		};
+		138787F12878BB0D00409E4D /* singleEntityCKRecord */ = {
+			isa = PBXGroup;
+			children = (
+				138787F22878BB4400409E4D /* SingleJournalBuildFromCloudOperation.swift */,
+				138787F42878F53100409E4D /* SingleIncidentBuildFromCloudOperation.swift */,
+				138787F62878F54000409E4D /* SingleProjectBuildFromCloudOperation.swift */,
+				138787F82878F55000409E4D /* SingleICS214BuildFromCloudOperation.swift */,
+				138787FE287F357900409E4D /* SingleICS214ActivityLogOperation.swift */,
+				13878800287F359600409E4D /* SingleICS214PersonnelOperation.swift */,
+				138787FA2878F90000409E4D /* SingleARCFormBuildFromCloudOperation.swift */,
+			);
+			path = singleEntityCKRecord;
+			sourceTree = "<group>";
+		};
 		138F15A3219F71F7007173C6 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				1390D2F527EA8BCC00EE3DFD /* BuiltFromTagsPlist.swift */,
-				1362AF7E2345216E003DDBD6 /* BkgrndTask.swift */,
-				13F3E7E4219B80970044CF41 /* ButtonsForFJ092018.swift */,
 				13F83122241D8ED500958B1E /* ARCFormData.swift */,
-				134D18F3282709E1009E4559 /* New Group */,
+				13B6361A2534BA7D0014DB63 /* ARCFormToCloud.swift */,
+				1362AF7E2345216E003DDBD6 /* BkgrndTask.swift */,
 				13BBD932242BBF65007A48E8 /* BodyText.swift */,
+				1390D2F527EA8BCC00EE3DFD /* BuiltFromTagsPlist.swift */,
+				13F3E7E4219B80970044CF41 /* ButtonsForFJ092018.swift */,
 				13A21EB424228E79002EBCB6 /* CellBody.swift */,
 				13A21EA824228D21002EBCB6 /* CellType.swift */,
 				13A21EB024228E30002EBCB6 /* ColorExtension.swift */,
@@ -2944,6 +3019,7 @@
 				137D10892401C5F5001BF865 /* DateExtension.swift */,
 				13E8871B2411A9E100E312F9 /* Device.swift */,
 				13F0E418244E4D7800C99409 /* EachMonthsTotals.swift */,
+				1369340B286FAF1400229BFC /* ShiftIncidentTotals.swift */,
 				13B35519240AF4C00072155E /* EndShiftData.swift */,
 				1379FDDE2457916400FC7C72 /* EndShiftForDashboard.swift */,
 				13D8BABE22C5830B008804FA /* FDResources.swift */,
@@ -2952,12 +3028,16 @@
 				1300D5A524185A1300C4D92F /* GatherIncidents.swift */,
 				13F1657A2270CF8D00FA717A /* ICS214Data.swift */,
 				134B13BB2277B2CA006E7617 /* ICS214TeamData.swift */,
+				138BF28424D095460031E6C6 /* ICS214ToCloud.swift */,
 				13D8804D2249381E00135D50 /* IncidentData.swift */,
 				13EA64CF244BBF3400135C52 /* IncidentMonthTotalsForDashboard.swift */,
 				1343190B245CD05B008EBAFF /* IncidentTotal.swift */,
+				13CB84B52486C32F0091D412 /* InfoBodyText.swift */,
 				13D8804F2249384E00135D50 /* JournalData.swift */,
 				13A21EAA24228D54002EBCB6 /* Member.swift */,
 				13D8804B224937D500135D50 /* MenuItems.swift */,
+				134D18F3282709E1009E4559 /* New Group */,
+				13EA351F27E4FF420058D6EE /* NewStaff.swift */,
 				13D880532249396F00135D50 /* NotificationStrings.swift */,
 				133EE01A2445433E0042CB8E /* PendingOperation.swift */,
 				13117A5123525CD500AD6069 /* PlatoonsCell.swift */,
@@ -2968,9 +3048,10 @@
 				1316000424450D70003A83A4 /* Shift.swift */,
 				1387CF8B23FC9B7900043305 /* SizeTrait.swift */,
 				1374C8692454D7DF009B99A9 /* SpinnerVC.swift */,
+				130C531127DC2CAC00750CC4 /* Stack.swift */,
 				13D880512249387700135D50 /* StartShiftData.swift */,
-				13BA68F223FDEC0200427FCE /* StringExtension.swift */,
 				13EA351D27E4FE8C0058D6EE /* String+Extensions.swift */,
+				13BA68F223FDEC0200427FCE /* StringExtension.swift */,
 				13CEE8D222A1C444007C8DAE /* StringToDateFormat.swift */,
 				13AE703222F637F000C672C9 /* TestViewController.swift */,
 				1389DEC9245B7D0D00A90715 /* TheFDResource.swift */,
@@ -2982,6 +3063,7 @@
 				1379FDD62457660700FC7C72 /* TodayShiftForDashboard.swift */,
 				13B8AC08244A7A83007D8025 /* TodaysIncidentCount.swift */,
 				13B8AC04244A45C8007D8025 /* TodaysIncidentsForDashboard.swift */,
+				13CAD400281082DB00E025BC /* UITableView+Extension.swift */,
 				1379FDD824577CC000FC7C72 /* UpdateShiftDashbaordData.swift */,
 				13B35517240AF4B40072155E /* UpdateShiftData.swift */,
 				13B35515240AF4300072155E /* UserEntryInfo.swift */,
@@ -2989,12 +3071,7 @@
 				133EE01B2445433E0042CB8E /* WeatherOperation.swift */,
 				13BA68F123FDEC0200427FCE /* WindDegrees.swift */,
 				1300D5A324182B7800C4D92F /* YearOfMonths.swift */,
-				13CB84B52486C32F0091D412 /* InfoBodyText.swift */,
-				138BF28424D095460031E6C6 /* ICS214ToCloud.swift */,
-				13B6361A2534BA7D0014DB63 /* ARCFormToCloud.swift */,
-				130C531127DC2CAC00750CC4 /* Stack.swift */,
-				13EA351F27E4FF420058D6EE /* NewStaff.swift */,
-				13CAD400281082DB00E025BC /* UITableView+Extension.swift */,
+				130DE0DB28872F95004E6A19 /* DeletionCKCD.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -3265,6 +3342,7 @@
 				13D85B6C27C6E7040021A5A6 /* ShiftEndStatusCVCell.swift */,
 				13D85B6E27C6E71E0021A5A6 /* ShiftIncidentsCVCell.swift */,
 				13D85B7027C6E7320021A5A6 /* StationIncidentCVCell.swift */,
+				13D1BC49286E71B200553CE9 /* AllShiftIncidentCVCell.swift */,
 				13D85B7227C6E73E0021A5A6 /* ShiftWeatherCVCell.swift */,
 			);
 			path = ShiftCVCells;
@@ -3457,6 +3535,7 @@
 				13ED0F9F27ECF55900FB4901 /* ListTVC+ConfigureExtensions.swift */,
 				13ED0FA127ECF56B00FB4901 /* ListTVC+ObserverExtensions.swift */,
 				13ED0FA427ED0F7200FB4901 /* ListTVC+DelegateExtensions.swift */,
+				13F0534C2866370000365609 /* PreviewVC.swift */,
 			);
 			path = ListTVC;
 			sourceTree = "<group>";
@@ -3768,6 +3847,8 @@
 				136CF4A02821ADE300994371 /* JournalEdit.storyboard */,
 				138F9223282329CE00969BFE /* PromotionEdit.storyboard */,
 				13AD9341282494C00090F8C3 /* TheStore.storyboard */,
+				1369340F2870E50300229BFC /* SettingsYourData.storyboard */,
+				138787ED28748A6700409E4D /* SettingsYourDataWarning.storyboard */,
 			);
 			path = storyboards;
 			sourceTree = "<group>";
@@ -3995,6 +4076,7 @@
 		13F3E882219B80BD0044CF41 /* operations */ = {
 			isa = PBXGroup;
 			children = (
+				138787F12878BB0D00409E4D /* singleEntityCKRecord */,
 				13BE998B2564464000DC9BC4 /* checkBackedUp */,
 				13108F292548DD770073AD1C /* reload */,
 				137E88482284CE20003E43DE /* cleanup */,
@@ -4487,6 +4569,7 @@
 				13F3EAC8219B80BF0044CF41 /* PropertyUse.plist in Resources */,
 				13C96E3125310A8000C5195F /* CampaignTypeHeaderV.xib in Resources */,
 				13F3EA26219B80BF0044CF41 /* CellHeaderCancelSave.xib in Resources */,
+				136934102870E50300229BFC /* SettingsYourData.storyboard in Resources */,
 				13F9DA9123A86633009BB07B /* FlatTVCell.xib in Resources */,
 				13C0AE3822E1213A001F4F66 /* UserResourceCell.xib in Resources */,
 				13C96DDF25310A5800C5195F /* ARC_CampaignNameCell.xib in Resources */,
@@ -4682,6 +4765,7 @@
 				13C96DD225310A5800C5195F /* ARC_TextViewCell.xib in Resources */,
 				1332C49727DAA2F500E13733 /* ShiftNew.storyboard in Resources */,
 				13D6F70227EBDD8600CCFCFD /* IncidentShortTVWithDirectionalCell.xib in Resources */,
+				138787EE28748A6700409E4D /* SettingsYourDataWarning.storyboard in Resources */,
 				134FF4F0244525430064ABF3 /* UpdateShiftCVCell.xib in Resources */,
 				1387CF9823FCAF6A00043305 /* SettingMyResourcePhoneTVCell.xib in Resources */,
 				13D6F71127EBDFF200CCFCFD /* Main.storyboard in Resources */,
@@ -4766,9 +4850,11 @@
 				13759BD227F8973500F733DF /* FullImageVC.swift in Sources */,
 				13D6F6E427EBC4C300CCFCFD /* MasterViewController+Extensions.swift in Sources */,
 				131EB06C21A88233004651A7 /* MyProfileHeaderV.swift in Sources */,
+				13878801287F359600409E4D /* SingleICS214PersonnelOperation.swift in Sources */,
 				13B8158A24A54DFE00BDD761 /* NewICS214ActivityLogCell.swift in Sources */,
 				13F3EA84219B80BF0044CF41 /* HazardousMaterialsOperation.swift in Sources */,
 				1390D2EE27E9172000EE3DFD /* TagsHeaderV.swift in Sources */,
+				1339BF06288229A10053313D /* DeleteCoreDataForUserOperation.swift in Sources */,
 				1395810221BAE83700764AA3 /* FJULocalIncidentTypeOperation.swift in Sources */,
 				13638C5F252E849000EEC932 /* Residence+Extensions.swift in Sources */,
 				13BE998D2564468C00DC9BC4 /* JournalBackedUpOperation.swift in Sources */,
@@ -4789,6 +4875,7 @@
 				13A6D71827F7AE9F008CA1D9 /* IncidentPhotoCollectionCell.swift in Sources */,
 				1351A2DA280F6CB300D00A5C /* NewOnboardFiveVC.swift in Sources */,
 				13BF8B5D27F255140056C25E /* TheJournalNoteVC.swift in Sources */,
+				138787FF287F357900409E4D /* SingleICS214ActivityLogOperation.swift in Sources */,
 				13DD441F21CEB2EB006C3FB9 /* AllModifiedICS214ActivityLogOperation.swift in Sources */,
 				13C96E1C25310A7300C5195F /* EntityType.swift in Sources */,
 				13C10A7827EB9FA4004CD6C2 /* IncidentVC+TVCExtensions.swift in Sources */,
@@ -4801,6 +4888,7 @@
 				134FF4EB244525430064ABF3 /* SettingsResourcesEditVC.swift in Sources */,
 				13F3EAEE219B80BF0044CF41 /* LabelDirectionalTVSwitchCell.swift in Sources */,
 				13F3E990219B80BF0044CF41 /* IncidentIndicatorCell.swift in Sources */,
+				130DE0DC28872F95004E6A19 /* DeletionCKCD.swift in Sources */,
 				13C96DDD25310A5800C5195F /* ARC_StepperTFCell.swift in Sources */,
 				1395810421BAE85200764AA3 /* FJUTagsOperation.swift in Sources */,
 				139D330E23415F86009CD7AE /* BackgroundOperation.swift in Sources */,
@@ -4815,6 +4903,7 @@
 				13CE8A6027CEA6D50022EA0D /* IncidentMonthTotalsProvider.swift in Sources */,
 				13CAD4032810847100E025BC /* NewPromotionVC.swift in Sources */,
 				13A2D6D62409E2BC00824015 /* SubjectLabelTextFieldIndicatorTVCell.swift in Sources */,
+				13D1BC4A286E71B200553CE9 /* AllShiftIncidentCVCell.swift in Sources */,
 				133EE01C2445433E0042CB8E /* PendingOperation.swift in Sources */,
 				134FF4E7244525430064ABF3 /* UpdateShiftEditResourceVC.swift in Sources */,
 				13615A7325310EE4008FAA63 /* ARC_FormTVC.swift in Sources */,
@@ -4859,12 +4948,14 @@
 				1395810A21BAE8A900764AA3 /* FJUResourcesOperation.swift in Sources */,
 				13F3EAD6219B80BF0044CF41 /* FJOperation.swift in Sources */,
 				1346E56422CD1F5E002E7593 /* UserFDResourceCVCell.swift in Sources */,
+				138787F32878BB4400409E4D /* SingleJournalBuildFromCloudOperation.swift in Sources */,
 				1395811021BB24E000764AA3 /* Incident+CustomAdditions.swift in Sources */,
 				138F15B9219F8F54007173C6 /* FJIncidentOperation.swift in Sources */,
 				130C52FB27DBDA2300750CC4 /* IncidentNewModalVC.swift in Sources */,
 				1387CF8C23FC9B7900043305 /* SizeTrait.swift in Sources */,
 				13F3EA0C219B80BF0044CF41 /* ICS214DetailViewController.swift in Sources */,
 				1351025B280DDD2B005A605F /* IncidentVC+PhotoExtentions.swift in Sources */,
+				138787F028748A7F00409E4D /* SettingsYourDataWarningVC.swift in Sources */,
 				13F3EA88219B80BF0044CF41 /* PropertyUseOperation.swift in Sources */,
 				132304B621B1E0BE006013D3 /* Mapping7to8Model.xcmappingmodel in Sources */,
 				132304B821B1E0BE006013D3 /* Mapping13to14.xcmappingmodel in Sources */,
@@ -4872,6 +4963,7 @@
 				1366625D2811CE00001B35DC /* PromotionJournalVC+TVCExtensions.swift in Sources */,
 				13DD446B21CEC239006C3FB9 /* ModifyLocalIncidentTypeOperation.swift in Sources */,
 				13F3E978219B80BF0044CF41 /* SlideInPresentationController.swift in Sources */,
+				138787F72878F54000409E4D /* SingleProjectBuildFromCloudOperation.swift in Sources */,
 				13F3E968219B80BF0044CF41 /* ARCFormTVC.swift in Sources */,
 				139AB2152804D3E40091D024 /* NFIRSIncidentTypeBuildOperation.swift in Sources */,
 				13DD444D21CEC096006C3FB9 /* NewUserAttendeesOperation.swift in Sources */,
@@ -4991,7 +5083,9 @@
 				13F02C1F22F4E62C0038AB77 /* mapping33to34.xcmappingmodel in Sources */,
 				13DD445B21CEC107006C3FB9 /* NewLocalIncidentTypeOperation.swift in Sources */,
 				13F3E962219B80BF0044CF41 /* SettingsTVC.swift in Sources */,
+				138787F52878F53100409E4D /* SingleIncidentBuildFromCloudOperation.swift in Sources */,
 				13F3EA1C219B80BF0044CF41 /* ContactsTVC.swift in Sources */,
+				138788072880B2FF00409E4D /* ARCFormProvider.swift in Sources */,
 				13D6F6E627EBC99000CCFCFD /* MasterViewController+ExtentionDelegates.swift in Sources */,
 				13BA68EE23FDC7FE00427FCE /* ResourceVC.swift in Sources */,
 				1310917E2836C7D9007A7905 /* Mapping77to78.xcmappingmodel in Sources */,
@@ -5062,6 +5156,7 @@
 				13DD447121CEC28C006C3FB9 /* AllModifiedUserTagsOperation.swift in Sources */,
 				13DD443B21CEBFD1006C3FB9 /* FJUserTagsSyncOperation.swift in Sources */,
 				13A00595282F1ACB00375198 /* Mapping76to77.xcmappingmodel in Sources */,
+				138787FD287E1EF300409E4D /* ICS214Provider.swift in Sources */,
 				13F3EB06219B80BF0044CF41 /* ControllerLabelCell.swift in Sources */,
 				13DD445D21CEC1C1006C3FB9 /* ModifyUserAttendeesOperation.swift in Sources */,
 				13C96D9625310A4100C5195F /* ARCrossFormSyncFromCloudOperation.swift in Sources */,
@@ -5114,6 +5209,7 @@
 				13E23B9D27F4D8DA0033BCA6 /* JournalVC+TVCExtensions.swift in Sources */,
 				133F3D6028074B1100F53232 /* ProfileLabelTextFieldTVCell.swift in Sources */,
 				13E23B9F27F4F4550033BCA6 /* JournalEditTVCell.swift in Sources */,
+				138787FB2878F90000409E4D /* SingleARCFormBuildFromCloudOperation.swift in Sources */,
 				1338B93F23DB6A0900ABECA7 /* CellHeaderForFireEMSResourceEdit.swift in Sources */,
 				13A7CA1C23074410008CBB20 /* mapping34to35.xcmappingmodel in Sources */,
 				13D85B5B27C416E00021A5A6 /* DetailViewController.swift in Sources */,
@@ -5140,9 +5236,11 @@
 				1351A2E0280F6CDD00D00A5C /* NewOnboardEightVC.swift in Sources */,
 				13D880522249387700135D50 /* StartShiftData.swift in Sources */,
 				130C530B27DC026600750CC4 /* OnBoardMapVC.swift in Sources */,
+				1369340C286FAF1400229BFC /* ShiftIncidentTotals.swift in Sources */,
 				13F3EA00219B80BF0044CF41 /* CompletedThreeFieldExpandedCell.swift in Sources */,
 				13F3EA94219B80BF0044CF41 /* CompletedModulesOperation.swift in Sources */,
 				13CEE8D322A1C444007C8DAE /* StringToDateFormat.swift in Sources */,
+				137934882889E96C003BF705 /* CheckForCKZone.swift in Sources */,
 				1310917B2836C1CA007A7905 /* JournalProvider.swift in Sources */,
 				13C8676A24CB739F002C61F6 /* NewICS214NewIncidentTVC+Extension.swift in Sources */,
 				13A2D6D52409E2BC00824015 /* ShiftModalHeaderV.swift in Sources */,
@@ -5197,10 +5295,12 @@
 				13B68624241060D40022AFB5 /* RelieveSupervisorContactsTVC.swift in Sources */,
 				13F3EAFA219B80BF0044CF41 /* LinkeJournalCell.swift in Sources */,
 				13DD443521CEBF79006C3FB9 /* FJUserCrewOperation.swift in Sources */,
+				138788052880913E00409E4D /* UserAttendeesProvider.swift in Sources */,
 				134FF4E0244525430064ABF3 /* UpdateShiftCVCell.swift in Sources */,
 				13CCD11327F629370052BCBE /* Mapping62to63.xcmappingmodel in Sources */,
 				137F2F5121C174320043A949 /* FJIUserSyncOperation.swift in Sources */,
 				136E321D281333650014DE80 /* PromotionPhotoCollectionCell.swift in Sources */,
+				138787F92878F55000409E4D /* SingleICS214BuildFromCloudOperation.swift in Sources */,
 				13A976F42819BA9D00503E32 /* Mapping71to72.xcmappingmodel in Sources */,
 				13D0792C21A4B56C00068B0A /* LabelWithIndicatorTableViewCell.swift in Sources */,
 				138024EE23340309004961AB /* NewStoreVC.swift in Sources */,
@@ -5226,6 +5326,7 @@
 				13AD934628249E830090F8C3 /* TheStoreTitleTVCell.swift in Sources */,
 				13050E6C226FBD80008AEE9E /* IncidentTVC+Extensions.swift in Sources */,
 				131FC95D22C6C3E00015F966 /* Mapping30to31.xcmappingmodel in Sources */,
+				1369340E2870E4EE00229BFC /* SettingsYourDataVC.swift in Sources */,
 				13CC723C231D9D7900816772 /* FJUserFDResourcesSyncOperation.swift in Sources */,
 				13F3EA24219B80BF0044CF41 /* ModalTVC.swift in Sources */,
 				13A32953282549E000D55759 /* TheStoreButtonTVCell.swift in Sources */,
@@ -5239,6 +5340,7 @@
 				13C96DD725310A5800C5195F /* ARC_AdminSegmentCell.swift in Sources */,
 				1370DDE8240728A6009FD043 /* MapInfoVC.swift in Sources */,
 				1353A75223183C06003455BF /* IncidentUserResourceCVCell.swift in Sources */,
+				1339BF0428821D210053313D /* CKErrorAlert.swift in Sources */,
 				1320A6D225C4C46000690613 /* AdjustDateForLog.swift in Sources */,
 				13A21EAF24228DC4002EBCB6 /* Form.swift in Sources */,
 				13F3E9A2219B80BF0044CF41 /* TextFieldWSwitch.swift in Sources */,
@@ -5283,6 +5385,7 @@
 				138FE27521A5EE3500FAE7FF /* SettingsDataTVC.swift in Sources */,
 				13C8950324BE433E005E2861 /* NewICS214ResourceAssignedHeader.swift in Sources */,
 				139895A627E29503008A57DF /* RelieveSupervisorVC.swift in Sources */,
+				13F0534D2866370000365609 /* PreviewVC.swift in Sources */,
 				1314272C27E77731008CD9BB /* ModalLableSingleDateFieldCell.swift in Sources */,
 				1390D2DC27E8F54F00EE3DFD /* IncidentTagsCViewTVCell.swift in Sources */,
 				139AB21B2804EEEE0091D024 /* BuildFromActionsTaken.swift in Sources */,
@@ -5308,6 +5411,7 @@
 				13F3EB5C219B80BF0044CF41 /* dismissUpdateSaveCell.swift in Sources */,
 				138BF28524D095460031E6C6 /* ICS214ToCloud.swift in Sources */,
 				1383466F27E40FDA00B40A4D /* CrewContactListCell.swift in Sources */,
+				1339BF0228821B300053313D /* DeleteZoneIDOperation.swift in Sources */,
 				13F3EA10219B80BF0044CF41 /* NewICS214ModalTVC.swift in Sources */,
 				13D0793321A4D8E000068B0A /* SettingsProfileTVC.swift in Sources */,
 				13F9DA9023A86633009BB07B /* FlatTVCell.swift in Sources */,
@@ -5722,6 +5826,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VALIDATE_PRODUCT = YES;
 				VALIDATE_WORKSPACE = YES;
@@ -5736,7 +5841,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Fire Journal/Fire Journal.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4.0.17;
+				CURRENT_PROJECT_VERSION = 4.0.20;
 				DEVELOPMENT_TEAM = 8Y2CT58NL3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5752,7 +5857,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.0.02;
+				MARKETING_VERSION = 5.0.03;
 				OTHER_LDFLAGS = (
 					"$(OTHER_LDFLAGS)",
 					"-ObjC",
@@ -5776,7 +5881,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Fire Journal/Fire Journal.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4.0.17;
+				CURRENT_PROJECT_VERSION = 4.0.20;
 				DEVELOPMENT_TEAM = 8Y2CT58NL3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5792,7 +5897,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.0.02;
+				MARKETING_VERSION = 5.0.03;
 				OTHER_LDFLAGS = (
 					"$(OTHER_LDFLAGS)",
 					"-ObjC",
@@ -5819,7 +5924,7 @@
 					"$(PROJECT_DIR)/Fire\\ Journal/Sources",
 				);
 				INFOPLIST_FILE = "Fire JournalTests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5845,7 +5950,7 @@
 					"$(PROJECT_DIR)/Fire\\ Journal/Sources",
 				);
 				INFOPLIST_FILE = "Fire JournalTests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

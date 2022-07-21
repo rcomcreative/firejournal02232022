@@ -85,6 +85,7 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, NSF
     @IBOutlet weak var mapFireStationB: UIButton!
     @IBOutlet weak var mapFilterB: UIButton!
     @IBOutlet weak var mapInfoB: UIButton!
+    var theUserOID: NSManagedObjectID!
     
     let incidentSegue: String = MapVCToMapIncidentSegue
     let ics214Segue: String = MapVCToMapICS214Segue
@@ -311,7 +312,10 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, NSF
         self.navigationController?.navigationBar.isTranslucent = false
         roundViews()
         self.title = titleName
-        getTheUser(userGuid: "")
+        if theUserOID != nil {
+            fju = context.object(with: theUserOID) as? FireJournalUser
+        }
+//        getTheUser(userGuid: "")
             //        getTheFireStationLocation()
         vcLaunch.splitVC = self.splitViewController
         launchNC = LaunchNotifications.init(launchVC: vcLaunch)

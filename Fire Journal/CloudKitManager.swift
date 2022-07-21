@@ -92,6 +92,7 @@ class CloudKitManager: NSObject {
     let nc = NotificationCenter.default
     let userDefaults = UserDefaults.standard
     var sharedDBChangeToken:CKServerChangeToken!
+    var ckErrorAlert: CKErrorAlert!
     var fjuserRs = [CKRecord]()
     var journalRs = [CKRecord]()
     var journalTagsRs = [CKRecord]()
@@ -160,6 +161,8 @@ class CloudKitManager: NSObject {
     let fdResourcesSyncOperation = FDResourcesSyncOperation()
     let incidentTagsSyncOperation = IncidentTagsSyncOperation()
     let journalTagsSycOperation = JournalTagsSyncOperation()
+    let deleteCloudKitDataSyncOperation = DeleteCloudKitDataSyncOperation()
+    let deleteCoreDataSyncOperation = DeleteCoreDataSyncOperation()
     var operation: String = "CloudKitManager"
     var runOnce: Bool = false
     var bkgrndTask: BkgrndTask?
@@ -414,6 +417,56 @@ class CloudKitManager: NSObject {
         
         nc.addObserver(self, selector:#selector(updateJournalLocationToFCLocation(nc:)),name: .fireJournalUpdateJournalLocationToFCLocation, object: nil)
         
+        nc.addObserver(self, selector:#selector(deleteFromCloudKit(nc:)),name: .fireJournalRemoveAllDataFromCloudKit, object: nil)
+        
+        nc.addObserver(self, selector:#selector(deleteFromCoreData(nc:)),name: .fireJournalRemoveAllDataFromCD, object: nil)
+        
+        nc.addObserver(self, selector: #selector(checkTheCKZone(nc:)), name: .fConCheckTheCKZone, object: nil)
+        
+    }
+    
+    @objc
+    func checkTheCKZone(nc: Notification) {
+        deleteCloudKitDataSyncOperation.deleteCloudKitDataPendingQueue.isSuspended = true
+        let operation = CheckForCKZone("FireJournalShare")
+        deleteCloudKitDataSyncOperation.deleteCloudKitDataPendingQueue.addOperation(operation)
+        deleteCloudKitDataSyncOperation.deleteCloudKitDataPendingQueue.isSuspended = false
+    }
+    
+//    MARK: -DELETE CORE DATA ENTITIES-
+    /** Delete cloudkit zone FireJournalShare
+    
+    - Parameter nc: no object attached
+    - Discussion
+    Deletion
+    firing DeleteCoreDataForUserOperation
+     posting upon completion fConCDSuccess
+         */
+    @objc private func deleteFromCoreData(nc: Notification) {
+        deleteCoreDataSyncOperation.deleteCoreDataPendingQueue.isSuspended = true
+        if self.context == nil {
+            self.context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        }
+        let operation = DeleteCoreDataForUserOperation(self.context)
+        deleteCoreDataSyncOperation.deleteCoreDataPendingQueue.addOperation(operation)
+        deleteCoreDataSyncOperation.deleteCoreDataPendingQueue.isSuspended = false
+    }
+    
+        //    MARK: -DELETE CLOUDKIT ZONES -
+        /** Delete cloudkit zone FireJournalShare
+       
+    - Parameter nc: no object attached
+    - Discussion
+    Deletion
+    firing DeleteZoneIDOperation
+    posting to fConCKZoneSuccess
+    then firing the cache clear DeleteCoreDataForUserOperation
+         */
+    @objc private func deleteFromCloudKit(nc: Notification) {
+        deleteCloudKitDataSyncOperation.deleteCloudKitDataPendingQueue.isSuspended = true
+        let operation = DeleteZoneIDOperation.init("FireJournalShare")
+        deleteCloudKitDataSyncOperation.deleteCloudKitDataPendingQueue.addOperation(operation)
+        deleteCloudKitDataSyncOperation.deleteCloudKitDataPendingQueue.isSuspended = false
     }
     
 //    MARK: -UPDATE INCIDENT ADDRESS TO FCLOCATION OPERATION-
@@ -793,121 +846,157 @@ class CloudKitManager: NSObject {
         //    MARK: -CLOUDKIT CHANGES-
     func getCloudKitChanges(zoneIDs: [CKRecordZone.ID], completionHandler: (() -> Void)? = nil) {
         
-        if let data = userDefaults.data(forKey: FJkCKZondChangeToken) {
-            do {
-                if let token = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? CKServerChangeToken {
-                    sharedDBChangeToken = token
+        var changedToNil: Bool = false
+        
+        if !changedToNil {
+            if let data = userDefaults.data(forKey: FJkCKZondChangeToken) {
+                do {
+                    if let token = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? CKServerChangeToken {
+                        sharedDBChangeToken = token
+                    }
+                } catch {
+                    print("there wasn't a token as such")
                 }
-            } catch {
-                print("there wasn't a token as such")
             }
         }
         
-        let options = CKFetchRecordZoneChangesOperation.ZoneOptions()
+        
+        
+//        let options = CKFetchRecordZoneChangesOperation.ZoneOptions()
+//        options.previousServerChangeToken = sharedDBChangeToken
+        
+        let options = CKFetchRecordZoneChangesOperation.ZoneConfiguration()
         options.previousServerChangeToken = sharedDBChangeToken
-            //        options.desiredKeys = ["theEntity"]
         
         for zoneId in zoneIDs {
             print("here is the zoneID \(zoneId)")
-            let changesOperation = CKFetchRecordZoneChangesOperation.init(recordZoneIDs: [zoneId], optionsByRecordZoneID: [zoneId:options])
+//            let changesOperation = CKFetchRecordZoneChangesOperation.init(recordZoneIDs: [zoneId], optionsByRecordZoneID: [zoneId:options])
+            let changesOperation = CKFetchRecordZoneChangesOperation.init(recordZoneIDs: [zoneId], configurationsByRecordZoneID: [zoneId: options])
             
             changesOperation.fetchAllChanges = true
             var counter = 0
             
                 //            var countF = 0
-            changesOperation.recordChangedBlock = { [weak self] record in
-                    //                do {
-                if let entity = record["theEntity"] as? String {
-                    switch entity {
-                    case TheEntities.fjUser.rawValue:
-                        self?.cloudType = CloudTypes.fjuser
-                        self?.fjuserRs.append(record)
-                    case TheEntities.fjUserTime.rawValue:
-                        self?.cloudType = CloudTypes.userTime
-                        self?.userTimRs.append(record)
-                    case TheEntities.fjJournal.rawValue:
-                        self?.cloudType = CloudTypes.journals
-                        self?.journalRs.append(record)
-                    case TheEntities.fjJournalTags.rawValue:
-                        self?.cloudType = CloudTypes.journalTags
-                        self?.journalTagsRs.append(record)
-                    case TheEntities.fjIncident.rawValue:
-                        self?.cloudType = CloudTypes.incidents
-                        self?.incidentRs.append(record)
-                    case TheEntities.fjIncidentTags.rawValue:
-                        self?.cloudType = CloudTypes.incidentTags
-                        self?.incidentTagsRs.append(record)
-                    case TheEntities.fjICS214.rawValue:
-                        self?.cloudType = CloudTypes.ics214
-                        self?.ics214Rs.append(record)
-                    case TheEntities.fjArcForm.rawValue:
-                        self?.cloudType = CloudTypes.arcForm
-                        self?.arcCrossFormRs.append(record)
-                    case TheEntities.fjUserTime.rawValue:
-                        self?.cloudType = CloudTypes.userTime
-                        self?.userTimeRs.append(record)
-                    case TheEntities.fjUserFDResource.rawValue:
-                        self?.cloudType = CloudTypes.userFDResources
-                        self?.fjUserFDResourcesRs.append(record)
-                    case TheEntities.fjAttendee.rawValue:
-                        self?.cloudType = CloudTypes.userAttendee
-                        self?.userAttendeesRs.append(record)
-                    case TheEntities.fjCrews.rawValue:
-                        self?.cloudType = CloudTypes.userCrews
-                        self?.userCrewRs.append(record)
-                    case TheEntities.fjResourcesG.rawValue:
-                        self?.cloudType = CloudTypes.userResourcesGroups
-                        self?.userResourcesGroupRs.append(record)
-                    case TheEntities.fjLocalIncident.rawValue:
-                        self?.cloudType = CloudTypes.localIncidentTypes
-                        self?.userLocalIncidentTypeRs.append(record)
-                    case TheEntities.fjUserTags.rawValue:
-                        self?.cloudType = CloudTypes.userTags
-                        self?.fjUserTagRs.append(record)
-                    case TheEntities.fjICS214Personnel.rawValue:
-                        self?.cloudType = CloudTypes.ics214Personel
-                        self?.fjICS214PersonnelRs.append(record)
-                    case TheEntities.fjUserAttendee.rawValue:
-                        self?.cloudType = CloudTypes.userAttendee
-                        self?.fjUserAttendeeRs.append(record)
-                    case TheEntities.fjUserResources.rawValue:
-                        self?.cloudType = CloudTypes.userResources
-                        self?.fjUserResourceRs.append(record)
-                    case TheEntities.fjICS214ActivityLog.rawValue:
-                        self?.cloudType = CloudTypes.icsActivityLog
-                        self?.fjICS214ActivityLogRs.append(record)
-                    case TheEntities.fjNFIRSStreetType.rawValue:
-                        self?.cloudType = CloudTypes.nfirsStreetType
-                        self?.fjNFIRSStreetTypeRs.append(record)
-                    case TheEntities.fjStatus.rawValue:
-                        self?.cloudType = CloudTypes.status
-                        self?.fjStatusRs.append(record)
-                    case TheEntities.fjPromotionJournal.rawValue:
-                        self?.cloudType = CloudTypes.promotionJournal
-                        self?.fjProjectJournalRs.append(record)
-                    case TheEntities.fjPromotionCrew.rawValue:
-                        self?.cloudType = CloudTypes.promotionCrew
-                        self?.fjProjectCrewRs.append(record)
-                    case TheEntities.fjPromotionTags.rawValue:
-                        self?.cloudType = CloudTypes.promotionTags
-                        self?.fjProjectTagsRs.append(record)
-                    case TheEntities.fjTags.rawValue:
-                        self?.cloudType = CloudTypes.tags
-                        self?.fjTagsRs.append(record)
-                    case TheEntities.fjFCLocation.rawValue:
-                        self?.cloudType = CloudTypes.fcLocation
-                        self?.fjFCLocationRs.append(record)
-                    case TheEntities.fjPhoto.rawValue:
-                        self?.cloudType = CloudTypes.photo
-                        self?.fjPhotoRs.append(record)
-                    case TheEntities.fjImageData.rawValue:
-                        self?.cloudType = CloudTypes.imageData
-                        self?.fjImageDataRs.append(record)
-                    default:
-                        print("here is an entity we didn't expect \(entity)")
+//            changesOperation.recordChangedBlock = { [weak self] record in
+                changesOperation.recordWasChangedBlock  = { [weak self] recordid, result in
+                
+                    switch result {
+                    case .success(let record):
+                        if let entity = record["theEntity"] as? String {
+                                            switch entity {
+                                            case TheEntities.fjUser.rawValue:
+                                                self?.cloudType = CloudTypes.fjuser
+                                                self?.fjuserRs.append(record)
+                                            case TheEntities.fjUserTime.rawValue:
+                                                self?.cloudType = CloudTypes.userTime
+                                                self?.userTimRs.append(record)
+                                            case TheEntities.fjJournal.rawValue:
+                                                self?.cloudType = CloudTypes.journals
+                                                self?.journalRs.append(record)
+                                            case TheEntities.fjJournalTags.rawValue:
+                                                self?.cloudType = CloudTypes.journalTags
+                                                self?.journalTagsRs.append(record)
+                                            case TheEntities.fjIncident.rawValue:
+                                                self?.cloudType = CloudTypes.incidents
+                                                self?.incidentRs.append(record)
+                                            case TheEntities.fjIncidentTags.rawValue:
+                                                self?.cloudType = CloudTypes.incidentTags
+                                                self?.incidentTagsRs.append(record)
+                                            case TheEntities.fjICS214.rawValue:
+                                                self?.cloudType = CloudTypes.ics214
+                                                self?.ics214Rs.append(record)
+                                            case TheEntities.fjArcForm.rawValue:
+                                                self?.cloudType = CloudTypes.arcForm
+                                                self?.arcCrossFormRs.append(record)
+                                            case TheEntities.fjUserTime.rawValue:
+                                                self?.cloudType = CloudTypes.userTime
+                                                self?.userTimeRs.append(record)
+                                            case TheEntities.fjUserFDResource.rawValue:
+                                                self?.cloudType = CloudTypes.userFDResources
+                                                self?.fjUserFDResourcesRs.append(record)
+                                            case TheEntities.fjAttendee.rawValue:
+                                                self?.cloudType = CloudTypes.userAttendee
+                                                self?.userAttendeesRs.append(record)
+                                            case TheEntities.fjCrews.rawValue:
+                                                self?.cloudType = CloudTypes.userCrews
+                                                self?.userCrewRs.append(record)
+                                            case TheEntities.fjResourcesG.rawValue:
+                                                self?.cloudType = CloudTypes.userResourcesGroups
+                                                self?.userResourcesGroupRs.append(record)
+                                            case TheEntities.fjLocalIncident.rawValue:
+                                                self?.cloudType = CloudTypes.localIncidentTypes
+                                                self?.userLocalIncidentTypeRs.append(record)
+                                            case TheEntities.fjUserTags.rawValue:
+                                                self?.cloudType = CloudTypes.userTags
+                                                self?.fjUserTagRs.append(record)
+                                            case TheEntities.fjICS214Personnel.rawValue:
+                                                self?.cloudType = CloudTypes.ics214Personel
+                                                self?.fjICS214PersonnelRs.append(record)
+                                            case TheEntities.fjUserAttendee.rawValue:
+                                                self?.cloudType = CloudTypes.userAttendee
+                                                self?.fjUserAttendeeRs.append(record)
+                                            case TheEntities.fjUserResources.rawValue:
+                                                self?.cloudType = CloudTypes.userResources
+                                                self?.fjUserResourceRs.append(record)
+                                            case TheEntities.fjICS214ActivityLog.rawValue:
+                                                self?.cloudType = CloudTypes.icsActivityLog
+                                                self?.fjICS214ActivityLogRs.append(record)
+                                            case TheEntities.fjNFIRSStreetType.rawValue:
+                                                self?.cloudType = CloudTypes.nfirsStreetType
+                                                self?.fjNFIRSStreetTypeRs.append(record)
+                                            case TheEntities.fjStatus.rawValue:
+                                                self?.cloudType = CloudTypes.status
+                                                self?.fjStatusRs.append(record)
+                                            case TheEntities.fjPromotionJournal.rawValue:
+                                                self?.cloudType = CloudTypes.promotionJournal
+                                                self?.fjProjectJournalRs.append(record)
+                                            case TheEntities.fjPromotionCrew.rawValue:
+                                                self?.cloudType = CloudTypes.promotionCrew
+                                                self?.fjProjectCrewRs.append(record)
+                                            case TheEntities.fjPromotionTags.rawValue:
+                                                self?.cloudType = CloudTypes.promotionTags
+                                                self?.fjProjectTagsRs.append(record)
+                                            case TheEntities.fjTags.rawValue:
+                                                self?.cloudType = CloudTypes.tags
+                                                self?.fjTagsRs.append(record)
+                                            case TheEntities.fjFCLocation.rawValue:
+                                                self?.cloudType = CloudTypes.fcLocation
+                                                self?.fjFCLocationRs.append(record)
+                                            case TheEntities.fjPhoto.rawValue:
+                                                self?.cloudType = CloudTypes.photo
+                                                self?.fjPhotoRs.append(record)
+                                            case TheEntities.fjImageData.rawValue:
+                                                self?.cloudType = CloudTypes.imageData
+                                                self?.fjImageDataRs.append(record)
+                                            default:
+                                                print("here is an entity we didn't expect \(entity)")
+                                            }
+                                            counter += 1
+                                        }
+                    case .failure(let error):
+                        if let error = error  as? CKError  {
+                            let errorCode = error.errorCode
+                            
+                            switch errorCode {
+                            case 21, 2, 3, 4, 6, 34:
+                                if let retryerror = error.userInfo[CKErrorRetryAfterKey] as? Double {
+                                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + retryerror ) {
+                                        changedToNil = true
+                                        self!.sharedDBChangeToken = nil
+                                        self?.getCloudKitChanges(zoneIDs: zoneIDs)
+                                    }
+                                }
+                            default:
+                                if let theErrorMessage = self?.ckErrorAlert.buildTheError(errorCode: errorCode) {
+                                    print(theErrorMessage + " -fetchAllRecordZones-")
+                                }
+                            }
+                        }
+                        
+                        print("error on retrieving status \(error)")
                     }
-                    counter += 1
-                }
+                    //                do {
+                
             }
             
             changesOperation.recordWithIDWasDeletedBlock = { [weak self] (recordId, _) in
@@ -946,44 +1035,96 @@ class CloudKitManager: NSObject {
             
             
             
-            changesOperation.recordZoneChangeTokensUpdatedBlock = {  (zoneId, token, data) in
+            changesOperation.recordZoneChangeTokensUpdatedBlock = { [weak self] (zoneId, token, data) in
+                
+                self?.sharedDBChangeToken = token
                 print("recordZoneChangeTokensUpdatedBlock saving to disk")
-                    // TODO: -Flush record changes and deletions for this zone to disk
+                
             }
             
-            changesOperation.recordZoneFetchCompletionBlock = { [weak self] (zoneId, changeToken, _, _, error) in
-                if let error = error {
-                    print("Error fetching zone changes for database:", error)
-                    return
-                }
-                    //                print("recordZoneFetchCompletionBlock saving to disk changeToken = ",changeToken as Any)
-                    // TODO: -Flush record changes and deletions for this zone to disk
-                
-                    // Write this new zone change token to disk
-                self?.sharedDBChangeToken = changeToken
-                self?.addTokenToDefaults()
-            }
-            
-            changesOperation.fetchRecordZoneChangesCompletionBlock = { [weak self] error in
-                
-                if let ckError = error as? CKError {
-                    if ckError.code == CKError.Code.partialFailure {
-                        print("error was partial failure \(CKError.Code.partialFailure)")
+            changesOperation.recordZoneFetchResultBlock = { [weak self] (zoneId,result) in
+                switch result {
+                case .success((let token, _, let more)):
+                self?.sharedDBChangeToken = token
+                    self?.addTokenToDefaults()
+                    if more {
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() ) {
+                            changedToNil = false
+                            self?.getCloudKitChanges(zoneIDs: zoneIDs)
+                        }
                     }
-                    print("Error fetching zone changes for database: \(ckError)")
+                case .failure(let error):
+                    if let error = error  as? CKError  {
+                        let errorCode = error.errorCode
+                        switch errorCode {
+                        case 21, 2, 3, 4, 6, 34:
+                            if let retryerror = error.userInfo[CKErrorRetryAfterKey] as? Double {
+                                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + retryerror ) {
+                                    changedToNil = true
+                                    self!.sharedDBChangeToken = nil
+                                    self?.getCloudKitChanges(zoneIDs: zoneIDs)
+                                }
+                            }
+                        default:
+                            if let theErrorMessage = self?.ckErrorAlert.buildTheError(errorCode: errorCode) {
+                                print(theErrorMessage + " -fetchAllRecordZones-")
+                            }
+                        }
+                    }
                 }
-                print("fetch changes completed successfully")
+            }
+            
+//            changesOperation.recordZoneFetchResultBlock  = { [weak self] (zoneId, changeToken, _, _, error) in
+//                if let error = error {
+//                    print("Error fetching zone changes for database:", error)
+//                    return
+//                }
+//                    //                print("recordZoneFetchCompletionBlock saving to disk changeToken = ",changeToken as Any)
+//                    // TODO: -Flush record changes and deletions for this zone to disk
+//
+//                    // Write this new zone change token to disk
+//                self?.sharedDBChangeToken = changeToken
+//                self?.addTokenToDefaults()
+//            }
+            
+            changesOperation.fetchRecordZoneChangesResultBlock = { [weak self] result in
                 
-                let count = counter
-                print(count)
-                
-                DispatchQueue.main.async {
-                    self?.nc.post(name:Notification.Name(rawValue: FJkCKZoneRecordsCALLED),
-                                  object: nil,
-                                  userInfo: ["recordEntity":TheEntities.fjIncident])
-                    completionHandler?()
-                        //                    self?.endBackgroundTask()
+                switch result {
+                case .success():
+                        DispatchQueue.main.async {
+                            self?.nc.post(name:Notification.Name(rawValue: FJkCKZoneRecordsCALLED),
+                                          object: nil,
+                                          userInfo: ["recordEntity":TheEntities.fjIncident])
+                            completionHandler?()
+                        }
+                case .failure(let error):
+                        if let ckError = error as? CKError {
+                            if ckError.code == CKError.Code.partialFailure {
+                                print("error was partial failure \(CKError.Code.partialFailure)")
+                            }
+                            print("Error fetching zone changes for database: \(ckError)")
+                        }
+                        print("fetch changes completed successfully")
                 }
+                
+//                if let ckError = error as? CKError {
+//                    if ckError.code == CKError.Code.partialFailure {
+//                        print("error was partial failure \(CKError.Code.partialFailure)")
+//                    }
+//                    print("Error fetching zone changes for database: \(ckError)")
+//                }
+//                print("fetch changes completed successfully")
+//
+//                let count = counter
+//                print(count)
+//
+//                DispatchQueue.main.async {
+//                    self?.nc.post(name:Notification.Name(rawValue: FJkCKZoneRecordsCALLED),
+//                                  object: nil,
+//                                  userInfo: ["recordEntity":TheEntities.fjIncident])
+//                    completionHandler?()
+//                        //                    self?.endBackgroundTask()
+//                }
                 
                 
             }

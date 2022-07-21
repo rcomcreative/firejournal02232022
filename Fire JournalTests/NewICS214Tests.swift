@@ -236,9 +236,9 @@ class NewICS214Tests: XCTestCase, NSFetchedResultsControllerDelegate {
     func deadTestGetICS214FormWithCrew() {
         let forms = getTheICS214()
         var personnel = [ICS214Personnel]()
-        //        for form in forms {
+        
         if let form = forms.last {
-            print(form.ics214IncidentName)
+
             if let guid = form.ics214Guid {
                 
                 let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ICS214Personnel")

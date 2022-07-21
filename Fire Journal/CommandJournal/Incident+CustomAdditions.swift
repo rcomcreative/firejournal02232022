@@ -1,10 +1,10 @@
-//
-//  Incident+CustomAdditions.swift
-//  Fire Journal
-//
-//  Created by DuRand Jones on 12/7/18.
-//  Copyright © 2020 PureCommand, LLC. All rights reserved.
-//
+    //
+    //  Incident+CustomAdditions.swift
+    //  Fire Journal
+    //
+    //  Created by DuRand Jones on 12/7/18.
+    //  Copyright © 2020 PureCommand, LLC. All rights reserved.
+    //
 
 import Foundation
 import UIKit
@@ -21,15 +21,6 @@ extension Int {
 extension Incident {
     
     func newIncidentForCloud()->CKRecord {
-//        let journal = self.incidentInfo
-//        let user = self.fireJournalUserIncInfo
-//        let journalReference:CKRecord.Reference = journal?.aJournalReference as! CKRecord.Reference
-//        let userReference:CKRecord.Reference = user?.aFJUReference as! CKRecord.Reference
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "YYYYDDDMMHHmmAAAAAAAA"
-//        let dateFormatted = dateFormatter.string(from: self.incidentModDate ?? Date())
-//        let inNum = self.incidentNumber ?? ""
-//        let name = "Incident #\(inNum) \(dateFormatted)"
         var recordName: String = ""
         if let name = self.fjpIncGuidForReference {
             recordName = name
@@ -45,29 +36,56 @@ extension Incident {
         let fjIncidentR = CKRecord.init(recordType: "Incident", recordID: fjIncidentRID)
         let incidentRef = CKRecord.Reference(recordID: fjIncidentRID, action: .deleteSelf)
         
-//        new record
+            //        new record
         fjIncidentR["incidentBackedUp"] =  true
         fjIncidentR["theEntity"] = "Incident"
-        fjIncidentR["fjpIncGuidForReference"] = self.fjpIncGuidForReference
-        fjIncidentR["fjpIncidentDateSearch"] = self.fjpIncidentDateSearch
-        fjIncidentR["fjpIncidentModifiedDate"] = self.fjpIncidentModifiedDate
-//        fjIncidentR["fjpJournalReference"] = journalReference
-//        fjIncidentR["fjpUserReference"] = userReference
-        fjIncidentR["formType"] = self.formType
-        fjIncidentR["incidentCreationDate"] = self.incidentCreationDate
-        fjIncidentR["incidentDate"] = self.incidentDate
-        fjIncidentR["incidentDateSearch"] = self.incidentDateSearch
-        fjIncidentR["incidentDayOfWeek"] = self.incidentDayOfWeek
-        fjIncidentR["incidentDayOfYear"] = self.incidentDayOfYear
+        if let guid = self.fjpIncGuidForReference {
+            fjIncidentR["fjpIncGuidForReference"] = guid
+        }
+        if let dateSearch = self.fjpIncidentDateSearch {
+            fjIncidentR["fjpIncidentDateSearch"] = dateSearch
+        }
+        if let modDate = self.fjpIncidentModifiedDate {
+            fjIncidentR["fjpIncidentModifiedDate"] = modDate
+        }
+        
+        if let form = self.formType {
+            fjIncidentR["formType"] =  form
+        }
+        if let incidentCreationDate = self.incidentCreationDate {
+            fjIncidentR["incidentCreationDate"] = incidentCreationDate
+        }
+        if let incidentDate = self.incidentDate {
+            fjIncidentR["incidentDate"] = incidentDate
+        }
+        if let incidentDateSearch = self.incidentDateSearch {
+            fjIncidentR["incidentDateSearch"] = incidentDateSearch
+        }
+        if let incidentDayOfWeek = self.incidentDayOfWeek {
+            fjIncidentR["incidentDayOfWeek"] = incidentDayOfWeek
+        }
+        if let incidentDayOfYear = self.incidentDayOfYear {
+            fjIncidentR["incidentDayOfYear"] = incidentDayOfYear
+        }
         if self.locationAvailable {
             fjIncidentR["locationAvailable"] = 1
         } else {
-                fjIncidentR["locationAvailable"] = 0
+            fjIncidentR["locationAvailable"] = 0
         }
         if self.incidentTagsAvailable {
             fjIncidentR["incidentTagsAvailable"] = 1
         } else {
-                fjIncidentR["incidentTagsAvailable"] = 0
+            fjIncidentR["incidentTagsAvailable"] = 0
+        }
+        if self.arsonInvestigation {
+            fjIncidentR["arsonInvestigation"] = 1
+        } else {
+            fjIncidentR["arsonInvestigation"] = 0
+        }
+        if self.incidentCancel {
+            fjIncidentR["incidentCancel"] = 1
+        } else {
+            fjIncidentR["incidentCancel"] = 0
         }
         if self.incidentPhotoTaken != nil {
             if self.incidentPhotoTaken == 1 {
@@ -76,789 +94,2282 @@ extension Incident {
                 fjIncidentR["incidentPhotoTaken"] = false
             }
         }
-        fjIncidentR["incidentEntryTypeImageName"] = self.incidentEntryTypeImageName
-        if let location = self.incidentLocation {
-            fjIncidentR["incidentLocation"] = location as! CLLocation
+        if let incidentEntryTypeImageName = self.incidentEntryTypeImageName {
+            fjIncidentR["incidentEntryTypeImageName"] = incidentEntryTypeImageName
         }
-        var location:CLLocation!
-        if self.incidentLocationSC != nil {
-                if let theLocation = self.incidentLocationSC {
-                    guard let  archivedData = theLocation as? Data else { return fjIncidentR }
-                    do {
-                        guard let unarchivedLocation = try NSKeyedUnarchiver.unarchivedObject(ofClass: CLLocation.self , from: archivedData) else { return fjIncidentR }
-                        location = unarchivedLocation
-                        fjIncidentR["incidentLocation"] = location!
-                    } catch {
-                        print("error line 72 Incident+CustomAdditions")
-                    }
-                }
-        }
-        fjIncidentR["incidentModDate"] = self.incidentModDate
-        fjIncidentR["incidentNFIRSCompleted"] = self.incidentNFIRSCompleted
-        fjIncidentR["incidentNFIRSCompletedDate"] = self.incidentNFIRSCompletedDate
-        fjIncidentR["incidentNFIRSDataComplete"] = self.incidentNFIRSDataComplete
-        fjIncidentR["incidentNFIRSDataDate"] = self.incidentNFIRSDataDate
-        fjIncidentR["incidentNFIRSDataSaved"] = self.incidentNFIRSDataSaved
-        fjIncidentR["incidentNumber"] = self.incidentNumber
         
-        fjIncidentR["incidentSearchDate"] = self.incidentSearchDate
-        fjIncidentR["incidentStreetHyway"] = self.incidentStreetHyway
-        fjIncidentR["incidentStreetNumber"] = self.incidentStreetNumber
-        fjIncidentR["incidentTime"] = self.incidentTime
-        fjIncidentR["incidentType"] = self.incidentType
-        fjIncidentR["incidentZipCode"] = self.incidentZipCode
-        fjIncidentR["incidentZipPlus4"] = self.incidentZipPlus4
-        fjIncidentR["situationIncidentImage"] = self.situationIncidentImage
-        fjIncidentR["tempIncidentApparatus"] = self.tempIncidentApparatus
-        fjIncidentR["tempIncidentAssignment"] = self.tempIncidentAssignment
-        fjIncidentR["tempIncidentFireStation"] = self.tempIncidentFireStation
-        fjIncidentR["tempIncidentPlatoon"] = self.tempIncidentPlatoon
-        fjIncidentR["ics214Effort"] = self.ics214Effort
-        fjIncidentR["ics214MasterGuid"] = self.ics214MasterGuid
+        if let incidentModDate = self.incidentModDate {
+            fjIncidentR["incidentModDate"] = incidentModDate
+        }
+        if let incidentNFIRSCompleted = self.incidentNFIRSCompleted {
+            fjIncidentR["incidentNFIRSCompleted"] = incidentNFIRSCompleted
+        }
+        if let incidentNFIRSCompletedDate = self.incidentNFIRSCompletedDate {
+            fjIncidentR["incidentNFIRSCompletedDate"] = incidentNFIRSCompletedDate
+        }
+        if let incidentNFIRSDataComplete = self.incidentNFIRSDataComplete {
+            fjIncidentR["incidentNFIRSDataComplete"] = incidentNFIRSDataComplete
+        }
+        if let incidentNFIRSDataDate = self.incidentNFIRSDataDate {
+            fjIncidentR["incidentNFIRSDataDate"] = incidentNFIRSDataDate
+        }
+        if let incidentNFIRSDataSaved = self.incidentNFIRSDataSaved {
+            fjIncidentR["incidentNFIRSDataSaved"] = incidentNFIRSDataSaved
+        }
+        if let incidentNumber = self.incidentNumber {
+            fjIncidentR["incidentNumber"] = incidentNumber
+        }
+        
+        if let incidentSearchDate = self.incidentSearchDate {
+            fjIncidentR["incidentSearchDate"] = incidentSearchDate
+        }
+        if let incidentTime = self.incidentTime {
+            fjIncidentR["incidentTime"] = incidentTime
+        }
+        if let incidentType = self.incidentType {
+            fjIncidentR["incidentType"] = incidentType
+        }
+        if let situationIncidentImage = self.situationIncidentImage {
+            fjIncidentR["situationIncidentImage"] = situationIncidentImage
+        }
+        if let tempIncidentApparatus = self.tempIncidentApparatus {
+            fjIncidentR["tempIncidentApparatus"] = tempIncidentApparatus
+        }
+        if let tempIncidentAssignment = self.tempIncidentAssignment {
+            fjIncidentR["tempIncidentAssignment"] = tempIncidentAssignment
+        }
+        if let tempIncidentFireStation = self.tempIncidentFireStation {
+            fjIncidentR["tempIncidentFireStation"] = tempIncidentFireStation
+        }
+        if let tempIncidentPlatoon = self.tempIncidentPlatoon {
+            fjIncidentR["tempIncidentPlatoon"] = tempIncidentPlatoon
+        }
+        if let ics214Effort = self.ics214Effort {
+            fjIncidentR["ics214Effort"] = ics214Effort
+        }
+        if let ics214MasterGuid = self.ics214MasterGuid {
+            fjIncidentR["ics214MasterGuid"] = ics214MasterGuid
+        }
         fjIncidentR["arsonInvestigation"] = Int(self.arsonInvestigation)
         
-        let fjuSections = self.formDetails
-        fjIncidentR["sectionA"] = Int(fjuSections?.sectionA ?? false)
-        fjIncidentR["sectionB"] = Int(fjuSections?.sectionB ?? false)
-        fjIncidentR["sectionC"] = Int(fjuSections?.sectionC ?? false)
-        fjIncidentR["sectionD"] = Int(fjuSections?.sectionD ?? false)
-        fjIncidentR["sectionE"] = Int(fjuSections?.sectionE ?? false)
-        fjIncidentR["sectionF"] = Int(fjuSections?.sectionF ?? false)
-        fjIncidentR["sectionG"] = Int(fjuSections?.sectionG ?? false)
-        fjIncidentR["sectionH"] = Int(fjuSections?.sectionH ?? false)
-        fjIncidentR["sectionI"] = Int(fjuSections?.sectionI ?? false)
-        fjIncidentR["sectionJ"] = Int(fjuSections?.sectionJ ?? false)
-        fjIncidentR["sectionK"] = Int(fjuSections?.sectionK ?? false)
-        fjIncidentR["sectionL"] = Int(fjuSections?.sectionL ?? false)
-        fjIncidentR["sectionM"] = Int(fjuSections?.sectionM ?? false)
         
-        let fjIncidentAddress = self.incidentAddressDetails
-        fjIncidentR["appSuiteRoom"] = fjIncidentAddress?.appSuiteRoom
-        fjIncidentR["censusTract"] = fjIncidentAddress?.censusTract
-        fjIncidentR["censusTract2"] = fjIncidentAddress?.censusTract2
-        fjIncidentR["city"] = fjIncidentAddress?.city
-        fjIncidentR["crossStreet"] = fjIncidentAddress?.crossStreet
-        fjIncidentR["incidentState"] = fjIncidentAddress?.incidentState
-        fjIncidentR["prefix"] = fjIncidentAddress?.prefix
-        fjIncidentR["stagingAddress"] = fjIncidentAddress?.stagingAddress
-        fjIncidentR["streetHighway"] = fjIncidentAddress?.streetHighway
-        fjIncidentR["streetNumber"] = fjIncidentAddress?.streetNumber
-        fjIncidentR["streetType"] = fjIncidentAddress?.streetType
-        fjIncidentR["suffix"] = fjIncidentAddress?.suffix
-        fjIncidentR["zip"] = fjIncidentAddress?.zip
-        fjIncidentR["zipPlus4"] = fjIncidentAddress?.zipPlus4
-        var num = ""
-        var street = ""
-        var zip = ""
-        if let number = fjIncidentAddress?.streetNumber {
-            num = number
-        }
-        if let st = fjIncidentAddress?.streetHighway {
-            street = st
-        }
-        if let zipped = fjIncidentAddress?.zip {
-            zip = zipped
-        }
-        fjIncidentR["aadressForIncident"] = "\(num) \(street) \(zip)"
-        
-        //MARK: -incidentLocal-
-        let fjIncidentLocal = self.incidentLocalDetails
-        fjIncidentR["incidentBattalion"] = fjIncidentLocal?.incidentBattalion
-        fjIncidentR["incidentDivision"] = fjIncidentLocal?.incidentDivision
-        fjIncidentR["incidentFireDistrict"] = fjIncidentLocal?.incidentFireDistrict
-        fjIncidentR["incidentLocalType"] = fjIncidentLocal?.incidentLocalType
-        
-        //MARK: -IncidentMap-
-        let fjIncidentMap = self.incidentMapDetails
-        fjIncidentR["incidentLatitude"] = fjIncidentMap?.incidentLatitude
-        fjIncidentR["incidentLongitude"] = fjIncidentMap?.incidentLongitude
-        fjIncidentR["stagingLatitude"] = fjIncidentMap?.stagingLatitude
-        fjIncidentR["stagingLongitude"] = fjIncidentMap?.stagingLongitude
-        
-        // MARK: -IncidentNFIRS-
-        let fjIncidentNFIRS = self.incidentNFIRSDetails
-        fjIncidentR["fireStationState"] = fjIncidentNFIRS?.fireStationState
-        fjIncidentR["incidentActionsTakenAdditionalThree"] = fjIncidentNFIRS?.incidentActionsTakenAdditionalThree
-        fjIncidentR["incidentActionsTakenAdditionalTwo"] = fjIncidentNFIRS?.incidentActionsTakenAdditionalTwo
-        fjIncidentR["incidentActionsTakenPrimary"] = fjIncidentNFIRS?.incidentActionsTakenPrimary
-        fjIncidentR["incidentAidGiven"] = fjIncidentNFIRS?.incidentAidGiven
-        fjIncidentR["incidentAidGivenFDID"] = fjIncidentNFIRS?.incidentAidGivenFDID
-        fjIncidentR["incidentAidGivenIncidentNumber"] = fjIncidentNFIRS?.incidentAidGivenIncidentNumber
-        fjIncidentR["incidentAidGivenNone"] = fjIncidentNFIRS?.incidentAidGivenNone
-        fjIncidentR["incidentAidGivenState"] = fjIncidentNFIRS?.incidentAidGivenState
-        fjIncidentR["incidentCasualtiesCivilianDeaths"] = fjIncidentNFIRS?.incidentCasualtiesCivilianDeaths
-        fjIncidentR["incidentCasualtiesCivilianInjuries"] = fjIncidentNFIRS?.incidentCasualtiesCivilianInjuries
-        fjIncidentR["incidentCasualtiesFireDeaths"] = fjIncidentNFIRS?.incidentCasualtiesFireDeaths
-        fjIncidentR["incidentCasualtiesFireInjuries"] = fjIncidentNFIRS?.incidentCasualtiesFireInjuries
-        fjIncidentR["incidentCasualtiesNone"] = Int(fjIncidentNFIRS?.incidentCasualtiesNone ?? false)
-        fjIncidentR["incidentCasualtiesServiceDeaths"] = fjIncidentNFIRS?.incidentCasualtiesServiceDeaths
-        fjIncidentR["incidentCasualtitesServideInjuries"] = fjIncidentNFIRS?.incidentCasualtitesServideInjuries
-        fjIncidentR["incidentDetectorChosen"] = fjIncidentNFIRS?.incidentDetectorChosen
-        fjIncidentR["incidentExposure"] = fjIncidentNFIRS?.incidentExposure
-        fjIncidentR["incidentFDID"] = fjIncidentNFIRS?.incidentFDID
-        fjIncidentR["incidentFDID1"] = fjIncidentNFIRS?.incidentFDID1
-        fjIncidentR["incidentFireStation"] = fjIncidentNFIRS?.incidentFireStation
-        fjIncidentR["incidentHazMat"] = fjIncidentNFIRS?.incidentHazMat
-        fjIncidentR["incidentHazMatNone"] = Int(fjIncidentNFIRS?.incidentHazMatNone ?? false)
-        fjIncidentR["incidentNFIRSLocation"] = fjIncidentNFIRS?.incidentLocation
-        fjIncidentR["incidentPlatoon"] = fjIncidentNFIRS?.incidentPlatoon
-        fjIncidentR["incidentPropertyNone"] = fjIncidentNFIRS?.incidentPropertyNone
-        fjIncidentR["incidentPropertyOutside"] = fjIncidentNFIRS?.incidentPropertyOutside
-        fjIncidentR["incidentPropertyOutsideNumber"] = fjIncidentNFIRS?.incidentPropertyOutsideNumber
-        fjIncidentR["incidentPropertyStructure"] = fjIncidentNFIRS?.incidentPropertyStructure
-        fjIncidentR["incidentPropertyStructureNumber"] = fjIncidentNFIRS?.incidentPropertyStructureNumber
-        fjIncidentR["incidentPropertyUse"] = fjIncidentNFIRS?.incidentPropertyUse
-        fjIncidentR["incidentPropertyUseNone"] = fjIncidentNFIRS?.incidentPropertyUseNone
-        fjIncidentR["incidentPropertyUseNumber"] = fjIncidentNFIRS?.incidentPropertyUseNumber
-        fjIncidentR["incidentResourceCheck"] = fjIncidentNFIRS?.incidentResourceCheck
-        fjIncidentR["incidentResourcesEMSApparatus"] = fjIncidentNFIRS?.incidentResourcesEMSApparatus
-        fjIncidentR["incidentResourcesEMSPersonnel"] = fjIncidentNFIRS?.incidentResourcesEMSPersonnel
-        fjIncidentR["incidentResourcesOtherApparatus"] = fjIncidentNFIRS?.incidentResourcesOtherApparatus
-        fjIncidentR["incidentResourcesOtherPersonnel"] = fjIncidentNFIRS?.incidentResourcesOtherPersonnel
-        fjIncidentR["incidentResourcesSuppressionPersonnel"] = fjIncidentNFIRS?.incidentResourcesSuppressionPersonnel
-        fjIncidentR["incidentResourcesSupressionApparatus"] = fjIncidentNFIRS?.incidentResourcesSupressionApparatus
-        fjIncidentR["incidentTypeNumberNFRIS"] = fjIncidentNFIRS?.incidentTypeNumberNFRIS
-        fjIncidentR["incidentTypeTextNFRIS"] = fjIncidentNFIRS?.incidentTypeTextNFRIS
-        fjIncidentR["lossesContentDollars"] = fjIncidentNFIRS?.lossesContentDollars
-        fjIncidentR["lossesContentNone"] = Int(fjIncidentNFIRS?.lossesContentNone ?? false)
-        fjIncidentR["lossesPropertyDollars"] = fjIncidentNFIRS?.lossesPropertyDollars
-        fjIncidentR["lossesPropertyNone"] = Int(fjIncidentNFIRS?.lossesPropertyNone ?? false)
-        fjIncidentR["mixedUsePropertyNone"] = Int(fjIncidentNFIRS?.mixedUsePropertyNone ?? false)
-        fjIncidentR["mixedUsePropertyType"] = fjIncidentNFIRS?.mixedUsePropertyType
-        fjIncidentR["nfirsChangeDescription"] = fjIncidentNFIRS?.nfirsChangeDescription
-        fjIncidentR["nfirsSectionOneSegment"] = fjIncidentNFIRS?.nfirsSectionOneSegment
-        fjIncidentR["propertyUseNone"] = Int(fjIncidentNFIRS?.propertyUseNone ?? false)
-        fjIncidentR["resourceCountsIncludeAidReceived"] = Int(fjIncidentNFIRS?.resourceCountsIncludeAidReceived ?? false)
-        fjIncidentR["shiftAlarm"] = fjIncidentNFIRS?.shiftAlarm
-        fjIncidentR["shiftDistrict"] = fjIncidentNFIRS?.shiftDistrict
-        fjIncidentR["shiftOrPlatoon"] = fjIncidentNFIRS?.shiftOrPlatoon
-        fjIncidentR["skipSectionF"] = Int(fjIncidentNFIRS?.skipSectionF ?? false)
-        fjIncidentR["specialStudyID"] = fjIncidentNFIRS?.specialStudyID
-        fjIncidentR["specialStudyValue"] = fjIncidentNFIRS?.specialStudyValue
-        fjIncidentR["valueContentDollars"] = fjIncidentNFIRS?.valueContentDollars
-        fjIncidentR["valueContentsNone"] = Int(fjIncidentNFIRS?.valueContentsNone ?? false)
-        fjIncidentR["valuePropertyDollars"] = fjIncidentNFIRS?.valuePropertyDollars
-        fjIncidentR["valuePropertyNone"] = Int(fjIncidentNFIRS?.valuePropertyNone ?? false)
-        
-        // TODO: IncidentNFIRSCompMods
-        // let fjIncidentNFIRSCompMods = self.completedModulesDetails
-        //     NSMutableArray *_compModules = [[NSMutableArray alloc] init]
-        //     for(fjIncidentNFIRSCompMods in self.completedModulesDetails){
-        //         [_compModules addObject:fjIncidentNFIRSCompMods.completedModules]
-        //     }
-        //     _nfirsCompleteMods = [_compModules copy]
-        //     NSString *compMods = @""
-        //     NSString *truncatedCMString = @""
-        //     if(!([_nfirsCompleteMods count] == 0)) {
-        //         for(NSString *t in _nfirsCompleteMods){
-        //             if(![t isEqualToString:@""]){
-        //                 compMods = [compMods stringByAppendingString:[NSString stringWithFormat:@"%@,",t]]
-        //             }
-        //             if([compMods length]>2){
-        //                 truncatedCMString = [compMods substringToIndex:[compMods length]-2]
-        //             }
-        //         }
-        //     }
-        //     fjIncidentR["incidentCompletedModules"] = truncatedCMString
-        
-        // MARK: -IncidentNFIRSKSec-
-        let fjIncidentNFIRSKSec = self.incidentNFIRSKSecDetails
-        fjIncidentR["kOwnerAptSuiteRoom"] = fjIncidentNFIRSKSec?.kOwnerAptSuiteRoom
-        fjIncidentR["kOwnerAreaCode"] = fjIncidentNFIRSKSec?.kOwnerAreaCode
-        fjIncidentR["kOwnerBusinessName"] = fjIncidentNFIRSKSec?.kOwnerBusinessName
-        fjIncidentR["kOwnerCheckBox"] = Int(fjIncidentNFIRSKSec?.kOwnerCheckBox ?? false)
-        fjIncidentR["kOwnerCity"] = fjIncidentNFIRSKSec?.kOwnerCity
-        fjIncidentR["kOwnerFirstName"] = fjIncidentNFIRSKSec?.kOwnerFirstName
-        fjIncidentR["kOwnerLastName"] = fjIncidentNFIRSKSec?.kOwnerLastName
-        fjIncidentR["kOwnerMI"] = fjIncidentNFIRSKSec?.kOwnerMI
-        fjIncidentR["kOwnerNamePrefix"] = fjIncidentNFIRSKSec?.kOwnerNamePrefix
-        fjIncidentR["kOwnerNameSuffix"] = fjIncidentNFIRSKSec?.kOwnerNameSuffix
-        fjIncidentR["kOwnerPhoneLastFour"] = fjIncidentNFIRSKSec?.kOwnerPhoneLastFour
-        fjIncidentR["kOwnerPhonePrefix"] = fjIncidentNFIRSKSec?.kOwnerPhonePrefix
-        fjIncidentR["kOwnerPOBox"] = fjIncidentNFIRSKSec?.kOwnerPOBox
-        fjIncidentR["kOwnerSameAsPerson"] = Int(fjIncidentNFIRSKSec?.kOwnerSameAsPerson ?? false)
-        fjIncidentR["kOwnerState"] = fjIncidentNFIRSKSec?.kOwnerState
-        fjIncidentR["kOwnerStreetHyway"] = fjIncidentNFIRSKSec?.kOwnerStreetHyway
-        fjIncidentR["kOwnerStreetNumber"] = fjIncidentNFIRSKSec?.kOwnerStreetNumber
-        fjIncidentR["kOwnerStreetPrefix"] = fjIncidentNFIRSKSec?.kOwnerStreetPrefix
-        fjIncidentR["kOwnerStreetSuffix"] = fjIncidentNFIRSKSec?.kOwnerStreetSuffix
-        fjIncidentR["kOwnerStreetType"] = fjIncidentNFIRSKSec?.kOwnerStreetType
-        fjIncidentR["kOwnerZip"] = fjIncidentNFIRSKSec?.kOwnerZip
-        fjIncidentR["kOwnerZipPlusFour"] = fjIncidentNFIRSKSec?.kOwnerZipPlusFour
-        fjIncidentR["kPersonAppSuiteRoom"] = fjIncidentNFIRSKSec?.kPersonAppSuiteRoom
-        fjIncidentR["kPersonAreaCode"] = fjIncidentNFIRSKSec?.kPersonAreaCode
-        fjIncidentR["kPersonBusinessName"] = fjIncidentNFIRSKSec?.kPersonBusinessName
-        fjIncidentR["kPersonCheckBox"] = Int(fjIncidentNFIRSKSec?.kPersonCheckBox ?? false)
-        fjIncidentR["kPersonCity"] = fjIncidentNFIRSKSec?.kPersonCity
-        fjIncidentR["kPersonFirstName"] = fjIncidentNFIRSKSec?.kPersonFirstName
-        fjIncidentR["kPersonGender"] = fjIncidentNFIRSKSec?.kPersonGender
-        fjIncidentR["kPersonLastName"] = fjIncidentNFIRSKSec?.kPersonLastName
-        fjIncidentR["kPersonMI"] = fjIncidentNFIRSKSec?.kPersonMI
-        fjIncidentR["kPersonMoreThanOne"] = Int(fjIncidentNFIRSKSec?.kPersonMoreThanOne ?? false)
-        fjIncidentR["kPersonNameSuffix"] = fjIncidentNFIRSKSec?.kPersonNameSuffix
-        fjIncidentR["kPersonPhoneLastFour"] = fjIncidentNFIRSKSec?.kPersonPhoneLastFour
-        fjIncidentR["kPersonPhonePrefix"] = fjIncidentNFIRSKSec?.kPersonPhonePrefix
-        fjIncidentR["kPersonPOBox"] = fjIncidentNFIRSKSec?.kPersonPOBox
-        fjIncidentR["kPersonPrefix"] = fjIncidentNFIRSKSec?.kPersonPrefix
-        fjIncidentR["kPersonState"] = fjIncidentNFIRSKSec?.kPersonState
-        fjIncidentR["kPersonStreetHyway"] = fjIncidentNFIRSKSec?.kPersonStreetHyway
-        fjIncidentR["kPersonStreetNum"] = fjIncidentNFIRSKSec?.kPersonStreetNum
-        fjIncidentR["kPersonStreetSuffix"] = fjIncidentNFIRSKSec?.kPersonStreetSuffix
-        fjIncidentR["kPersonStreetType"] = fjIncidentNFIRSKSec?.kPersonStreetType
-        fjIncidentR["kPersonZipCode"] = fjIncidentNFIRSKSec?.kPersonZipCode
-        fjIncidentR["kPersonZipPlus4"] = fjIncidentNFIRSKSec?.kPersonZipPlus4
-        
-        // TODO: -IncidentNFIRSRequiredModules-
-        // IncidentNFIRSRequiredModules *_requiredModules = (IncidentNFIRSRequiredModules *)self.requiredModulesDetails
-        //     NSMutableArray *_nfirsRMods = [[NSMutableArray alloc] init]
-        //     for(_requiredModules in self.completedModulesDetails){
-        //         [_nfirsRMods addObject:_requiredModules.requiredModule]
-        //     }
-        //     _nfirsRequiredMods = [_nfirsRMods copy]
-        //     NSString *reqMods = @""
-        //     NSString *truncatedRMString = @""
-        //     if(!([_nfirsRequiredMods count] == 0)) {
-        //         for(NSString *t in _nfirsRequiredMods){
-        //             if(![t isEqualToString:@""]){
-        //                 reqMods = [reqMods stringByAppendingString:[NSString stringWithFormat:@"%@,",t]]
-        //             }
-        //             if([reqMods length]>0){
-        //                 truncatedRMString = [reqMods substringToIndex:[reqMods length]-2]
-        //             }
-        //         }
-        //     }
-        //     fjIncidentR["incidentRequiredModules"] = truncatedRMString
-        
-        let fjIncidentNFIRSsecL = self.sectionLDetails
-        fjIncidentR["incidentNFIRSSecLNotes"] = fjIncidentNFIRSsecL?.lRemarks as? String
-        fjIncidentR["incidentNFIRSSecLMoreRemarks"] = Int(fjIncidentNFIRSsecL?.moreRemarks ?? false)
-        
-        let fjIncidentNFIRSsecM = self.sectionMDetails
-        fjIncidentR["memberAssignment"] = fjIncidentNFIRSsecM?.memberAssignment
-        fjIncidentR["memberDate"] = fjIncidentNFIRSsecM?.memberDate
-        fjIncidentR["memberMakingReportID"] = fjIncidentNFIRSsecM?.memberMakingReportID
-        fjIncidentR["memberRankPosition"] = fjIncidentNFIRSsecM?.memberRankPosition
-        fjIncidentR["memberSameAsOfficer"] = Int(fjIncidentNFIRSsecM?.memberSameAsOfficer ?? false)
-        fjIncidentR["officerAssignment"] = fjIncidentNFIRSsecM?.officerAssignment
-        fjIncidentR["officerDate"] = fjIncidentNFIRSsecM?.officerDate
-        fjIncidentR["officerInChargeID"] = fjIncidentNFIRSsecM?.officerInChargeID
-        fjIncidentR["officerRankPosition"] = fjIncidentNFIRSsecM?.officerRankPosition
-        fjIncidentR["signatureMember"] = fjIncidentNFIRSsecM?.signatureMember
-        fjIncidentR["signatureOfficer"] = fjIncidentNFIRSsecM?.signatureOfficer
-        // TODO: -OFFICER AND MEMBER SIGNATURE ASSETS
-        //    TRANSFORM officerSignature
-        // if(fjIncidentNFIRSsecM?.officeSigned) {
-        //         fjIncidentR["officerSigned"] = @1
-        //         NSData *oSignatureData = nil
-        //         oSignatureData = fjIncidentNFIRSsecM?.officerSignature
-        //         NSMutableDictionary *oPhotoDictionary = [[NSMutableDictionary alloc] init]
-        //         NSString *oPhotoName = @""
-        //         NSString *opath = @""
-        //         @synchronized (self) {
-        //             if(!(oSignatureData == nil)){
-        //                 NSDateFormatter *dayOfWeekNumberFormat = [[NSDateFormatter alloc] init]
-        //                 [dayOfWeekNumberFormat setDateFormat:@"YYYYDDDHHmmAAAAAAAA"]
-        //                 NSString *_displayDayOfTheYear = [dayOfWeekNumberFormat stringFromDate:[NSDate date]]
-        //                 UIImage *_signatureImage = [UIImage imageWithData:oSignatureData]
-        //                 NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-        //                                                                      NSUserDomainMask, YES)
-        //                 NSString *documentsDirectory = [paths objectAtIndex:0]
-        //                 oPhotoName = @"OfficerSignature"
-        //                 opath = [documentsDirectory stringByAppendingPathComponent:
-        //                          [NSString stringWithFormat:@"%@_%@.jpg",oPhotoName,_displayDayOfTheYear]]
-        //                 if([UIImageJPEGRepresentation(_signatureImage, 1.0) writeToFile:opath atomically:YES]){
-        //                     [oPhotoDictionary setObject:oPhotoName forKey:opath]
-        //                     NSURL *fileNSUrl = [NSURL fileURLWithPath:opath]
-        //                     CKAsset *imageAsset = [[CKAsset alloc] initWithFileURL:fileNSUrl]
-        //
-        //                     fjIncidentR["officerSignature"] = imageAsset
-        //                 }
-        //             }
-        //         }
-        //     } else {
-        //         fjIncidentR["officerSigned"] = @0
-        //     }
-        // //  TRANSFORM memberSignature
-        //     if(fjIncidentNFIRSsecM?.memberSigned) {
-        //         fjIncidentR["memberSigned"] = @1
-        //         NSData *mSignatureData = nil
-        //         mSignatureData = fjIncidentNFIRSsecM?.memberSignature
-        //         NSMutableDictionary *mPhotoDictionary = [[NSMutableDictionary alloc] init]
-        //         NSString *mPhotoName = @""
-        //         NSString *mpath = @""
-        //         @synchronized (self) {
-        //             if(!(mSignatureData == nil)){
-        //                 NSDateFormatter *dayOfWeekNumberFormat = [[NSDateFormatter alloc] init]
-        //                 [dayOfWeekNumberFormat setDateFormat:@"YYYYDDDHHmmAAAAAAAA"]
-        //                 NSString *_displayDayOfTheYear = [dayOfWeekNumberFormat stringFromDate:[NSDate date]]
-        //                 UIImage *_signatureImage = [UIImage imageWithData:mSignatureData]
-        //                 NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-        //                                                                      NSUserDomainMask, YES)
-        //                 NSString *documentsDirectory = [paths objectAtIndex:0]
-        //                 mPhotoName = @"MemberSignature"
-        //                 mpath = [documentsDirectory stringByAppendingPathComponent:
-        //                          [NSString stringWithFormat:@"%@_%@.jpg",mPhotoName,_displayDayOfTheYear]]
-        //                 if([UIImageJPEGRepresentation(_signatureImage, 1.0) writeToFile:mpath atomically:YES]){
-        //                     [mPhotoDictionary setObject:mPhotoName forKey:mpath]
-        //                     NSURL *fileNSUrl = [NSURL fileURLWithPath:mpath]
-        //                     CKAsset *imageAsset = [[CKAsset alloc] initWithFileURL:fileNSUrl]
-        //
-        //                     fjIncidentR["memberSignature"] = imageAsset
-        //                 }
-        //             }
-        //         }
-        //     } else {
-        //         fjIncidentR["memberSigned"] = @0
-        //     }
-        
-        // MARK: -IncidentNotes-
-        let fjIncidentNotes = self.incidentNotesDetails
-        fjIncidentR["incidentSummaryNotes"] = fjIncidentNotes?.incidentSummaryNotes as? String
-        fjIncidentR["incidentNote"] = fjIncidentNotes?.incidentNote
-        
-        //        MARK: -POV NOTES FOR INCIDENT
-        fjIncidentR["fjpPersonalJournalReference"] = self.fjpPersonalJournalReference
-        
-        //        MARK: -UserFDResources chosen for Incident
-        var resourcesName = [String]()
-        var customOrNot = [Bool]()
-        var resourceType = [Int64]()
-        for resources in self.incidentResourceDetails as! Set<IncidentResources> {
-            resourcesName.append(resources.incidentResource ?? "")
-            customOrNot.append(resources.resourceCustom)
-            resourceType.append(resources.resourceType)
+        if let fjuSections = self.formDetails {
+            fjIncidentR["sectionA"] = Int(fjuSections.sectionA)
+            fjIncidentR["sectionB"] = Int(fjuSections.sectionB )
+            fjIncidentR["sectionC"] = Int(fjuSections.sectionC)
+            fjIncidentR["sectionD"] = Int(fjuSections.sectionD)
+            fjIncidentR["sectionE"] = Int(fjuSections.sectionE)
+            fjIncidentR["sectionF"] = Int(fjuSections.sectionF)
+            fjIncidentR["sectionG"] = Int(fjuSections.sectionG)
+            fjIncidentR["sectionH"] = Int(fjuSections.sectionH)
+            fjIncidentR["sectionI"] = Int(fjuSections.sectionI)
+            fjIncidentR["sectionJ"] = Int(fjuSections.sectionJ)
+            fjIncidentR["sectionK"] = Int(fjuSections.sectionK)
+            fjIncidentR["sectionL"] = Int(fjuSections.sectionL)
+            fjIncidentR["sectionM"] = Int(fjuSections.sectionM)
         }
         
-        fjIncidentR["incidentResources"] = resourcesName
-        fjIncidentR["incidentResourcesCustom"] = customOrNot
-        fjIncidentR["incidentResourcesType"] = resourceType
-        
-        
-        //        MARK: -IncidentTimer-
-        let fjIncidentTimer = self.incidentTimerDetails
-        fjIncidentR["arrivalSameDate"] = Int(fjIncidentTimer?.arrivalSameDate ?? false)
-        fjIncidentR["controlledSameDate"] = Int(fjIncidentTimer?.controlledSameDate ?? false)
-        fjIncidentR["incidentAlarmCombinedDate"] = fjIncidentTimer?.incidentAlarmCombinedDate
-        fjIncidentR["incidentAlarmDateTime"] = fjIncidentTimer?.incidentAlarmDateTime
-        fjIncidentR["incidentAlarmDay"] = fjIncidentTimer?.incidentAlarmDay
-        fjIncidentR["incidentAlarmHours"] = fjIncidentTimer?.incidentAlarmHours
-        fjIncidentR["incidentAlarmMinutes"] = fjIncidentTimer?.incidentAlarmMinutes
-        fjIncidentR["incidentAlarmMonth"] = fjIncidentTimer?.incidentAlarmMonth
-        fjIncidentR["incidentAlarmNotes"] = fjIncidentTimer?.incidentAlarmNotes as? String
-        fjIncidentR["incidentAlarmYear"] = fjIncidentTimer?.incidentAlarmYear
-        fjIncidentR["incidentArrivalCombinedDate"] = fjIncidentTimer?.incidentArrivalCombinedDate
-        fjIncidentR["incidentArrivalDateTime"] = fjIncidentTimer?.incidentArrivalDateTime
-        fjIncidentR["incidentArrivalDay"] = fjIncidentTimer?.incidentArrivalDay
-        fjIncidentR["incidentArrivalHours"] = fjIncidentTimer?.incidentArrivalHours
-        fjIncidentR["incidentArrivalMinutes"] = fjIncidentTimer?.incidentArrivalMinutes
-        fjIncidentR["incidentArrivalMonth"] = fjIncidentTimer?.incidentArrivalMonth
-        fjIncidentR["incidentArrivalNotes"] = fjIncidentTimer?.incidentArrivalNotes as? String
-        fjIncidentR["incidentArrivalYear"] = fjIncidentTimer?.incidentArrivalYear
-        fjIncidentR["incidentControlledCombinedDate"] = fjIncidentTimer?.incidentControlledCombinedDate
-        fjIncidentR["incidentControlDateTime"] = fjIncidentTimer?.incidentControlDateTime
-        fjIncidentR["incidentControlledDay"] = fjIncidentTimer?.incidentControlledDay
-        fjIncidentR["incidentControlledHours"] = fjIncidentTimer?.incidentControlledHours
-        fjIncidentR["incidentControlledMinutes"] = fjIncidentTimer?.incidentControlledMinutes
-        fjIncidentR["incidentControlledMonth"] = fjIncidentTimer?.incidentControlledMonth
-        fjIncidentR["incidentControlledNotes"] = fjIncidentTimer?.incidentControlledNotes as? String
-        fjIncidentR["incidentControlledYear"] = fjIncidentTimer?.incidentControlledYear
-        fjIncidentR["incidentElapsedTime"] = fjIncidentTimer?.incidentElapsedTime
-        fjIncidentR["incidentLastUnitCalledCombinedDate"] = fjIncidentTimer?.incidentLastUnitCalledCombinedDate
-        fjIncidentR["incidentLastUnitDateTime"] = fjIncidentTimer?.incidentLastUnitDateTime
-        fjIncidentR["incidentLastUnitCalledDay"] = fjIncidentTimer?.incidentLastUnitCalledDay
-        fjIncidentR["incidentLastUnitCalledHours"] = fjIncidentTimer?.incidentLastUnitCalledHours
-        fjIncidentR["incidentLastUnitCalledMinutes"] = fjIncidentTimer?.incidentLastUnitCalledMinutes
-        fjIncidentR["incidentLastUnitCalledMonth"] = fjIncidentTimer?.incidentLastUnitCalledMonth
-        fjIncidentR["incidentLastUnitCalledYear"] = fjIncidentTimer?.incidentLastUnitCalledYear
-        fjIncidentR["incidentLastUnitClearedNotes"] = fjIncidentTimer?.incidentLastUnitClearedNotes as? String
-        fjIncidentR["incidentStartClockCombinedDate"] = fjIncidentTimer?.incidentStartClockCombinedDate
-        fjIncidentR["incidentStartClockDateTime"] = fjIncidentTimer?.incidentStartClockDateTime
-        fjIncidentR["incidentStartClockDay"] = fjIncidentTimer?.incidentStartClockDay
-        fjIncidentR["incidentStartClockHours"] = fjIncidentTimer?.incidentStartClockHours
-        fjIncidentR["incidentStartClockMinutes"] = fjIncidentTimer?.incidentStartClockMinutes
-        fjIncidentR["incidentStartClockMonth"] = fjIncidentTimer?.incidentStartClockMonth
-        fjIncidentR["incidentStartClockSeconds"] = fjIncidentTimer?.incidentStartClockSeconds
-        fjIncidentR["incidentStartClockYear"] = fjIncidentTimer?.incidentStartClockYear
-        fjIncidentR["incidentStopClockCombinedDate"] = fjIncidentTimer?.incidentStopClockCombinedDate
-        fjIncidentR["incidentStopCloudDateTime"] = fjIncidentTimer?.incidentStopClockDateTime
-        fjIncidentR["incidentStopClockDay"] = fjIncidentTimer?.incidentStopClockDay
-        fjIncidentR["incidentStopClockHours"] = fjIncidentTimer?.incidentStopClockHours
-        fjIncidentR["incidentStopClockMinutes"] = fjIncidentTimer?.incidentStopClockMinutes
-        fjIncidentR["incidentStopClockMonth"] = fjIncidentTimer?.incidentStopClockMonth
-        fjIncidentR["incidentStopClockSeconds"] = fjIncidentTimer?.incidentStopClockSeconds
-        fjIncidentR["incidentStopClockYear"] = fjIncidentTimer?.incidentStopClockYear
-        fjIncidentR["lastUnitSameDate"] = Int(fjIncidentTimer?.lastUnitSameDate ?? false)
-        
-        //        MARK: -ActionsTaken-
-            let fjActionsTaken = self.actionsTakenDetails
-        fjIncidentR["additionalThree"] = fjActionsTaken?.additionalThree
-        fjIncidentR["additionalThreeNumber"] = fjActionsTaken?.additionalThreeNumber
-        fjIncidentR["additionalTwo"] = fjActionsTaken?.additionalTwo
-        fjIncidentR["additionalTwoNumber"] = fjActionsTaken?.additionalTwoNumber
-        fjIncidentR["primaryAction"] = fjActionsTaken?.primaryAction
-        fjIncidentR["primaryActionNumber"] = fjActionsTaken?.primaryActionNumber
-            
-            // TODO: -IncidentTags, IncidentTeams, Crews
-            // IncidentTeam *_incidentTeam = (IncidentTeam *)self.teamMemberDetails
-            //     NSMutableArray *team = [[NSMutableArray alloc] init]
-            //     for(_incidentTeam in self.teamMemberDetails){
-            //         [team addObject:_incidentTeam.teamMember]
-            //     }
-            //     _teamArray = [team copy]
-            //     NSString *teaming = @""
-            //     NSString *truncatedTString = @""
-            //     if (!([_teamArray count] == 0)) {
-            //         for(NSString *t in _teamArray){
-            //             if(![t isEqualToString:@""])
-            //                 teaming = [teaming stringByAppendingString:[NSString stringWithFormat:@"%@, ",t]]
-            //         }
-            //         if([teaming length]>2){
-            //             truncatedTString = [teaming substringToIndex:[teaming length]-2]
-            //         }
-            //     }
-            //     fjIncidentR["teamMembers"] = truncatedTString
-            //
-            //     IncidentTags *_incidentTags = (IncidentTags *)self.incidentTagDetails
-            //     NSMutableArray *tag = [[NSMutableArray alloc] init]
-            //     for(_incidentTags in self.incidentTagDetails){
-            //         [tag addObject:_incidentTags.incidentTag]
-            //     }
-            //     _tagsArray = [tag copy]
-            //     NSString *tagging = @""
-            //     NSString *truncatedTagString = @""
-            //     if (!([_tagsArray count] == 0)) {
-            //         for(NSString *t in _tagsArray){
-            //             if(![t isEqualToString:@""])
-            //                 tagging = [tagging stringByAppendingString:[NSString stringWithFormat:@"%@, ",t]]
-            //         }
-            //         if([tagging length]>2){
-            //             truncatedTagString = [tagging substringToIndex:[tagging length]-2]
-            //         }
-            //     }
-            //     fjIncidentR["incidentTags"] = truncatedTagString
-            do {
-                let data = try NSKeyedArchiver.archivedData(withRootObject: incidentRef, requiringSecureCoding: true)
-                self.anIncidentReferenceSC = data as NSObject
-                
-            } catch {
-                print("incidentRef to data failed line 514 Incident+Custom")
+        if let fjIncidentAddress = self.incidentAddressDetails {
+            if let appSuiteRoom = fjIncidentAddress.appSuiteRoom {
+                fjIncidentR["appSuiteRoom"] = appSuiteRoom
             }
+            if let censusTract = fjIncidentAddress.censusTract {
+                fjIncidentR["censusTract"] = censusTract
+            }
+            if let censusTract2 = fjIncidentAddress.censusTract2 {
+                fjIncidentR["censusTract2"] = censusTract2
+            }
+            if let city = fjIncidentAddress.city {
+                fjIncidentR["city"] = city
+            }
+            if let crossStreet = fjIncidentAddress.crossStreet {
+                fjIncidentR["crossStreet"] = crossStreet
+            }
+            if let incidentState = fjIncidentAddress.incidentState {
+                fjIncidentR["incidentState"] = incidentState
+            }
+            if let prefix = fjIncidentAddress.prefix {
+                fjIncidentR["prefix"] = prefix
+            }
+            if let stagingAddress = fjIncidentAddress.stagingAddress {
+                fjIncidentR["stagingAddress"] = stagingAddress
+            }
+            if let streetHighway = fjIncidentAddress.streetHighway {
+                fjIncidentR["streetHighway"] = streetHighway
+            }
+            if let streetNumber = fjIncidentAddress.streetNumber {
+                fjIncidentR["streetNumber"] = streetNumber
+            }
+            if let streetType = fjIncidentAddress.streetType {
+                fjIncidentR["streetType"] = streetType
+            }
+            if let suffix = fjIncidentAddress.suffix {
+                fjIncidentR["suffix"] = suffix
+            }
+            if let zip = fjIncidentAddress.zip {
+                fjIncidentR["zip"] = zip
+            }
+            if let zipPlus4 = fjIncidentAddress.zipPlus4 {
+                fjIncidentR["zipPlus4"] = zipPlus4
+            }
+            var num = ""
+            var street = ""
+            var zip = ""
+            if let number = fjIncidentAddress.streetNumber {
+                num = number
+            }
+            if let st = fjIncidentAddress.streetHighway {
+                street = st
+            }
+            if let zipped = fjIncidentAddress.zip {
+                zip = zipped
+            }
+            fjIncidentR["aadressForIncident"] = "\(num) \(street) \(zip)"
+        }
         
-            saveToCD()
-//        end record
+            //MARK: -incidentLocal-
+        if let fjIncidentLocal = self.incidentLocalDetails {
+            if let incidentBattalion = fjIncidentLocal.incidentBattalion {
+                fjIncidentR["incidentBattalion"] = incidentBattalion
+            }
+            if let incidentDivision = fjIncidentLocal.incidentDivision {
+                fjIncidentR["incidentDivision"] = incidentDivision
+            }
+            if let incidentFireDistrict = fjIncidentLocal.incidentFireDistrict {
+                fjIncidentR["incidentFireDistrict"] = incidentFireDistrict
+            }
+            if let incidentLocalType = fjIncidentLocal.incidentLocalType {
+                fjIncidentR["incidentLocalType"] = incidentLocalType
+            }
+        }
+        
+            //MARK: -IncidentMap-
+        if let fjIncidentMap = self.incidentMapDetails {
+            if let incidentLatitude = fjIncidentMap.incidentLatitude {
+                fjIncidentR["incidentLatitude"] = incidentLatitude
+            }
+            if let incidentLongitude = fjIncidentMap.incidentLongitude {
+                fjIncidentR["incidentLongitude"] = incidentLongitude
+            }
+            if let stagingLatitude = fjIncidentMap.stagingLatitude {
+                fjIncidentR["stagingLatitude"] = stagingLatitude
+            }
+            if let stagingLongitude = fjIncidentMap.stagingLongitude {
+                fjIncidentR["stagingLongitude"] = stagingLongitude
+            }
+        }
+        
+            // MARK: -IncidentNFIRS-
+        if  let fjIncidentNFIRS = self.incidentNFIRSDetails {
+            if let fireStationState = fjIncidentNFIRS.fireStationState {
+                fjIncidentR["fireStationState"] = fireStationState
+            }
+            if let incidentActionsTakenAdditionalThree = fjIncidentNFIRS.incidentActionsTakenAdditionalThree {
+                fjIncidentR["incidentActionsTakenAdditionalThree"] = incidentActionsTakenAdditionalThree
+            }
+            if let incidentActionsTakenAdditionalTwo = fjIncidentNFIRS.incidentActionsTakenAdditionalTwo {
+                fjIncidentR["incidentActionsTakenAdditionalTwo"] = incidentActionsTakenAdditionalTwo
+            }
+            if let incidentActionsTakenPrimary = fjIncidentNFIRS.incidentActionsTakenPrimary {
+                fjIncidentR["incidentActionsTakenPrimary"] = incidentActionsTakenPrimary
+            }
+            if let incidentAidGiven = fjIncidentNFIRS.incidentAidGiven {
+                fjIncidentR["incidentAidGiven"] = incidentAidGiven
+            }
+            if let incidentAidGivenFDID = fjIncidentNFIRS.incidentAidGivenFDID {
+                fjIncidentR["incidentAidGivenFDID"] = incidentAidGivenFDID
+            }
+            if let incidentAidGivenIncidentNumber = fjIncidentNFIRS.incidentAidGivenIncidentNumber {
+                fjIncidentR["incidentAidGivenIncidentNumber"] = incidentAidGivenIncidentNumber
+            }
+            if let incidentAidGivenNone = fjIncidentNFIRS.incidentAidGivenNone {
+                fjIncidentR["incidentAidGivenNone"] = incidentAidGivenNone
+            }
+            if let incidentAidGivenState = fjIncidentNFIRS.incidentAidGivenState {
+                fjIncidentR["incidentAidGivenState"] = incidentAidGivenState
+            }
+            if let incidentCasualtiesCivilianDeaths = fjIncidentNFIRS.incidentCasualtiesCivilianDeaths {
+                fjIncidentR["incidentCasualtiesCivilianDeaths"] = incidentCasualtiesCivilianDeaths
+            }
+            if let incidentCasualtiesCivilianInjuries = fjIncidentNFIRS.incidentCasualtiesCivilianInjuries {
+                fjIncidentR["incidentCasualtiesCivilianInjuries"] = incidentCasualtiesCivilianInjuries
+            }
+            if let incidentCasualtiesFireDeaths = fjIncidentNFIRS.incidentCasualtiesFireDeaths {
+                fjIncidentR["incidentCasualtiesFireDeaths"] = incidentCasualtiesFireDeaths
+            }
+            if let incidentCasualtiesFireInjuries = fjIncidentNFIRS.incidentCasualtiesFireInjuries {
+                fjIncidentR["incidentCasualtiesFireInjuries"] = incidentCasualtiesFireInjuries
+            }
+            if let incidentCasualtiesServiceDeaths = fjIncidentNFIRS.incidentCasualtiesServiceDeaths {
+                fjIncidentR["incidentCasualtiesServiceDeaths"] = incidentCasualtiesServiceDeaths
+            }
+            if let incidentCasualtitesServideInjuries = fjIncidentNFIRS.incidentCasualtitesServideInjuries {
+                fjIncidentR["incidentCasualtitesServideInjuries"] = incidentCasualtitesServideInjuries
+            }
+            if let incidentDetectorChosen = fjIncidentNFIRS.incidentDetectorChosen {
+                fjIncidentR["incidentDetectorChosen"] = incidentDetectorChosen
+            }
+            if let incidentExposure = fjIncidentNFIRS.incidentExposure {
+                fjIncidentR["incidentExposure"] = incidentExposure
+            }
+            if let incidentFDID = fjIncidentNFIRS.incidentFDID {
+                fjIncidentR["incidentFDID"] = incidentFDID
+            }
+            if let incidentFDID1 = fjIncidentNFIRS.incidentFDID1 {
+                fjIncidentR["incidentFDID1"] = incidentFDID1
+            }
+            if let incidentFireStation = fjIncidentNFIRS.incidentFireStation {
+                fjIncidentR["incidentFireStation"] = incidentFireStation
+            }
+            if let incidentHazMat = fjIncidentNFIRS.incidentHazMat {
+                fjIncidentR["incidentHazMat"] = incidentHazMat
+            }
+            if let incidentLocation = fjIncidentNFIRS.incidentLocation {
+                fjIncidentR["incidentNFIRSLocation"] = incidentLocation
+            }
+            if let incidentPlatoon = fjIncidentNFIRS.incidentPlatoon {
+                fjIncidentR["incidentPlatoon"] = incidentPlatoon
+            }
+            if let incidentPropertyNone = fjIncidentNFIRS.incidentPropertyNone {
+                fjIncidentR["incidentPropertyNone"] = incidentPropertyNone
+            }
+            if let incidentPropertyOutside = fjIncidentNFIRS.incidentPropertyOutside {
+                fjIncidentR["incidentPropertyOutside"] = incidentPropertyOutside
+            }
+            if let incidentPropertyOutsideNumber = fjIncidentNFIRS.incidentPropertyOutsideNumber {
+                fjIncidentR["incidentPropertyOutsideNumber"] = incidentPropertyOutsideNumber
+            }
+            if let incidentPropertyStructure = fjIncidentNFIRS.incidentPropertyStructure {
+                fjIncidentR["incidentPropertyStructure"] = incidentPropertyStructure
+            }
+            if let incidentPropertyStructureNumber = fjIncidentNFIRS.incidentPropertyStructureNumber {
+                fjIncidentR["incidentPropertyStructureNumber"] = incidentPropertyStructureNumber
+            }
+            if let incidentPropertyUse = fjIncidentNFIRS.incidentPropertyUse {
+                fjIncidentR["incidentPropertyUse"] = incidentPropertyUse
+            }
+            if let incidentPropertyUseNone = fjIncidentNFIRS.incidentPropertyUseNone {
+                fjIncidentR["incidentPropertyUseNone"] = incidentPropertyUseNone
+            }
+            if let incidentPropertyUseNumber = fjIncidentNFIRS.incidentPropertyUseNumber {
+                fjIncidentR["incidentPropertyUseNumber"] = incidentPropertyUseNumber
+            }
+            if let incidentResourceCheck = fjIncidentNFIRS.incidentResourceCheck {
+                fjIncidentR["incidentResourceCheck"] = incidentResourceCheck
+            }
+            if let incidentResourcesEMSApparatus = fjIncidentNFIRS.incidentResourcesEMSApparatus {
+                fjIncidentR["incidentResourcesEMSApparatus"] = incidentResourcesEMSApparatus
+            }
+            if let incidentResourcesEMSPersonnel = fjIncidentNFIRS.incidentResourcesEMSPersonnel {
+                fjIncidentR["incidentResourcesEMSPersonnel"] = incidentResourcesEMSPersonnel
+            }
+            if let incidentResourcesOtherApparatus = fjIncidentNFIRS.incidentResourcesOtherApparatus {
+                fjIncidentR["incidentResourcesOtherApparatus"] = incidentResourcesOtherApparatus
+            }
+            if let incidentResourcesOtherPersonnel = fjIncidentNFIRS.incidentResourcesOtherPersonnel {
+                fjIncidentR["incidentResourcesOtherPersonnel"] = incidentResourcesOtherPersonnel
+            }
+            if let incidentResourcesSuppressionPersonnel = fjIncidentNFIRS.incidentResourcesSuppressionPersonnel {
+                fjIncidentR["incidentResourcesSuppressionPersonnel"] = incidentResourcesSuppressionPersonnel
+            }
+            if let incidentResourcesSupressionApparatus = fjIncidentNFIRS.incidentResourcesSupressionApparatus {
+                fjIncidentR["incidentResourcesSupressionApparatus"] = incidentResourcesSupressionApparatus
+            }
+            if let incidentTypeNumberNFRIS = fjIncidentNFIRS.incidentTypeNumberNFRIS {
+                fjIncidentR["incidentTypeNumberNFRIS"] = incidentTypeNumberNFRIS
+            }
+            if let incidentTypeTextNFRIS = fjIncidentNFIRS.incidentTypeTextNFRIS {
+                fjIncidentR["incidentTypeTextNFRIS"] = incidentTypeTextNFRIS
+            }
+            if let lossesContentDollars = fjIncidentNFIRS.lossesContentDollars {
+                fjIncidentR["lossesContentDollars"] = lossesContentDollars
+            }
+            if let lossesPropertyDollars = fjIncidentNFIRS.lossesPropertyDollars {
+                fjIncidentR["lossesPropertyDollars"] = lossesPropertyDollars
+            }
+            if let mixedUsePropertyType = fjIncidentNFIRS.mixedUsePropertyType {
+                fjIncidentR["mixedUsePropertyType"] = mixedUsePropertyType
+            }
+            if let nfirsChangeDescription = fjIncidentNFIRS.nfirsChangeDescription {
+                fjIncidentR["nfirsChangeDescription"] = nfirsChangeDescription
+            }
+            if let nfirsSectionOneSegment = fjIncidentNFIRS.nfirsSectionOneSegment {
+                fjIncidentR["nfirsSectionOneSegment"] = nfirsSectionOneSegment
+            }
+            if let shiftAlarm = fjIncidentNFIRS.shiftAlarm {
+                fjIncidentR["shiftAlarm"] = shiftAlarm
+            }
+            if let shiftDistrict = fjIncidentNFIRS.shiftDistrict {
+                fjIncidentR["shiftDistrict"] = shiftDistrict
+            }
+            if let shiftOrPlatoon = fjIncidentNFIRS.shiftOrPlatoon {
+                fjIncidentR["shiftOrPlatoon"] = shiftOrPlatoon
+            }
+            if let specialStudyID = fjIncidentNFIRS.specialStudyID {
+                fjIncidentR["specialStudyID"] = specialStudyID
+            }
+            if let specialStudyValue = fjIncidentNFIRS.specialStudyValue {
+                fjIncidentR["specialStudyValue"] = specialStudyValue
+            }
+            if let valueContentDollars = fjIncidentNFIRS.valueContentDollars {
+                fjIncidentR["valueContentDollars"] = valueContentDollars
+            }
+            
+            fjIncidentR["incidentHazMatNone"] = Int(fjIncidentNFIRS.incidentHazMatNone)
+            fjIncidentR["valuePropertyDollars"] = fjIncidentNFIRS.valuePropertyDollars
+            fjIncidentR["lossesContentNone"] = Int(fjIncidentNFIRS.lossesContentNone)
+            fjIncidentR["lossesPropertyNone"] = Int(fjIncidentNFIRS.lossesPropertyNone)
+            fjIncidentR["mixedUsePropertyNone"] = Int(fjIncidentNFIRS.mixedUsePropertyNone)
+            fjIncidentR["propertyUseNone"] = Int(fjIncidentNFIRS.propertyUseNone)
+            fjIncidentR["resourceCountsIncludeAidReceived"] = Int(fjIncidentNFIRS.resourceCountsIncludeAidReceived)
+            fjIncidentR["skipSectionF"] = Int(fjIncidentNFIRS.skipSectionF)
+            fjIncidentR["valueContentsNone"] = Int(fjIncidentNFIRS.valueContentsNone)
+            fjIncidentR["valuePropertyNone"] = Int(fjIncidentNFIRS.valuePropertyNone)
+            fjIncidentR["incidentCasualtiesNone"] = Int(fjIncidentNFIRS.incidentCasualtiesNone)
+            
+        }
+        
+            // MARK: -IncidentNFIRSKSec-
+        if let fjIncidentNFIRSKSec = self.incidentNFIRSKSecDetails {
+            if let kOwnerAptSuiteRoom = fjIncidentNFIRSKSec.kOwnerAptSuiteRoom {
+                fjIncidentR["kOwnerAptSuiteRoom"] = kOwnerAptSuiteRoom
+            }
+            if let kOwnerAreaCode = fjIncidentNFIRSKSec.kOwnerAreaCode {
+                fjIncidentR["kOwnerAreaCode"] = kOwnerAreaCode
+            }
+            if let kOwnerBusinessName = fjIncidentNFIRSKSec.kOwnerBusinessName {
+                fjIncidentR["kOwnerBusinessName"] = kOwnerBusinessName
+            }
+            if let kOwnerCity = fjIncidentNFIRSKSec.kOwnerCity {
+                fjIncidentR["kOwnerCity"] = kOwnerCity
+            }
+            if let kOwnerFirstName = fjIncidentNFIRSKSec.kOwnerFirstName {
+                fjIncidentR["kOwnerFirstName"] = kOwnerFirstName
+            }
+            if let kOwnerLastName = fjIncidentNFIRSKSec.kOwnerLastName {
+                fjIncidentR["kOwnerLastName"] = kOwnerLastName
+            }
+            if let kOwnerMI = fjIncidentNFIRSKSec.kOwnerMI {
+                fjIncidentR["kOwnerMI"] = kOwnerMI
+            }
+            if let kOwnerNamePrefix = fjIncidentNFIRSKSec.kOwnerNamePrefix {
+                fjIncidentR["kOwnerNamePrefix"] = kOwnerNamePrefix
+            }
+            if let kOwnerNameSuffix = fjIncidentNFIRSKSec.kOwnerNameSuffix {
+                fjIncidentR["kOwnerNameSuffix"] = kOwnerNameSuffix
+            }
+            if let kOwnerPhoneLastFour = fjIncidentNFIRSKSec.kOwnerPhoneLastFour {
+                fjIncidentR["kOwnerPhoneLastFour"] = kOwnerPhoneLastFour
+            }
+            if let kOwnerPhonePrefix = fjIncidentNFIRSKSec.kOwnerPhonePrefix {
+                fjIncidentR["kOwnerPhonePrefix"] = kOwnerPhonePrefix
+            }
+            if let kOwnerPOBox = fjIncidentNFIRSKSec.kOwnerPOBox {
+                fjIncidentR["kOwnerPOBox"] = kOwnerPOBox
+            }
+            if let kOwnerState = fjIncidentNFIRSKSec.kOwnerState {
+                fjIncidentR["kOwnerState"] = kOwnerState
+            }
+            if let kOwnerStreetHyway = fjIncidentNFIRSKSec.kOwnerStreetHyway {
+                fjIncidentR["kOwnerStreetHyway"] = kOwnerStreetHyway
+            }
+            if let kOwnerStreetNumber = fjIncidentNFIRSKSec.kOwnerStreetNumber {
+                fjIncidentR["kOwnerStreetNumber"] = kOwnerStreetNumber
+            }
+            if let kOwnerStreetPrefix = fjIncidentNFIRSKSec.kOwnerStreetPrefix {
+                fjIncidentR["kOwnerStreetPrefix"] = kOwnerStreetPrefix
+            }
+            if let kOwnerStreetSuffix = fjIncidentNFIRSKSec.kOwnerStreetSuffix {
+                fjIncidentR["kOwnerStreetSuffix"] = kOwnerStreetSuffix
+            }
+            if let kOwnerStreetType = fjIncidentNFIRSKSec.kOwnerStreetType {
+                fjIncidentR["kOwnerStreetType"] = kOwnerStreetType
+            }
+            if let kOwnerZip = fjIncidentNFIRSKSec.kOwnerZip {
+                fjIncidentR["kOwnerZip"] = kOwnerZip
+            }
+            if let kOwnerZipPlusFour = fjIncidentNFIRSKSec.kOwnerZipPlusFour {
+                fjIncidentR["kOwnerZipPlusFour"] = kOwnerZipPlusFour
+            }
+            if let kPersonAppSuiteRoom = fjIncidentNFIRSKSec.kPersonAppSuiteRoom {
+                fjIncidentR["kPersonAppSuiteRoom"] = kPersonAppSuiteRoom
+            }
+            if let kPersonAreaCode = fjIncidentNFIRSKSec.kPersonAreaCode {
+                fjIncidentR["kPersonAreaCode"] = kPersonAreaCode
+            }
+            if let kPersonBusinessName = fjIncidentNFIRSKSec.kPersonBusinessName {
+                fjIncidentR["kPersonBusinessName"] = kPersonBusinessName
+            }
+            if let kPersonCity = fjIncidentNFIRSKSec.kPersonCity {
+                fjIncidentR["kPersonCity"] = kPersonCity
+            }
+            if let kPersonFirstName = fjIncidentNFIRSKSec.kPersonFirstName {
+                fjIncidentR["kPersonFirstName"] = kPersonFirstName
+            }
+            if let kPersonGender = fjIncidentNFIRSKSec.kPersonGender {
+                fjIncidentR["kPersonGender"] = kPersonGender
+            }
+            if let kPersonLastName = fjIncidentNFIRSKSec.kPersonLastName {
+                fjIncidentR["kPersonLastName"] = kPersonLastName
+            }
+            if let kPersonMI = fjIncidentNFIRSKSec.kPersonMI {
+                fjIncidentR["kPersonMI"] = kPersonMI
+            }
+            if let kPersonNameSuffix = fjIncidentNFIRSKSec.kPersonNameSuffix {
+                fjIncidentR["kPersonNameSuffix"] = kPersonNameSuffix
+            }
+            if let kPersonPhoneLastFour = fjIncidentNFIRSKSec.kPersonPhoneLastFour {
+                fjIncidentR["kPersonPhoneLastFour"] = kPersonPhoneLastFour
+            }
+            if let kPersonPhonePrefix = fjIncidentNFIRSKSec.kPersonPhonePrefix {
+                fjIncidentR["kPersonPhonePrefix"] = kPersonPhonePrefix
+            }
+            if let kPersonPOBox = fjIncidentNFIRSKSec.kPersonPOBox {
+                fjIncidentR["kPersonPOBox"] = kPersonPOBox
+            }
+            if let kPersonPrefix = fjIncidentNFIRSKSec.kPersonPrefix {
+                fjIncidentR["kPersonPrefix"] = kPersonPrefix
+            }
+            if let kPersonState = fjIncidentNFIRSKSec.kPersonState {
+                fjIncidentR["kPersonState"] = kPersonState
+            }
+            if let kPersonStreetHyway = fjIncidentNFIRSKSec.kPersonStreetHyway {
+                fjIncidentR["kPersonStreetHyway"] = kPersonStreetHyway
+            }
+            if let kPersonStreetNum = fjIncidentNFIRSKSec.kPersonStreetNum {
+                fjIncidentR["kPersonStreetNum"] = kPersonStreetNum
+            }
+            if let kPersonStreetSuffix = fjIncidentNFIRSKSec.kPersonStreetSuffix {
+                fjIncidentR["kPersonStreetSuffix"] = kPersonStreetSuffix
+            }
+            if let kPersonStreetType = fjIncidentNFIRSKSec.kPersonStreetType {
+                fjIncidentR["kPersonStreetType"] = kPersonStreetType
+            }
+            if let kPersonZipCode = fjIncidentNFIRSKSec.kPersonZipCode {
+                fjIncidentR["kPersonZipCode"] = kPersonZipCode
+            }
+            if let kPersonZipPlus4 = fjIncidentNFIRSKSec.kPersonZipPlus4 {
+                fjIncidentR["kPersonZipPlus4"] = kPersonZipPlus4
+            }
+            
+            fjIncidentR["kOwnerCheckBox"] = Int(fjIncidentNFIRSKSec.kOwnerCheckBox)
+            fjIncidentR["kOwnerSameAsPerson"] = Int(fjIncidentNFIRSKSec.kOwnerSameAsPerson)
+            fjIncidentR["kPersonCheckBox"] = Int(fjIncidentNFIRSKSec.kPersonCheckBox)
+            fjIncidentR["kPersonMoreThanOne"] = Int(fjIncidentNFIRSKSec.kPersonMoreThanOne)
+        }
+        
+        
+        
+        if let fjIncidentNFIRSsecL = self.sectionLDetails {
+            fjIncidentR["incidentNFIRSSecLNotes"] = fjIncidentNFIRSsecL.lRemarks as? String
+            fjIncidentR["incidentNFIRSSecLMoreRemarks"] = Int(fjIncidentNFIRSsecL.moreRemarks)
+        }
+        
+        if let fjIncidentNFIRSsecM = self.sectionMDetails {
+            if let memberAssignment = fjIncidentNFIRSsecM.memberAssignment {
+                fjIncidentR["memberAssignment"] = memberAssignment
+            }
+            if let memberDate = fjIncidentNFIRSsecM.memberDate {
+                fjIncidentR["memberDate"] = memberDate
+            }
+            if let memberMakingReportID = fjIncidentNFIRSsecM.memberMakingReportID {
+                fjIncidentR["memberMakingReportID"] = memberMakingReportID
+            }
+            if let memberRankPosition = fjIncidentNFIRSsecM.memberRankPosition {
+                fjIncidentR["memberRankPosition"] = memberRankPosition
+            }
+            if let officerAssignment = fjIncidentNFIRSsecM.officerAssignment {
+                fjIncidentR["officerAssignment"] = officerAssignment
+            }
+            if let officerDate = fjIncidentNFIRSsecM.officerDate {
+                fjIncidentR["officerDate"] = officerDate
+            }
+            if let officerInChargeID = fjIncidentNFIRSsecM.officerInChargeID {
+                fjIncidentR["officerInChargeID"] = officerInChargeID
+            }
+            if let officerRankPosition = fjIncidentNFIRSsecM.officerRankPosition {
+                fjIncidentR["officerRankPosition"] = officerRankPosition
+            }
+            if let signatureMember = fjIncidentNFIRSsecM.signatureMember {
+                fjIncidentR["signatureMember"] = signatureMember
+            }
+            if let signatureOfficer = fjIncidentNFIRSsecM.signatureOfficer {
+                fjIncidentR["signatureOfficer"] = signatureOfficer
+            }
+            
+            fjIncidentR["memberSameAsOfficer"] = Int(fjIncidentNFIRSsecM.memberSameAsOfficer)
+        }
+        
+        
+            // MARK: -IncidentNotes-
+        if let fjIncidentNotes = self.incidentNotesDetails {
+            fjIncidentR["incidentSummaryNotes"] = fjIncidentNotes.incidentSummaryNotes as? String
+            fjIncidentR["incidentNote"] = fjIncidentNotes.incidentNote
+        }
+        
+            //        MARK: -POV NOTES FOR INCIDENT
+        if let fjpPersonalJournalReference = self.fjpPersonalJournalReference {
+            fjIncidentR["fjpPersonalJournalReference"] = fjpPersonalJournalReference
+        }
+        
+            //        MARK: -IncidentTimer-
+        if let fjIncidentTimer = self.incidentTimerDetails {
+            
+            fjIncidentR["arrivalSameDate"] = Int(fjIncidentTimer.arrivalSameDate)
+            fjIncidentR["controlledSameDate"] = Int(fjIncidentTimer.controlledSameDate)
+            fjIncidentR["lastUnitSameDate"] = Int(fjIncidentTimer.lastUnitSameDate)
+            
+            if let incidentAlarmNotes = fjIncidentTimer.incidentAlarmNotes as? String {
+                fjIncidentR["incidentAlarmNotes"] = incidentAlarmNotes
+            }
+            if let incidentArrivalNotes = fjIncidentTimer.incidentArrivalNotes as? String {
+                fjIncidentR["incidentArrivalNotes"] = incidentArrivalNotes
+            }
+            if let incidentControlledNotes = fjIncidentTimer.incidentControlledNotes as? String {
+                fjIncidentR["incidentControlledNotes"] = incidentControlledNotes
+            }
+            if let incidentLastUnitClearedNotes = fjIncidentTimer.incidentLastUnitClearedNotes as? String {
+                fjIncidentR["incidentLastUnitClearedNotes"] = incidentLastUnitClearedNotes
+            }
+            
+            if let incidentAlarmCombinedDate = fjIncidentTimer.incidentAlarmCombinedDate {
+                fjIncidentR["incidentAlarmCombinedDate"] = incidentAlarmCombinedDate
+            }
+            if let incidentAlarmDateTime = fjIncidentTimer.incidentAlarmDateTime {
+                fjIncidentR["incidentAlarmDateTime"] = incidentAlarmDateTime
+            }
+            if let incidentAlarmDay = fjIncidentTimer.incidentAlarmDay {
+                fjIncidentR["incidentAlarmDay"] = incidentAlarmDay
+            }
+            if let incidentAlarmHours = fjIncidentTimer.incidentAlarmHours {
+                fjIncidentR["incidentAlarmHours"] = incidentAlarmHours
+            }
+            if let incidentAlarmMinutes = fjIncidentTimer.incidentAlarmMinutes {
+                fjIncidentR["incidentAlarmMinutes"] = incidentAlarmMinutes
+            }
+            if let incidentAlarmMonth = fjIncidentTimer.incidentAlarmMonth {
+                fjIncidentR["incidentAlarmMonth"] = incidentAlarmMonth
+            }
+            if let incidentAlarmYear = fjIncidentTimer.incidentAlarmYear {
+                fjIncidentR["incidentAlarmYear"] = incidentAlarmYear
+            }
+            if let incidentArrivalCombinedDate = fjIncidentTimer.incidentArrivalCombinedDate {
+                fjIncidentR["incidentArrivalCombinedDate"] = incidentArrivalCombinedDate
+            }
+            if let incidentArrivalDateTime = fjIncidentTimer.incidentArrivalDateTime {
+                fjIncidentR["incidentArrivalDateTime"] = incidentArrivalDateTime
+            }
+            if let incidentArrivalDay = fjIncidentTimer.incidentArrivalDay {
+                fjIncidentR["incidentArrivalDay"] = incidentArrivalDay
+            }
+            if let incidentArrivalHours = fjIncidentTimer.incidentArrivalHours {
+                fjIncidentR["incidentArrivalHours"] = incidentArrivalHours
+            }
+            if let incidentArrivalMinutes = fjIncidentTimer.incidentArrivalMinutes {
+                fjIncidentR["incidentArrivalMinutes"] = incidentArrivalMinutes
+            }
+            if let incidentArrivalMonth = fjIncidentTimer.incidentArrivalMonth {
+                fjIncidentR["incidentArrivalMonth"] = incidentArrivalMonth
+            }
+            if let incidentArrivalYear = fjIncidentTimer.incidentArrivalYear {
+                fjIncidentR["incidentArrivalYear"] = incidentArrivalYear
+            }
+            if let incidentControlledCombinedDate = fjIncidentTimer.incidentControlledCombinedDate {
+                fjIncidentR["incidentControlledCombinedDate"] = incidentControlledCombinedDate
+            }
+            if let incidentControlDateTime = fjIncidentTimer.incidentControlDateTime {
+                fjIncidentR["incidentControlDateTime"] = incidentControlDateTime
+            }
+            if let incidentControlledDay = fjIncidentTimer.incidentControlledDay {
+                fjIncidentR["incidentControlledDay"] = incidentControlledDay
+            }
+            if let incidentControlledHours = fjIncidentTimer.incidentControlledHours {
+                fjIncidentR["incidentControlledHours"] = incidentControlledHours
+            }
+            if let incidentControlledMinutes = fjIncidentTimer.incidentControlledMinutes {
+                fjIncidentR["incidentControlledMinutes"] = incidentControlledMinutes
+            }
+            if let incidentControlledMonth = fjIncidentTimer.incidentControlledMonth {
+                fjIncidentR["incidentControlledMonth"] = incidentControlledMonth
+            }
+            if let incidentControlledYear = fjIncidentTimer.incidentControlledYear {
+                fjIncidentR["incidentControlledYear"] = incidentControlledYear
+            }
+            if let incidentElapsedTime = fjIncidentTimer.incidentElapsedTime {
+                fjIncidentR["incidentElapsedTime"] = incidentElapsedTime
+            }
+            if let incidentLastUnitCalledCombinedDate = fjIncidentTimer.incidentLastUnitCalledCombinedDate {
+                fjIncidentR["incidentLastUnitCalledCombinedDate"] = incidentLastUnitCalledCombinedDate
+            }
+            if let incidentLastUnitDateTime = fjIncidentTimer.incidentLastUnitDateTime {
+                fjIncidentR["incidentLastUnitDateTime"] = incidentLastUnitDateTime
+            }
+            if let incidentLastUnitCalledDay = fjIncidentTimer.incidentLastUnitCalledDay {
+                fjIncidentR["incidentLastUnitCalledDay"] = incidentLastUnitCalledDay
+            }
+            if let incidentLastUnitCalledHours = fjIncidentTimer.incidentLastUnitCalledHours {
+                fjIncidentR["incidentLastUnitCalledHours"] = incidentLastUnitCalledHours
+            }
+            if let incidentLastUnitCalledMinutes = fjIncidentTimer.incidentLastUnitCalledMinutes {
+                fjIncidentR["incidentLastUnitCalledMinutes"] = incidentLastUnitCalledMinutes
+            }
+            if let incidentLastUnitCalledMonth = fjIncidentTimer.incidentLastUnitCalledMonth {
+                fjIncidentR["incidentLastUnitCalledMonth"] = incidentLastUnitCalledMonth
+            }
+            if let incidentLastUnitCalledYear = fjIncidentTimer.incidentLastUnitCalledYear {
+                fjIncidentR["incidentLastUnitCalledYear"] = incidentLastUnitCalledYear
+            }
+            if let incidentStartClockCombinedDate = fjIncidentTimer.incidentStartClockCombinedDate {
+                fjIncidentR["incidentStartClockCombinedDate"] = incidentStartClockCombinedDate
+            }
+            if let incidentStartClockDateTime = fjIncidentTimer.incidentStartClockDateTime {
+                fjIncidentR["incidentStartClockDateTime"] = incidentStartClockDateTime
+            }
+            if let incidentStartClockDay = fjIncidentTimer.incidentStartClockDay {
+                fjIncidentR["incidentStartClockDay"] = incidentStartClockDay
+            }
+            if let incidentStartClockHours = fjIncidentTimer.incidentStartClockHours {
+                fjIncidentR["incidentStartClockHours"] = incidentStartClockHours
+            }
+            if let incidentStartClockMinutes = fjIncidentTimer.incidentStartClockMinutes {
+                fjIncidentR["incidentStartClockMinutes"] = incidentStartClockMinutes
+            }
+            if let incidentStartClockMonth = fjIncidentTimer.incidentStartClockMonth {
+                fjIncidentR["incidentStartClockMonth"] = incidentStartClockMonth
+            }
+            if let incidentStartClockSeconds = fjIncidentTimer.incidentStartClockSeconds {
+                fjIncidentR["incidentStartClockSeconds"] = incidentStartClockSeconds
+            }
+            if let incidentStartClockYear = fjIncidentTimer.incidentStartClockYear {
+                fjIncidentR["incidentStartClockYear"] = incidentStartClockYear
+            }
+            if let incidentStopClockCombinedDate = fjIncidentTimer.incidentStopClockCombinedDate {
+                fjIncidentR["incidentStopClockCombinedDate"] = incidentStopClockCombinedDate
+            }
+            if let incidentStopClockDateTime = fjIncidentTimer.incidentStopClockDateTime {
+                fjIncidentR["incidentStopCloudDateTime"] = incidentStopClockDateTime
+            }
+            if let incidentStopClockDay = fjIncidentTimer.incidentStopClockDay {
+                fjIncidentR["incidentStopClockDay"] = incidentStopClockDay
+            }
+            if let incidentStopClockHours = fjIncidentTimer.incidentStopClockHours {
+                fjIncidentR["incidentStopClockHours"] = incidentStopClockHours
+            }
+            if let incidentStopClockMinutes = fjIncidentTimer.incidentStopClockMinutes {
+                fjIncidentR["incidentStopClockMinutes"] = incidentStopClockMinutes
+            }
+            if let incidentStopClockMonth = fjIncidentTimer.incidentStopClockMonth {
+                fjIncidentR["incidentStopClockMonth"] = incidentStopClockMonth
+            }
+            if let incidentStopClockSeconds = fjIncidentTimer.incidentStopClockSeconds {
+                fjIncidentR["incidentStopClockSeconds"] = incidentStopClockSeconds
+            }
+            if let incidentStopClockYear = fjIncidentTimer.incidentStopClockYear {
+                fjIncidentR["incidentStopClockYear"] = incidentStopClockYear
+            }
+        }
+        
+            //        MARK: -ActionsTaken-
+        if let fjActionsTaken = self.actionsTakenDetails {
+            if let additionalThree = fjActionsTaken.additionalThree {
+                fjIncidentR["additionalThree"] = additionalThree
+            }
+            if let additionalThreeNumber = fjActionsTaken.additionalThreeNumber {
+                fjIncidentR["additionalThreeNumber"] = additionalThreeNumber
+            }
+            if let additionalTwo = fjActionsTaken.additionalTwo {
+                fjIncidentR["additionalTwo"] = additionalTwo
+            }
+            if let additionalTwoNumber = fjActionsTaken.additionalTwoNumber {
+                fjIncidentR["additionalTwoNumber"] = additionalTwoNumber
+            }
+            if let primaryAction = fjActionsTaken.primaryAction {
+                fjIncidentR["primaryAction"] = primaryAction
+            }
+            if let primaryActionNumber = fjActionsTaken.primaryActionNumber {
+                fjIncidentR["primaryActionNumber"] = primaryActionNumber
+            }
+        }
+        
+        do {
+            let data = try NSKeyedArchiver.archivedData(withRootObject: incidentRef, requiringSecureCoding: true)
+            self.anIncidentReferenceSC = data as NSObject
+            
+        } catch {
+            print("incidentRef to data failed line 514 Incident+Custom")
+        }
+        
+        saveToCD()
+        
+        return fjIncidentR
+        
+    }
+    
+    func modifyIncidentForCloud(ckRecord:CKRecord)->CKRecord {
+        let fjIncidentR = ckRecord
+        
+        fjIncidentR["incidentBackedUp"] =  true
+        fjIncidentR["theEntity"] = "Incident"
+        if let guid = self.fjpIncGuidForReference {
+            fjIncidentR["fjpIncGuidForReference"] = guid
+        }
+        if let dateSearch = self.fjpIncidentDateSearch {
+            fjIncidentR["fjpIncidentDateSearch"] = dateSearch
+        }
+        if let modDate = self.fjpIncidentModifiedDate {
+            fjIncidentR["fjpIncidentModifiedDate"] = modDate
+        }
+        
+        if let form = self.formType {
+            fjIncidentR["formType"] =  form
+        }
+        if let incidentCreationDate = self.incidentCreationDate {
+            fjIncidentR["incidentCreationDate"] = incidentCreationDate
+        }
+        if let incidentDate = self.incidentDate {
+            fjIncidentR["incidentDate"] = incidentDate
+        }
+        if let incidentDateSearch = self.incidentDateSearch {
+            fjIncidentR["incidentDateSearch"] = incidentDateSearch
+        }
+        if let incidentDayOfWeek = self.incidentDayOfWeek {
+            fjIncidentR["incidentDayOfWeek"] = incidentDayOfWeek
+        }
+        if let incidentDayOfYear = self.incidentDayOfYear {
+            fjIncidentR["incidentDayOfYear"] = incidentDayOfYear
+        }
+        if self.locationAvailable {
+            fjIncidentR["locationAvailable"] = 1
+        } else {
+            fjIncidentR["locationAvailable"] = 0
+        }
+        if self.incidentTagsAvailable {
+            fjIncidentR["incidentTagsAvailable"] = 1
+        } else {
+            fjIncidentR["incidentTagsAvailable"] = 0
+        }
+        if self.incidentPhotoTaken != nil {
+            if self.incidentPhotoTaken == 1 {
+                fjIncidentR["incidentPhotoTaken"] = true
+            } else {
+                fjIncidentR["incidentPhotoTaken"] = false
+            }
+        }
+        if self.arsonInvestigation {
+            fjIncidentR["arsonInvestigation"] = 1
+        } else {
+            fjIncidentR["arsonInvestigation"] = 0
+        }
+        if self.incidentCancel {
+            fjIncidentR["incidentCancel"] = 1
+        } else {
+            fjIncidentR["incidentCancel"] = 0
+        }
+        if let incidentEntryTypeImageName = self.incidentEntryTypeImageName {
+            fjIncidentR["incidentEntryTypeImageName"] = incidentEntryTypeImageName
+        }
+        
+        if let incidentModDate = self.incidentModDate {
+            fjIncidentR["incidentModDate"] = incidentModDate
+        }
+        if let incidentNFIRSCompleted = self.incidentNFIRSCompleted {
+            fjIncidentR["incidentNFIRSCompleted"] = incidentNFIRSCompleted
+        }
+        if let incidentNFIRSCompletedDate = self.incidentNFIRSCompletedDate {
+            fjIncidentR["incidentNFIRSCompletedDate"] = incidentNFIRSCompletedDate
+        }
+        if let incidentNFIRSDataComplete = self.incidentNFIRSDataComplete {
+            fjIncidentR["incidentNFIRSDataComplete"] = incidentNFIRSDataComplete
+        }
+        if let incidentNFIRSDataDate = self.incidentNFIRSDataDate {
+            fjIncidentR["incidentNFIRSDataDate"] = incidentNFIRSDataDate
+        }
+        if let incidentNFIRSDataSaved = self.incidentNFIRSDataSaved {
+            fjIncidentR["incidentNFIRSDataSaved"] = incidentNFIRSDataSaved
+        }
+        if let incidentNumber = self.incidentNumber {
+            fjIncidentR["incidentNumber"] = incidentNumber
+        }
+        
+        if let incidentSearchDate = self.incidentSearchDate {
+            fjIncidentR["incidentSearchDate"] = incidentSearchDate
+        }
+        if let incidentTime = self.incidentTime {
+            fjIncidentR["incidentTime"] = incidentTime
+        }
+        if let incidentType = self.incidentType {
+            fjIncidentR["incidentType"] = incidentType
+        }
+        if let situationIncidentImage = self.situationIncidentImage {
+            fjIncidentR["situationIncidentImage"] = situationIncidentImage
+        }
+        if let tempIncidentApparatus = self.tempIncidentApparatus {
+            fjIncidentR["tempIncidentApparatus"] = tempIncidentApparatus
+        }
+        if let tempIncidentAssignment = self.tempIncidentAssignment {
+            fjIncidentR["tempIncidentAssignment"] = tempIncidentAssignment
+        }
+        if let tempIncidentFireStation = self.tempIncidentFireStation {
+            fjIncidentR["tempIncidentFireStation"] = tempIncidentFireStation
+        }
+        if let tempIncidentPlatoon = self.tempIncidentPlatoon {
+            fjIncidentR["tempIncidentPlatoon"] = tempIncidentPlatoon
+        }
+        if let ics214Effort = self.ics214Effort {
+            fjIncidentR["ics214Effort"] = ics214Effort
+        }
+        if let ics214MasterGuid = self.ics214MasterGuid {
+            fjIncidentR["ics214MasterGuid"] = ics214MasterGuid
+        }
+        fjIncidentR["arsonInvestigation"] = Int(self.arsonInvestigation)
+        
+        
+        if let fjuSections = self.formDetails {
+            fjIncidentR["sectionA"] = Int(fjuSections.sectionA)
+            fjIncidentR["sectionB"] = Int(fjuSections.sectionB )
+            fjIncidentR["sectionC"] = Int(fjuSections.sectionC)
+            fjIncidentR["sectionD"] = Int(fjuSections.sectionD)
+            fjIncidentR["sectionE"] = Int(fjuSections.sectionE)
+            fjIncidentR["sectionF"] = Int(fjuSections.sectionF)
+            fjIncidentR["sectionG"] = Int(fjuSections.sectionG)
+            fjIncidentR["sectionH"] = Int(fjuSections.sectionH)
+            fjIncidentR["sectionI"] = Int(fjuSections.sectionI)
+            fjIncidentR["sectionJ"] = Int(fjuSections.sectionJ)
+            fjIncidentR["sectionK"] = Int(fjuSections.sectionK)
+            fjIncidentR["sectionL"] = Int(fjuSections.sectionL)
+            fjIncidentR["sectionM"] = Int(fjuSections.sectionM)
+        }
+        
+        if let fjIncidentAddress = self.incidentAddressDetails {
+            if let appSuiteRoom = fjIncidentAddress.appSuiteRoom {
+                fjIncidentR["appSuiteRoom"] = appSuiteRoom
+            }
+            if let censusTract = fjIncidentAddress.censusTract {
+                fjIncidentR["censusTract"] = censusTract
+            }
+            if let censusTract2 = fjIncidentAddress.censusTract2 {
+                fjIncidentR["censusTract2"] = censusTract2
+            }
+            if let city = fjIncidentAddress.city {
+                fjIncidentR["city"] = city
+            }
+            if let crossStreet = fjIncidentAddress.crossStreet {
+                fjIncidentR["crossStreet"] = crossStreet
+            }
+            if let incidentState = fjIncidentAddress.incidentState {
+                fjIncidentR["incidentState"] = incidentState
+            }
+            if let prefix = fjIncidentAddress.prefix {
+                fjIncidentR["prefix"] = prefix
+            }
+            if let stagingAddress = fjIncidentAddress.stagingAddress {
+                fjIncidentR["stagingAddress"] = stagingAddress
+            }
+            if let streetHighway = fjIncidentAddress.streetHighway {
+                fjIncidentR["streetHighway"] = streetHighway
+            }
+            if let streetNumber = fjIncidentAddress.streetNumber {
+                fjIncidentR["streetNumber"] = streetNumber
+            }
+            if let streetType = fjIncidentAddress.streetType {
+                fjIncidentR["streetType"] = streetType
+            }
+            if let suffix = fjIncidentAddress.suffix {
+                fjIncidentR["suffix"] = suffix
+            }
+            if let zip = fjIncidentAddress.zip {
+                fjIncidentR["zip"] = zip
+            }
+            if let zipPlus4 = fjIncidentAddress.zipPlus4 {
+                fjIncidentR["zipPlus4"] = zipPlus4
+            }
+            var num = ""
+            var street = ""
+            var zip = ""
+            if let number = fjIncidentAddress.streetNumber {
+                num = number
+            }
+            if let st = fjIncidentAddress.streetHighway {
+                street = st
+            }
+            if let zipped = fjIncidentAddress.zip {
+                zip = zipped
+            }
+            fjIncidentR["aadressForIncident"] = "\(num) \(street) \(zip)"
+        }
+        
+            //MARK: -incidentLocal-
+        if let fjIncidentLocal = self.incidentLocalDetails {
+            if let incidentBattalion = fjIncidentLocal.incidentBattalion {
+                fjIncidentR["incidentBattalion"] = incidentBattalion
+            }
+            if let incidentDivision = fjIncidentLocal.incidentDivision {
+                fjIncidentR["incidentDivision"] = incidentDivision
+            }
+            if let incidentFireDistrict = fjIncidentLocal.incidentFireDistrict {
+                fjIncidentR["incidentFireDistrict"] = incidentFireDistrict
+            }
+            if let incidentLocalType = fjIncidentLocal.incidentLocalType {
+                fjIncidentR["incidentLocalType"] = incidentLocalType
+            }
+        }
+        
+            //MARK: -IncidentMap-
+        if let fjIncidentMap = self.incidentMapDetails {
+            if let incidentLatitude = fjIncidentMap.incidentLatitude {
+                fjIncidentR["incidentLatitude"] = incidentLatitude
+            }
+            if let incidentLongitude = fjIncidentMap.incidentLongitude {
+                fjIncidentR["incidentLongitude"] = incidentLongitude
+            }
+            if let stagingLatitude = fjIncidentMap.stagingLatitude {
+                fjIncidentR["stagingLatitude"] = stagingLatitude
+            }
+            if let stagingLongitude = fjIncidentMap.stagingLongitude {
+                fjIncidentR["stagingLongitude"] = stagingLongitude
+            }
+        }
+        
+            // MARK: -IncidentNFIRS-
+        if  let fjIncidentNFIRS = self.incidentNFIRSDetails {
+            if let fireStationState = fjIncidentNFIRS.fireStationState {
+                fjIncidentR["fireStationState"] = fireStationState
+            }
+            if let incidentActionsTakenAdditionalThree = fjIncidentNFIRS.incidentActionsTakenAdditionalThree {
+                fjIncidentR["incidentActionsTakenAdditionalThree"] = incidentActionsTakenAdditionalThree
+            }
+            if let incidentActionsTakenAdditionalTwo = fjIncidentNFIRS.incidentActionsTakenAdditionalTwo {
+                fjIncidentR["incidentActionsTakenAdditionalTwo"] = incidentActionsTakenAdditionalTwo
+            }
+            if let incidentActionsTakenPrimary = fjIncidentNFIRS.incidentActionsTakenPrimary {
+                fjIncidentR["incidentActionsTakenPrimary"] = incidentActionsTakenPrimary
+            }
+            if let incidentAidGiven = fjIncidentNFIRS.incidentAidGiven {
+                fjIncidentR["incidentAidGiven"] = incidentAidGiven
+            }
+            if let incidentAidGivenFDID = fjIncidentNFIRS.incidentAidGivenFDID {
+                fjIncidentR["incidentAidGivenFDID"] = incidentAidGivenFDID
+            }
+            if let incidentAidGivenIncidentNumber = fjIncidentNFIRS.incidentAidGivenIncidentNumber {
+                fjIncidentR["incidentAidGivenIncidentNumber"] = incidentAidGivenIncidentNumber
+            }
+            if let incidentAidGivenNone = fjIncidentNFIRS.incidentAidGivenNone {
+                fjIncidentR["incidentAidGivenNone"] = incidentAidGivenNone
+            }
+            if let incidentAidGivenState = fjIncidentNFIRS.incidentAidGivenState {
+                fjIncidentR["incidentAidGivenState"] = incidentAidGivenState
+            }
+            if let incidentCasualtiesCivilianDeaths = fjIncidentNFIRS.incidentCasualtiesCivilianDeaths {
+                fjIncidentR["incidentCasualtiesCivilianDeaths"] = incidentCasualtiesCivilianDeaths
+            }
+            if let incidentCasualtiesCivilianInjuries = fjIncidentNFIRS.incidentCasualtiesCivilianInjuries {
+                fjIncidentR["incidentCasualtiesCivilianInjuries"] = incidentCasualtiesCivilianInjuries
+            }
+            if let incidentCasualtiesFireDeaths = fjIncidentNFIRS.incidentCasualtiesFireDeaths {
+                fjIncidentR["incidentCasualtiesFireDeaths"] = incidentCasualtiesFireDeaths
+            }
+            if let incidentCasualtiesFireInjuries = fjIncidentNFIRS.incidentCasualtiesFireInjuries {
+                fjIncidentR["incidentCasualtiesFireInjuries"] = incidentCasualtiesFireInjuries
+            }
+            if let incidentCasualtiesServiceDeaths = fjIncidentNFIRS.incidentCasualtiesServiceDeaths {
+                fjIncidentR["incidentCasualtiesServiceDeaths"] = incidentCasualtiesServiceDeaths
+            }
+            if let incidentCasualtitesServideInjuries = fjIncidentNFIRS.incidentCasualtitesServideInjuries {
+                fjIncidentR["incidentCasualtitesServideInjuries"] = incidentCasualtitesServideInjuries
+            }
+            if let incidentDetectorChosen = fjIncidentNFIRS.incidentDetectorChosen {
+                fjIncidentR["incidentDetectorChosen"] = incidentDetectorChosen
+            }
+            if let incidentExposure = fjIncidentNFIRS.incidentExposure {
+                fjIncidentR["incidentExposure"] = incidentExposure
+            }
+            if let incidentFDID = fjIncidentNFIRS.incidentFDID {
+                fjIncidentR["incidentFDID"] = incidentFDID
+            }
+            if let incidentFDID1 = fjIncidentNFIRS.incidentFDID1 {
+                fjIncidentR["incidentFDID1"] = incidentFDID1
+            }
+            if let incidentFireStation = fjIncidentNFIRS.incidentFireStation {
+                fjIncidentR["incidentFireStation"] = incidentFireStation
+            }
+            if let incidentHazMat = fjIncidentNFIRS.incidentHazMat {
+                fjIncidentR["incidentHazMat"] = incidentHazMat
+            }
+            if let incidentLocation = fjIncidentNFIRS.incidentLocation {
+                fjIncidentR["incidentNFIRSLocation"] = incidentLocation
+            }
+            if let incidentPlatoon = fjIncidentNFIRS.incidentPlatoon {
+                fjIncidentR["incidentPlatoon"] = incidentPlatoon
+            }
+            if let incidentPropertyNone = fjIncidentNFIRS.incidentPropertyNone {
+                fjIncidentR["incidentPropertyNone"] = incidentPropertyNone
+            }
+            if let incidentPropertyOutside = fjIncidentNFIRS.incidentPropertyOutside {
+                fjIncidentR["incidentPropertyOutside"] = incidentPropertyOutside
+            }
+            if let incidentPropertyOutsideNumber = fjIncidentNFIRS.incidentPropertyOutsideNumber {
+                fjIncidentR["incidentPropertyOutsideNumber"] = incidentPropertyOutsideNumber
+            }
+            if let incidentPropertyStructure = fjIncidentNFIRS.incidentPropertyStructure {
+                fjIncidentR["incidentPropertyStructure"] = incidentPropertyStructure
+            }
+            if let incidentPropertyStructureNumber = fjIncidentNFIRS.incidentPropertyStructureNumber {
+                fjIncidentR["incidentPropertyStructureNumber"] = incidentPropertyStructureNumber
+            }
+            if let incidentPropertyUse = fjIncidentNFIRS.incidentPropertyUse {
+                fjIncidentR["incidentPropertyUse"] = incidentPropertyUse
+            }
+            if let incidentPropertyUseNone = fjIncidentNFIRS.incidentPropertyUseNone {
+                fjIncidentR["incidentPropertyUseNone"] = incidentPropertyUseNone
+            }
+            if let incidentPropertyUseNumber = fjIncidentNFIRS.incidentPropertyUseNumber {
+                fjIncidentR["incidentPropertyUseNumber"] = incidentPropertyUseNumber
+            }
+            if let incidentResourceCheck = fjIncidentNFIRS.incidentResourceCheck {
+                fjIncidentR["incidentResourceCheck"] = incidentResourceCheck
+            }
+            if let incidentResourcesEMSApparatus = fjIncidentNFIRS.incidentResourcesEMSApparatus {
+                fjIncidentR["incidentResourcesEMSApparatus"] = incidentResourcesEMSApparatus
+            }
+            if let incidentResourcesEMSPersonnel = fjIncidentNFIRS.incidentResourcesEMSPersonnel {
+                fjIncidentR["incidentResourcesEMSPersonnel"] = incidentResourcesEMSPersonnel
+            }
+            if let incidentResourcesOtherApparatus = fjIncidentNFIRS.incidentResourcesOtherApparatus {
+                fjIncidentR["incidentResourcesOtherApparatus"] = incidentResourcesOtherApparatus
+            }
+            if let incidentResourcesOtherPersonnel = fjIncidentNFIRS.incidentResourcesOtherPersonnel {
+                fjIncidentR["incidentResourcesOtherPersonnel"] = incidentResourcesOtherPersonnel
+            }
+            if let incidentResourcesSuppressionPersonnel = fjIncidentNFIRS.incidentResourcesSuppressionPersonnel {
+                fjIncidentR["incidentResourcesSuppressionPersonnel"] = incidentResourcesSuppressionPersonnel
+            }
+            if let incidentResourcesSupressionApparatus = fjIncidentNFIRS.incidentResourcesSupressionApparatus {
+                fjIncidentR["incidentResourcesSupressionApparatus"] = incidentResourcesSupressionApparatus
+            }
+            if let incidentTypeNumberNFRIS = fjIncidentNFIRS.incidentTypeNumberNFRIS {
+                fjIncidentR["incidentTypeNumberNFRIS"] = incidentTypeNumberNFRIS
+            }
+            if let incidentTypeTextNFRIS = fjIncidentNFIRS.incidentTypeTextNFRIS {
+                fjIncidentR["incidentTypeTextNFRIS"] = incidentTypeTextNFRIS
+            }
+            if let lossesContentDollars = fjIncidentNFIRS.lossesContentDollars {
+                fjIncidentR["lossesContentDollars"] = lossesContentDollars
+            }
+            if let lossesPropertyDollars = fjIncidentNFIRS.lossesPropertyDollars {
+                fjIncidentR["lossesPropertyDollars"] = lossesPropertyDollars
+            }
+            if let mixedUsePropertyType = fjIncidentNFIRS.mixedUsePropertyType {
+                fjIncidentR["mixedUsePropertyType"] = mixedUsePropertyType
+            }
+            if let nfirsChangeDescription = fjIncidentNFIRS.nfirsChangeDescription {
+                fjIncidentR["nfirsChangeDescription"] = nfirsChangeDescription
+            }
+            if let nfirsSectionOneSegment = fjIncidentNFIRS.nfirsSectionOneSegment {
+                fjIncidentR["nfirsSectionOneSegment"] = nfirsSectionOneSegment
+            }
+            if let shiftAlarm = fjIncidentNFIRS.shiftAlarm {
+                fjIncidentR["shiftAlarm"] = shiftAlarm
+            }
+            if let shiftDistrict = fjIncidentNFIRS.shiftDistrict {
+                fjIncidentR["shiftDistrict"] = shiftDistrict
+            }
+            if let shiftOrPlatoon = fjIncidentNFIRS.shiftOrPlatoon {
+                fjIncidentR["shiftOrPlatoon"] = shiftOrPlatoon
+            }
+            if let specialStudyID = fjIncidentNFIRS.specialStudyID {
+                fjIncidentR["specialStudyID"] = specialStudyID
+            }
+            if let specialStudyValue = fjIncidentNFIRS.specialStudyValue {
+                fjIncidentR["specialStudyValue"] = specialStudyValue
+            }
+            if let valueContentDollars = fjIncidentNFIRS.valueContentDollars {
+                fjIncidentR["valueContentDollars"] = valueContentDollars
+            }
+            
+            fjIncidentR["incidentHazMatNone"] = Int(fjIncidentNFIRS.incidentHazMatNone)
+            fjIncidentR["valuePropertyDollars"] = fjIncidentNFIRS.valuePropertyDollars
+            fjIncidentR["lossesContentNone"] = Int(fjIncidentNFIRS.lossesContentNone)
+            fjIncidentR["lossesPropertyNone"] = Int(fjIncidentNFIRS.lossesPropertyNone)
+            fjIncidentR["mixedUsePropertyNone"] = Int(fjIncidentNFIRS.mixedUsePropertyNone)
+            fjIncidentR["propertyUseNone"] = Int(fjIncidentNFIRS.propertyUseNone)
+            fjIncidentR["resourceCountsIncludeAidReceived"] = Int(fjIncidentNFIRS.resourceCountsIncludeAidReceived)
+            fjIncidentR["skipSectionF"] = Int(fjIncidentNFIRS.skipSectionF)
+            fjIncidentR["valueContentsNone"] = Int(fjIncidentNFIRS.valueContentsNone)
+            fjIncidentR["valuePropertyNone"] = Int(fjIncidentNFIRS.valuePropertyNone)
+            fjIncidentR["incidentCasualtiesNone"] = Int(fjIncidentNFIRS.incidentCasualtiesNone)
+            
+        }
+        
+            // MARK: -IncidentNFIRSKSec-
+        if let fjIncidentNFIRSKSec = self.incidentNFIRSKSecDetails {
+            if let kOwnerAptSuiteRoom = fjIncidentNFIRSKSec.kOwnerAptSuiteRoom {
+                fjIncidentR["kOwnerAptSuiteRoom"] = kOwnerAptSuiteRoom
+            }
+            if let kOwnerAreaCode = fjIncidentNFIRSKSec.kOwnerAreaCode {
+                fjIncidentR["kOwnerAreaCode"] = kOwnerAreaCode
+            }
+            if let kOwnerBusinessName = fjIncidentNFIRSKSec.kOwnerBusinessName {
+                fjIncidentR["kOwnerBusinessName"] = kOwnerBusinessName
+            }
+            if let kOwnerCity = fjIncidentNFIRSKSec.kOwnerCity {
+                fjIncidentR["kOwnerCity"] = kOwnerCity
+            }
+            if let kOwnerFirstName = fjIncidentNFIRSKSec.kOwnerFirstName {
+                fjIncidentR["kOwnerFirstName"] = kOwnerFirstName
+            }
+            if let kOwnerLastName = fjIncidentNFIRSKSec.kOwnerLastName {
+                fjIncidentR["kOwnerLastName"] = kOwnerLastName
+            }
+            if let kOwnerMI = fjIncidentNFIRSKSec.kOwnerMI {
+                fjIncidentR["kOwnerMI"] = kOwnerMI
+            }
+            if let kOwnerNamePrefix = fjIncidentNFIRSKSec.kOwnerNamePrefix {
+                fjIncidentR["kOwnerNamePrefix"] = kOwnerNamePrefix
+            }
+            if let kOwnerNameSuffix = fjIncidentNFIRSKSec.kOwnerNameSuffix {
+                fjIncidentR["kOwnerNameSuffix"] = kOwnerNameSuffix
+            }
+            if let kOwnerPhoneLastFour = fjIncidentNFIRSKSec.kOwnerPhoneLastFour {
+                fjIncidentR["kOwnerPhoneLastFour"] = kOwnerPhoneLastFour
+            }
+            if let kOwnerPhonePrefix = fjIncidentNFIRSKSec.kOwnerPhonePrefix {
+                fjIncidentR["kOwnerPhonePrefix"] = kOwnerPhonePrefix
+            }
+            if let kOwnerPOBox = fjIncidentNFIRSKSec.kOwnerPOBox {
+                fjIncidentR["kOwnerPOBox"] = kOwnerPOBox
+            }
+            if let kOwnerState = fjIncidentNFIRSKSec.kOwnerState {
+                fjIncidentR["kOwnerState"] = kOwnerState
+            }
+            if let kOwnerStreetHyway = fjIncidentNFIRSKSec.kOwnerStreetHyway {
+                fjIncidentR["kOwnerStreetHyway"] = kOwnerStreetHyway
+            }
+            if let kOwnerStreetNumber = fjIncidentNFIRSKSec.kOwnerStreetNumber {
+                fjIncidentR["kOwnerStreetNumber"] = kOwnerStreetNumber
+            }
+            if let kOwnerStreetPrefix = fjIncidentNFIRSKSec.kOwnerStreetPrefix {
+                fjIncidentR["kOwnerStreetPrefix"] = kOwnerStreetPrefix
+            }
+            if let kOwnerStreetSuffix = fjIncidentNFIRSKSec.kOwnerStreetSuffix {
+                fjIncidentR["kOwnerStreetSuffix"] = kOwnerStreetSuffix
+            }
+            if let kOwnerStreetType = fjIncidentNFIRSKSec.kOwnerStreetType {
+                fjIncidentR["kOwnerStreetType"] = kOwnerStreetType
+            }
+            if let kOwnerZip = fjIncidentNFIRSKSec.kOwnerZip {
+                fjIncidentR["kOwnerZip"] = kOwnerZip
+            }
+            if let kOwnerZipPlusFour = fjIncidentNFIRSKSec.kOwnerZipPlusFour {
+                fjIncidentR["kOwnerZipPlusFour"] = kOwnerZipPlusFour
+            }
+            if let kPersonAppSuiteRoom = fjIncidentNFIRSKSec.kPersonAppSuiteRoom {
+                fjIncidentR["kPersonAppSuiteRoom"] = kPersonAppSuiteRoom
+            }
+            if let kPersonAreaCode = fjIncidentNFIRSKSec.kPersonAreaCode {
+                fjIncidentR["kPersonAreaCode"] = kPersonAreaCode
+            }
+            if let kPersonBusinessName = fjIncidentNFIRSKSec.kPersonBusinessName {
+                fjIncidentR["kPersonBusinessName"] = kPersonBusinessName
+            }
+            if let kPersonCity = fjIncidentNFIRSKSec.kPersonCity {
+                fjIncidentR["kPersonCity"] = kPersonCity
+            }
+            if let kPersonFirstName = fjIncidentNFIRSKSec.kPersonFirstName {
+                fjIncidentR["kPersonFirstName"] = kPersonFirstName
+            }
+            if let kPersonGender = fjIncidentNFIRSKSec.kPersonGender {
+                fjIncidentR["kPersonGender"] = kPersonGender
+            }
+            if let kPersonLastName = fjIncidentNFIRSKSec.kPersonLastName {
+                fjIncidentR["kPersonLastName"] = kPersonLastName
+            }
+            if let kPersonMI = fjIncidentNFIRSKSec.kPersonMI {
+                fjIncidentR["kPersonMI"] = kPersonMI
+            }
+            if let kPersonNameSuffix = fjIncidentNFIRSKSec.kPersonNameSuffix {
+                fjIncidentR["kPersonNameSuffix"] = kPersonNameSuffix
+            }
+            if let kPersonPhoneLastFour = fjIncidentNFIRSKSec.kPersonPhoneLastFour {
+                fjIncidentR["kPersonPhoneLastFour"] = kPersonPhoneLastFour
+            }
+            if let kPersonPhonePrefix = fjIncidentNFIRSKSec.kPersonPhonePrefix {
+                fjIncidentR["kPersonPhonePrefix"] = kPersonPhonePrefix
+            }
+            if let kPersonPOBox = fjIncidentNFIRSKSec.kPersonPOBox {
+                fjIncidentR["kPersonPOBox"] = kPersonPOBox
+            }
+            if let kPersonPrefix = fjIncidentNFIRSKSec.kPersonPrefix {
+                fjIncidentR["kPersonPrefix"] = kPersonPrefix
+            }
+            if let kPersonState = fjIncidentNFIRSKSec.kPersonState {
+                fjIncidentR["kPersonState"] = kPersonState
+            }
+            if let kPersonStreetHyway = fjIncidentNFIRSKSec.kPersonStreetHyway {
+                fjIncidentR["kPersonStreetHyway"] = kPersonStreetHyway
+            }
+            if let kPersonStreetNum = fjIncidentNFIRSKSec.kPersonStreetNum {
+                fjIncidentR["kPersonStreetNum"] = kPersonStreetNum
+            }
+            if let kPersonStreetSuffix = fjIncidentNFIRSKSec.kPersonStreetSuffix {
+                fjIncidentR["kPersonStreetSuffix"] = kPersonStreetSuffix
+            }
+            if let kPersonStreetType = fjIncidentNFIRSKSec.kPersonStreetType {
+                fjIncidentR["kPersonStreetType"] = kPersonStreetType
+            }
+            if let kPersonZipCode = fjIncidentNFIRSKSec.kPersonZipCode {
+                fjIncidentR["kPersonZipCode"] = kPersonZipCode
+            }
+            if let kPersonZipPlus4 = fjIncidentNFIRSKSec.kPersonZipPlus4 {
+                fjIncidentR["kPersonZipPlus4"] = kPersonZipPlus4
+            }
+            
+            fjIncidentR["kOwnerCheckBox"] = Int(fjIncidentNFIRSKSec.kOwnerCheckBox)
+            fjIncidentR["kOwnerSameAsPerson"] = Int(fjIncidentNFIRSKSec.kOwnerSameAsPerson)
+            fjIncidentR["kPersonCheckBox"] = Int(fjIncidentNFIRSKSec.kPersonCheckBox)
+            fjIncidentR["kPersonMoreThanOne"] = Int(fjIncidentNFIRSKSec.kPersonMoreThanOne)
+        }
+        
+        
+        
+        if let fjIncidentNFIRSsecL = self.sectionLDetails {
+            fjIncidentR["incidentNFIRSSecLNotes"] = fjIncidentNFIRSsecL.lRemarks as? String
+            fjIncidentR["incidentNFIRSSecLMoreRemarks"] = Int(fjIncidentNFIRSsecL.moreRemarks)
+        }
+        
+        if let fjIncidentNFIRSsecM = self.sectionMDetails {
+            if let memberAssignment = fjIncidentNFIRSsecM.memberAssignment {
+                fjIncidentR["memberAssignment"] = memberAssignment
+            }
+            if let memberDate = fjIncidentNFIRSsecM.memberDate {
+                fjIncidentR["memberDate"] = memberDate
+            }
+            if let memberMakingReportID = fjIncidentNFIRSsecM.memberMakingReportID {
+                fjIncidentR["memberMakingReportID"] = memberMakingReportID
+            }
+            if let memberRankPosition = fjIncidentNFIRSsecM.memberRankPosition {
+                fjIncidentR["memberRankPosition"] = memberRankPosition
+            }
+            if let officerAssignment = fjIncidentNFIRSsecM.officerAssignment {
+                fjIncidentR["officerAssignment"] = officerAssignment
+            }
+            if let officerDate = fjIncidentNFIRSsecM.officerDate {
+                fjIncidentR["officerDate"] = officerDate
+            }
+            if let officerInChargeID = fjIncidentNFIRSsecM.officerInChargeID {
+                fjIncidentR["officerInChargeID"] = officerInChargeID
+            }
+            if let officerRankPosition = fjIncidentNFIRSsecM.officerRankPosition {
+                fjIncidentR["officerRankPosition"] = officerRankPosition
+            }
+            if let signatureMember = fjIncidentNFIRSsecM.signatureMember {
+                fjIncidentR["signatureMember"] = signatureMember
+            }
+            if let signatureOfficer = fjIncidentNFIRSsecM.signatureOfficer {
+                fjIncidentR["signatureOfficer"] = signatureOfficer
+            }
+            
+            fjIncidentR["memberSameAsOfficer"] = Int(fjIncidentNFIRSsecM.memberSameAsOfficer)
+        }
+        
+        
+            // MARK: -IncidentNotes-
+        if let fjIncidentNotes = self.incidentNotesDetails {
+            fjIncidentR["incidentSummaryNotes"] = fjIncidentNotes.incidentSummaryNotes as? String
+            fjIncidentR["incidentNote"] = fjIncidentNotes.incidentNote
+        }
+        
+            //        MARK: -POV NOTES FOR INCIDENT
+        if let fjpPersonalJournalReference = self.fjpPersonalJournalReference {
+            fjIncidentR["fjpPersonalJournalReference"] = fjpPersonalJournalReference
+        }
+        
+            //        MARK: -IncidentTimer-
+        if let fjIncidentTimer = self.incidentTimerDetails {
+            
+            fjIncidentR["arrivalSameDate"] = Int(fjIncidentTimer.arrivalSameDate)
+            fjIncidentR["controlledSameDate"] = Int(fjIncidentTimer.controlledSameDate)
+            fjIncidentR["lastUnitSameDate"] = Int(fjIncidentTimer.lastUnitSameDate)
+            
+            if let incidentAlarmNotes = fjIncidentTimer.incidentAlarmNotes as? String {
+                fjIncidentR["incidentAlarmNotes"] = incidentAlarmNotes
+            }
+            if let incidentArrivalNotes = fjIncidentTimer.incidentArrivalNotes as? String {
+                fjIncidentR["incidentArrivalNotes"] = incidentArrivalNotes
+            }
+            if let incidentControlledNotes = fjIncidentTimer.incidentControlledNotes as? String {
+                fjIncidentR["incidentControlledNotes"] = incidentControlledNotes
+            }
+            if let incidentLastUnitClearedNotes = fjIncidentTimer.incidentLastUnitClearedNotes as? String {
+                fjIncidentR["incidentLastUnitClearedNotes"] = incidentLastUnitClearedNotes
+            }
+            
+            if let incidentAlarmCombinedDate = fjIncidentTimer.incidentAlarmCombinedDate {
+                fjIncidentR["incidentAlarmCombinedDate"] = incidentAlarmCombinedDate
+            }
+            if let incidentAlarmDateTime = fjIncidentTimer.incidentAlarmDateTime {
+                fjIncidentR["incidentAlarmDateTime"] = incidentAlarmDateTime
+            }
+            if let incidentAlarmDay = fjIncidentTimer.incidentAlarmDay {
+                fjIncidentR["incidentAlarmDay"] = incidentAlarmDay
+            }
+            if let incidentAlarmHours = fjIncidentTimer.incidentAlarmHours {
+                fjIncidentR["incidentAlarmHours"] = incidentAlarmHours
+            }
+            if let incidentAlarmMinutes = fjIncidentTimer.incidentAlarmMinutes {
+                fjIncidentR["incidentAlarmMinutes"] = incidentAlarmMinutes
+            }
+            if let incidentAlarmMonth = fjIncidentTimer.incidentAlarmMonth {
+                fjIncidentR["incidentAlarmMonth"] = incidentAlarmMonth
+            }
+            if let incidentAlarmYear = fjIncidentTimer.incidentAlarmYear {
+                fjIncidentR["incidentAlarmYear"] = incidentAlarmYear
+            }
+            if let incidentArrivalCombinedDate = fjIncidentTimer.incidentArrivalCombinedDate {
+                fjIncidentR["incidentArrivalCombinedDate"] = incidentArrivalCombinedDate
+            }
+            if let incidentArrivalDateTime = fjIncidentTimer.incidentArrivalDateTime {
+                fjIncidentR["incidentArrivalDateTime"] = incidentArrivalDateTime
+            }
+            if let incidentArrivalDay = fjIncidentTimer.incidentArrivalDay {
+                fjIncidentR["incidentArrivalDay"] = incidentArrivalDay
+            }
+            if let incidentArrivalHours = fjIncidentTimer.incidentArrivalHours {
+                fjIncidentR["incidentArrivalHours"] = incidentArrivalHours
+            }
+            if let incidentArrivalMinutes = fjIncidentTimer.incidentArrivalMinutes {
+                fjIncidentR["incidentArrivalMinutes"] = incidentArrivalMinutes
+            }
+            if let incidentArrivalMonth = fjIncidentTimer.incidentArrivalMonth {
+                fjIncidentR["incidentArrivalMonth"] = incidentArrivalMonth
+            }
+            if let incidentArrivalYear = fjIncidentTimer.incidentArrivalYear {
+                fjIncidentR["incidentArrivalYear"] = incidentArrivalYear
+            }
+            if let incidentControlledCombinedDate = fjIncidentTimer.incidentControlledCombinedDate {
+                fjIncidentR["incidentControlledCombinedDate"] = incidentControlledCombinedDate
+            }
+            if let incidentControlDateTime = fjIncidentTimer.incidentControlDateTime {
+                fjIncidentR["incidentControlDateTime"] = incidentControlDateTime
+            }
+            if let incidentControlledDay = fjIncidentTimer.incidentControlledDay {
+                fjIncidentR["incidentControlledDay"] = incidentControlledDay
+            }
+            if let incidentControlledHours = fjIncidentTimer.incidentControlledHours {
+                fjIncidentR["incidentControlledHours"] = incidentControlledHours
+            }
+            if let incidentControlledMinutes = fjIncidentTimer.incidentControlledMinutes {
+                fjIncidentR["incidentControlledMinutes"] = incidentControlledMinutes
+            }
+            if let incidentControlledMonth = fjIncidentTimer.incidentControlledMonth {
+                fjIncidentR["incidentControlledMonth"] = incidentControlledMonth
+            }
+            if let incidentControlledYear = fjIncidentTimer.incidentControlledYear {
+                fjIncidentR["incidentControlledYear"] = incidentControlledYear
+            }
+            if let incidentElapsedTime = fjIncidentTimer.incidentElapsedTime {
+                fjIncidentR["incidentElapsedTime"] = incidentElapsedTime
+            }
+            if let incidentLastUnitCalledCombinedDate = fjIncidentTimer.incidentLastUnitCalledCombinedDate {
+                fjIncidentR["incidentLastUnitCalledCombinedDate"] = incidentLastUnitCalledCombinedDate
+            }
+            if let incidentLastUnitDateTime = fjIncidentTimer.incidentLastUnitDateTime {
+                fjIncidentR["incidentLastUnitDateTime"] = incidentLastUnitDateTime
+            }
+            if let incidentLastUnitCalledDay = fjIncidentTimer.incidentLastUnitCalledDay {
+                fjIncidentR["incidentLastUnitCalledDay"] = incidentLastUnitCalledDay
+            }
+            if let incidentLastUnitCalledHours = fjIncidentTimer.incidentLastUnitCalledHours {
+                fjIncidentR["incidentLastUnitCalledHours"] = incidentLastUnitCalledHours
+            }
+            if let incidentLastUnitCalledMinutes = fjIncidentTimer.incidentLastUnitCalledMinutes {
+                fjIncidentR["incidentLastUnitCalledMinutes"] = incidentLastUnitCalledMinutes
+            }
+            if let incidentLastUnitCalledMonth = fjIncidentTimer.incidentLastUnitCalledMonth {
+                fjIncidentR["incidentLastUnitCalledMonth"] = incidentLastUnitCalledMonth
+            }
+            if let incidentLastUnitCalledYear = fjIncidentTimer.incidentLastUnitCalledYear {
+                fjIncidentR["incidentLastUnitCalledYear"] = incidentLastUnitCalledYear
+            }
+            if let incidentStartClockCombinedDate = fjIncidentTimer.incidentStartClockCombinedDate {
+                fjIncidentR["incidentStartClockCombinedDate"] = incidentStartClockCombinedDate
+            }
+            if let incidentStartClockDateTime = fjIncidentTimer.incidentStartClockDateTime {
+                fjIncidentR["incidentStartClockDateTime"] = incidentStartClockDateTime
+            }
+            if let incidentStartClockDay = fjIncidentTimer.incidentStartClockDay {
+                fjIncidentR["incidentStartClockDay"] = incidentStartClockDay
+            }
+            if let incidentStartClockHours = fjIncidentTimer.incidentStartClockHours {
+                fjIncidentR["incidentStartClockHours"] = incidentStartClockHours
+            }
+            if let incidentStartClockMinutes = fjIncidentTimer.incidentStartClockMinutes {
+                fjIncidentR["incidentStartClockMinutes"] = incidentStartClockMinutes
+            }
+            if let incidentStartClockMonth = fjIncidentTimer.incidentStartClockMonth {
+                fjIncidentR["incidentStartClockMonth"] = incidentStartClockMonth
+            }
+            if let incidentStartClockSeconds = fjIncidentTimer.incidentStartClockSeconds {
+                fjIncidentR["incidentStartClockSeconds"] = incidentStartClockSeconds
+            }
+            if let incidentStartClockYear = fjIncidentTimer.incidentStartClockYear {
+                fjIncidentR["incidentStartClockYear"] = incidentStartClockYear
+            }
+            if let incidentStopClockCombinedDate = fjIncidentTimer.incidentStopClockCombinedDate {
+                fjIncidentR["incidentStopClockCombinedDate"] = incidentStopClockCombinedDate
+            }
+            if let incidentStopClockDateTime = fjIncidentTimer.incidentStopClockDateTime {
+                fjIncidentR["incidentStopCloudDateTime"] = incidentStopClockDateTime
+            }
+            if let incidentStopClockDay = fjIncidentTimer.incidentStopClockDay {
+                fjIncidentR["incidentStopClockDay"] = incidentStopClockDay
+            }
+            if let incidentStopClockHours = fjIncidentTimer.incidentStopClockHours {
+                fjIncidentR["incidentStopClockHours"] = incidentStopClockHours
+            }
+            if let incidentStopClockMinutes = fjIncidentTimer.incidentStopClockMinutes {
+                fjIncidentR["incidentStopClockMinutes"] = incidentStopClockMinutes
+            }
+            if let incidentStopClockMonth = fjIncidentTimer.incidentStopClockMonth {
+                fjIncidentR["incidentStopClockMonth"] = incidentStopClockMonth
+            }
+            if let incidentStopClockSeconds = fjIncidentTimer.incidentStopClockSeconds {
+                fjIncidentR["incidentStopClockSeconds"] = incidentStopClockSeconds
+            }
+            if let incidentStopClockYear = fjIncidentTimer.incidentStopClockYear {
+                fjIncidentR["incidentStopClockYear"] = incidentStopClockYear
+            }
+        }
+        
+            //        MARK: -ActionsTaken-
+        if let fjActionsTaken = self.actionsTakenDetails {
+            if let additionalThree = fjActionsTaken.additionalThree {
+                fjIncidentR["additionalThree"] = additionalThree
+            }
+            if let additionalThreeNumber = fjActionsTaken.additionalThreeNumber {
+                fjIncidentR["additionalThreeNumber"] = additionalThreeNumber
+            }
+            if let additionalTwo = fjActionsTaken.additionalTwo {
+                fjIncidentR["additionalTwo"] = additionalTwo
+            }
+            if let additionalTwoNumber = fjActionsTaken.additionalTwoNumber {
+                fjIncidentR["additionalTwoNumber"] = additionalTwoNumber
+            }
+            if let primaryAction = fjActionsTaken.primaryAction {
+                fjIncidentR["primaryAction"] = primaryAction
+            }
+            if let primaryActionNumber = fjActionsTaken.primaryActionNumber {
+                fjIncidentR["primaryActionNumber"] = primaryActionNumber
+            }
+        }
+        
+        
         return fjIncidentR
         
     }
     
     func updateIncidentFromCloud(ckRecord: CKRecord) {
         let fjIncidentR = ckRecord
-        self.formType = fjIncidentR["formType"]
-        self.fjpIncGuidForReference = fjIncidentR["fjpIncGuidForReference"]
-        self.incidentCreationDate = fjIncidentR["incidentCreationDate"]
-        self.incidentDate = fjIncidentR["incidentDate"]
-        self.incidentDateSearch = fjIncidentR["incidentDateSearch"]
-        self.incidentDayOfWeek = fjIncidentR["incidentDayOfWeek"]
-        self.incidentDayOfYear = fjIncidentR["incidentDayOfYear"]
-        self.incidentEntryTypeImageName = fjIncidentR["incidentEntryTypeImageName"]
         
-        //        MARK: -LOCATION-
-        /// incidentLocation archived with secureCoding
-        if fjIncidentR["incidentLocation"] != nil {
-            let location = fjIncidentR["incidentLocation"] as! CLLocation
-            do {
-                let data = try NSKeyedArchiver.archivedData(withRootObject: location, requiringSecureCoding: true)
-                self.incidentLocationSC = data as NSObject
-            } catch {
-                print("got an error here")
+        if let formType = fjIncidentR["formType"] as? String {
+            self.formType = formType
+        }
+        if let incidentCreationDate = fjIncidentR["incidentCreationDate"] as? Date {
+            self.incidentCreationDate = incidentCreationDate
+        }
+        if let incidentDate = fjIncidentR["incidentDate"] as? String {
+            self.incidentDate = incidentDate
+        }
+        if let incidentDateSearch = fjIncidentR["incidentDateSearch"] as? String {
+            self.incidentDateSearch = incidentDateSearch
+        }
+        if let incidentDayOfWeek = fjIncidentR["incidentDayOfWeek"] as? String {
+            self.incidentDayOfWeek = incidentDayOfWeek
+        }
+        if let incidentDayOfYear = fjIncidentR["incidentDayOfYear"] as? Double {
+            self.incidentDayOfYear = incidentDayOfYear as NSNumber
+        }
+        if let incidentEntryTypeImageName = fjIncidentR["incidentEntryTypeImageName"] as? String {
+            self.incidentEntryTypeImageName = incidentEntryTypeImageName
+        }
+        
+        if let incidentNFIRSCompleted = fjIncidentR["incidentNFIRSCompleted"] as? Double {
+            self.incidentNFIRSCompleted = incidentNFIRSCompleted as NSNumber
+        }
+        if let incidentNFIRSCompletedDate = fjIncidentR["incidentNFIRSCompletedDate"] as? Date {
+            self.incidentNFIRSCompletedDate = incidentNFIRSCompletedDate
+        }
+        if let incidentNFIRSDataComplete = fjIncidentR["incidentNFIRSDataComplete"] as? Double {
+            self.incidentNFIRSDataComplete = incidentNFIRSDataComplete as NSNumber
+        }
+        if let incidentNFIRSDataDate = fjIncidentR["incidentNFIRSDataDate"] as? String {
+            self.incidentNFIRSDataDate = incidentNFIRSDataDate
+        }
+        if let incidentNFIRSDataSaved = fjIncidentR["incidentNFIRSDataSaved"] as? String {
+            self.incidentNFIRSDataSaved = incidentNFIRSDataSaved
+        }
+        
+        if let arsonInvestigation = fjIncidentR["arsonInvestigation"] as? Double {
+            self.arsonInvestigation = Bool(truncating: arsonInvestigation as NSNumber)
+        }
+        
+        if let incidentCancel = fjIncidentR["incidentCancel"] as? Double {
+            self.incidentCancel = Bool(truncating: incidentCancel as NSNumber)
+        }
+        if let incidentNumber = fjIncidentR["incidentNumber"] as? String {
+            self.incidentNumber = incidentNumber
+        }
+        if let incidentPhotoTaken = fjIncidentR["incidentPhotoTaken"] as? Double {
+            self.incidentPhotoTaken = incidentPhotoTaken as NSNumber
+        }
+        if let locationAvailable = fjIncidentR["locationAvailable"] as? Double {
+            if locationAvailable == 1 {
+                self.locationAvailable = true
+            } else {
+                self.locationAvailable = false
+            }
+        }
+        if let incidentTagsAvailable = fjIncidentR["incidentTagsAvailable"] as? Double {
+            if incidentTagsAvailable == 1 {
+                self.incidentTagsAvailable = true
+            } else {
+                self.incidentTagsAvailable = false
+            }
+        }
+        if let incidentSearchDate = fjIncidentR["incidentSearchDate"] as? String {
+            self.incidentSearchDate = incidentSearchDate
+        }
+        if let incidentStreetHyway = fjIncidentR["incidentStreetHyway"] as? String {
+            self.incidentStreetHyway = incidentStreetHyway
+        }
+        if let incidentStreetNumber = fjIncidentR["incidentStreetNumber"] as? String {
+            self.incidentStreetNumber = incidentStreetNumber
+        }
+        if let incidentTime = fjIncidentR["incidentTime"] as? String {
+            self.incidentTime = incidentTime
+        }
+        if let incidentType = fjIncidentR["incidentType"] as? String {
+            self.incidentType = incidentType
+        }
+        if let incidentZipCode = fjIncidentR["incidentZipCode"] as? String {
+            self.incidentZipCode = incidentZipCode
+        }
+        if let incidentZipPlus4 = fjIncidentR["incidentZipPlus4"] as? String {
+            self.incidentZipPlus4 = incidentZipPlus4
+        }
+        if let situationIncidentImage = fjIncidentR["situationIncidentImage"] as? String {
+            self.situationIncidentImage = situationIncidentImage
+        }
+        if let tempIncidentApparatus = fjIncidentR["tempIncidentApparatus"] as? String {
+            self.tempIncidentApparatus = tempIncidentApparatus
+        }
+        if let tempIncidentAssignment = fjIncidentR["tempIncidentAssignment"] as? String {
+            self.tempIncidentAssignment = tempIncidentAssignment
+        }
+        if let tempIncidentFireStation = fjIncidentR["tempIncidentFireStation"] as? String {
+            self.tempIncidentFireStation = tempIncidentFireStation
+        }
+        if let tempIncidentPlatoon = fjIncidentR["tempIncidentPlatoon"] as? String {
+            self.tempIncidentPlatoon = tempIncidentPlatoon
+        }
+        if let arsonInvestigation = fjIncidentR["arsonInvestigation"] as? Bool {
+            self.arsonInvestigation = arsonInvestigation
+        }
+        
+        if let fjuSections = self.formDetails {
+            if let sectionA = fjIncidentR["sectionA"] as? Bool {
+                fjuSections.sectionA = sectionA
+            }
+            if let sectionB = fjIncidentR["sectionB"] as? Bool {
+                fjuSections.sectionB = sectionB
+            }
+            if let sectionC = fjIncidentR["sectionC"] as? Bool {
+                fjuSections.sectionC = sectionC
+            }
+            if let sectionD = fjIncidentR["sectionD"] as? Bool {
+                fjuSections.sectionD = sectionD
+            }
+            if let sectionE = fjIncidentR["sectionE"] as? Bool {
+                fjuSections.sectionE = sectionE
+            }
+            if let sectionF = fjIncidentR["sectionF"] as? Bool {
+                fjuSections.sectionF = sectionF
+            }
+            if let sectionG = fjIncidentR["sectionG"] as? Bool {
+                fjuSections.sectionG = sectionG
+            }
+            if let sectionH = fjIncidentR["sectionH"] as? Bool {
+                fjuSections.sectionH = sectionH
+            }
+            if let sectionI = fjIncidentR["sectionI"] as? Bool {
+                fjuSections.sectionI = sectionI
+            }
+            if let sectionJ = fjIncidentR["sectionJ"] as? Bool {
+                fjuSections.sectionJ = sectionJ
+            }
+            if let sectionK = fjIncidentR["sectionK"] as? Bool {
+                fjuSections.sectionK = sectionK
+            }
+            if let sectionL = fjIncidentR["sectionL"] as? Bool {
+                fjuSections.sectionL = sectionL
+            }
+            if let sectionM = fjIncidentR["sectionM"] as? Bool {
+                fjuSections.sectionM = sectionM
             }
         }
         
-        self.incidentModDate = fjIncidentR["incidentModDate"] as? Date
-        self.incidentNFIRSCompleted = fjIncidentR["incidentNFIRSCompleted"] as? NSNumber ?? 0
-        self.incidentNFIRSCompletedDate = fjIncidentR["incidentNFIRSCompletedDate"] as? Date
-        self.incidentNFIRSDataComplete = fjIncidentR["incidentNFIRSDataComplete"] as? NSNumber ?? 0
-        self.incidentNFIRSDataDate = fjIncidentR["incidentNFIRSDataDate"]
-        self.incidentNFIRSDataSaved = fjIncidentR["incidentNFIRSDataSaved"]
-        self.incidentNumber = fjIncidentR["incidentNumber"]
-        self.incidentPhotoTaken = fjIncidentR["incidentPhotoTaken"] as? NSNumber ?? 0
-        self.incidentSearchDate = fjIncidentR["incidentSearchDate"]
-        self.incidentStreetHyway = fjIncidentR["incidentStreetHyway"]
-        self.incidentStreetNumber = fjIncidentR["incidentStreetNumber"]
-        self.incidentTime = fjIncidentR["incidentTime"]
-        self.incidentType = fjIncidentR["incidentType"]
-        self.incidentZipCode = fjIncidentR["incidentZipCode"]
-        self.incidentZipPlus4 = fjIncidentR["incidentZipPlus4"]
-        self.situationIncidentImage = fjIncidentR["situationIncidentImage"]
-        self.tempIncidentApparatus = fjIncidentR["tempIncidentApparatus"]
-        self.tempIncidentAssignment = fjIncidentR["tempIncidentAssignment"]
-        self.tempIncidentFireStation = fjIncidentR["tempIncidentFireStation"]
-        self.tempIncidentPlatoon = fjIncidentR["tempIncidentPlatoon"]
-        self.arsonInvestigation = fjIncidentR["arsonInvestigation"] as? Bool ?? false
+        if  let fjIncidentAddress = self.incidentAddressDetails {
+            if let appSuiteRoom = fjIncidentR["appSuiteRoom"] as? String {
+                fjIncidentAddress.appSuiteRoom = appSuiteRoom
+            }
+            if let censusTract = fjIncidentR["censusTract"] as? String {
+                fjIncidentAddress.censusTract = censusTract
+            }
+            if let censusTract2 = fjIncidentR["censusTract2"] as? String {
+                fjIncidentAddress.censusTract2 = censusTract2
+            }
+            if let city = fjIncidentR["city"] as? String {
+                fjIncidentAddress.city = city
+            }
+            if let crossStreet = fjIncidentR["crossStreet"] as? String {
+                fjIncidentAddress.crossStreet = crossStreet
+            }
+            if let incidentState = fjIncidentR["incidentState"] as? String {
+                fjIncidentAddress.incidentState = incidentState
+            }
+            if let prefix = fjIncidentR["prefix"] as? String {
+                fjIncidentAddress.prefix = prefix
+            }
+            if let stagingAddress = fjIncidentR["stagingAddress"] as? String {
+                fjIncidentAddress.stagingAddress = stagingAddress
+            }
+            if let streetHighway = fjIncidentR["streetHighway"] as? String {
+                fjIncidentAddress.streetHighway = streetHighway
+            }
+            if let streetNumber = fjIncidentR["streetNumber"] as? String {
+                fjIncidentAddress.streetNumber = streetNumber
+            }
+            if let streetType = fjIncidentR["streetType"] as? String {
+                fjIncidentAddress.streetType = streetType
+            }
+            if let suffix = fjIncidentR["suffix"] as? String {
+                fjIncidentAddress.suffix = suffix
+            }
+            if let zip = fjIncidentR["zip"] as? String {
+                fjIncidentAddress.zip = zip
+            }
+            if let zipPlus4 = fjIncidentR["zipPlus4"] as? String {
+                fjIncidentAddress.zipPlus4 = zipPlus4
+            }
+        }
         
-        let fjuSections = self.formDetails
-        fjuSections?.sectionA = fjIncidentR["sectionA"] as? Bool ?? false
-        fjuSections?.sectionB = fjIncidentR["sectionB"] as? Bool ?? false
-        fjuSections?.sectionC = fjIncidentR["sectionC"] as? Bool ?? false
-        fjuSections?.sectionD = fjIncidentR["sectionD"] as? Bool ?? false
-        fjuSections?.sectionE = fjIncidentR["sectionE"] as? Bool ?? false
-        fjuSections?.sectionF = fjIncidentR["sectionF"] as? Bool ?? false
-        fjuSections?.sectionG = fjIncidentR["sectionG"] as? Bool ?? false
-        fjuSections?.sectionH = fjIncidentR["sectionH"] as? Bool ?? false
-        fjuSections?.sectionI = fjIncidentR["sectionI"] as? Bool ?? false
-        fjuSections?.sectionJ = fjIncidentR["sectionK"] as? Bool ?? false
-        fjuSections?.sectionL = fjIncidentR["sectionL"] as? Bool ?? false
-        fjuSections?.sectionM = fjIncidentR["sectionM"] as? Bool ?? false
-        self.formDetails = fjuSections
+            //MARK: -incidentLocal-
+        if let fjIncidentLocal = self.incidentLocalDetails {
+            if let incidentBattalion = fjIncidentR["incidentBattalion"] as? String {
+                fjIncidentLocal.incidentBattalion = incidentBattalion
+            }
+            if let incidentDivision = fjIncidentR["incidentDivision"] as? String {
+                fjIncidentLocal.incidentDivision = incidentDivision
+            }
+            if let incidentFireDistrict = fjIncidentR["incidentFireDistrict"] as? String {
+                fjIncidentLocal.incidentFireDistrict = incidentFireDistrict
+            }
+            if let incidentLocalType = fjIncidentR["incidentLocalType"] as? String {
+                fjIncidentLocal.incidentLocalType = incidentLocalType
+            }
+        }
         
-        let fjIncidentAddress = self.incidentAddressDetails
-        fjIncidentAddress?.appSuiteRoom = fjIncidentR["appSuiteRoom"]
-        fjIncidentAddress?.censusTract = fjIncidentR["censusTract"]
-        fjIncidentAddress?.censusTract2 = fjIncidentR["censusTract2"]
-        fjIncidentAddress?.city = fjIncidentR["city"]
-        fjIncidentAddress?.crossStreet = fjIncidentR["crossStreet"]
-        fjIncidentAddress?.incidentState = fjIncidentR["incidentState"]
-        fjIncidentAddress?.prefix = fjIncidentR["prefix"]
-        fjIncidentAddress?.stagingAddress = fjIncidentR["stagingAddress"]
-        fjIncidentAddress?.streetHighway = fjIncidentR["streetHighway"]
-        fjIncidentAddress?.streetNumber = fjIncidentR["streetNumber"]
-        fjIncidentAddress?.streetType = fjIncidentR["streetType"]
-        fjIncidentAddress?.suffix = fjIncidentR["suffix"]
-        fjIncidentAddress?.zip = fjIncidentR["zip"]
-        fjIncidentAddress?.zipPlus4 = fjIncidentR["zipPlus4"]
-        self.incidentAddressDetails = fjIncidentAddress
+            //MARK: -incidentMap-
+        if let fjIncidentMap = self.incidentMapDetails {
+            if let incidentLatitude = fjIncidentR["incidentLatitude"] as? String {
+                fjIncidentMap.incidentLatitude = incidentLatitude
+            }
+            if let incidentLongitude = fjIncidentR["incidentLongitude"] as? String {
+                fjIncidentMap.incidentLongitude = incidentLongitude
+            }
+            if let stagingLatitude = fjIncidentR["stagingLatitude"] as? String {
+                fjIncidentMap.stagingLatitude = stagingLatitude
+            }
+            if let stagingLongitude = fjIncidentR["stagingLongitude"] as? String {
+                fjIncidentMap.stagingLongitude = stagingLongitude
+            }
+        }
         
-        //MARK: -incidentLocal-
-        let fjIncidentLocal = self.incidentLocalDetails
-        fjIncidentLocal?.incidentBattalion = fjIncidentR["incidentBattalion"]
-        fjIncidentLocal?.incidentDivision = fjIncidentR["incidentDivision"]
-        fjIncidentLocal?.incidentFireDistrict = fjIncidentR["incidentFireDistrict"]
-        fjIncidentLocal?.incidentLocalType = fjIncidentR["incidentLocalType"]
-        self.incidentLocalDetails = fjIncidentLocal
+            //MARK: -IncidentNFIRS-
+        if let fjIncidentNFIRS = self.incidentNFIRSDetails {
+            if let fireStationState = fjIncidentR["fireStationState"] as? String {
+                fjIncidentNFIRS.fireStationState = fireStationState
+            }
+            if let incidentActionsTakenAdditionalThree = fjIncidentR["incidentActionsTakenAdditionalThree"] as? String {
+                fjIncidentNFIRS.incidentActionsTakenAdditionalThree = incidentActionsTakenAdditionalThree
+            }
+            if let incidentActionsTakenAdditionalTwo = fjIncidentR["incidentActionsTakenAdditionalTwo"] as? String {
+                fjIncidentNFIRS.incidentActionsTakenAdditionalTwo = incidentActionsTakenAdditionalTwo
+            }
+            if let incidentActionsTakenPrimary = fjIncidentR["incidentActionsTakenPrimary"] as? String {
+                fjIncidentNFIRS.incidentActionsTakenPrimary = incidentActionsTakenPrimary
+            }
+            if let incidentAidGiven = fjIncidentR["incidentAidGiven"] as? String {
+                fjIncidentNFIRS.incidentAidGiven = incidentAidGiven
+            }
+            if let incidentAidGivenFDID = fjIncidentR["incidentAidGivenFDID"] as? String {
+                fjIncidentNFIRS.incidentAidGivenFDID = incidentAidGivenFDID
+            }
+            if let incidentAidGivenIncidentNumber = fjIncidentR["incidentAidGivenIncidentNumber"] as? String {
+                fjIncidentNFIRS.incidentAidGivenIncidentNumber = incidentAidGivenIncidentNumber
+            }
+            if let incidentAidGivenNone = fjIncidentR["incidentAidGivenNone"] as? Double {
+                fjIncidentNFIRS.incidentAidGivenNone = incidentAidGivenNone as NSNumber
+            }
+            if let incidentAidGivenState = fjIncidentR["incidentAidGivenState"] as? String {
+                fjIncidentNFIRS.incidentAidGivenState = incidentAidGivenState
+            }
+            if let incidentCasualtiesCivilianDeaths = fjIncidentR["incidentCasualtiesCivilianDeaths"] as? String {
+                fjIncidentNFIRS.incidentCasualtiesCivilianDeaths = incidentCasualtiesCivilianDeaths
+            }
+            if let incidentCasualtiesCivilianInjuries = fjIncidentR["incidentCasualtiesCivilianInjuries"] as? String {
+                fjIncidentNFIRS.incidentCasualtiesCivilianInjuries = incidentCasualtiesCivilianInjuries
+            }
+            if let incidentCasualtiesFireDeaths = fjIncidentR["incidentCasualtiesFireDeaths"] as? String {
+                fjIncidentNFIRS.incidentCasualtiesFireDeaths = incidentCasualtiesFireDeaths
+            }
+            if let incidentCasualtiesFireInjuries = fjIncidentR["incidentCasualtiesFireInjuries"] as? String {
+                fjIncidentNFIRS.incidentCasualtiesFireInjuries = incidentCasualtiesFireInjuries
+            }
+            if let incidentCasualtiesNone = fjIncidentR["incidentCasualtiesNone"] as? Bool {
+                fjIncidentNFIRS.incidentCasualtiesNone = incidentCasualtiesNone
+            }
+            if let incidentCasualtiesServiceDeaths = fjIncidentR["incidentCasualtiesServiceDeaths"] as? String {
+                fjIncidentNFIRS.incidentCasualtiesServiceDeaths = incidentCasualtiesServiceDeaths
+            }
+            if let incidentCasualtitesServideInjuries = fjIncidentR["incidentCasualtitesServideInjuries"] as? String {
+                fjIncidentNFIRS.incidentCasualtitesServideInjuries = incidentCasualtitesServideInjuries
+            }
+            if let incidentDetectorChosen = fjIncidentR["incidentDetectorChosen"] as? String {
+                fjIncidentNFIRS.incidentDetectorChosen = incidentDetectorChosen
+            }
+            if let incidentExposure = fjIncidentR["incidentExposure"] as? String {
+                fjIncidentNFIRS.incidentExposure = incidentExposure
+            }
+            if let incidentFDID = fjIncidentR["incidentFDID"] as? String {
+                fjIncidentNFIRS.incidentFDID = incidentFDID
+            }
+            if let incidentFDID1 = fjIncidentR["incidentFDID1"] as? String {
+                fjIncidentNFIRS.incidentFDID1 = incidentFDID1
+            }
+            if let incidentFireStation = fjIncidentR["incidentFireStation"] as? String {
+                fjIncidentNFIRS.incidentFireStation = incidentFireStation
+            }
+            if let incidentHazMat = fjIncidentR["incidentHazMat"] as? String {
+                fjIncidentNFIRS.incidentHazMat = incidentHazMat
+            }
+            if let incidentHazMatNone = fjIncidentR["incidentHazMatNone"] as? Bool {
+                fjIncidentNFIRS.incidentHazMatNone = incidentHazMatNone
+            }
+                //        MARK: -STRING-
+            if let incidentNFIRSLocation = fjIncidentR["incidentNFIRSLocation"] as? String {
+                fjIncidentNFIRS.incidentLocation = incidentNFIRSLocation
+            }
+            if let incidentPlatoon = fjIncidentR["incidentPlatoon"] as? String {
+                fjIncidentNFIRS.incidentPlatoon = incidentPlatoon
+            }
+            if let incidentPropertyNone = fjIncidentR["incidentPropertyNone"] as? Double {
+                fjIncidentNFIRS.incidentPropertyNone = incidentPropertyNone as NSNumber
+            }
+            if let incidentPropertyOutside = fjIncidentR["incidentPropertyOutside"] as? String {
+                fjIncidentNFIRS.incidentPropertyOutside = incidentPropertyOutside
+            }
+            if let incidentPropertyOutsideNumber = fjIncidentR["incidentPropertyOutsideNumber"] as? String {
+                fjIncidentNFIRS.incidentPropertyOutsideNumber = incidentPropertyOutsideNumber
+            }
+            if let incidentPropertyStructure = fjIncidentR["incidentPropertyStructure"] as? String {
+                fjIncidentNFIRS.incidentPropertyStructure = incidentPropertyStructure
+            }
+            if let incidentPropertyStructureNumber = fjIncidentR["incidentPropertyStructureNumber"] as? String {
+                fjIncidentNFIRS.incidentPropertyStructureNumber = incidentPropertyStructureNumber
+            }
+            if let incidentPropertyUse = fjIncidentR["incidentPropertyUse"] as? String {
+                fjIncidentNFIRS.incidentPropertyUse = incidentPropertyUse
+            }
+            if let incidentPropertyUseNone = fjIncidentR["incidentPropertyUseNone"] as? String {
+                fjIncidentNFIRS.incidentPropertyUseNone = incidentPropertyUseNone
+            }
+            if let incidentPropertyUseNumber = fjIncidentR["incidentPropertyUseNumber"] as? String {
+                fjIncidentNFIRS.incidentPropertyUseNumber = incidentPropertyUseNumber
+            }
+            if let incidentResourceCheck = fjIncidentR["incidentResourceCheck"]  as? Double {
+                fjIncidentNFIRS.incidentResourceCheck = incidentResourceCheck  as NSNumber
+            }
+            if let incidentResourcesEMSApparatus = fjIncidentR["incidentResourcesEMSApparatus"] as? String {
+                fjIncidentNFIRS.incidentResourcesEMSApparatus = incidentResourcesEMSApparatus
+            }
+            if let incidentResourcesEMSPersonnel = fjIncidentR["incidentResourcesEMSPersonnel"] as? String {
+                fjIncidentNFIRS.incidentResourcesEMSPersonnel = incidentResourcesEMSPersonnel
+            }
+            if let incidentResourcesOtherApparatus = fjIncidentR["incidentResourcesOtherApparatus"] as? String {
+                fjIncidentNFIRS.incidentResourcesOtherApparatus = incidentResourcesOtherApparatus
+            }
+            if let incidentResourcesOtherPersonnel = fjIncidentR["incidentResourcesOtherPersonnel"] as? String {
+                fjIncidentNFIRS.incidentResourcesOtherPersonnel = incidentResourcesOtherPersonnel
+            }
+            if let incidentResourcesSuppressionPersonnel = fjIncidentR["incidentResourcesSuppressionPersonnel"] as? String {
+                fjIncidentNFIRS.incidentResourcesSuppressionPersonnel = incidentResourcesSuppressionPersonnel
+            }
+            if let incidentResourcesSupressionApparatus = fjIncidentR["incidentResourcesSupressionApparatus"] as? String {
+                fjIncidentNFIRS.incidentResourcesSupressionApparatus = incidentResourcesSupressionApparatus
+            }
+            if let incidentTypeNumberNFRIS = fjIncidentR["incidentTypeNumberNFRIS"] as? String {
+                fjIncidentNFIRS.incidentTypeNumberNFRIS = incidentTypeNumberNFRIS
+            }
+            if let incidentTypeTextNFRIS = fjIncidentR["incidentTypeTextNFRIS"] as? String {
+                fjIncidentNFIRS.incidentTypeTextNFRIS = incidentTypeTextNFRIS
+            }
+            if let lossesContentDollars = fjIncidentR["lossesContentDollars"] as? String {
+                fjIncidentNFIRS.lossesContentDollars = lossesContentDollars
+            }
+            if let lossesContentNone = fjIncidentR["lossesContentNone"] as? Bool {
+                fjIncidentNFIRS.lossesContentNone = lossesContentNone
+            }
+            if let lossesPropertyDollars = fjIncidentR["lossesPropertyDollars"] as? String {
+                fjIncidentNFIRS.lossesPropertyDollars = lossesPropertyDollars
+            }
+            if let lossesPropertyNone = fjIncidentR["lossesPropertyNone"] as? Bool {
+                fjIncidentNFIRS.lossesPropertyNone = lossesPropertyNone
+            }
+            if let mixedUsePropertyNone = fjIncidentR["mixedUsePropertyNone"] as? Bool {
+                fjIncidentNFIRS.mixedUsePropertyNone = mixedUsePropertyNone
+            }
+            if let mixedUsePropertyType = fjIncidentR["mixedUsePropertyType"] as? String {
+                fjIncidentNFIRS.mixedUsePropertyType = mixedUsePropertyType
+            }
+            if let nfirsChangeDescription = fjIncidentR["nfirsChangeDescription"] as? String {
+                fjIncidentNFIRS.nfirsChangeDescription = nfirsChangeDescription
+            }
+            if let nfirsSectionOneSegment = fjIncidentR["nfirsSectionOneSegment"] as? String {
+                fjIncidentNFIRS.nfirsSectionOneSegment = nfirsSectionOneSegment
+            }
+            if let propertyUseNone = fjIncidentR["propertyUseNone"] as? Bool {
+                fjIncidentNFIRS.propertyUseNone = propertyUseNone
+            }
+            if let resourceCountsIncludeAidReceived = fjIncidentR["resourceCountsIncludeAidReceived"] as? Bool {
+                fjIncidentNFIRS.resourceCountsIncludeAidReceived = resourceCountsIncludeAidReceived
+            }
+            if let shiftAlarm = fjIncidentR["shiftAlarm"] as? String {
+                fjIncidentNFIRS.shiftAlarm = shiftAlarm
+            }
+            if let shiftDistrict = fjIncidentR["shiftDistrict"] as? String {
+                fjIncidentNFIRS.shiftDistrict = shiftDistrict
+            }
+            if let shiftOrPlatoon = fjIncidentR["shiftOrPlatoon"]  as? String {
+                fjIncidentNFIRS.shiftOrPlatoon = shiftOrPlatoon
+            }
+            if let skipSectionF = fjIncidentR["skipSectionF"] as? Bool {
+                fjIncidentNFIRS.skipSectionF = skipSectionF
+            }
+            if let specialStudyID = fjIncidentR["specialStudyID"] as? String {
+                fjIncidentNFIRS.specialStudyID = specialStudyID
+            }
+            if let specialStudyValue = fjIncidentR["specialStudyValue"] as? String {
+                fjIncidentNFIRS.specialStudyValue = specialStudyValue
+            }
+            if let valueContentDollars = fjIncidentR["valueContentDollars"] as? String {
+                fjIncidentNFIRS.valueContentDollars = valueContentDollars
+            }
+            if let valueContentsNone = fjIncidentR["valueContentsNone"] as? Bool {
+                fjIncidentNFIRS.valueContentsNone = valueContentsNone
+            }
+            if let valuePropertyDollars = fjIncidentR["valuePropertyDollars"] as? String {
+                fjIncidentNFIRS.valuePropertyDollars = valuePropertyDollars
+            }
+            if let valuePropertyNone = fjIncidentR["valuePropertyNone"] as? Bool {
+                fjIncidentNFIRS.valuePropertyNone = valuePropertyNone
+            }
+        }
         
-        //MARK: -incidentMap-
-        let fjIncidentMap = self.incidentMapDetails
-        fjIncidentMap?.incidentLatitude = fjIncidentR["incidentLatitude"]
-        fjIncidentMap?.incidentLongitude = fjIncidentR["incidentLongitude"]
-        fjIncidentMap?.stagingLatitude = fjIncidentR["stagingLatitude"]
-        fjIncidentMap?.stagingLongitude = fjIncidentR["stagingLongitude"]
-        self.incidentMapDetails = fjIncidentMap
+            // TODO: -CompletedModules-
+            // MARK: -IncidentNFIRSKSec-
+        if let fjIncidentNFIRSKSec = self.incidentNFIRSKSecDetails {
+            if let kOwnerAptSuiteRoom = fjIncidentR["kOwnerAptSuiteRoom"] as? String {
+                fjIncidentNFIRSKSec.kOwnerAptSuiteRoom = kOwnerAptSuiteRoom
+            }
+            if let kOwnerAreaCode = fjIncidentR["kOwnerAreaCode"] as? String {
+                fjIncidentNFIRSKSec.kOwnerAreaCode = kOwnerAreaCode
+            }
+            if let kOwnerBusinessName = fjIncidentR["kOwnerBusinessName"] as? String {
+                fjIncidentNFIRSKSec.kOwnerBusinessName = kOwnerBusinessName
+            }
+            if let kOwnerCheckBox = fjIncidentR["kOwnerCheckBox"] as? Bool {
+                fjIncidentNFIRSKSec.kOwnerCheckBox = kOwnerCheckBox
+            }
+            if let kOwnerCity = fjIncidentR["kOwnerCity"] as? String {
+                fjIncidentNFIRSKSec.kOwnerCity = kOwnerCity
+            }
+            if let kOwnerFirstName = fjIncidentR["kOwnerFirstName"] as? String {
+                fjIncidentNFIRSKSec.kOwnerFirstName = kOwnerFirstName
+            }
+            if let kOwnerLastName = fjIncidentR["kOwnerLastName"] as? String {
+                fjIncidentNFIRSKSec.kOwnerLastName = kOwnerLastName
+            }
+            if let kOwnerMI = fjIncidentR["kOwnerMI"] as? String {
+                fjIncidentNFIRSKSec.kOwnerMI = kOwnerMI
+            }
+            if let kOwnerNamePrefix = fjIncidentR["kOwnerNamePrefix"] as? String {
+                fjIncidentNFIRSKSec.kOwnerNamePrefix = kOwnerNamePrefix
+            }
+            if let kOwnerNameSuffix = fjIncidentR["kOwnerNameSuffix"] as? String {
+                fjIncidentNFIRSKSec.kOwnerNameSuffix = kOwnerNameSuffix
+            }
+            if let kOwnerPhoneLastFour = fjIncidentR["kOwnerPhoneLastFour"] as? String {
+                fjIncidentNFIRSKSec.kOwnerPhoneLastFour = kOwnerPhoneLastFour
+            }
+            if let kOwnerPhonePrefix = fjIncidentR["kOwnerPhonePrefix"] as? String {
+                fjIncidentNFIRSKSec.kOwnerPhonePrefix = kOwnerPhonePrefix
+            }
+            if let kOwnerPOBox = fjIncidentR["kOwnerPOBox"] as? String {
+                fjIncidentNFIRSKSec.kOwnerPOBox = kOwnerPOBox
+            }
+            if let kOwnerSameAsPerson = fjIncidentR["kOwnerSameAsPerson"] as? Bool {
+                fjIncidentNFIRSKSec.kOwnerSameAsPerson = kOwnerSameAsPerson
+            }
+            if let kOwnerState = fjIncidentR["kOwnerState"] as? String {
+                fjIncidentNFIRSKSec.kOwnerState = kOwnerState
+            }
+            if let kOwnerStreetHyway = fjIncidentR["kOwnerStreetHyway"] as? String {
+                fjIncidentNFIRSKSec.kOwnerStreetHyway = kOwnerStreetHyway
+            }
+            if let kOwnerStreetNumber = fjIncidentR["kOwnerStreetNumber"] as? String {
+                fjIncidentNFIRSKSec.kOwnerStreetNumber = kOwnerStreetNumber
+            }
+            if let kOwnerStreetPrefix = fjIncidentR["kOwnerStreetPrefix"] as? String {
+                fjIncidentNFIRSKSec.kOwnerStreetPrefix = kOwnerStreetPrefix
+            }
+            if let kOwnerStreetSuffix = fjIncidentR["kOwnerStreetSuffix"] as? String {
+                fjIncidentNFIRSKSec.kOwnerStreetSuffix = kOwnerStreetSuffix
+            }
+            if let kOwnerStreetType = fjIncidentR["kOwnerStreetType"] as? String {
+                fjIncidentNFIRSKSec.kOwnerStreetType = kOwnerStreetType
+            }
+            if let kOwnerZip = fjIncidentR["kOwnerZip"] as? String {
+                fjIncidentNFIRSKSec.kOwnerZip = kOwnerZip
+            }
+            if let kOwnerZipPlusFour = fjIncidentR["kOwnerZipPlusFour"] as? String {
+                fjIncidentNFIRSKSec.kOwnerZipPlusFour = kOwnerZipPlusFour
+            }
+            if let kPersonAppSuiteRoom = fjIncidentR["kPersonAppSuiteRoom"] as? String {
+                fjIncidentNFIRSKSec.kPersonAppSuiteRoom = kPersonAppSuiteRoom
+            }
+            if let kPersonAreaCode = fjIncidentR["kPersonAreaCode"] as? String {
+                fjIncidentNFIRSKSec.kPersonAreaCode = kPersonAreaCode
+            }
+            if let kPersonBusinessName = fjIncidentR["kPersonBusinessName"] as? String {
+                fjIncidentNFIRSKSec.kPersonBusinessName = kPersonBusinessName
+            }
+            if let kPersonCheckBox = fjIncidentR["kPersonCheckBox"] as? Bool {
+                fjIncidentNFIRSKSec.kPersonCheckBox = kPersonCheckBox
+            }
+            if let kPersonCity = fjIncidentR["kPersonCity"] as? String {
+                fjIncidentNFIRSKSec.kPersonCity = kPersonCity
+            }
+            if let kPersonFirstName = fjIncidentR["kPersonFirstName"] as? String {
+                fjIncidentNFIRSKSec.kPersonFirstName = kPersonFirstName
+            }
+            if let kPersonGender = fjIncidentR["kPersonGender"] as? String {
+                fjIncidentNFIRSKSec.kPersonGender = kPersonGender
+            }
+            if let kPersonLastName = fjIncidentR["kPersonLastName"] as? String {
+                fjIncidentNFIRSKSec.kPersonLastName = kPersonLastName
+            }
+            if let kPersonMI = fjIncidentR["kPersonMI"] as? String {
+                fjIncidentNFIRSKSec.kPersonMI = kPersonMI
+            }
+            if let kPersonMoreThanOne = fjIncidentR["kPersonMoreThanOne"] as? Bool {
+                fjIncidentNFIRSKSec.kPersonMoreThanOne = kPersonMoreThanOne
+            }
+            if let kPersonNameSuffix = fjIncidentR["kPersonNameSuffix"] as? String {
+                fjIncidentNFIRSKSec.kPersonNameSuffix = kPersonNameSuffix
+            }
+            if let kPersonPhoneLastFour = fjIncidentR["kPersonPhoneLastFour"] as? String {
+                fjIncidentNFIRSKSec.kPersonPhoneLastFour = kPersonPhoneLastFour
+            }
+            if let kPersonPhonePrefix = fjIncidentR["kPersonPhonePrefix"] as? String {
+                fjIncidentNFIRSKSec.kPersonPhonePrefix = kPersonPhonePrefix
+            }
+            if let kPersonPOBox = fjIncidentR["kPersonPOBox"] as? String {
+                fjIncidentNFIRSKSec.kPersonPOBox = kPersonPOBox
+            }
+            if let kPersonPrefix = fjIncidentR["kPersonPrefix"] as? String {
+                fjIncidentNFIRSKSec.kPersonPrefix = kPersonPrefix
+            }
+            if let kPersonState = fjIncidentR["kPersonState"] as? String {
+                fjIncidentNFIRSKSec.kPersonState = kPersonState
+            }
+            if let kPersonStreetHyway = fjIncidentR["kPersonStreetHyway"] as? String {
+                fjIncidentNFIRSKSec.kPersonStreetHyway = kPersonStreetHyway
+            }
+            if let kPersonStreetNum = fjIncidentR["kPersonStreetNum"] as? String {
+                fjIncidentNFIRSKSec.kPersonStreetNum = kPersonStreetNum
+            }
+            if let kPersonStreetSuffix = fjIncidentR["kPersonStreetSuffix"] as? String {
+                fjIncidentNFIRSKSec.kPersonStreetSuffix = kPersonStreetSuffix
+            }
+            if let kPersonStreetType = fjIncidentR["kPersonStreetType"] as? String {
+                fjIncidentNFIRSKSec.kPersonStreetType = kPersonStreetType
+            }
+            if let kPersonZipCode = fjIncidentR["kPersonZipCode"] as? String {
+                fjIncidentNFIRSKSec.kPersonZipCode = kPersonZipCode
+            }
+            if let kPersonZipPlus4 = fjIncidentR["kPersonZipPlus4"] as? String {
+                fjIncidentNFIRSKSec.kPersonZipPlus4 = kPersonZipPlus4
+            }
+        }
         
-        //MARK: -IncidentNFIRS-
-        let fjIncidentNFIRS = self.incidentNFIRSDetails
-        fjIncidentNFIRS?.fireStationState = fjIncidentR["fireStationState"]
-        fjIncidentNFIRS?.incidentActionsTakenAdditionalThree = fjIncidentR["incidentActionsTakenAdditionalThree"]
-        fjIncidentNFIRS?.incidentActionsTakenAdditionalTwo = fjIncidentR["incidentActionsTakenAdditionalTwo"]
-        fjIncidentNFIRS?.incidentActionsTakenPrimary = fjIncidentR["incidentActionsTakenPrimary"]
-        fjIncidentNFIRS?.incidentAidGiven = fjIncidentR["incidentAidGiven"]
-        fjIncidentNFIRS?.incidentAidGivenFDID = fjIncidentR["incidentAidGivenFDID"]
-        fjIncidentNFIRS?.incidentAidGivenIncidentNumber = fjIncidentR["incidentAidGivenIncidentNumber"]
-        fjIncidentNFIRS?.incidentAidGivenNone = fjIncidentR["incidentAidGivenNone"]
-        fjIncidentNFIRS?.incidentAidGivenState = fjIncidentR["incidentAidGivenState"]
-        fjIncidentNFIRS?.incidentCasualtiesCivilianDeaths = fjIncidentR["incidentCasualtiesCivilianDeaths"]
-        fjIncidentNFIRS?.incidentCasualtiesCivilianInjuries = fjIncidentR["incidentCasualtiesCivilianInjuries"]
-        fjIncidentNFIRS?.incidentCasualtiesFireDeaths = fjIncidentR["incidentCasualtiesFireDeaths"]
-        fjIncidentNFIRS?.incidentCasualtiesFireInjuries = fjIncidentR["incidentCasualtiesFireInjuries"]
-        fjIncidentNFIRS?.incidentCasualtiesNone = fjIncidentR["incidentCasualtiesNone"] as? Bool ?? false
-        fjIncidentNFIRS?.incidentCasualtiesServiceDeaths = fjIncidentR["incidentCasualtiesServiceDeaths"]
-        fjIncidentNFIRS?.incidentCasualtitesServideInjuries = fjIncidentR["incidentCasualtitesServideInjuries"]
-        fjIncidentNFIRS?.incidentDetectorChosen = fjIncidentR["incidentDetectorChosen"]
-        fjIncidentNFIRS?.incidentExposure = fjIncidentR["incidentExposure"]
-        fjIncidentNFIRS?.incidentFDID = fjIncidentR["incidentFDID"]
-        fjIncidentNFIRS?.incidentFDID1 = fjIncidentR["incidentFDID1"]
-        fjIncidentNFIRS?.incidentFireStation = fjIncidentR["incidentFireStation"]
-        fjIncidentNFIRS?.incidentHazMat = fjIncidentR["incidentHazMat"]
-        fjIncidentNFIRS?.incidentHazMatNone = fjIncidentR["incidentHazMatNone"] as? Bool ?? false
-//        MARK: -STRING-
-        fjIncidentNFIRS?.incidentLocation = fjIncidentR["incidentNFIRSLocation"]
-        fjIncidentNFIRS?.incidentPlatoon = fjIncidentR["incidentPlatoon"]
-        fjIncidentNFIRS?.incidentPropertyNone = fjIncidentR["incidentPropertyNone"]
-        fjIncidentNFIRS?.incidentPropertyOutside = fjIncidentR["incidentPropertyOutside"]
-        fjIncidentNFIRS?.incidentPropertyOutsideNumber = fjIncidentR["incidentPropertyOutsideNumber"]
-        fjIncidentNFIRS?.incidentPropertyStructure = fjIncidentR["incidentPropertyStructure"]
-        fjIncidentNFIRS?.incidentPropertyStructureNumber = fjIncidentR["incidentPropertyStructureNumber"]
-        fjIncidentNFIRS?.incidentPropertyUse = fjIncidentR["incidentPropertyUse"]
-        fjIncidentNFIRS?.incidentPropertyUseNone = fjIncidentR["incidentPropertyUseNone"]
-        fjIncidentNFIRS?.incidentPropertyUseNumber = fjIncidentR["incidentPropertyUseNumber"]
-        fjIncidentNFIRS?.incidentResourceCheck = fjIncidentR["incidentResourceCheck"]
-        fjIncidentNFIRS?.incidentResourcesEMSApparatus = fjIncidentR["incidentResourcesEMSApparatus"]
-        fjIncidentNFIRS?.incidentResourcesEMSPersonnel = fjIncidentR["incidentResourcesEMSPersonnel"]
-        fjIncidentNFIRS?.incidentResourcesOtherApparatus = fjIncidentR["incidentResourcesOtherApparatus"]
-        fjIncidentNFIRS?.incidentResourcesOtherPersonnel = fjIncidentR["incidentResourcesOtherPersonnel"]
-        fjIncidentNFIRS?.incidentResourcesSuppressionPersonnel = fjIncidentR["incidentResourcesSuppressionPersonnel"]
-        fjIncidentNFIRS?.incidentResourcesSupressionApparatus = fjIncidentR["incidentResourcesSupressionApparatus"]
-        fjIncidentNFIRS?.incidentTypeNumberNFRIS = fjIncidentR["incidentTypeNumberNFRIS"]
-        fjIncidentNFIRS?.incidentTypeTextNFRIS = fjIncidentR["incidentTypeTextNFRIS"]
-        fjIncidentNFIRS?.lossesContentDollars = fjIncidentR["lossesContentDollars"]
-        fjIncidentNFIRS?.lossesContentNone = fjIncidentR["lossesContentNone"] as? Bool ?? false
-        fjIncidentNFIRS?.lossesPropertyDollars = fjIncidentR["lossesPropertyDollars"]
-        fjIncidentNFIRS?.lossesPropertyNone = fjIncidentR["lossesPropertyNone"] as? Bool ?? false
-        fjIncidentNFIRS?.mixedUsePropertyNone = fjIncidentR["mixedUsePropertyNone"] as? Bool ?? false
-        fjIncidentNFIRS?.mixedUsePropertyType = fjIncidentR["mixedUsePropertyType"]
-        fjIncidentNFIRS?.nfirsChangeDescription = fjIncidentR["nfirsChangeDescription"]
-        fjIncidentNFIRS?.nfirsSectionOneSegment = fjIncidentR["nfirsSectionOneSegment"]
-        fjIncidentNFIRS?.propertyUseNone = fjIncidentR["propertyUseNone"] as? Bool ?? false
-        fjIncidentNFIRS?.resourceCountsIncludeAidReceived = fjIncidentR["resourceCountsIncludeAidReceived"] as? Bool ?? false
-        fjIncidentNFIRS?.shiftAlarm = fjIncidentR["shiftAlarm"]
-        fjIncidentNFIRS?.shiftDistrict = fjIncidentR["shiftDistrict"]
-        fjIncidentNFIRS?.shiftOrPlatoon = fjIncidentR["shiftOrPlatoon"]
-        fjIncidentNFIRS?.skipSectionF = fjIncidentR["skipSectionF"] as? Bool ?? false
-        fjIncidentNFIRS?.specialStudyID = fjIncidentR["specialStudyID"]
-        fjIncidentNFIRS?.specialStudyValue = fjIncidentR["specialStudyValue"]
-        fjIncidentNFIRS?.valueContentDollars = fjIncidentR["valueContentDollars"]
-        fjIncidentNFIRS?.valueContentsNone = fjIncidentR["valueContentsNone"] as? Bool ?? false
-        fjIncidentNFIRS?.valuePropertyDollars = fjIncidentR["valuePropertyDollars"]
-        fjIncidentNFIRS?.valuePropertyNone = fjIncidentR["valuePropertyNone"] as? Bool ?? false
-        self.incidentNFIRSDetails = fjIncidentNFIRS
+            // TODO: -REQUIREDMODULES
+            // MARK: -IncidentNFIRSsecL-
+        if let fjIncidentNFIRSsecL = self.sectionLDetails {
+            if let lRemarks = fjIncidentR["incidentNFIRSSecLNotes"] as? String {
+                fjIncidentNFIRSsecL.lRemarks = lRemarks as NSObject
+            }
+            if let moreRemarks = fjIncidentR["incidentNFIRSSecLMoreRemarks"] as? Bool {
+                fjIncidentNFIRSsecL.moreRemarks = moreRemarks
+            }
+        }
         
-        // TODO: -CompletedModules-
-        // MARK: -IncidentNFIRSKSec-
-        let fjIncidentNFIRSKSec = self.incidentNFIRSKSecDetails
-        fjIncidentNFIRSKSec?.kOwnerAptSuiteRoom = fjIncidentR["kOwnerAptSuiteRoom"]
-        fjIncidentNFIRSKSec?.kOwnerAreaCode = fjIncidentR["kOwnerAreaCode"]
-        fjIncidentNFIRSKSec?.kOwnerBusinessName = fjIncidentR["kOwnerBusinessName"]
-        fjIncidentNFIRSKSec?.kOwnerCheckBox = fjIncidentR["kOwnerCheckBox"] as? Bool ?? false
-        fjIncidentNFIRSKSec?.kOwnerCity = fjIncidentR["kOwnerCity"]
-        fjIncidentNFIRSKSec?.kOwnerFirstName = fjIncidentR["kOwnerFirstName"]
-        fjIncidentNFIRSKSec?.kOwnerLastName = fjIncidentR["kOwnerLastName"]
-        fjIncidentNFIRSKSec?.kOwnerMI = fjIncidentR["kOwnerMI"]
-        fjIncidentNFIRSKSec?.kOwnerNamePrefix = fjIncidentR["kOwnerNamePrefix"]
-        fjIncidentNFIRSKSec?.kOwnerNameSuffix = fjIncidentR["kOwnerNameSuffix"]
-        fjIncidentNFIRSKSec?.kOwnerPhoneLastFour = fjIncidentR["kOwnerPhoneLastFour"]
-        fjIncidentNFIRSKSec?.kOwnerPhonePrefix = fjIncidentR["kOwnerPhonePrefix"]
-        fjIncidentNFIRSKSec?.kOwnerPOBox = fjIncidentR["kOwnerPOBox"]
-        fjIncidentNFIRSKSec?.kOwnerSameAsPerson = fjIncidentR["kOwnerSameAsPerson"] as? Bool ?? false
-        fjIncidentNFIRSKSec?.kOwnerState = fjIncidentR["kOwnerState"]
-        fjIncidentNFIRSKSec?.kOwnerStreetHyway = fjIncidentR["kOwnerStreetHyway"]
-        fjIncidentNFIRSKSec?.kOwnerStreetNumber = fjIncidentR["kOwnerStreetNumber"]
-        fjIncidentNFIRSKSec?.kOwnerStreetPrefix = fjIncidentR["kOwnerStreetPrefix"]
-        fjIncidentNFIRSKSec?.kOwnerStreetSuffix = fjIncidentR["kOwnerStreetSuffix"]
-        fjIncidentNFIRSKSec?.kOwnerStreetType = fjIncidentR["kOwnerStreetType"]
-        fjIncidentNFIRSKSec?.kOwnerZip = fjIncidentR["kOwnerZip"]
-        fjIncidentNFIRSKSec?.kOwnerZipPlusFour = fjIncidentR["kOwnerZipPlusFour"]
-        fjIncidentNFIRSKSec?.kPersonAppSuiteRoom = fjIncidentR["kPersonAppSuiteRoom"]
-        fjIncidentNFIRSKSec?.kPersonAreaCode = fjIncidentR["kPersonAreaCode"]
-        fjIncidentNFIRSKSec?.kPersonBusinessName = fjIncidentR["kPersonBusinessName"]
-        fjIncidentNFIRSKSec?.kPersonCheckBox = fjIncidentR["kPersonCheckBox"] as? Bool ?? false
-        fjIncidentNFIRSKSec?.kPersonCity = fjIncidentR["kPersonCity"]
-        fjIncidentNFIRSKSec?.kPersonFirstName = fjIncidentR["kPersonFirstName"]
-        fjIncidentNFIRSKSec?.kPersonGender = fjIncidentR["kPersonGender"]
-        fjIncidentNFIRSKSec?.kPersonLastName = fjIncidentR["kPersonLastName"]
-        fjIncidentNFIRSKSec?.kPersonMI = fjIncidentR["kPersonMI"]
-        fjIncidentNFIRSKSec?.kPersonMoreThanOne = fjIncidentR["kPersonMoreThanOne"] as? Bool ?? false
-        fjIncidentNFIRSKSec?.kPersonNameSuffix = fjIncidentR["kPersonNameSuffix"]
-        fjIncidentNFIRSKSec?.kPersonPhoneLastFour = fjIncidentR["kPersonPhoneLastFour"]
-        fjIncidentNFIRSKSec?.kPersonPhonePrefix = fjIncidentR["kPersonPhonePrefix"]
-        fjIncidentNFIRSKSec?.kPersonPOBox = fjIncidentR["kPersonPOBox"]
-        fjIncidentNFIRSKSec?.kPersonPrefix = fjIncidentR["kPersonPrefix"]
-        fjIncidentNFIRSKSec?.kPersonState = fjIncidentR["kPersonState"]
-        fjIncidentNFIRSKSec?.kPersonStreetHyway = fjIncidentR["kPersonStreetHyway"]
-        fjIncidentNFIRSKSec?.kPersonStreetNum = fjIncidentR["kPersonStreetNum"]
-        fjIncidentNFIRSKSec?.kPersonStreetSuffix = fjIncidentR["kPersonStreetSuffix"]
-        fjIncidentNFIRSKSec?.kPersonStreetType = fjIncidentR["kPersonStreetType"]
-        fjIncidentNFIRSKSec?.kPersonZipCode = fjIncidentR["kPersonZipCode"]
-        fjIncidentNFIRSKSec?.kPersonZipPlus4 = fjIncidentR["kPersonZipPlus4"]
-        self.incidentNFIRSKSecDetails = fjIncidentNFIRSKSec
+            // MARK: -IncidentNFIRSsecM-
+        if let fjIncidentNFIRSsecM = self.sectionMDetails {
+            if let memberAssignment = fjIncidentR["memberAssignment"] as? String {
+                fjIncidentNFIRSsecM.memberAssignment = memberAssignment
+            }
+            if let memberDate = fjIncidentR["memberDate"] as? Date {
+                fjIncidentNFIRSsecM.memberDate = memberDate
+            }
+            if let memberMakingReportID = fjIncidentR["memberMakingReportID"] as? String {
+                fjIncidentNFIRSsecM.memberMakingReportID = memberMakingReportID
+            }
+            if let memberRankPosition = fjIncidentR["memberRankPosition"] as? String {
+                fjIncidentNFIRSsecM.memberRankPosition = memberRankPosition
+            }
+            if let memberSameAsOfficer = fjIncidentR["memberSameAsOfficer"] as? Bool {
+                fjIncidentNFIRSsecM.memberSameAsOfficer = memberSameAsOfficer
+            }
+            if let officerAssignment = fjIncidentR["officerAssignment"] as? String {
+                fjIncidentNFIRSsecM.officerAssignment = officerAssignment
+            }
+            if let officerDate = fjIncidentR["officerDate"] as? Date {
+                fjIncidentNFIRSsecM.officerDate = officerDate
+            }
+            if let officerInChargeID = fjIncidentR["officerInChargeID"] as? String {
+                fjIncidentNFIRSsecM.officerInChargeID = officerInChargeID
+            }
+            if let officerRankPosition = fjIncidentR["officerRankPosition"] as? String {
+                fjIncidentNFIRSsecM.officerRankPosition = officerRankPosition
+            }
+            if let signatureMember = fjIncidentR["signatureMember"] as? String {
+                fjIncidentNFIRSsecM.signatureMember = signatureMember
+            }
+            if let signatureOfficer = fjIncidentR["signatureOfficer"] as? String {
+                fjIncidentNFIRSsecM.signatureOfficer = signatureOfficer
+            }
+            if let memberSigned = fjIncidentR["memberSigned"] as? Bool {
+                fjIncidentNFIRSsecM.memberSigned = memberSigned
+            }
+            if let officeSigned = fjIncidentR["officerSigned"] as? Bool {
+                fjIncidentNFIRSsecM.officeSigned = officeSigned
+            }
+        }
         
-        // TODO: -REQUIREDMODULES
-        // MARK: -IncidentNFIRSsecL-
-        let fjIncidentNFIRSsecL = self.sectionLDetails
-        fjIncidentNFIRSsecL?.lRemarks = fjIncidentR["incidentNFIRSSecLNotes"] as? NSObject
-        fjIncidentNFIRSsecL?.moreRemarks = fjIncidentR["incidentNFIRSSecLMoreRemarks"] as? Bool ?? false
-        self.sectionLDetails = fjIncidentNFIRSsecL
+            // MARK: -IncidentNotes-
+        if let fjIncidentNotes = self.incidentNotesDetails {
+            if let incidentSummaryNotesSC = fjIncidentR["incidentSummaryNotes"] as? NSObject {
+                fjIncidentNotes.incidentSummaryNotesSC = incidentSummaryNotesSC
+            }
+            if let note = fjIncidentR["incidentNote"] as? String {
+                fjIncidentNotes.incidentNote = note
+            }
+        }
         
-        // MARK: -IncidentNFIRSsecM-
-        let fjIncidentNFIRSsecM = self.sectionMDetails
-        fjIncidentNFIRSsecM?.memberAssignment = fjIncidentR["memberAssignment"]
-        fjIncidentNFIRSsecM?.memberDate = fjIncidentR["memberDate"]
-        fjIncidentNFIRSsecM?.memberMakingReportID = fjIncidentR["memberMakingReportID"]
-        fjIncidentNFIRSsecM?.memberRankPosition = fjIncidentR["memberRankPosition"]
-        fjIncidentNFIRSsecM?.memberSameAsOfficer = fjIncidentR["memberSameAsOfficer"] as? Bool ?? false
-        fjIncidentNFIRSsecM?.officerAssignment = fjIncidentR["officerAssignment"]
-        fjIncidentNFIRSsecM?.officerDate = fjIncidentR["officerDate"]
-        fjIncidentNFIRSsecM?.officerInChargeID = fjIncidentR["officerInChargeID"]
-        fjIncidentNFIRSsecM?.officerRankPosition = fjIncidentR["officerRankPosition"]
-        fjIncidentNFIRSsecM?.signatureMember = fjIncidentR["signatureMember"]
-        fjIncidentNFIRSsecM?.signatureOfficer = fjIncidentR["signatureOfficer"]
-        fjIncidentNFIRSsecM?.memberSigned = fjIncidentR["memberSigned"] as? Bool ?? false
-        fjIncidentNFIRSsecM?.officeSigned = fjIncidentR["officerSigned"] as? Bool ?? false
-        // TODO: -SIGNATURE CONVERSION-
+            // TODO: -IncidentResources-
+            // MARK: -IncidentTimer-
+        if let fjIncidentTimer = self.incidentTimerDetails {
+            if let arrivalSameDate = fjIncidentR["arrivalSameDate"] as? Bool {
+                fjIncidentTimer.arrivalSameDate = arrivalSameDate
+            }
+            if let controlledSameDate = fjIncidentR["controlledSameDate"] as? Bool {
+                fjIncidentTimer.controlledSameDate = controlledSameDate
+            }
+            if let incidentAlarmCombinedDate = fjIncidentR["incidentAlarmCombinedDate"] as? String {
+                fjIncidentTimer.incidentAlarmCombinedDate = incidentAlarmCombinedDate
+            }
+            if let incidentAlarmDateTime = fjIncidentR["incidentAlarmDateTime"] as? Date {
+                fjIncidentTimer.incidentAlarmDateTime = incidentAlarmDateTime
+            }
+            if let incidentAlarmDay = fjIncidentR["incidentAlarmDay"] as? String {
+                fjIncidentTimer.incidentAlarmDay = incidentAlarmDay
+            }
+            if let incidentAlarmHours = fjIncidentR["incidentAlarmHours"] as? String {
+                fjIncidentTimer.incidentAlarmHours = incidentAlarmHours
+            }
+            if let incidentAlarmMinutes = fjIncidentR["incidentAlarmMinutes"] as? String {
+                fjIncidentTimer.incidentAlarmMinutes = incidentAlarmMinutes
+            }
+            if let incidentAlarmMonth = fjIncidentR["incidentAlarmMonth"] as? String {
+                fjIncidentTimer.incidentAlarmMonth = incidentAlarmMonth
+            }
+            if let incidentAlarmNotes = fjIncidentR["incidentAlarmNotes"] as? String {
+                fjIncidentTimer.incidentAlarmNotes = incidentAlarmNotes as NSObject
+            }
+            if let incidentAlarmYear = fjIncidentR["incidentAlarmYear"] as? String {
+                fjIncidentTimer.incidentAlarmYear = incidentAlarmYear
+            }
+            if let incidentArrivalCombinedDate = fjIncidentR["incidentArrivalCombinedDate"] as? String {
+                fjIncidentTimer.incidentArrivalCombinedDate = incidentArrivalCombinedDate
+            }
+            if let incidentArrivalDateTime = fjIncidentR["incidentArrivalDateTime"] as? Date {
+                fjIncidentTimer.incidentArrivalDateTime = incidentArrivalDateTime
+            }
+            if let incidentArrivalDay = fjIncidentR["incidentArrivalDay"] as? String {
+                fjIncidentTimer.incidentArrivalDay = incidentArrivalDay
+            }
+            if let incidentArrivalHours = fjIncidentR["incidentArrivalHours"] as? String {
+                fjIncidentTimer.incidentArrivalHours = incidentArrivalHours
+            }
+            if let incidentArrivalMinutes = fjIncidentR["incidentArrivalMinutes"] as? String {
+                fjIncidentTimer.incidentArrivalMinutes = incidentArrivalMinutes
+            }
+            if let incidentArrivalMonth = fjIncidentR["incidentArrivalMonth"] as? String {
+                fjIncidentTimer.incidentArrivalMonth = incidentArrivalMonth
+            }
+            if let incidentArrivalNotes = fjIncidentR["incidentArrivalNotes"] as? String {
+                fjIncidentTimer.incidentArrivalNotes = incidentArrivalNotes as NSObject
+            }
+            if let incidentArrivalYear = fjIncidentR["incidentArrivalYear"] as? String {
+                fjIncidentTimer.incidentArrivalYear = incidentArrivalYear
+            }
+            if let incidentArrivalYear = fjIncidentR["incidentArrivalYear"] as? String {
+                fjIncidentTimer.incidentArrivalYear = incidentArrivalYear
+            }
+            if let incidentControlDateTime =  fjIncidentR["incidentControlDateTime"] as? Date {
+                fjIncidentTimer.incidentControlDateTime =  incidentControlDateTime
+            }
+            if let incidentControlledDay = fjIncidentR["incidentControlledDay"] as? String {
+                fjIncidentTimer.incidentControlledDay = incidentControlledDay
+            }
+            if let incidentControlledHours = fjIncidentR["incidentControlledHours"] as? String {
+                fjIncidentTimer.incidentControlledHours = incidentControlledHours
+            }
+            if let incidentControlledMinutes = fjIncidentR["incidentControlledMinutes"] as? String {
+                fjIncidentTimer.incidentControlledMinutes = incidentControlledMinutes
+            }
+            if let incidentControlledMonth = fjIncidentR["incidentControlledMonth"] as? String {
+                fjIncidentTimer.incidentControlledMonth = incidentControlledMonth
+            }
+            if let incidentControlledNotes = fjIncidentR["incidentControlledNotes"] as? String {
+                fjIncidentTimer.incidentControlledNotes = incidentControlledNotes as NSObject
+            }
+            if let incidentControlledYear = fjIncidentR["incidentControlledYear"] as? String {
+                fjIncidentTimer.incidentControlledYear = incidentControlledYear
+            }
+            if let incidentElapsedTime = fjIncidentR["incidentElapsedTime"] as? String {
+                fjIncidentTimer.incidentElapsedTime = incidentElapsedTime
+            }
+            if let incidentLastUnitCalledCombinedDate = fjIncidentR["incidentLastUnitCalledCombinedDate"] as? String {
+                fjIncidentTimer.incidentLastUnitCalledCombinedDate = incidentLastUnitCalledCombinedDate
+            }
+            if let incidentLastUnitDateTime = fjIncidentR["incidentLastUnitDateTime"] as? Date {
+                fjIncidentTimer.incidentLastUnitDateTime = incidentLastUnitDateTime
+            }
+            if let incidentLastUnitCalledDay = fjIncidentR["incidentLastUnitCalledDay"] as? String {
+                fjIncidentTimer.incidentLastUnitCalledDay = incidentLastUnitCalledDay
+            }
+            if let incidentLastUnitCalledHours = fjIncidentR["incidentLastUnitCalledHours"] as? String {
+                fjIncidentTimer.incidentLastUnitCalledHours = incidentLastUnitCalledHours
+            }
+            if let incidentLastUnitCalledMinutes = fjIncidentR["incidentLastUnitCalledMinutes"] as? String {
+                fjIncidentTimer.incidentLastUnitCalledMinutes = incidentLastUnitCalledMinutes
+            }
+            if let incidentLastUnitCalledMonth = fjIncidentR["incidentLastUnitCalledMonth"] as? String {
+                fjIncidentTimer.incidentLastUnitCalledMonth = incidentLastUnitCalledMonth
+            }
+            if let incidentLastUnitCalledYear = fjIncidentR["incidentLastUnitCalledYear"] as? String {
+                fjIncidentTimer.incidentLastUnitCalledYear = incidentLastUnitCalledYear
+            }
+            if let incidentLastUnitClearedNotes = fjIncidentR["incidentLastUnitClearedNotes"] as? String {
+                fjIncidentTimer.incidentLastUnitClearedNotes = incidentLastUnitClearedNotes as NSObject
+            }
+            if let incidentStartClockCombinedDate = fjIncidentR["incidentStartClockCombinedDate"] as? String {
+                fjIncidentTimer.incidentStartClockCombinedDate = incidentStartClockCombinedDate
+            }
+            if let incidentStartClockDateTime = fjIncidentR["incidentStartClockDateTime"] as? Date {
+                fjIncidentTimer.incidentStartClockDateTime = incidentStartClockDateTime
+            }
+            if let incidentStartClockDay = fjIncidentR["incidentStartClockDay"] as? String {
+                fjIncidentTimer.incidentStartClockDay = incidentStartClockDay
+            }
+            if let incidentStartClockHours = fjIncidentR["incidentStartClockHours"] as? String {
+                fjIncidentTimer.incidentStartClockHours = incidentStartClockHours
+            }
+            if let incidentStartClockMinutes = fjIncidentR["incidentStartClockMinutes"] as? String {
+                fjIncidentTimer.incidentStartClockMinutes = incidentStartClockMinutes
+            }
+            if let incidentStartClockMonth = fjIncidentR["incidentStartClockMonth"] as? String {
+                fjIncidentTimer.incidentStartClockMonth = incidentStartClockMonth
+            }
+            if let incidentStartClockSeconds = fjIncidentR["incidentStartClockSeconds"] as? String {
+                fjIncidentTimer.incidentStartClockSeconds = incidentStartClockSeconds
+            }
+            if let incidentStartClockYear = fjIncidentR["incidentStartClockYear"] as? String {
+                fjIncidentTimer.incidentStartClockYear = incidentStartClockYear
+            }
+            if let incidentStopClockCombinedDate = fjIncidentR["incidentStopClockCombinedDate"]  as? String {
+                fjIncidentTimer.incidentStopClockCombinedDate = incidentStopClockCombinedDate
+            }
+            if let incidentStopClockDateTime = fjIncidentR["incidentStopClockDateTime"] as? Date {
+                fjIncidentTimer.incidentStopClockDateTime = incidentStopClockDateTime
+            }
+            if let incidentStopClockDay = fjIncidentR["incidentStopClockDay"] as? String {
+                fjIncidentTimer.incidentStopClockDay = incidentStopClockDay
+            }
+            if let incidentStopClockHours = fjIncidentR["incidentStopClockHours"] as? String {
+                fjIncidentTimer.incidentStopClockHours = incidentStopClockHours
+            }
+            if let incidentStopClockMinutes = fjIncidentR["incidentStopClockMinutes"] as? String {
+                fjIncidentTimer.incidentStopClockMinutes = incidentStopClockMinutes
+            }
+            if let incidentStopClockMonth = fjIncidentR["incidentStopClockMonth"] as? String {
+                fjIncidentTimer.incidentStopClockMonth = incidentStopClockMonth
+            }
+            if let incidentStopClockSeconds = fjIncidentR["incidentStopClockSeconds"] as? String {
+                fjIncidentTimer.incidentStopClockSeconds = incidentStopClockSeconds
+            }
+            if let incidentStopClockYear = fjIncidentR["incidentStopClockYear"] as? String {
+                fjIncidentTimer.incidentStopClockYear = incidentStopClockYear
+            }
+            if let lastUnitSameDate = fjIncidentR["lastUnitSameDate"] as? Bool {
+                fjIncidentTimer.lastUnitSameDate = lastUnitSameDate
+            }
+        }
         
-        self.sectionMDetails = fjIncidentNFIRSsecM
+            // MARK: -ActionsTaken-
+        if let fjActionsTaken = self.actionsTakenDetails {
+            if let additionalThree = fjIncidentR["additionalThree"] as? String {
+                fjActionsTaken.additionalThree = additionalThree
+            }
+            if let additionalThreeNumber = fjIncidentR["additionalThreeNumber"] as? String {
+                fjActionsTaken.additionalThreeNumber = additionalThreeNumber
+            }
+            if let additionalTwo = fjIncidentR["additionalTwo"] as? String {
+                fjActionsTaken.additionalTwo = additionalTwo
+            }
+            if let additionalTwoNumber = fjIncidentR["additionalTwoNumber"] as? String {
+                fjActionsTaken.additionalTwoNumber = additionalTwoNumber
+            }
+            if let primaryAction = fjIncidentR["primaryAction"] as? String {
+                fjActionsTaken.primaryAction = primaryAction
+            }
+            if let primaryActionNumber = fjIncidentR["primaryActionNumber"] as? String {
+                fjActionsTaken.primaryActionNumber = primaryActionNumber
+            }
+        }
         
-        // MARK: -IncidentNotes-
-        let fjIncidentNotes = self.incidentNotesDetails
-        fjIncidentNotes?.incidentSummaryNotes = fjIncidentR["incidentSummaryNotes"] as? NSObject
-        fjIncidentNotes?.incidentNote = fjIncidentR["incidentNote"]
-        self.incidentNotesDetails = fjIncidentNotes
-        
-        // TODO: -IncidentResources-
-        // MARK: -IncidentTimer-
-        let fjIncidentTimer = self.incidentTimerDetails
-        fjIncidentTimer?.arrivalSameDate = fjIncidentR["arrivalSameDate"] as? Bool ?? false
-        fjIncidentTimer?.controlledSameDate = fjIncidentR["controlledSameDate"] as? Bool ?? false
-        fjIncidentTimer?.incidentAlarmCombinedDate = fjIncidentR["incidentAlarmCombinedDate"]
-        fjIncidentTimer?.incidentAlarmDateTime = fjIncidentR["incidentAlarmDateTime"]
-        fjIncidentTimer?.incidentAlarmDay = fjIncidentR["incidentAlarmDay"]
-        fjIncidentTimer?.incidentAlarmHours = fjIncidentR["incidentAlarmHours"]
-        fjIncidentTimer?.incidentAlarmMinutes = fjIncidentR["incidentAlarmMinutes"]
-        fjIncidentTimer?.incidentAlarmMonth = fjIncidentR["incidentAlarmMonth"]
-        fjIncidentTimer?.incidentAlarmNotes = fjIncidentR["incidentAlarmNotes"] as? NSObject
-        fjIncidentTimer?.incidentAlarmYear = fjIncidentR["incidentAlarmYear"]
-        fjIncidentTimer?.incidentArrivalCombinedDate = fjIncidentR["incidentArrivalCombinedDate"]
-        fjIncidentTimer?.incidentArrivalDateTime = fjIncidentR["incidentArrivalDateTime"]
-        fjIncidentTimer?.incidentArrivalDay = fjIncidentR["incidentArrivalDay"]
-        fjIncidentTimer?.incidentArrivalHours = fjIncidentR["incidentArrivalHours"]
-        fjIncidentTimer?.incidentArrivalMinutes = fjIncidentR["incidentArrivalMinutes"]
-        fjIncidentTimer?.incidentArrivalMonth = fjIncidentR["incidentArrivalMonth"]
-        fjIncidentTimer?.incidentArrivalNotes = fjIncidentR["incidentArrivalNotes"] as? NSObject
-        fjIncidentTimer?.incidentArrivalYear = fjIncidentR["incidentArrivalYear"]
-        fjIncidentTimer?.incidentControlledCombinedDate = fjIncidentR["incidentControlledCombinedDate"]
-        fjIncidentTimer?.incidentControlDateTime =  fjIncidentR["incidentControlDateTime"]
-        fjIncidentTimer?.incidentControlledDay = fjIncidentR["incidentControlledDay"]
-        fjIncidentTimer?.incidentControlledHours = fjIncidentR["incidentControlledHours"]
-        fjIncidentTimer?.incidentControlledMinutes = fjIncidentR["incidentControlledMinutes"]
-        fjIncidentTimer?.incidentControlledMonth = fjIncidentR["incidentControlledMonth"]
-        fjIncidentTimer?.incidentControlledNotes = fjIncidentR["incidentControlledNotes"] as? NSObject
-        fjIncidentTimer?.incidentControlledYear = fjIncidentR["incidentControlledYear"]
-        fjIncidentTimer?.incidentElapsedTime = fjIncidentR["incidentElapsedTime"]
-        fjIncidentTimer?.incidentLastUnitCalledCombinedDate = fjIncidentR["incidentLastUnitCalledCombinedDate"]
-        fjIncidentTimer?.incidentLastUnitDateTime = fjIncidentR["incidentLastUnitDateTime"]
-        fjIncidentTimer?.incidentLastUnitCalledDay = fjIncidentR["incidentLastUnitCalledDay"]
-        fjIncidentTimer?.incidentLastUnitCalledHours = fjIncidentR["incidentLastUnitCalledHours"]
-        fjIncidentTimer?.incidentLastUnitCalledMinutes = fjIncidentR["incidentLastUnitCalledMinutes"]
-        fjIncidentTimer?.incidentLastUnitCalledMonth = fjIncidentR["incidentLastUnitCalledMonth"]
-        fjIncidentTimer?.incidentLastUnitCalledYear = fjIncidentR["incidentLastUnitCalledYear"]
-        fjIncidentTimer?.incidentLastUnitClearedNotes = fjIncidentR["incidentLastUnitClearedNotes"] as? NSObject
-        fjIncidentTimer?.incidentStartClockCombinedDate = fjIncidentR["incidentStartClockCombinedDate"]
-        fjIncidentTimer?.incidentStartClockDateTime = fjIncidentR["incidentStartClockDateTime"]
-        fjIncidentTimer?.incidentStartClockDay = fjIncidentR["incidentStartClockDay"]
-        fjIncidentTimer?.incidentStartClockHours = fjIncidentR["incidentStartClockHours"]
-        fjIncidentTimer?.incidentStartClockMinutes = fjIncidentR["incidentStartClockMinutes"]
-        fjIncidentTimer?.incidentStartClockMonth = fjIncidentR["incidentStartClockMonth"]
-        fjIncidentTimer?.incidentStartClockSeconds = fjIncidentR["incidentStartClockSeconds"]
-        fjIncidentTimer?.incidentStartClockYear = fjIncidentR["incidentStartClockYear"]
-        fjIncidentTimer?.incidentStopClockCombinedDate = fjIncidentR["incidentStopClockCombinedDate"]
-        fjIncidentTimer?.incidentStopClockDateTime = fjIncidentR["incidentStopDateTime"]
-        fjIncidentTimer?.incidentStopClockDay = fjIncidentR["incidentStopClockDay"]
-        fjIncidentTimer?.incidentStopClockHours = fjIncidentR["incidentStopClockHours"]
-        fjIncidentTimer?.incidentStopClockMinutes = fjIncidentR["incidentStopClockMinutes"]
-        fjIncidentTimer?.incidentStopClockMonth = fjIncidentR["incidentStopClockMonth"]
-        fjIncidentTimer?.incidentStopClockSeconds = fjIncidentR["incidentStopClockSeconds"]
-        fjIncidentTimer?.incidentStopClockYear = fjIncidentR["incidentStopClockYear"]
-        fjIncidentTimer?.lastUnitSameDate = fjIncidentR["lastUnitSameDate"] as? Bool ?? false
-        self.incidentTimerDetails = fjIncidentTimer
-        
-        // MARK: -ActionsTaken-
-        let fjActionsTaken = self.actionsTakenDetails
-        fjActionsTaken?.additionalThree = fjIncidentR["additionalThree"]
-        fjActionsTaken?.additionalThreeNumber = fjIncidentR["additionalThreeNumber"]
-        fjActionsTaken?.additionalTwo = fjIncidentR["additionalTwo"]
-        fjActionsTaken?.additionalTwoNumber = fjIncidentR["additionalTwoNumber"]
-        fjActionsTaken?.primaryAction = fjIncidentR["primaryAction"]
-        fjActionsTaken?.primaryActionNumber = fjIncidentR["primaryActionNumber"]
-        self.actionsTakenDetails = fjActionsTaken
-        
-        // TODO: -IncidentTeam, IncidentTags, UserCrew
+            // TODO: -IncidentTeam, IncidentTags, UserCrew
         let coder = NSKeyedArchiver(requiringSecureCoding: true)
         fjIncidentR.encodeSystemFields(with: coder)
         let data = coder.encodedData
@@ -867,508 +2378,843 @@ extension Incident {
         saveToCD()
     }
     
+        //    MARK: -SINGLE INCIDENT FROM THE CLOUD-
+        /// Updates journal entry from cloud
+        /// - Parameters:
+        ///   - ckRecord: CKRcord
+        ///   - dateFormatter: DateFormatter
     
-    func modifyIncidentForCloud(ckRecord:CKRecord)->CKRecord {
+    func singleIncidentFromTheCloud(ckRecord: CKRecord, dateFormatter: DateFormatter, completionHandler: (() -> Void)? = nil) {
+        
         let fjIncidentR = ckRecord
         
-        fjIncidentR["incidentBackedUp"] =  true
-        fjIncidentR["theEntity"] = "Incident"
-        fjIncidentR["fjpIncGuidForReference"] = self.fjpIncGuidForReference
-        fjIncidentR["fjpIncidentDateSearch"] = self.fjpIncidentDateSearch
-        fjIncidentR["fjpIncidentModifiedDate"] = self.fjpIncidentModifiedDate
-        //        fjIncidentR["fjpJournalReference"] = journalReference
-        //        fjIncidentR["fjpUserReference"] = userReference
-        fjIncidentR["formType"] = self.formType
-        fjIncidentR["incidentCreationDate"] = self.incidentCreationDate
-        fjIncidentR["incidentDate"] = self.incidentDate
-        fjIncidentR["incidentDateSearch"] = self.incidentDateSearch
-        fjIncidentR["incidentDayOfWeek"] = self.incidentDayOfWeek
-        fjIncidentR["incidentDayOfYear"] = self.incidentDayOfYear
-        fjIncidentR["incidentEntryTypeImageName"] = self.incidentEntryTypeImageName
+        if let formType = fjIncidentR["formType"] as? String {
+            self.formType = formType
+        }
+        if let incidentCreationDate = fjIncidentR["incidentCreationDate"] as? Date {
+            self.incidentCreationDate = incidentCreationDate
+        }
+        if let incidentDate = fjIncidentR["incidentDate"] as? String {
+            self.incidentDate = incidentDate
+        }
+        if let incidentDateSearch = fjIncidentR["incidentDateSearch"] as? String {
+            self.incidentDateSearch = incidentDateSearch
+        }
+        if let incidentDayOfWeek = fjIncidentR["incidentDayOfWeek"] as? String {
+            self.incidentDayOfWeek = incidentDayOfWeek
+        }
+        if let incidentDayOfYear = fjIncidentR["incidentDayOfYear"] as? Double {
+            self.incidentDayOfYear = incidentDayOfYear as NSNumber
+        }
+        if let incidentEntryTypeImageName = fjIncidentR["incidentEntryTypeImageName"] as? String {
+            self.incidentEntryTypeImageName = incidentEntryTypeImageName
+        }
         
-        if self.locationAvailable {
-            fjIncidentR["locationAvailable"] = 1
-        } else {
-                fjIncidentR["locationAvailable"] = 0
+        if let incidentNFIRSCompleted = fjIncidentR["incidentNFIRSCompleted"] as? Double {
+            self.incidentNFIRSCompleted = incidentNFIRSCompleted as NSNumber
         }
-        if self.incidentTagsAvailable {
-            fjIncidentR["incidentTagsAvailable"] = 1
-        } else {
-                fjIncidentR["incidentTagsAvailable"] = 0
+        if let incidentNFIRSCompletedDate = fjIncidentR["incidentNFIRSCompletedDate"] as? Date {
+            self.incidentNFIRSCompletedDate = incidentNFIRSCompletedDate
         }
-        if self.incidentPhotoTaken != nil {
-            if self.incidentPhotoTaken == 1 {
-                fjIncidentR["incidentPhotoTaken"] = 1
+        if let incidentNFIRSDataComplete = fjIncidentR["incidentNFIRSDataComplete"] as? Double {
+            self.incidentNFIRSDataComplete = incidentNFIRSDataComplete as NSNumber
+        }
+        
+        if let arsonInvestigation = fjIncidentR["arsonInvestigation"] as? Double {
+            self.arsonInvestigation = Bool(truncating: arsonInvestigation as NSNumber)
+        }
+        
+        if let incidentCancel = fjIncidentR["incidentCancel"] as? Double {
+            self.incidentCancel = Bool(truncating: incidentCancel as NSNumber)
+        }
+        if let incidentNFIRSDataDate = fjIncidentR["incidentNFIRSDataDate"] as? String {
+            self.incidentNFIRSDataDate = incidentNFIRSDataDate
+        }
+        if let incidentNFIRSDataSaved = fjIncidentR["incidentNFIRSDataSaved"] as? String {
+            self.incidentNFIRSDataSaved = incidentNFIRSDataSaved
+        }
+        if let incidentNumber = fjIncidentR["incidentNumber"] as? String {
+            self.incidentNumber = incidentNumber
+        }
+        if let incidentPhotoTaken = fjIncidentR["incidentPhotoTaken"] as? Double {
+            self.incidentPhotoTaken = incidentPhotoTaken as NSNumber
+        }
+        if let locationAvailable = fjIncidentR["locationAvailable"] as? Double {
+            if locationAvailable == 1 {
+                self.locationAvailable = true
             } else {
-                fjIncidentR["incidentPhotoTaken"] = 0
+                self.locationAvailable = false
+            }
+        }
+        if let incidentTagsAvailable = fjIncidentR["incidentTagsAvailable"] as? Double {
+            if incidentTagsAvailable == 1 {
+                self.incidentTagsAvailable = true
+            } else {
+                self.incidentTagsAvailable = false
+            }
+        }
+        if let incidentSearchDate = fjIncidentR["incidentSearchDate"] as? String {
+            self.incidentSearchDate = incidentSearchDate
+        }
+        if let incidentStreetHyway = fjIncidentR["incidentStreetHyway"] as? String {
+            self.incidentStreetHyway = incidentStreetHyway
+        }
+        if let incidentStreetNumber = fjIncidentR["incidentStreetNumber"] as? String {
+            self.incidentStreetNumber = incidentStreetNumber
+        }
+        if let incidentTime = fjIncidentR["incidentTime"] as? String {
+            self.incidentTime = incidentTime
+        }
+        if let incidentType = fjIncidentR["incidentType"] as? String {
+            self.incidentType = incidentType
+        }
+        if let incidentZipCode = fjIncidentR["incidentZipCode"] as? String {
+            self.incidentZipCode = incidentZipCode
+        }
+        if let incidentZipPlus4 = fjIncidentR["incidentZipPlus4"] as? String {
+            self.incidentZipPlus4 = incidentZipPlus4
+        }
+        if let situationIncidentImage = fjIncidentR["situationIncidentImage"] as? String {
+            self.situationIncidentImage = situationIncidentImage
+        }
+        if let tempIncidentApparatus = fjIncidentR["tempIncidentApparatus"] as? String {
+            self.tempIncidentApparatus = tempIncidentApparatus
+        }
+        if let tempIncidentAssignment = fjIncidentR["tempIncidentAssignment"] as? String {
+            self.tempIncidentAssignment = tempIncidentAssignment
+        }
+        if let tempIncidentFireStation = fjIncidentR["tempIncidentFireStation"] as? String {
+            self.tempIncidentFireStation = tempIncidentFireStation
+        }
+        if let tempIncidentPlatoon = fjIncidentR["tempIncidentPlatoon"] as? String {
+            self.tempIncidentPlatoon = tempIncidentPlatoon
+        }
+        if let arsonInvestigation = fjIncidentR["arsonInvestigation"] as? Bool {
+            self.arsonInvestigation = arsonInvestigation
+        }
+        
+        if let fjuSections = self.formDetails {
+            if let sectionA = fjIncidentR["sectionA"] as? Bool {
+                fjuSections.sectionA = sectionA
+            }
+            if let sectionB = fjIncidentR["sectionB"] as? Bool {
+                fjuSections.sectionB = sectionB
+            }
+            if let sectionC = fjIncidentR["sectionC"] as? Bool {
+                fjuSections.sectionC = sectionC
+            }
+            if let sectionD = fjIncidentR["sectionD"] as? Bool {
+                fjuSections.sectionD = sectionD
+            }
+            if let sectionE = fjIncidentR["sectionE"] as? Bool {
+                fjuSections.sectionE = sectionE
+            }
+            if let sectionF = fjIncidentR["sectionF"] as? Bool {
+                fjuSections.sectionF = sectionF
+            }
+            if let sectionG = fjIncidentR["sectionG"] as? Bool {
+                fjuSections.sectionG = sectionG
+            }
+            if let sectionH = fjIncidentR["sectionH"] as? Bool {
+                fjuSections.sectionH = sectionH
+            }
+            if let sectionI = fjIncidentR["sectionI"] as? Bool {
+                fjuSections.sectionI = sectionI
+            }
+            if let sectionJ = fjIncidentR["sectionJ"] as? Bool {
+                fjuSections.sectionJ = sectionJ
+            }
+            if let sectionK = fjIncidentR["sectionK"] as? Bool {
+                fjuSections.sectionK = sectionK
+            }
+            if let sectionL = fjIncidentR["sectionL"] as? Bool {
+                fjuSections.sectionL = sectionL
+            }
+            if let sectionM = fjIncidentR["sectionM"] as? Bool {
+                fjuSections.sectionM = sectionM
             }
         }
         
-        
-        var location:CLLocation!
-        if self.incidentLocationSC != nil {
-                if let theLocation = self.incidentLocationSC {
-                    guard let  archivedData = theLocation as? Data else { return fjIncidentR }
-                    do {
-                        guard let unarchivedLocation = try NSKeyedUnarchiver.unarchivedObject(ofClass: CLLocation.self , from: archivedData) else { return fjIncidentR }
-                        location = unarchivedLocation
-                        fjIncidentR["incidentLocation"] = location!
-                    } catch {
-                        print("error line 72 Incident+CustomAdditions")
-                    }
-                }
+        if  let fjIncidentAddress = self.incidentAddressDetails {
+            if let appSuiteRoom = fjIncidentR["appSuiteRoom"] as? String {
+                fjIncidentAddress.appSuiteRoom = appSuiteRoom
+            }
+            if let censusTract = fjIncidentR["censusTract"] as? String {
+                fjIncidentAddress.censusTract = censusTract
+            }
+            if let censusTract2 = fjIncidentR["censusTract2"] as? String {
+                fjIncidentAddress.censusTract2 = censusTract2
+            }
+            if let city = fjIncidentR["city"] as? String {
+                fjIncidentAddress.city = city
+            }
+            if let crossStreet = fjIncidentR["crossStreet"] as? String {
+                fjIncidentAddress.crossStreet = crossStreet
+            }
+            if let incidentState = fjIncidentR["incidentState"] as? String {
+                fjIncidentAddress.incidentState = incidentState
+            }
+            if let prefix = fjIncidentR["prefix"] as? String {
+                fjIncidentAddress.prefix = prefix
+            }
+            if let stagingAddress = fjIncidentR["stagingAddress"] as? String {
+                fjIncidentAddress.stagingAddress = stagingAddress
+            }
+            if let streetHighway = fjIncidentR["streetHighway"] as? String {
+                fjIncidentAddress.streetHighway = streetHighway
+            }
+            if let streetNumber = fjIncidentR["streetNumber"] as? String {
+                fjIncidentAddress.streetNumber = streetNumber
+            }
+            if let streetType = fjIncidentR["streetType"] as? String {
+                fjIncidentAddress.streetType = streetType
+            }
+            if let suffix = fjIncidentR["suffix"] as? String {
+                fjIncidentAddress.suffix = suffix
+            }
+            if let zip = fjIncidentR["zip"] as? String {
+                fjIncidentAddress.zip = zip
+            }
+            if let zipPlus4 = fjIncidentR["zipPlus4"] as? String {
+                fjIncidentAddress.zipPlus4 = zipPlus4
+            }
         }
         
-        fjIncidentR["incidentModDate"] = self.incidentModDate
-        fjIncidentR["incidentNFIRSCompleted"] = self.incidentNFIRSCompleted
-        fjIncidentR["incidentNFIRSCompletedDate"] = self.incidentNFIRSCompletedDate
-        fjIncidentR["incidentNFIRSDataComplete"] = self.incidentNFIRSDataComplete
-        fjIncidentR["incidentNFIRSDataDate"] = self.incidentNFIRSDataDate
-        fjIncidentR["incidentNFIRSDataSaved"] = self.incidentNFIRSDataSaved
-        fjIncidentR["incidentNumber"] = self.incidentNumber
-        fjIncidentR["incidentPhotoTaken"] = self.incidentPhotoTaken
-        fjIncidentR["incidentSearchDate"] = self.incidentSearchDate
-        fjIncidentR["incidentStreetHyway"] = self.incidentStreetHyway
-        fjIncidentR["incidentStreetNumber"] = self.incidentStreetNumber
-        fjIncidentR["incidentTime"] = self.incidentTime
-        fjIncidentR["incidentType"] = self.incidentType
-        fjIncidentR["incidentZipCode"] = self.incidentZipCode
-        fjIncidentR["incidentZipPlus4"] = self.incidentZipPlus4
-        fjIncidentR["situationIncidentImage"] = self.situationIncidentImage
-        fjIncidentR["tempIncidentApparatus"] = self.tempIncidentApparatus
-        fjIncidentR["tempIncidentAssignment"] = self.tempIncidentAssignment
-        fjIncidentR["tempIncidentFireStation"] = self.tempIncidentFireStation
-        fjIncidentR["tempIncidentPlatoon"] = self.tempIncidentPlatoon
-        fjIncidentR["ics214Effort"] = self.ics214Effort
-        fjIncidentR["ics214MasterGuid"] = self.ics214MasterGuid
-        fjIncidentR["arsonInvestigation"] = Int(self.arsonInvestigation)
-        
-        let fjuSections = self.formDetails
-        fjIncidentR["sectionA"] = Int(fjuSections?.sectionA ?? false)
-        fjIncidentR["sectionB"] = Int(fjuSections?.sectionB ?? false)
-        fjIncidentR["sectionC"] = Int(fjuSections?.sectionC ?? false)
-        fjIncidentR["sectionD"] = Int(fjuSections?.sectionD ?? false)
-        fjIncidentR["sectionE"] = Int(fjuSections?.sectionE ?? false)
-        fjIncidentR["sectionF"] = Int(fjuSections?.sectionF ?? false)
-        fjIncidentR["sectionG"] = Int(fjuSections?.sectionG ?? false)
-        fjIncidentR["sectionH"] = Int(fjuSections?.sectionH ?? false)
-        fjIncidentR["sectionI"] = Int(fjuSections?.sectionI ?? false)
-        fjIncidentR["sectionJ"] = Int(fjuSections?.sectionJ ?? false)
-        fjIncidentR["sectionK"] = Int(fjuSections?.sectionK ?? false)
-        fjIncidentR["sectionL"] = Int(fjuSections?.sectionL ?? false)
-        fjIncidentR["sectionM"] = Int(fjuSections?.sectionM ?? false)
-        
-        let fjIncidentAddress = self.incidentAddressDetails
-        fjIncidentR["appSuiteRoom"] = fjIncidentAddress?.appSuiteRoom
-        fjIncidentR["censusTract"] = fjIncidentAddress?.censusTract
-        fjIncidentR["censusTract2"] = fjIncidentAddress?.censusTract2
-        fjIncidentR["city"] = fjIncidentAddress?.city
-        fjIncidentR["crossStreet"] = fjIncidentAddress?.crossStreet
-        fjIncidentR["incidentState"] = fjIncidentAddress?.incidentState
-        fjIncidentR["prefix"] = fjIncidentAddress?.prefix
-        fjIncidentR["stagingAddress"] = fjIncidentAddress?.stagingAddress
-        fjIncidentR["streetHighway"] = fjIncidentAddress?.streetHighway
-        fjIncidentR["streetNumber"] = fjIncidentAddress?.streetNumber
-        fjIncidentR["streetType"] = fjIncidentAddress?.streetType
-        fjIncidentR["suffix"] = fjIncidentAddress?.suffix
-        fjIncidentR["zip"] = fjIncidentAddress?.zip
-        fjIncidentR["zipPlus4"] = fjIncidentAddress?.zipPlus4
-        var num = ""
-        var street = ""
-        var zip = ""
-        if let number = fjIncidentAddress?.streetNumber {
-            num = number
+            //MARK: -incidentLocal-
+        if let fjIncidentLocal = self.incidentLocalDetails {
+            if let incidentBattalion = fjIncidentR["incidentBattalion"] as? String {
+                fjIncidentLocal.incidentBattalion = incidentBattalion
+            }
+            if let incidentDivision = fjIncidentR["incidentDivision"] as? String {
+                fjIncidentLocal.incidentDivision = incidentDivision
+            }
+            if let incidentFireDistrict = fjIncidentR["incidentFireDistrict"] as? String {
+                fjIncidentLocal.incidentFireDistrict = incidentFireDistrict
+            }
+            if let incidentLocalType = fjIncidentR["incidentLocalType"] as? String {
+                fjIncidentLocal.incidentLocalType = incidentLocalType
+            }
         }
-        if let st = fjIncidentAddress?.streetHighway {
-            street = st
+        
+            //MARK: -incidentMap-
+        if let fjIncidentMap = self.incidentMapDetails {
+            if let incidentLatitude = fjIncidentR["incidentLatitude"] as? String {
+                fjIncidentMap.incidentLatitude = incidentLatitude
+            }
+            if let incidentLongitude = fjIncidentR["incidentLongitude"] as? String {
+                fjIncidentMap.incidentLongitude = incidentLongitude
+            }
+            if let stagingLatitude = fjIncidentR["stagingLatitude"] as? String {
+                fjIncidentMap.stagingLatitude = stagingLatitude
+            }
+            if let stagingLongitude = fjIncidentR["stagingLongitude"] as? String {
+                fjIncidentMap.stagingLongitude = stagingLongitude
+            }
         }
-        if let zipped = fjIncidentAddress?.zip {
-            zip = zipped
+        
+            //MARK: -IncidentNFIRS-
+        if let fjIncidentNFIRS = self.incidentNFIRSDetails {
+            if let fireStationState = fjIncidentR["fireStationState"] as? String {
+                fjIncidentNFIRS.fireStationState = fireStationState
+            }
+            if let incidentActionsTakenAdditionalThree = fjIncidentR["incidentActionsTakenAdditionalThree"] as? String {
+                fjIncidentNFIRS.incidentActionsTakenAdditionalThree = incidentActionsTakenAdditionalThree
+            }
+            if let incidentActionsTakenAdditionalTwo = fjIncidentR["incidentActionsTakenAdditionalTwo"] as? String {
+                fjIncidentNFIRS.incidentActionsTakenAdditionalTwo = incidentActionsTakenAdditionalTwo
+            }
+            if let incidentActionsTakenPrimary = fjIncidentR["incidentActionsTakenPrimary"] as? String {
+                fjIncidentNFIRS.incidentActionsTakenPrimary = incidentActionsTakenPrimary
+            }
+            if let incidentAidGiven = fjIncidentR["incidentAidGiven"] as? String {
+                fjIncidentNFIRS.incidentAidGiven = incidentAidGiven
+            }
+            if let incidentAidGivenFDID = fjIncidentR["incidentAidGivenFDID"] as? String {
+                fjIncidentNFIRS.incidentAidGivenFDID = incidentAidGivenFDID
+            }
+            if let incidentAidGivenIncidentNumber = fjIncidentR["incidentAidGivenIncidentNumber"] as? String {
+                fjIncidentNFIRS.incidentAidGivenIncidentNumber = incidentAidGivenIncidentNumber
+            }
+            if let incidentAidGivenNone = fjIncidentR["incidentAidGivenNone"] as? Double {
+                fjIncidentNFIRS.incidentAidGivenNone = incidentAidGivenNone as NSNumber
+            }
+            if let incidentAidGivenState = fjIncidentR["incidentAidGivenState"] as? String {
+                fjIncidentNFIRS.incidentAidGivenState = incidentAidGivenState
+            }
+            if let incidentCasualtiesCivilianDeaths = fjIncidentR["incidentCasualtiesCivilianDeaths"] as? String {
+                fjIncidentNFIRS.incidentCasualtiesCivilianDeaths = incidentCasualtiesCivilianDeaths
+            }
+            if let incidentCasualtiesCivilianInjuries = fjIncidentR["incidentCasualtiesCivilianInjuries"] as? String {
+                fjIncidentNFIRS.incidentCasualtiesCivilianInjuries = incidentCasualtiesCivilianInjuries
+            }
+            if let incidentCasualtiesFireDeaths = fjIncidentR["incidentCasualtiesFireDeaths"] as? String {
+                fjIncidentNFIRS.incidentCasualtiesFireDeaths = incidentCasualtiesFireDeaths
+            }
+            if let incidentCasualtiesFireInjuries = fjIncidentR["incidentCasualtiesFireInjuries"] as? String {
+                fjIncidentNFIRS.incidentCasualtiesFireInjuries = incidentCasualtiesFireInjuries
+            }
+            if let incidentCasualtiesNone = fjIncidentR["incidentCasualtiesNone"] as? Bool {
+                fjIncidentNFIRS.incidentCasualtiesNone = incidentCasualtiesNone
+            }
+            if let incidentCasualtiesServiceDeaths = fjIncidentR["incidentCasualtiesServiceDeaths"] as? String {
+                fjIncidentNFIRS.incidentCasualtiesServiceDeaths = incidentCasualtiesServiceDeaths
+            }
+            if let incidentCasualtitesServideInjuries = fjIncidentR["incidentCasualtitesServideInjuries"] as? String {
+                fjIncidentNFIRS.incidentCasualtitesServideInjuries = incidentCasualtitesServideInjuries
+            }
+            if let incidentDetectorChosen = fjIncidentR["incidentDetectorChosen"] as? String {
+                fjIncidentNFIRS.incidentDetectorChosen = incidentDetectorChosen
+            }
+            if let incidentExposure = fjIncidentR["incidentExposure"] as? String {
+                fjIncidentNFIRS.incidentExposure = incidentExposure
+            }
+            if let incidentFDID = fjIncidentR["incidentFDID"] as? String {
+                fjIncidentNFIRS.incidentFDID = incidentFDID
+            }
+            if let incidentFDID1 = fjIncidentR["incidentFDID1"] as? String {
+                fjIncidentNFIRS.incidentFDID1 = incidentFDID1
+            }
+            if let incidentFireStation = fjIncidentR["incidentFireStation"] as? String {
+                fjIncidentNFIRS.incidentFireStation = incidentFireStation
+            }
+            if let incidentHazMat = fjIncidentR["incidentHazMat"] as? String {
+                fjIncidentNFIRS.incidentHazMat = incidentHazMat
+            }
+            if let incidentHazMatNone = fjIncidentR["incidentHazMatNone"] as? Bool {
+                fjIncidentNFIRS.incidentHazMatNone = incidentHazMatNone
+            }
+                //        MARK: -STRING-
+            if let incidentNFIRSLocation = fjIncidentR["incidentNFIRSLocation"] as? String {
+                fjIncidentNFIRS.incidentLocation = incidentNFIRSLocation
+            }
+            if let incidentPlatoon = fjIncidentR["incidentPlatoon"] as? String {
+                fjIncidentNFIRS.incidentPlatoon = incidentPlatoon
+            }
+            if let incidentPropertyNone = fjIncidentR["incidentPropertyNone"] as? Double {
+                fjIncidentNFIRS.incidentPropertyNone = incidentPropertyNone as NSNumber
+            }
+            if let incidentPropertyOutside = fjIncidentR["incidentPropertyOutside"] as? String {
+                fjIncidentNFIRS.incidentPropertyOutside = incidentPropertyOutside
+            }
+            if let incidentPropertyOutsideNumber = fjIncidentR["incidentPropertyOutsideNumber"] as? String {
+                fjIncidentNFIRS.incidentPropertyOutsideNumber = incidentPropertyOutsideNumber
+            }
+            if let incidentPropertyStructure = fjIncidentR["incidentPropertyStructure"] as? String {
+                fjIncidentNFIRS.incidentPropertyStructure = incidentPropertyStructure
+            }
+            if let incidentPropertyStructureNumber = fjIncidentR["incidentPropertyStructureNumber"] as? String {
+                fjIncidentNFIRS.incidentPropertyStructureNumber = incidentPropertyStructureNumber
+            }
+            if let incidentPropertyUse = fjIncidentR["incidentPropertyUse"] as? String {
+                fjIncidentNFIRS.incidentPropertyUse = incidentPropertyUse
+            }
+            if let incidentPropertyUseNone = fjIncidentR["incidentPropertyUseNone"] as? String {
+                fjIncidentNFIRS.incidentPropertyUseNone = incidentPropertyUseNone
+            }
+            if let incidentPropertyUseNumber = fjIncidentR["incidentPropertyUseNumber"] as? String {
+                fjIncidentNFIRS.incidentPropertyUseNumber = incidentPropertyUseNumber
+            }
+            if let incidentResourceCheck = fjIncidentR["incidentResourceCheck"]  as? Double {
+                fjIncidentNFIRS.incidentResourceCheck = incidentResourceCheck  as NSNumber
+            }
+            if let incidentResourcesEMSApparatus = fjIncidentR["incidentResourcesEMSApparatus"] as? String {
+                fjIncidentNFIRS.incidentResourcesEMSApparatus = incidentResourcesEMSApparatus
+            }
+            if let incidentResourcesEMSPersonnel = fjIncidentR["incidentResourcesEMSPersonnel"] as? String {
+                fjIncidentNFIRS.incidentResourcesEMSPersonnel = incidentResourcesEMSPersonnel
+            }
+            if let incidentResourcesOtherApparatus = fjIncidentR["incidentResourcesOtherApparatus"] as? String {
+                fjIncidentNFIRS.incidentResourcesOtherApparatus = incidentResourcesOtherApparatus
+            }
+            if let incidentResourcesOtherPersonnel = fjIncidentR["incidentResourcesOtherPersonnel"] as? String {
+                fjIncidentNFIRS.incidentResourcesOtherPersonnel = incidentResourcesOtherPersonnel
+            }
+            if let incidentResourcesSuppressionPersonnel = fjIncidentR["incidentResourcesSuppressionPersonnel"] as? String {
+                fjIncidentNFIRS.incidentResourcesSuppressionPersonnel = incidentResourcesSuppressionPersonnel
+            }
+            if let incidentResourcesSupressionApparatus = fjIncidentR["incidentResourcesSupressionApparatus"] as? String {
+                fjIncidentNFIRS.incidentResourcesSupressionApparatus = incidentResourcesSupressionApparatus
+            }
+            if let incidentTypeNumberNFRIS = fjIncidentR["incidentTypeNumberNFRIS"] as? String {
+                fjIncidentNFIRS.incidentTypeNumberNFRIS = incidentTypeNumberNFRIS
+            }
+            if let incidentTypeTextNFRIS = fjIncidentR["incidentTypeTextNFRIS"] as? String {
+                fjIncidentNFIRS.incidentTypeTextNFRIS = incidentTypeTextNFRIS
+            }
+            if let lossesContentDollars = fjIncidentR["lossesContentDollars"] as? String {
+                fjIncidentNFIRS.lossesContentDollars = lossesContentDollars
+            }
+            if let lossesContentNone = fjIncidentR["lossesContentNone"] as? Bool {
+                fjIncidentNFIRS.lossesContentNone = lossesContentNone
+            }
+            if let lossesPropertyDollars = fjIncidentR["lossesPropertyDollars"] as? String {
+                fjIncidentNFIRS.lossesPropertyDollars = lossesPropertyDollars
+            }
+            if let lossesPropertyNone = fjIncidentR["lossesPropertyNone"] as? Bool {
+                fjIncidentNFIRS.lossesPropertyNone = lossesPropertyNone
+            }
+            if let mixedUsePropertyNone = fjIncidentR["mixedUsePropertyNone"] as? Bool {
+                fjIncidentNFIRS.mixedUsePropertyNone = mixedUsePropertyNone
+            }
+            if let mixedUsePropertyType = fjIncidentR["mixedUsePropertyType"] as? String {
+                fjIncidentNFIRS.mixedUsePropertyType = mixedUsePropertyType
+            }
+            if let nfirsChangeDescription = fjIncidentR["nfirsChangeDescription"] as? String {
+                fjIncidentNFIRS.nfirsChangeDescription = nfirsChangeDescription
+            }
+            if let nfirsSectionOneSegment = fjIncidentR["nfirsSectionOneSegment"] as? String {
+                fjIncidentNFIRS.nfirsSectionOneSegment = nfirsSectionOneSegment
+            }
+            if let propertyUseNone = fjIncidentR["propertyUseNone"] as? Bool {
+                fjIncidentNFIRS.propertyUseNone = propertyUseNone
+            }
+            if let resourceCountsIncludeAidReceived = fjIncidentR["resourceCountsIncludeAidReceived"] as? Bool {
+                fjIncidentNFIRS.resourceCountsIncludeAidReceived = resourceCountsIncludeAidReceived
+            }
+            if let shiftAlarm = fjIncidentR["shiftAlarm"] as? String {
+                fjIncidentNFIRS.shiftAlarm = shiftAlarm
+            }
+            if let shiftDistrict = fjIncidentR["shiftDistrict"] as? String {
+                fjIncidentNFIRS.shiftDistrict = shiftDistrict
+            }
+            if let shiftOrPlatoon = fjIncidentR["shiftOrPlatoon"]  as? String {
+                fjIncidentNFIRS.shiftOrPlatoon = shiftOrPlatoon
+            }
+            if let skipSectionF = fjIncidentR["skipSectionF"] as? Bool {
+                fjIncidentNFIRS.skipSectionF = skipSectionF
+            }
+            if let specialStudyID = fjIncidentR["specialStudyID"] as? String {
+                fjIncidentNFIRS.specialStudyID = specialStudyID
+            }
+            if let specialStudyValue = fjIncidentR["specialStudyValue"] as? String {
+                fjIncidentNFIRS.specialStudyValue = specialStudyValue
+            }
+            if let valueContentDollars = fjIncidentR["valueContentDollars"] as? String {
+                fjIncidentNFIRS.valueContentDollars = valueContentDollars
+            }
+            if let valueContentsNone = fjIncidentR["valueContentsNone"] as? Bool {
+                fjIncidentNFIRS.valueContentsNone = valueContentsNone
+            }
+            if let valuePropertyDollars = fjIncidentR["valuePropertyDollars"] as? String {
+                fjIncidentNFIRS.valuePropertyDollars = valuePropertyDollars
+            }
+            if let valuePropertyNone = fjIncidentR["valuePropertyNone"] as? Bool {
+                fjIncidentNFIRS.valuePropertyNone = valuePropertyNone
+            }
         }
-        fjIncidentR["aadressForIncident"] = "\(num) \(street) \(zip)"
         
-        //MARK: -incidentLocal-
-        let fjIncidentLocal = self.incidentLocalDetails
-        fjIncidentR["incidentBattalion"] = fjIncidentLocal?.incidentBattalion
-        fjIncidentR["incidentDivision"] = fjIncidentLocal?.incidentDivision
-        fjIncidentR["incidentFireDistrict"] = fjIncidentLocal?.incidentFireDistrict
-        fjIncidentR["incidentLocalType"] = fjIncidentLocal?.incidentLocalType
+            // TODO: -CompletedModules-
+            // MARK: -IncidentNFIRSKSec-
+        if let fjIncidentNFIRSKSec = self.incidentNFIRSKSecDetails {
+            if let kOwnerAptSuiteRoom = fjIncidentR["kOwnerAptSuiteRoom"] as? String {
+                fjIncidentNFIRSKSec.kOwnerAptSuiteRoom = kOwnerAptSuiteRoom
+            }
+            if let kOwnerAreaCode = fjIncidentR["kOwnerAreaCode"] as? String {
+                fjIncidentNFIRSKSec.kOwnerAreaCode = kOwnerAreaCode
+            }
+            if let kOwnerBusinessName = fjIncidentR["kOwnerBusinessName"] as? String {
+                fjIncidentNFIRSKSec.kOwnerBusinessName = kOwnerBusinessName
+            }
+            if let kOwnerCheckBox = fjIncidentR["kOwnerCheckBox"] as? Bool {
+                fjIncidentNFIRSKSec.kOwnerCheckBox = kOwnerCheckBox
+            }
+            if let kOwnerCity = fjIncidentR["kOwnerCity"] as? String {
+                fjIncidentNFIRSKSec.kOwnerCity = kOwnerCity
+            }
+            if let kOwnerFirstName = fjIncidentR["kOwnerFirstName"] as? String {
+                fjIncidentNFIRSKSec.kOwnerFirstName = kOwnerFirstName
+            }
+            if let kOwnerLastName = fjIncidentR["kOwnerLastName"] as? String {
+                fjIncidentNFIRSKSec.kOwnerLastName = kOwnerLastName
+            }
+            if let kOwnerMI = fjIncidentR["kOwnerMI"] as? String {
+                fjIncidentNFIRSKSec.kOwnerMI = kOwnerMI
+            }
+            if let kOwnerNamePrefix = fjIncidentR["kOwnerNamePrefix"] as? String {
+                fjIncidentNFIRSKSec.kOwnerNamePrefix = kOwnerNamePrefix
+            }
+            if let kOwnerNameSuffix = fjIncidentR["kOwnerNameSuffix"] as? String {
+                fjIncidentNFIRSKSec.kOwnerNameSuffix = kOwnerNameSuffix
+            }
+            if let kOwnerPhoneLastFour = fjIncidentR["kOwnerPhoneLastFour"] as? String {
+                fjIncidentNFIRSKSec.kOwnerPhoneLastFour = kOwnerPhoneLastFour
+            }
+            if let kOwnerPhonePrefix = fjIncidentR["kOwnerPhonePrefix"] as? String {
+                fjIncidentNFIRSKSec.kOwnerPhonePrefix = kOwnerPhonePrefix
+            }
+            if let kOwnerPOBox = fjIncidentR["kOwnerPOBox"] as? String {
+                fjIncidentNFIRSKSec.kOwnerPOBox = kOwnerPOBox
+            }
+            if let kOwnerSameAsPerson = fjIncidentR["kOwnerSameAsPerson"] as? Bool {
+                fjIncidentNFIRSKSec.kOwnerSameAsPerson = kOwnerSameAsPerson
+            }
+            if let kOwnerState = fjIncidentR["kOwnerState"] as? String {
+                fjIncidentNFIRSKSec.kOwnerState = kOwnerState
+            }
+            if let kOwnerStreetHyway = fjIncidentR["kOwnerStreetHyway"] as? String {
+                fjIncidentNFIRSKSec.kOwnerStreetHyway = kOwnerStreetHyway
+            }
+            if let kOwnerStreetNumber = fjIncidentR["kOwnerStreetNumber"] as? String {
+                fjIncidentNFIRSKSec.kOwnerStreetNumber = kOwnerStreetNumber
+            }
+            if let kOwnerStreetPrefix = fjIncidentR["kOwnerStreetPrefix"] as? String {
+                fjIncidentNFIRSKSec.kOwnerStreetPrefix = kOwnerStreetPrefix
+            }
+            if let kOwnerStreetSuffix = fjIncidentR["kOwnerStreetSuffix"] as? String {
+                fjIncidentNFIRSKSec.kOwnerStreetSuffix = kOwnerStreetSuffix
+            }
+            if let kOwnerStreetType = fjIncidentR["kOwnerStreetType"] as? String {
+                fjIncidentNFIRSKSec.kOwnerStreetType = kOwnerStreetType
+            }
+            if let kOwnerZip = fjIncidentR["kOwnerZip"] as? String {
+                fjIncidentNFIRSKSec.kOwnerZip = kOwnerZip
+            }
+            if let kOwnerZipPlusFour = fjIncidentR["kOwnerZipPlusFour"] as? String {
+                fjIncidentNFIRSKSec.kOwnerZipPlusFour = kOwnerZipPlusFour
+            }
+            if let kPersonAppSuiteRoom = fjIncidentR["kPersonAppSuiteRoom"] as? String {
+                fjIncidentNFIRSKSec.kPersonAppSuiteRoom = kPersonAppSuiteRoom
+            }
+            if let kPersonAreaCode = fjIncidentR["kPersonAreaCode"] as? String {
+                fjIncidentNFIRSKSec.kPersonAreaCode = kPersonAreaCode
+            }
+            if let kPersonBusinessName = fjIncidentR["kPersonBusinessName"] as? String {
+                fjIncidentNFIRSKSec.kPersonBusinessName = kPersonBusinessName
+            }
+            if let kPersonCheckBox = fjIncidentR["kPersonCheckBox"] as? Bool {
+                fjIncidentNFIRSKSec.kPersonCheckBox = kPersonCheckBox
+            }
+            if let kPersonCity = fjIncidentR["kPersonCity"] as? String {
+                fjIncidentNFIRSKSec.kPersonCity = kPersonCity
+            }
+            if let kPersonFirstName = fjIncidentR["kPersonFirstName"] as? String {
+                fjIncidentNFIRSKSec.kPersonFirstName = kPersonFirstName
+            }
+            if let kPersonGender = fjIncidentR["kPersonGender"] as? String {
+                fjIncidentNFIRSKSec.kPersonGender = kPersonGender
+            }
+            if let kPersonLastName = fjIncidentR["kPersonLastName"] as? String {
+                fjIncidentNFIRSKSec.kPersonLastName = kPersonLastName
+            }
+            if let kPersonMI = fjIncidentR["kPersonMI"] as? String {
+                fjIncidentNFIRSKSec.kPersonMI = kPersonMI
+            }
+            if let kPersonMoreThanOne = fjIncidentR["kPersonMoreThanOne"] as? Bool {
+                fjIncidentNFIRSKSec.kPersonMoreThanOne = kPersonMoreThanOne
+            }
+            if let kPersonNameSuffix = fjIncidentR["kPersonNameSuffix"] as? String {
+                fjIncidentNFIRSKSec.kPersonNameSuffix = kPersonNameSuffix
+            }
+            if let kPersonPhoneLastFour = fjIncidentR["kPersonPhoneLastFour"] as? String {
+                fjIncidentNFIRSKSec.kPersonPhoneLastFour = kPersonPhoneLastFour
+            }
+            if let kPersonPhonePrefix = fjIncidentR["kPersonPhonePrefix"] as? String {
+                fjIncidentNFIRSKSec.kPersonPhonePrefix = kPersonPhonePrefix
+            }
+            if let kPersonPOBox = fjIncidentR["kPersonPOBox"] as? String {
+                fjIncidentNFIRSKSec.kPersonPOBox = kPersonPOBox
+            }
+            if let kPersonPrefix = fjIncidentR["kPersonPrefix"] as? String {
+                fjIncidentNFIRSKSec.kPersonPrefix = kPersonPrefix
+            }
+            if let kPersonState = fjIncidentR["kPersonState"] as? String {
+                fjIncidentNFIRSKSec.kPersonState = kPersonState
+            }
+            if let kPersonStreetHyway = fjIncidentR["kPersonStreetHyway"] as? String {
+                fjIncidentNFIRSKSec.kPersonStreetHyway = kPersonStreetHyway
+            }
+            if let kPersonStreetNum = fjIncidentR["kPersonStreetNum"] as? String {
+                fjIncidentNFIRSKSec.kPersonStreetNum = kPersonStreetNum
+            }
+            if let kPersonStreetSuffix = fjIncidentR["kPersonStreetSuffix"] as? String {
+                fjIncidentNFIRSKSec.kPersonStreetSuffix = kPersonStreetSuffix
+            }
+            if let kPersonStreetType = fjIncidentR["kPersonStreetType"] as? String {
+                fjIncidentNFIRSKSec.kPersonStreetType = kPersonStreetType
+            }
+            if let kPersonZipCode = fjIncidentR["kPersonZipCode"] as? String {
+                fjIncidentNFIRSKSec.kPersonZipCode = kPersonZipCode
+            }
+            if let kPersonZipPlus4 = fjIncidentR["kPersonZipPlus4"] as? String {
+                fjIncidentNFIRSKSec.kPersonZipPlus4 = kPersonZipPlus4
+            }
+        }
         
-        //MARK: -IncidentMap-
-        let fjIncidentMap = self.incidentMapDetails
-        fjIncidentR["incidentLatitude"] = fjIncidentMap?.incidentLatitude
-        fjIncidentR["incidentLongitude"] = fjIncidentMap?.incidentLongitude
-        fjIncidentR["stagingLatitude"] = fjIncidentMap?.stagingLatitude
-        fjIncidentR["stagingLongitude"] = fjIncidentMap?.stagingLongitude
+            // TODO: -REQUIREDMODULES
+            // MARK: -IncidentNFIRSsecL-
+        if let fjIncidentNFIRSsecL = self.sectionLDetails {
+            if let lRemarks = fjIncidentR["incidentNFIRSSecLNotes"] as? String {
+                fjIncidentNFIRSsecL.lRemarks = lRemarks as NSObject
+            }
+            if let moreRemarks = fjIncidentR["incidentNFIRSSecLMoreRemarks"] as? Bool {
+                fjIncidentNFIRSsecL.moreRemarks = moreRemarks
+            }
+        }
         
-        // MARK: -IncidentNFIRS-
-        let fjIncidentNFIRS = self.incidentNFIRSDetails
-        fjIncidentR["fireStationState"] = fjIncidentNFIRS?.fireStationState
-        fjIncidentR["incidentActionsTakenAdditionalThree"] = fjIncidentNFIRS?.incidentActionsTakenAdditionalThree
-        fjIncidentR["incidentActionsTakenAdditionalTwo"] = fjIncidentNFIRS?.incidentActionsTakenAdditionalTwo
-        fjIncidentR["incidentActionsTakenPrimary"] = fjIncidentNFIRS?.incidentActionsTakenPrimary
-        fjIncidentR["incidentAidGiven"] = fjIncidentNFIRS?.incidentAidGiven
-        fjIncidentR["incidentAidGivenFDID"] = fjIncidentNFIRS?.incidentAidGivenFDID
-        fjIncidentR["incidentAidGivenIncidentNumber"] = fjIncidentNFIRS?.incidentAidGivenIncidentNumber
-        fjIncidentR["incidentAidGivenNone"] = fjIncidentNFIRS?.incidentAidGivenNone
-        fjIncidentR["incidentAidGivenState"] = fjIncidentNFIRS?.incidentAidGivenState
-        fjIncidentR["incidentCasualtiesCivilianDeaths"] = fjIncidentNFIRS?.incidentCasualtiesCivilianDeaths
-        fjIncidentR["incidentCasualtiesCivilianInjuries"] = fjIncidentNFIRS?.incidentCasualtiesCivilianInjuries
-        fjIncidentR["incidentCasualtiesFireDeaths"] = fjIncidentNFIRS?.incidentCasualtiesFireDeaths
-        fjIncidentR["incidentCasualtiesFireInjuries"] = fjIncidentNFIRS?.incidentCasualtiesFireInjuries
-        fjIncidentR["incidentCasualtiesNone"] = Int(fjIncidentNFIRS?.incidentCasualtiesNone ?? false)
-        fjIncidentR["incidentCasualtiesServiceDeaths"] = fjIncidentNFIRS?.incidentCasualtiesServiceDeaths
-        fjIncidentR["incidentCasualtitesServideInjuries"] = fjIncidentNFIRS?.incidentCasualtitesServideInjuries
-        fjIncidentR["incidentDetectorChosen"] = fjIncidentNFIRS?.incidentDetectorChosen
-        fjIncidentR["incidentExposure"] = fjIncidentNFIRS?.incidentExposure
-        fjIncidentR["incidentFDID"] = fjIncidentNFIRS?.incidentFDID
-        fjIncidentR["incidentFDID1"] = fjIncidentNFIRS?.incidentFDID1
-        fjIncidentR["incidentFireStation"] = fjIncidentNFIRS?.incidentFireStation
-        fjIncidentR["incidentHazMat"] = fjIncidentNFIRS?.incidentHazMat
-        fjIncidentR["incidentHazMatNone"] = Int(fjIncidentNFIRS?.incidentHazMatNone ?? false)
-        fjIncidentR["incidentNFIRSLocation"] = fjIncidentNFIRS?.incidentLocation
-        fjIncidentR["incidentPlatoon"] = fjIncidentNFIRS?.incidentPlatoon
-        fjIncidentR["incidentPropertyNone"] = fjIncidentNFIRS?.incidentPropertyNone
-        fjIncidentR["incidentPropertyOutside"] = fjIncidentNFIRS?.incidentPropertyOutside
-        fjIncidentR["incidentPropertyOutsideNumber"] = fjIncidentNFIRS?.incidentPropertyOutsideNumber
-        fjIncidentR["incidentPropertyStructure"] = fjIncidentNFIRS?.incidentPropertyStructure
-        fjIncidentR["incidentPropertyStructureNumber"] = fjIncidentNFIRS?.incidentPropertyStructureNumber
-        fjIncidentR["incidentPropertyUse"] = fjIncidentNFIRS?.incidentPropertyUse
-        fjIncidentR["incidentPropertyUseNone"] = fjIncidentNFIRS?.incidentPropertyUseNone
-        fjIncidentR["incidentPropertyUseNumber"] = fjIncidentNFIRS?.incidentPropertyUseNumber
-        fjIncidentR["incidentResourceCheck"] = fjIncidentNFIRS?.incidentResourceCheck
-        fjIncidentR["incidentResourcesEMSApparatus"] = fjIncidentNFIRS?.incidentResourcesEMSApparatus
-        fjIncidentR["incidentResourcesEMSPersonnel"] = fjIncidentNFIRS?.incidentResourcesEMSPersonnel
-        fjIncidentR["incidentResourcesOtherApparatus"] = fjIncidentNFIRS?.incidentResourcesOtherApparatus
-        fjIncidentR["incidentResourcesOtherPersonnel"] = fjIncidentNFIRS?.incidentResourcesOtherPersonnel
-        fjIncidentR["incidentResourcesSuppressionPersonnel"] = fjIncidentNFIRS?.incidentResourcesSuppressionPersonnel
-        fjIncidentR["incidentResourcesSupressionApparatus"] = fjIncidentNFIRS?.incidentResourcesSupressionApparatus
-        fjIncidentR["incidentTypeNumberNFRIS"] = fjIncidentNFIRS?.incidentTypeNumberNFRIS
-        fjIncidentR["incidentTypeTextNFRIS"] = fjIncidentNFIRS?.incidentTypeTextNFRIS
-        fjIncidentR["lossesContentDollars"] = fjIncidentNFIRS?.lossesContentDollars
-        fjIncidentR["lossesContentNone"] = Int(fjIncidentNFIRS?.lossesContentNone ?? false)
-        fjIncidentR["lossesPropertyDollars"] = fjIncidentNFIRS?.lossesPropertyDollars
-        fjIncidentR["lossesPropertyNone"] = Int(fjIncidentNFIRS?.lossesPropertyNone ?? false)
-        fjIncidentR["mixedUsePropertyNone"] = Int(fjIncidentNFIRS?.mixedUsePropertyNone ?? false)
-        fjIncidentR["mixedUsePropertyType"] = fjIncidentNFIRS?.mixedUsePropertyType
-        fjIncidentR["nfirsChangeDescription"] = fjIncidentNFIRS?.nfirsChangeDescription
-        fjIncidentR["nfirsSectionOneSegment"] = fjIncidentNFIRS?.nfirsSectionOneSegment
-        fjIncidentR["propertyUseNone"] = Int(fjIncidentNFIRS?.propertyUseNone ?? false)
-        fjIncidentR["resourceCountsIncludeAidReceived"] = Int(fjIncidentNFIRS?.resourceCountsIncludeAidReceived ?? false)
-        fjIncidentR["shiftAlarm"] = fjIncidentNFIRS?.shiftAlarm
-        fjIncidentR["shiftDistrict"] = fjIncidentNFIRS?.shiftDistrict
-        fjIncidentR["shiftOrPlatoon"] = fjIncidentNFIRS?.shiftOrPlatoon
-        fjIncidentR["skipSectionF"] = Int(fjIncidentNFIRS?.skipSectionF ?? false)
-        fjIncidentR["specialStudyID"] = fjIncidentNFIRS?.specialStudyID
-        fjIncidentR["specialStudyValue"] = fjIncidentNFIRS?.specialStudyValue
-        fjIncidentR["valueContentDollars"] = fjIncidentNFIRS?.valueContentDollars
-        fjIncidentR["valueContentsNone"] = Int(fjIncidentNFIRS?.valueContentsNone ?? false)
-        fjIncidentR["valuePropertyDollars"] = fjIncidentNFIRS?.valuePropertyDollars
-        fjIncidentR["valuePropertyNone"] = Int(fjIncidentNFIRS?.valuePropertyNone ?? false)
+            // MARK: -IncidentNFIRSsecM-
+        if let fjIncidentNFIRSsecM = self.sectionMDetails {
+            if let memberAssignment = fjIncidentR["memberAssignment"] as? String {
+                fjIncidentNFIRSsecM.memberAssignment = memberAssignment
+            }
+            if let memberDate = fjIncidentR["memberDate"] as? Date {
+                fjIncidentNFIRSsecM.memberDate = memberDate
+            }
+            if let memberMakingReportID = fjIncidentR["memberMakingReportID"] as? String {
+                fjIncidentNFIRSsecM.memberMakingReportID = memberMakingReportID
+            }
+            if let memberRankPosition = fjIncidentR["memberRankPosition"] as? String {
+                fjIncidentNFIRSsecM.memberRankPosition = memberRankPosition
+            }
+            if let memberSameAsOfficer = fjIncidentR["memberSameAsOfficer"] as? Bool {
+                fjIncidentNFIRSsecM.memberSameAsOfficer = memberSameAsOfficer
+            }
+            if let officerAssignment = fjIncidentR["officerAssignment"] as? String {
+                fjIncidentNFIRSsecM.officerAssignment = officerAssignment
+            }
+            if let officerDate = fjIncidentR["officerDate"] as? Date {
+                fjIncidentNFIRSsecM.officerDate = officerDate
+            }
+            if let officerInChargeID = fjIncidentR["officerInChargeID"] as? String {
+                fjIncidentNFIRSsecM.officerInChargeID = officerInChargeID
+            }
+            if let officerRankPosition = fjIncidentR["officerRankPosition"] as? String {
+                fjIncidentNFIRSsecM.officerRankPosition = officerRankPosition
+            }
+            if let signatureMember = fjIncidentR["signatureMember"] as? String {
+                fjIncidentNFIRSsecM.signatureMember = signatureMember
+            }
+            if let signatureOfficer = fjIncidentR["signatureOfficer"] as? String {
+                fjIncidentNFIRSsecM.signatureOfficer = signatureOfficer
+            }
+            if let memberSigned = fjIncidentR["memberSigned"] as? Bool {
+                fjIncidentNFIRSsecM.memberSigned = memberSigned
+            }
+            if let officeSigned = fjIncidentR["officerSigned"] as? Bool {
+                fjIncidentNFIRSsecM.officeSigned = officeSigned
+            }
+        }
         
-        // TODO: IncidentNFIRSCompMods
-        // let fjIncidentNFIRSCompMods = self.completedModulesDetails
-        //     NSMutableArray *_compModules = [[NSMutableArray alloc] init]
-        //     for(fjIncidentNFIRSCompMods in self.completedModulesDetails){
-        //         [_compModules addObject:fjIncidentNFIRSCompMods.completedModules]
-        //     }
-        //     _nfirsCompleteMods = [_compModules copy]
-        //     NSString *compMods = @""
-        //     NSString *truncatedCMString = @""
-        //     if(!([_nfirsCompleteMods count] == 0)) {
-        //         for(NSString *t in _nfirsCompleteMods){
-        //             if(![t isEqualToString:@""]){
-        //                 compMods = [compMods stringByAppendingString:[NSString stringWithFormat:@"%@,",t]]
-        //             }
-        //             if([compMods length]>2){
-        //                 truncatedCMString = [compMods substringToIndex:[compMods length]-2]
-        //             }
-        //         }
-        //     }
-        //     fjIncidentR["incidentCompletedModules"] = truncatedCMString
+            // MARK: -IncidentNotes-
+        if let fjIncidentNotes = self.incidentNotesDetails {
+            if let incidentSummaryNotesSC = fjIncidentR["incidentSummaryNotes"] as? NSObject {
+                fjIncidentNotes.incidentSummaryNotesSC = incidentSummaryNotesSC
+            }
+            if let note = fjIncidentR["incidentNote"] as? String {
+                fjIncidentNotes.incidentNote = note
+            }
+        }
         
-        // MARK: -IncidentNFIRSKSec-
-        let fjIncidentNFIRSKSec = self.incidentNFIRSKSecDetails
-        fjIncidentR["kOwnerAptSuiteRoom"] = fjIncidentNFIRSKSec?.kOwnerAptSuiteRoom
-        fjIncidentR["kOwnerAreaCode"] = fjIncidentNFIRSKSec?.kOwnerAreaCode
-        fjIncidentR["kOwnerBusinessName"] = fjIncidentNFIRSKSec?.kOwnerBusinessName
-        fjIncidentR["kOwnerCheckBox"] = Int(fjIncidentNFIRSKSec?.kOwnerCheckBox ?? false)
-        fjIncidentR["kOwnerCity"] = fjIncidentNFIRSKSec?.kOwnerCity
-        fjIncidentR["kOwnerFirstName"] = fjIncidentNFIRSKSec?.kOwnerFirstName
-        fjIncidentR["kOwnerLastName"] = fjIncidentNFIRSKSec?.kOwnerLastName
-        fjIncidentR["kOwnerMI"] = fjIncidentNFIRSKSec?.kOwnerMI
-        fjIncidentR["kOwnerNamePrefix"] = fjIncidentNFIRSKSec?.kOwnerNamePrefix
-        fjIncidentR["kOwnerNameSuffix"] = fjIncidentNFIRSKSec?.kOwnerNameSuffix
-        fjIncidentR["kOwnerPhoneLastFour"] = fjIncidentNFIRSKSec?.kOwnerPhoneLastFour
-        fjIncidentR["kOwnerPhonePrefix"] = fjIncidentNFIRSKSec?.kOwnerPhonePrefix
-        fjIncidentR["kOwnerPOBox"] = fjIncidentNFIRSKSec?.kOwnerPOBox
-        fjIncidentR["kOwnerSameAsPerson"] = Int(fjIncidentNFIRSKSec?.kOwnerSameAsPerson ?? false)
-        fjIncidentR["kOwnerState"] = fjIncidentNFIRSKSec?.kOwnerState
-        fjIncidentR["kOwnerStreetHyway"] = fjIncidentNFIRSKSec?.kOwnerStreetHyway
-        fjIncidentR["kOwnerStreetNumber"] = fjIncidentNFIRSKSec?.kOwnerStreetNumber
-        fjIncidentR["kOwnerStreetPrefix"] = fjIncidentNFIRSKSec?.kOwnerStreetPrefix
-        fjIncidentR["kOwnerStreetSuffix"] = fjIncidentNFIRSKSec?.kOwnerStreetSuffix
-        fjIncidentR["kOwnerStreetType"] = fjIncidentNFIRSKSec?.kOwnerStreetType
-        fjIncidentR["kOwnerZip"] = fjIncidentNFIRSKSec?.kOwnerZip
-        fjIncidentR["kOwnerZipPlusFour"] = fjIncidentNFIRSKSec?.kOwnerZipPlusFour
-        fjIncidentR["kPersonAppSuiteRoom"] = fjIncidentNFIRSKSec?.kPersonAppSuiteRoom
-        fjIncidentR["kPersonAreaCode"] = fjIncidentNFIRSKSec?.kPersonAreaCode
-        fjIncidentR["kPersonBusinessName"] = fjIncidentNFIRSKSec?.kPersonBusinessName
-        fjIncidentR["kPersonCheckBox"] = Int(fjIncidentNFIRSKSec?.kPersonCheckBox ?? false)
-        fjIncidentR["kPersonCity"] = fjIncidentNFIRSKSec?.kPersonCity
-        fjIncidentR["kPersonFirstName"] = fjIncidentNFIRSKSec?.kPersonFirstName
-        fjIncidentR["kPersonGender"] = fjIncidentNFIRSKSec?.kPersonGender
-        fjIncidentR["kPersonLastName"] = fjIncidentNFIRSKSec?.kPersonLastName
-        fjIncidentR["kPersonMI"] = fjIncidentNFIRSKSec?.kPersonMI
-        fjIncidentR["kPersonMoreThanOne"] = Int(fjIncidentNFIRSKSec?.kPersonMoreThanOne ?? false)
-        fjIncidentR["kPersonNameSuffix"] = fjIncidentNFIRSKSec?.kPersonNameSuffix
-        fjIncidentR["kPersonPhoneLastFour"] = fjIncidentNFIRSKSec?.kPersonPhoneLastFour
-        fjIncidentR["kPersonPhonePrefix"] = fjIncidentNFIRSKSec?.kPersonPhonePrefix
-        fjIncidentR["kPersonPOBox"] = fjIncidentNFIRSKSec?.kPersonPOBox
-        fjIncidentR["kPersonPrefix"] = fjIncidentNFIRSKSec?.kPersonPrefix
-        fjIncidentR["kPersonState"] = fjIncidentNFIRSKSec?.kPersonState
-        fjIncidentR["kPersonStreetHyway"] = fjIncidentNFIRSKSec?.kPersonStreetHyway
-        fjIncidentR["kPersonStreetNum"] = fjIncidentNFIRSKSec?.kPersonStreetNum
-        fjIncidentR["kPersonStreetSuffix"] = fjIncidentNFIRSKSec?.kPersonStreetSuffix
-        fjIncidentR["kPersonStreetType"] = fjIncidentNFIRSKSec?.kPersonStreetType
-        fjIncidentR["kPersonZipCode"] = fjIncidentNFIRSKSec?.kPersonZipCode
-        fjIncidentR["kPersonZipPlus4"] = fjIncidentNFIRSKSec?.kPersonZipPlus4
+            // TODO: -IncidentResources-
+            // MARK: -IncidentTimer-
+        if let fjIncidentTimer = self.incidentTimerDetails {
+            if let arrivalSameDate = fjIncidentR["arrivalSameDate"] as? Bool {
+                fjIncidentTimer.arrivalSameDate = arrivalSameDate
+            }
+            if let controlledSameDate = fjIncidentR["controlledSameDate"] as? Bool {
+                fjIncidentTimer.controlledSameDate = controlledSameDate
+            }
+            if let incidentAlarmCombinedDate = fjIncidentR["incidentAlarmCombinedDate"] as? String {
+                fjIncidentTimer.incidentAlarmCombinedDate = incidentAlarmCombinedDate
+            }
+            if let incidentAlarmDateTime = fjIncidentR["incidentAlarmDateTime"] as? Date {
+                fjIncidentTimer.incidentAlarmDateTime = incidentAlarmDateTime
+            }
+            if let incidentAlarmDay = fjIncidentR["incidentAlarmDay"] as? String {
+                fjIncidentTimer.incidentAlarmDay = incidentAlarmDay
+            }
+            if let incidentAlarmHours = fjIncidentR["incidentAlarmHours"] as? String {
+                fjIncidentTimer.incidentAlarmHours = incidentAlarmHours
+            }
+            if let incidentAlarmMinutes = fjIncidentR["incidentAlarmMinutes"] as? String {
+                fjIncidentTimer.incidentAlarmMinutes = incidentAlarmMinutes
+            }
+            if let incidentAlarmMonth = fjIncidentR["incidentAlarmMonth"] as? String {
+                fjIncidentTimer.incidentAlarmMonth = incidentAlarmMonth
+            }
+            if let incidentAlarmNotes = fjIncidentR["incidentAlarmNotes"] as? String {
+                fjIncidentTimer.incidentAlarmNotes = incidentAlarmNotes as NSObject
+            }
+            if let incidentAlarmYear = fjIncidentR["incidentAlarmYear"] as? String {
+                fjIncidentTimer.incidentAlarmYear = incidentAlarmYear
+            }
+            if let incidentArrivalCombinedDate = fjIncidentR["incidentArrivalCombinedDate"] as? String {
+                fjIncidentTimer.incidentArrivalCombinedDate = incidentArrivalCombinedDate
+            }
+            if let incidentArrivalDateTime = fjIncidentR["incidentArrivalDateTime"] as? Date {
+                fjIncidentTimer.incidentArrivalDateTime = incidentArrivalDateTime
+            }
+            if let incidentArrivalDay = fjIncidentR["incidentArrivalDay"] as? String {
+                fjIncidentTimer.incidentArrivalDay = incidentArrivalDay
+            }
+            if let incidentArrivalHours = fjIncidentR["incidentArrivalHours"] as? String {
+                fjIncidentTimer.incidentArrivalHours = incidentArrivalHours
+            }
+            if let incidentArrivalMinutes = fjIncidentR["incidentArrivalMinutes"] as? String {
+                fjIncidentTimer.incidentArrivalMinutes = incidentArrivalMinutes
+            }
+            if let incidentArrivalMonth = fjIncidentR["incidentArrivalMonth"] as? String {
+                fjIncidentTimer.incidentArrivalMonth = incidentArrivalMonth
+            }
+            if let incidentArrivalNotes = fjIncidentR["incidentArrivalNotes"] as? String {
+                fjIncidentTimer.incidentArrivalNotes = incidentArrivalNotes as NSObject
+            }
+            if let incidentArrivalYear = fjIncidentR["incidentArrivalYear"] as? String {
+                fjIncidentTimer.incidentArrivalYear = incidentArrivalYear
+            }
+            if let incidentArrivalYear = fjIncidentR["incidentArrivalYear"] as? String {
+                fjIncidentTimer.incidentArrivalYear = incidentArrivalYear
+            }
+            if let incidentControlDateTime =  fjIncidentR["incidentControlDateTime"] as? Date {
+                fjIncidentTimer.incidentControlDateTime =  incidentControlDateTime
+            }
+            if let incidentControlledDay = fjIncidentR["incidentControlledDay"] as? String {
+                fjIncidentTimer.incidentControlledDay = incidentControlledDay
+            }
+            if let incidentControlledHours = fjIncidentR["incidentControlledHours"] as? String {
+                fjIncidentTimer.incidentControlledHours = incidentControlledHours
+            }
+            if let incidentControlledMinutes = fjIncidentR["incidentControlledMinutes"] as? String {
+                fjIncidentTimer.incidentControlledMinutes = incidentControlledMinutes
+            }
+            if let incidentControlledMonth = fjIncidentR["incidentControlledMonth"] as? String {
+                fjIncidentTimer.incidentControlledMonth = incidentControlledMonth
+            }
+            if let incidentControlledNotes = fjIncidentR["incidentControlledNotes"] as? String {
+                fjIncidentTimer.incidentControlledNotes = incidentControlledNotes as NSObject
+            }
+            if let incidentControlledYear = fjIncidentR["incidentControlledYear"] as? String {
+                fjIncidentTimer.incidentControlledYear = incidentControlledYear
+            }
+            if let incidentElapsedTime = fjIncidentR["incidentElapsedTime"] as? String {
+                fjIncidentTimer.incidentElapsedTime = incidentElapsedTime
+            }
+            if let incidentLastUnitCalledCombinedDate = fjIncidentR["incidentLastUnitCalledCombinedDate"] as? String {
+                fjIncidentTimer.incidentLastUnitCalledCombinedDate = incidentLastUnitCalledCombinedDate
+            }
+            if let incidentLastUnitDateTime = fjIncidentR["incidentLastUnitDateTime"] as? Date {
+                fjIncidentTimer.incidentLastUnitDateTime = incidentLastUnitDateTime
+            }
+            if let incidentLastUnitCalledDay = fjIncidentR["incidentLastUnitCalledDay"] as? String {
+                fjIncidentTimer.incidentLastUnitCalledDay = incidentLastUnitCalledDay
+            }
+            if let incidentLastUnitCalledHours = fjIncidentR["incidentLastUnitCalledHours"] as? String {
+                fjIncidentTimer.incidentLastUnitCalledHours = incidentLastUnitCalledHours
+            }
+            if let incidentLastUnitCalledMinutes = fjIncidentR["incidentLastUnitCalledMinutes"] as? String {
+                fjIncidentTimer.incidentLastUnitCalledMinutes = incidentLastUnitCalledMinutes
+            }
+            if let incidentLastUnitCalledMonth = fjIncidentR["incidentLastUnitCalledMonth"] as? String {
+                fjIncidentTimer.incidentLastUnitCalledMonth = incidentLastUnitCalledMonth
+            }
+            if let incidentLastUnitCalledYear = fjIncidentR["incidentLastUnitCalledYear"] as? String {
+                fjIncidentTimer.incidentLastUnitCalledYear = incidentLastUnitCalledYear
+            }
+            if let incidentLastUnitClearedNotes = fjIncidentR["incidentLastUnitClearedNotes"] as? String {
+                fjIncidentTimer.incidentLastUnitClearedNotes = incidentLastUnitClearedNotes as NSObject
+            }
+            if let incidentStartClockCombinedDate = fjIncidentR["incidentStartClockCombinedDate"] as? String {
+                fjIncidentTimer.incidentStartClockCombinedDate = incidentStartClockCombinedDate
+            }
+            if let incidentStartClockDateTime = fjIncidentR["incidentStartClockDateTime"] as? Date {
+                fjIncidentTimer.incidentStartClockDateTime = incidentStartClockDateTime
+            }
+            if let incidentStartClockDay = fjIncidentR["incidentStartClockDay"] as? String {
+                fjIncidentTimer.incidentStartClockDay = incidentStartClockDay
+            }
+            if let incidentStartClockHours = fjIncidentR["incidentStartClockHours"] as? String {
+                fjIncidentTimer.incidentStartClockHours = incidentStartClockHours
+            }
+            if let incidentStartClockMinutes = fjIncidentR["incidentStartClockMinutes"] as? String {
+                fjIncidentTimer.incidentStartClockMinutes = incidentStartClockMinutes
+            }
+            if let incidentStartClockMonth = fjIncidentR["incidentStartClockMonth"] as? String {
+                fjIncidentTimer.incidentStartClockMonth = incidentStartClockMonth
+            }
+            if let incidentStartClockSeconds = fjIncidentR["incidentStartClockSeconds"] as? String {
+                fjIncidentTimer.incidentStartClockSeconds = incidentStartClockSeconds
+            }
+            if let incidentStartClockYear = fjIncidentR["incidentStartClockYear"] as? String {
+                fjIncidentTimer.incidentStartClockYear = incidentStartClockYear
+            }
+            if let incidentStopClockCombinedDate = fjIncidentR["incidentStopClockCombinedDate"]  as? String {
+                fjIncidentTimer.incidentStopClockCombinedDate = incidentStopClockCombinedDate
+            }
+            if let incidentStopClockDateTime = fjIncidentR["incidentStopClockDateTime"] as? Date {
+                fjIncidentTimer.incidentStopClockDateTime = incidentStopClockDateTime
+            }
+            if let incidentStopClockDay = fjIncidentR["incidentStopClockDay"] as? String {
+                fjIncidentTimer.incidentStopClockDay = incidentStopClockDay
+            }
+            if let incidentStopClockHours = fjIncidentR["incidentStopClockHours"] as? String {
+                fjIncidentTimer.incidentStopClockHours = incidentStopClockHours
+            }
+            if let incidentStopClockMinutes = fjIncidentR["incidentStopClockMinutes"] as? String {
+                fjIncidentTimer.incidentStopClockMinutes = incidentStopClockMinutes
+            }
+            if let incidentStopClockMonth = fjIncidentR["incidentStopClockMonth"] as? String {
+                fjIncidentTimer.incidentStopClockMonth = incidentStopClockMonth
+            }
+            if let incidentStopClockSeconds = fjIncidentR["incidentStopClockSeconds"] as? String {
+                fjIncidentTimer.incidentStopClockSeconds = incidentStopClockSeconds
+            }
+            if let incidentStopClockYear = fjIncidentR["incidentStopClockYear"] as? String {
+                fjIncidentTimer.incidentStopClockYear = incidentStopClockYear
+            }
+            if let lastUnitSameDate = fjIncidentR["lastUnitSameDate"] as? Bool {
+                fjIncidentTimer.lastUnitSameDate = lastUnitSameDate
+            }
+        }
         
-        // TODO: -IncidentNFIRSRequiredModules-
-        // IncidentNFIRSRequiredModules *_requiredModules = (IncidentNFIRSRequiredModules *)self.requiredModulesDetails
-        //     NSMutableArray *_nfirsRMods = [[NSMutableArray alloc] init]
-        //     for(_requiredModules in self.completedModulesDetails){
-        //         [_nfirsRMods addObject:_requiredModules.requiredModule]
-        //     }
-        //     _nfirsRequiredMods = [_nfirsRMods copy]
-        //     NSString *reqMods = @""
-        //     NSString *truncatedRMString = @""
-        //     if(!([_nfirsRequiredMods count] == 0)) {
-        //         for(NSString *t in _nfirsRequiredMods){
-        //             if(![t isEqualToString:@""]){
-        //                 reqMods = [reqMods stringByAppendingString:[NSString stringWithFormat:@"%@,",t]]
-        //             }
-        //             if([reqMods length]>0){
-        //                 truncatedRMString = [reqMods substringToIndex:[reqMods length]-2]
-        //             }
-        //         }
-        //     }
-        //     fjIncidentR["incidentRequiredModules"] = truncatedRMString
+            // MARK: -ActionsTaken-
+        if let fjActionsTaken = self.actionsTakenDetails {
+            if let additionalThree = fjIncidentR["additionalThree"] as? String {
+                fjActionsTaken.additionalThree = additionalThree
+            }
+            if let additionalThreeNumber = fjIncidentR["additionalThreeNumber"] as? String {
+                fjActionsTaken.additionalThreeNumber = additionalThreeNumber
+            }
+            if let additionalTwo = fjIncidentR["additionalTwo"] as? String {
+                fjActionsTaken.additionalTwo = additionalTwo
+            }
+            if let additionalTwoNumber = fjIncidentR["additionalTwoNumber"] as? String {
+                fjActionsTaken.additionalTwoNumber = additionalTwoNumber
+            }
+            if let primaryAction = fjIncidentR["primaryAction"] as? String {
+                fjActionsTaken.primaryAction = primaryAction
+            }
+            if let primaryActionNumber = fjIncidentR["primaryActionNumber"] as? String {
+                fjActionsTaken.primaryActionNumber = primaryActionNumber
+            }
+        }
         
-        let fjIncidentNFIRSsecL = self.sectionLDetails
-        fjIncidentR["incidentNFIRSSecLNotes"] = fjIncidentNFIRSsecL?.lRemarks as? String
-        fjIncidentR["incidentNFIRSSecLMoreRemarks"] = Int(fjIncidentNFIRSsecL?.moreRemarks ?? false)
+            // TODO: -IncidentTeam, IncidentTags, UserCrew
+        let coder = NSKeyedArchiver(requiringSecureCoding: true)
+        fjIncidentR.encodeSystemFields(with: coder)
+        let data = coder.encodedData
+        self.fjIncidentCKR = data as NSObject
         
-        let fjIncidentNFIRSsecM = self.sectionMDetails
-        fjIncidentR["memberAssignment"] = fjIncidentNFIRSsecM?.memberAssignment
-        fjIncidentR["memberDate"] = fjIncidentNFIRSsecM?.memberDate
-        fjIncidentR["memberMakingReportID"] = fjIncidentNFIRSsecM?.memberMakingReportID
-        fjIncidentR["memberRankPosition"] = fjIncidentNFIRSsecM?.memberRankPosition
-        fjIncidentR["memberSameAsOfficer"] = Int(fjIncidentNFIRSsecM?.memberSameAsOfficer ?? false)
-        fjIncidentR["officerAssignment"] = fjIncidentNFIRSsecM?.officerAssignment
-        fjIncidentR["officerDate"] = fjIncidentNFIRSsecM?.officerDate
-        fjIncidentR["officerInChargeID"] = fjIncidentNFIRSsecM?.officerInChargeID
-        fjIncidentR["officerRankPosition"] = fjIncidentNFIRSsecM?.officerRankPosition
-        fjIncidentR["signatureMember"] = fjIncidentNFIRSsecM?.signatureMember
-        fjIncidentR["signatureOfficer"] = fjIncidentNFIRSsecM?.signatureOfficer
-        // TODO: -OFFICER AND MEMBER SIGNATURE ASSETS
-        //    TRANSFORM officerSignature
-        // if(fjIncidentNFIRSsecM?.officeSigned) {
-        //         fjIncidentR["officerSigned"] = @1
-        //         NSData *oSignatureData = nil
-        //         oSignatureData = fjIncidentNFIRSsecM?.officerSignature
-        //         NSMutableDictionary *oPhotoDictionary = [[NSMutableDictionary alloc] init]
-        //         NSString *oPhotoName = @""
-        //         NSString *opath = @""
-        //         @synchronized (self) {
-        //             if(!(oSignatureData == nil)){
-        //                 NSDateFormatter *dayOfWeekNumberFormat = [[NSDateFormatter alloc] init]
-        //                 [dayOfWeekNumberFormat setDateFormat:@"YYYYDDDHHmmAAAAAAAA"]
-        //                 NSString *_displayDayOfTheYear = [dayOfWeekNumberFormat stringFromDate:[NSDate date]]
-        //                 UIImage *_signatureImage = [UIImage imageWithData:oSignatureData]
-        //                 NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-        //                                                                      NSUserDomainMask, YES)
-        //                 NSString *documentsDirectory = [paths objectAtIndex:0]
-        //                 oPhotoName = @"OfficerSignature"
-        //                 opath = [documentsDirectory stringByAppendingPathComponent:
-        //                          [NSString stringWithFormat:@"%@_%@.jpg",oPhotoName,_displayDayOfTheYear]]
-        //                 if([UIImageJPEGRepresentation(_signatureImage, 1.0) writeToFile:opath atomically:YES]){
-        //                     [oPhotoDictionary setObject:oPhotoName forKey:opath]
-        //                     NSURL *fileNSUrl = [NSURL fileURLWithPath:opath]
-        //                     CKAsset *imageAsset = [[CKAsset alloc] initWithFileURL:fileNSUrl]
-        //
-        //                     fjIncidentR["officerSignature"] = imageAsset
-        //                 }
-        //             }
-        //         }
-        //     } else {
-        //         fjIncidentR["officerSigned"] = @0
-        //     }
-        // //  TRANSFORM memberSignature
-        //     if(fjIncidentNFIRSsecM?.memberSigned) {
-        //         fjIncidentR["memberSigned"] = @1
-        //         NSData *mSignatureData = nil
-        //         mSignatureData = fjIncidentNFIRSsecM?.memberSignature
-        //         NSMutableDictionary *mPhotoDictionary = [[NSMutableDictionary alloc] init]
-        //         NSString *mPhotoName = @""
-        //         NSString *mpath = @""
-        //         @synchronized (self) {
-        //             if(!(mSignatureData == nil)){
-        //                 NSDateFormatter *dayOfWeekNumberFormat = [[NSDateFormatter alloc] init]
-        //                 [dayOfWeekNumberFormat setDateFormat:@"YYYYDDDHHmmAAAAAAAA"]
-        //                 NSString *_displayDayOfTheYear = [dayOfWeekNumberFormat stringFromDate:[NSDate date]]
-        //                 UIImage *_signatureImage = [UIImage imageWithData:mSignatureData]
-        //                 NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-        //                                                                      NSUserDomainMask, YES)
-        //                 NSString *documentsDirectory = [paths objectAtIndex:0]
-        //                 mPhotoName = @"MemberSignature"
-        //                 mpath = [documentsDirectory stringByAppendingPathComponent:
-        //                          [NSString stringWithFormat:@"%@_%@.jpg",mPhotoName,_displayDayOfTheYear]]
-        //                 if([UIImageJPEGRepresentation(_signatureImage, 1.0) writeToFile:mpath atomically:YES]){
-        //                     [mPhotoDictionary setObject:mPhotoName forKey:mpath]
-        //                     NSURL *fileNSUrl = [NSURL fileURLWithPath:mpath]
-        //                     CKAsset *imageAsset = [[CKAsset alloc] initWithFileURL:fileNSUrl]
-        //
-        //                     fjIncidentR["memberSignature"] = imageAsset
-        //                 }
-        //             }
-        //         }
-        //     } else {
-        //         fjIncidentR["memberSigned"] = @0
-        //     }
-        
-        // MARK: -IncidentNotes-
-        let fjIncidentNotes = self.incidentNotesDetails
-        fjIncidentR["incidentSummaryNotes"] = fjIncidentNotes?.incidentSummaryNotes as? String
-        fjIncidentR["incidentNote"] = fjIncidentNotes?.incidentNote
-        
-        // TODO: -IncidentResources-
-        // IncidentResources *_incidentResources = (IncidentResources *)self.incidentResourceDetails
-        //     NSMutableArray *resource = [[NSMutableArray alloc] init]
-        //     for(_incidentResources in self.incidentResourceDetails){
-        //         [resource addObject:_incidentResources.incidentResource]
-        //     }
-        //     _resourceArray = [resource copy]
-        //     NSString *resourcing = @""
-        //     NSString *truncatedRString = @""
-        //
-        //     if (!([_resourceArray count] == 0)) {
-        //         for(NSString *t in _resourceArray){
-        //             if(![t isEqualToString:@""])
-        //                 resourcing = [resourcing stringByAppendingString:[NSString stringWithFormat:@"%@, ",t]]
-        //         }
-        //         if([resourcing length]>2){
-        //             truncatedRString = [resourcing substringToIndex:[resourcing length]-2]
-        //         }
-        //     }
-        //     fjIncidentR["incidentResource"] = truncatedRString
-        
-        //        MARK: -IncidentTimer-
-        let fjIncidentTimer = self.incidentTimerDetails
-        fjIncidentR["arrivalSameDate"] = Int(fjIncidentTimer?.arrivalSameDate ?? false)
-        fjIncidentR["controlledSameDate"] = Int(fjIncidentTimer?.controlledSameDate ?? false)
-        fjIncidentR["incidentAlarmCombinedDate"] = fjIncidentTimer?.incidentAlarmCombinedDate
-        fjIncidentR["incidentAlarmDateTime"] = fjIncidentTimer?.incidentAlarmDateTime
-        fjIncidentR["incidentAlarmDay"] = fjIncidentTimer?.incidentAlarmDay
-        fjIncidentR["incidentAlarmHours"] = fjIncidentTimer?.incidentAlarmHours
-        fjIncidentR["incidentAlarmMinutes"] = fjIncidentTimer?.incidentAlarmMinutes
-        fjIncidentR["incidentAlarmMonth"] = fjIncidentTimer?.incidentAlarmMonth
-        fjIncidentR["incidentAlarmNotes"] = fjIncidentTimer?.incidentAlarmNotes as? String
-        fjIncidentR["incidentAlarmYear"] = fjIncidentTimer?.incidentAlarmYear
-        fjIncidentR["incidentArrivalCombinedDate"] = fjIncidentTimer?.incidentArrivalCombinedDate
-        fjIncidentR["incidentArrivalDateTime"] = fjIncidentTimer?.incidentArrivalDateTime
-        fjIncidentR["incidentArrivalDay"] = fjIncidentTimer?.incidentArrivalDay
-        fjIncidentR["incidentArrivalHours"] = fjIncidentTimer?.incidentArrivalHours
-        fjIncidentR["incidentArrivalMinutes"] = fjIncidentTimer?.incidentArrivalMinutes
-        fjIncidentR["incidentArrivalMonth"] = fjIncidentTimer?.incidentArrivalMonth
-        fjIncidentR["incidentArrivalNotes"] = fjIncidentTimer?.incidentArrivalNotes as? String
-        fjIncidentR["incidentArrivalYear"] = fjIncidentTimer?.incidentArrivalYear
-        fjIncidentR["incidentControlledCombinedDate"] = fjIncidentTimer?.incidentControlledCombinedDate
-        fjIncidentR["incidentControlDateTime"] = fjIncidentTimer?.incidentControlDateTime
-        fjIncidentR["incidentControlledDay"] = fjIncidentTimer?.incidentControlledDay
-        fjIncidentR["incidentControlledHours"] = fjIncidentTimer?.incidentControlledHours
-        fjIncidentR["incidentControlledMinutes"] = fjIncidentTimer?.incidentControlledMinutes
-        fjIncidentR["incidentControlledMonth"] = fjIncidentTimer?.incidentControlledMonth
-        fjIncidentR["incidentControlledNotes"] = fjIncidentTimer?.incidentControlledNotes as? String
-        fjIncidentR["incidentControlledYear"] = fjIncidentTimer?.incidentControlledYear
-        fjIncidentR["incidentElapsedTime"] = fjIncidentTimer?.incidentElapsedTime
-        fjIncidentR["incidentLastUnitCalledCombinedDate"] = fjIncidentTimer?.incidentLastUnitCalledCombinedDate
-        fjIncidentR["incidentLastUnitDateTime"] = fjIncidentTimer?.incidentLastUnitDateTime
-        fjIncidentR["incidentLastUnitCalledDay"] = fjIncidentTimer?.incidentLastUnitCalledDay
-        fjIncidentR["incidentLastUnitCalledHours"] = fjIncidentTimer?.incidentLastUnitCalledHours
-        fjIncidentR["incidentLastUnitCalledMinutes"] = fjIncidentTimer?.incidentLastUnitCalledMinutes
-        fjIncidentR["incidentLastUnitCalledMonth"] = fjIncidentTimer?.incidentLastUnitCalledMonth
-        fjIncidentR["incidentLastUnitCalledYear"] = fjIncidentTimer?.incidentLastUnitCalledYear
-        fjIncidentR["incidentLastUnitClearedNotes"] = fjIncidentTimer?.incidentLastUnitClearedNotes as? String
-        fjIncidentR["incidentStartClockCombinedDate"] = fjIncidentTimer?.incidentStartClockCombinedDate
-        fjIncidentR["incidentStartClockDateTime"] = fjIncidentTimer?.incidentStartClockDateTime
-        fjIncidentR["incidentStartClockDay"] = fjIncidentTimer?.incidentStartClockDay
-        fjIncidentR["incidentStartClockHours"] = fjIncidentTimer?.incidentStartClockHours
-        fjIncidentR["incidentStartClockMinutes"] = fjIncidentTimer?.incidentStartClockMinutes
-        fjIncidentR["incidentStartClockMonth"] = fjIncidentTimer?.incidentStartClockMonth
-        fjIncidentR["incidentStartClockSeconds"] = fjIncidentTimer?.incidentStartClockSeconds
-        fjIncidentR["incidentStartClockYear"] = fjIncidentTimer?.incidentStartClockYear
-        fjIncidentR["incidentStopClockCombinedDate"] = fjIncidentTimer?.incidentStopClockCombinedDate
-        fjIncidentR["incidentStopClockDateTime"] = fjIncidentTimer?.incidentStopClockDateTime
-        fjIncidentR["incidentStopClockDay"] = fjIncidentTimer?.incidentStopClockDay
-        fjIncidentR["incidentStopClockHours"] = fjIncidentTimer?.incidentStopClockHours
-        fjIncidentR["incidentStopClockMinutes"] = fjIncidentTimer?.incidentStopClockMinutes
-        fjIncidentR["incidentStopClockMonth"] = fjIncidentTimer?.incidentStopClockMonth
-        fjIncidentR["incidentStopClockSeconds"] = fjIncidentTimer?.incidentStopClockSeconds
-        fjIncidentR["incidentStopClockYear"] = fjIncidentTimer?.incidentStopClockYear
-        fjIncidentR["lastUnitSameDate"] = Int(fjIncidentTimer?.lastUnitSameDate ?? false)
-        
-        //        MARK: -ActionsTaken-
-        let fjActionsTaken = self.actionsTakenDetails
-        fjIncidentR["additionalThree"] = fjActionsTaken?.additionalThree
-        fjIncidentR["additionalThreeNumber"] = fjActionsTaken?.additionalThreeNumber
-        fjIncidentR["additionalTwo"] = fjActionsTaken?.additionalTwo
-        fjIncidentR["additionalTwoNumber"] = fjActionsTaken?.additionalTwoNumber
-        fjIncidentR["primaryAction"] = fjActionsTaken?.primaryAction
-        fjIncidentR["primaryActionNumber"] = fjActionsTaken?.primaryActionNumber
-        
-        // TODO: -IncidentTags, IncidentTeams, Crews
-        // IncidentTeam *_incidentTeam = (IncidentTeam *)self.teamMemberDetails
-        //     NSMutableArray *team = [[NSMutableArray alloc] init]
-        //     for(_incidentTeam in self.teamMemberDetails){
-        //         [team addObject:_incidentTeam.teamMember]
-        //     }
-        //     _teamArray = [team copy]
-        //     NSString *teaming = @""
-        //     NSString *truncatedTString = @""
-        //     if (!([_teamArray count] == 0)) {
-        //         for(NSString *t in _teamArray){
-        //             if(![t isEqualToString:@""])
-        //                 teaming = [teaming stringByAppendingString:[NSString stringWithFormat:@"%@, ",t]]
-        //         }
-        //         if([teaming length]>2){
-        //             truncatedTString = [teaming substringToIndex:[teaming length]-2]
-        //         }
-        //     }
-        //     fjIncidentR["teamMembers"] = truncatedTString
-        //
-        //     IncidentTags *_incidentTags = (IncidentTags *)self.incidentTagDetails
-        //     NSMutableArray *tag = [[NSMutableArray alloc] init]
-        //     for(_incidentTags in self.incidentTagDetails){
-        //         [tag addObject:_incidentTags.incidentTag]
-        //     }
-        //     _tagsArray = [tag copy]
-        //     NSString *tagging = @""
-        //     NSString *truncatedTagString = @""
-        //     if (!([_tagsArray count] == 0)) {
-        //         for(NSString *t in _tagsArray){
-        //             if(![t isEqualToString:@""])
-        //                 tagging = [tagging stringByAppendingString:[NSString stringWithFormat:@"%@, ",t]]
-        //         }
-        //         if([tagging length]>2){
-        //             truncatedTagString = [tagging substringToIndex:[tagging length]-2]
-        //         }
-        //     }
-        //     fjIncidentR["incidentTags"] = truncatedTagString
-        //        end record
-        return fjIncidentR
-        
+        saveTheSingleCD() {_ in
+            completionHandler?()
+        }
     }
+    
+    private func saveTheSingleCD(withCompletion completion: @escaping (String) -> Void) {
+        do {
+            try self.managedObjectContext?.save()
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.managedObjectContext,userInfo:["info":"Incident Saved"])
+                print("incident we have saved to the cloud")
+            }
+            completion("Success")
+        } catch {
+            let nserror = error as NSError
+            
+            let error = "The Incident+CustomAdditions context was unable to save due to: \(nserror.localizedDescription) \(nserror.userInfo)"
+            print(error)
+            completion("Error")
+        }
+    }
+    
     
     fileprivate func saveToCD() {
         do {

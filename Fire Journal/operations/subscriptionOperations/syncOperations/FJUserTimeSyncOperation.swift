@@ -1,10 +1,10 @@
-//
-//  FJUserTimeSyncOperation.swift
-//  Fire Journal
-//
-//  Created by DuRand Jones on 12/12/18.
-//  Copyright © 2020 PureCommand, LLC. All rights reserved.
-//
+    //
+    //  FJUserTimeSyncOperation.swift
+    //  Fire Journal
+    //
+    //  Created by DuRand Jones on 12/12/18.
+    //  Copyright © 2020 PureCommand, LLC. All rights reserved.
+    //
 
 import Foundation
 import UIKit
@@ -13,7 +13,7 @@ import CloudKit
 
 
 class FJUserTimeSyncOperation: FJOperation {
-
+    
     let context: NSManagedObjectContext
     var bkgrdContext:NSManagedObjectContext!
     let pendingOperations = PendingOperations()
@@ -53,7 +53,7 @@ class FJUserTimeSyncOperation: FJOperation {
     
     override func main() {
         
-        //        MARK: -FJOperation operation-
+            //        MARK: -FJOperation operation-
         operation = "FJUserTimeSyncOperation"
         
         guard isCancelled == false else {
@@ -117,7 +117,9 @@ class FJUserTimeSyncOperation: FJOperation {
     
     func chooseNewWithGuid(withCompletion completion: () -> Void ) {
         for record in ckRecordA {
-                    newUserTimeFromTheCloud(ckRecord: record)
+                //                    newUserTimeFromTheCloud(ckRecord: record)
+            fjUserTime = UserTime(context: bkgrdContext)
+            fjUserTime.updateUserTimeFromTheCloud(ckRecord: record)
         }
         completion()
     }
@@ -127,18 +129,21 @@ class FJUserTimeSyncOperation: FJOperation {
             if let guid:String = record["userTimeGuid"] {
                 let result = fjUserTimeA.filter { $0.userTimeGuid == guid }
                 if result.isEmpty {
-                    newUserTimeFromTheCloud(ckRecord: record)
+                        //                    newUserTimeFromTheCloud(ckRecord: record)
+                    fjUserTime = UserTime(context: bkgrdContext)
+                    fjUserTime.updateUserTimeFromTheCloud(ckRecord: record)
                 } else {
                     fjUserTime = result.last
-                    updateUserTimeFromCloud(fjUserTimeRecord: record, fjuUserTime: fjUserTime)
+                    fjUserTime.updateUserTimeFromTheCloud(ckRecord: record)
+                        //                    updateUserTimeFromCloud(fjUserTimeRecord: record, fjuUserTime: fjUserTime)
                 }
             }
         }
         completion()
     }
     
-    // MARK: -
-    // MARK: Notification Handling
+        // MARK: -
+        // MARK: Notification Handling
     @objc func managedObjectContextDidSave(notification: Notification) {
         DispatchQueue.main.async {
             self.context.mergeChanges(fromContextDidSave: notification)
@@ -155,67 +160,67 @@ class FJUserTimeSyncOperation: FJOperation {
         let fjuUserTime = UserTime(context: bkgrdContext)
         
         if let endShiftDiscussion = fjUserTimeRecord["endShiftDiscussion"] as? String {
-        fjuUserTime.endShiftDiscussion = endShiftDiscussion
+            fjuUserTime.endShiftDiscussion = endShiftDiscussion
         }
         if let endShiftSupervisor = fjUserTimeRecord["endShiftSupervisor"] as? String {
-        fjuUserTime.endShiftSupervisor = endShiftSupervisor
+            fjuUserTime.endShiftSupervisor = endShiftSupervisor
         }
         if let endShiftStatus = fjUserTimeRecord["endShiftStatus"] as? Bool {
-        fjuUserTime.endShiftStatus = endShiftStatus
+            fjuUserTime.endShiftStatus = endShiftStatus
         }
         if let enShiftRelievedBy = fjUserTimeRecord["enShiftRelievedBy"]  as? String {
-        fjuUserTime.enShiftRelievedBy = enShiftRelievedBy
+            fjuUserTime.enShiftRelievedBy = enShiftRelievedBy
         }
         if let entryState = fjUserTimeRecord["entryState"] as? Int64 {
-        fjuUserTime.entryState = entryState
+            fjuUserTime.entryState = entryState
         }
         if let startShiftApparatus = fjUserTimeRecord["startShiftApparatus"] as? String {
-        fjuUserTime.startShiftApparatus = startShiftApparatus
+            fjuUserTime.startShiftApparatus = startShiftApparatus
         }
         if let startShiftAssignment = fjUserTimeRecord["startShiftAssignment"]  as? String {
-        fjuUserTime.startShiftAssignment = startShiftAssignment
+            fjuUserTime.startShiftAssignment = startShiftAssignment
         }
         if let startShiftCrew = fjUserTimeRecord["startShiftCrew"]  as? String {
-        fjuUserTime.startShiftCrew = startShiftCrew
+            fjuUserTime.startShiftCrew = startShiftCrew
         }
         if let startShiftDiscussion = fjUserTimeRecord["startShiftDiscussion"]  as? String {
-        fjuUserTime.startShiftDiscussion = startShiftDiscussion
+            fjuUserTime.startShiftDiscussion = startShiftDiscussion
         }
         if let startShiftFireStation = fjUserTimeRecord["startShiftFireStation"]  as? String {
-        fjuUserTime.startShiftFireStation = startShiftFireStation
+            fjuUserTime.startShiftFireStation = startShiftFireStation
         }
         if let startShiftPlatoon = fjUserTimeRecord["startShiftPlatoon"]  as? String {
-        fjuUserTime.startShiftPlatoon = startShiftPlatoon
+            fjuUserTime.startShiftPlatoon = startShiftPlatoon
         }
         if let startShiftRelieving = fjUserTimeRecord["startShiftRelieving"]  as? String {
-        fjuUserTime.startShiftRelieving = startShiftRelieving
+            fjuUserTime.startShiftRelieving = startShiftRelieving
         }
         if let startShiftSupervisor = fjUserTimeRecord["startShiftSupervisor"]  as? String {
-        fjuUserTime.startShiftSupervisor = startShiftSupervisor
+            fjuUserTime.startShiftSupervisor = startShiftSupervisor
         }
         if let startShiftResources = fjUserTimeRecord["startShiftResource"]  as? String {
-        fjuUserTime.startShiftResources = startShiftResources
+            fjuUserTime.startShiftResources = startShiftResources
         }
         if let startShiftStatus = fjUserTimeRecord["startShiftStatus"] as? Bool {
-        fjuUserTime.startShiftStatus = startShiftStatus
+            fjuUserTime.startShiftStatus = startShiftStatus
         }
         if let updateShiftDiscussion = fjUserTimeRecord["updateShiftDiscussion"]  as? String {
-        fjuUserTime.updateShiftDiscussion = updateShiftDiscussion
+            fjuUserTime.updateShiftDiscussion = updateShiftDiscussion
         }
         if let updateShiftFireStation = fjUserTimeRecord["updateShiftFireStation"]  as? String {
-        fjuUserTime.updateShiftFireStation = updateShiftFireStation
+            fjuUserTime.updateShiftFireStation = updateShiftFireStation
         }
         if let updateShiftPlatoon = fjUserTimeRecord["updateShiftPlatoon"]  as? String {
-        fjuUserTime.updateShiftPlatoon = updateShiftPlatoon
+            fjuUserTime.updateShiftPlatoon = updateShiftPlatoon
         }
         if let updateShiftRelievedBy = fjUserTimeRecord["updateShiftRelievedBy"]  as? String {
-        fjuUserTime.updateShiftRelievedBy = updateShiftRelievedBy
+            fjuUserTime.updateShiftRelievedBy = updateShiftRelievedBy
         }
         if let updateShiftSupervisor = fjUserTimeRecord["updateShiftSupervisor"]  as? String {
-        fjuUserTime.updateShiftSupervisor = updateShiftSupervisor
+            fjuUserTime.updateShiftSupervisor = updateShiftSupervisor
         }
         if let updateShiftStatus = fjUserTimeRecord["updateShiftStatus"] as? Bool {
-        fjuUserTime.updateShiftStatus = updateShiftStatus
+            fjuUserTime.updateShiftStatus = updateShiftStatus
         }
         if let endShiftDate:Date = fjUserTimeRecord["userEndShiftTime"] {
             fjuUserTime.userEndShiftTime = endShiftDate
@@ -224,16 +229,16 @@ class FJUserTimeSyncOperation: FJOperation {
             fjuUserTime.userStartShiftTime = startShiftTime
         }
         if let userTimeBackup = fjUserTimeRecord["userTimeBackup"] as? Bool {
-        fjuUserTime.userTimeBackup = userTimeBackup
+            fjuUserTime.userTimeBackup = userTimeBackup
         }
         if let userTimeDayOfYear = fjUserTimeRecord["userTimeDayOfYear"]  as? String {
-        fjuUserTime.userTimeDayOfYear = userTimeDayOfYear
+            fjuUserTime.userTimeDayOfYear = userTimeDayOfYear
         }
         if let userTimeGuid = fjUserTimeRecord["userTimeGuid"]  as? String {
-        fjuUserTime.userTimeGuid = userTimeGuid
+            fjuUserTime.userTimeGuid = userTimeGuid
         }
         if let userTimeYear = fjUserTimeRecord["userTimeYear"]  as? String {
-        fjuUserTime.userTimeYear = userTimeYear
+            fjuUserTime.userTimeYear = userTimeYear
         }
         if let updateDate:Date = fjUserTimeRecord["userUpdateShiftTime"] {
             fjuUserTime.userUpdateShiftTime = updateDate
@@ -251,85 +256,86 @@ class FJUserTimeSyncOperation: FJOperation {
     func updateUserTimeFromCloud(fjUserTimeRecord: CKRecord, fjuUserTime: UserTime) {
         
         if let endShiftDiscussion = fjUserTimeRecord["endShiftDiscussion"] as? String {
-        fjuUserTime.endShiftDiscussion = endShiftDiscussion
+            fjuUserTime.endShiftDiscussion = endShiftDiscussion
         }
         if let endShiftSupervisor = fjUserTimeRecord["endShiftSupervisor"] as? String {
-        fjuUserTime.endShiftSupervisor = endShiftSupervisor
+            fjuUserTime.endShiftSupervisor = endShiftSupervisor
         }
         if let endShiftStatus = fjUserTimeRecord["endShiftStatus"] as? Bool {
-        fjuUserTime.endShiftStatus = endShiftStatus
+            fjuUserTime.endShiftStatus = endShiftStatus
         }
         if let enShiftRelievedBy = fjUserTimeRecord["enShiftRelievedBy"]  as? String {
-        fjuUserTime.enShiftRelievedBy = enShiftRelievedBy
+            fjuUserTime.enShiftRelievedBy = enShiftRelievedBy
         }
         if let entryState = fjUserTimeRecord["entryState"] as? Int64 {
-        fjuUserTime.entryState = entryState
+            fjuUserTime.entryState = entryState
         }
         if let startShiftApparatus = fjUserTimeRecord["startShiftApparatus"] as? String {
-        fjuUserTime.startShiftApparatus = startShiftApparatus
+            fjuUserTime.startShiftApparatus = startShiftApparatus
         }
         if let startShiftAssignment = fjUserTimeRecord["startShiftAssignment"]  as? String {
-        fjuUserTime.startShiftAssignment = startShiftAssignment
+            fjuUserTime.startShiftAssignment = startShiftAssignment
         }
         if let startShiftCrew = fjUserTimeRecord["startShiftCrew"]  as? String {
-        fjuUserTime.startShiftCrew = startShiftCrew
+            fjuUserTime.startShiftCrew = startShiftCrew
         }
         if let startShiftDiscussion = fjUserTimeRecord["startShiftDiscussion"]  as? String {
-        fjuUserTime.startShiftDiscussion = startShiftDiscussion
+            fjuUserTime.startShiftDiscussion = startShiftDiscussion
         }
         if let startShiftFireStation = fjUserTimeRecord["startShiftFireStation"]  as? String {
-        fjuUserTime.startShiftFireStation = startShiftFireStation
+            fjuUserTime.startShiftFireStation = startShiftFireStation
         }
         if let startShiftPlatoon = fjUserTimeRecord["startShiftPlatoon"]  as? String {
-        fjuUserTime.startShiftPlatoon = startShiftPlatoon
+            fjuUserTime.startShiftPlatoon = startShiftPlatoon
         }
         if let startShiftRelieving = fjUserTimeRecord["startShiftRelieving"]  as? String {
-        fjuUserTime.startShiftRelieving = startShiftRelieving
+            fjuUserTime.startShiftRelieving = startShiftRelieving
         }
         if let startShiftSupervisor = fjUserTimeRecord["startShiftSupervisor"]  as? String {
-        fjuUserTime.startShiftSupervisor = startShiftSupervisor
+            fjuUserTime.startShiftSupervisor = startShiftSupervisor
         }
         if let startShiftResources = fjUserTimeRecord["startShiftResource"]  as? String {
-        fjuUserTime.startShiftResources = startShiftResources
+            fjuUserTime.startShiftResources = startShiftResources
         }
         if let startShiftStatus = fjUserTimeRecord["startShiftStatus"] as? Bool {
-        fjuUserTime.startShiftStatus = startShiftStatus
+            fjuUserTime.startShiftStatus = startShiftStatus
         }
         if let updateShiftDiscussion = fjUserTimeRecord["updateShiftDiscussion"]  as? String {
-        fjuUserTime.updateShiftDiscussion = updateShiftDiscussion
+            fjuUserTime.updateShiftDiscussion = updateShiftDiscussion
         }
         if let updateShiftFireStation = fjUserTimeRecord["updateShiftFireStation"]  as? String {
-        fjuUserTime.updateShiftFireStation = updateShiftFireStation
+            fjuUserTime.updateShiftFireStation = updateShiftFireStation
         }
         if let updateShiftPlatoon = fjUserTimeRecord["updateShiftPlatoon"]  as? String {
-        fjuUserTime.updateShiftPlatoon = updateShiftPlatoon
+            fjuUserTime.updateShiftPlatoon = updateShiftPlatoon
         }
         if let updateShiftRelievedBy = fjUserTimeRecord["updateShiftRelievedBy"]  as? String {
-        fjuUserTime.updateShiftRelievedBy = updateShiftRelievedBy
+            fjuUserTime.updateShiftRelievedBy = updateShiftRelievedBy
         }
         if let updateShiftSupervisor = fjUserTimeRecord["updateShiftSupervisor"]  as? String {
-        fjuUserTime.updateShiftSupervisor = updateShiftSupervisor
+            fjuUserTime.updateShiftSupervisor = updateShiftSupervisor
         }
         if let updateShiftStatus = fjUserTimeRecord["updateShiftStatus"] as? Bool {
-        fjuUserTime.updateShiftStatus = updateShiftStatus
+            fjuUserTime.updateShiftStatus = updateShiftStatus
         }
         if let endShiftDate:Date = fjUserTimeRecord["userEndShiftTime"] {
             fjuUserTime.userEndShiftTime = endShiftDate
+            fjuUserTime.shiftCompleted = true
         }
         if let startShiftTime:Date = fjUserTimeRecord["userStartShiftTime"] {
             fjuUserTime.userStartShiftTime = startShiftTime
         }
         if let userTimeBackup = fjUserTimeRecord["userTimeBackup"] as? Bool {
-        fjuUserTime.userTimeBackup = userTimeBackup
+            fjuUserTime.userTimeBackup = userTimeBackup
         }
         if let userTimeDayOfYear = fjUserTimeRecord["userTimeDayOfYear"]  as? String {
-        fjuUserTime.userTimeDayOfYear = userTimeDayOfYear
+            fjuUserTime.userTimeDayOfYear = userTimeDayOfYear
         }
         if let userTimeGuid = fjUserTimeRecord["userTimeGuid"]  as? String {
-        fjuUserTime.userTimeGuid = userTimeGuid
+            fjuUserTime.userTimeGuid = userTimeGuid
         }
         if let userTimeYear = fjUserTimeRecord["userTimeYear"]  as? String {
-        fjuUserTime.userTimeYear = userTimeYear
+            fjuUserTime.userTimeYear = userTimeYear
         }
         if let updateDate:Date = fjUserTimeRecord["userUpdateShiftTime"] {
             fjuUserTime.userUpdateShiftTime = updateDate

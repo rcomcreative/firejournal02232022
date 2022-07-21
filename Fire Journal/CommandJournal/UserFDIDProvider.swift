@@ -13,6 +13,8 @@ import CloudKit
 class UserFDIDProvider: NSObject {
     
     let nc = NotificationCenter.default
+    var context: NSManagedObjectContext!
+    var theLocation: FCLocation!
     
     private(set) var persistentContainer: NSPersistentContainer
     var buildFromFDIDPlist: BuildFromFDIDPlist!
@@ -22,6 +24,8 @@ class UserFDIDProvider: NSObject {
     }
     
     func getAllUserFDIDs(context: NSManagedObjectContext) -> [UserFDID]? {
+        
+        self.context = context
         var fdids = [UserFDID]()
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "UserFDID" )
@@ -46,16 +50,29 @@ class UserFDIDProvider: NSObject {
     }
     
     func getTheFDIDForCityState(context: NSManagedObjectContext, userID: NSManagedObjectID) -> [UserFDID]? {
+        self.context = context
         var fdids = [UserFDID]()
-        let user = context.object(with: userID) as! FireJournalUser
+        let user = self.context.object(with: userID) as! FireJournalUser
+        
         var theCity: String = ""
         var theState: String = ""
-        if let city = user.fireStationCity {
-            theCity = city
+        if user.theLocation != nil {
+            theLocation = user.theLocation
+            if let city = theLocation.city {
+                theCity = city
+            }
+            if let state = theLocation.state {
+                theState = state
+            }
+        } else {
+            if let city = user.fireStationCity {
+                theCity = city
+            }
+            if let state = user.fireStationState {
+                theState = state
+            }
         }
-        if let state = user.fireStationState {
-            theState = state
-        }
+        
         var predicate = NSPredicate.init()
         var predicate2 = NSPredicate.init()
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "UserFDID" )
@@ -72,7 +89,7 @@ class UserFDIDProvider: NSObject {
         fetchRequest.returnsObjectsAsFaults = false
         
         do {
-            let fetched = try context.fetch(fetchRequest) as! [UserFDID]
+            let fetched = try self.context.fetch(fetchRequest) as! [UserFDID]
             if !fetched.isEmpty {
                 for fdid in fetched {
                     fdids.append(fdid)
@@ -86,6 +103,7 @@ class UserFDIDProvider: NSObject {
     }
     
     func buildTheFDIDs(theGuidDate: Date, backgroundContext: NSManagedObjectContext ) -> [UserFDID]? {
+        self.context = backgroundContext
         var fdids = [UserFDID]()
         buildFromFDIDPlist = BuildFromFDIDPlist.init()
         let fdidA = buildFromFDIDPlist.fdids
@@ -103,7 +121,7 @@ class UserFDIDProvider: NSObject {
             fdids.append(fdid)
         }
         do {
-            try backgroundContext.save()
+            try self.context.save()
         } catch let error as NSError {
             let nserror = error
             

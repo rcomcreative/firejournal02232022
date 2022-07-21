@@ -392,13 +392,15 @@ extension NewPromotionVC: LabelTextFieldCellDelegate {
     func labelTextFieldEditing(text: String, myShift: MenuItems) {}
     
     func labelTextFieldFinishedEditing(text: String, myShift: MenuItems, tag: Int) {
-        let row = tag
-        switch row {
-        case 0:
-            thePromotion.projectName = text
-        case 2:
-            thePromotion.projectType = text
-        default: break
+        if thePromotion != nil {
+            let row = tag
+            switch row {
+            case 0:
+                thePromotion.projectName = text
+            case 2:
+                thePromotion.projectType = text
+            default: break
+            }
         }
     }
     

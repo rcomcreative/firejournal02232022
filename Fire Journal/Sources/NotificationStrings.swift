@@ -31,6 +31,21 @@ extension Notification.Name {
     static let fireJournalUpdateIncidentLocationToFCLocation = Notification.Name("fireJournalUpdateIncidentLocationToFCLocation")
     static let fireJournalUpdateJournalLocationToFCLocation = Notification.Name("fireJournalUpdateJournalLocationToFCLocation")
     static let fireJournalFCLocationsUpdated = Notification.Name("fireJournalFCLocationsUpdated")
+    static let fireJournalRemoveAllDataFromCloudKit = Notification.Name("fireJournalRemoveAllDataFromCloudKit")
+    static let fireJournalRemoveAllDataFromCD = Notification.Name("fireJournalRemoveAllDataFromCD")
+    static let fConCheckTheCKZone = Notification.Name("fConCheckTheCKZone")
+    static let fConCheckTheCKZoneFinished = Notification.Name("fConCheckTheCKZoneFinished")
+    static let fConCKZoneFailure = Notification.Name("fConCKZoneFailure")
+    static let fConCKZoneSuccess = Notification.Name("fConCKZoneSuccess")
+    static let fConCDSuccess = Notification.Name("fConCDSuccess")
+    static let fConCDFailure = Notification.Name("fConCDFailure")
+    static let fConCKSubscriptionSuccess = Notification.Name("fConCKSubscriptionSuccess")
+    static let fConCKSubscriptionFailure = Notification.Name("fConCKSubscriptionFailure")
+    static let fConCKCDDeletionCompleted = Notification.Name("fConCKCDDeletionCompleted")
+    static let fConDeletedRebuildMaster = Notification.Name("fConDeletedRebuildMaster")
+    static let fConDeletedRebuildDetail = Notification.Name("fConDeletedRebuildDetail")
+    static let fConDeletionNotificationSentFromCloud = Notification.Name("fConDeletionNotificationSentFromCloud")
+    static let fConDeletionChangedInternally = Notification.Name("fConDeletionChangedInternally")
 }
 
 let FConnectName = "FireJournal"
@@ -38,6 +53,10 @@ let FJkCLOUDKITCONTAINERNAME = "iCloud.com.purecommand.FireJournal2017"
 let FJkSTATUSCONTAINERNAME = "iCloud.com.purecommand.FireJournal2017"
 let FJkRECIEVEDRemoteNotification = "FJkRECIEVEDRemoteNotification"
 let FJkFCLocationUpdateToIncidentRan = "FJkFCLocationUpdateToIncidentRan"
+let FJkDELETIONCKCD = "FJkDELETIONCKCD"
+let FJkFJUSERCKRECORDNAME = "FJkFJUSERCKRECORDNAME"
+let FJkSTATUSCKRECORDNAME = "FJkSTATUSCKRECORDNAME"
+let FJkREMOVEALLDATA = "FJkREMOVEALLDATA"
 let FJkMASTERRELOADDETAIL = "FJkMASTERRELOADDETAIL"
 let FJkJOURNAL_FROM_MASTER = "FJkJOURNAL_FROM_MASTER"
 let FJkJOURNAL_FROM_DETAIL = "FJkJOURNAL_FROM_DETAIL"

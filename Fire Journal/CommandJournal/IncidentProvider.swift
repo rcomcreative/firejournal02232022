@@ -12,7 +12,7 @@ import CloudKit
 class IncidentProvider: NSObject, NSFetchedResultsControllerDelegate {
     
     var fjUserTime: UserTime!
-    let calendar = Calendar.current
+    let calendar = Calendar.init(identifier: .gregorian)
     
     var month: String = ""
     var day: String = ""
@@ -21,6 +21,7 @@ class IncidentProvider: NSObject, NSFetchedResultsControllerDelegate {
     var minute: String = ""
     
     var firstDate: Date!
+    var endDate: Date!
     
     var yearCInt: Int!
     var monthCInt: Int!
@@ -71,61 +72,102 @@ class IncidentProvider: NSObject, NSFetchedResultsControllerDelegate {
     func getTodaysIncidents(context: NSManagedObjectContext, userTime: UserTime ) -> [Incident]? {
         self.context = context
         var theIncidents = [Incident]()
-        if let startDate = userTime.userStartShiftTime {
-            _ = buildTheDay(startDate)
-            _ = getTheDaysIncidents(firstDate, context: self.context)
-            theIncidents = fetchedObjects
-        } else {
-            return nil
-        }
+        theIncidents = buildIncidentsWithUserTime(userTime)
+//        if let startDate = userTime.userStartShiftTime {
+//            _ = buildTheDay(startDate)
+//            if let completeDate = userTime.userEndShiftTime {
+//             _ = buildTheEndDate(completeDate)
+//            }
+//            if endDate == nil {
+//                endDate = Date()
+//            }
+//            _ = getTheDaysIncidents(firstDate, endDate, context: self.context)
+//            theIncidents = fetchedObjects
+//        } else {
+//            return nil
+//        }
         return theIncidents
     }
     
+    private func buildIncidentsWithUserTime(_ theUserTime: UserTime) -> [Incident]{
+        guard let incidents = theUserTime.incident?.allObjects as? [Incident] else {
+            return [Incident]()
+        }
+        let theIncidents = incidents.sorted { $0.incidentCreationDate! > $1.incidentCreationDate! }
+        return theIncidents
+    }
+    
+        /// Build the end shift date from UserTime.usereEndShifttime
+        /// - Parameter theCompleteDate: theEndShiftDate date
+        /// - Returns: date to compare for incidents of shift
+    private func buildTheEndDate(_ theCompleteDate: Date) -> Date {
+        
+        let theComponents = calendar.dateComponents([.year,.month,.day,.hour,.minute], from: theCompleteDate)
+        let m = theComponents.month!
+        let y = theComponents.year!
+        let d = theComponents.day!
+        let h = theComponents.hour!
+        let min = theComponents.minute!
+        
+        month = m < 10 ? "0\(m)" : String(m)
+        day = d < 10 ? "0\(d)" : String(d)
+        year = String(y)
+        hour = String(h)
+        minute = String(min)
+        
+//        let firstDay = "2020-05-27T23:59:00+0000"
+        let firstDay = "\(year)-\(month)-\(day)T\(hour):\(minute):00+0000"
+        let dateFormatter = ISO8601DateFormatter()
+        endDate = dateFormatter.date(from: firstDay)
+        return endDate
+        
+    }
     
         /// Build the start of the shift date from UserTime.userStartShifttime
         /// - Parameter theNewShiftDate: date
         /// - Returns: date to find all incidents dates greater than date returned
     private func buildTheDay(_ theNewShiftDate: Date ) -> Date {
-        let componentMonth = calendar.dateComponents([.month], from: theNewShiftDate )
-        let m: Int = componentMonth.month!
-        monthCInt = componentMonth.month!
-        let componentYear = calendar.dateComponents([.year], from: theNewShiftDate)
-        let y: Int = componentYear.year!
-        yearCInt = componentYear.year!
-        let componentDate = calendar.dateComponents([.day], from: theNewShiftDate)
-        let d: Int = componentDate.day!
+       
+        let theComponents = calendar.dateComponents([.year,.month,.day,.hour,.minute], from: theNewShiftDate)
+        let m = theComponents.month!
+        let y = theComponents.year!
+        let d = theComponents.day!
+        let h = theComponents.hour!
+        let min = theComponents.minute!
+        
         month = m < 10 ? "0\(m)" : String(m)
         day = d < 10 ? "0\(d)" : String(d)
         year = String(y)
-        let componentHour = calendar.dateComponents([.hour], from: theNewShiftDate)
-        let h: Int = componentHour.hour!
         hour = String(h)
-        let componentMinute = calendar.dateComponents([.minute], from: theNewShiftDate)
-        let min: Int = componentMinute.minute!
         minute = String(min)
+        
         let firstDay = "\(year)-\(month)-\(day)T\(hour):\(minute):00+0000"
+//        let firstDay = "2020-05-27T17:20:00+0000"
         let dateFormatter = ISO8601DateFormatter()
         firstDate = dateFormatter.date(from: firstDay)
         return firstDate
+        
     }
     
     
-        /// fetch all incidents that were entered for shift after userStartShiftTime
+        /// fetch all incidents that were entered for shift after userStartShiftTime and userEndShiftTime
         /// - Parameters:
         ///   - theDate: userTime.userStartShiftTime
         ///   - context: backgroundContext
         /// - Returns: returns a list of incidents
-    func getTheDaysIncidents(_ theDate: Date, context: NSManagedObjectContext) -> [Incident]? {
+    func getTheDaysIncidents(_ theDate: Date,_ theEndDate: Date, context: NSManagedObjectContext) -> [Incident]? {
         self.context = context
         let fetchRequest: NSFetchRequest<Incident> = Incident.fetchRequest()
 
-        var predicate = NSPredicate.init()
-        predicate = NSPredicate(format: "%K != %@","incidentDateSearch","")
+//        var predicate = NSPredicate.init()
+//        predicate = NSPredicate(format: "%K != %@","incidentDateSearch","")
         var predicate1 = NSPredicate.init()
-        predicate1 = NSPredicate(format: "%K >= %@", "incidentCreationDate", theDate as CVarArg)
+        let start: NSDate = theDate as NSDate
+        let end: NSDate = NSDate()
+        predicate1 = NSPredicate(format: "%K >= %@ && %K <= %@", "incidentCreationDate", start, "incidentCreationDate", end)
 
-         let predicateCan = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [predicate, predicate1])
-        fetchRequest.predicate = predicateCan
+         let predicateCan = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [predicate1])
+//        fetchRequest.predicate = predicateCan
         fetchRequest.fetchBatchSize = 20
         
         let sectionSortDescriptor = NSSortDescriptor(key: "incidentCreationDate", ascending: true)

@@ -19,6 +19,8 @@ class IncidentMonthTotalsProvider: NSObject, NSFetchedResultsControllerDelegate 
     var yearsOfMonths = [ Int : [(Int,[Int])] ]()
     
     
+    
+    
     private(set) var persistentContainer: NSPersistentContainer
     
     init(with persistentContainer: NSPersistentContainer) {
@@ -231,10 +233,18 @@ class IncidentMonthTotalsProvider: NSObject, NSFetchedResultsControllerDelegate 
     /// fetch all incidents with date
     func fetchAllDates(context: NSManagedObjectContext) {
         let fetchRequest: NSFetchRequest<Incident> = Incident.fetchRequest()
-               var predicate = NSPredicate.init()
-               predicate = NSPredicate(format: "%K != %@","incidentDateSearch","")
-               
-               fetchRequest.predicate = predicate
+        var dateComponents = DateComponents()
+        dateComponents.year = 2010
+        let userCalendar = Calendar(identifier: .gregorian)
+        if let theDate = userCalendar.date(from: dateComponents) {
+            
+            var predicate1 = NSPredicate.init()
+            predicate1 = NSPredicate(format: "%K >= %@", "incidentCreationDate", theDate as CVarArg)
+                //               var predicate = NSPredicate.init()
+                //               predicate = NSPredicate(format: "%K != %@","incidentDateSearch","")
+            
+            fetchRequest.predicate = predicate1
+        }
                fetchRequest.fetchBatchSize = 20
                
                let sectionSortDescriptor = NSSortDescriptor(key: "incidentCreationDate", ascending: true)

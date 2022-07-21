@@ -116,10 +116,9 @@ extension IncidentNewModalVC: ModalHeaderSaveDismissDelegate {
         } else {
             theJournal.journalHeader = "Incident " + sDate
         }
-        
-        theJournal.incidentDetails = theIncident
-        theJournal.fireJournalUserInfo = theUser
-        theJournal.userTime = theUserTime
+        theIncident.incidentInfo = theJournal
+        theUser.addToFireJournalUserDetails(theJournal)
+        theUserTime.addToJournal(theJournal)
         
     }
     

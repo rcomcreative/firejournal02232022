@@ -188,6 +188,7 @@ class SettingsTheProfileTVC: UITableViewController,CLLocationManagerDelegate {
             DispatchQueue.main.async {
                 self.nc.post(name: .fireJournalUserModifiedSendToCloud , object: nil, userInfo: ["objectID": self.objectID! ])
             }
+            theAlert(message: "Your profile has been updated.")
             switch compact {
             case .compact:
                 delegate?.theProfileSavedNowGoToSettings(compact: compact)
@@ -205,6 +206,16 @@ class SettingsTheProfileTVC: UITableViewController,CLLocationManagerDelegate {
             let errorMessage = "SettingsTheProfileTVC saveToCD() Unresolved error \(nserror), \(nserror.userInfo)"
             print(errorMessage)
         }
+    }
+    
+    func theAlert(message: String) {
+        let alert = UIAlertController.init(title: "Update", message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction.init(title: "Okay", style: .default, handler: {_ in
+            self.alertUp = false
+        })
+        alert.addAction(okAction)
+        alertUp = true
+        self.present(alert, animated: true, completion: nil)
     }
     
     
@@ -623,13 +634,18 @@ extension SettingsTheProfileTVC: NewAddressFieldsButtonsCellDelegate {
     fileprivate func saveTheLocation() {
         do {
             try context.save()
-            let nc = NotificationCenter.default
+            
             DispatchQueue.main.async {
                 self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"Settins The Profile TVC deal here"])
             }
             DispatchQueue.main.async {
+                let objectID = self.theLocation.objectID
+                    self.nc.post(name: .fireJournalModifyFCLocationToCloud, object: nil, userInfo: ["objectID": objectID as NSManagedObjectID])
+            }
+            DispatchQueue.main.async {
                 self.nc.post(name: .fireJournalUserModifiedSendToCloud , object: nil, userInfo: ["objectID": self.fju.objectID])
             }
+            
         }   catch let error as NSError {
             let nserror = error
             let errorMessage = "SettingsTheProfileTVC saveToCD() Unresolved error \(nserror), \(nserror.userInfo)"

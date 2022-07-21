@@ -14,7 +14,7 @@ import MapKit
 import CoreLocation
 
 protocol ShiftNewModalVCDelegate: AnyObject {
-    func dismissShiftStartModal()
+    func dismissShiftStartModal(_ theUserTimeOID: NSManagedObjectID)
     func noUserFound()
     func shiftCancelled()
 }
@@ -92,14 +92,23 @@ Shift
             theStatus = context.object(with: sOID) as? Status
         }
         
-        if let obj = userTimeObjID {
-            theUserTime = context.object(with: obj) as? UserTime
-        } else {
-            getTheLastUserTime()
-            if theUserTime == nil {
-                dismiss(animated: true)
-            }
-        }
+//        if let obj = userTimeObjID {
+//            theUserTime = context.object(with: obj) as? UserTime
+//        } else {
+//            getTheLastUserTime()
+//            if theUserTime == nil {
+//                dismiss(animated: true)
+//            }
+//        }
+        let guidDate = GuidFormatter.init(date: Date())
+        let guid = guidDate.formatGuid()
+        let theUserGuid = "78."+guid
+        theUserTime = UserTime.init(context: context)
+        theUserTime.userTimeGuid = theUserGuid
+        theUserTime.userStartShiftTime = Date()
+        theStatus.guidString = theUserGuid
+        theUserTime.userEndShiftTime = nil
+        theUserTime.shiftCompleted = false
         
         getTheUser()
         if theUser == nil {

@@ -586,7 +586,7 @@ Address: \(address)
         theJournal.journalPhotoTaken = false
         theJournal.journalPrivate = true
         
-        theJournal.userTime = theUserTime
+        theUserTime.addToJournal(theJournal)
         theJournal.fireJournalUserInfo = theUser
         
     }

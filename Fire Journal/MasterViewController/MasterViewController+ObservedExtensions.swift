@@ -12,8 +12,24 @@ import CoreData
 import StoreKit
 
 extension MasterViewController {
+    
+    
+    
+    func deletionFromOtherDeviceCalled() {
+//        deletionFromOtherDeviceCalledAlert()
+    }
 
         //  MARK: -OBSERVERS-
+    /**AddObservers
+    
+     #Notifications
+     All Notification AddObservers
+     for the MasterViewController
+     two specific to iPhone and
+     including:
+     
+     NSUbiquitousKeyValueStore.didChangeExternallyNotification
+     */
     func addObserversForMaster() {
         nc.addObserver(self, selector: #selector(compactOrRegular(ns:)), name:NSNotification.Name(rawValue: FJkCOMPACTORREGULAR), object: nil)
         nc.addObserver(self, selector: #selector(listOfJournalCalled(ns:)), name:NSNotification.Name(rawValue: FJkJOURNALLISTSEGUE), object: nil)
@@ -30,14 +46,69 @@ extension MasterViewController {
         nc.addObserver(self, selector:#selector(storeTappedInAlert(ns:)),name:NSNotification.Name(rawValue: FJkSTOREINALERTTAPPED), object: nil)
         nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: context)
         nc.addObserver(self, selector: #selector(lockdownButtons(ns:)), name: NSNotification.Name(rawValue: FJkLOCKMASTERDOWNFORDOWNLOAD), object: nil)
+        nc.addObserver(self, selector:#selector(reloadTheMaster(nc:)),name: .fConDeletedRebuildMaster, object: nil)
         if Device.IS_IPHONE {
             nc.addObserver(self, selector: #selector(changeTheLocationsToSC(ns:)), name: NSNotification.Name(rawValue: FJkChangeTheLocationsTOLOCATIONSSC), object: nil)
             nc.addObserver(self, selector: #selector(saveStatusToCloud(ns:)), name: .fireJournalStatusNewToCloud, object: nil)
         }
+        
+        nc.addObserver(self, selector: #selector (changeFromOtherDeviceHasArrived(nc:)), name: .fConDeletionNotificationSentFromCloud, object: nil)
+        
+            //        MARK: -OBSERVE FOR CORE DATA DELETION SUCCESS-
+        nc.addObserver(self, selector: #selector(coreDataDeletionSuccess(nc:)), name: .fConCDSuccess, object: nil)
+        
+    }
+    
+    @objc func changeFromOtherDeviceHasArrived(nc: Notification) {
+        if let userInfo = nc.userInfo as! [String: Any]? {
+            if let deletion = userInfo["deletion"] as? Int {
+                if deletion == 1 {
+                    deletionFromOtherDeviceCalledAlert(count: deletion)
+                }
+            }
+        }
+    }
+    
+    @objc func coreDataDeletionSuccess(nc: Notification) {
+        removeSpinnerView {
+            let message = "Your data on this device has been removed and will now be returned to the agreement screen"
+            completionAlert(message)
+        }
+    }
+    
+    func removeSpinnerView(completionBlock: () -> ()) {
+        if childAdded {
+            DispatchQueue.main.async {
+                    // then remove the spinner view controller
+                self.child.willMove(toParent: nil)
+                self.child.view.removeFromSuperview()
+                self.child.removeFromParent()
+            }
+            childAdded = false
+            completionBlock()
+        }
+    }
+    
+
+    
+    //    MARK: -REMOVE DATA - REBUILD AFTER DELETION-
+    /**Reloading the master after deletion
+     
+     - Discussion
+     nc: Notification from Settings
+     observer fConDeletedRebuildMaster
+     popToRootViewController
+     */
+    @objc func reloadTheMaster(nc: Notification) {
+            agreementAccepted = false
+            firstTimeAgreementAccepted = false
+            self.navigationController?.popToRootViewController(animated: true)
     }
     
         // MARK: -
         // MARK: Notification Handling
+        /// NSManagedObjectContext save ntofication
+        /// - Parameter notification: context notification
     @objc func managedObjectContextDidSave(notification: Notification) {
         DispatchQueue.main.async {
             self.managedObjectContext?.mergeChanges(fromContextDidSave: notification)
@@ -234,6 +305,9 @@ extension MasterViewController {
         let controller:ListTVC = storyboard.instantiateViewController(withIdentifier: "ListTVC") as! ListTVC
         let navigator = UINavigationController.init(rootViewController: controller)
         navigator.navigationItem.leftItemsSupplementBackButton = true
+        if theUserTime != nil {
+            controller.theUserTimeOID = theUserTime.objectID
+        }
         switch myShiftForSegue {
         case .journal:
             controller.titleName = "Journal"
@@ -267,6 +341,9 @@ extension MasterViewController {
         let controller:ListTVC = storyboard.instantiateViewController(withIdentifier: "ListTVC") as! ListTVC
         let navigator = UINavigationController.init(rootViewController: controller)
         navigator.navigationItem.leftItemsSupplementBackButton = true
+        if theUserTime != nil {
+            controller.theUserTimeOID = theUserTime.objectID
+        }
         controller.compact = compact
         controller.myShift = MenuItems.journal
         controller.delegate = self
@@ -281,6 +358,9 @@ extension MasterViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller:ListTVC = storyboard.instantiateViewController(withIdentifier: "ListTVC") as! ListTVC
         let navigator = UINavigationController.init(rootViewController: controller)
+        if theUserTime != nil {
+            controller.theUserTimeOID = theUserTime.objectID
+        }
         navigator.navigationItem.leftItemsSupplementBackButton = true
         controller.compact = compact
         controller.myShift = MenuItems.projects
@@ -298,6 +378,9 @@ extension MasterViewController {
         let controller:ListTVC = storyboard.instantiateViewController(withIdentifier: "ListTVC") as! ListTVC
         let navigator = UINavigationController.init(rootViewController: controller)
         navigator.navigationItem.leftItemsSupplementBackButton = true
+        if theUserTime != nil {
+            controller.theUserTimeOID = theUserTime.objectID
+        }
         controller.compact = compact
         controller.myShift = MenuItems.personal
         controller.delegate = self
@@ -313,6 +396,9 @@ extension MasterViewController {
         let controller:ListTVC = storyboard.instantiateViewController(withIdentifier: "ListTVC") as! ListTVC
         let navigator = UINavigationController.init(rootViewController: controller)
         navigator.navigationItem.leftItemsSupplementBackButton = true
+        if theUserTime != nil {
+            controller.theUserTimeOID = theUserTime.objectID
+        }
         controller.compact = compact
         let shift:MenuItems = .incidents
         controller.myShift = shift
@@ -330,6 +416,9 @@ extension MasterViewController {
         let controller:ListTVC = storyboard.instantiateViewController(withIdentifier: "ListTVC") as! ListTVC
         let navigator = UINavigationController.init(rootViewController: controller)
         navigator.navigationItem.leftItemsSupplementBackButton = true
+        if theUserTime != nil {
+            controller.theUserTimeOID = theUserTime.objectID
+        }
         controller.compact = compact
         let shift:MenuItems = .maps
         controller.myShift = shift
@@ -347,6 +436,9 @@ extension MasterViewController {
         let controller:ListTVC = storyboard.instantiateViewController(withIdentifier: "ListTVC") as! ListTVC
         let navigator = UINavigationController.init(rootViewController: controller)
         navigator.navigationItem.leftItemsSupplementBackButton = true
+        if theUserTime != nil {
+            controller.theUserTimeOID = theUserTime.objectID
+        }
         controller.compact = compact
         let shift:MenuItems = .arcForm
         controller.myShift = shift
@@ -364,6 +456,9 @@ extension MasterViewController {
         let controller:ListTVC = storyboard.instantiateViewController(withIdentifier: "ListTVC") as! ListTVC
         let navigator = UINavigationController.init(rootViewController: controller)
         navigator.navigationItem.leftItemsSupplementBackButton = true
+        if theUserTime != nil {
+            controller.theUserTimeOID = theUserTime.objectID
+        }
         controller.compact = compact
         let shift:MenuItems = .ics214
         controller.myShift = shift

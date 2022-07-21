@@ -59,11 +59,13 @@ class SettingsProfileDataTVC: UITableViewController,NSFetchedResultsControllerDe
         fdidContext = fdidProvider.persistentContainer.newBackgroundContext()
         if let fdid = fdidProvider.getTheFDIDForCityState(context: fdidContext, userID: userObjtID) {
             if fdid.isEmpty {
-                if let fdids = fdidProvider.buildTheFDIDs(theGuidDate: Date(), backgroundContext: fdidContext) {
-                    if  let fdid = fdidProvider.getTheFDIDForCityState(context: fdidContext, userID: userObjtID) {
-                        theFDIDs = fdid
-                    }
-                }
+                        DispatchQueue.global(qos: .background).async {
+                            if let fdids = self.fdidProvider.buildTheFDIDs(theGuidDate: Date(), backgroundContext: self.fdidContext) {
+                                if  let fdid = self.fdidProvider.getTheFDIDForCityState(context: self.fdidContext, userID: self.userObjtID) {
+                                self.theFDIDs = fdid
+                            }
+                        }
+                        }
             } else {
                 theFDIDs = fdid
             }

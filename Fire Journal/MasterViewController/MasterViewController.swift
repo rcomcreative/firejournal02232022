@@ -88,6 +88,8 @@ class MasterViewController: UITableViewController,UISplitViewControllerDelegate,
     var theUserTime: UserTime!
     var theUserTimeObjectID: NSManagedObjectID!
     var theStatus: Status!
+    var cloudKitAndCoreDataDeleted: Int!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,7 +110,6 @@ class MasterViewController: UITableViewController,UISplitViewControllerDelegate,
         subscriptionIsLocallyCached = userDefaults.bool(forKey: FJkSUBSCRIPTIONIsLocallyCached)
         
         registerCells()
-        
         
         addObserversForMaster()
         
@@ -167,7 +168,7 @@ class MasterViewController: UITableViewController,UISplitViewControllerDelegate,
                     object: nil,
                     userInfo: ["compact":compact])
         }
-//        print(floatPercent)
+            //        print(floatPercent)
         
     }
     
@@ -187,6 +188,55 @@ class MasterViewController: UITableViewController,UISplitViewControllerDelegate,
     }
     
         //    MARK: -ALERTS-
+    
+    func deletionFromOtherDeviceCalledAlert(count: Int) {
+        let alert = UIAlertController.init(title: "Deletion", message: "It is indicated that you deleted your data from your other device and from your ICloud account. Do you want to delete your cached data from this device?", preferredStyle: .alert)
+        let okAction = UIAlertAction.init(title: "Yes", style: .default, handler: {_ in
+            self.alertUp = false
+            self.shouldRunDeletionOfCoreData()
+        })
+        alert.addAction(okAction)
+        let cancelAction = UIAlertAction.init(title: "Cancel", style: .default, handler: {_ in
+            self.alertUp = false
+        })
+        alert.addAction(cancelAction)
+        alertUp = true
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+        //    MARK: -ALERTS-
+        //    MARK: -REMOVE DATA
+        /**Data has been removed
+         
+    observe fConCDSuccess
+    show alert
+    post to fConCKCDDeletionCompleted
+    move to agreement
+         */
+    func completionAlert(_ message: String) {
+        let alert = UIAlertController.init(title: "Deletion Completed", message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction.init(title: "Okay", style: .default, handler: {_ in
+            self.alertUp = false
+            self.moveToAgreement()
+        })
+        alert.addAction(okAction)
+        alertUp = true
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func moveToAgreement() {
+        DispatchQueue.main.async {
+            self.nc.post(name: .fConCKCDDeletionCompleted,
+                         object: nil,
+                         userInfo: nil )
+        }
+    }
+    
+    func shouldRunDeletionOfCoreData() {
+        DispatchQueue.main.async {
+            self.nc.post(name: .fireJournalRemoveAllDataFromCD, object: nil)
+        }
+    }
     
     func errorAlert(errorMessage: String) {
         let alert = UIAlertController.init(title: "Error", message: errorMessage, preferredStyle: .alert)

@@ -25,20 +25,27 @@ class IncidentSameDateiPhoneTVCell: UITableViewCell {
     
     weak var delegate: IncidentSameDateiPhoneTVCellDelegate? = nil
     
+    var theSameDate: Bool = true
+    var sameDate: Bool = true {
+        didSet {
+            self.theSameDate = self.sameDate
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         if chosenDate != nil {
             datePicker.date = chosenDate
+            
         } else {
             datePicker.date = Date()
         }
-        sameAsAlarmSwitch.isOn = true
+        sameAsAlarmSwitch.isOn = theSameDate
         dateFormatter.dateFormat = "EEE MMM, dd, YYYY HH:mm:ss"
     }
     
     var chosenDate: Date!
     var index: IndexPath!
-    var sameDate: Bool = true
     let dateFormatter = DateFormatter.init()
     
     var notAlarmDate: Bool = true {

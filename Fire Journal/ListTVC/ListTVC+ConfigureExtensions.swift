@@ -160,7 +160,9 @@ extension ListTVC {
         let storyBoard : UIStoryboard = UIStoryboard(name: "IncidentNew", bundle:nil)
         let incidentNewModalVC = storyBoard.instantiateViewController(withIdentifier: "IncidentNewModalVC") as! IncidentNewModalVC
         incidentNewModalVC.transitioningDelegate = slideInTransitioningDelgate
-        
+        if theUserTimeOID != nil {
+            incidentNewModalVC.userTimeObjectID = theUserTimeOID
+        }
         if Device.IS_IPHONE {
             incidentNewModalVC.modalPresentationStyle = .formSheet
         } else {

@@ -100,7 +100,10 @@ extension ShiftEndStatusCVCell {
         guard let theDate = userTime.userStartShiftTime else {
             return
         }
-        guard let incidents = incidentProvider.getTheDaysIncidents(theDate, context: taskContext) else {
+            guard let theEndDate = userTime.userEndShiftTime else {
+                return
+            }
+        guard let incidents = incidentProvider.getTheDaysIncidents(theDate, theEndDate, context: taskContext) else {
             let errorMessage = "there was no date"
             print(errorMessage)
             return

@@ -159,10 +159,11 @@ New Incident
         theIncident.incidentDateSearch = sDate
         theIncident.incidentModDate = incidentModDate
         theIncident.incidentCreationDate = incidentModDate
+        theIncident.situationIncidentImage = "Fire"
         theIncident.incidentGuid = UUID()
         theIncident.incidentType = "Emergency"
-        theIncident.userTime = theUserTime
-        theIncident.fireJournalUserIncInfo = theUser
+        theUserTime.addToIncident(theIncident)
+        theUser.addToFireJournalUserIncDetails(theIncident)
         theIncident.locationAvailable = false
         theIncident.incidentPhotoTaken = false
         theIncident.incidentTagsAvailable = false
@@ -206,9 +207,6 @@ New Incident
         
         theIncidentNFIRSsecM = IncidentNFIRSsecM(context: context)
         theIncidentNFIRSsecM.sectionMInfo = theIncident
-        
-//        thePhoto = Photo(context: context)
-//        thePhoto.addToIncident(theIncident)
         
     }
 

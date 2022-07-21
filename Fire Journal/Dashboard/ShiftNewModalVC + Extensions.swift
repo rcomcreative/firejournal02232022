@@ -321,18 +321,24 @@ extension ShiftNewModalVC: UITableViewDataSource {
             case 1:
                 cell.datePicker.datePickerMode = .dateAndTime
                 cell.theSubject = "Date/Time"
-                if theUserTime != nil {
-                    if let relievingTime = theUserTime.userStartShiftTime {
-                        cell.theFirstDose = relievingTime
-                    } else {
-                        let startShiftDate = Date()
-                        cell.theFirstDose = startShiftDate
-                        theUserTime.userStartShiftTime = startShiftDate
-                    }
+                if let startTime = theUserTime.userStartShiftTime {
+                cell.theFirstDose = startTime
                 } else {
-                        let startShiftDate = Date()
-                        cell.theFirstDose = startShiftDate
+                    cell.theFirstDose = Date()
+                    theUserTime.userStartShiftTime = cell.theFirstDose
                 }
+//                if theUserTime != nil {
+//                    if let relievingTime = theUserTime.userStartShiftTime {
+//                        cell.theFirstDose = relievingTime
+//                    } else {
+//                        let startShiftDate = Date()
+//                        cell.theFirstDose = startShiftDate
+//                        theUserTime.userStartShiftTime = startShiftDate
+//                    }
+//                } else {
+//                        let startShiftDate = Date()
+//                        cell.theFirstDose = startShiftDate
+//                }
             default: break
             }
         default: break
@@ -631,6 +637,7 @@ extension ShiftNewModalVC: ShiftModalHeaderVDelegate {
         } else {
             if theUserTime.userStartShiftTime == nil {
                 theUserTime.userEndShiftTime = Date()
+                theUserTime.shiftCompleted = true
             }
             if theUserTime.startShiftFireStation == "" || theUserTime.startShiftFireStation == nil {
                 let cell = shiftTableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! SubjectLabelTextFieldIndicatorTVCell
@@ -722,7 +729,8 @@ extension ShiftNewModalVC: ShiftModalHeaderVDelegate {
                     DispatchQueue.main.async {
                         self.nc.post(name: Notification.Name(rawValue: FJkCKModifyJournalToCloud), object: nil, userInfo: ["objectID": self.theJournal.objectID])
                     }
-                    delegate?.dismissShiftStartModal()
+                    let oID = theUserTime.objectID
+                    delegate?.dismissShiftStartModal(oID)
                 } catch let error as NSError {
                     let theError: String = error.localizedDescription
                     let error = "There was an error in saving " + theError
@@ -861,7 +869,8 @@ Discussion: \(discussion)
         theJournal.journalPhotoTaken = false
         theJournal.journalPrivate = true
         
-        theJournal.userTime = theUserTime
+        
+        theUserTime.addToJournal(theJournal)
         theJournal.fireJournalUserInfo = theUser
         
     }

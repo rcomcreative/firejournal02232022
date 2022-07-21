@@ -52,9 +52,15 @@
         
         func mapFormHeaderBackBTapped(type: IncidentTypes) {
             if (Device.IS_IPHONE) {
-                vcLaunch.mapCalledPhone(type: type)
+                if fju != nil {
+                    let id = fju.objectID
+                    vcLaunch.mapCalledPhone(type: type, theUserOID: id)
+                }
             } else {
-                vcLaunch.mapCalled(type: type)
+                if fju != nil {
+                    let id = fju.objectID
+                vcLaunch.mapCalled(type: type, theUserOID: id )
+                }
             }
         }
         
@@ -1998,9 +2004,15 @@ extension IncidentTVC: ModalDataTVCDelegate {
                 }
                 if fromMap {
                     if (Device.IS_IPHONE) {
-                        vcLaunch.mapCalledPhone(type: incidentType)
+                            if fju != nil {
+                                let id = fju.objectID
+                            vcLaunch.mapCalledPhone(type: incidentType, theUserOID: id)
+                            }
                     } else {
-                        vcLaunch.mapCalled(type: incidentType)
+                        if fju != nil {
+                            let id = fju.objectID
+                            vcLaunch.mapCalled(type: incidentType, theUserOID: id)
+                        }
                     }
                 }
             }   catch let error as NSError {

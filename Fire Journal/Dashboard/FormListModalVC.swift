@@ -62,6 +62,9 @@ extension FormListModalVC {
         formModalHeaderV.modalHSaveB.alpha = 0.0
         formModalHeaderV.modalHTitleL.text = headerTitle
         formModalHeaderV.infoB.setTitle("", for: .normal)
+        formModalHeaderV.infoB.isHidden = true
+        formModalHeaderV.infoB.isEnabled = false
+        formModalHeaderV.infoB.alpha = 0.0
         if let color = UIColor(named: "FJIconRed") {
             formModalHeaderV.contentView.backgroundColor = color
         }

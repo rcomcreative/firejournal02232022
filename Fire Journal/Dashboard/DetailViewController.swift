@@ -107,6 +107,11 @@ class DetailViewController: UIViewController {
         cell.configure()
     }
     
+    let configureAllShiftIncidentCVCellRegistration = UICollectionView.CellRegistration<AllShiftIncidentCVCell, UserTime> { (cell,indexPath, userTime) in
+        cell.tag = 6
+        cell.configure(userTime)
+    }
+    
     let configureShiftWeatherCVCellRegistration =  UICollectionView.CellRegistration<ShiftWeatherCVCell, UserTime> { (cell, indexPath, userTime) in
         cell.tag = 7
         cell.configure()
@@ -167,7 +172,6 @@ class DetailViewController: UIViewController {
             }
             if userTimeObjectID != nil {
                 theUserTime = context.object(with: userTimeObjectID) as? UserTime
-                
             }
             getTheStatus()
             if theFireJournalUser != nil && theUserTime != nil && theStatus != nil {
@@ -177,7 +181,6 @@ class DetailViewController: UIViewController {
                 self.nc.post(name:Notification.Name(rawValue: FJkOPENWEATHER_UPDATENow),object: nil)
             }
             theExpiredUserTime = theUserTime
-            getThisShiftsIncidents(theUserTime)
             getThisShiftsIncidents(theUserTime)
             getIncidentMonthTotals()
             
@@ -347,7 +350,6 @@ class DetailViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.nc.post(name:Notification.Name(rawValue: FJkOPENWEATHER_UPDATENow),object: nil)
                 }
-                getThisShiftsIncidents(theUserTime)
                 getThisShiftsIncidents(theUserTime)
                 getIncidentMonthTotals()
                 

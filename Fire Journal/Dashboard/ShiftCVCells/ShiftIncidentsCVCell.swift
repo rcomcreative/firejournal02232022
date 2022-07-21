@@ -98,6 +98,9 @@ class ShiftIncidentsCVCell: UICollectionViewCell {
     var fireLabel: String = "Fire"
     var emsLabel: String = "EMS"
     var rescueLabel: String = "Rescue"
+    var theUserTime: UserTime!
+    
+    
     
     lazy var incidentProvider: IncidentProvider = {
         let provider = IncidentProvider(with: (UIApplication.shared.delegate as! AppDelegate).persistentContainer)
@@ -119,6 +122,7 @@ extension ShiftIncidentsCVCell {
     
     func configure(_ userTime: UserTime) {
         getThisShiftsIncidents(userTime)
+        self.theUserTime = userTime
         dateFormatter.dateFormat = "MM/dd/YYYY"
         if self.theIncident != nil {
             if self.theIncident.theLocation != nil {
@@ -144,7 +148,7 @@ extension ShiftIncidentsCVCell {
             return }
         let theTodayIncidents = incidents
         if !theTodayIncidents.isEmpty {
-            theIncident = theTodayIncidents.last
+            theIncident = theTodayIncidents.first
             let theFire = theTodayIncidents.filter { $0.situationIncidentImage == "Fire" }
             fCount = theFire.count
             let theEMS = theTodayIncidents.filter { $0.situationIncidentImage == "EMS" }
@@ -158,7 +162,7 @@ extension ShiftIncidentsCVCell {
     func configureData() {
         
         if theIncident != nil {
-            if let date = theIncident.incidentCreationDate {
+            if let date =  theUserTime.userStartShiftTime {
                 theIncidentDate = dateFormatter.string(from: date)
             }
         } else {
@@ -170,11 +174,11 @@ extension ShiftIncidentsCVCell {
         rescueCount = String(theRescueCount)
         
         if theIncidentsCount == 0 {
-            incidentCountS = "0 incidents for " + theIncidentDate
+            incidentCountS = "0 incidents for Shift:\n" + theIncidentDate
         } else if theIncidentsCount == 1 {
-            incidentCountS = "1 incident for " + theIncidentDate
+            incidentCountS = "1 incident for Shift:\n" + theIncidentDate
         } else {
-            incidentCountS = "\(theIncidentsCount) incidents for " + theIncidentDate
+            incidentCountS = "\(theIncidentsCount) incidents for Shift:\n" + theIncidentDate
         }
         
         let fire = typeNameA[0]
@@ -226,7 +230,7 @@ extension ShiftIncidentsCVCell {
             }
             
             if theIncidentTimer != nil {
-                dateFormatter.dateFormat = "HH:mm:AA"
+                dateFormatter.dateFormat = "HH:mm:ss"
                 var alarmTime: String = ""
                 var arrivalTime: String = ""
                 var controlledTime: String = ""
@@ -252,22 +256,22 @@ extension ShiftIncidentsCVCell {
                     }
                 }
                 if alarmTime != "" {
-                    theIncidentAlarm = alarmTime + " Alarm"
+                    theIncidentAlarm = alarmTime + "HR" + " Alarm"
                 } else {
                     theIncidentAlarm = "No alarm time set"
                 }
                 if arrivalTime != "" {
-                    theIncidentArrival = arrivalTime + " Arrival"
+                    theIncidentArrival = arrivalTime + "HR" + " Arrival"
                 } else {
                     theIncidentArrival = "No arrival time set"
                 }
                 if controlledTime != "" {
-                    theIncidentControlled = controlledTime + " Controlled"
+                    theIncidentControlled = controlledTime + "HR" + " Controlled"
                 } else {
                     theIncidentControlled = "No controlled time set"
                 }
                 if lastUnitTime != "" {
-                    theIncidentLastUnit = lastUnitTime + " Last Unit"
+                    theIncidentLastUnit = lastUnitTime + "HR" + " Last Unit"
                 } else {
                     theIncidentLastUnit = "No last unit time set"
                 }
@@ -304,7 +308,6 @@ extension ShiftIncidentsCVCell {
         titleIconIV.translatesAutoresizingMaskIntoConstraints = false
         titleL.translatesAutoresizingMaskIntoConstraints = false
         typeIconIV.translatesAutoresizingMaskIntoConstraints = false
-        incidentCountL.translatesAutoresizingMaskIntoConstraints = false
         incidentDataL.translatesAutoresizingMaskIntoConstraints = false
         incidentsL.translatesAutoresizingMaskIntoConstraints = false
         fireL.translatesAutoresizingMaskIntoConstraints = false
@@ -321,7 +324,6 @@ extension ShiftIncidentsCVCell {
         contentView.addSubview(titleIconIV)
         contentView.addSubview(titleL)
         contentView.addSubview(typeIconIV)
-        contentView.addSubview(incidentCountL)
         contentView.addSubview(incidentDataL)
         contentView.addSubview(incidentsL)
         contentView.addSubview(fireL)
@@ -351,7 +353,9 @@ extension ShiftIncidentsCVCell {
         titleL.font = .systemFont(ofSize: 22, weight: UIFont.Weight(rawValue: 300))
         titleL.textColor = .label
         titleL.adjustsFontForContentSizeCategory = false
-        titleL.text = title
+        titleL.lineBreakMode = NSLineBreakMode.byWordWrapping
+        titleL.numberOfLines = 0
+        titleL.text =  incidentCountS
         
         incidentCountL.textAlignment = .left
         incidentCountL.font = .systemFont(ofSize: 22, weight: UIFont.Weight(rawValue: 300))
@@ -444,24 +448,19 @@ extension ShiftIncidentsCVCell {
             titleIconIV.widthAnchor.constraint(equalToConstant: 65),
             
             titleL.centerYAnchor.constraint(equalTo: titleIconIV.centerYAnchor),
-            titleL.heightAnchor.constraint(equalToConstant: 30),
+            titleL.heightAnchor.constraint(equalToConstant: 65),
             titleL.leadingAnchor.constraint(equalTo: titleIconIV.trailingAnchor, constant: 15),
             titleL.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -20),
             
-            incidentCountL.leadingAnchor.constraint(equalTo: titleIconIV.leadingAnchor, constant: 10),
-            incidentCountL.heightAnchor.constraint(equalToConstant: 35),
-            incidentCountL.topAnchor.constraint(equalTo: titleL.bottomAnchor, constant: 20),
-            incidentCountL.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -20),
+            incidentDataL.leadingAnchor.constraint(equalTo: titleL.leadingAnchor),
+            incidentDataL.topAnchor.constraint(equalTo:  titleIconIV.bottomAnchor, constant: 10),
+            incidentDataL.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -20),
+            incidentDataL.heightAnchor.constraint(equalToConstant: 170),
             
             typeIconIV.leadingAnchor.constraint(equalTo: titleIconIV.leadingAnchor),
-            typeIconIV.topAnchor.constraint(equalTo: incidentCountL.bottomAnchor, constant: 20),
+            typeIconIV.centerYAnchor.constraint(equalTo: incidentDataL.centerYAnchor),
             typeIconIV.heightAnchor.constraint(equalToConstant: 65),
             typeIconIV.widthAnchor.constraint(equalToConstant: 65),
-            
-            incidentDataL.leadingAnchor.constraint(equalTo: typeIconIV.trailingAnchor, constant: 15),
-            incidentDataL.topAnchor.constraint(equalTo: typeIconIV.topAnchor),
-            incidentDataL.trailingAnchor.constraint(equalTo: theBackgroundView.trailingAnchor, constant: -20),
-            incidentDataL.heightAnchor.constraint(equalToConstant: 146),
             
             incidentsL.topAnchor.constraint(equalTo: incidentDataL.bottomAnchor, constant: 20),
             incidentsL.leadingAnchor.constraint(equalTo: typeIconIV.leadingAnchor, constant: 10),

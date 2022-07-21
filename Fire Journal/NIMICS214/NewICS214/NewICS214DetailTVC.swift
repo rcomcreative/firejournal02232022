@@ -67,12 +67,46 @@ class NewICS214DetailTVC: UITableViewController {
     var fromMap: Bool = false
     var incidentType: IncidentTypes = .ics214Form
     
+    lazy var theUserProvider: FireJournalUserProvider = {
+        let provider = FireJournalUserProvider(with: (UIApplication.shared.delegate as! AppDelegate).persistentContainer)
+        return provider
+    }()
+    var theUserContext: NSManagedObjectContext!
+    
+    var theFireJournalUser: FireJournalUser!
+    
+        //    MARK: -ALERTS-
+    
+    func errorAlert(errorMessage: String) {
+        let alert = UIAlertController.init(title: "Error", message: errorMessage, preferredStyle: .alert)
+        let okAction = UIAlertAction.init(title: "Okay", style: .default, handler: {_ in
+            self.alertUp = false
+        })
+        alert.addAction(okAction)
+        alertUp = true
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func getTheUser() {
+        theUserContext = theUserProvider.persistentContainer.newBackgroundContext()
+        guard let users = theUserProvider.getTheUser(theUserContext) else {
+            let errorMessage = "There is no user associated with this end shift"
+            errorAlert(errorMessage: errorMessage)
+            return
+        }
+        let aUser = users.last
+        if let id = aUser?.objectID {
+            theFireJournalUser = context.object(with: id) as? FireJournalUser
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "NIMS ICS 214"
         vcLaunch.splitVC = self.splitViewController
         launchNC = LaunchNotifications.init(launchVC: vcLaunch)
         signatureImage = nil
+        getTheUser()
         
         if !fromMap {
             if Device.IS_IPHONE {

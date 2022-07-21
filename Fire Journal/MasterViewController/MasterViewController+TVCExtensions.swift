@@ -13,7 +13,8 @@ import StoreKit
 
 extension MasterViewController {
     
-    //    MARK: -REGISTERTABLECELLS-
+        //    MARK: -REGISTERTABLECELLS-
+        /// Registering cells for the tableview - only two for MasterVC
     func registerCells() {
         tableView.register(UINib(nibName: "MyShiftCell", bundle: nil), forCellReuseIdentifier: "MyShiftCell")
         tableView.register(UINib(nibName: "FlameLogoCell", bundle: nil), forCellReuseIdentifier: "FlameLogoCell")

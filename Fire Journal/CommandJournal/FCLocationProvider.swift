@@ -67,6 +67,9 @@ class FCLocationProvider: NSObject {
                 if let ics214Guid = self.fcLocation.ics214Guid {
                     fcLocationR["ics214Guid"] = ics214Guid
                 }
+                if let userGuid = self.fcLocation.userGuid {
+                    fcLocationR["userGuid"] = userGuid
+                }
                 if let modDate = self.fcLocation.modDate {
                     fcLocationR["modDate"] = modDate
                 }
@@ -153,6 +156,9 @@ class FCLocationProvider: NSObject {
                 }
                 if let ics214Guid = self.fcLocation.ics214Guid {
                     fcLocationR["ics214Guid"] = ics214Guid
+                }
+                if let userGuid = self.fcLocation.userGuid {
+                    fcLocationR["userGuid"] = userGuid
                 }
                 if let modDate = self.fcLocation.modDate {
                     fcLocationR["modDate"] = modDate

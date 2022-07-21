@@ -354,13 +354,19 @@ class IncidentVC:  SpinnerViewController, UIImagePickerControllerDelegate, UINav
         }
         if theIncident.incidentLocalDetails != nil {
             theIncidentLocal = theIncident.incidentLocalDetails
+            if let local = theIncidentLocal.incidentLocalType {
+                theLocalIncidentType = true
+                theLocalIncidentTypeText = local
+            }
         }
         if theIncident.incidentNFIRSDetails != nil {
             theIncidentNFIRS = theIncident.incidentNFIRSDetails
             if let text = theIncidentNFIRS.incidentTypeTextNFRIS {
-                nfirsIncidentType = true
                 theNFIRSIncidentTypeText = text
-                theNFIRSIncidentTypeHeight = configureLabelHeight(text: text)
+                if theNFIRSIncidentTypeText != "" {
+                    nfirsIncidentType = true
+                    theNFIRSIncidentTypeHeight = configureLabelHeight(text: text)
+                }
             }
         }
         if theIncident.incidentTags != nil {

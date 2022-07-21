@@ -539,4 +539,81 @@ class ProjectProvider: NSObject {
         }
     }
     
+    func singleProjectFromTheCloud(ckRecord: CKRecord, dateFormatter: DateFormatter,_ project: PromotionJournal, _ context: NSManagedObjectContext, completionHandler: (() -> Void)? = nil) {
+        self.context = context
+        self.theProjectR = ckRecord
+        self.theProject = project
+        
+        if let guid = self.theProjectR["guid"] as? String {
+            self.theProject.guid = UUID(uuidString: guid)
+        }
+        if let overview = self.theProjectR["overview"] as? String {
+            self.theProject.overview = overview as NSObject
+        }
+        if let projectGuid = self.theProjectR["projectGuid"] as? String{
+            self.theProject.projectGuid = projectGuid
+        }
+        if let projectName = self.theProjectR["projectName"] as? String {
+            self.theProject.projectName = projectName
+        }
+        if let projectType = self.theProjectR["projectType"] as? String {
+            self.theProject.projectType = projectType
+        }
+        if let theDate = self.theProjectR["promotionDate"] as? Date {
+            self.theProject.promotionDate = theDate
+        }
+        if let studyClassNote = self.theProjectR["studyClassNote"] as? String {
+            self.theProject.studyClassNote  = studyClassNote as NSObject
+        }
+        if let theUTguid = self.theProjectR["userTimeGuid"] as? String {
+            self.theProject.userTimeGuid = theUTguid
+        }
+        if let projectPhotosAvailable = self.theProjectR["projectPhotosAvailable"] as? Double {
+            self.theProject.projectPhotosAvailable  = Bool(truncating: projectPhotosAvailable as NSNumber)
+        }
+        if let locationAvailable = self.theProjectR["locationAvailable"] as? Double {
+            self.theProject.locationAvailable  = Bool(truncating: locationAvailable as NSNumber)
+        }
+        if let projectTagsAvailable = self.theProjectR["projectTagsAvailable"] as? Double {
+            self.theProject.projectTagsAvailable  = Bool(truncating: projectTagsAvailable as NSNumber)
+        }
+        
+        let theProjectRID = self.theProjectR.recordID
+        let theProjectRef = CKRecord.Reference(recordID: theProjectRID, action: .deleteSelf)
+        
+        do {
+            let data = try NSKeyedArchiver.archivedData(withRootObject: theProjectRef, requiringSecureCoding: true)
+            self.theProject.promotionJournalReference = data as NSObject
+            
+        } catch {
+            print("promotionJournalReference to data failed line 514 Incident+Custom")
+        }
+        
+        let coder = NSKeyedArchiver(requiringSecureCoding: true)
+        self.theProjectR.encodeSystemFields(with: coder)
+        let data = coder.encodedData
+        self.theProject.promotionJournalCKR = data as NSObject
+        
+        saveTheSingleCD() {_ in
+            completionHandler?()
+        }
+    }
+    
+    private func saveTheSingleCD(withCompletion completion: @escaping (String) -> Void) {
+        do {
+            try self.context?.save()
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"Incident Saved"])
+                print("project we have saved to the cloud")
+            }
+            completion("Success")
+        } catch {
+            let nserror = error as NSError
+            
+            let error = "The ProjectProvider context was unable to save due to: \(nserror.localizedDescription) \(nserror.userInfo)"
+            print(error)
+            completion("Error")
+        }
+    }
+    
 }

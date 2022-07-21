@@ -44,17 +44,20 @@ class LaunchNotifications {
         nc.addObserver(self, selector:#selector(settingFJLocalIncidentTypesCalled(notification:)),name:NSNotification.Name(rawValue: FJkSETTINGLOCALINCIDENTTYPECalled), object: nil)
         nc.addObserver(self, selector:#selector(settingFJTermsCalled(notification:)),name:NSNotification.Name(rawValue: FJkSETTINGTERMSCalled), object: nil)
         nc.addObserver(self, selector:#selector(settingFJPrivacyCalled(notification:)),name:NSNotification.Name(rawValue: FJkSETTINGPRIVACYCalled), object: nil)
-        nc.addObserver(self, selector:#selector(settingFJResetDataCalled(notification:)),name:NSNotification.Name(rawValue: FJkSETTINGRESETDATACalled), object: nil)
+//        nc.addObserver(self, selector:#selector(settingFJPrivacyCalled(notification:)),name:NSNotification.Name(rawValue: FJkSETTINGRESETDATACalled), object: nil)
+//        nc.addObserver(self, selector:#selector(settingFJResetDataCalled(notification:)),name:NSNotification.Name(rawValue: FJkSETTINGRESETDATACalled), object: nil)
         nc.addObserver(self, selector:#selector(settingFJContactsCalled(notification:)),name:NSNotification.Name(rawValue: FJkSETTINGSCONTACTSCalled), object: nil)
         nc.addObserver(self, selector:#selector(settingFJProfileDataCalled(notification:)),name:NSNotification.Name(rawValue: FJkSETTINGSPROFILEDATACalled), object: nil)
-        nc.addObserver(self, selector:#selector(settingResetDataCalled(notification:)),name:NSNotification.Name(rawValue: FJkSETTINGSRESETDATACalled), object: nil)
+        nc.addObserver(self, selector:#selector(settingsYourDataCalled(notification:)),name:NSNotification.Name(rawValue: FJkSETTINGRESETDATACalled), object: nil)
     }
     
     @objc func settingResetDataCalled(notification: Notification)->Void {
         if let userInfo = notification.userInfo as! [String: Any]?
         {
             compact = userInfo["sizeTrait"] as? SizeTrait
-            vcLaunch.settingsResetDataCalled(compact: compact)
+            if let id = userInfo["userObjID"] as? NSManagedObjectID {
+                vcLaunch.settingsResetDataCalled(compact: compact, objectID: id)
+            }
         }
     }
     
@@ -79,7 +82,17 @@ class LaunchNotifications {
         if let userInfo = notification.userInfo as! [String: Any]?
         {
             compact = userInfo["sizeTrait"] as? SizeTrait
-            vcLaunch.settingsResetDataCalled(compact: compact)
+//            vcLaunch.settingsResetDataCalled(compact: compact)
+        }
+    }
+    
+    @objc func settingsYourDataCalled(notification: Notification) -> Void {
+        if let userInfo = notification.userInfo as! [String: Any]?
+    {
+        compact = userInfo["sizeTrait"] as? SizeTrait
+         if let id = userInfo["userObjID"] as? NSManagedObjectID {
+            vcLaunch.settingsResetDataCalled(compact: compact, objectID: id)
+                }
         }
     }
     
@@ -246,7 +259,11 @@ class LaunchNotifications {
     }
     
     @objc func mapsCalled(notification:Notification)-> Void{
-        vcLaunch.mapCalled(type: IncidentTypes.allIncidents )
+        if let userInfo = notification.userInfo as! [String: Any]? {
+            if let objectID = userInfo["theUserOID"] as? NSManagedObjectID {
+                vcLaunch.mapCalled(type: IncidentTypes.allIncidents, theUserOID: objectID)
+            }
+        }
     }
     
     @objc func nfirsB1Called(notification:Notification)-> Void{

@@ -145,4 +145,25 @@ class UserTimeProvider: NSObject, NSFetchedResultsControllerDelegate {
         return fetchedObjects
     }
     
+    func getAllUserTime(_ context: NSManagedObjectContext) -> [UserTime]? {
+        let fetchRequest: NSFetchRequest<UserTime> = UserTime.fetchRequest()
+
+        fetchRequest.fetchBatchSize = 20
+        
+        let sectionSortDescriptor = NSSortDescriptor(key: "userStartShiftTime", ascending: true)
+        let sortDescriptors = [sectionSortDescriptor]
+        fetchRequest.sortDescriptors = sortDescriptors
+        
+        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        aFetchedResultsController.delegate = self
+        fetchedResultsController = aFetchedResultsController
+        do {
+            try fetchedResultsController?.performFetch()
+        } catch let error as NSError {
+            print("UserTimeProvider line 115 Fetch Error: \(error.localizedDescription)")
+        }
+        let result = fetchedObjects.sorted(by: { return $0.userStartShiftTime! > $1.userStartShiftTime! })
+        return result
+    }
+    
 }

@@ -338,3 +338,73 @@ class VersionPendingOperation {
         return queue
     }()
 }
+
+class SingleJournalCDFromCloudOperation {
+    lazy var singleJournalPendingQueue: OperationQueue = {
+        var queue = OperationQueue()
+        queue.name = "single journal pending queue"
+        queue.maxConcurrentOperationCount = 1
+        queue.qualityOfService = .background
+        return queue
+    }()
+}
+
+class SingleIncidentCDFromCloudOperation {
+    lazy var singleIncidentPendingQueue: OperationQueue = {
+        var queue = OperationQueue()
+        queue.name = "single incident pending queue"
+        queue.maxConcurrentOperationCount = 1
+        queue.qualityOfService = .background
+        return queue
+    }()
+}
+
+class SingleProjectCDFromCloudOperation {
+    lazy var singleProjectPendingQueue: OperationQueue = {
+        var queue = OperationQueue()
+        queue.name = "single project pending queue"
+        queue.maxConcurrentOperationCount = 1
+        queue.qualityOfService = .background
+        return queue
+    }()
+}
+
+class SingleICS214CDFromCloudOperation {
+    lazy var singleICS214PendingQueue: OperationQueue = {
+        var queue = OperationQueue()
+        queue.name = "single ICS214 pending queue"
+        queue.maxConcurrentOperationCount = 1
+        queue.qualityOfService = .background
+        return queue
+    }()
+}
+
+class SingleARCFormCDFromCloudOperation {
+    lazy var singleIARCFormPendingQueue: OperationQueue = {
+        var queue = OperationQueue()
+        queue.name = "single ARCForm pending queue"
+        queue.maxConcurrentOperationCount = 1
+        queue.qualityOfService = .background
+        return queue
+    }()
+}
+
+class DeleteCloudKitDataSyncOperation {
+    lazy var deleteCloudKitDataPendingQueue: OperationQueue = {
+        var queue = OperationQueue()
+        queue.name = "Delete CloudKit Data Sync Operation"
+        queue.maxConcurrentOperationCount = 1
+        queue.qualityOfService = .background
+        return queue
+    }()
+}
+
+class DeleteCoreDataSyncOperation {
+    lazy var deleteCoreDataPendingQueue: OperationQueue = {
+        var queue = OperationQueue()
+        queue.name = "Delete Core Data Sync Operation"
+        queue.maxConcurrentOperationCount = 1
+        queue.qualityOfService = .background
+        return queue
+    }()
+}

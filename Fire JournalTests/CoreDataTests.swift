@@ -17,6 +17,7 @@ import CoreData
 class CoreDataTests: XCTestCase, NSFetchedResultsControllerDelegate {
     
     var sut: NSManagedObjectContext!
+    var theSut: NSManagedObjectModel!
     //    var autograph: T1Autograph = T1Autograph()
     var ics214Fetched: Array<ICS214Form>!
     var userFetched: Array<FireJournalUser>!
@@ -57,6 +58,7 @@ class CoreDataTests: XCTestCase, NSFetchedResultsControllerDelegate {
         continueAfterFailure = false
         
         sut = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        theSut = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.managedObjectModel
         months = YearOfMonths.init(theYear: 2020, lastYear: 2019)
     }
     
@@ -67,6 +69,12 @@ class CoreDataTests: XCTestCase, NSFetchedResultsControllerDelegate {
     }
     
     func testCoreData() {
+        XCTAssertNotNil(sut, "context not nil")
+    }
+    
+    func testEntities() {
+        let entityNames = theSut.entities.map({ $0.name!})
+        print(entityNames)
         XCTAssertNotNil(sut, "context not nil")
     }
     

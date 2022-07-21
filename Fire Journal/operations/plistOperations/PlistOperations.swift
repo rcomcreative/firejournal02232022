@@ -15,13 +15,15 @@ enum EntryState:Int64 {
 }
 
 class GuidFormatter {
+    
     var formatDate: Date
+    
     init(date:Date) {
         self.formatDate = date
     }
     
     func formatGuid()->String {
-        var uuidA: String = NSUUID().uuidString.lowercased()
+        var uuidA: String = UUID().uuidString
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "YYYYDDDHHmmAAAAAAAA"
         let dateFrom = dateFormatter.string(from: formatDate)
@@ -31,7 +33,9 @@ class GuidFormatter {
 }
 
 class FormattedDate {
+    
     var dateForFormat: Date
+    
     init(date:Date) {
         self.dateForFormat = date
     }

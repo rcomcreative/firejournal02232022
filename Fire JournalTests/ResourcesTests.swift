@@ -109,7 +109,7 @@ class ResourcesTests: XCTestCase {
                 }
             }
         }
-        var resourceS = Array(Set(sArray))
+        let resourceS = Array(Set(sArray))
        print("here is the resourceS.count \(resourceS.count)")
         var userResourcesToDelete = [UserResources]()
         for r in resourceS {

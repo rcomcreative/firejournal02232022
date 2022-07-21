@@ -28,6 +28,7 @@ class ModifiedFireJournalUserSendToCloudOperation: FJOperation {
     var recordGuid:String = ""
     var ckRecord:CKRecord!
     var dateFormatter = DateFormatter()
+    let userDefaults = UserDefaults.standard
     
     init(_ context: NSManagedObjectContext, objectID: NSManagedObjectID) {
         self.context = context
@@ -76,6 +77,9 @@ class ModifiedFireJournalUserSendToCloudOperation: FJOperation {
             let unarchiver = try NSKeyedUnarchiver.init(forReadingFrom: archivedData)
                  ckRecord = CKRecord(coder: unarchiver)
                 let modifiedCKRecord = fjUser.modifyCloudFromFireJournalUser(ckRecord: ckRecord)
+                let name = ckRecord.recordID.recordName
+                userDefaults.register(defaults: [FJkFJUSERCKRECORDNAME: name])
+                
                 let modifyCKOperation = CKModifyRecordsOperation.init(recordsToSave: [modifiedCKRecord], recordIDsToDelete: nil)
                 modifyCKOperation.savePolicy = .changedKeys
                 modifyCKOperation.perRecordCompletionBlock = { record, error in
@@ -110,6 +114,9 @@ class ModifiedFireJournalUserSendToCloudOperation: FJOperation {
             let data = coder.encodedData
             self.fjUser.fjuCKR = data as NSObject
             self.fjUser.fjpUserBackedUp = true
+            
+            let name = ckRecord.recordID.recordName
+            userDefaults.register(defaults: [FJkFJUSERCKRECORDNAME: name])
             
             privateDatabase.save(ckRecord, completionHandler: { record, error in
                 

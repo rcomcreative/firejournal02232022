@@ -14,16 +14,12 @@ class NFIRSIncidentTypeBuildOperation: FJOperation {
     
     let backgroundContext: NSManagedObjectContext!
     var task: UIBackgroundTaskIdentifier = .invalid
-    var bkgrndTask: BkgrndTask?
     let nc = NotificationCenter.default
     var buildFromNFIRSIncidentType: BuildFromNFIRSIncidentType!
     let theGuidDate: Date!
     
     init(_ context: NSManagedObjectContext) {
         self.backgroundContext = context
-        bkgrndTask = BkgrndTask.init(bkgrndTask: task)
-        bkgrndTask?.operation = "UserFDIDBuildOperation"
-        bkgrndTask?.registerBackgroundTask()
         theGuidDate = Date()
         super.init()
     }
@@ -31,7 +27,6 @@ class NFIRSIncidentTypeBuildOperation: FJOperation {
     override func main() {
         
         guard isCancelled == false else {
-            self.bkgrndTask?.endBackgroundTask()
             self.executing(false)
             self.finish(true)
             print("NFIRSIncidentTypeBuildOperation is done cancelled")
@@ -56,7 +51,6 @@ class NFIRSIncidentTypeBuildOperation: FJOperation {
                                 object: nil,
                                 userInfo: ["plist": PlistsToLoad.fjkPLISTNFIRSIncidentLoader])
                     }
-                    self.bkgrndTask?.endBackgroundTask()
                     self.executing(false)
                     self.finish(true)
                     print("NFIRSIncidentType is done save")
@@ -64,7 +58,6 @@ class NFIRSIncidentTypeBuildOperation: FJOperation {
                 } catch let error as NSError {
                     let theError: String = error.localizedDescription
                     let error = "There was an error in saving " + theError
-                    self.bkgrndTask?.endBackgroundTask()
                     self.executing(false)
                     self.finish(true)
                     print("NFIRSIncidentTypeBuildOperation is done \(error)")
@@ -74,7 +67,6 @@ class NFIRSIncidentTypeBuildOperation: FJOperation {
         }
         
         guard isCancelled == false else {
-            self.bkgrndTask?.endBackgroundTask()
             self.executing(false)
             self.finish(true)
             print("NFIRSIncidentTypeBuildOperation is done cancelled")

@@ -36,7 +36,16 @@ class SettingsTVC: UITableViewController {
     var count: Int = 0
     var alertUp: Bool = false
     var userObjectID: NSManagedObjectID!
+    var child: SpinnerViewController!
+    var childAdded: Bool = false
     
+    
+    //    MARK: -REMOVE DATA
+    /**Send to CloudKit manager
+     
+    check if true FJkREMOVEALLDATA
+    notification post fireJournalRemoveAllDataFromCloudKit
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
         device = Device.init()
@@ -70,7 +79,32 @@ class SettingsTVC: UITableViewController {
             //        MARK: -OBSERVE WHEN  LOCALINCIDENTTYPE HAVE BEEN RELOADED
         nc.addObserver(self, selector: #selector(localIncidentTypeAreLoadedNow(ns:)), name: NSNotification.Name(rawValue: FJkReloadLocalIncidentTypesFinished), object: nil)
         
+//        MARK: -OBSERVE FOR ZONE DELETION FAILURE-
+        nc.addObserver(self, selector: #selector(zoneDeletionFailure(nc:)), name: .fConCKZoneFailure, object: nil)
+        
+            //        MARK: -OBSERVE FOR ZONE DELETION SUCCESS-
+        nc.addObserver(self, selector: #selector(zoneDeletionSuccess(nc:)), name: .fConCKZoneSuccess, object: nil)
+
+            //        MARK: -OBSERVE FOR SUBSCRIPTION FAILURE-
+        nc.addObserver(self, selector: #selector(zoneDeletionFailure(nc:)), name: .fConCKSubscriptionFailure, object: nil)
+        
+            //        MARK: -OBSERVE FOR Core DATA DELETION FAILURE-
+        nc.addObserver(self, selector: #selector(zoneDeletionFailure(nc:)), name: .fConCDFailure, object: nil)
+
+            //        MARK: -OBSERVE FOR CORE DATA DELETION SUCCESS-
+        nc.addObserver(self, selector: #selector(coreDataDeletionSuccess(nc:)), name: .fConCDSuccess, object: nil)
+
+        
         registerCells()
+        
+        let delete = userDefaults.bool(forKey: FJkREMOVEALLDATA)
+        
+        if delete {
+            createSpinnerView()
+            DispatchQueue.main.async {
+                self.nc.post(name: .fireJournalRemoveAllDataFromCloudKit, object: nil)
+            }
+        }
     }
     
     func registerCells() {
@@ -79,6 +113,52 @@ class SettingsTVC: UITableViewController {
     
     @IBAction func goBackToMaster(_ sender: Any) {
         delegate?.settingsTapped()
+    }
+    
+    @objc func zoneDeletionSuccess(nc: Notification) {
+        DispatchQueue.main.async {
+            self.nc.post(name: .fireJournalRemoveAllDataFromCD, object: nil)
+        }
+    }
+    
+    
+    @objc func coreDataDeletionSuccess(nc: Notification) {
+        removeSpinnerView {
+            let message = "Your data on this device has been removed and will now be returned to the agreement screen"
+            completionAlert(message)
+        }
+    }
+    
+    @objc func zoneDeletionFailure(nc: Notification) {
+        if let userInfo = nc.userInfo as! [String: Any]? {
+            if let errorMessage = userInfo["errorMessage"] as? String {
+                removeSpinnerView {
+                    errorAlert(errorMessage)
+                }
+            }
+        }
+    }
+    
+    func createSpinnerView() {
+        child = SpinnerViewController()
+        childAdded = true
+        addChild(child)
+        child.view.frame = view.frame
+        view.addSubview(child.view)
+        child.didMove(toParent: self)
+    }
+    
+    func removeSpinnerView(completionBlock: () -> ()) {
+        if childAdded {
+            DispatchQueue.main.async {
+                    // then remove the spinner view controller
+                self.child.willMove(toParent: nil)
+                self.child.view.removeFromSuperview()
+                self.child.removeFromParent()
+            }
+            childAdded = false
+            completionBlock()
+        }
     }
     
     @objc func compactOrRegular(ns: Notification) {
@@ -106,6 +186,8 @@ class SettingsTVC: UITableViewController {
         }
     }
     
+
+    
         // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -114,7 +196,7 @@ class SettingsTVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             // #warning Incomplete implementation, return the number of rows
-        return 6
+        return 7
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -158,14 +240,18 @@ class SettingsTVC: UITableViewController {
             cell.settingsSubjectL.text = "Local Incident Types"
             cell.settingType = FJSettings.localIncidentTypes
         case 3:
+            cell.iconIV.image = UIImage(named: "ICONS_06092022_dataManagement")
+            cell.settingsSubjectL.text = "Your Data"
+            cell.settingType = FJSettings.resetData
+        case 4:
             cell.iconIV.image = UIImage(named: "SettingsICloudIcon")
             cell.settingsSubjectL.text = "About Membership"
             cell.settingType = FJSettings.cloud
-        case 4:
+        case 5:
             cell.iconIV.image = UIImage(named: "SettingsIconDefault")
             cell.settingsSubjectL.text = "Terms and Conditions"
             cell.settingType = FJSettings.terms
-        case 5:
+        case 6:
             cell.iconIV.image = UIImage(named: "SettingsIconDefault")
             cell.settingsSubjectL.text = "User Privacy"
             cell.settingType = FJSettings.privacy
@@ -194,6 +280,9 @@ class SettingsTVC: UITableViewController {
             let cell = tableView.cellForRow(at: indexPath)! as! SettingsTVCell
             launchSettingsPage(cell.settingType)
         case 5:
+            let cell = tableView.cellForRow(at: indexPath)! as! SettingsTVCell
+            launchSettingsPage(cell.settingType)
+        case 6:
             let cell = tableView.cellForRow(at: indexPath)! as! SettingsTVCell
             launchSettingsPage(cell.settingType)
         default:break
@@ -336,7 +425,19 @@ class SettingsTVC: UITableViewController {
                 }
             } else {
                 if userObjectID != nil {
-                    nc.post(name:Notification.Name(rawValue:FJkSETTINGPRIVACYCalled),
+                    nc.post(name:Notification.Name(rawValue: FJkSETTINGPRIVACYCalled),
+                            object: nil,
+                            userInfo: ["sizeTrait":compact, "userObjID": userObjectID!])
+                }
+            }
+        case .resetData:
+            if collapsed {
+                if userObjectID != nil {
+                    delegate?.settingsLoadPage(settings: settings, userObjectID: userObjectID)
+                }
+            } else {
+                if userObjectID != nil {
+                    nc.post(name:Notification.Name(rawValue: FJkSETTINGRESETDATACalled),
                             object: nil,
                             userInfo: ["sizeTrait":compact, "userObjID": userObjectID!])
                 }
@@ -348,82 +449,75 @@ class SettingsTVC: UITableViewController {
     
 }
 
-extension SettingsTVC: NSFetchedResultsControllerDelegate {
-    
-    func theCount(entity: String)->Int {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity )
-        do {
-            let count = try context.count(for:fetchRequest)
-            return count
-        } catch let error as NSError {
-            print("Error: \(error.localizedDescription)")
-            return 0
-        }
-    }
-    
-}
-
 extension SettingsTVC {
     
-    func countIsZero() {
-        if !alertUp {
-            presentAlert()
-        }
-    }
-    
-        /// Alert presented when there are no Fire Station Resources chosen yet
-    func presentAlert() {
-        let title: InfoBodyText = .myFireStationResourcesSupportNotesSubject2
-        let message: InfoBodyText = .myFireStationResourcesSupportNotes2
-        let alert = UIAlertController.init(title: title.rawValue, message: message.rawValue, preferredStyle: .alert)
-        let okAction = UIAlertAction.init(title: "Okay", style: .default, handler: {_ in
-            self.alertUp = false
-        })
-        alert.addAction(okAction)
-        alertUp = true
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-        /// Reload Default Tags Alert
-    func tagsPresentAlert() {
-        let title: InfoBodyText = .tagsAreEmptySubject
-        let message: InfoBodyText = .tagsAreEmpty
-        let alert = UIAlertController.init(title: title.rawValue, message: message.rawValue, preferredStyle: .alert)
-        let okAction = UIAlertAction.init(title: "Okay", style: .default, handler: {_ in
-            self.alertUp = false
-            
-            let nc = NotificationCenter.default
-            DispatchQueue.main.async {
-                nc.post(name:Notification.Name(rawValue: FJkReloadUserTagsCalled),
-                        object: nil,
-                        userInfo: nil )
+        //    MARK: -ALERTS-
+            func completionAlert(_ message: String) {
+                let alert = UIAlertController.init(title: "Deletion Completed", message: message, preferredStyle: .alert)
+                let okAction = UIAlertAction.init(title: "Okay", style: .default, handler: {_ in
+                    self.alertUp = false
+                    self.moveToAgreement()
+                })
+                alert.addAction(okAction)
+                alertUp = true
+                self.present(alert, animated: true, completion: nil)
             }
-        })
-        
-        alert.addAction(okAction)
-        let noAction = UIAlertAction.init(title: "No", style: .default, handler: {_ in
-            self.alertUp = false
-        })
-        alert.addAction(noAction)
-        alertUp = true
-        self.present(alert, animated: true, completion: nil)
-    }
     
-        //    MARK: -RELOAD THE TAGS PAGE
-        /// Reloads the Tags Settings page with populated tags
-        /// - Parameter ns: no userInfo
-    @objc func tagsAreLoadedNow( ns: Notification ) {
-        if collapsed {
-            if userObjectID != nil {
-                delegate?.settingsLoadPage(settings: FJSettings.tags, userObjectID: userObjectID)
-            }
-        } else {
-            nc.post(name:Notification.Name(rawValue:FJkSETTINGSTAGSCalled),
+    func moveToAgreement() {
+        DispatchQueue.main.async {
+            self.nc.post(name: .fConCKCDDeletionCompleted,
                     object: nil,
-                    userInfo: ["sizeTrait":compact])
+                    userInfo: nil )
         }
     }
-    
+            
+            func errorAlert(_ errorMessage: String ) {
+                let alert = UIAlertController.init(title: "Deletion Error", message: errorMessage, preferredStyle: .alert)
+                let okAction = UIAlertAction.init(title: "Okay", style: .default, handler: {_ in
+                    self.alertUp = false
+                })
+                alert.addAction(okAction)
+                alertUp = true
+                self.present(alert, animated: true, completion: nil)
+            }
+            
+                /// Alert presented when there are no Fire Station Resources chosen yet
+            func presentAlert() {
+                let title: InfoBodyText = .myFireStationResourcesSupportNotesSubject2
+                let message: InfoBodyText = .myFireStationResourcesSupportNotes2
+                let alert = UIAlertController.init(title: title.rawValue, message: message.rawValue, preferredStyle: .alert)
+                let okAction = UIAlertAction.init(title: "Okay", style: .default, handler: {_ in
+                    self.alertUp = false
+                })
+                alert.addAction(okAction)
+                alertUp = true
+                self.present(alert, animated: true, completion: nil)
+            }
+            
+                /// Reload Default Tags Alert
+            func tagsPresentAlert() {
+                let title: InfoBodyText = .tagsAreEmptySubject
+                let message: InfoBodyText = .tagsAreEmpty
+                let alert = UIAlertController.init(title: title.rawValue, message: message.rawValue, preferredStyle: .alert)
+                let okAction = UIAlertAction.init(title: "Okay", style: .default, handler: {_ in
+                    self.alertUp = false
+                    
+                    let nc = NotificationCenter.default
+                    DispatchQueue.main.async {
+                        nc.post(name:Notification.Name(rawValue: FJkReloadUserTagsCalled),
+                                object: nil,
+                                userInfo: nil )
+                    }
+                })
+                
+                alert.addAction(okAction)
+                let noAction = UIAlertAction.init(title: "No", style: .default, handler: {_ in
+                    self.alertUp = false
+                })
+                alert.addAction(noAction)
+                alertUp = true
+                self.present(alert, animated: true, completion: nil)
+            }
     
         //    MARK: -RELOAD THE USER RANK ALERT
     func rankPresentAlert() {
@@ -448,21 +542,6 @@ extension SettingsTVC {
         alert.addAction(noAction)
         alertUp = true
         self.present(alert, animated: true, completion: nil)
-    }
-    
-        //    MARK: -RELOAD THE RANK PAGE
-        /// Reloads the RANK Settings page with populated tags
-        /// - Parameter ns: no userInfo
-    @objc func rankAreLoadedNow( ns: Notification ) {
-        if collapsed {
-            if userObjectID != nil {
-                delegate?.settingsLoadPage(settings: FJSettings.rank, userObjectID: userObjectID)
-            }
-        } else {
-            nc.post(name:Notification.Name(rawValue:FJkSETTINGRANKCalled),
-                    object: nil,
-                    userInfo: ["sizeTrait":compact])
-        }
     }
     
         //    MARK: -RELOAD THE USER PLATOON ALERT
@@ -490,22 +569,6 @@ extension SettingsTVC {
         self.present(alert, animated: true, completion: nil)
     }
     
-        //    MARK: -RELOAD THE PLATOON PAGE
-        /// Reloads the PLATOON Settings page with populated tags
-        /// - Parameter ns: no userInfo
-    @objc func platoonAreLoadedNow( ns: Notification ) {
-        if collapsed {
-            if userObjectID != nil {
-                delegate?.settingsLoadPage(settings: FJSettings.platoon, userObjectID: userObjectID)
-            }
-        } else {
-            nc.post(name:Notification.Name(rawValue:FJkSETTINGPLATOONCalled),
-                    object: nil,
-                    userInfo: ["sizeTrait":compact])
-        }
-    }
-    
-    
         //    MARK: -RELOAD THE LOCAL INCIDENT TYPE ALERT
     func localIncidentTypePresentAlert() {
         let title: InfoBodyText = .localIncidentTypesAreEmptySubject
@@ -530,6 +593,83 @@ extension SettingsTVC {
         alertUp = true
         self.present(alert, animated: true, completion: nil)
     }
+    
+}
+
+extension SettingsTVC: NSFetchedResultsControllerDelegate {
+    
+    func theCount(entity: String)->Int {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity )
+        do {
+            let count = try context.count(for:fetchRequest)
+            return count
+        } catch let error as NSError {
+            print("Error: \(error.localizedDescription)")
+            return 0
+        }
+    }
+    
+}
+
+extension SettingsTVC {
+    
+    func countIsZero() {
+        if !alertUp {
+            presentAlert()
+        }
+    }
+    
+
+    
+        //    MARK: -RELOAD THE TAGS PAGE
+        /// Reloads the Tags Settings page with populated tags
+        /// - Parameter ns: no userInfo
+    @objc func tagsAreLoadedNow( ns: Notification ) {
+        if collapsed {
+            if userObjectID != nil {
+                delegate?.settingsLoadPage(settings: FJSettings.tags, userObjectID: userObjectID)
+            }
+        } else {
+            nc.post(name:Notification.Name(rawValue:FJkSETTINGSTAGSCalled),
+                    object: nil,
+                    userInfo: ["sizeTrait":compact])
+        }
+    }
+    
+    
+    
+    
+        //    MARK: -RELOAD THE RANK PAGE
+        /// Reloads the RANK Settings page with populated tags
+        /// - Parameter ns: no userInfo
+    @objc func rankAreLoadedNow( ns: Notification ) {
+        if collapsed {
+            if userObjectID != nil {
+                delegate?.settingsLoadPage(settings: FJSettings.rank, userObjectID: userObjectID)
+            }
+        } else {
+            nc.post(name:Notification.Name(rawValue:FJkSETTINGRANKCalled),
+                    object: nil,
+                    userInfo: ["sizeTrait":compact])
+        }
+    }
+    
+    
+        //    MARK: -RELOAD THE PLATOON PAGE
+        /// Reloads the PLATOON Settings page with populated tags
+        /// - Parameter ns: no userInfo
+    @objc func platoonAreLoadedNow( ns: Notification ) {
+        if collapsed {
+            if userObjectID != nil {
+                delegate?.settingsLoadPage(settings: FJSettings.platoon, userObjectID: userObjectID)
+            }
+        } else {
+            nc.post(name:Notification.Name(rawValue:FJkSETTINGPLATOONCalled),
+                    object: nil,
+                    userInfo: ["sizeTrait":compact])
+        }
+    }
+    
     
         //    MARK: -RELOAD THE LOCAL INCIDENT TYPES PAGE
         /// Reloads the LOCAL INCIDENT TYPES Settings page with populated tags

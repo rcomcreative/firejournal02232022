@@ -174,7 +174,7 @@ New Project
             thePromotion.user = theUser
         }
         if theUserTime != nil {
-            thePromotion.shift = theUserTime
+            theUserTime.addToPromotion(thePromotion)
         }
         thePromotion.locationAvailable = false
         thePromotion.projectTagsAvailable = false

@@ -111,6 +111,13 @@ extension IncidentEditVC: ModalHeaderSaveDismissDelegate {
     }
     
     func modalSave(myShift: MenuItems) {
+        
+        let index = IndexPath(row: 0, section: 0)
+        let cell = incidentTableView.cellForRow(at: index)! as! LabelTextFieldCell
+        if let incidentNumber = cell.descriptionTF.text {
+            theIncident.incidentNumber = incidentNumber
+        }
+        
         do {
             try context.save()
             DispatchQueue.main.async {

@@ -103,6 +103,12 @@ class JournalVC: SpinnerViewController, UIImagePickerControllerDelegate, UINavig
     var theTagsAvailable: Bool = false
     var theTagsHeight: CGFloat = 0
     
+    lazy var userProvider: FireJournalUserProvider = {
+        let provider = FireJournalUserProvider(with: (UIApplication.shared.delegate as! AppDelegate).persistentContainer)
+        return provider
+    }()
+    var userContext: NSManagedObjectContext!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()

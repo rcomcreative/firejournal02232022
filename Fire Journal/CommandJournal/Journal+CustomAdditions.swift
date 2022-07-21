@@ -481,6 +481,164 @@ extension Journal {
         
     }
     
+        //    MARK: -JOURNAL FROM THE CLOUD
+        /// Updates journal entry from cloud
+        /// - Parameters:
+        ///   - ckRecord: CKRcord
+        ///   - dateFormatter: DateFormatter
+    func singleJournalFromTheCloud(ckRecord: CKRecord, dateFormatter: DateFormatter, completionHandler: (() -> Void)? = nil) {
+            
+            //        var entryExists: Bool = false
+            let journalRecord = ckRecord
+            
+            self.journalBackedUp = true
+            
+            if let iguid =   journalRecord["fjpIncReference"] as? String {
+                self.fjpIncReference = iguid
+            }
+            if let create =  journalRecord["journalCreationDate"] as? Date {
+                self.journalCreationDate = create
+            } else {
+                self.journalCreationDate = Date()
+            }
+            if let guid = journalRecord["fjpJGuidForReference"] as? String {
+                self.fjpJGuidForReference = guid
+            } else {
+                if let date = self.journalCreationDate {
+                    self.fjpJGuidForReference = guidForJournal(date, dateFormatter: dateFormatter )
+                }
+            }
+            
+            if let searchDate = journalRecord["journalDateSearch"] as? String {
+                self.journalDateSearch = searchDate
+            } else {
+                self.journalDateSearch = formatSearchDate( self.journalCreationDate! , dateFormatter: dateFormatter)
+            }
+            if let discuss = journalRecord["journalDiscussion"] as? String {
+                self.journalDiscussion = discuss as NSObject
+            }
+            if let type = journalRecord["journalEntryType"] as? String {
+                self.journalEntryType  = type
+            }
+            if let imageName = journalRecord["journalEntryTypeImageName"] as? String {
+                self.journalEntryTypeImageName = imageName
+            }
+            if let fireStation = journalRecord["journalFireStation"] as? String  {
+                self.journalFireStation = fireStation
+            }
+            if let header = journalRecord["journalHeader"] as? String {
+                self.journalHeader = header
+            }
+            
+    //        MARK: -LOCATION-
+            /// journalLocation archived with SecureCoding
+            if journalRecord["journalLocation"] != nil {
+                
+                    let location = journalRecord["journalLocation"] as! CLLocation
+                    do {
+                        let data = try NSKeyedArchiver.archivedData(withRootObject: location, requiringSecureCoding: true)
+                        self.journalLocationSC = data as NSObject
+                    } catch {
+                        print("got an error here")
+                    }
+                if let lat = journalRecord["journalLatitude"] as? String {
+                    self.journalLatitude = lat
+                }
+                if let long = journalRecord["journalLongitude"] as? String {
+                    self.journalLongitude = long
+                }
+                if let name = journalRecord["journalStreetName"] as? String {
+                    self.journalStreetName = name
+                }
+                if let num = journalRecord["journalStreetNumber"] as? String {
+                    self.journalStreetNumber = num
+                }
+                if let city = journalRecord["journalCity"] as? String {
+                    self.journalCity = city
+                }
+                if let state = journalRecord["journalState"] as? String {
+                    self.journalState = state
+                }
+                if let zip = journalRecord["journalZip"] as? String {
+                    self.journalZip = zip
+                }
+            }
+            
+            if let mod =  journalRecord["journalModDate"] as? Date {
+                self.journalModDate = mod
+            }
+            if let next = journalRecord["journalNextSteps"] as? String {
+                self.journalNextSteps = next as NSObject
+            }
+            if let over =  journalRecord["journalOverview"] as? String {
+                self.journalOverview = over as NSObject
+            }
+            if journalRecord["locationAvailable"]  ?? false {
+                self.locationAvailable = true
+            } else {
+                self.locationAvailable = false
+            }
+            if journalRecord["journalTagsAvailable"]  ?? false {
+                self.journalTagsAvailable = true
+            } else {
+                self.journalTagsAvailable = false
+            }
+            if journalRecord["journalPhotoTaken"]  ?? false {
+                self.journalPhotoTaken = true
+            } else {
+                self.journalPhotoTaken = false
+            }
+            if journalRecord["journalPrivate"] ?? false {
+                self.journalPrivate = true
+            } else {
+                self.journalPrivate = false
+            }
+            if let summary = journalRecord["journalSummary"] as? String {
+                self.journalSummary = summary as NSObject
+            }
+            if let app = journalRecord["journalTempApparatus"] as? String {
+                self.journalTempApparatus = app
+            }
+            if let assign = journalRecord["journalTempAssignment"] as? String {
+                self.journalTempAssignment = assign
+            }
+            if let fire = journalRecord["journalTempFireStation"] as? String {
+                self.journalTempFireStation = fire
+            }
+            if let platoon = journalRecord["journalTempPlatoon"] as? String {
+                self.journalTempPlatoon = platoon
+            }
+            
+            //                MARK: -Save encoded ckrecord-
+            let coder = NSKeyedArchiver(requiringSecureCoding: true)
+            journalRecord.encodeSystemFields(with: coder)
+            let data = coder.encodedData
+            self.fjJournalCKR = data as NSObject
+            
+        saveTheSingleCD() {_ in 
+            completionHandler?()
+        }
+        
+            
+        }
+    
+    private func saveTheSingleCD(withCompletion completion: @escaping (String) -> Void) {
+        do {
+            try self.managedObjectContext?.save()
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.managedObjectContext,userInfo:["info":"Journal Saved"])
+                print("journal we have saved to the cloud")
+            }
+            completion("Success")
+        } catch {
+            let nserror = error as NSError
+            
+            let error = "The Journal+CustomAdditions context was unable to save due to: \(nserror.localizedDescription) \(nserror.userInfo)"
+            print(error)
+            completion("Error")
+        }
+    }
+    
     //    MARK: -save to core data-
     private func saveToCD() {
         do {

@@ -200,7 +200,7 @@ extension IncidentVC: UITableViewDataSource {
         switch  row {
         case 0:
             var cell = tableView.dequeueReusableCell(withIdentifier: "IncidentEditBarTVC", for: indexPath) as! IncidentEditBarTVC
-            cell = configureIncidentEditBarTVC(cell, index: indexPath)
+            cell =  configureIncidentEditBarTVC(cell, index: indexPath)
             cell.configureEditButton()
             return cell
         case 1:

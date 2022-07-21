@@ -548,9 +548,15 @@ extension NewICS214DetailTVC {
             }
             if fromMap {
                 if (Device.IS_IPHONE) {
-                    vcLaunch.mapCalledPhone(type: IncidentTypes.ics214Form)
+                    if theFireJournalUser != nil {
+                        let id = theFireJournalUser.objectID
+                        vcLaunch.mapCalledPhone(type: IncidentTypes.ics214Form, theUserOID: id )
+                    }
                 } else {
-                    vcLaunch.mapCalled(type: IncidentTypes.ics214Form)
+                    if theFireJournalUser != nil {
+                            let id = theFireJournalUser.objectID
+                        vcLaunch.mapCalled(type: IncidentTypes.ics214Form, theUserOID: id )
+                    }
                 }
             }
         } catch let error as NSError {
@@ -619,9 +625,15 @@ extension NewICS214DetailTVC: MapFormHeaderVDelegate {
     
     func mapFormHeaderBackBTapped(type: IncidentTypes) {
             if (Device.IS_IPHONE) {
-                vcLaunch.mapCalledPhone(type: type)
+                if theFireJournalUser != nil {
+                    let id = theFireJournalUser.objectID
+                    vcLaunch.mapCalledPhone(type: type, theUserOID: id )
+                }
             } else {
-                vcLaunch.mapCalled(type: type)
+                if theFireJournalUser != nil {
+                        let id = theFireJournalUser.objectID
+                    vcLaunch.mapCalled(type: type, theUserOID: id )
+                }
             }
     }
     
@@ -677,7 +689,7 @@ extension NewICS214DetailTVC: NewICS214LabelTextFieldCellDelegate {
     
     //    MARK: -LABEL TEXT FIELD CELL DELEGATE-
     func theTextFieldHasChanged(text: String, indexPath: IndexPath, tag: Int) {
-        _ = tableView.cellForRow(at: indexPath) as! NewICS214LabelTextFieldCell
+//        _ = tableView.cellForRow(at: indexPath) as! NewICS214LabelTextFieldCell
         switch tag {
         case 1:
             ics214.ics214IncidentName = text

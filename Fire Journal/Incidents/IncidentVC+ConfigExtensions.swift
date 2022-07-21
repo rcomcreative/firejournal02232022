@@ -697,6 +697,7 @@ extension IncidentVC {
         let row = index.row
         cell.tag = row
         cell.index = index
+        cell.delegate = self
         cell.sameAsAlarmSwitch.onTintColor = UIColor(named: "FJIconRed")
         cell.sameAsAlarmSwitch.backgroundColor = UIColor(named: "FJIconRed")
         cell.sameAsAlarmSwitch.layer.cornerRadius = 16
@@ -773,7 +774,7 @@ extension IncidentVC {
         let row = index.row
         cell.tag = row
         cell.index = index
-        
+        cell.delegate = self
         cell.sameAsAlarmSwitch.onTintColor = UIColor(named: "FJIconRed")
         cell.sameAsAlarmSwitch.backgroundColor = UIColor(named: "FJIconRed")
         cell.sameAsAlarmSwitch.layer.cornerRadius = 16
@@ -790,6 +791,7 @@ extension IncidentVC {
                     cell.sameDate = false
                     if let alarm = theIncidentTime.incidentArrivalDateTime {
                         cell.theFirstDose = alarm
+                        cell.sameDate = false
                     }
                 }
             }
@@ -805,6 +807,7 @@ extension IncidentVC {
                     cell.sameDate = false
                     if let alarm = theIncidentTime.incidentControlDateTime {
                         cell.theFirstDose = alarm
+                        cell.sameDate = false
                     }
                 }
             }
@@ -820,6 +823,7 @@ extension IncidentVC {
                     cell.sameDate = false
                     if let alarm = theIncidentTime.incidentLastUnitDateTime {
                         cell.theFirstDose = alarm
+                        cell.sameDate = false
                     }
                 }
             }
@@ -833,6 +837,54 @@ extension IncidentVC {
         cell.tag = index.row
         return cell
     }
+    
+}
+
+extension IncidentVC: IncidentSameDateAlarmTVCellDelegate {
+   
+    func incidentSameDateAlarmPickerTapped(_ index: IndexPath, date: Date, sameDate: Bool) {
+        let row = index.row
+        switch row {
+        case 13:
+            theIncidentTime.incidentArrivalDateTime = date
+            theIncidentTime.arrivalSameDate = false
+            incidentTableView.reloadRows(at: [index], with: .automatic)
+        case 16:
+            theIncidentTime.incidentControlDateTime = date
+            theIncidentTime.controlledSameDate = false
+            incidentTableView.reloadRows(at: [index], with: .automatic)
+        case 19:
+            theIncidentTime.incidentLastUnitDateTime = date
+            theIncidentTime.lastUnitSameDate = false
+            incidentTableView.reloadRows(at: [index], with: .automatic)
+        default: break
+        }
+    }
+    
+    
+}
+
+extension IncidentVC: IncidentSameDateiPhoneTVCellDelegate {
+   
+    func incidentSameDateiPhoneChosen(_ date: Date, index: IndexPath, sameDate: Bool) {
+        let row = index.row
+        switch row {
+        case 13:
+            theIncidentTime.incidentArrivalDateTime = date
+            theIncidentTime.arrivalSameDate = false
+            incidentTableView.reloadRows(at: [index], with: .automatic)
+        case 16:
+            theIncidentTime.incidentControlDateTime = date
+            theIncidentTime.controlledSameDate = false
+            incidentTableView.reloadRows(at: [index], with: .automatic)
+        case 19:
+            theIncidentTime.incidentLastUnitDateTime = date
+            theIncidentTime.lastUnitSameDate = false
+            incidentTableView.reloadRows(at: [index], with: .automatic)
+        default: break
+        }
+    }
+    
     
 }
 

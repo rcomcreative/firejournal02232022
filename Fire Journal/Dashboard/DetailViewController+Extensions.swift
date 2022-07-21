@@ -231,7 +231,7 @@ extension DetailViewController {
         guard let incidents = incidentProvider.getTodaysIncidents(context: taskContext, userTime: userTime) else {
             return }
         theTodayIncidents = incidents
-        theNewestIncident = theTodayIncidents.last
+        theNewestIncident = theTodayIncidents.first
         if !theTodayIncidents.isEmpty {
             let theFire = theTodayIncidents.filter { $0.situationIncidentImage == "Fire" }
             fireCount = theFire.count
@@ -327,7 +327,7 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
         case .incidents:
             return collectionView.dequeueConfiguredReusableCell(using: configureShiftIncidentsCVCellRegistration, for: indexPath, item: theUserTime )
         case .totalIncidents:
-            return collectionView.dequeueConfiguredReusableCell(using: configureStationIncidentCVCellRegistration, for: indexPath, item: theUserTime )
+            return collectionView.dequeueConfiguredReusableCell(using: configureAllShiftIncidentCVCellRegistration, for: indexPath, item: theUserTime )
         case .weather:
             return collectionView.dequeueConfiguredReusableCell(using: configureShiftWeatherCVCellRegistration, for: indexPath, item: theUserTime )
         }
@@ -463,8 +463,21 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
             let error = "There was a error creating the userTime"
             errorAlert(errorMessage: error)
         } else {
-            startShiftModalTVC.userTimeObjID = theUserTime.objectID
-            self.present(startShiftModalTVC, animated: true, completion: nil)
+            theUserTime.userEndShiftTime = nil
+            if context.hasChanges {
+                do {
+                    try context.save()
+                    DispatchQueue.main.async {
+                        self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"Shift updated merge that"])
+                    }
+                    startShiftModalTVC.userTimeObjID = theUserTime.objectID
+                    self.present(startShiftModalTVC, animated: true, completion: nil)
+                } catch let error as NSError {
+                    let theError: String = error.localizedDescription
+                    let error = "There was an error in saving " + theError
+                    errorAlert(errorMessage: error)
+                }
+            }
         }
     }
     
@@ -480,7 +493,8 @@ extension DetailViewController: ShiftNewModalVCDelegate {
     }
     
     
-    func dismissShiftStartModal() {
+    func dismissShiftStartModal(_ theUserTimeOID: NSManagedObjectID) {
+        theUserTime = context.object(with: theUserTimeOID) as? UserTime
         startEndShift = false
         userDefaults.set(startEndShift, forKey: FJkSTARTSHIFTENDSHIFTBOOL)
         self.dashboardCollectionView.reloadSections(IndexSet(integer: DashboardSections.shift.rawValue))

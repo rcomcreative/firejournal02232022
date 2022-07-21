@@ -10,8 +10,15 @@ import Foundation
 import UIKit
 import CoreData
 import CloudKit
+import CoreLocation
 
 class UserFromCloudOperation: FJOperation {
+    
+    lazy var userProvider: FireJournalUserProvider = {
+        let provider = FireJournalUserProvider(with: (UIApplication.shared.delegate as! AppDelegate).persistentContainer)
+        return provider
+    }()
+    var userContext: NSManagedObjectContext!
     
     let context: NSManagedObjectContext!
     var privateDatabase:CKDatabase!
@@ -24,24 +31,21 @@ class UserFromCloudOperation: FJOperation {
     var counter = 0
     let userDefaults = UserDefaults.standard
     var task: UIBackgroundTaskIdentifier = .invalid
-    var bkgrndTask: BkgrndTask?
     var fju: FireJournalUser!
+    var theLocation: FCLocation!
     let nc = NotificationCenter.default
     
     init(_ context: NSManagedObjectContext, database: CKDatabase) {
         self.context = context
         self.privateDatabase = database
-        bkgrndTask = BkgrndTask.init(bkgrndTask: task)
-        bkgrndTask?.operation = "FireJournalUserOperation"
-        bkgrndTask?.registerBackgroundTask()
         super.init()
+        userContext = userProvider.persistentContainer.newBackgroundContext()
     }
     
     override func main() {
         
         guard isCancelled == false else {
             self.userDefaults.set(false, forKey: FJkFJUSERSavedToCoreDataFromCloud)
-            self.bkgrndTask?.endBackgroundTask()
             self.executing(false)
             self.finish(true)
             print("UserFromCloudOperation is done save")
@@ -53,7 +57,7 @@ class UserFromCloudOperation: FJOperation {
             self.userDefaults.set(false, forKey: FJkFJUSERSavedToCoreDataFromCloud)
         }
         
-        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: self.context)
+        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: self.userContext)
         executing(true)
         
         getTheData() {
@@ -62,7 +66,6 @@ class UserFromCloudOperation: FJOperation {
         
         guard isCancelled == false else {
             self.userDefaults.set(false, forKey: FJkFJUSERSavedToCoreDataFromCloud)
-            self.bkgrndTask?.endBackgroundTask()
             self.executing(false)
             self.finish(true)
             print("UserFromCloudOperation is done save")
@@ -87,26 +90,30 @@ class UserFromCloudOperation: FJOperation {
         
         var newUsersRecordsA = [CKRecord]()
         
-        operation.recordFetchedBlock = { record in
-            newUsersRecordsA.append(record)
+        operation.recordMatchedBlock = { recordid, result in
+            switch result {
+            case .success(let record):
+                newUsersRecordsA.append(record)
+            case .failure(let error):
+                print("error on retrieving status \(error)")
+            }
         }
         
-        operation.queryCompletionBlock = { [unowned self] (cursor, error) in
-            if error == nil {
-                if newUsersRecordsA.count > 0 {
-                    self.ckRecord = newUsersRecordsA.last!
+        operation.queryResultBlock = { [unowned self] result in
+            switch result {
+            case .success(_):
+                if !newUsersRecordsA.isEmpty {
+                    let theResult = newUsersRecordsA.sorted(by: { return $0.creationDate! < $1.creationDate! })
+                    self.ckRecord = theResult.last!
                     completionHandler()
                 }
-            }
-            DispatchQueue.main.async {
-                if error == nil {
-                    print("no errors here!")
-                } else {
-                    let error = "\(String(describing: error)):\(String(describing: error?.localizedDescription))"
-                    print("here is the firejournaluseroperaiton error \(error)")
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    
+                    let error = "\(String(describing: error)):\(String(describing: error.localizedDescription))"
+                    print("here is the status operation error \(error)")
                 }
             }
-            
         }
         
         privateDatabase.add(operation)
@@ -117,128 +124,245 @@ class UserFromCloudOperation: FJOperation {
     private func saveTheUser() {
         
         if ckRecord != nil {
-            self.fju = FireJournalUser(context: context)
-            self.fju.displayOrder = ckRecord["displayOrder"]
-            self.fju.userGuid = ckRecord["userGuid"]
-            self.fju.firstName = ckRecord["firstName"]
-            self.fju.lastName = ckRecord["lastName"]
             
-            self.fju.activeReceiptExpirationDate = ckRecord["activeReceiptExpirationDate"] as? Date
-            self.fju.activeReceiptProductIdentifier = ckRecord["activeReceiptProductIdentifier"]
-            self.fju.activeReceiptTransactionIdentifier = ckRecord["activeReceiptTransactionIdentifier"]
+            self.fju = FireJournalUser(context: self.userContext)
+            self.theLocation = FCLocation(context: self.userContext)
+            self.fju.theLocation = self.theLocation
             
-            if ckRecord["assignmentDefault"] ?? false {
-                self.fju.apparatusDefault = true
-            } else {
-                self.fju.apparatusDefault = false
+            if let displayOrder = ckRecord["displayOrder"] as? NSNumber {
+                self.fju.displayOrder = displayOrder
             }
-            self.fju.apparatusGuid = ckRecord["apparatusGuid"]
-            self.fju.apparatusOvertimeGuid = ckRecord["apparatusOvertimeGuid"]
-            if ckRecord["assignmentDefault"] ?? false {
-                self.fju.assignmentDefault = true
-            } else {
-                self.fju.assignmentDefault = false
+            if let fireJournalUserShift = ckRecord["fireJournalUserShift"] as? Int64 {
+                self.fju.fireJournalUserShift = fireJournalUserShift
             }
-            self.fju.assignmentGuid = ckRecord["assignmentGuid"]
-            self.fju.assignmentOvertimeGuid = ckRecord["assignmentOvertimeGuid"]
-            self.fju.battalion = ckRecord["battalion"]
-            self.fju.cnIdentifier = ckRecord["cnIdentifier"]
-            if ckRecord["crewDefault"] ?? false {
-                self.fju.crewDefault = true
-            } else {
-                self.fju.crewDefault = false
+            
+            if let apparatusDefault = ckRecord["apparatusDefault"] as? Double {
+                self.fju.apparatusDefault  = Bool(truncating: apparatusDefault as NSNumber)
             }
-            self.fju.crewOvertime = ckRecord["crewOvertime"]
-            self.fju.crewOvertimeGuid = ckRecord["crewOvertimeGuid"]
-            self.fju.crewOvertimeName = ckRecord["crewOvertimeName"]
-            self.fju.deafultCrewName = ckRecord["deafultCrewName"]
-            self.fju.defaultCrew = ckRecord["defaultCrew"]
-            self.fju.defaultCrewGuid = ckRecord["defaultCrewGuid"]
-            self.fju.defaultResources = ckRecord["defaultResources"]
-            self.fju.defaultResourcesName = ckRecord["defaultResourcesName"]
-            self.fju.division = ckRecord["division"]
-            self.fju.emailAddress = ckRecord["emailAddress"]
-            self.fju.fdid = ckRecord["fdid"]
-            self.fju.fireDepartment = ckRecord["fireDepartment"]
-            self.fju.fireDistrict = ckRecord["fireDistrict"]
-            if ckRecord["fireJournalUserShift"] != nil {
-                self.fju.fireJournalUserShift = ckRecord["fireJournalUserShift"] as! Int64
-            } else {
-                self.fju.fireJournalUserShift = 0
+            if let assignmentDefault = ckRecord["assignmentDefault"] as? Double {
+                self.fju.assignmentDefault  = Bool(truncating: assignmentDefault as NSNumber)
             }
-            self.fju.fireStation = ckRecord["fireStation"]
-            self.fju.fireStationAddress = ckRecord["fireStationAddress"]
-            self.fju.fireStationAddressTwo = ckRecord["fireStationAddressTwo"]
-            self.fju.fireStationCity = ckRecord["fireStationCity"]
-            var fdDefaultB: Bool = false
-            if ckRecord["fireStationDefault"] != nil {
-                let fdDefault: NSNumber = ckRecord["fireStationDefault"] as! NSNumber
-                if fdDefault == 1 {
-                    fdDefaultB = true
+            if let crewDefault = ckRecord["crewDefault"] as? Double {
+                self.fju.crewDefault  = Bool(truncating: crewDefault as NSNumber)
+            }
+            if let fireStationDefault = ckRecord["fireStationDefault"] as? Double {
+                self.fju.fireStationDefault  = Bool(truncating: fireStationDefault as NSNumber)
+            }
+            if let platoonDefault = ckRecord["platoonDefault"] as? Double {
+                self.fju.platoonDefault  = Bool(truncating: platoonDefault as NSNumber)
+            }
+            if let resourcesDefault = ckRecord["resourcesDefault"] as? Double {
+                self.fju.resourcesDefault  = Bool(truncating: resourcesDefault as NSNumber)
+            }
+            if let shiftStatusAMorOver = ckRecord["shiftStatusAMorOver"] as? Double {
+                self.fju.shiftStatusAMorOver  = Bool(truncating: shiftStatusAMorOver as NSNumber)
+            }
+            if let subscriptionAccount = ckRecord["subscriptionAccount"] as? Double {
+                self.fju.subscriptionAccount  = Bool(truncating: subscriptionAccount as NSNumber)
+            }
+            if let fjpUserBackedUp = ckRecord["fjpUserBackedUp"] as? Double {
+                self.fju.fjpUserBackedUp  = fjpUserBackedUp as NSNumber
+            }
+            
+            
+            if let fjpUserModDate = ckRecord["fjpUserModDate"] as? Date {
+                self.fju.fjpUserModDate = fjpUserModDate
+            }
+            if let fjpUserSearchDate = ckRecord["fjpUserSearchDate"] as? Date {
+                self.fju.fjpUserSearchDate = fjpUserSearchDate
+            }
+            if let dateHired = ckRecord["dateHired"] as? Date {
+            self.fju.dateHired = dateHired
+            }
+            
+
+            if let userGuid = ckRecord["usarGuid"] as? String {
+                self.fju.userGuid = userGuid
+                self.theLocation.userGuid = userGuid
+            } else {
+                self.fju.userGuid = ckRecord.recordID.recordName
+                self.theLocation.userGuid = ckRecord.recordID.recordName
+            }
+            
+            var userName: String = ""
+            if let first = ckRecord["firstName"] as? String {
+            self.fju.firstName = first
+            userName = first + " "
+            }
+            if let lastName = ckRecord["lastName"] as? String {
+            self.fju.lastName = lastName
+            userName = userName + lastName
+            }
+            if let usersName = ckRecord["userName"] as? String {
+                self.fju.userName = usersName
+            } else {
+                self.fju.userName = userName
+            }
+            if let apparatusGuid = ckRecord["apparatusGuid"] as? String {
+            self.fju.apparatusGuid = apparatusGuid
+            }
+            if let assignmentGuid = ckRecord["assignmentGuid"] as? String {
+            self.fju.assignmentGuid = assignmentGuid
+            }
+            if let battalion = ckRecord["battalion"] as? String {
+            self.fju.battalion = battalion
+            }
+            if let cnIdentifier = ckRecord["cnIdentifier"] as? String {
+            self.fju.cnIdentifier = cnIdentifier
+            }
+            if let crewOvertime = ckRecord["crewOvertime"] as? String {
+            self.fju.crewOvertime = crewOvertime
+            }
+            if let crewOvertimeGuid = ckRecord["crewOvertimeGuid"] as? String {
+            self.fju.crewOvertimeGuid = crewOvertimeGuid
+            }
+            if let crewOvertimeName = ckRecord["crewOvertimeName"] as? String {
+            self.fju.crewOvertimeName = crewOvertimeName
+            }
+            if let deafultCrewName = ckRecord["deafultCrewName"] as? String {
+            self.fju.deafultCrewName = deafultCrewName
+            }
+            if let defaultCrew = ckRecord["defaultCrew"] as? String {
+            self.fju.defaultCrew = defaultCrew
+            }
+            if let defaultCrewGuid = ckRecord["defaultCrewGuid"] as? String {
+            self.fju.defaultCrewGuid = defaultCrewGuid
+            }
+            if let defaultResources = ckRecord["defaultResources"] as? String {
+            self.fju.defaultResources = defaultResources
+            }
+            if let defaultResourcesName = ckRecord["defaultResourcesName"] as? String {
+            self.fju.defaultResourcesName = defaultResourcesName
+            }
+            if let division = ckRecord["division"] as? String {
+            self.fju.division = division
+            }
+            if let emailAddress = ckRecord["emailAddress"] as? String {
+            self.fju.emailAddress = emailAddress
+            }
+            if let fdid = ckRecord["fdid"] as? String {
+            self.fju.fdid = fdid
+            }
+            if let fireDepartment = ckRecord["fireDepartment"] as? String {
+            self.fju.fireDepartment = fireDepartment
+            }
+            if let fireDistrict = ckRecord["fireDistrict"] as? String {
+            self.fju.fireDistrict = fireDistrict
+            }
+            if let fireStation = ckRecord["fireStation"] as? String {
+            self.fju.fireStation = fireStation
+            }
+            if let fireStationGuid = ckRecord["fireStationGuid"] as? String {
+            self.fju.fireStationGuid = fireStationGuid
+            }
+            if let fireStationOvertimeGuid = ckRecord["fireStationOvertimeGuid"] as? String {
+            self.fju.fireStationOvertimeGuid = fireStationOvertimeGuid
+            }
+            if let fireStationWebSite = ckRecord["fireStationWebSite"] as? String {
+            self.fju.fireStationWebSite = fireStationWebSite
+            }
+            if let initialApparatus = ckRecord["initialApparatus"] as? String {
+            self.fju.initialApparatus = initialApparatus
+            }
+            if let initialAssignment = ckRecord["initialAssignment"] as? String {
+            self.fju.initialAssignment = initialAssignment
+            }
+            if let middleName = ckRecord["middleName"] as? String {
+            self.fju.middleName = middleName
+            }
+            if let mobileNumber = ckRecord["mobileNumber"] as? String {
+            self.fju.mobileNumber = mobileNumber
+            }
+            if let password = ckRecord["password"] as? String {
+            self.fju.password = password
+            }
+            if let platoon = ckRecord["platoon"] as? String {
+            self.fju.platoon = platoon
+            }
+            if let platoonGuid = ckRecord["platoonGuid"] as? String {
+            self.fju.platoonGuid = platoonGuid
+            }
+            if let platoonOverTimeGuid = ckRecord["platoonOverTimeGuid"] as? String {
+            self.fju.platoonOverTimeGuid = platoonOverTimeGuid
+            }
+            if let rank = ckRecord["rank"] as? String {
+            self.fju.rank = rank
+            }
+            if let resourcesGuid = ckRecord["resourcesGuid"] as? String {
+            self.fju.resourcesGuid = resourcesGuid
+            }
+            if let resourcesOvertimeGuid = ckRecord["resourcesOvertimeGuid"] as? String {
+            self.fju.resourcesOvertimeGuid = resourcesOvertimeGuid
+            }
+            if let resourcesOvertimeName = ckRecord["resourcesOvertimeName"] as? String {
+            self.fju.resourcesOvertimeName = resourcesOvertimeName
+            }
+            if let tempApparatus = ckRecord["tempApparatus"] as? String {
+            self.fju.tempApparatus = tempApparatus
+            }
+            if let tempAssignment = ckRecord["tempAssignment"] as? String {
+            self.fju.tempAssignment = tempAssignment
+            }
+            if let tempFireStation = ckRecord["tempFireStation"] as? String {
+            self.fju.tempFireStation = tempFireStation
+            }
+            if let tempPlatoon = ckRecord["tempPlatoon"] as? String {
+            self.fju.tempPlatoon = tempPlatoon
+            }
+            if let tempResources = ckRecord["tempResources"] as? String {
+            self.fju.tempResources = tempResources
+            }
+            if let user = ckRecord["user"] as? String {
+            self.fju.user = user
+            }
+            
+            
+            if let location = ckRecord["fjuLocationSC"] as? CLLocation {
+                self.theLocation.location = location
+                self.theLocation.latitude = location.coordinate.latitude
+                self.theLocation.longitude = location.coordinate.longitude
+            }
+            
+            var address: String = ""
+            if let streetNumber = ckRecord["fireStationStreetNumber"] as? String {
+                address = streetNumber + " "
+                self.theLocation.streetNumber = streetNumber
+            }
+            if let streetName = ckRecord["fireStationStreetName"] as? String {
+                address = address + streetName + " "
+                self.theLocation.streetName = streetName
+            }
+            if let fireStationCity = ckRecord["fireStationCity"] as? String {
+                address = address + fireStationCity + " "
+                self.theLocation.city = fireStationCity
+            }
+            if let fireStationState = ckRecord["fireStationState"] as? String {
+                address = address + fireStationState + " "
+                self.theLocation.state = fireStationState
+            }
+            if let zip = ckRecord["fireStationZipCode"] as? String {
+                address = address + zip
+                self.theLocation.zip = zip
+                self.fju.fireStationAddress = address
+            }
+            
+            if address != "" {
+                if self.theLocation.location == nil {
+                    let geocoder = CLGeocoder()
+                    
+                    geocoder.geocodeAddressString(address) {
+                        placemarks, error in
+                        let placemark = placemarks?.first
+                        if let location = placemark?.location {
+                            self.theLocation.location = location
+                            self.theLocation.latitude = location.coordinate.latitude
+                            self.theLocation.longitude = location.coordinate.longitude
+                        }
+                    }
                 }
             }
-            self.fju.fireStationDefault = fdDefaultB
-            self.fju.fireStationGuid = ckRecord["fireStationGuid"]
-            self.fju.fireStationOvertimeGuid = ckRecord["ireStationOvertimeGuid"]
-            self.fju.fireStationState = ckRecord["fireStationState"]
-            self.fju.fireStationStreetName = ckRecord["fireStationStreetName"]
-            self.fju.fireStationStreetNumber = ckRecord["fireStationStreetNumber"]
-            self.fju.fireStationWebSite = ckRecord["fireStationWebSite"]
-            self.fju.fireStationZipCode = ckRecord["fireStationZipCode"]
-            self.fju.fjpUserBackedUp = ckRecord["fjpUserBackedUp"] as? NSNumber
-            self.fju.fjpUserModDate = ckRecord["fjpUserModDate"] as? Date
-            self.fju.fjpUserSearchDate = ckRecord["fjpUserSearchDate"] as? Date
-            self.fju.initialApparatus = ckRecord["initialApparatus"]
-            self.fju.initialAssignment = ckRecord["initialAssignment"]
-            self.fju.middleName = ckRecord["middleName"]
-            self.fju.mobileNumber = ckRecord["mobileNumber"]
-            self.fju.password = ckRecord["password"]
-            self.fju.platoon = ckRecord["platoon"]
-            var pDefaultB: Bool = false
-            if ckRecord["platoonDefault"] != nil {
-                let pDefault = ckRecord["platoonDefault"] as! NSNumber
-                if pDefault == 1 {
-                    pDefaultB = true
-                }
-            }
-            self.fju.platoonDefault = pDefaultB
-            self.fju.platoonGuid = ckRecord["platoonGuid"]
-            self.fju.platoonOverTimeGuid = ckRecord["platoonOverTimeGuid"]
-            self.fju.rank = ckRecord["rank"]
-            var rDefaultB: Bool = false
-            if ckRecord["resourcesDefault"] != nil {
-                let rDefault = ckRecord["resourcesDefault"] as! NSNumber
-                if rDefault == 1 {
-                    rDefaultB = true
-                }
-            }
-            self.fju.resourcesDefault = rDefaultB
-            self.fju.resourcesGuid = ckRecord["resourcesGuid"]
-            self.fju.resourcesOvertimeGuid = ckRecord["resourcesOvertimeGuid"]
-            self.fju.resourcesOvertimeName = ckRecord["resourcesOvertimeName"]
-            let ssDefaultB: Bool = false
-            self.fju.shiftStatusAMorOver = ssDefaultB
-            let subDefaultB: Bool = false
-            self.fju.subscriptionAccount = subDefaultB
-            self.fju.tempApparatus = ckRecord["tempApparatus"]
-            self.fju.tempAssignment = ckRecord["tempAssignment"]
-            self.fju.tempFireStation = ckRecord["tempFireStation"]
-            self.fju.tempPlatoon = ckRecord["tempPlatoon"]
-            self.fju.tempResources = ckRecord["tempResources"]
-            self.fju.user = ckRecord["user"]
-            if ckRecord["userName"] != "" {
-                self.fju.userName = ckRecord["userName"]
-            } else {
-                var fName = ""
-                var lName = ""
-                if let first:String = ckRecord["firstName"] {
-                    fName = first
-                }
-                if let last:String = ckRecord["lastName"] {
-                    lName = last
-                }
-                self.fju.userName = "\(fName) \(lName)"
-            }
+            
+            
             let coder = NSKeyedArchiver(requiringSecureCoding: true)
             ckRecord.encodeSystemFields(with: coder)
             let data = coder.encodedData
@@ -250,11 +374,10 @@ class UserFromCloudOperation: FJOperation {
             
             DispatchQueue.main.async {
                 
-                self.nc.post(name:Notification.Name(rawValue:FJkLOADUSERITMESCALLED),
+                self.nc.post(name:Notification.Name(rawValue: FJkLOADUSERITMESCALLED),
                         object: nil,
-                        userInfo: ["ckRecordType":CKRecordsToLoad.fJkCKRFireJournalUser])
+                        userInfo: ["ckRecordType": CKRecordsToLoad.fJkCKRFireJournalUser])
                 self.userDefaults.set(false, forKey: FJkFJUSERSavedToCoreDataFromCloud)
-                self.bkgrndTask?.endBackgroundTask()
                 self.executing(false)
                 self.finish(true)
                 print("FireJournalUserOperation is done")
@@ -269,10 +392,10 @@ class UserFromCloudOperation: FJOperation {
         /// the context is from the persistantStore newBackgroundContext
     fileprivate func saveToCD() {
         do {
-            try self.context.save()
+            try self.userContext.save()
             
             DispatchQueue.main.async {
-                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context, userInfo:["info":"User From Cloud Operation here saving to context"])
+                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.userContext, userInfo:["info":"User From Cloud Operation here saving to context"])
                 
             }
             DispatchQueue.main.async {
@@ -280,7 +403,6 @@ class UserFromCloudOperation: FJOperation {
                         object: nil,
                         userInfo: ["ckRecordType": CKRecordsToLoad.fJkCKRFireJournalUser])
                 self.userDefaults.set(true, forKey: FJkFJUSERSavedToCoreDataFromCloud)
-                self.bkgrndTask?.endBackgroundTask()
                 self.executing(false)
                 self.finish(true)
                 print("UserFromCloudOperation is done save")
@@ -294,7 +416,6 @@ class UserFromCloudOperation: FJOperation {
             DispatchQueue.main.async {
                 self.userDefaults.set(false, forKey: FJkFJUSERSavedToCoreDataFromCloud)
                 self.nc.removeObserver(self, name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
-                self.bkgrndTask?.endBackgroundTask()
                 self.executing(false)
                 self.finish(true)
             }

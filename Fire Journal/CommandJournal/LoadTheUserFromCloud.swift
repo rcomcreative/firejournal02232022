@@ -13,24 +13,21 @@ import UIKit
 
 class LoadTheUserFromCloud: NSObject {
     
-    let backgroundContext: NSManagedObjectContext
+    let context: NSManagedObjectContext
     let pendingOperations = PendingOperations()
     var thread:Thread!
     let nc = NotificationCenter.default
     let myContainer = CKContainer.init(identifier: FJkCLOUDKITDATABASENAME)
     var privateDatabase: CKDatabase!
     let userDefaults = UserDefaults.standard
-    var backgroundTask : UIBackgroundTaskIdentifier = .invalid
     var bkgrndTask: BkgrndTask?
     var thereIsBackgroundTask: Bool = false
     
     init(context: NSManagedObjectContext) {
-        self.backgroundContext = context
+        self.context = context
         super.init()
         self.thread = Thread(target:self, selector: #selector(getCloudUser), object:nil)
         self.privateDatabase = myContainer.privateCloudDatabase
-        self.bkgrndTask = BkgrndTask.init(bkgrndTask: backgroundTask)
-        self.bkgrndTask?.operation = "LoadUserItems"
         self.nc.addObserver(self, selector:#selector(finishTask(nc:)), name:NSNotification.Name(rawValue: FJkLOADUSERITMESCALLED), object: nil)
     }
     
@@ -40,7 +37,7 @@ class LoadTheUserFromCloud: NSObject {
     
     @objc func getCloudUser() {
         pendingOperations.nfirsIncidentTypeQueue.isSuspended = true
-        let userFromCloudOperation = UserFromCloudOperation(backgroundContext, database: privateDatabase)
+        let userFromCloudOperation = UserFromCloudOperation(context, database: privateDatabase)
         pendingOperations.nfirsIncidentTypeQueue.addOperation(userFromCloudOperation)
         pendingOperations.nfirsIncidentTypeQueue.isSuspended = false
     }
