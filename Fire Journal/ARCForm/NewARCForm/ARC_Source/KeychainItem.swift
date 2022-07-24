@@ -132,7 +132,7 @@ struct KeychainItem {
      */
     static var currentUserIdentifier: String {
         do {
-            let storedIdentifier = try KeychainItem(service: "com.purecommand.FJARCPlus", account: "userIdentifier").readItem()
+            let storedIdentifier = try KeychainItem(service: "com.purecommand.FireJournal", account: "userIdentifier").readItem()
             return storedIdentifier
         } catch {
             return ""
@@ -141,7 +141,7 @@ struct KeychainItem {
     
     static func deleteUserIdentifierFromKeychain() {
         do {
-            try KeychainItem(service: "com.purecommand.FJARCPlus", account: "userIdentifier").deleteItem()
+            try KeychainItem(service: "com.purecommand.FireJournal", account: "userIdentifier").deleteItem()
         } catch {
             print("Unable to delete userIdentifier from keychain")
         }

@@ -432,6 +432,8 @@
 		139AB21B2804EEEE0091D024 /* BuildFromActionsTaken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139AB21A2804EEEE0091D024 /* BuildFromActionsTaken.swift */; };
 		139AB21D2804EFA00091D024 /* NFIRSActionTakenBuildOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139AB21C2804EFA00091D024 /* NFIRSActionTakenBuildOperation.swift */; };
 		139AB21F280503230091D024 /* LocalIncidentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139AB21E280503230091D024 /* LocalIncidentProvider.swift */; };
+		139ADCC0288B1F2200F57D75 /* ARC_FormMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 139ADCBF288B1F2200F57D75 /* ARC_FormMain.storyboard */; };
+		139ADCC2288B1F4D00F57D75 /* NewARC_FormMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139ADCC1288B1F4D00F57D75 /* NewARC_FormMainVC.swift */; };
 		139C092221D15F600098E31E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 139C092121D15F600098E31E /* StoreKit.framework */; };
 		139D330E23415F86009CD7AE /* BackgroundOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139D330D23415F86009CD7AE /* BackgroundOperation.swift */; };
 		139F01A92330404200C64F9E /* Mapping38to39.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 139F01A82330404200C64F9E /* Mapping38to39.xcmappingmodel */; };
@@ -1720,6 +1722,8 @@
 		139AB21A2804EEEE0091D024 /* BuildFromActionsTaken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildFromActionsTaken.swift; sourceTree = "<group>"; };
 		139AB21C2804EFA00091D024 /* NFIRSActionTakenBuildOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFIRSActionTakenBuildOperation.swift; sourceTree = "<group>"; };
 		139AB21E280503230091D024 /* LocalIncidentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalIncidentProvider.swift; sourceTree = "<group>"; };
+		139ADCBF288B1F2200F57D75 /* ARC_FormMain.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ARC_FormMain.storyboard; sourceTree = "<group>"; };
+		139ADCC1288B1F4D00F57D75 /* NewARC_FormMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewARC_FormMainVC.swift; sourceTree = "<group>"; };
 		139C092121D15F600098E31E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		139D330D23415F86009CD7AE /* BackgroundOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundOperation.swift; sourceTree = "<group>"; };
 		139F01A723303C4A00C64F9E /* FireJournal39.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FireJournal39.xcdatamodel; sourceTree = "<group>"; };
@@ -3548,6 +3552,7 @@
 				13C96D7925310A2700C5195F /* Campaign.storyboard */,
 				13C96D7A25310A2700C5195F /* Form.storyboard */,
 				13C96D7B25310A2700C5195F /* ResidenceType.storyboard */,
+				139ADCBF288B1F2200F57D75 /* ARC_FormMain.storyboard */,
 			);
 			path = ARC_StoryBoards;
 			sourceTree = "<group>";
@@ -3637,6 +3642,7 @@
 				13C96E0025310A6300C5195F /* CampaignTVC.swift */,
 				13C96E0325310A6300C5195F /* TypeTVC.swift */,
 				13C96E0625310A6300C5195F /* TypeTVC+Extensions.swift */,
+				139ADCC1288B1F4D00F57D75 /* NewARC_FormMainVC.swift */,
 			);
 			path = ARC_Controllers;
 			sourceTree = "<group>";
@@ -4519,6 +4525,7 @@
 				13ABC96F21C45209002B506A /* ProfileLabelTextFieldIndicatorCell.xib in Resources */,
 				13F3E98C219B80BF0044CF41 /* IncidentEmergencyCell.xib in Resources */,
 				13F3EAC0219B80BF0044CF41 /* RadioChannels.plist in Resources */,
+				139ADCC0288B1F2200F57D75 /* ARC_FormMain.storyboard in Resources */,
 				13E23BA127F4F4710033BCA6 /* TheJournal.storyboard in Resources */,
 				134FF4E3244525430064ABF3 /* NewFormsCVCell.xib in Resources */,
 				13F3EACA219B80BF0044CF41 /* Platoon.plist in Resources */,
@@ -5044,6 +5051,7 @@
 				13F3EB90219B80BF0044CF41 /* OpenModalThree.swift in Sources */,
 				13F3EB54219B80BF0044CF41 /* PhotosTVCell.swift in Sources */,
 				132304B421B1E0BE006013D3 /* CommandJournal.xcdatamodeld in Sources */,
+				139ADCC2288B1F4D00F57D75 /* NewARC_FormMainVC.swift in Sources */,
 				13F3EB88219B80BF0044CF41 /* OpenModelBV.swift in Sources */,
 				13EA352A27E50DE90058D6EE /* Mapping58to59.xcmappingmodel in Sources */,
 				13C96DD325310A5800C5195F /* ARC_DateTimeCell.swift in Sources */,
@@ -5841,7 +5849,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Fire Journal/Fire Journal.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4.0.20;
+				CURRENT_PROJECT_VERSION = 4.0.22;
 				DEVELOPMENT_TEAM = 8Y2CT58NL3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5881,7 +5889,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Fire Journal/Fire Journal.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4.0.20;
+				CURRENT_PROJECT_VERSION = 4.0.22;
 				DEVELOPMENT_TEAM = 8Y2CT58NL3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

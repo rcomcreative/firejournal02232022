@@ -663,20 +663,117 @@ extension DetailViewController: FormListModalVCDelegate {
             let int = theCount(entity: "ARCrossForm")
             if int != 0 {
                 let objectID = fetchTheLatest(shift: MenuItems.arcForm)
+                
                 nc.post(name:Notification.Name(rawValue: FJkARCFORM_FROM_MASTER),
                         object: nil,
                         userInfo: ["objectID": objectID, "shift": MenuItems.arcForm])
             } else {
                 slideInTransitioningDelgate.direction = .bottom
                 slideInTransitioningDelgate.disableCompactHeight = true
-                let vc:ARC_ViewController = vcLaunch.modalARCFormNewCalled()
-                vc.title = "New ARC Form"
-                vc.transitioningDelegate = slideInTransitioningDelgate
-                vc.modalPresentationStyle = .custom
-                self.present(vc, animated: true, completion: nil)
+                let storyBoard : UIStoryboard = UIStoryboard(name: "ARC_FormMain", bundle:nil)
+                if let newARC_FormMainVC = storyBoard.instantiateViewController(withIdentifier: "NewARC_FormMainVC") as? NewARC_FormMainVC {
+                    newARC_FormMainVC.delegate = self
+                    newARC_FormMainVC.transitioningDelegate = slideInTransitioningDelgate
+                    newARC_FormMainVC.modalPresentationStyle = .custom
+                    if theUserTime != nil {
+                        newARC_FormMainVC.userTimeOID = theUserTime.objectID
+                    }
+                    if theFireJournalUser != nil {
+                        newARC_FormMainVC.userOID = theFireJournalUser.objectID
+                    }
+                    self.present(newARC_FormMainVC, animated: true, completion: nil)
+                }
             }
         default: break
         }
+    }
+    
+    
+}
+
+extension DetailViewController: CampaignDelegate {
+    
+    func theCampaignHasBegun() {
+        
+    }
+    
+    
+}
+
+extension DetailViewController: NewARC_FormMainVCDelegate {
+    
+    func theCampaignButtonTapped(userTimeOID: NSManagedObjectID, userOID: NSManagedObjectID) {
+        slideInTransitioningDelgate.direction = .bottom
+        slideInTransitioningDelgate.disableCompactHeight = true
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Campaign", bundle:nil)
+        let dataTVC = storyBoard.instantiateViewController(withIdentifier: "CampaignTVC") as! CampaignTVC
+        dataTVC.delegate = self
+        dataTVC.transitioningDelegate = slideInTransitioningDelgate
+        if Device.IS_IPHONE {
+            dataTVC.modalPresentationStyle = .formSheet
+        } else {
+        dataTVC.modalPresentationStyle = .custom
+        }
+        self.present(dataTVC, animated: true, completion: nil)
+    }
+    
+    func theSingleFormButtonTapped(userTimeOID: NSManagedObjectID, userOID: NSManagedObjectID) {
+        slideInTransitioningDelgate.direction = .bottom
+        slideInTransitioningDelgate.disableCompactHeight = true
+        let storyboard = UIStoryboard(name: "Form", bundle: nil)
+        let controller:ARC_FormTVC = storyboard.instantiateViewController(withIdentifier: "ARC_FormTVC") as! ARC_FormTVC
+        
+        if Device.IS_IPHONE {
+            let navigator = UINavigationController.init(rootViewController: controller)
+                    controller.transitioningDelegate = slideInTransitioningDelgate
+                    controller.navigationItem.leftItemsSupplementBackButton = true
+                    controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
+                    controller.delegate = self
+            controller.modalPresentationStyle = .formSheet
+            self.present(navigator, animated: true, completion: nil)
+        } else {
+            let int = theCount(entity: "ARCrossForm")
+            if int != 0 {
+                let navigator = UINavigationController.init(rootViewController: controller)
+                controller.transitioningDelegate = slideInTransitioningDelgate
+                controller.navigationItem.leftItemsSupplementBackButton = true
+                controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
+                controller.delegate = self
+            self.splitViewController?.showDetailViewController(navigator, sender:self)
+            } else {
+                controller.transitioningDelegate = slideInTransitioningDelgate
+                controller.navigationItem.leftItemsSupplementBackButton = true
+                controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
+                controller.delegate = self
+                controller.firstForm = true
+                controller.modalPresentationStyle = .custom
+                self.present(controller, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    
+}
+
+extension DetailViewController: ARC_FormDelegate {
+    
+    func theFormWantsNewForm() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func theFormHasCancelled() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func theFormHasBeenSaved() {
+        self.dismiss(animated: true, completion: {
+            let objectID = self.fetchTheLatest(shift: MenuItems.arcForm)
+            
+            self.nc.post(name:Notification.Name(rawValue: FJkARCFORM_FROM_MASTER),
+                         object: nil,
+                         userInfo: ["objectID": objectID, "shift": MenuItems.arcForm])
+        }
+        )
     }
     
     

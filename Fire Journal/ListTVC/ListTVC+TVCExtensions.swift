@@ -376,6 +376,9 @@ extension ListTVC {
                             context.delete(arcForm)
                             saveToCD()
                         }
+                    } else {
+                            context.delete(arcForm)
+                            saveToCD()
                     }
                 default: break
                 }

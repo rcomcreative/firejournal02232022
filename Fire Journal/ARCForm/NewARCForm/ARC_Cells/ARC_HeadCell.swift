@@ -27,6 +27,18 @@ class ARC_HeadCell: UITableViewCell {
     @IBOutlet weak var dateL: UILabel!
     @IBOutlet weak var shareB: UIButton!
     
+    private var theFirstRun: Bool = false
+    var firstRun: Bool = false {
+        didSet {
+            self.theFirstRun = self.firstRun
+            if self.theFirstRun {
+                shareB.isHidden = true
+                shareB.isEnabled = false
+                shareB.alpha = 0.0
+            }
+        }
+    }
+    
 //    MARK: -PROPERTIES-
     private var campaignerSwitch: Bool = true
     var campaign: Bool = true {
@@ -56,9 +68,11 @@ class ARC_HeadCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-//        shareB.isHidden = true
-//        shareB.isEnabled = false
-//        shareB.alpha = 0.0
+//        if firstRun {
+//                        shareB.isHidden = true
+//                        shareB.isEnabled = false
+//                        shareB.alpha = 0.0
+//        }
         // Initialization code
     }
 

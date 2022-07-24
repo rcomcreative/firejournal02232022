@@ -3,7 +3,7 @@
 //  FJ ARC Plus
 //
 //  Created by DuRand Jones on 8/27/20.
-//  Copyright © 2020 com.purecommand.FJARCPlus. All rights reserved.
+//  Copyright © 2020 com.purecommand.FireJournal. All rights reserved.
 //
 
 import UIKit
@@ -164,7 +164,6 @@ extension ARC_FormTVC {
         journal.journalPrivate = true
         journal.journalBackedUp = false
         theForm.journalDetail = journal
-        saveSingleAndJournalToCD()
     }
     
     //    MARK: -CONFIGURE CELLS-
@@ -542,6 +541,8 @@ extension ARC_FormTVC {
             cell.infoB.alpha = 0.0
             cell.infoB.isEnabled = false
         }
+        
+        cell.firstRun = firstForm
         
         return cell
     }
@@ -1038,6 +1039,29 @@ extension ARC_FormTVC {
         return administrativeHeight
     }
     
+    @objc func removeTheForm(_ sender: Any) {
+        dismiss(animated: true, completion: {
+        if self.objectID == nil {
+            self.context.delete(self.theForm)
+            self.context.delete(self.theResidence)
+            self.context.delete(self.theLocalPartners)
+            self.context.delete(self.theNationalPartners)
+            do {
+                try self.context.save()
+                DispatchQueue.main.async {
+                    self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"ARCForm merge that"])
+                }
+            } catch let error as NSError {
+                let nserror = error
+                
+                let errorMessage = "ARCForm saveToCD The context was unable to save due to \(nserror), \(nserror.userInfo)"
+                print(errorMessage)
+            }
+            self.theForm = nil
+        }
+        })
+    }
+    
     @objc func saveTheForm(_ sender:Any) {
         let modDate = Date()
         theForm.arcModDate = modDate
@@ -1054,21 +1078,52 @@ extension ARC_FormTVC {
 extension ARC_FormTVC: MapFormHeaderVDelegate {
     
     func mapFormHeaderBackBTapped(type: IncidentTypes) {
-        if (Device.IS_IPHONE) {
-            if fireJournalUser != nil {
-                let id = fireJournalUser.objectID
-                vcLaunch.mapCalledPhone(type: type, theUserOID: id)
+        switch type {
+        case .arcForm:
+            dismiss(animated: true, completion: {
+            if self.objectID == nil {
+                self.context.delete(self.theForm)
+                self.context.delete(self.theResidence)
+                self.context.delete(self.theLocalPartners)
+                self.context.delete(self.theNationalPartners)
+                do {
+                    try self.context.save()
+                    DispatchQueue.main.async {
+                        self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"ARCForm merge that"])
+                    }
+                } catch let error as NSError {
+                    let nserror = error
+                    
+                    let errorMessage = "ARCForm saveToCD The context was unable to save due to \(nserror), \(nserror.userInfo)"
+                    print(errorMessage)
+                }
+                self.theForm = nil
             }
-        } else {
-            if fireJournalUser != nil {
-                let id = fireJournalUser.objectID
-                vcLaunch.mapCalled(type: type, theUserOID: id)
+            })
+        default:
+            if (Device.IS_IPHONE) {
+                if fireJournalUser != nil {
+                    let id = fireJournalUser.objectID
+                    vcLaunch.mapCalledPhone(type: type, theUserOID: id)
+                }
+            } else {
+                if fireJournalUser != nil {
+                    let id = fireJournalUser.objectID
+                    vcLaunch.mapCalled(type: type, theUserOID: id)
+                }
             }
         }
     }
     
     func mapFormHeaderSaveBTapped() {
-        saveTheForm(self)
+        let modDate = Date()
+        theForm.arcModDate = modDate
+        if theForm.campaignName == "Single" {
+            theForm.cComplete = true
+            theForm.cEndDate = modDate
+        }
+        saveSingleAndJournalToCD()
+        delegate?.theFormHasBeenSaved()
     }
     
 }

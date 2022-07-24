@@ -3,7 +3,7 @@
 //  FJ ARC Plus
 //
 //  Created by DuRand Jones on 8/25/20.
-//  Copyright © 2020 com.purecommand.FJARCPlus. All rights reserved.
+//  Copyright © 2020 com.purecommand.FireJournal. All rights reserved.
 //
 
 import UIKit
@@ -70,9 +70,11 @@ class ARC_FormTVC: UITableViewController, CLLocationManagerDelegate {
     var installerName: String = ""
     var userSkipped: Bool = true
     var saveButton: UIBarButtonItem!
+    var backButton: UIBarButtonItem!
     var singleOrCampaign: Bool = false
     var pdfLink: String = ""
     var arcFormToCloud: ARCFormToCloud!
+    var firstForm: Bool = false
     
     var fromMap: Bool = false
     var incidentType: IncidentTypes = .arcForm
@@ -94,11 +96,19 @@ class ARC_FormTVC: UITableViewController, CLLocationManagerDelegate {
             self.view.frame = CGRect(x: 0, y: 44, width: frame.width, height: height)
             self.tableView = UITableView.init(frame: self.view.frame, style: .grouped)
         }
+        
+        if firstForm {
+            
+        }
         networkAlert = NetworkAlert.init(name: "Internet Activity")
         installerAlert = InstallerAlert.init(name: "Installer Name")
         nc.addObserver(self, selector:#selector(noConnectionCalled(ns:)),name:NSNotification.Name(rawValue: kHAVENO_CONNECTIONALERT), object: nil)
         nc.addObserver(self, selector:#selector(alertDown(ns:)),name:NSNotification.Name(rawValue: FJkAlertISReleased), object: nil)
+        if Device.IS_IPHONE {
+            self.title = "CRR Form"
+        } else {
         self.title = "SMOKE ALARM INSTALLATION FORM"
+        }
         if campaign {
             print("This form is part of a campaign")
         } else {
@@ -121,7 +131,11 @@ class ARC_FormTVC: UITableViewController, CLLocationManagerDelegate {
         //        MARK: -NAVIGATION-
         if !fromMap {
             saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveTheForm(_:)))
+            saveButton.tintColor = UIColor.white
             navigationItem.rightBarButtonItem = saveButton
+            backButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(removeTheForm(_:)))
+            backButton.tintColor = UIColor.white
+            navigationItem.leftBarButtonItem = backButton
             _ = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action:nil)
         }
     }
@@ -203,8 +217,15 @@ class ARC_FormTVC: UITableViewController, CLLocationManagerDelegate {
                 return 0
             }
         } else {
+            if firstForm {
+                if  Device.IS_IPAD {
+                    return 44
+                }
+            } else {
             return 0
+            }
         }
+        return 0
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

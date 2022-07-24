@@ -3,7 +3,7 @@
 //  FJ ARC Plus
 //
 //  Created by DuRand Jones on 8/19/20.
-//  Copyright © 2020 com.purecommand.FJARCPlus. All rights reserved.
+//  Copyright © 2020 com.purecommand.FireJournal. All rights reserved.
 //
 
 import UIKit
@@ -83,16 +83,10 @@ class ARC_ViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-//        logoIV.layer.cornerRadius = 8
-//        logoIV.clipsToBounds = true
         campaignB.layer.cornerRadius = 8
         campaignB.clipsToBounds = true
         singleB.layer.cornerRadius = 8
         singleB.clipsToBounds = true
-//        listB.layer.cornerRadius = 8
-//        listB.clipsToBounds = true
-//        mapB.layer.cornerRadius = 8
-//        mapB.clipsToBounds = true
     }
     
     func downloadUsersData() {
@@ -221,7 +215,6 @@ class ARC_ViewController: UIViewController {
         let dataTVC = storyBoard.instantiateViewController(withIdentifier: "CampaignTVC") as! CampaignTVC
         dataTVC.delegate = self
         dataTVC.transitioningDelegate = slideInTransitioningDelgate
-//        dataTVC.titleName = "Campaign"
         dataTVC.modalPresentationStyle = .custom
         self.present(dataTVC, animated: true, completion: nil)
     }
@@ -236,28 +229,14 @@ class ARC_ViewController: UIViewController {
         }
     }
     
-//    // MARK: - Segues
-//    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "CampaignSegue" {
-//            let campaignTVC = segue.destination as! CampaignTVC
-//            campaignTVC.delegate = self
-//        } else if segue.identifier == "FormSegue" {
-//            let formTVC = segue.destination as! ARC_FormTVC
-//            formTVC.campaign = false
-//            formTVC.delegate = self
-//            if let object = objectID {
-//                formTVC.objectID = object
-//            }
-//            objectID = nil
-//        }
-//    }
+
     
     
     
 }
 
 extension ARC_ViewController: ARC_FormDelegate {
+    
     func theFormWantsNewForm() {
         self.dismiss(animated: true, completion: nil)
     }
@@ -274,6 +253,7 @@ extension ARC_ViewController: ARC_FormDelegate {
 }
 
 extension ARC_ViewController: CampaignDelegate {
+    
     func theCampaignHasBegun() {
         self.dismiss(animated: true, completion: nil)
     }

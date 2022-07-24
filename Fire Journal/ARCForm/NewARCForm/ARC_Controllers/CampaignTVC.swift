@@ -3,7 +3,7 @@
 //  FJ ARC Plus
 //
 //  Created by DuRand Jones on 8/25/20.
-//  Copyright © 2020 com.purecommand.FJARCPlus. All rights reserved.
+//  Copyright © 2020 com.purecommand.FireJournal. All rights reserved.
 //
 
 import UIKit
@@ -225,7 +225,9 @@ class CampaignTVC: UITableViewController {
 extension CampaignTVC: MapHeaderDelegate {
     
     func theBackButtonTapped() {
-        delegate?.theCampaignHasBegun()
+        self.dismiss(animated: true, completion: {
+            self.delegate?.theCampaignHasBegun()
+        })
     }
     
     func theNewFormTapped() {

@@ -380,8 +380,6 @@ class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalT
     }
     
     func modalARCFormNewCalled() ->ARC_ViewController {
-        //        let storyboard = UIStoryboard(name: "ARCForm", bundle: nil)
-        //        let controller: NewARCFormModalTVC = storyboard.instantiateViewController(withIdentifier: "NewARCFormModalTVC") as! NewARCFormModalTVC
         let storyboard = UIStoryboard(name: "ARCFormMain", bundle: nil)
         let controller: ARC_ViewController = storyboard.instantiateViewController(withIdentifier: "ARC_ViewController" ) as! ARC_ViewController
         return controller

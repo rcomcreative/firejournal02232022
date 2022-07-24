@@ -250,15 +250,18 @@ extension ListTVC: NewICS214DetailTVCDelegate {
 }
 
 extension ListTVC: ARC_FormDelegate {
+    
+    func theFormWantsNewForm() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     func theFormHasCancelled() {
+        self.dismiss(animated: true, completion: nil)
     }
     
     func theFormHasBeenSaved() {
+        self.dismiss(animated: true, completion: nil)
     }
-    
-    func theFormWantsNewForm() {
-    }
-    
     
 }
 

@@ -88,6 +88,15 @@ class ListTVC: UITableViewController,UISplitViewControllerDelegate   {
     var theUserTime: UserTime!
     var theUserTimeOID: NSManagedObjectID!
     
+    
+    lazy var theUserProvider: FireJournalUserProvider = {
+        let provider = FireJournalUserProvider(with: (UIApplication.shared.delegate as! AppDelegate).persistentContainer)
+        return provider
+    }()
+    var theUserContext: NSManagedObjectContext!
+    var theUserOID: NSManagedObjectID!
+    var theFireJournalUser: FireJournalUser!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -113,6 +122,8 @@ class ListTVC: UITableViewController,UISplitViewControllerDelegate   {
         if theUserTimeOID != nil {
             theUserTime = context.object(with: theUserTimeOID) as? UserTime
         }
+        
+        getTheFireJournalUser()
         
         configureNavigationBar()
         

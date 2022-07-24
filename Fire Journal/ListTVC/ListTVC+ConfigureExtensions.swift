@@ -1,10 +1,10 @@
-//
-//  ListTVC+ConfigureExtensions.swift
-//  Fire Journal
-//
-//  Created by DuRand Jones on 3/24/22.
-//  Copyright © 2022 PureCommand, LLC. All rights reserved.
-//
+    //
+    //  ListTVC+ConfigureExtensions.swift
+    //  Fire Journal
+    //
+    //  Created by DuRand Jones on 3/24/22.
+    //  Copyright © 2022 PureCommand, LLC. All rights reserved.
+    //
 
 import UIKit
 import Foundation
@@ -30,6 +30,19 @@ extension ListTVC {
             if let id = uTime?.objectID {
                 theUserTime  = context.object(with: id) as? UserTime
             }
+        }
+    }
+    
+    func getTheFireJournalUser() {
+        theUserContext = theUserProvider.persistentContainer.newBackgroundContext()
+        guard let users = theUserProvider.getTheUser(theUserContext) else {
+            let errorMessage = "There is no user associated with this end shift"
+            errorAlert(errorMessage: errorMessage)
+            return
+        }
+        let aUser = users.last
+        if let id = aUser?.objectID {
+            theFireJournalUser = context.object(with: id) as? FireJournalUser
         }
     }
     
@@ -134,12 +147,25 @@ extension ListTVC {
     @IBAction func addNewARCFormEntry(_ sender:Any) {
         slideInTransitioningDelgate.direction = .bottom
         slideInTransitioningDelgate.disableCompactHeight = true
-        let vc: ARC_ViewController = vcLaunch.modalARCFormNewCalled()
-        vc.title = "Campaign or Single"
-        vc.delegate = self
-        vc.transitioningDelegate = slideInTransitioningDelgate
-        vc.modalPresentationStyle = .custom
-        self.present(vc, animated: true, completion: nil)
+        let storyBoard : UIStoryboard = UIStoryboard(name: "ARC_FormMain", bundle:nil)
+        if let newARC_FormMainVC = storyBoard.instantiateViewController(withIdentifier: "NewARC_FormMainVC") as? NewARC_FormMainVC {
+            newARC_FormMainVC.delegate = self
+            newARC_FormMainVC.transitioningDelegate = slideInTransitioningDelgate
+            if Device.IS_IPHONE {
+                newARC_FormMainVC.modalPresentationStyle = .formSheet
+            } else {
+                newARC_FormMainVC.modalPresentationStyle = .custom
+            }
+            if theUserTime != nil {
+                newARC_FormMainVC.userTimeOID = theUserTime.objectID
+            }
+            if theFireJournalUser != nil {
+                newARC_FormMainVC.userOID = theFireJournalUser.objectID
+            } else {
+                
+            }
+            self.present(newARC_FormMainVC, animated: true, completion: nil)
+        }
     }
     
     @IBAction func addNewICS214Entry(_ sender:Any) {
@@ -147,7 +173,7 @@ extension ListTVC {
         slideInTransitioningDelgate.disableCompactHeight = true
         let vc:NewICS214ModalTVC = vcLaunch.modalICS214NewCalled()
         vc.title = "New ICS 214"
-        //        let navigator = UINavigationController.init(rootViewController: vc)
+            //        let navigator = UINavigationController.init(rootViewController: vc)
         vc.delegate = self
         vc.transitioningDelegate = slideInTransitioningDelgate
         vc.modalPresentationStyle = .custom
@@ -192,13 +218,13 @@ extension ListTVC {
         promotionNewModalVC.transitioningDelegate = slideInTransitioningDelgate
         if theUserTime != nil {
             promotionNewModalVC.userTimeObjectID = theUserTime.objectID
-        if Device.IS_IPHONE {
-            promotionNewModalVC.modalPresentationStyle = .formSheet
-        } else {
-            promotionNewModalVC.modalPresentationStyle = .custom
-        }
+            if Device.IS_IPHONE {
+                promotionNewModalVC.modalPresentationStyle = .formSheet
+            } else {
+                promotionNewModalVC.modalPresentationStyle = .custom
+            }
             promotionNewModalVC.delegate = self
-        self.present(promotionNewModalVC,animated: true)
+            self.present(promotionNewModalVC,animated: true)
         } else {
             let errorMessage = "A shift needs to be started to create journal entries."
             errorAlert(errorMessage: errorMessage)
@@ -213,13 +239,13 @@ extension ListTVC {
         journalNewModalVC.transitioningDelegate = slideInTransitioningDelgate
         if theUserTime != nil {
             journalNewModalVC.userTimeObjectID = theUserTime.objectID
-        if Device.IS_IPHONE {
-            journalNewModalVC.modalPresentationStyle = .formSheet
-        } else {
-            journalNewModalVC.modalPresentationStyle = .custom
-        }
-        journalNewModalVC.delegate = self
-        self.present(journalNewModalVC,animated: true)
+            if Device.IS_IPHONE {
+                journalNewModalVC.modalPresentationStyle = .formSheet
+            } else {
+                journalNewModalVC.modalPresentationStyle = .custom
+            }
+            journalNewModalVC.delegate = self
+            self.present(journalNewModalVC,animated: true)
         } else {
             let errorMessage = "A shift needs to be started to create journal entries."
             errorAlert(errorMessage: errorMessage)
@@ -259,10 +285,56 @@ extension ListTVC {
     
 }
 
+extension ListTVC: NewARC_FormMainVCDelegate {
+    
+    func theCampaignButtonTapped(userTimeOID: NSManagedObjectID, userOID: NSManagedObjectID) {
+        slideInTransitioningDelgate.direction = .bottom
+        slideInTransitioningDelgate.disableCompactHeight = true
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Campaign", bundle:nil)
+        let dataTVC = storyBoard.instantiateViewController(withIdentifier: "CampaignTVC") as! CampaignTVC
+        dataTVC.delegate = self
+        dataTVC.transitioningDelegate = slideInTransitioningDelgate
+        if Device.IS_IPHONE {
+            dataTVC.modalPresentationStyle = .formSheet
+        } else {
+        dataTVC.modalPresentationStyle = .custom
+        }
+        self.present(dataTVC, animated: true, completion: nil)
+    }
+    
+    func theSingleFormButtonTapped(userTimeOID: NSManagedObjectID, userOID: NSManagedObjectID) {
+        let storyboard = UIStoryboard(name: "Form", bundle: nil)
+        let controller:ARC_FormTVC = storyboard.instantiateViewController(withIdentifier: "ARC_FormTVC") as! ARC_FormTVC
+        let navigator = UINavigationController.init(rootViewController: controller)
+        controller.navigationItem.leftItemsSupplementBackButton = true
+        controller.navigationItem.leftBarButtonItem = self.splitVC?.displayModeButtonItem
+        controller.delegate = self
+        if Device.IS_IPHONE {
+            controller.modalPresentationStyle = .formSheet
+            self.present(navigator, animated: true, completion: nil)
+        } else {
+            self.splitVC?.showDetailViewController(navigator, sender:self)
+        }
+    }
+    
+    
+}
+
+extension ListTVC: CampaignDelegate {
+    
+    func theCampaignHasBegun() {
+        
+    }
+    
+    
+}
+
+
+
 extension ListTVC: NSFetchedResultsControllerDelegate {
     
-//    MARK: -NSFetch
-        
+        //    MARK: -NSFetch
+    
     
     func getTheDataForTheList() -> NSFetchedResultsController<NSFetchRequestResult> {
         
@@ -277,7 +349,7 @@ extension ListTVC: NSFetchedResultsControllerDelegate {
         
         switch myShift {
         case .journal:
-//            let predicate = NSPredicate(format: "%K != %@", attribute, "")
+                //            let predicate = NSPredicate(format: "%K != %@", attribute, "")
             let predicate2 = NSPredicate(format: "%K == %@","journalPrivate", NSNumber(value:true))
             let predicate5 = NSPredicate(format: "%K == %@ || %K == %@ || %K == %@ || %K == %@","journalEntryType","Station","journalEntryType","Community","journalEntryType","Members","journalEntryType","Training")
             let predicate3 = NSPredicate(format: "%K != %@", "journalEntryTypeImageName","NOTJournal")
@@ -313,15 +385,15 @@ extension ListTVC: NSFetchedResultsControllerDelegate {
             _fetchedResultsController = aFetchedResultsController
         case .maps:
             
-                let predicate = NSPredicate(format: "%K != nil", attribute)
-                let predicateCan = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [predicate])
-                fetchRequest.predicate = predicateCan
-                let sectionSortDescriptor = NSSortDescriptor(key: "incidentCreationDate", ascending: false)
-                let sortDescriptors = [sectionSortDescriptor]
-                fetchRequest.sortDescriptors = sortDescriptors
-                let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.context, sectionNameKeyPath: nil, cacheName: "Master-Incident")
-                aFetchedResultsController.delegate = self
-                _fetchedResultsController = aFetchedResultsController
+            let predicate = NSPredicate(format: "%K != nil", attribute)
+            let predicateCan = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [predicate])
+            fetchRequest.predicate = predicateCan
+            let sectionSortDescriptor = NSSortDescriptor(key: "incidentCreationDate", ascending: false)
+            let sortDescriptors = [sectionSortDescriptor]
+            fetchRequest.sortDescriptors = sortDescriptors
+            let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.context, sectionNameKeyPath: nil, cacheName: "Master-Incident")
+            aFetchedResultsController.delegate = self
+            _fetchedResultsController = aFetchedResultsController
             switch myShiftTwo {
             case .incidents:
                 let predicate = NSPredicate(format: "%K != %@", attribute, "")
@@ -470,7 +542,7 @@ extension ListTVC: NSFetchedResultsControllerDelegate {
             print("NSFetchedResultsChangeType.insert detected")
             if let indexPath = newIndexPath {
                 tableView.insertRows(at: [indexPath], with: .fade)
-                //                saveToCD()
+                    //                saveToCD()
             }
         case NSFetchedResultsChangeType.delete:
             print("NSFetchedResultsChangeType.Delete detected")
@@ -482,7 +554,7 @@ extension ListTVC: NSFetchedResultsControllerDelegate {
             print("NSFetchedResultsChangeType.update detected")
             if let indexPath = indexPath, let _ = tableView.cellForRow(at: indexPath) {
                 _ = configureCell(at: indexPath)
-                //                saveToCD()
+                    //                saveToCD()
             }
         case NSFetchedResultsChangeType.move:
             print("NSFetchedResultsChangeType.Move detected")
@@ -490,7 +562,7 @@ extension ListTVC: NSFetchedResultsControllerDelegate {
                 self.tableView.deleteRows(at: [deleteIndexPath], with: UITableView.RowAnimation.fade)
             }
             
-            // Note that for Move, we insert a row at the __newIndexPath__
+                // Note that for Move, we insert a row at the __newIndexPath__
             if let insertIndexPath = newIndexPath {
                 self.tableView.insertRows(at: [insertIndexPath], with: UITableView.RowAnimation.fade)
             }

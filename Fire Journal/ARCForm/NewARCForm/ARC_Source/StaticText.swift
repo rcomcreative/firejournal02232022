@@ -4,7 +4,7 @@
     //  FJ ARC Plus
     //
     //  Created by DuRand Jones on 8/26/20.
-    //  Copyright © 2020 com.purecommand.FJARCPlus. All rights reserved.
+    //  Copyright © 2020 com.purecommand.FireJournal. All rights reserved.
     //
 
 import Foundation
