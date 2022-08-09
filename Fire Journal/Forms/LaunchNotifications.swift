@@ -261,7 +261,9 @@ class LaunchNotifications {
     @objc func mapsCalled(notification:Notification)-> Void{
         if let userInfo = notification.userInfo as! [String: Any]? {
             if let objectID = userInfo["theUserOID"] as? NSManagedObjectID {
-                vcLaunch.mapCalled(type: IncidentTypes.allIncidents, theUserOID: objectID)
+                if let userTimeID = userInfo["theUserTimeID"] as? NSManagedObjectID {
+                vcLaunch.mapCalled(type: IncidentTypes.allIncidents, theUserOID: objectID, theUserTimeOID: userTimeID)
+                }
             }
         }
     }
@@ -274,7 +276,9 @@ class LaunchNotifications {
         if let userInfo = notification.userInfo as! [String: Any]?
         {
             if let id = userInfo["objectID"] as? NSManagedObjectID {
-                vcLaunch.ics214Called(objectID: id)
+                if let userTimeID = userInfo["theUserTimeID"] as? NSManagedObjectID {
+                vcLaunch.ics214Called(objectID: id, theUserTimeID: userTimeID)
+                }
             }
         }
     }

@@ -691,6 +691,10 @@ extension ICS214DetailViewController: NewICS214ModalTVCDelegate {
         navigationController?.popViewController(animated: true)
     }
     
+    func theNewICS214Created(ics214OID: NSManagedObjectID) {
+        
+    }
+    
 }
 
 //      MARK: -SectionHeaderCellDelgate-

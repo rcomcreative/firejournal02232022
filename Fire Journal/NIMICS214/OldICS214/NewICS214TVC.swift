@@ -167,7 +167,6 @@ class NewICS214TVC: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "NewICS214LabelTextFieldCell", for: indexPath) as! NewICS214LabelTextFieldCell
             cell.delegate = self
             cell.subjectL.text = "Event Type"
-            cell.descriptionTF.textColor = UIColor.black
             cell.descriptionTF.text = ics214Form.ics214Effort
             cell.path = indexPath
             cell.tag = row
@@ -176,7 +175,6 @@ class NewICS214TVC: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "NewICS214LabelTextFieldCell", for: indexPath) as! NewICS214LabelTextFieldCell
             cell.delegate = self
             cell.subjectL.text = "Incident Number"
-            cell.descriptionTF.textColor = UIColor.black
             cell.descriptionTF.text = ics214Form.ics214LocalIncidentNumber
             cell.path = indexPath
             cell.tag = row
@@ -185,7 +183,6 @@ class NewICS214TVC: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "NewICS214LabelTextFieldCell", for: indexPath) as! NewICS214LabelTextFieldCell
             cell.delegate = self
             cell.subjectL.text = "Incident Name"
-            cell.descriptionTF.textColor = UIColor.black
             cell.descriptionTF.text = ics214Form.ics214IncidentName
             cell.path = indexPath
             cell.tag = row
@@ -223,7 +220,6 @@ class NewICS214TVC: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "NewICS214LabelTextFieldCell", for: indexPath) as! NewICS214LabelTextFieldCell
             cell.delegate = self
             cell.subjectL.text = "Name"
-            cell.descriptionTF.textColor = UIColor.black
             cell.descriptionTF.text = ics214Form.ics214UserName
             cell.path = indexPath
             cell.tag = row
@@ -232,7 +228,6 @@ class NewICS214TVC: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "NewICS214LabelTextFieldCell", for: indexPath) as! NewICS214LabelTextFieldCell
             cell.delegate = self
             cell.subjectL.text = "ICS Position"
-            cell.descriptionTF.textColor = UIColor.black
             cell.descriptionTF.text = ics214Form.ics214ICSPosition
             cell.path = indexPath
             cell.tag = row
@@ -241,7 +236,6 @@ class NewICS214TVC: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "NewICS214LabelTextFieldCell", for: indexPath) as! NewICS214LabelTextFieldCell
             cell.delegate = self
             cell.subjectL.text = "Home Agency"
-            cell.descriptionTF.textColor = UIColor.black
             cell.descriptionTF.text = ics214Form.ics241HomeAgency
             cell.path = indexPath
             cell.tag = row
@@ -344,10 +338,10 @@ extension NewICS214TVC {
             ics214Form.fjpUserReference = fju.userGuid
             if incident != nil {
                 ics214Form.ics214IncidentInfo = incident
-                incident.ics214Detail = ics214Form
+                incident.addToIcs214Detail(ics214Form)
             }
             ics214Form.ics214FJUDetail = fju
-            journal.journalICS214Details = ics214Form
+            journal.addToJournalICS214Details(ics214Form)
             ics214Form.ics214JournalInfo = journal
             if let guid = ics214Form.ics214Guid {
                 saveToCD(guid: guid)
@@ -364,22 +358,22 @@ extension NewICS214TVC {
                }
                 let objectID = getTheLastICS214(guid: guid)
                DispatchQueue.main.async {
-                    self.nc.post(name:Notification.Name(rawValue:FJkNEWICS214FormCreated), object: nil, userInfo: ["objectID":objectID])
+                    self.nc.post(name:Notification.Name(rawValue: FJkNEWICS214FormCreated), object: nil, userInfo: ["objectID":objectID])
 
                }
                 DispatchQueue.main.async {
-                    self.nc.post(name:Notification.Name(rawValue:FJkICS214_NEW_TO_LIST),
+                    self.nc.post(name:Notification.Name(rawValue: FJkICS214_NEW_TO_LIST),
                             object: nil,
                             userInfo: ["objectID": ""])
                 }
                 DispatchQueue.main.async {
                     let jobjectID = self.journal.objectID
-                     self.nc.post(name:Notification.Name(rawValue:FJkCKModifyJournalToCloud), object: nil, userInfo: ["objectID":jobjectID])
+                     self.nc.post(name:Notification.Name(rawValue: FJkCKModifyJournalToCloud), object: nil, userInfo: ["objectID":jobjectID])
                 }
             if incident != nil {
                 DispatchQueue.main.async {
                     let iobjectID = self.incident.objectID
-                     self.nc.post(name:Notification.Name(rawValue:FJkCKModifyIncidentToCloud), object: nil, userInfo: ["objectID":iobjectID])
+                     self.nc.post(name:Notification.Name(rawValue: FJkCKModifyIncidentToCloud), object: nil, userInfo: ["objectID":iobjectID])
                 }
             }
            } catch let error as NSError {

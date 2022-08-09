@@ -48,6 +48,10 @@ extension Notification.Name {
     static let fConDeletionChangedInternally = Notification.Name("fConDeletionChangedInternally")
 }
 
+let ICS214NewIncidentVCSegue = "ICS214NewIncidentVCSegue"
+let ICS214NewVCSegue = "ICS214NewVCSegue"
+let ICS214NewFSOSegue = "ICS214NewFSOSegue"
+let FJkICS214TYPEOFFORM = "FJkICS214TYPEOFFORM"
 let FConnectName = "FireJournal"
 let FJkCLOUDKITCONTAINERNAME = "iCloud.com.purecommand.FireJournal2017"
 let FJkSTATUSCONTAINERNAME = "iCloud.com.purecommand.FireJournal2017"

@@ -81,6 +81,11 @@ class ARC_FormTVC: UITableViewController, CLLocationManagerDelegate {
     
     lazy var slideInTransitioningDelgate = SlideInPresentationManager()
     
+    var userOID: NSManagedObjectID!
+    var theUser: FireJournalUser!
+    var userTimeOID: NSManagedObjectID!
+    var theUserTime: UserTime!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,6 +118,18 @@ class ARC_FormTVC: UITableViewController, CLLocationManagerDelegate {
             print("This form is part of a campaign")
         } else {
             print("This form is a single alarm installation")
+        }
+        
+        if userOID != nil {
+            theUser = context.object(with: userOID) as? FireJournalUser
+        } else {
+            dismiss(animated: true, completion: nil)
+        }
+        
+        if userTimeOID != nil {
+            theUserTime = context.object(with: userTimeOID) as? UserTime
+        } else {
+            dismiss(animated: true, completion: nil)
         }
         
         //        MARK: -BUILD THE CELLS
@@ -164,10 +181,17 @@ class ARC_FormTVC: UITableViewController, CLLocationManagerDelegate {
             } else {
                 if !alertUp {
                     var name = ""
-                    if fireJournalUser != nil {
-                        let first = fireJournalUser.firstName ?? ""
-                        let last = fireJournalUser.lastName ?? ""
-                        name = "\(first) \(last)"
+                    if theUser != nil {
+                        if let userName = theUser.userName {
+                            name = userName
+                        } else {
+                            if let first = theUser.firstName {
+                                name = first + " "
+                            }
+                            if let last = theUser.lastName {
+                                name = name + last
+                            }
+                        }
                         if name != "" {
                             let alert = installerAlert.fjARCPlusInstallerNameAlert(theName: name)
                             alertUp = true

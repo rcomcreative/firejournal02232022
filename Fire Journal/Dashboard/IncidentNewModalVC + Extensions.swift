@@ -118,7 +118,14 @@ extension IncidentNewModalVC: ModalHeaderSaveDismissDelegate {
         }
         theIncident.incidentInfo = theJournal
         theUser.addToFireJournalUserDetails(theJournal)
-        theUserTime.addToJournal(theJournal)
+        if theUserTime != nil {
+            theUserTime.addToJournal(theJournal)
+            theJournal.journalTempPlatoon = theUserTime.startShiftPlatoon
+            theJournal.journalTempAssignment = theUserTime.startShiftAssignment
+            theJournal.journalFireStation = theUserTime.startShiftFireStation
+            theJournal.journalTempApparatus = theUserTime.startShiftApparatus
+            theJournal.journalFireStation = theUserTime.startShiftFireStation
+        }
         
     }
     

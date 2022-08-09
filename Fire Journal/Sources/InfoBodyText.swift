@@ -56,6 +56,8 @@ enum InfoBodyText:String {
     case journalEntryError = "Please enter a journal entry title."
     case journalCrewSupportNotesSubject = "Journal Crew Support Notes"
     case journalCrewSupportNotes = "You can add to your list of team members, either by choosing people listed in your contacts or by just typing in a name in the New Members field. Once added select that member from the list below, a checkmark will appear.  When you tap on save, that person will be put in your Crew field for the Journal Entry."
+    case newICS214FormSubject = "ICS 214 Support Notes"
+    case newICS214FormDescription = "The Activity Log (ICS 214) records details of notable activities at any ICS level, including single resources, equipment, Task Forces, etc. These logs provide basic incident activity documentation, and a reference for any after-action report."
     case newICS214CrewSupportNotesSubject = "ICS214 Support Notes"
     case newICS214CrewSupportNotes = "Add resources to your ICS-214 for the current operational period. You may enter in any name of anyone from any agency, or you may select from your device’s contacts. As you add possible crew members, you then select them for inclusion in the current operational period by tapping on the far right of the contact line - and a checkmark will appear. Deselect by tapping again."
     case mapSupportNotesSubject = "Map Support Notes"
@@ -238,5 +240,29 @@ IMPORTANT MEMBERSHIP/SUBSCRIPTION INFORMATION:
     http://www.purecommand.com/
 
     Thank you for becoming part of the Fire Journal family.
+"""
+    case ics214ParagraphHeader1 = "Purpose: "
+    case ics214Paragraph1 = """
+    The Activity Log (ICS 214) records details of notable activities at any ICS level, including single resources, equipment, Task Forces, etc. These logs provide basic incident activity documentation, and a reference for any after-action report.
+"""
+    case ics214ParagraphHeader2 = "Preparation: "
+    case ics214Paragraph2 = """
+    An ICS 214 can be initiated and maintained by personnel in various ICS positions as it is needed or appropriate. Personnel should document how relevant incident activities are occurring and progressing, or any notable events or communications.
+"""
+    case ics214ParagraphHeader3 = "Distribution:: "
+    case ics214Paragraph3 = """
+    Completed ICS-214s are stored in Fire Journal and may be referenced at any time. Once you become a Fire Journal Member (learn more about membership), ICS forms can also be printed as complete NIMS compliant documents. Completed PDF or printed documents should then be shared with supervisors, who forward them to the Documentation Unit. The Documentation Unit should maintain a file of all ICS 214 forms. You may search and share any ICS-214 that you’ve completed at any time (Membership required).
+"""
+    case ics214MasterInstructions = """
+    When you select FIRST FORM, you’ll be able to record a series of ICS-214s as individual operational period journals, all linked to the same incident. Once you “close out” the last operational period for thta incident, Fire Journal will be ready to start another sequence. Note that below you have four different types of deployments to link your ICS-214 to. Select the one that’s appropriate for your deployment.
+"""
+    case ics214AdditionalFormsInstructions = """
+    Remember, you will have the option of sharing completed ICS-214 reports either electronically via PDF, or in print form, both appearing in the standard NIMS form [ Membership required for sharing ].
+"""
+    case ics214IncidentFormMasterInstructions = """
+    Click the search button if you would like to see the entire list of Incidents in your app, to choose as the Incident you wish to associate with this Local Incident ICS 214. The list of Incidents are clickable and when tapped will move you forward with that Incident marked as the First Form Local Incident Incident Name. If the Incident hasn't been entered before you can create the Incident before moving forward.
+"""
+    case ics214IncidentFormAdditionalInstructions = """
+    Click the search button if you would like to see the entire list of First Form Local Incident ICS 214 to associate this additional Local Incident ICS 214 form. The list of Incidents are clickable and when tapped will move you forward with that incident marked as associated with the First Form Local Incident Incident Name.
 """
 }

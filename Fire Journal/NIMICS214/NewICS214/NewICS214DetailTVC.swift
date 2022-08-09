@@ -63,9 +63,13 @@ class NewICS214DetailTVC: UITableViewController {
     var ics214ToCloud: ICS214ToCloud!
     var pdfLink: String = ""
     var saveButton: UIBarButtonItem!
+    var theUserTimeOID: NSManagedObjectID!
+    var theUserTime: UserTime!
     
     var fromMap: Bool = false
     var incidentType: IncidentTypes = .ics214Form
+    
+    let dateFormatter = DateFormatter()
     
     lazy var theUserProvider: FireJournalUserProvider = {
         let provider = FireJournalUserProvider(with: (UIApplication.shared.delegate as! AppDelegate).persistentContainer)
@@ -106,7 +110,6 @@ class NewICS214DetailTVC: UITableViewController {
         vcLaunch.splitVC = self.splitViewController
         launchNC = LaunchNotifications.init(launchVC: vcLaunch)
         signatureImage = nil
-        getTheUser()
         
         if !fromMap {
             if Device.IS_IPHONE {
@@ -114,6 +117,15 @@ class NewICS214DetailTVC: UITableViewController {
                 navigationItem.leftBarButtonItem = listButton
                 navigationItem.setLeftBarButtonItems([listButton], animated: true)
                 navigationItem.leftItemsSupplementBackButton = false
+            }
+        }
+        
+        if theUserTimeOID != nil {
+            theUserTime = context.object(with: theUserTimeOID) as? UserTime
+            if theUserTime.fireJournalUser != nil {
+                theFireJournalUser = theUserTime.fireJournalUser
+            } else {
+                getTheUser()
             }
         }
         
@@ -162,7 +174,7 @@ class NewICS214DetailTVC: UITableViewController {
     func closeItUp() {
         if  Device.IS_IPHONE {
             DispatchQueue.main.async {
-                self.nc.post(name:Notification.Name(rawValue:"FJkICS214FORMLISTCALLED"),
+                self.nc.post(name:Notification.Name(rawValue: "FJkICS214FORMLISTCALLED"),
                              object: nil,
                              userInfo: nil)
             }

@@ -70,6 +70,8 @@ class IncidentTVC: UITableViewController,CLLocationManagerDelegate,NSFetchedResu
     lazy var slideInTransitioningDelgate = SlideInPresentationManager()
     var incident:Incident!
     var fju:FireJournalUser!
+    var theUserTime: UserTime!
+    var theUserTimeOID: NSManagedObjectID!
     
     var fetched:Array<Any>!
     var showSaved:Bool = false

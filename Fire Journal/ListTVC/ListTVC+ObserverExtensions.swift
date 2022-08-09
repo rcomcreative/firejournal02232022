@@ -105,6 +105,14 @@ extension ListTVC {
                 let storyboard = UIStoryboard(name: "Form", bundle: nil)
                 let controller:ARC_FormTVC = storyboard.instantiateViewController(withIdentifier: "ARC_FormTVC") as! ARC_FormTVC
                 let navigator = UINavigationController.init(rootViewController: controller)
+                
+                if theUserTime != nil {
+                    controller.userTimeOID = theUserTime.objectID
+                }
+                if theFireJournalUser != nil {
+                    controller.userOID = theFireJournalUser.objectID
+                }
+                
                 controller.navigationItem.leftItemsSupplementBackButton = true
                 controller.navigationItem.leftBarButtonItem = self.splitVC?.displayModeButtonItem
                 controller.delegate = self

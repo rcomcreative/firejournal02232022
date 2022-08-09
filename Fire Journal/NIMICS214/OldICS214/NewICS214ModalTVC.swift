@@ -1,10 +1,10 @@
-//
-//  NewICS214ModalTVC.swift
-//  ARCForm
-//
-//  Created by DuRand Jones on 10/28/17.
-//  Copyright © 2020 PureCommand, LLC. All rights reserved.
-//
+    //
+    //  NewICS214ModalTVC.swift
+    //  ARCForm
+    //
+    //  Created by DuRand Jones on 10/28/17.
+    //  Copyright © 2020 PureCommand, LLC. All rights reserved.
+    //
 
 
 import UIKit
@@ -15,21 +15,22 @@ import CoreLocation
 
 
 @objc protocol NewICS214ModalTVCDelegate: AnyObject {
-
+    
     func theCancelCalledOnNewICS214Modal()
+    func theNewICS214Created(ics214OID: NSManagedObjectID)
 }
 
 struct StreetPrefixed {
-    var prefix:String?
-    var abbreviation:String?
+    var prefix: String?
+    var abbreviation: String?
 }
 
-class NewICS214ModalTVC: UITableViewController, FormSegmentCellDelegate, FourSwitchCellDelegate, EffortWithDateDelegate, EffortDelegate, FormDatePickerCellDelegate, CellHeaderCancelSaveDelegate, CLLocationManagerDelegate {
+class NewICS214ModalTVC: UITableViewController, FormSegmentCellDelegate, FourSwitchCellDelegate, EffortDelegate, FormDatePickerCellDelegate, CellHeaderCancelSaveDelegate, CLLocationManagerDelegate {
     
-    //    MARK: - presentation Delegate
+        //    MARK: - presentation Delegate
     lazy var slideInTransitioningDelgate = SlideInPresentationManager()
     
-    var prefixes:StreetPrefixed!
+    var prefixes: StreetPrefixed!
     var localIncidents = [] as Array
     var location = [] as Array
     var nfirsStreetTypes = [] as Array
@@ -37,41 +38,41 @@ class NewICS214ModalTVC: UITableViewController, FormSegmentCellDelegate, FourSwi
     var streetPrefixAbbrev = [] as Array
     
     var streetTypes = [] as Array
-    var section1:Bool = true
-    var firstOrMore:Bool = false
+    var section1: Bool = true
+    var firstOrMore: Bool = false
     var formType: Int = 0
     var chosenMasterType: Int = 0
-    var incidentOnOrOff:Bool = false
-    var turnMasterOn:Bool = false
-    var effortType:Bool = false
-    var strikeOnOrOff:Bool = false
-    var femaOnOrOff:Bool = false
-    var otherOnOrOff:Bool = false
-    var dateOnOrOff:Bool = false
-    var showMap:Bool = false
-    var modalCells:Array = [CellParts]()
-    var typeOfForm:String = ""
-    var fetchedIncident:Array = [Incident]()
-    var fetchedICS241:Array = [ICS214Form]()
-    var showPicker:Bool = false
-    var dateWords:String = ""
-    var field8:String = "no"
-    var dayOfYear:String = ""
-    var masterOrNot:Bool = true
-    var showJournal:Bool = false
+    var incidentOnOrOff: Bool = false
+    var turnMasterOn: Bool = false
+    var effortType: Bool = false
+    var strikeOnOrOff: Bool = false
+    var femaOnOrOff: Bool = false
+    var otherOnOrOff: Bool = false
+    var dateOnOrOff: Bool = false
+    var showMap: Bool = false
+    var modalCells: Array = [CellParts]()
+    var theTypeOfForm: String = ""
+    var fetchedIncident: Array = [Incident]()
+    var fetchedICS241: Array = [ICS214Form]()
+    var showPicker: Bool = false
+    var dateWords: String = ""
+    var field8: String = "no"
+    var dayOfYear: String = ""
+    var masterOrNot: Bool = true
+    var showJournal: Bool = false
     
-    var guid:String!
-    var masterGuid:String!
-    var type:TypeOfForm!
-    var incidentGuid:String!
-    var journalGuid:String!
-    var incidentNumber:String!
-    var formMaster:String = ""
-    var NewICS214TVCSegue = "NewICS214TVCSegue"
+    var guid: String!
+    var masterGuid: String!
+    var type: TypeOfForm!
+    var incidentGuid: String!
+    var journalGuid: String!
+    var incidentNumber: String!
+    var formMaster: String = ""
+    var NewICS214TVCSegue = "ICS214NewSegue"
     var NewICS214NewIncidentTVCSegue = "NewICS214NewIncidentTVCSegue"
     var incidentObjectID: NSManagedObjectID!
     
-    //    MARK: - LOCATION
+        //    MARK: - LOCATION
     
     var currentLocation: CLLocation!
     var locationManager:CLLocationManager!
@@ -89,13 +90,20 @@ class NewICS214ModalTVC: UITableViewController, FormSegmentCellDelegate, FourSwi
     
     var alertUp: Bool = false
     
+    var theUserTime: UserTime!
+    var theUserTimeID: NSManagedObjectID!
+    var theMasterICS214FormOID: NSManagedObjectID!
+    
+    var theUser: FireJournalUser!
+    var theUserOID: NSManagedObjectID!
+    
     let p0 = CellParts.init(cellAttributes: ["Header":"" , "Field1":"" , "Field2":"", "Field3":"","Field4":"","Value1":"","Value2":"","Value3":"","Value4":"","Value5":""], type: ["Type": FormType.modalHeader], vType: ["Value1":ValueType.fjKEmpty,"Value2":ValueType.fjKEmpty,"Value3":ValueType.fjKEmpty,"Value4":ValueType.fjKEmpty,"Value5":ValueType.fjKEmpty],dType:["Activity":Date()], objID: [ "objectID":nil ])
     let p1 = CellParts.init(cellAttributes: ["Header":"" , "Field1":"" , "Field2":"", "Field3":"","Field4":"","Value1":"","Value2":"","Value3":"","Value4":"","Value5":""], type: ["Type": FormType.paragraphCell], vType: ["Value1":ValueType.fjKEmpty,"Value2":ValueType.fjKEmpty,"Value3":ValueType.fjKEmpty,"Value4":ValueType.fjKEmpty,"Value5":ValueType.fjKEmpty],dType:["Activity":Date()], objID: [ "objectID":nil ])
     let p2 = CellParts.init(cellAttributes: ["Header":"" , "Field1":"" , "Field2":"", "Field3":"","Field4":"","Value1":"","Value2":"","Value3":"","Value4":"","Value5":""], type: ["Type": FormType.formSegmentCell], vType: ["Value1":ValueType.fjKEmpty,"Value2":ValueType.fjKEmpty,"Value3":ValueType.fjKEmpty,"Value4":ValueType.fjKEmpty,"Value5":ValueType.fjKEmpty],dType:["Activity":Date()], objID: [ "objectID":nil ])
     let p3 = CellParts.init(cellAttributes: ["Header":"" , "Field1":"" , "Field2":"", "Field3":"","Field4":"","Value1":"","Value2":"","Value3":"","Value4":"","Value5":""], type: ["Type": FormType.fourSwitchCell], vType: ["Value1":ValueType.fjKEmpty,"Value2":ValueType.fjKEmpty,"Value3":ValueType.fjKEmpty,"Value4":ValueType.fjKEmpty,"Value5":ValueType.fjKEmpty],dType:["Activity":Date()], objID: [ "objectID":nil ])
     let p4 = CellParts.init(cellAttributes: ["Header":"" , "Field1":"" , "Field2":"", "Field3":"","Field4":"","Value1":"","Value2":"","Value3":"","Value4":"","Value5":""], type: ["Type": FormType.efforWithDateCell], vType: ["Value1":ValueType.fjKEmpty,"Value2":ValueType.fjKEmpty,"Value3":ValueType.fjKEmpty,"Value4":ValueType.fjKEmpty,"Value5":ValueType.fjKEmpty],dType:["Activity":Date()], objID: [ "objectID":nil ])
     let p5 = CellParts.init(cellAttributes: ["Header":"" , "Field1":"" , "Field2":"", "Field3":"","Field4":"","Value1":"","Value2":"","Value3":"","Value4":"","Value5":""], type: ["Type": FormType.effortWithoutDateCell], vType: ["Value1":ValueType.fjKEmpty,"Value2":ValueType.fjKEmpty,"Value3":ValueType.fjKEmpty,"Value4":ValueType.fjKEmpty,"Value5":ValueType.fjKEmpty],dType:["Activity":Date()], objID: [ "objectID":nil ])
-
+    
     let p6 = CellParts.init(cellAttributes: ["Header":"" , "Field1":"" , "Field2":"", "Field3":"","Field4":"","Value1":"","Value2":"","Value3":"","Value4":"","Value5":""], type: ["Type": FormType.theMapCell], vType: ["Value1":ValueType.fjKEmpty,"Value2":ValueType.fjKEmpty,"Value3":ValueType.fjKEmpty,"Value4":ValueType.fjKEmpty,"Value5":ValueType.fjKEmpty],dType:["Activity":Date()], objID: [ "objectID":nil ])
     
     let p30 = CellParts.init(cellAttributes: ["Header":"" , "Field1":"" , "Field2":"", "Field3":"","Field4":"","Value1":"","Value2":"","Value3":"","Value4":"","Value5":""], type: ["Type": FormType.pickerDateCell], vType: ["Value1":ValueType.fjKEmpty,"Value2":ValueType.fjKEmpty,"Value3":ValueType.fjKEmpty,"Value4":ValueType.fjKEmpty,"Value5":ValueType.fjKEmpty],dType:["Activity":Date()], objID: [ "objectID":nil ])
@@ -107,7 +115,7 @@ class NewICS214ModalTVC: UITableViewController, FormSegmentCellDelegate, FourSwi
         do {
             try context.save()
             DispatchQueue.main.async {
-                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"ICS214 NEW merge that"])
+                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object: self.context,userInfo:["info":"ICS214 NEW merge that"])
             }
         } catch {
             let nserror = error as NSError
@@ -120,7 +128,7 @@ class NewICS214ModalTVC: UITableViewController, FormSegmentCellDelegate, FourSwi
     fileprivate func localIncidentsToCD() {
         for localIncidentType in localIncidents {
             let resourceDate = Date()
-            var uuidA:String = NSUUID().uuidString.lowercased()
+            var uuidA: String = NSUUID().uuidString.lowercased()
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "YYYYDDDHHmmAAAAAAAA"
             let dateFrom = dateFormatter.string(from: resourceDate)
@@ -140,7 +148,7 @@ class NewICS214ModalTVC: UITableViewController, FormSegmentCellDelegate, FourSwi
     fileprivate func nfirsLocationToCD() {
         for local in location {
             let resourceDate = Date()
-            var uuidA:String = NSUUID().uuidString.lowercased()
+            var uuidA: String = NSUUID().uuidString.lowercased()
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "YYYYDDDHHmmAAAAAAAA"
             let dateFrom = dateFormatter.string(from: resourceDate)
@@ -158,7 +166,7 @@ class NewICS214ModalTVC: UITableViewController, FormSegmentCellDelegate, FourSwi
     fileprivate func streetPrefixToCD() {
         for streetPre in streetPrefixes {
             let resourceDate = Date()
-            var uuidA:String = NSUUID().uuidString.lowercased()
+            var uuidA: String = NSUUID().uuidString.lowercased()
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "YYYYDDDHHmmAAAAAAAA"
             let dateFrom = dateFormatter.string(from: resourceDate)
@@ -176,7 +184,7 @@ class NewICS214ModalTVC: UITableViewController, FormSegmentCellDelegate, FourSwi
     fileprivate func streetTypeToCD() {
         for streetType in streetTypes {
             let resourceDate = Date()
-            var uuidA:String = NSUUID().uuidString.lowercased()
+            var uuidA: String = NSUUID().uuidString.lowercased()
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "YYYYDDDHHmmAAAAAAAA"
             let dateFrom = dateFormatter.string(from: resourceDate)
@@ -194,7 +202,7 @@ class NewICS214ModalTVC: UITableViewController, FormSegmentCellDelegate, FourSwi
     fileprivate func nfirsIncidentTypeToCD() {
         for incidentType in nfirsStreetTypes {
             let resourceDate = Date()
-            var uuidA:String = NSUUID().uuidString.lowercased()
+            var uuidA: String = NSUUID().uuidString.lowercased()
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "YYYYDDDHHmmAAAAAAAA"
             let dateFrom = dateFormatter.string(from: resourceDate)
@@ -249,6 +257,18 @@ class NewICS214ModalTVC: UITableViewController, FormSegmentCellDelegate, FourSwi
         }
         roundViews()
         
+        if theUserOID != nil {
+            theUser = context.object(with: theUserOID) as? FireJournalUser
+        } else {
+            dismiss(animated: true, completion: nil)
+        }
+        
+        if theUserTimeID != nil {
+            theUserTime = context.object(with: theUserTimeID) as? UserTime
+        } else {
+            dismiss(animated: true, completion: nil)
+        }
+        
         modalCells = [p0,p1,p2,p3,p4,p6,p41]
         
         tableView.register(UINib(nibName: "ParagraphCell", bundle: nil), forCellReuseIdentifier: "ParagraphCell")
@@ -292,14 +312,14 @@ class NewICS214ModalTVC: UITableViewController, FormSegmentCellDelegate, FourSwi
         }
     }
     
-    // MARK: -
-    // MARK: Notification Handling
+        // MARK: -
+        // MARK: Notification Handling
     @objc func managedObjectContextDidSave(notification: Notification) {
         DispatchQueue.main.async { [weak self] in
             self?.context.mergeChanges(fromContextDidSave: notification)
         }
     }
-
+    
     
     @objc func cancelNewIncident(_ sender:Any) {
         dismiss(animated: true, completion: nil)
@@ -307,18 +327,18 @@ class NewICS214ModalTVC: UITableViewController, FormSegmentCellDelegate, FourSwi
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+            // Dispose of any resources that can be recreated.
     }
     
-    func fourSwitchContinueTapped(type: String, masterOrMore: Bool) {
-        typeOfForm = type
+    func fourSwitchContinueTapped(type: String, masterOrMore: Bool, typeOfForm: TypeOfForm) {
+        theTypeOfForm = type
         masterOrNot = masterOrMore
         firstOrMore = false
-        let entityType:String = "ICS214Form"
-        print(typeOfForm)
-        if typeOfForm == TypeOfForm.incidentForm.rawValue {
+        let entityType: String = "ICS214Form"
+        print(theTypeOfForm)
+        if theTypeOfForm == TypeOfForm.incidentForm.rawValue {
             incidentOnOrOff = true
-        } else if typeOfForm == TypeOfForm.strikeForceForm.rawValue {
+        } else if theTypeOfForm == TypeOfForm.strikeForceForm.rawValue {
             if masterOrMore {
                 effortType = true
                 showJournal = false
@@ -330,7 +350,7 @@ class NewICS214ModalTVC: UITableViewController, FormSegmentCellDelegate, FourSwi
                 grabAllMasters(entityName: entityType, typeOfForm: teamType)
             }
             strikeOnOrOff = true
-        } else if typeOfForm == TypeOfForm.femaTaskForceForm.rawValue {
+        } else if theTypeOfForm == TypeOfForm.femaTaskForceForm.rawValue {
             if masterOrMore {
                 effortType = true
                 showJournal = false
@@ -342,7 +362,7 @@ class NewICS214ModalTVC: UITableViewController, FormSegmentCellDelegate, FourSwi
                 grabAllMasters(entityName: entityType, typeOfForm: teamType)
             }
             femaOnOrOff = true
-        } else if typeOfForm == TypeOfForm.otherForm.rawValue {
+        } else if theTypeOfForm == TypeOfForm.otherForm.rawValue {
             if masterOrMore {
                 effortType = true
                 showJournal = false
@@ -359,13 +379,7 @@ class NewICS214ModalTVC: UITableViewController, FormSegmentCellDelegate, FourSwi
         tableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: .automatic)
     }
     
-    func theTimeButtonWasTappedForIncident() {
-        let i:Int = modalCells.firstIndex(where: { $0 == p4 })!
-        let d:Int = i+1
-        modalCells.insert(p30, at:d)
-        showPicker = true
-        tableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: .automatic)
-    }
+    
     
     func chosenIncidentDate(date: Date) {
         showPicker = false
@@ -376,339 +390,18 @@ class NewICS214ModalTVC: UITableViewController, FormSegmentCellDelegate, FourSwi
         dateFormatter.dateFormat = "MM/dd/YYYY"
         dateWords = dateFormatter.string(from: date)
         field8 = "yes"
-        //        print("dayOfYear \(dayOfYear) dateWords \(dateWords)")
+            //        print("dayOfYear \(dayOfYear) dateWords \(dateWords)")
         let i:Int = modalCells.firstIndex(where: { $0 == p30 })!
         modalCells.remove(at: i)
         tableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: .automatic)
-    }
-    
-    func theSearchButtonTappedNoDate(incidentNum: String) {
-        if masterOrNot {
-            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Incident")
-            var predicate = NSPredicate.init()
-            if incidentNum != ""{
-                predicate = NSPredicate(format: "incidentNumber CONTAINS %@",incidentNum)
-            } else {
-                predicate = NSPredicate(format: "incidentNumber != %@","")
-            }
-            fetchRequest.predicate = predicate
-            let sectionSortDescriptor = NSSortDescriptor(key: "incidentCreationDate", ascending: false)
-            let sortDescriptors = [sectionSortDescriptor]
-            fetchRequest.sortDescriptors = sortDescriptors
-            
-            do {
-                fetchedIncident = try context.fetch(fetchRequest) as! [Incident]
-                if fetchedIncident.count != 0 {
-                    for incident:Incident in fetchedIncident {
-//                        print("here is the incident \(String(describing: incident.incidentNumber)) number")
-                        var number = ""
-                        var master = ""
-                        var guid = ""
-                        var streetNum = ""
-                        var streetName = ""
-                        var zip = ""
-                        var imageName = ""
-                        var imageType = ""
-                        var incidentDate:Date?
-                        var isDateHere:String = ""
-                        var i10:CellParts!
-                        let obID:NSManagedObjectID = incident.objectID
-                        if incident.incidentNumber != nil {
-                            number = incident.incidentNumber!
-                        }
-                        if incident.ics214MasterGuid != nil {
-                            master = incident.ics214MasterGuid!
-                        }
-                        if incident.fjpIncGuidForReference != nil {
-                            guid = incident.fjpIncGuidForReference!
-                        }
-                        if incident.incidentStreetNumber != nil {
-                            streetNum = incident.incidentStreetNumber!
-                        }
-                        if incident.incidentStreetHyway != nil {
-                            streetName = incident.incidentStreetHyway!
-                        }
-                        if incident.incidentZipCode != nil {
-                            zip = incident.incidentZipCode!
-                        }
-                        if incident.incidentEntryTypeImageName != nil {
-                            imageType = incident.incidentEntryTypeImageName!
-                        }
-                        if incident.situationIncidentImage != nil {
-                            imageName = incident.situationIncidentImage!
-                        }
-                        let formType = TypeOfForm.incidentForm.rawValue
-                        
-                        if incident.incidentModDate != nil {
-                            incidentDate = incident.incidentModDate! as Date
-                            isDateHere = "yes"
-                            i10 = CellParts.init(cellAttributes: ["Header":number , "Field1":master , "Field2":guid, "Field3":streetNum,"Field4":streetName,"Value1":zip,"Value2":imageName,"Value3":imageType,"Value4":isDateHere,"Value5":formType,"Value7":number], type: ["Type": FormType.incidentMasterCell], vType: ["Value1":ValueType.fjKEmpty,"Value2":ValueType.fjKEmpty,"Value3":ValueType.fjKEmpty,"Value4":ValueType.fjKEmpty,"Value5":ValueType.fjKEmpty],dType:["Activity":incidentDate!], objID: [ "objectID":obID ])
-                        } else {
-                            isDateHere = "no"
-                            i10 = CellParts.init(cellAttributes: ["Header":number , "Field1":master , "Field2":guid, "Field3":streetNum,"Field4":streetName,"Value1":zip,"Value2":imageName,"Value3":imageType,"Value4":isDateHere,"Value5":formType,"Value7":number], type: ["Type": FormType.incidentMasterCell], vType: ["Value1":ValueType.fjKEmpty,"Value2":ValueType.fjKEmpty,"Value3":ValueType.fjKEmpty,"Value4":ValueType.fjKEmpty,"Value5":ValueType.fjKEmpty],dType:["Activity":Date()], objID: [ "objectID":obID ])
-                        }
-                        modalCells.append(i10)
-                    }
-                    tableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: .automatic)
-                }
-            }   catch {
-                
-                let nserror = error as NSError
-                
-                let errorMessage = "NewICS214ModalTVC theSearchButtonTappedNoDate() fetchRequest \(fetchRequest) Unresolved error \(nserror)"
-                
-                print(errorMessage)
-                
-            }
-        } else {
-            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ICS214Form")
-            var predicate = NSPredicate.init()
-            predicate = NSPredicate(format: "ics214MasterGuid != %@ && ics214Effort == %@ && ics214EffortMaster == YES && ics214Completed != YES","","Local Incident")
-            fetchRequest.predicate = predicate
-            
-            let sectionSortDescriptor = NSSortDescriptor(key: "ics214FromTime", ascending: false)
-            let sortDescriptors = [sectionSortDescriptor]
-            fetchRequest.sortDescriptors = sortDescriptors
-            
-            do {
-                fetchedICS241 = try context.fetch(fetchRequest) as! [ICS214Form]
-                if fetchedICS241.count != 0 {
-                    for ics214F:ICS214Form in fetchedICS241 {
-//                        let ics214Incident = ics214F.ics214IncidentInfo
-                        let ics214ObjID = ics214F.objectID
-                        var name = ""
-                        var master = ""
-                        let masterYes:String = "yes"
-                        var guid = ""
-                        var fromTime = ""
-                        var toTime = ""
-                        var imageName = ""
-                        teamName = ""
-                        var type:String = ""
-                        var incidentNumber:String = ""
-                        _ = "Local Incident"
-                        imageName = "ICS 214 Form LOCAL INCIDENT"
-                        type = TypeOfForm.incidentForm.rawValue
-                        var isDateHere:String = ""
-                        if ics214F.ics214LocalIncidentNumber != nil {
-                            incidentNumber = ics214F.ics214LocalIncidentNumber!
-                        }
-                        if ics214F.ics214IncidentName != nil {
-                            name = ics214F.ics214IncidentName!
-                        }
-                        if ics214F.ics214MasterGuid != nil {
-                            master = ics214F.ics214MasterGuid!
-                        }
-                        if ics214F.incidentGuid != nil {
-                            guid = ics214F.incidentGuid!
-                        }
-                        if ics214F.ics214FromTime != nil {
-                            let dateFormatter = DateFormatter()
-                            dateFormatter.dateFormat = "MM/dd/YYYY HH:mm"
-                            let dateFrom = dateFormatter.string(from: ics214F.ics214FromTime! as Date)
-                            fromTime = dateFrom
-                        }
-                        if ics214F.ics214ToTime != nil {
-                            let dateFormatter = DateFormatter()
-                            dateFormatter.dateFormat = "MM/dd/YYYY HH:mm"
-                            let dateFrom = dateFormatter.string(from: ics214F.ics214ToTime! as Date)
-                            toTime = dateFrom
-                        }
-                        if ics214F.ics214TeamName != nil {
-                            teamName = ics214F.ics214TeamName!
-                        }
-                        
-                        var i45:CellParts!
-                        isDateHere = "no"
-                        i45 = CellParts.init(cellAttributes: ["Header":name , "Field1":master , "Field2":guid, "Field3":fromTime,"Field4":toTime,"Value1":imageName,"Value2":type,"Value3":masterYes,"Value4":isDateHere,"Value5":type,"Value6":teamName,"Value7":incidentNumber], type: ["Type": FormType.incidentMasterCell], vType: ["Value1":ValueType.fjKEmpty,"Value2":ValueType.fjKEmpty,"Value3":ValueType.fjKEmpty,"Value4":ValueType.fjKEmpty,"Value5":ValueType.fjKEmpty],dType:["Activity":Date()], objID: [ "objectID":ics214ObjID])
-                        
-                        modalCells.append(i45)
-                    }
-                    
-                    turnMasterOn = true
-                    tableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: .automatic)
-                }
-            } catch {
-                
-                let nserror = error as NSError
-                
-                let errorMessage = "NewICS214ModalTVC theSearchButtonTappedNoDate() fetchRequest \(fetchRequest) Unresolved error \(nserror)"
-                
-                print(errorMessage)
-                
-            }
-        }
-    }
-    
-    func theSearchButtonTapped(incidentNum: String, incidentDate: Date?) {
-        
-        if masterOrNot {
-            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Incident")
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "D"
-            let searchDayOfYear = dateFormatter.string(from: incidentDate!)
-            print(searchDayOfYear)
-            var predicate = NSPredicate.init()
-            if incidentDate != nil && incidentNum != ""{
-                predicate = NSPredicate(format: "incidentNumber CONTAINS %@ && incidentDayOfYear == %@",incidentNum,searchDayOfYear)
-            } else if incidentDate != nil && incidentNum == "" {
-                predicate = NSPredicate(format: "incidentDayOfYear == %@",searchDayOfYear)
-            } else if incidentDate == nil && incidentNum != "" {
-                predicate = NSPredicate(format: "incidentNumber CONTAINS %@",incidentNum)
-            } else {
-                predicate = NSPredicate(format: "incidentNumber != %@","")
-            }
-            
-            fetchRequest.predicate = predicate
-            let sectionSortDescriptor = NSSortDescriptor(key: "incidentCreationDate", ascending: true)
-            let sortDescriptors = [sectionSortDescriptor]
-            fetchRequest.sortDescriptors = sortDescriptors
-            
-            do {
-                fetchedIncident = try context.fetch(fetchRequest) as! [Incident]
-                if fetchedIncident.count != 0 {
-                    for incident:Incident in fetchedIncident {
-//                        print("here is the incident \(String(describing: incident.incidentNumber)) number")
-                        var number = ""
-                        var master = ""
-                        var guid = ""
-                        var streetNum = ""
-                        var streetName = ""
-                        var zip = ""
-                        var imageName = ""
-                        var imageType = ""
-                        var incidentDate:Date?
-                        var isDateHere:String = ""
-                        var i10:CellParts!
-                        let obID:NSManagedObjectID = incident.objectID
-                        if incident.incidentNumber != nil {
-                            number = incident.incidentNumber!
-                        }
-                        if incident.ics214MasterGuid != nil {
-                            master = incident.ics214MasterGuid!
-                        }
-                        if incident.fjpIncGuidForReference != nil {
-                            guid = incident.fjpIncGuidForReference!
-                        }
-                        if incident.incidentStreetNumber != nil {
-                            streetNum = incident.incidentStreetNumber!
-                        }
-                        if incident.incidentStreetHyway != nil {
-                            streetName = incident.incidentStreetHyway!
-                        }
-                        if incident.incidentZipCode != nil {
-                            zip = incident.incidentZipCode!
-                        }
-                        if incident.incidentEntryTypeImageName != nil {
-                            imageType = incident.incidentEntryTypeImageName!
-                        }
-                        if incident.situationIncidentImage != nil {
-                            imageName = incident.situationIncidentImage!
-                        }
-                        let formType = TypeOfForm.incidentForm.rawValue
-                        
-                        if incident.incidentModDate != nil {
-                            incidentDate = incident.incidentModDate! as Date
-                            isDateHere = "yes"
-                            i10 = CellParts.init(cellAttributes: ["Header":number , "Field1":master , "Field2":guid, "Field3":streetNum,"Field4":streetName,"Value1":zip,"Value2":imageName,"Value3":imageType,"Value4":isDateHere,"Value5":formType], type: ["Type": FormType.incidentMasterCell], vType: ["Value1":ValueType.fjKEmpty,"Value2":ValueType.fjKEmpty,"Value3":ValueType.fjKEmpty,"Value4":ValueType.fjKEmpty,"Value5":ValueType.fjKEmpty],dType:["Activity":incidentDate!], objID: [ "objectID":obID ])
-                        } else {
-                            isDateHere = "no"
-                            i10 = CellParts.init(cellAttributes: ["Header":number , "Field1":master , "Field2":guid, "Field3":streetNum,"Field4":streetName,"Value1":zip,"Value2":imageName,"Value3":imageType,"Value4":isDateHere,"Value5":formType], type: ["Type": FormType.incidentMasterCell], vType: ["Value1":ValueType.fjKEmpty,"Value2":ValueType.fjKEmpty,"Value3":ValueType.fjKEmpty,"Value4":ValueType.fjKEmpty,"Value5":ValueType.fjKEmpty],dType:["Activity":Date()], objID: [ "objectID":obID ])
-                        }
-                        modalCells.append(i10)
-                    }
-                    tableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: .automatic)
-                }
-            }   catch {
-                
-                let nserror = error as NSError
-                
-                let errorMessage = "NewICS214ModalTVC theSearchButtonTapped() fetchRequest \(fetchRequest) Unresolved error \(nserror)"
-                
-                print(errorMessage)
-            }
-        } else {
-            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ICS214Form")
-            var predicate = NSPredicate.init()
-            predicate = NSPredicate(format: "ics214MasterGuid != %@ && ics214Effort == %@ && ics214EffortMaster == YES && ics214Completed != YES","","Local Incident")
-            fetchRequest.predicate = predicate
-            
-            
-            do {
-                fetchedICS241 = try context.fetch(fetchRequest) as! [ICS214Form]
-                if fetchedICS241.count != 0 {
-                    for ics214F:ICS214Form in fetchedICS241 {
-                        var name = ""
-                        var master = ""
-                        let masterYes:String = "yes"
-                        var guid = ""
-                        var fromTime = ""
-                        var toTime = ""
-                        var imageName = ""
-                        var teamName = ""
-                        var type:String = ""
-                        var incidentNumber:String = ""
-                        //                        let formType = "Local Incident"
-                        imageName = "ICS 214 Form LOCAL INCIDENT"
-                        type = TypeOfForm.incidentForm.rawValue
-                        var isDateHere:String = ""
-                        if ics214F.ics214LocalIncidentNumber != nil {
-                            incidentNumber = ics214F.ics214LocalIncidentNumber!
-                        }
-                        if ics214F.ics214IncidentName != nil {
-                            name = ics214F.ics214IncidentName!
-                        }
-                        if ics214F.ics214MasterGuid != nil {
-                            master = ics214F.ics214MasterGuid!
-                        }
-                        if ics214F.incidentGuid != nil {
-                            guid = ics214F.incidentGuid!
-                        }
-                        if ics214F.ics214FromTime != nil {
-                            let dateFormatter = DateFormatter()
-                            dateFormatter.dateFormat = "MM/dd/YYYY HH:mm"
-                            let dateFrom = dateFormatter.string(from: ics214F.ics214FromTime! as Date)
-                            fromTime = dateFrom
-                        }
-                        if ics214F.ics214ToTime != nil {
-                            let dateFormatter = DateFormatter()
-                            dateFormatter.dateFormat = "MM/dd/YYYY HH:mm"
-                            let dateFrom = dateFormatter.string(from: ics214F.ics214ToTime! as Date)
-                            toTime = dateFrom
-                        }
-                        if ics214F.ics214TeamName != nil {
-                            teamName = ics214F.ics214TeamName!
-                        }
-                        
-                        var i45:CellParts!
-                        isDateHere = "no"
-                        i45 = CellParts.init(cellAttributes: ["Header":name , "Field1":master , "Field2":guid, "Field3":fromTime,"Field4":toTime,"Value1":imageName,"Value2":type,"Value3":masterYes,"Value4":isDateHere,"Value5":type,"Value6":teamName,"Value7":incidentNumber], type: ["Type": FormType.incidentMasterCell], vType: ["Value1":ValueType.fjKEmpty,"Value2":ValueType.fjKEmpty,"Value3":ValueType.fjKEmpty,"Value4":ValueType.fjKEmpty,"Value5":ValueType.fjKEmpty],dType:["Activity":Date()], objID: [ "objectID":nil ])
-                        
-                        modalCells.append(i45)
-                    }
-                    
-                    turnMasterOn = true
-                    tableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: .automatic)
-                }
-            } catch {
-                
-                let nserror = error as NSError
-                
-                let errorMessage = "NewICS214ModalTVC theSearchButtonTapped() fetchRequest \(fetchRequest) Unresolved error \(nserror)"
-                
-                print(errorMessage)
-                
-            }
-        }
-        
     }
     
     func grabAllMasters(entityName: String, typeOfForm: String) {
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName )
         var predicate = NSPredicate.init()
-        let master:Bool = true
-        predicate = NSPredicate(format: "ics214Effort CONTAINS %@ && ics214EffortMaster == %@  && ics214Completed != YES",typeOfForm,NSNumber(value:master))
+        let master: Bool = true
+        predicate = NSPredicate(format: "ics214Effort CONTAINS %@ && ics214EffortMaster == %@  && ics214Completed != YES", typeOfForm, NSNumber(value: master))
         fetchRequest.predicate = predicate
         let sortDescriptor = NSSortDescriptor(key: "ics214FromTime", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
@@ -718,13 +411,13 @@ class NewICS214ModalTVC: UITableViewController, FormSegmentCellDelegate, FourSwi
                 for ics214Form:ICS214Form in fetchedICS241 {
                     var name = ""
                     var master = ""
-                    let masterYes:String = "yes"
+                    let masterYes: String = "yes"
                     var guid = ""
                     var fromTime = ""
                     var toTime = ""
                     var imageName = ""
                     var teamName = ""
-                    var type:String = ""
+                    var type: String = ""
                     if typeOfForm == "FEMA Task Force" {
                         imageName = "ICS214FormFEMA"
                         type = TypeOfForm.femaTaskForceForm.rawValue
@@ -736,7 +429,7 @@ class NewICS214ModalTVC: UITableViewController, FormSegmentCellDelegate, FourSwi
                         type = TypeOfForm.otherForm.rawValue
                     }
                     
-                    var isDateHere:String = ""
+                    var isDateHere: String = ""
                     if ics214Form.ics214IncidentName != nil {
                         name = ics214Form.ics214IncidentName!
                     }
@@ -786,30 +479,28 @@ class NewICS214ModalTVC: UITableViewController, FormSegmentCellDelegate, FourSwi
         }
     }
     
-    func theNewIncidentButtonTapped() {
-        print("hey why are you not responding!?")
-//        let storyBoard : UIStoryboard = UIStoryboard(name: "ICS214Form", bundle:nil)
-//        let modalTVC = storyBoard.instantiateViewController(withIdentifier: "NewICS214NewIncidentTVC") as! NewICS214NewIncidentTVC
-//        modalTVC.delegate = self
-//        modalTVC.transitioningDelegate = slideInTransitioningDelgate
-//        modalTVC.modalPresentationStyle = .custom
-//        self.present(modalTVC, animated: true, completion: nil)
-        performSegue(withIdentifier: NewICS214NewIncidentTVCSegue, sender: self)
-    }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-           if segue.identifier == NewICS214TVCSegue {
-            let modalTVC:NewICS214TVC = segue.destination as! NewICS214TVC
-               modalTVC.delegate = self
-               modalTVC.masterOrNot = masterOrNot
-               modalTVC.incidentObjId = incidentObjectID
-               modalTVC.teamName = teamName
-               modalTVC.transitioningDelegate = slideInTransitioningDelgate
-           } else if segue.identifier == NewICS214NewIncidentTVCSegue {
-                let detailTVC:NewICS214NewIncidentTVC = segue.destination as! NewICS214NewIncidentTVC
-                detailTVC.delegate = self
+        if segue.identifier == NewICS214TVCSegue {
+            let ics214NewVC = segue.destination as! ICS214NewVC
+            ics214NewVC.delegate = self
+            ics214NewVC.type = self.type
+            ics214NewVC.masterOrNot = self.masterOrNot
+            if !self.masterOrNot {
+                ics214NewVC.theMasterGuid = masterGuid
+                ics214NewVC.theMasterICS214FormOID = self.theMasterICS214FormOID
             }
-       }
+            
+            ics214NewVC.theIncidentOID = incidentObjectID
+            ics214NewVC.theUserTimeOID = theUserTimeID
+            ics214NewVC.theUserOID = theUserOID
+            ics214NewVC.transitioningDelegate = slideInTransitioningDelgate
+        } else if segue.identifier == NewICS214NewIncidentTVCSegue {
+            let detailTVC: NewICS214NewIncidentTVC = segue.destination as! NewICS214NewIncidentTVC
+            detailTVC.delegate = self
+        }
+    }
     
     
     
@@ -831,18 +522,18 @@ class NewICS214ModalTVC: UITableViewController, FormSegmentCellDelegate, FourSwi
         }
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "ShowTheForm" {
-//
-//
-//            //                var modalNavigationController:UINavigationController = UINavigationController(rootViewController: modalTVC)
-//            //                modalNavigationController.modalPresentationStyle = .formSheet
-//            //                modalNavigationController = segue.destination as! UINavigationController
-//
-//        }
-//    }
+        //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //        if segue.identifier == "ShowTheForm" {
+        //
+        //
+        //            //                var modalNavigationController:UINavigationController = UINavigationController(rootViewController: modalTVC)
+        //            //                modalNavigationController.modalPresentationStyle = .formSheet
+        //            //                modalNavigationController = segue.destination as! UINavigationController
+        //
+        //        }
+        //    }
     
-    // MARK: - Table view data source
+        // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -866,15 +557,15 @@ class NewICS214ModalTVC: UITableViewController, FormSegmentCellDelegate, FourSwi
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if(indexPath.row == 0) {
-//            cell.contentView.backgroundColor = UIColor(patternImage: UIImage(named:"header")!)
+                //            cell.contentView.backgroundColor = UIColor(patternImage: UIImage(named:"header")!)
         }
         cell.selectionStyle = .none
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        let type:CellParts = modalCells[indexPath.row]
-        let cellType:FormType = type.type["Type"]!
+        let type: CellParts = modalCells[indexPath.row]
+        let cellType: FormType = type.type["Type"]!
         
         switch cellType {
         case .modalHeader:
@@ -934,7 +625,7 @@ class NewICS214ModalTVC: UITableViewController, FormSegmentCellDelegate, FourSwi
         case .theMapCell:
             if masterOrNot {
                 if effortType {
-                   return 700
+                    return 700
                 } else {
                     return 0
                 }
@@ -965,14 +656,14 @@ class NewICS214ModalTVC: UITableViewController, FormSegmentCellDelegate, FourSwi
     }
     
     func findTheLastMaster()->String {
-        var formTyped:String = ""
+        var formTyped: String = ""
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ICS214Form" )
         var predicate = NSPredicate.init()
         predicate = NSPredicate(format: "ics214EffortMaster == YES")
         fetchRequest.predicate = predicate
         fetchRequest.fetchBatchSize = 20
-        //        let sortDescriptor = NSSortDescriptor(key: "ics214FromTime", ascending: false)
-        //        fetchRequest.sortDescriptors = [sortDescriptor]
+            //        let sortDescriptor = NSSortDescriptor(key: "ics214FromTime", ascending: false)
+            //        fetchRequest.sortDescriptors = [sortDescriptor]
         do {
             let fetched = try context.fetch(fetchRequest) as! [ICS214Form]
             if fetched.count != 0 {
@@ -993,13 +684,13 @@ class NewICS214ModalTVC: UITableViewController, FormSegmentCellDelegate, FourSwi
         return formTyped
     }
     
-    //    MARK: -CellHeaderCancelSaveDelegate
+        //    MARK: -CellHeaderCancelSaveDelegate
     func cellCancelled() {
         delegate?.theCancelCalledOnNewICS214Modal()
     }
     
     func cellSaved() {
-        //        <#code#>
+            //        <#code#>
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -1025,17 +716,17 @@ class NewICS214ModalTVC: UITableViewController, FormSegmentCellDelegate, FourSwi
         if type.objID["objectID"] != nil {
             objectID = type.objID["objectID"] as? NSManagedObjectID
         }
-        let header:String = type.cellAttributes["Header"]!
-        let field1:String = type.cellAttributes["Field1"]!
-        let field2:String = type.cellAttributes["Field2"]!
-        let field3:String = type.cellAttributes["Field3"]!
-        let field4:String = type.cellAttributes["Field4"]!
-        let field5:String = type.cellAttributes["Value1"]!
-        let field6:String = type.cellAttributes["Value4"]!
-        let field7:String = type.cellAttributes["Value3"]!
-        let field8:String = type.cellAttributes["Value5"]!
-        var field9:String = ""
-        var field10:String = ""
+        let header: String = type.cellAttributes["Header"]!
+        let field1: String = type.cellAttributes["Field1"]!
+        let field2: String = type.cellAttributes["Field2"]!
+        let field3: String = type.cellAttributes["Field3"]!
+        let field4: String = type.cellAttributes["Field4"]!
+        let field5: String = type.cellAttributes["Value1"]!
+        let field6: String = type.cellAttributes["Value4"]!
+        let field7: String = type.cellAttributes["Value3"]!
+        let field8: String = type.cellAttributes["Value5"]!
+        var field9: String = ""
+        var field10: String = ""
         if let incidentNumber = type.cellAttributes["Value7"] {
             field10 = incidentNumber
         }
@@ -1092,6 +783,7 @@ class NewICS214ModalTVC: UITableViewController, FormSegmentCellDelegate, FourSwi
                     cell.otherMasterIV.isHidden = true
                     cell.instructionL.text = "When you select FIRST FORM, you’ll be able to record a series of ICS-214s as individual operational period journals, all linked to the same incident. Once you “close out” the last operational period for thta incident, Fire Journal will be ready to start another sequence. Note that below you have four different types of deployments to link your ICS-214 to. Select the one that’s appropriate for your deployment."
                 } else {
+                    
                     cell.localIncidentSwitch.setOn(false, animated: false)
                     cell.strikeTeamSwitch.setOn(false, animated: false)
                     cell.femaTaskForceSwitch.setOn(false, animated:false)
@@ -1101,19 +793,19 @@ class NewICS214ModalTVC: UITableViewController, FormSegmentCellDelegate, FourSwi
                     cell.strikeTeamMasterIV.isHidden = true
                     cell.otherMasterIV.isHidden = true
                     cell.instructionL.text = "Remember, you will have the option of sharing completed ICS-214 reports either electronically via PDF, or in print form, both appearing in the standard NIMS form [ Membership required for sharing ]."
-                    if formMaster == "FEMA Task Force" {
+                    if formMaster == TypeOfForm.femaTaskForceForm.rawValue {
                         cell.femaMasterIV.isHidden = false
                         cell.femaTaskForceSwitch.setOn(true, animated:false)
                         cell.type = TypeOfForm.femaTaskForceForm.rawValue
-                    } else if formMaster == "Local Incident" {
+                    } else if formMaster == TypeOfForm.incidentForm.rawValue {
                         cell.localIncidentMasterIV.isHidden = false
                         cell.localIncidentSwitch.setOn(true, animated: false)
                         cell.type = TypeOfForm.incidentForm.rawValue
-                    } else if formMaster == "Strike Team" {
+                    } else if formMaster == TypeOfForm.strikeForceForm.rawValue {
                         cell.strikeTeamMasterIV.isHidden = false
                         cell.strikeTeamSwitch.setOn(true, animated: false)
                         cell.type = TypeOfForm.strikeForceForm.rawValue
-                    } else if formMaster == "Other" {
+                    } else if formMaster == TypeOfForm.otherForm.rawValue {
                         cell.otherMasterIV.isHidden = false
                         cell.otherSwitch.setOn(true, animated: false)
                         cell.type = TypeOfForm.otherForm.rawValue
@@ -1222,7 +914,7 @@ class NewICS214ModalTVC: UITableViewController, FormSegmentCellDelegate, FourSwi
                     cell.incidentNumber = header
                     cell.masterGuid = field1
                     cell.obID = objectID
-//                    print(cell)
+                        //                    print(cell)
                 }
             } else {
                 if field8 == TypeOfForm.femaTaskForceForm.rawValue {
@@ -1232,7 +924,7 @@ class NewICS214ModalTVC: UITableViewController, FormSegmentCellDelegate, FourSwi
                 } else if field8 == TypeOfForm.otherForm.rawValue {
                     cell.titleL.text = "\(header)"
                 }
-
+                
                 cell.masterGuid = field1
                 cell.obID = objectID
                 cell.incidentAddressL.text = "From Time: \(field3)"
@@ -1305,91 +997,382 @@ class NewICS214ModalTVC: UITableViewController, FormSegmentCellDelegate, FourSwi
         switch row {
         case 0, 1, 2, 3, 4, 5, 6 : break
         default:
+            theMasterICS214FormOID = nil
             let cellChecked = tableView.cellForRow(at: indexPath) as! IncidentMasterCell
             guid = cellChecked.incidentGuid!
             masterGuid = cellChecked.masterGuid!
             type = cellChecked.type
             incidentGuid = cellChecked.incidentGuid!
             incidentNumber = cellChecked.incidentNumber
-//            let ics214IncidentOjbID = cellChecked.obID
-            
-            
-            
-            
-            //            let segue = "showNewForm"
-            //            performSegue(withIdentifier: segue, sender: self)
-            //            print("here is thew guid\(guid)")
-            
-//            var _:NSManagedObjectID!
-            if cellChecked.obID != nil {
-                incidentObjectID = cellChecked.obID
-                buildTheNewICS214Form(objectID: incidentObjectID,master: masterOrNot)
+            if !masterOrNot {
+                
+                if cellChecked.obID != nil {
+                    theMasterICS214FormOID = cellChecked.obID
+                    buildTheNewICS214Form(objectID: theMasterICS214FormOID,master: masterOrNot)
+                }
+            } else {
+                if cellChecked.obID != nil {
+                    incidentObjectID = cellChecked.obID
+                    
+                    buildTheNewICS214Form(objectID: incidentObjectID,master: masterOrNot)
+                }
             }
-            
-//            modalTVC.incidentObjId = ics214IncidentOjbID
-//            if !masterOrNot {
-//                modalTVC.masterGuid = masterGuid!
-//                modalTVC.incidentGuid = incidentGuid!
-//            }
-//            if journalGuid != nil {
-//                modalTVC.journalGuid = journalGuid!
-//            }
-//
-//            var formType:String = ""
-//            var name:String = ""
-//
-//            if type == TypeOfForm.incidentForm {
-//                formType = "Local Incident"
-//                if cellChecked.incidentName != nil {
-//                    name = cellChecked.incidentName!
-//                }
-//            } else if type == TypeOfForm.femaTaskForceForm {
-//                formType = "FEMA Task Force"
-//                name = incidentNumber!
-//                modalTVC.teamName = cellChecked.teamName!
-//                if guid != nil {
-//                    modalTVC.journalGuid = guid
-//                }
-//            } else if type == TypeOfForm.strikeForceForm {
-//                formType = "Strike Team"
-//                name = incidentNumber!
-//                modalTVC.teamName = cellChecked.teamName!
-//                if guid != nil {
-//                    modalTVC.journalGuid = guid
-//                }
-//            } else if type == TypeOfForm.otherForm {
-//                formType = "Other"
-//                name = incidentNumber!
-//                modalTVC.teamName = cellChecked.teamName!
-//                if guid != nil {
-//                    modalTVC.journalGuid = guid
-//                }
-//            }
-//            modalTVC.incidentNumber = incidentNumber
-//            modalTVC.incidentName = name
-//            modalTVC.formType = formType
-//            modalTVC.masterOrNot = masterOrNot
-//            if incidentGuid != nil {
-//                modalTVC.incidentGuid = incidentGuid
-//            }
-//
-//            modalTVC.delegate = self
-//            modalTVC.titled = "\(formType) ICS 214 Form"
             break
         }
     }
     
     func buildTheNewICS214Form(objectID: NSManagedObjectID,master: Bool) {
-//        let storyBoard : UIStoryboard = UIStoryboard(name: "ICS214Form", bundle:nil)
-//        let modalTVC = storyBoard.instantiateViewController(withIdentifier: "NewICS214TVC") as! NewICS214TVC
-//        modalTVC.delegate = self
-//        modalTVC.masterOrNot = master
-//        modalTVC.incidentObjId = objectID
-//        modalTVC.teamName = teamName
-//        modalTVC.transitioningDelegate = slideInTransitioningDelgate
-//        modalTVC.modalPresentationStyle = .custom
-//        self.present(modalTVC, animated: true, completion: nil)
         performSegue(withIdentifier: NewICS214TVCSegue, sender: self)
+    }
+    
+}
+
+extension NewICS214ModalTVC: EffortWithDateDelegate {
+    
+    func theSearchButtonTappedNoDate(incidentNum: String) {
+        if masterOrNot {
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Incident")
+            var predicate = NSPredicate.init()
+            if incidentNum != ""{
+                predicate = NSPredicate(format: "incidentNumber CONTAINS %@",incidentNum)
+            } else {
+                predicate = NSPredicate(format: "incidentNumber != %@","")
+            }
+            fetchRequest.predicate = predicate
+            let sectionSortDescriptor = NSSortDescriptor(key: "incidentCreationDate", ascending: false)
+            let sortDescriptors = [sectionSortDescriptor]
+            fetchRequest.sortDescriptors = sortDescriptors
+            
+            do {
+                fetchedIncident = try context.fetch(fetchRequest) as! [Incident]
+                if fetchedIncident.count != 0 {
+                    for incident:Incident in fetchedIncident {
+                            //                        print("here is the incident \(String(describing: incident.incidentNumber)) number")
+                        var number = ""
+                        var master = ""
+                        var guid = ""
+                        var streetNum = ""
+                        var streetName = ""
+                        var zip = ""
+                        var imageName = ""
+                        var imageType = ""
+                        var incidentDate:Date?
+                        var isDateHere: String = ""
+                        var i10:CellParts!
+                        let obID:NSManagedObjectID = incident.objectID
+                        if incident.incidentNumber != nil {
+                            number = incident.incidentNumber!
+                        }
+                        if incident.ics214MasterGuid != nil {
+                            master = incident.ics214MasterGuid!
+                        }
+                        if incident.fjpIncGuidForReference != nil {
+                            guid = incident.fjpIncGuidForReference!
+                        }
+                        if incident.incidentStreetNumber != nil {
+                            streetNum = incident.incidentStreetNumber!
+                        }
+                        if incident.incidentStreetHyway != nil {
+                            streetName = incident.incidentStreetHyway!
+                        }
+                        if incident.incidentZipCode != nil {
+                            zip = incident.incidentZipCode!
+                        }
+                        if incident.incidentEntryTypeImageName != nil {
+                            imageType = incident.incidentEntryTypeImageName!
+                        }
+                        if incident.situationIncidentImage != nil {
+                            imageName = incident.situationIncidentImage!
+                        }
+                        let formType = TypeOfForm.incidentForm.rawValue
+                        
+                        if incident.incidentModDate != nil {
+                            incidentDate = incident.incidentModDate! as Date
+                            isDateHere = "yes"
+                            i10 = CellParts.init(cellAttributes: ["Header":number , "Field1":master , "Field2":guid, "Field3": streetNum,"Field4": streetName,"Value1":zip,"Value2":imageName,"Value3":imageType,"Value4":isDateHere,"Value5":formType,"Value7":number], type: ["Type": FormType.incidentMasterCell], vType: ["Value1":ValueType.fjKEmpty,"Value2":ValueType.fjKEmpty,"Value3":ValueType.fjKEmpty,"Value4":ValueType.fjKEmpty,"Value5":ValueType.fjKEmpty],dType:["Activity":incidentDate!], objID: [ "objectID":obID ])
+                        } else {
+                            isDateHere = "no"
+                            i10 = CellParts.init(cellAttributes: ["Header":number , "Field1":master , "Field2":guid, "Field3": streetNum,"Field4": streetName,"Value1":zip,"Value2":imageName,"Value3":imageType,"Value4":isDateHere,"Value5":formType,"Value7":number], type: ["Type": FormType.incidentMasterCell], vType: ["Value1":ValueType.fjKEmpty,"Value2":ValueType.fjKEmpty,"Value3":ValueType.fjKEmpty,"Value4":ValueType.fjKEmpty,"Value5":ValueType.fjKEmpty],dType:["Activity":Date()], objID: [ "objectID":obID ])
+                        }
+                        modalCells.append(i10)
+                    }
+                    tableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: .automatic)
+                }
+            }   catch {
+                
+                let nserror = error as NSError
+                
+                let errorMessage = "NewICS214ModalTVC theSearchButtonTappedNoDate() fetchRequest \(fetchRequest) Unresolved error \(nserror)"
+                
+                print(errorMessage)
+                
+            }
+        } else {
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ICS214Form")
+            var predicate = NSPredicate.init()
+            predicate = NSPredicate(format: "ics214MasterGuid != %@ && ics214Effort == %@ && ics214EffortMaster == YES && ics214Completed != YES","","incidentForm")
+            fetchRequest.predicate = predicate
+            
+            let sectionSortDescriptor = NSSortDescriptor(key: "ics214FromTime", ascending: false)
+            let sortDescriptors = [sectionSortDescriptor]
+            fetchRequest.sortDescriptors = sortDescriptors
+            
+            do {
+                fetchedICS241 = try context.fetch(fetchRequest) as! [ICS214Form]
+                if fetchedICS241.count != 0 {
+                    for ics214F: ICS214Form in fetchedICS241 {
+                            //                        let ics214Incident = ics214F.ics214IncidentInfo
+                        let ics214ObjID = ics214F.objectID
+                        var name = ""
+                        var master = ""
+                        let masterYes: String = "yes"
+                        var guid = ""
+                        var fromTime = ""
+                        var toTime = ""
+                        var imageName = ""
+                        teamName = ""
+                        var type: String = ""
+                        var incidentNumber: String = ""
+                        _ = "Local Incident"
+                        imageName = "ICS 214 Form LOCAL INCIDENT"
+                        type = TypeOfForm.incidentForm.rawValue
+                        var isDateHere: String = ""
+                        if ics214F.ics214LocalIncidentNumber != nil {
+                            incidentNumber = ics214F.ics214LocalIncidentNumber!
+                        }
+                        if ics214F.ics214IncidentName != nil {
+                            name = ics214F.ics214IncidentName!
+                        }
+                        if ics214F.ics214MasterGuid != nil {
+                            master = ics214F.ics214MasterGuid!
+                        }
+                        if ics214F.incidentGuid != nil {
+                            guid = ics214F.incidentGuid!
+                        }
+                        if ics214F.ics214FromTime != nil {
+                            let dateFormatter = DateFormatter()
+                            dateFormatter.dateFormat = "MM/dd/YYYY HH:mm"
+                            let dateFrom = dateFormatter.string(from: ics214F.ics214FromTime! as Date)
+                            fromTime = dateFrom
+                        }
+                        if ics214F.ics214ToTime != nil {
+                            let dateFormatter = DateFormatter()
+                            dateFormatter.dateFormat = "MM/dd/YYYY HH:mm"
+                            let dateFrom = dateFormatter.string(from: ics214F.ics214ToTime! as Date)
+                            toTime = dateFrom
+                        }
+                        if ics214F.ics214TeamName != nil {
+                            teamName = ics214F.ics214TeamName!
+                        }
+                        
+                        var i45:CellParts!
+                        isDateHere = "no"
+                        i45 = CellParts.init(cellAttributes: ["Header":name , "Field1":master , "Field2":guid, "Field3":fromTime,"Field4":toTime,"Value1":imageName,"Value2":type,"Value3":masterYes,"Value4":isDateHere,"Value5":type,"Value6":teamName,"Value7":incidentNumber], type: ["Type": FormType.incidentMasterCell], vType: ["Value1":ValueType.fjKEmpty,"Value2":ValueType.fjKEmpty,"Value3":ValueType.fjKEmpty,"Value4":ValueType.fjKEmpty,"Value5":ValueType.fjKEmpty],dType:["Activity":Date()], objID: [ "objectID": ics214ObjID])
+                        
+                        modalCells.append(i45)
+                    }
+                    
+                    turnMasterOn = true
+                    tableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: .automatic)
+                }
+            } catch {
+                
+                let nserror = error as NSError
+                
+                let errorMessage = "NewICS214ModalTVC theSearchButtonTappedNoDate() fetchRequest \(fetchRequest) Unresolved error \(nserror)"
+                
+                print(errorMessage)
+                
+            }
+        }
+    }
+    
+    func theSearchButtonTapped(incidentNum: String, incidentDate: Date?) {
+        
+        if masterOrNot {
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Incident")
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "D"
+            let searchDayOfYear = dateFormatter.string(from: incidentDate!)
+            print(searchDayOfYear)
+            var predicate = NSPredicate.init()
+            if incidentDate != nil && incidentNum != ""{
+                predicate = NSPredicate(format: "incidentNumber CONTAINS %@ && incidentDayOfYear == %@",incidentNum,searchDayOfYear)
+            } else if incidentDate != nil && incidentNum == "" {
+                predicate = NSPredicate(format: "incidentDayOfYear == %@",searchDayOfYear)
+            } else if incidentDate == nil && incidentNum != "" {
+                predicate = NSPredicate(format: "incidentNumber CONTAINS %@",incidentNum)
+            } else {
+                predicate = NSPredicate(format: "incidentNumber != %@","")
+            }
+            
+            fetchRequest.predicate = predicate
+            let sectionSortDescriptor = NSSortDescriptor(key: "incidentCreationDate", ascending: true)
+            let sortDescriptors = [sectionSortDescriptor]
+            fetchRequest.sortDescriptors = sortDescriptors
+            
+            do {
+                fetchedIncident = try context.fetch(fetchRequest) as! [Incident]
+                if fetchedIncident.count != 0 {
+                    for incident:Incident in fetchedIncident {
+                            //                        print("here is the incident \(String(describing: incident.incidentNumber)) number")
+                        var number = ""
+                        var master = ""
+                        var guid = ""
+                        var streetNum = ""
+                        var streetName = ""
+                        var zip = ""
+                        var imageName = ""
+                        var imageType = ""
+                        var incidentDate:Date?
+                        var isDateHere: String = ""
+                        var i10:CellParts!
+                        let obID:NSManagedObjectID = incident.objectID
+                        if incident.incidentNumber != nil {
+                            number = incident.incidentNumber!
+                        }
+                        if incident.ics214MasterGuid != nil {
+                            master = incident.ics214MasterGuid!
+                        }
+                        if incident.fjpIncGuidForReference != nil {
+                            guid = incident.fjpIncGuidForReference!
+                        }
+                        if incident.incidentStreetNumber != nil {
+                            streetNum = incident.incidentStreetNumber!
+                        }
+                        if incident.incidentStreetHyway != nil {
+                            streetName = incident.incidentStreetHyway!
+                        }
+                        if incident.incidentZipCode != nil {
+                            zip = incident.incidentZipCode!
+                        }
+                        if incident.incidentEntryTypeImageName != nil {
+                            imageType = incident.incidentEntryTypeImageName!
+                        }
+                        if incident.situationIncidentImage != nil {
+                            imageName = incident.situationIncidentImage!
+                        }
+                        let formType = TypeOfForm.incidentForm.rawValue
+                        
+                        if incident.incidentModDate != nil {
+                            incidentDate = incident.incidentModDate! as Date
+                            isDateHere = "yes"
+                            i10 = CellParts.init(cellAttributes: ["Header":number , "Field1":master , "Field2":guid, "Field3": streetNum,"Field4": streetName,"Value1":zip,"Value2":imageName,"Value3":imageType,"Value4":isDateHere,"Value5":formType], type: ["Type": FormType.incidentMasterCell], vType: ["Value1":ValueType.fjKEmpty,"Value2":ValueType.fjKEmpty,"Value3":ValueType.fjKEmpty,"Value4":ValueType.fjKEmpty,"Value5":ValueType.fjKEmpty],dType:["Activity":incidentDate!], objID: [ "objectID":obID ])
+                        } else {
+                            isDateHere = "no"
+                            i10 = CellParts.init(cellAttributes: ["Header":number , "Field1":master , "Field2":guid, "Field3": streetNum,"Field4": streetName,"Value1":zip,"Value2":imageName,"Value3":imageType,"Value4":isDateHere,"Value5":formType], type: ["Type": FormType.incidentMasterCell], vType: ["Value1":ValueType.fjKEmpty,"Value2":ValueType.fjKEmpty,"Value3":ValueType.fjKEmpty,"Value4":ValueType.fjKEmpty,"Value5":ValueType.fjKEmpty],dType:["Activity":Date()], objID: [ "objectID":obID ])
+                        }
+                        modalCells.append(i10)
+                    }
+                    tableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: .automatic)
+                }
+            }   catch {
+                
+                let nserror = error as NSError
+                
+                let errorMessage = "NewICS214ModalTVC theSearchButtonTapped() fetchRequest \(fetchRequest) Unresolved error \(nserror)"
+                
+                print(errorMessage)
+            }
+        } else {
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ICS214Form")
+            var predicate = NSPredicate.init()
+            predicate = NSPredicate(format: "ics214MasterGuid != %@ && ics214Effort == %@ && ics214EffortMaster == YES && ics214Completed != YES","","incidentForm")
+            fetchRequest.predicate = predicate
+            
+            
+            do {
+                fetchedICS241 = try context.fetch(fetchRequest) as! [ICS214Form]
+                if fetchedICS241.count != 0 {
+                    for ics214F:ICS214Form in fetchedICS241 {
+                        var name = ""
+                        var master = ""
+                        let masterYes: String = "yes"
+                        var guid = ""
+                        var fromTime = ""
+                        var toTime = ""
+                        var imageName = ""
+                        var teamName = ""
+                        var type: String = ""
+                        var incidentNumber: String = ""
+                            //                        let formType = "Local Incident"
+                        imageName = "ICS 214 Form LOCAL INCIDENT"
+                        type = TypeOfForm.incidentForm.rawValue
+                        var isDateHere: String = ""
+                        if ics214F.ics214LocalIncidentNumber != nil {
+                            incidentNumber = ics214F.ics214LocalIncidentNumber!
+                        }
+                        if ics214F.ics214IncidentName != nil {
+                            name = ics214F.ics214IncidentName!
+                        }
+                        if ics214F.ics214MasterGuid != nil {
+                            master = ics214F.ics214MasterGuid!
+                        }
+                        if ics214F.incidentGuid != nil {
+                            guid = ics214F.incidentGuid!
+                        }
+                        if ics214F.ics214FromTime != nil {
+                            let dateFormatter = DateFormatter()
+                            dateFormatter.dateFormat = "MM/dd/YYYY HH:mm"
+                            let dateFrom = dateFormatter.string(from: ics214F.ics214FromTime! as Date)
+                            fromTime = dateFrom
+                        }
+                        if ics214F.ics214ToTime != nil {
+                            let dateFormatter = DateFormatter()
+                            dateFormatter.dateFormat = "MM/dd/YYYY HH:mm"
+                            let dateFrom = dateFormatter.string(from: ics214F.ics214ToTime! as Date)
+                            toTime = dateFrom
+                        }
+                        if ics214F.ics214TeamName != nil {
+                            teamName = ics214F.ics214TeamName!
+                        }
+                        
+                        var i45: CellParts!
+                        isDateHere = "no"
+                        i45 = CellParts.init(cellAttributes: ["Header":name , "Field1":master , "Field2":guid, "Field3":fromTime,"Field4":toTime,"Value1":imageName,"Value2":type,"Value3":masterYes,"Value4":isDateHere,"Value5":type,"Value6":teamName,"Value7":incidentNumber], type: ["Type": FormType.incidentMasterCell], vType: ["Value1":ValueType.fjKEmpty,"Value2":ValueType.fjKEmpty,"Value3":ValueType.fjKEmpty,"Value4":ValueType.fjKEmpty,"Value5":ValueType.fjKEmpty],dType:["Activity":Date()], objID: [ "objectID":nil ])
+                        
+                        modalCells.append(i45)
+                    }
+                    
+                    turnMasterOn = true
+                    tableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: .automatic)
+                }
+            } catch {
+                
+                let nserror = error as NSError
+                
+                let errorMessage = "NewICS214ModalTVC theSearchButtonTapped() fetchRequest \(fetchRequest) Unresolved error \(nserror)"
+                
+                print(errorMessage)
+                
+            }
+        }
+        
+    }
+    
+    func theNewIncidentButtonTapped() {
+        print("hey why are you not responding!?")
+        performSegue(withIdentifier: NewICS214NewIncidentTVCSegue, sender: self)
+    }
+    
+    func theTimeButtonWasTappedForIncident() {
+        let i:Int = modalCells.firstIndex(where: { $0 == p4 })!
+        let d:Int = i+1
+        modalCells.insert(p30, at:d)
+        showPicker = true
+        tableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: .automatic)
+    }
+    
+}
+
+extension NewICS214ModalTVC: ICS214NewVCDelegate {
+    
+    func cancelTheICS214New() {
+        delegate?.theCancelCalledOnNewICS214Modal()
+    }
+    
+    func saveTheICS214New(objectID: NSManagedObjectID) {
+        delegate?.theNewICS214Created(ics214OID: objectID)
     }
     
 }
@@ -1397,7 +1380,7 @@ class NewICS214ModalTVC: UITableViewController, FormSegmentCellDelegate, FourSwi
 extension NewICS214ModalTVC: NewICS214Delegate {
     
     func theICS214FormCancelled() {
-//        nc.post(name:Notification.Name(rawValue:notificationKeyICS4), object: nil)
+            //        nc.post(name:Notification.Name(rawValue:notificationKeyICS4), object: nil)
         delegate?.theCancelCalledOnNewICS214Modal()
     }
     

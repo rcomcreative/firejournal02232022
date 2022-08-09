@@ -149,6 +149,32 @@ class IncidentProvider: NSObject, NSFetchedResultsControllerDelegate {
         
     }
     
+    func getAllIncidents(_ context: NSManagedObjectContext) -> [Incident]? {
+        let fetchRequest: NSFetchRequest<Incident> = Incident.fetchRequest()
+
+        var predicate = NSPredicate.init()
+        predicate = NSPredicate(format: "fjpIncGuidForReference != %@", "")
+        var predicate2 = NSPredicate.init()
+        predicate2 = NSPredicate(format: "(%K == nil) OR (%K.length == 0)","ics214MasterGuid", "ics214MasterGuid" )
+
+         let predicateCan = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [predicate, predicate2])
+        fetchRequest.predicate = predicateCan
+        fetchRequest.fetchBatchSize = 20
+        
+        let sectionSortDescriptor = NSSortDescriptor(key: "incidentCreationDate", ascending: false)
+        let sortDescriptors = [sectionSortDescriptor]
+        fetchRequest.sortDescriptors = sortDescriptors
+        
+        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        aFetchedResultsController.delegate = self
+        fetchedResultsController = aFetchedResultsController
+        do {
+            try fetchedResultsController?.performFetch()
+        } catch let error as NSError {
+            print("IncidentProvider line 172 Fetch Error: \(error.localizedDescription)")
+        }
+        return fetchedObjects
+    }
     
         /// fetch all incidents that were entered for shift after userStartShiftTime and userEndShiftTime
         /// - Parameters:

@@ -71,9 +71,15 @@ extension ARC_FormTVC {
             if self.theForm.installerSignature != nil {
                 installerSignature = true
             }
-            let user = userDefaults.bool(forKey: FJkFJUSERSavedToCoreDataFromCloud)
-            if user {
-                fireJournalUser = getTheUser()
+            if theUser == nil {
+                if self.theForm.fireJournalUserDetail != nil {
+                    theUser = self.theForm.fireJournalUserDetail
+                }
+            }
+            if theUserTime == nil {
+                if self.theForm.userTime != nil {
+                    theUserTime = self.theForm.userTime
+                }
             }
         }
     }
@@ -115,10 +121,9 @@ extension ARC_FormTVC {
         self.theForm.addToLocalPartnerInto(theLocalPartners)
         self.theForm.addToResidentsInfo(theResidence)
         
-        let user = userDefaults.bool(forKey: FJkFJUSERSavedToCoreDataFromCloud)
-        if user {
-            fireJournalUser = getTheUser()
-        }
+        theUser.addToFireJournalUserARCFormDetail(self.theForm)
+        theUserTime.addToArcForm(self.theForm)
+        
         journal = Journal(context: context)
         journal.fjpJGuidForReference = journal.guidForJournal( creationDate, dateFormatter: dateFormatter)
         journal.journalModDate = creationDate
@@ -131,23 +136,34 @@ extension ARC_FormTVC {
         journal.journalHeader = "Smoke Alarm Installation Form Campaign: Single"
         let timeStamp = journal.journalFullDateFormatted(creationDate, dateFormatter: dateFormatter)
         var summary: String = ""
-        if fireJournalUser != nil {
-            var name: String = ""
-            if let first = fireJournalUser.firstName {
-                name = first
+        var name: String = ""
+        theUserTime.addToJournal(journal)
+        if theUser != nil {
+            theUser.addToFireJournalUserDetails(journal)
+            if let userName = theUser.userName {
+                name = userName
+            } else {
+                if let first = theUser.firstName {
+                    name = first + " "
+                }
+                if let last = theUser.lastName {
+                    name = name + last
+                }
             }
-            if let last = fireJournalUser.lastName {
-                name = "\(name) \(last)"
-            }
+        
             summary = "Time Stamp: \(timeStamp) Smoke Alarm Inspection Form: Single Master entered by \(name)"
-            let platoon = fireJournalUser.tempPlatoon  ?? ""
-            journal.journalTempPlatoon = platoon
-            let assignment = fireJournalUser.tempAssignment ?? ""
-            journal.journalTempAssignment = assignment
-            let apparatus = fireJournalUser.tempApparatus ?? ""
-            journal.journalTempApparatus = apparatus
-            let fireStation = fireJournalUser.tempFireStation ?? fireJournalUser.fireStation ?? ""
-            journal.journalTempFireStation = fireStation
+            if let platoon = theUser.tempPlatoon {
+                journal.journalTempPlatoon = platoon
+            }
+            if let assignment = theUser.tempAssignment {
+                journal.journalTempAssignment = assignment
+            }
+            if let apparatus = theUser.tempApparatus {
+                journal.journalTempApparatus = apparatus
+            }
+            if let fireStation = theUser.fireStation {
+                journal.journalTempFireStation = fireStation
+            }
         } else {
             summary = "Time Stamp: \(timeStamp) Smoke Alarm Inspection Form: Single Master"
         }
@@ -903,31 +919,6 @@ extension ARC_FormTVC {
         self.present(typeTVC, animated: true, completion: nil)
     }
     
-    //    MARK: -BUILD THE FORM-
-    //    MARK: -Get The User-
-    func getTheUser() ->FireJournalUser {
-        var fju:FireJournalUser? = nil
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FireJournalUser" )
-        var predicate = NSPredicate.init()
-        predicate = NSPredicate(format: "%K != %@", "userGuid", "")
-        let sectionSortDescriptor = NSSortDescriptor(key: "lastName", ascending: true)
-        let sortDescriptors = [sectionSortDescriptor]
-        fetchRequest.sortDescriptors = sortDescriptors
-        
-        fetchRequest.predicate = predicate
-        fetchRequest.fetchBatchSize = 20
-        
-        do {
-            let fetched = try context.fetch(fetchRequest) as! [FireJournalUser]
-            if !fetched.isEmpty {
-                fju = fetched.last
-            }
-        } catch let error as NSError {
-            print("Fetch failed: \(error.localizedDescription)")
-        }
-        return fju!
-    }
-    
     //    MARK: -SAVE SINGLE MASTER FORM AND JOURNAL ENTRY-
     fileprivate func saveSingleAndJournalToCD() {
         do {
@@ -995,14 +986,20 @@ extension ARC_FormTVC {
             }
             if fromMap {
                 if (Device.IS_IPHONE) {
-                    if fireJournalUser != nil {
-                        let id = fireJournalUser.objectID
-                        vcLaunch.mapCalledPhone(type: incidentType, theUserOID: id)
+                    if theUser != nil {
+                        let id = theUser.objectID
+                        if theUserTime != nil {
+                            let userTimeID = theUserTime.objectID
+                            vcLaunch.mapCalledPhone(type: incidentType, theUserOID: id, theUserTimeOID: userTimeID)
+                        }
                     }
                 } else {
-                    if fireJournalUser != nil {
-                        let id = fireJournalUser.objectID
-                        vcLaunch.mapCalled(type: incidentType, theUserOID: id )
+                    if theUser != nil {
+                        let id = theUser.objectID
+                        if theUserTime != nil {
+                            let userTimeID = theUserTime.objectID
+                            vcLaunch.mapCalled(type: incidentType, theUserOID: id, theUserTimeOID: userTimeID)
+                        }
                     }
                 }
             }
@@ -1102,14 +1099,20 @@ extension ARC_FormTVC: MapFormHeaderVDelegate {
             })
         default:
             if (Device.IS_IPHONE) {
-                if fireJournalUser != nil {
-                    let id = fireJournalUser.objectID
-                    vcLaunch.mapCalledPhone(type: type, theUserOID: id)
+                if theUser != nil {
+                    let id = theUser.objectID
+                    if theUserTime != nil {
+                        let userTimeID = theUserTime.objectID
+                    vcLaunch.mapCalledPhone(type: type, theUserOID: id, theUserTimeOID: userTimeID)
+                    }
                 }
             } else {
-                if fireJournalUser != nil {
-                    let id = fireJournalUser.objectID
-                    vcLaunch.mapCalled(type: type, theUserOID: id)
+                if theUser != nil {
+                    let id = theUser.objectID
+                    if theUserTime != nil {
+                        let userTimeID = theUserTime.objectID
+                        vcLaunch.mapCalled(type: type, theUserOID: id, theUserTimeOID: userTimeID)
+                    }
                 }
             }
         }

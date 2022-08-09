@@ -82,6 +82,12 @@ class LabelTextFieldCell: UITableViewCell, UITextFieldDelegate {
         }
         if let text = textField.text {
             if journalType == nil {
+                    switch myShift {
+                    case .ics214:
+                        delegate?.labelTextFieldFinishedEditing(text: text, myShift: myShift, tag: self.tag)
+                    default:
+                        delegate?.labelTextFieldEditing(text: text, myShift: myShift)
+                    }
                 delegate?.labelTextFieldEditing(text: text, myShift: myShift)
             } else {
             switch journalType {
@@ -99,7 +105,12 @@ class LabelTextFieldCell: UITableViewCell, UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let text = textField.text {
             if journalType == nil {
-                delegate?.labelTextFieldFinishedEditing(text: text, myShift: myShift, tag: self.tag)
+                switch myShift {
+                case .ics214:
+                    delegate?.labelTextFieldFinishedEditing(text: text, myShift: myShift, tag: self.tag)
+                default:
+                    delegate?.labelTextFieldFinishedEditing(text: text, myShift: myShift, tag: self.tag)
+                }
             } else {
                 switch journalType {
                 case .userInfo?:
@@ -116,7 +127,12 @@ class LabelTextFieldCell: UITableViewCell, UITextFieldDelegate {
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         if let text = textField.text {
             if journalType == nil {
-                delegate?.labelTextFieldFinishedEditing(text: text, myShift: myShift, tag: self.tag)
+                switch myShift {
+                case .ics214:
+                    delegate?.labelTextFieldFinishedEditing(text: text, myShift: myShift, tag: self.tag)
+                default:
+                    delegate?.labelTextFieldFinishedEditing(text: text, myShift: myShift, tag: self.tag)
+                }
             }
         }
         return true

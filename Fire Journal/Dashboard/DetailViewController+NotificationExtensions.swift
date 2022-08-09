@@ -358,18 +358,32 @@ extension DetailViewController: ModalTVCDelegate {
             let int = theCount(entity: "ICS214Form")
             if int != 0 {
                 let objectID = fetchTheLatest(shift: shift)
-                nc.post(name:Notification.Name(rawValue: FJkICS214_FROM_MASTER),
-                        object: nil,
-                        userInfo: ["objectID": objectID, "shift": shift])
+                if theUserTime != nil {
+                    let theUserTimeID = theUserTime.objectID
+                    nc.post(name:Notification.Name(rawValue: FJkICS214_FROM_MASTER),
+                            object: nil,
+                            userInfo: ["objectID": objectID, "shift": MenuItems.ics214, "theUserTimeID": theUserTimeID])
+                }
             } else {
                 slideInTransitioningDelgate.direction = .bottom
                 slideInTransitioningDelgate.disableCompactHeight = true
-                let vc: NewICS214ModalTVC = vcLaunch.modalICS214NewCalled()
-                vc.title = "New ICS 214"
-                vc.delegate = self
-                vc.transitioningDelegate = slideInTransitioningDelgate
-                vc.modalPresentationStyle = .custom
-                self.present(vc, animated: true, completion: nil)
+                let storyBoard : UIStoryboard = UIStoryboard(name: "ICS214NewMasterAddiitionalForm", bundle:nil)
+                if let ics214NewMasterAddiitionalFormVC = storyBoard.instantiateViewController(withIdentifier: "ICS214NewMasterAddiitionalFormVC") as? ICS214NewMasterAddiitionalFormVC {
+                    ics214NewMasterAddiitionalFormVC.transitioningDelegate = slideInTransitioningDelgate
+                    if Device.IS_IPHONE {
+                        ics214NewMasterAddiitionalFormVC.modalPresentationStyle = .formSheet
+                    } else {
+                        ics214NewMasterAddiitionalFormVC.modalPresentationStyle = .custom
+                    }
+                    if theUserTime != nil {
+                        ics214NewMasterAddiitionalFormVC.theUserTimeOID = theUserTime.objectID
+                    }
+                    if theFireJournalUser != nil {
+                        ics214NewMasterAddiitionalFormVC.theUserOID = theFireJournalUser.objectID
+                    }
+                    ics214NewMasterAddiitionalFormVC.delegate = self
+                    self.present(ics214NewMasterAddiitionalFormVC, animated: true, completion: nil)
+                }
             }
         case .arcForm:
             let int = theCount(entity: "ARCrossForm")
@@ -443,6 +457,18 @@ extension DetailViewController: ModalTVCDelegate {
 }
 
 extension DetailViewController: NewICS214ModalTVCDelegate {
+    
+    func theNewICS214Created(ics214OID: NSManagedObjectID) {
+        self.dismiss(animated: true, completion: nil)
+        if theUserTime != nil {
+            let theUserTimeID = theUserTime.objectID
+            DispatchQueue.main.async {
+                self.nc.post(name:Notification.Name(rawValue: FJkICS214_FROM_MASTER),
+                        object: nil,
+                        userInfo: ["objectID": ics214OID, "shift": MenuItems.ics214, "theUserTimeID": theUserTimeID])
+            }
+        }
+    }
     
     func theCancelCalledOnNewICS214Modal() {
         self.dismiss(animated: true, completion: nil)

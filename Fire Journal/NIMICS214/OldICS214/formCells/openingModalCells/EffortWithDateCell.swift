@@ -1,5 +1,5 @@
 //
-//  EffortWithDateCell.swift
+//  EffortWithDateself.swift
 //  ARCForm
 //
 //  Created by DuRand Jones on 10/24/17.
@@ -31,7 +31,42 @@ class EffortWithDateCell: UITableViewCell, UITextFieldDelegate {
     @IBOutlet weak var question2TF: UITextField!
     @IBOutlet weak var instructionL: UILabel!
     
-    var theIncidentDate:Date!
+    var theIncidentDate: Date!
+    
+    private var theType: TypeOfForm = .incidentForm
+    var type: TypeOfForm = .incidentForm {
+        didSet {
+            self.theType = self.type
+            switch self.theType {
+            case .incidentForm:
+                self.titleText = "Local Incident"
+            case .femaTaskForceForm:
+                self.titleText = "FEMA Task Force"
+            case .strikeForceForm:
+                self.titleText = "Strike Team"
+            case .otherForm:
+                self.titleText = "Other"
+            default: break
+            }
+        }
+    }
+    
+    private var theInstructionsText: String = ""
+    var instructionsText: String = "" {
+        didSet {
+            self.theInstructionsText = self.instructionsText
+            self.instructionL.text = self.theInstructionsText
+        }
+    }
+    
+    private var theTitleText: String = ""
+    var titleText: String = "" {
+        didSet {
+            self.theTitleText = self.titleText
+            self.titleL.text = self.theTitleText
+            self.titleL.setNeedsDisplay()
+        }
+    }
     
     weak var delegate: EffortWithDateDelegate? = nil
     

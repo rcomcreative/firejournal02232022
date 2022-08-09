@@ -106,13 +106,6 @@ extension ListTVC: ICS214DetailViewControllerDelegate {
     
 }
 
-extension ListTVC: NewICS214ModalTVCDelegate {
-    
-    func theCancelCalledOnNewICS214Modal() {
-        self.dismiss(animated: true, completion: nil)
-    }
-}
-
 extension ListTVC: PersonalJournalDelegate {
     
         //    MARK: -PersonalJournalDelegate
@@ -131,6 +124,14 @@ extension ListTVC: ARC_ViewControllerDelegate {
             let storyboard = UIStoryboard(name: "Form", bundle: nil)
             let controller:ARC_FormTVC = storyboard.instantiateViewController(withIdentifier: "ARC_FormTVC") as! ARC_FormTVC
             let navigator = UINavigationController.init(rootViewController: controller)
+            
+            if self.theUserTime != nil {
+                controller.userTimeOID = self.theUserTime.objectID
+            }
+            if self.theFireJournalUser != nil {
+                controller.userOID = self.theFireJournalUser.objectID
+            }
+            
             controller.navigationItem.leftItemsSupplementBackButton = true
             controller.navigationItem.leftBarButtonItem = self.splitVC?.displayModeButtonItem
             controller.delegate = self

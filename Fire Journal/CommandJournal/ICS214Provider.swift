@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import CloudKit
 
-class ICS214Provider: NSObject {
+class ICS214Provider: NSObject, NSFetchedResultsControllerDelegate  {
     
     private(set) var persistentContainer: NSPersistentContainer
     var ckRecord: CKRecord!
@@ -21,11 +21,27 @@ class ICS214Provider: NSObject {
     let nc = NotificationCenter.default
     var theICS214R: CKRecord!
     
+    private var fetchedResultsController: NSFetchedResultsController<ICS214Form>? = nil
+    var _fetchedResultsController: NSFetchedResultsController<ICS214Form> {
+        if fetchedResultsController != nil {
+            fetchedResultsController?.delegate = self
+            return fetchedResultsController!
+        }
+        return fetchedResultsController!
+    }
+    
+    deinit {
+        print("ICS214Provider is being deinitialized")
+    }
+    
+    var fetchedObjects: [ICS214Form] {
+        return fetchedResultsController?.fetchedObjects ?? []
+    }
+    
     init(with persistentContainer: NSPersistentContainer) {
         self.persistentContainer = persistentContainer
         self.privateDatabase = myContainer.privateCloudDatabase
         super.init()
-        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: context)
     }
     
         // MARK: -
@@ -36,7 +52,89 @@ class ICS214Provider: NSObject {
         }
     }
     
+    func determineTheICS214Image(type: TypeOfForm) -> String {
+        var imageName: String = ""
+        switch type {
+        case .incidentForm:
+            imageName = "ICS_214_Form_LOCAL_INCIDENT"
+        case .strikeForceForm:
+            imageName = "ICS214FormSTRIKETEAM"
+        case .femaTaskForceForm:
+            imageName = "ICS214FormFEMA"
+        case .otherForm:
+            imageName = "ICS214FormOTHER"
+        }
+        return imageName
+    }
+    
+    func getTheInCompleteMasterICS214(_ context: NSManagedObjectContext) -> [ICS214Form]? {
+        let fetchRequest: NSFetchRequest<ICS214Form> = ICS214Form.fetchRequest()
+
+        var predicate = NSPredicate.init()
+        predicate = NSPredicate(format: "ics214EffortMaster == %@", NSNumber(value: true ))
+        var predicate2 = NSPredicate.init()
+        predicate2 = NSPredicate(format: "ics214Completed == %@", NSNumber(value: false ))
+
+         let predicateCan = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [predicate,predicate2])
+        fetchRequest.predicate = predicateCan
+        fetchRequest.fetchBatchSize = 20
+        
+        let sectionSortDescriptor = NSSortDescriptor(key: "ics214FromTime", ascending: true)
+        let sortDescriptors = [sectionSortDescriptor]
+        fetchRequest.sortDescriptors = sortDescriptors
+        
+        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        aFetchedResultsController.delegate = self
+        fetchedResultsController = aFetchedResultsController
+        do {
+            try fetchedResultsController?.performFetch()
+        } catch let error as NSError {
+            print("ICS214Provider line 115 Fetch Error: \(error.localizedDescription)")
+        }
+        return fetchedObjects
+    }
+    
+    func getTheMasterListICS214(_ context: NSManagedObjectContext, thetype: TypeOfForm) -> [ICS214Form]? {
+        let fetchRequest: NSFetchRequest<ICS214Form> = ICS214Form.fetchRequest()
+
+        var predicate = NSPredicate.init()
+        predicate = NSPredicate(format: "ics214EffortMaster == %@", NSNumber(value: true ))
+        var predicate2 = NSPredicate.init()
+        predicate2 = NSPredicate(format: "ics214Completed == %@", NSNumber(value: false ))
+        var predicate3 = NSPredicate.init()
+        switch thetype {
+        case .incidentForm:
+            predicate3 = NSPredicate(format: "ics214Effort == %@", "incidentForm")
+        case .strikeForceForm:
+            predicate3 = NSPredicate(format: "ics214Effort == %@", "strikeForceForm")
+        case .femaTaskForceForm:
+            predicate3 = NSPredicate(format: "ics214Effort == %@", "femaTaskForceForm")
+        case .otherForm:
+            predicate3 = NSPredicate(format: "ics214Effort == %@", "otherForm")
+        }
+
+         let predicateCan = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [predicate,predicate2,predicate3])
+        fetchRequest.predicate = predicateCan
+        fetchRequest.fetchBatchSize = 20
+        
+        let sectionSortDescriptor = NSSortDescriptor(key: "ics214FromTime", ascending: true)
+        let sortDescriptors = [sectionSortDescriptor]
+        fetchRequest.sortDescriptors = sortDescriptors
+        
+        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        aFetchedResultsController.delegate = self
+        fetchedResultsController = aFetchedResultsController
+        do {
+            try fetchedResultsController?.performFetch()
+        } catch let error as NSError {
+            print("ICS214Provider line 115 Fetch Error: \(error.localizedDescription)")
+        }
+        return fetchedObjects
+    }
+    
     func singleICSFromTheCloud(ckRecord: CKRecord, dateFormatter: DateFormatter,_ ics214: ICS214Form, _ context: NSManagedObjectContext, completionHandler: (() -> Void)? = nil) {
+        
+        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: context)
         
         self.context = context
         self.theICS214R = ckRecord

@@ -13,7 +13,14 @@ class ModalHeaderCell: UITableViewCell {
     @IBOutlet weak var sectionIV: UIImageView!
     @IBOutlet weak var formNameL: UILabel!
     @IBOutlet weak var formDescriptionL: UILabel!
-    var descriptionText:String?
+    
+    private var theDescriptionText: String = ""
+    var descriptionText: String = "" {
+        didSet {
+            self.theDescriptionText = self.descriptionText
+            self.formNameL.text = theDescriptionText
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

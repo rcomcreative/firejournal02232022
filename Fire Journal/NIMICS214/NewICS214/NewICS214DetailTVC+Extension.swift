@@ -206,24 +206,27 @@ extension NewICS214DetailTVC {
             }
         }
         if let effort = ics214.ics214Effort {
-            if effort == "FEMA Task Force" {
-                cell.campaignTypeL.text = effort
-                let image = UIImage(named: "ICS214FormFEMA")
-                cell.icsIconIV.image = image
-            }  else if effort == "Local Incident" {
-                var effortTitle = effort
+            if effort == "incidentForm" {
+                var effortTitle = "Local Incident"
                 if let number = ics214.ics214LocalIncidentNumber {
-                    effortTitle = effort + "- #\(number)"
+                    effortTitle = effortTitle + " - #\(number)"
                 }
                 cell.campaignTypeL.text = effortTitle
                 let image = UIImage(named: "ICS_214_Form_LOCAL_INCIDENT")
                 cell.icsIconIV.image = image
-            } else if effort == "Strike Team" {
-                cell.campaignTypeL.text = effort
+            } else if effort == "femaTaskForceForm" {
+                let effortTitle = "FEMA Task Force"
+                cell.campaignTypeL.text = effortTitle
+                let image = UIImage(named: "ICS214FormFEMA")
+                cell.icsIconIV.image = image
+            } else if effort == "strikeForceForm" {
+                let effortTitle = "Strike Team"
+                cell.campaignTypeL.text = effortTitle
                 let image = UIImage(named: "ICS214FormSTRIKETEAM")
                 cell.icsIconIV.image = image
-            } else if effort == "Other" {
-                cell.campaignTypeL.text = effort
+            } else if effort == "otherForm" {
+                let effortTitle = "Other"
+                cell.campaignTypeL.text = effortTitle
                 let image = UIImage(named: "ICS214FormOTHER")
                 cell.icsIconIV.image = image
             } else {
@@ -231,7 +234,6 @@ extension NewICS214DetailTVC {
                 cell.icsIconIV.image = image
             }
         }
-        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/YYYY"
         cell.campaign = ics214.ics214Completed
         
@@ -550,12 +552,18 @@ extension NewICS214DetailTVC {
                 if (Device.IS_IPHONE) {
                     if theFireJournalUser != nil {
                         let id = theFireJournalUser.objectID
-                        vcLaunch.mapCalledPhone(type: IncidentTypes.ics214Form, theUserOID: id )
+                        if theUserTime != nil {
+                            let userTimeID = theUserTime.objectID
+                        vcLaunch.mapCalledPhone(type: IncidentTypes.ics214Form, theUserOID: id, theUserTimeOID: userTimeID)
+                        }
                     }
                 } else {
                     if theFireJournalUser != nil {
                             let id = theFireJournalUser.objectID
-                        vcLaunch.mapCalled(type: IncidentTypes.ics214Form, theUserOID: id )
+                        if theUserTime != nil {
+                            let userTimeID = theUserTime.objectID
+                            vcLaunch.mapCalled(type: IncidentTypes.ics214Form, theUserOID: id, theUserTimeOID: userTimeID)
+                        }
                     }
                 }
             }
@@ -627,12 +635,18 @@ extension NewICS214DetailTVC: MapFormHeaderVDelegate {
             if (Device.IS_IPHONE) {
                 if theFireJournalUser != nil {
                     let id = theFireJournalUser.objectID
-                    vcLaunch.mapCalledPhone(type: type, theUserOID: id )
+                    if theUserTime != nil {
+                        let userTimeID = theUserTime.objectID
+                    vcLaunch.mapCalledPhone(type: type, theUserOID: id, theUserTimeOID: userTimeID)
+                    }
                 }
             } else {
                 if theFireJournalUser != nil {
                         let id = theFireJournalUser.objectID
-                    vcLaunch.mapCalled(type: type, theUserOID: id )
+                    if theUserTime != nil {
+                        let userTimeID = theUserTime.objectID
+                        vcLaunch.mapCalled(type: type, theUserOID: id, theUserTimeOID: userTimeID)
+                    }
                 }
             }
     }

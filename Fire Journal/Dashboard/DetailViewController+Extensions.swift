@@ -646,18 +646,32 @@ extension DetailViewController: FormListModalVCDelegate {
             let int = theCount(entity: "ICS214Form")
             if int != 0 {
                 let objectID = fetchTheLatest(shift: MenuItems.ics214)
+                if theUserTime != nil {
+                    let theUserTimeID = theUserTime.objectID
                 nc.post(name:Notification.Name(rawValue: FJkICS214_FROM_MASTER),
                         object: nil,
-                        userInfo: ["objectID": objectID, "shift": MenuItems.ics214])
+                        userInfo: ["objectID": objectID, "shift": MenuItems.ics214, "theUserTimeID": theUserTimeID])
+                }
             } else {
                 slideInTransitioningDelgate.direction = .bottom
                 slideInTransitioningDelgate.disableCompactHeight = true
-                let vc: NewICS214ModalTVC = vcLaunch.modalICS214NewCalled()
-                vc.title = "New ICS 214"
-                vc.delegate = self
-                vc.transitioningDelegate = slideInTransitioningDelgate
-                vc.modalPresentationStyle = .custom
-                self.present(vc, animated: true, completion: nil)
+                let storyBoard : UIStoryboard = UIStoryboard(name: "ICS214NewMasterAddiitionalForm", bundle:nil)
+                if let ics214NewMasterAddiitionalFormVC = storyBoard.instantiateViewController(withIdentifier: "ICS214NewMasterAddiitionalFormVC") as? ICS214NewMasterAddiitionalFormVC {
+                    ics214NewMasterAddiitionalFormVC.transitioningDelegate = slideInTransitioningDelgate
+                    if Device.IS_IPHONE {
+                        ics214NewMasterAddiitionalFormVC.modalPresentationStyle = .formSheet
+                    } else {
+                        ics214NewMasterAddiitionalFormVC.modalPresentationStyle = .custom
+                    }
+                    if theUserTime != nil {
+                        ics214NewMasterAddiitionalFormVC.theUserTimeOID = theUserTime.objectID
+                    }
+                    if theFireJournalUser != nil {
+                        ics214NewMasterAddiitionalFormVC.theUserOID = theFireJournalUser.objectID
+                    }
+                    ics214NewMasterAddiitionalFormVC.delegate = self
+                    self.present(ics214NewMasterAddiitionalFormVC, animated: true, completion: nil)
+                }
             }
         case .arcForm:
             let int = theCount(entity: "ARCrossForm")
@@ -691,6 +705,27 @@ extension DetailViewController: FormListModalVCDelegate {
     
 }
 
+extension DetailViewController: ICS214NewMasterAddiitionalFormVCDelegate {
+    
+    func newMasterAdditionalFormCanceled() {
+            self.dismiss(animated: true, completion: nil)
+    }
+    
+    func newMasterAdditionalFormSaved(_ newICS214FormOID: NSManagedObjectID) {
+        self.dismiss(animated: true, completion: nil)
+        if theUserTime != nil {
+            let theUserTimeID = theUserTime.objectID
+            DispatchQueue.main.async {
+                self.nc.post(name:Notification.Name(rawValue: FJkICS214_FROM_MASTER),
+                        object: nil,
+                        userInfo: ["objectID": newICS214FormOID, "shift": MenuItems.ics214, "theUserTimeID": theUserTimeID])
+            }
+        }
+    }
+    
+    
+}
+
 extension DetailViewController: CampaignDelegate {
     
     func theCampaignHasBegun() {
@@ -706,15 +741,19 @@ extension DetailViewController: NewARC_FormMainVCDelegate {
         slideInTransitioningDelgate.direction = .bottom
         slideInTransitioningDelgate.disableCompactHeight = true
         let storyBoard : UIStoryboard = UIStoryboard(name: "Campaign", bundle:nil)
-        let dataTVC = storyBoard.instantiateViewController(withIdentifier: "CampaignTVC") as! CampaignTVC
-        dataTVC.delegate = self
-        dataTVC.transitioningDelegate = slideInTransitioningDelgate
+        let controller = storyBoard.instantiateViewController(withIdentifier: "CampaignTVC") as! CampaignTVC
+        controller.delegate = self
+        
+        controller.userOID = userOID
+        controller.userTimeOID = userTimeOID
+        
+        controller.transitioningDelegate = slideInTransitioningDelgate
         if Device.IS_IPHONE {
-            dataTVC.modalPresentationStyle = .formSheet
+            controller.modalPresentationStyle = .formSheet
         } else {
-        dataTVC.modalPresentationStyle = .custom
+            controller.modalPresentationStyle = .custom
         }
-        self.present(dataTVC, animated: true, completion: nil)
+        self.present(controller, animated: true, completion: nil)
     }
     
     func theSingleFormButtonTapped(userTimeOID: NSManagedObjectID, userOID: NSManagedObjectID) {
@@ -722,6 +761,9 @@ extension DetailViewController: NewARC_FormMainVCDelegate {
         slideInTransitioningDelgate.disableCompactHeight = true
         let storyboard = UIStoryboard(name: "Form", bundle: nil)
         let controller:ARC_FormTVC = storyboard.instantiateViewController(withIdentifier: "ARC_FormTVC") as! ARC_FormTVC
+        
+        controller.userOID = userOID
+        controller.userTimeOID = userTimeOID
         
         if Device.IS_IPHONE {
             let navigator = UINavigationController.init(rootViewController: controller)

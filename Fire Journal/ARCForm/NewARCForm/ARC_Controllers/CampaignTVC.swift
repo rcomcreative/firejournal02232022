@@ -44,6 +44,12 @@ class CampaignTVC: UITableViewController {
     var masterJournal: Journal!
     var masterJournalAvailable: Bool = false
     
+    var userOID: NSManagedObjectID!
+    var theUser: FireJournalUser!
+    var userTimeOID: NSManagedObjectID!
+    var theUserTime: UserTime!
+    
+    
     //    MARK: -NSFETCHRESULTS-
     var fetchedResultsController: NSFetchedResultsController<ARCrossForm>? = nil
     var _fetchedResultsController: NSFetchedResultsController<ARCrossForm> {
@@ -60,7 +66,23 @@ class CampaignTVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        cloud.context = context
+        
+        if cloud.context != nil {
+            cloud.context = context
+            
+            if userOID != nil {
+                theUser = context.object(with: userOID) as? FireJournalUser
+            } else {
+                dismiss(animated: true, completion: nil)
+            }
+            
+            if userTimeOID != nil {
+                theUserTime = context.object(with: userTimeOID) as? UserTime
+            } else {
+                dismiss(animated: true, completion: nil)
+            }
+        }
+        
         if Device.IS_IPHONE {
             let frame = self.view.frame
             let height = frame.height - 44

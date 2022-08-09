@@ -86,6 +86,8 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, NSF
     @IBOutlet weak var mapFilterB: UIButton!
     @IBOutlet weak var mapInfoB: UIButton!
     var theUserOID: NSManagedObjectID!
+    var theUserTimeOID: NSManagedObjectID!
+    var theUserTime: UserTime!
     
     let incidentSegue: String = MapVCToMapIncidentSegue
     let ics214Segue: String = MapVCToMapICS214Segue
@@ -314,6 +316,9 @@ class MapVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, NSF
         self.title = titleName
         if theUserOID != nil {
             fju = context.object(with: theUserOID) as? FireJournalUser
+        }
+        if theUserTimeOID != nil {
+            theUserTime = context.object(with: theUserTimeOID) as? UserTime
         }
 //        getTheUser(userGuid: "")
             //        getTheFireStationLocation()
@@ -1118,11 +1123,14 @@ extension MapVC {
         } else if segue.identifier == arcSegue {
             let formTVC = segue.destination as! ARC_FormTVC
             formTVC.objectID = objectID
+            formTVC.userOID = theUserOID
+            formTVC.userTimeOID = theUserTimeOID
             formTVC.fromMap = true
             formTVC.delegate = self
         } else if segue.identifier == ics214Segue {
             let formTVC = segue.destination as! NewICS214DetailTVC
             formTVC.objectID = objectID
+            formTVC.theUserTimeOID = theUserTimeOID
             formTVC.fromMap = true
             formTVC.delegate = self
         }

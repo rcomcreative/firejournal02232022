@@ -12,6 +12,11 @@ import CoreData
 
 class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalTVCDelegate,NFIRSBasic1FormTVCDelegate,ICS214FormTVCDelegate,MapVCDelegate,ModalTVCDelegate,ListTVCDelegate,ICS214DetailViewControllerDelegate,SettingsProfileTVCDelegate,TheStoreDelegate,NewICS214ModalTVCDelegate,PersonalJournalDelegate {
     
+    func theNewICS214Created(ics214OID: NSManagedObjectID) {
+//        <#code#>
+    }
+    
+    
     //    MARK: -PersonalJournalDelegate
     
     func thePersonalJournalEntrySaved(){}
@@ -375,7 +380,7 @@ class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalT
     
     func modalICS214NewCalled() ->NewICS214ModalTVC {
         let storyboard = UIStoryboard(name: "ICS214Form", bundle: nil)
-        let controller:NewICS214ModalTVC = storyboard.instantiateViewController(withIdentifier: "NewICS214ModalTVC") as! NewICS214ModalTVC
+        let controller: NewICS214ModalTVC = storyboard.instantiateViewController(withIdentifier: "NewICS214ModalTVC") as! NewICS214ModalTVC
         return controller
     }
     
@@ -528,7 +533,7 @@ class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalT
         self.splitVC?.showDetailViewController(navigator, sender:self)
     }
     
-    func mapCalled(type: IncidentTypes , theUserOID: NSManagedObjectID ) -> Void {
+    func mapCalled(type: IncidentTypes , theUserOID: NSManagedObjectID, theUserTimeOID: NSManagedObjectID ) -> Void {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller:MapVC = storyboard.instantiateViewController(withIdentifier: "MapVC") as! MapVC
         let navigator = UINavigationController.init(rootViewController: controller)
@@ -540,19 +545,21 @@ class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalT
         controller.titleName = "Maps"
         controller.incidentType = type
         controller.theUserOID = theUserOID
+        controller.theUserTimeOID = theUserTimeOID
         self.splitVC?.showDetailViewController(navigator, sender:self)
         nc.post(name:Notification.Name(rawValue:"FJkMAPSLISTCALLED"),
                 object: nil,
                 userInfo: nil)
     }
     
-    func mapCalledPhone(type: IncidentTypes, theUserOID: NSManagedObjectID ) -> Void {
+    func mapCalledPhone(type: IncidentTypes, theUserOID: NSManagedObjectID, theUserTimeOID: NSManagedObjectID ) -> Void {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller: MapVC = storyboard.instantiateViewController(withIdentifier: "MapVC") as! MapVC
         let navigator = UINavigationController.init(rootViewController: controller)
         controller.navigationItem.leftItemsSupplementBackButton = true
         controller.navigationItem.leftBarButtonItem = self.splitVC?.displayModeButtonItem
         controller.theUserOID = theUserOID
+        controller.theUserTimeOID = theUserTimeOID
         controller.delegate = self
         controller.myShift = .maps
         controller.titleName = "Maps"
@@ -637,7 +644,7 @@ class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalT
         self.splitVC?.showDetailViewController(navigator, sender:self)
     }
     
-    func arcFormCalledFromList(sizeTrait: SizeTrait,id: NSManagedObjectID)-> Void {
+    func arcFormCalledFromList(sizeTrait: SizeTrait,id: NSManagedObjectID,theUserTimeID: NSManagedObjectID, theUserID: NSManagedObjectID)-> Void {
         let storyboard = UIStoryboard(name: "Form", bundle: nil)
         let controller:ARC_FormTVC = storyboard.instantiateViewController(withIdentifier: "ARC_FormTVC") as! ARC_FormTVC
         let navigator = UINavigationController.init(rootViewController: controller)
@@ -645,12 +652,34 @@ class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalT
         controller.navigationItem.leftBarButtonItem = self.splitVC?.displayModeButtonItem
         //        controller.managedObjectContext = context
         controller.objectID = id
+        controller.userOID = theUserID
+        controller.userTimeOID = theUserTimeID
         controller.delegate = self
         //        controller.titleName = "CRR Smoke Alarm Inspection Form"
         self.splitVC?.showDetailViewController(navigator, sender:self)
     }
     
-    func ics214CalledFromList(sizeTrait: SizeTrait,id: NSManagedObjectID)-> Void {
+    func arcFormCalled(sizeTrait: SizeTrait, id: NSManagedObjectID, theUserTimeID: NSManagedObjectID, theUserID: NSManagedObjectID) -> Void {
+        if Device.IS_IPAD {
+            let storyboard = UIStoryboard(name: "Form", bundle: nil)
+            let controller:ARC_FormTVC = storyboard.instantiateViewController(withIdentifier: "ARC_FormTVC") as! ARC_FormTVC
+            let navigator = UINavigationController.init(rootViewController: controller)
+            controller.navigationItem.leftItemsSupplementBackButton = true
+            controller.navigationItem.leftBarButtonItem = self.splitVC?.displayModeButtonItem
+            //        controller.managedObjectContext = context
+            controller.objectID = id
+            controller.userOID = theUserID
+            controller.userTimeOID = theUserTimeID
+            controller.delegate = self
+            //        controller.titleName = "CRR Smoke Alarm Inspection Form"
+            self.splitVC?.showDetailViewController(navigator, sender:self)
+        }
+        nc.post(name:Notification.Name(rawValue:"FJkARCFORMLISTCALLED"),
+                object: nil,
+                userInfo: nil)
+    }
+    
+    func ics214CalledFromList(sizeTrait: SizeTrait,id: NSManagedObjectID, theUserTimeID: NSManagedObjectID)-> Void {
         
         let storyboard = UIStoryboard(name: "NewICS214", bundle: nil)
         let controller  = storyboard.instantiateViewController(identifier: "NewICS214DetailTVC") as! NewICS214DetailTVC
@@ -660,11 +689,12 @@ class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalT
         //        controller.managedObjectContext = context
         
         controller.objectID = id
+        controller.theUserTimeOID = theUserTimeID
         controller.delegate = self
         self.splitVC?.showDetailViewController(navigator, sender:self)
     }
     
-    @objc func ics214Called(objectID: NSManagedObjectID)-> Void{
+    @objc func ics214Called(objectID: NSManagedObjectID, theUserTimeID: NSManagedObjectID)-> Void{
         
         if Device.IS_IPAD {
             let storyboard = UIStoryboard(name: "NewICS214", bundle: nil)
@@ -674,6 +704,7 @@ class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalT
             controller.navigationItem.leftBarButtonItem = self.splitVC?.displayModeButtonItem
             controller.delegate = self
             controller.objectID = objectID
+            controller.theUserTimeOID = theUserTimeID
             self.splitVC?.showDetailViewController(navigator, sender:self)
         }
         nc.post(name:Notification.Name(rawValue:"FJkICS214FORMLISTCALLED"),

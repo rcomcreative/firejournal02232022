@@ -82,11 +82,6 @@ extension Incident {
         } else {
             fjIncidentR["arsonInvestigation"] = 0
         }
-        if self.incidentCancel {
-            fjIncidentR["incidentCancel"] = 1
-        } else {
-            fjIncidentR["incidentCancel"] = 0
-        }
         if self.incidentPhotoTaken != nil {
             if self.incidentPhotoTaken == 1 {
                 fjIncidentR["incidentPhotoTaken"] = true
@@ -860,11 +855,11 @@ extension Incident {
         } else {
             fjIncidentR["arsonInvestigation"] = 0
         }
-        if self.incidentCancel {
-            fjIncidentR["incidentCancel"] = 1
-        } else {
-            fjIncidentR["incidentCancel"] = 0
-        }
+//        if self.incidentCancel {
+//            fjIncidentR["incidentCancel"] = 1
+//        } else {
+//            fjIncidentR["incidentCancel"] = 0
+//        }
         if let incidentEntryTypeImageName = self.incidentEntryTypeImageName {
             fjIncidentR["incidentEntryTypeImageName"] = incidentEntryTypeImageName
         }
@@ -1612,9 +1607,9 @@ extension Incident {
             self.arsonInvestigation = Bool(truncating: arsonInvestigation as NSNumber)
         }
         
-        if let incidentCancel = fjIncidentR["incidentCancel"] as? Double {
-            self.incidentCancel = Bool(truncating: incidentCancel as NSNumber)
-        }
+//        if let incidentCancel = fjIncidentR["incidentCancel"] as? Double {
+//            self.incidentCancel = Bool(truncating: incidentCancel as NSNumber)
+//        }
         if let incidentNumber = fjIncidentR["incidentNumber"] as? String {
             self.incidentNumber = incidentNumber
         }
@@ -2424,9 +2419,9 @@ extension Incident {
             self.arsonInvestigation = Bool(truncating: arsonInvestigation as NSNumber)
         }
         
-        if let incidentCancel = fjIncidentR["incidentCancel"] as? Double {
-            self.incidentCancel = Bool(truncating: incidentCancel as NSNumber)
-        }
+//        if let incidentCancel = fjIncidentR["incidentCancel"] as? Double {
+//            self.incidentCancel = Bool(truncating: incidentCancel as NSNumber)
+//        }
         if let incidentNFIRSDataDate = fjIncidentR["incidentNFIRSDataDate"] as? String {
             self.incidentNFIRSDataDate = incidentNFIRSDataDate
         }

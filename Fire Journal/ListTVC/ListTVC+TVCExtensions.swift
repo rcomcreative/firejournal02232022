@@ -280,6 +280,14 @@ extension ListTVC {
                     let storyboard = UIStoryboard(name: "Form", bundle: nil)
                     let controller:ARC_FormTVC = storyboard.instantiateViewController(withIdentifier: "ARC_FormTVC") as! ARC_FormTVC
                     let navigator = UINavigationController.init(rootViewController: controller)
+                    
+                    if theUserTime != nil {
+                        controller.userTimeOID = theUserTime.objectID
+                    }
+                    if theFireJournalUser != nil {
+                        controller.userOID = theFireJournalUser.objectID
+                    }
+                    
                     controller.navigationItem.leftItemsSupplementBackButton = true
                     controller.navigationItem.leftBarButtonItem = self.splitVC?.displayModeButtonItem
                     controller.delegate = self
@@ -365,6 +373,8 @@ extension ListTVC {
                             saveToCD()
                         }
                     }
+                    context.delete(ics214)
+                    saveToCD()
                 case .arcForm:
                     let arcForm = _fetchedResultsController?.object(at: indexPath) as! ARCrossForm
                     if let data = arcForm.arcFormCKR {
@@ -562,10 +572,7 @@ extension ListTVC {
     
     func configureICS214(_ cell: LinkeJournalCell, indexPath: IndexPath) -> LinkeJournalCell {
         if let ics214 = _fetchedResultsController?.object(at: indexPath) as? ICS214Form {
-            let imageType:String = "100515IconSet_092016_ICS 214 Form"
-            if let image = UIImage(named: imageType) {
-                cell.journalTypeIV.image = image
-            }
+            
             cell.journalHeader.textColor = UIColor.systemBlue
             if let name = ics214.ics214IncidentName {
                 if ics214.ics214Count > 0 {
@@ -575,7 +582,39 @@ extension ListTVC {
                 }
             }
             if let campaign = ics214.ics214Effort {
-                cell.journalDateL.text = "Effort: \(campaign)"
+                var effort: String = ""
+                if campaign == "incidentForm" {
+                    effort = "Incident Form"
+                    let imageType:String = "ICS_214_Form_LOCAL_INCIDENT"
+                    if let image = UIImage(named: imageType) {
+                        cell.journalTypeIV.image = image
+                    }
+                } else if campaign == "femaTaskForceForm" {
+                    effort = "FEMA Task Force"
+                    let imageType:String = "ICS214FormFEMA"
+                    if let image = UIImage(named: imageType) {
+                        cell.journalTypeIV.image = image
+                    }
+                } else if campaign == "strikeForceForm" {
+                    effort = "Strike Team"
+                    let imageType:String = "ICS214FormSTRIKETEAM"
+                    if let image = UIImage(named: imageType) {
+                        cell.journalTypeIV.image = image
+                    }
+                } else if campaign == "otherForm" {
+                    effort = "Other"
+                    let imageType:String = "ICS214FormOTHER"
+                    if let image = UIImage(named: imageType) {
+                        cell.journalTypeIV.image = image
+                    }
+                } else {
+                    effort = "Incident Form"
+                    let imageType:String = "ICS_214_Form_LOCAL_INCIDENT"
+                    if let image = UIImage(named: imageType) {
+                        cell.journalTypeIV.image = image
+                    }
+                }
+                cell.journalDateL.text = "Effort: \(effort)"
             }
             var toDate:String = ""
             var fromDate:String = ""

@@ -299,6 +299,7 @@ extension UserTime {
         }
         
         fjUserTimeRecord["theEntity"] = "UserTime"
+        print("fjUserTimeRecord built")
         
         return fjUserTimeRecord
     }

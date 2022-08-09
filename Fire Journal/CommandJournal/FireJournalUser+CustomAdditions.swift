@@ -563,6 +563,61 @@ extension FireJournalUser {
             fjuCKRecord["fjpUserSearchDate"] = search
         }
         
+        var journalEntries = [String]()
+        var incidentEntries = [String]()
+        var arcFormEntries = [String]()
+        var ics214Entries = [String]()
+        var projectEntries = [String]()
+        if let journals = self.fireJournalUserDetails?.allObjects as? [Journal] {
+            for journal in journals {
+                if let guid = journal.fjpJGuidForReference {
+                    journalEntries.append(guid)
+                }
+            }
+        }
+        if let incidents = self.fireJournalUserIncDetails?.allObjects as? [Incident] {
+            for incident in incidents {
+                if let guid = incident.fjpIncGuidForReference {
+                    incidentEntries.append(guid)
+                }
+            }
+        }
+        if let arcForms = self.fireJournalUserARCFormDetail?.allObjects as? [ARCrossForm] {
+            for arcForm in arcForms {
+                if let guid = arcForm.arcFormGuid {
+                    arcFormEntries.append(guid)
+                }
+            }
+        }
+        if let ics214s = self.fireJournalUserICS214Info?.allObjects as? [ICS214Form] {
+            for ics214 in ics214s {
+                if let guid = ics214.ics214Guid {
+                    ics214Entries.append(guid)
+                }
+            }
+        }
+        if let projects = self.promotion?.allObjects as? [PromotionJournal] {
+            for project in projects {
+                if let guid = project.projectGuid {
+                    projectEntries.append(guid)
+                }
+            }
+        }
+        if !journalEntries.isEmpty {
+            fjuCKRecord["journalGuids"] = journalEntries
+        }
+        if !incidentEntries.isEmpty {
+            fjuCKRecord["incidentGuids"] = incidentEntries
+        }
+        if !arcFormEntries.isEmpty {
+            fjuCKRecord["arcFormGuids"] = arcFormEntries
+        }
+        if !ics214Entries.isEmpty {
+            fjuCKRecord["ics214Guids"] = ics214Entries
+        }
+        if !projectEntries.isEmpty {
+            fjuCKRecord["projectGuids"] = projectEntries
+        }
         
         //        MARK: -OBJECT-
         /// location saved as Data with secureCodeing
@@ -580,6 +635,7 @@ extension FireJournalUser {
             }
             
         }
+        print("FireJournalUser record built")
         
         return fjuCKRecord
     }

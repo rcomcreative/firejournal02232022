@@ -77,10 +77,8 @@ class ModifyIncidentToCloudOperation: FJOperation {
                 
                 let modifyCKOperation = CKModifyRecordsOperation.init(recordsToSave: [modifiedCKRecord], recordIDsToDelete: nil)
                 modifyCKOperation.savePolicy = .changedKeys
-                modifyCKOperation.perRecordCompletionBlock = { record, error in
-                    if let error = error {
-                        print("Error modify Incident record to private database \(error.localizedDescription)")
-                    }
+                
+                modifyCKOperation.perRecordProgressBlock = { record, double in
                     print(record)
                     self.fjIncident.incidentBackedUp = true
                     let coder = NSKeyedArchiver(requiringSecureCoding: true)
@@ -88,12 +86,16 @@ class ModifyIncidentToCloudOperation: FJOperation {
                     let data = coder.encodedData
                     self.fjIncident.fjIncidentCKR = data as NSObject
                 }
-                modifyCKOperation.modifyRecordsCompletionBlock = { savedRecords, deletedRecords, error in
-                    if let error = error {
+
+                modifyCKOperation.modifyRecordsResultBlock = { [weak self] result in
+                    switch result {
+                    case .success():
+                        self?.saveToCD()
+                    case .failure(let error):
                         print("Error modify Incident record to private database \(error.localizedDescription)")
                     }
-                    self.saveToCD()
                 }
+                
                 privateDatabase.add(modifyCKOperation)
             } catch {
                 print("here is the error")

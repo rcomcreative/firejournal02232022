@@ -54,12 +54,18 @@
             if (Device.IS_IPHONE) {
                 if fju != nil {
                     let id = fju.objectID
-                    vcLaunch.mapCalledPhone(type: type, theUserOID: id)
+                    if theUserTime != nil {
+                        let userTimeID = theUserTime.objectID
+                    vcLaunch.mapCalledPhone(type: type, theUserOID: id, theUserTimeOID: userTimeID)
+                    }
                 }
             } else {
                 if fju != nil {
                     let id = fju.objectID
-                vcLaunch.mapCalled(type: type, theUserOID: id )
+                    if theUserTime != nil {
+                        let userTimeID = theUserTime.objectID
+                vcLaunch.mapCalled(type: type, theUserOID: id, theUserTimeOID: userTimeID)
+                    }
                 }
             }
         }
@@ -2006,12 +2012,18 @@ extension IncidentTVC: ModalDataTVCDelegate {
                     if (Device.IS_IPHONE) {
                             if fju != nil {
                                 let id = fju.objectID
-                            vcLaunch.mapCalledPhone(type: incidentType, theUserOID: id)
+                                if theUserTime != nil {
+                                    let userTimeID = theUserTime.objectID
+                                    vcLaunch.mapCalledPhone(type: incidentType, theUserOID: id, theUserTimeOID: userTimeID)
+                                }
                             }
                     } else {
                         if fju != nil {
                             let id = fju.objectID
-                            vcLaunch.mapCalled(type: incidentType, theUserOID: id)
+                            if theUserTime != nil {
+                                let userTimeID = theUserTime.objectID
+                            vcLaunch.mapCalled(type: incidentType, theUserOID: id, theUserTimeOID: userTimeID)
+                            }
                         }
                     }
                 }

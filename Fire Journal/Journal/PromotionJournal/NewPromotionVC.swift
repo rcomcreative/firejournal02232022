@@ -171,7 +171,7 @@ New Project
         let jGuid:String = jGuidDate.formatGuid()
         thePromotion.projectGuid = "99."+jGuid
         if theUser != nil {
-            thePromotion.user = theUser
+            theUser.addToPromotion(thePromotion)
         }
         if theUserTime != nil {
             theUserTime.addToPromotion(thePromotion)

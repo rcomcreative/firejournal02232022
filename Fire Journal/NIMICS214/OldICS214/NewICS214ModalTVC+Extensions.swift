@@ -162,7 +162,7 @@ extension NewICS214ModalTVC: EffortSetUpCellDelegate {
         journalEntry.ics214Effort = formType
         journalEntry.ics214MasterGuid = masterGuid
         journalEntry.fjpUserReference = fju.userGuid ?? ""
-        journalEntry.journalICS214Details = ics214Form
+        journalEntry.addToJournalICS214Details(ics214Form)
         journalEntry.fireJournalUserInfo = fju
         
         ics214Form.journalGuid = uuidJ
@@ -241,9 +241,12 @@ extension NewICS214ModalTVC: EffortSetUpCellDelegate {
             let objectID = getTheLastICS214(guid: ics214Guid)
             let nc = NotificationCenter.default
             DispatchQueue.main.async {
-                nc.post(name:Notification.Name(rawValue:FJkICS214_FROM_MASTER),
+                if self.theUserTime != nil {
+                    let theUserTimeID = self.theUserTime.objectID
+                nc.post(name:Notification.Name(rawValue: FJkICS214_FROM_MASTER),
                         object: nil,
-                        userInfo: ["objectID": objectID])
+                        userInfo: ["objectID": objectID, "shift": MenuItems.ics214, "theUserTimeID": theUserTimeID])
+                }
             }
             DispatchQueue.main.async {
                 nc.post(name:Notification.Name(rawValue: FJkNEWICS214FormCreated),
