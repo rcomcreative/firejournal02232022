@@ -75,4 +75,8 @@ public enum MenuItems:Int {
     case userFDResource
     case finished
     case projects
+    case incidentForm
+    case femaTask
+    case strikeTeam
+    case otherForm
 }

@@ -140,16 +140,46 @@ class ICS214ToCloud: NSObject {
             for attendee in array {
                 if attendee.userAttendeeGuid != "" {
                     let attendee: UserAttendees = getAttendee(attendeeGuid:attendee.userAttendeeGuid ?? "")
-                    nameArray.append(attendee.attendee ?? "")
-                    agencyArray.append(attendee.attendeeHomeAgency ?? "")
-                    positionArray.append(attendee.attendeeICSPosition ?? "")
+                    if let attendee = attendee.attendee {
+                        nameArray.append(attendee)
+                    } else {
+                        nameArray.append("NA")
+                    }
+                    if let agency = attendee.attendeeHomeAgency {
+                        agencyArray.append(agency)
+                    } else {
+                        agencyArray.append("NA")
+                    }
+                    if let position = attendee.attendeeICSPosition {
+                        positionArray.append(position)
+                    } else {
+                        positionArray.append("NA")
+                    }
                 }
             }
         }
         
-        let theLogsArray = getTheSet()
-        let theLogTimesArray = getTheActivityLogTime(theLogs: theLogsArray)
-        let theLogNotableActivitiesArray = getTheActivityNotableActivity(theLogs: theLogsArray)
+        var theLogTimesArray = [String]()
+        var theLogNotableActivitiesArray = [String]()
+        let result = self.ics214.ics214ActivityDetail?.allObjects as! [ICS214ActivityLog]
+        if !result.isEmpty {
+            for log in result {
+                if let theDate = log.ics214ActivityDate {
+                    dayFormat.dateFormat = "MMMM d, YYYY HH:mm"
+                    let dateString = dayFormat.string(from: theDate) + "HR"
+                    theLogTimesArray.append(dateString)
+                } else {
+                    let dateString = "Date/Time not available"
+                    theLogTimesArray.append(dateString)
+                }
+                if let activity = log.ics214ActivityLog {
+                    theLogNotableActivitiesArray.append(activity)
+                } else {
+                    let activity = "The activity log was not was not available"
+                    theLogNotableActivitiesArray.append(activity)
+                }
+            }
+        }
         
         var imageData: Data = Data()
         if self.ics214.ics214SignatureAdded {

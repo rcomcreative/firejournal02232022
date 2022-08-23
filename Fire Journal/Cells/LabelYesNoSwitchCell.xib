@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,12 +22,12 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wJf-Wy-uh5">
-                        <rect key="frame" x="114" y="7" width="48" height="24"/>
+                        <rect key="frame" x="96" y="7" width="48" height="24"/>
                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Noo-0b-pMs">
-                        <rect key="frame" x="172" y="5" width="51" height="31"/>
+                        <rect key="frame" x="154" y="5" width="51" height="31"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="onTintColor" red="0.2901960784" green="0.56470588239999997" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
@@ -36,7 +35,7 @@
                         </connections>
                     </switch>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eqT-pU-MWe">
-                        <rect key="frame" x="231" y="8" width="48" height="24"/>
+                        <rect key="frame" x="213" y="8" width="48" height="24"/>
                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -48,7 +47,9 @@
                     <constraint firstItem="eqT-pU-MWe" firstAttribute="leading" secondItem="Noo-0b-pMs" secondAttribute="trailing" constant="10" id="P8Y-qr-rnG"/>
                     <constraint firstItem="Noo-0b-pMs" firstAttribute="top" secondItem="Uq0-ow-TXG" secondAttribute="top" constant="5" id="R6t-cK-0io"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="eqT-pU-MWe" secondAttribute="trailing" id="eyh-um-eyn"/>
-                    <constraint firstItem="wJf-Wy-uh5" firstAttribute="leading" secondItem="S2y-Ng-qhH" secondAttribute="trailing" constant="28" id="gFI-XI-jDW"/>
+                    <constraint firstItem="wJf-Wy-uh5" firstAttribute="leading" secondItem="S2y-Ng-qhH" secondAttribute="trailing" constant="28" id="gFI-XI-jDW">
+                        <variation key="heightClass=regular-widthClass=compact" constant="10"/>
+                    </constraint>
                     <constraint firstItem="S2y-Ng-qhH" firstAttribute="top" secondItem="Uq0-ow-TXG" secondAttribute="top" constant="5" id="mSV-gl-zSG"/>
                     <constraint firstItem="wJf-Wy-uh5" firstAttribute="top" secondItem="Uq0-ow-TXG" secondAttribute="top" constant="7" id="nbT-3j-eec"/>
                 </constraints>

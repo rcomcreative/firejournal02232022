@@ -54,7 +54,10 @@ extension MasterViewController: ListTVCDelegate {
             case .compact:
                 if theUserTime != nil {
                     let userTimeID = theUserTime.objectID
-                vcLaunch.ics214CalledFromList(sizeTrait: compact, id: id, theUserTimeID: userTimeID)
+                    if theUser != nil {
+                        let userOID = theUser.objectID
+                        vcLaunch.ics214CalledFromList(sizeTrait: compact, id: id, theUserTimeID: userTimeID, userID: userOID)
+                    }
                 }
             case .regular:
                 vcLaunch.personalCalled(sizeTrait: compact, id: id)
@@ -897,9 +900,14 @@ extension MasterViewController: FormListModalVCDelegate {
                 let objectID = fetchTheLatest(shift: MenuItems.ics214)
                 if theUserTime != nil {
                     let theUserTimeID = theUserTime.objectID
-                nc.post(name:Notification.Name(rawValue: FJkICS214_FROM_MASTER),
-                        object: nil,
-                        userInfo: ["objectID": objectID, "shift": MenuItems.ics214, "theUserTimeID": theUserTimeID])
+                    if theUser != nil {
+                        let userID = theUser.objectID
+                        DispatchQueue.main.async {
+                            self.nc.post(name:Notification.Name(rawValue: FJkICS214_FROM_MASTER),
+                                    object: nil,
+                                    userInfo: ["objectID": objectID, "shift": MenuItems.ics214, "theUserTimeID": theUserTimeID, "theUserID": userID])
+                        }
+                    }
                 }
             } else {
                 slideInTransitioningDelgate.direction = .bottom
@@ -1080,10 +1088,13 @@ extension MasterViewController: ICS214NewMasterAddiitionalFormVCDelegate {
         self.dismiss(animated: true, completion: nil)
         if theUserTime != nil {
             let theUserTimeID = theUserTime.objectID
-            DispatchQueue.main.async {
-                self.nc.post(name:Notification.Name(rawValue: FJkICS214_FROM_MASTER),
-                        object: nil,
-                        userInfo: ["objectID": newICS214FormOID, "shift": MenuItems.ics214, "theUserTimeID": theUserTimeID])
+            if theUser != nil {
+                let userID = theUser.objectID
+                DispatchQueue.main.async {
+                    self.nc.post(name:Notification.Name(rawValue: FJkICS214_FROM_MASTER),
+                            object: nil,
+                            userInfo: ["objectID": newICS214FormOID, "shift": MenuItems.ics214, "theUserTimeID": theUserTimeID, "theUserID": userID])
+                }
             }
         }
     }

@@ -28,8 +28,21 @@ class NewICS214ResourcesAssignedTVC: UITableViewController {
     var entity: String = "UserAttendees"
     let attribute: String = "attendee"
     var selected = [UserAttendees]()
+    var newOfficer: UserAttendees!
+    
+    var imageAvailable: Bool = false
+    var contactImage: UIImage!
+    var validPhotos = [Photo]()
+    
     var headerTitle: String = ""
     var alertUp: Bool = false
+    var staffContactsVC: StaffContactsVC!
+    
+    lazy var photoProvider: PhotoProvider = {
+        let provider = PhotoProvider(with: (UIApplication.shared.delegate as! AppDelegate).persistentContainer)
+        return provider
+    }()
+    var taskContext: NSManagedObjectContext!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -193,6 +206,7 @@ extension NewICS214ResourcesAssignedTVC: NewICS214AssignedResourceEditVCDelegate
 }
 
 extension NewICS214ResourcesAssignedTVC: NewICS214ResourceHeaderVDelegate {
+    
     func newICS214ResourceInfoTapped() {
         presentAlert()
     }
@@ -219,7 +233,12 @@ extension NewICS214ResourcesAssignedTVC: NewICS214ResourceHeaderVDelegate {
     }
     
     func newICS214ResourceAddFromContacts() {
-        performSegue(withIdentifier: segueIdentifier, sender: self)
+//        performSegue(withIdentifier: segueIdentifier, sender: self)
+        let storyBoard : UIStoryboard = UIStoryboard(name: "StaffContact", bundle:nil)
+        staffContactsVC = storyBoard.instantiateViewController(withIdentifier: "StaffContactsVC") as? StaffContactsVC
+        staffContactsVC.delegate = self
+        staffContactsVC.modalPresentationStyle = .formSheet
+        self.present(staffContactsVC, animated: true, completion: nil)
     }
     
     func newICS214ResourceCancelTapped() {
@@ -244,6 +263,73 @@ extension NewICS214ResourcesAssignedTVC: NewICS214ResourceHeaderVDelegate {
         fjUserAttendee.defaultCrewMember = group.overtimeB
         saveUAToCD(guid: group.attendeeGuid)
     }
+    
+}
+
+extension NewICS214ResourcesAssignedTVC: StaffContactsVCDelegate {
+    
+    func staffChosen(_ staff: NewStaff) {
+        newOfficer = nil
+        var name: String = ""
+        var phone: String = ""
+        var email: String = ""
+        if staff.fullName != "" {
+            name = staff.fullName
+        }
+        if staff.phone != "" {
+            phone = staff.phone
+        }
+        if staff.email != "" {
+            email = staff.email
+        }
+        let group = CrewFromContact.init(name: name, phone: phone, email: email , crew: [] )
+        group.createGuid()
+        newOfficer = UserAttendees.init(context: context)
+        newOfficer.attendee = group.name
+        newOfficer.attendeeEmail = group.email
+        newOfficer.attendeePhone = group.phone
+        newOfficer.attendeeModDate = group.attendeeDate
+        newOfficer.attendeeGuid = group.attendeeGuid
+        newOfficer.defaultCrewMember = group.overtimeB
+        if staff.officerImage != nil {
+            imageAvailable = true
+            contactImage = staff.officerImage
+            contactImageToURL()
+        }
+        saveToCD(guid: group.attendeeGuid, withCompletion: ({
+            self.staffContactsVC.dismiss(animated: true, completion: nil)
+           tableView.reloadData()
+        })())
+    }
+    
+    func contactImageToURL() {
+        guard let image = contactImage, let data = image.jpegData(compressionQuality: 1) else {
+            print("No image found")
+            self.imageAvailable = false
+            fatalError("###\(#function): Failed to get JPG data and URL of the picked image!")
+        }
+        let guid = UUID()
+        let fileName = guid.uuidString + ".jpg"
+        let url = CloudKitManager.attachmentFolder.appendingPathComponent(fileName)
+        if let data = image.jpegData(compressionQuality: 1.0),!FileManager.default.fileExists(atPath: url.path){
+            
+            do {
+                try data.write(to: url)
+                print("file saved")
+                self.photoProvider.addPhotoStaff(imageData: data, imageURL: url, staff: self.newOfficer, taskContext: self.photoProvider.persistentContainer.viewContext, shouldSave: true, logo: false)
+                self.contactImage = image
+                self.imageAvailable = true
+                guard let attachment = self.newOfficer.photo else { return }
+                self.validPhotos.append(attachment)
+                DispatchQueue.main.async {
+                    print("we're all done here")
+                }
+            } catch {
+                print("error saving file:", error)
+            }
+        }
+    }
+    
     
 }
 

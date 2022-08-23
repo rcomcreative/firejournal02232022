@@ -158,6 +158,7 @@ extension NewICS214AssignedResourceEditVC: NewICS214LabelTextFieldCellDelegate {
 }
 
 extension NewICS214AssignedResourceEditVC: NewICS214ResourceAssignedHeaderDelegate {
+    
     func NewICS214ResourceAssignedHeaderCancelTapped() {
         delegate?.theCancelTapped()
     }

@@ -20,6 +20,7 @@ class ICS214Provider: NSObject, NSFetchedResultsControllerDelegate  {
     var context: NSManagedObjectContext!
     let nc = NotificationCenter.default
     var theICS214R: CKRecord!
+    let calendar = Calendar.current
     
     private var fetchedResultsController: NSFetchedResultsController<ICS214Form>? = nil
     var _fetchedResultsController: NSFetchedResultsController<ICS214Form> {
@@ -65,6 +66,57 @@ class ICS214Provider: NSObject, NSFetchedResultsControllerDelegate  {
             imageName = "ICS214FormOTHER"
         }
         return imageName
+    }
+    
+    func determineTheICS214EffortType(type: TypeOfForm) -> String {
+        var effortType: String = ""
+        switch type {
+        case .incidentForm:
+            effortType = "Local Incident"
+        case .strikeForceForm:
+            effortType = "String Team"
+        case .femaTaskForceForm:
+            effortType = "FEMA Task Force"
+        case .otherForm:
+            effortType = "Other"
+        }
+        return effortType
+    }
+    
+    func determineTheICS214StringDate(theDate: Date) -> String {
+        var aDate: String = ""
+        let theComponents = calendar.dateComponents([.year,.month,.day,.hour,.minute], from: theDate)
+        let m = theComponents.month!
+        let y = theComponents.year!
+        let d = theComponents.day!
+        let h = theComponents.hour!
+        let min = theComponents.minute!
+        
+        let month = m < 10 ? "0\(m)" : String(m)
+        let day = d < 10 ? "0\(d)" : String(d)
+        let year = String(y)
+        let hour = h < 10 ? "0\(h)" : String(h)
+        let minute = min < 10 ? "0\(min)" : String(min)
+        aDate = month + "/" + day + "/" + year + " " + hour + ":" + minute + "HR"
+        return aDate
+    }
+    
+    func determineICS214TypeFromString(theType: String) -> TypeOfForm {
+        
+        var typeOfForm: TypeOfForm!
+        if theType == "incidentForm" {
+            typeOfForm = TypeOfForm.incidentForm
+        } else if theType == "femaTaskForceForm" {
+            typeOfForm = TypeOfForm.femaTaskForceForm
+        } else if theType == "strikeForceForm" {
+            typeOfForm = TypeOfForm.strikeForceForm
+        } else if theType == "otherForm" {
+            typeOfForm = TypeOfForm.otherForm
+        } else {
+            typeOfForm = TypeOfForm.incidentForm
+        }
+        
+        return typeOfForm
     }
     
     func getTheInCompleteMasterICS214(_ context: NSManagedObjectContext) -> [ICS214Form]? {

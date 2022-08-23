@@ -260,15 +260,21 @@ extension ListTVC {
                 if (Device.IS_IPHONE){
                     delegate?.journalObjectChosen(type: myShift, id: id,compact: compact)
                 } else {
-                    let storyboard = UIStoryboard(name: "NewICS214", bundle: nil)
-                    let controller  = storyboard.instantiateViewController(identifier: "NewICS214DetailTVC") as! NewICS214DetailTVC
-                    let navigator = UINavigationController.init(rootViewController: controller)
-                    controller.navigationItem.leftItemsSupplementBackButton = true
-                    controller.navigationItem.leftBarButtonItem = self.splitVC?.displayModeButtonItem
-                        //        controller.managedObjectContext = context
-                    controller.delegate = self
-                    controller.objectID = id
-                    self.splitVC?.showDetailViewController(navigator, sender:self)
+                    let storyboard = UIStoryboard(name: "ICS214FormDetail", bundle: nil)
+                    if let controller  = storyboard.instantiateViewController(identifier: "ICS214FormDetailVC") as? ICS214FormDetailVC {
+                        let navigator = UINavigationController.init(rootViewController: controller)
+                        controller.navigationItem.leftItemsSupplementBackButton = true
+                        controller.navigationItem.leftBarButtonItem = self.splitVC?.displayModeButtonItem
+                        controller.delegate = self
+                        controller.theICS214FormOID = id
+                        if theUserTime != nil && theFireJournalUser != nil {
+                            controller.theUserTimeOID = theUserTime.objectID
+                            controller.theUserOID = theFireJournalUser.objectID
+                            self.splitVC?.showDetailViewController(navigator, sender:self)
+                        } else {
+                            return
+                        }
+                    }
                 }
             }
         case .arcForm:
@@ -572,7 +578,7 @@ extension ListTVC {
     
     func configureICS214(_ cell: LinkeJournalCell, indexPath: IndexPath) -> LinkeJournalCell {
         if let ics214 = _fetchedResultsController?.object(at: indexPath) as? ICS214Form {
-            
+            cell.objectID = ics214.objectID
             cell.journalHeader.textColor = UIColor.systemBlue
             if let name = ics214.ics214IncidentName {
                 if ics214.ics214Count > 0 {
@@ -585,30 +591,35 @@ extension ListTVC {
                 var effort: String = ""
                 if campaign == "incidentForm" {
                     effort = "Incident Form"
+                    cell.theType = TypeOfForm.incidentForm
                     let imageType:String = "ICS_214_Form_LOCAL_INCIDENT"
                     if let image = UIImage(named: imageType) {
                         cell.journalTypeIV.image = image
                     }
                 } else if campaign == "femaTaskForceForm" {
                     effort = "FEMA Task Force"
+                    cell.theType = TypeOfForm.femaTaskForceForm
                     let imageType:String = "ICS214FormFEMA"
                     if let image = UIImage(named: imageType) {
                         cell.journalTypeIV.image = image
                     }
                 } else if campaign == "strikeForceForm" {
                     effort = "Strike Team"
+                    cell.theType = TypeOfForm.strikeForceForm
                     let imageType:String = "ICS214FormSTRIKETEAM"
                     if let image = UIImage(named: imageType) {
                         cell.journalTypeIV.image = image
                     }
                 } else if campaign == "otherForm" {
                     effort = "Other"
+                    cell.theType = TypeOfForm.otherForm
                     let imageType:String = "ICS214FormOTHER"
                     if let image = UIImage(named: imageType) {
                         cell.journalTypeIV.image = image
                     }
                 } else {
                     effort = "Incident Form"
+                    cell.theType = TypeOfForm.incidentForm
                     let imageType:String = "ICS_214_Form_LOCAL_INCIDENT"
                     if let image = UIImage(named: imageType) {
                         cell.journalTypeIV.image = image
@@ -629,7 +640,7 @@ extension ListTVC {
                 toDate = "Incomplete"
             }
             if toDate == "Incomplete" {
-                cell.journalLocationL.text = "From: " + fromDate + "\n" + toDate
+                cell.journalLocationL.text = "From: " + fromDate + "\n" + "Incomplete"
             } else {
                 cell.journalLocationL.text = "From: " + fromDate + "\nTo: " + toDate
             }

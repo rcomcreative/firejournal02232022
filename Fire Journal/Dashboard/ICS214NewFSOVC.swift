@@ -148,6 +148,12 @@ New ICS214
                         theICS214Form.ics214IncidentName = name
                     }
                 }
+                if theMasterICS214Form.ics214JournalInfo != nil {
+                    theJournal = theMasterICS214Form.ics214JournalInfo
+                    if theJournal.theLocation != nil {
+                        theJournalLocation = theJournal.theLocation
+                    }
+                }
             }
                 //            }
         }

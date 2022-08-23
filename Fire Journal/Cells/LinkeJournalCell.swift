@@ -8,6 +8,7 @@
 
 import UIKit
 import Foundation
+import CoreData
 
 
 //@available(iOS 13.0, *)
@@ -20,7 +21,8 @@ class LinkeJournalCell: UITableViewCell {
     @IBOutlet weak var journalLocationL: UILabel!
     @IBOutlet weak var selectedV: UIView!
     
-    
+    var objectID: NSManagedObjectID!
+    var theType: TypeOfForm!
     
     override func awakeFromNib() {
         super.awakeFromNib()

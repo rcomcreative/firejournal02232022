@@ -360,9 +360,15 @@ extension DetailViewController: ModalTVCDelegate {
                 let objectID = fetchTheLatest(shift: shift)
                 if theUserTime != nil {
                     let theUserTimeID = theUserTime.objectID
-                    nc.post(name:Notification.Name(rawValue: FJkICS214_FROM_MASTER),
-                            object: nil,
-                            userInfo: ["objectID": objectID, "shift": MenuItems.ics214, "theUserTimeID": theUserTimeID])
+                    if theFireJournalUser != nil {
+                        let theUserID = theFireJournalUser.objectID
+                        
+                        DispatchQueue.main.async {
+                            self.nc.post(name:Notification.Name(rawValue: FJkICS214_FROM_MASTER),
+                                object: nil,
+                                userInfo: ["objectID": objectID, "shift": MenuItems.ics214, "theUserTimeID": theUserTimeID, "theUserID": theUserID])
+                        }
+                    }
                 }
             } else {
                 slideInTransitioningDelgate.direction = .bottom
@@ -462,10 +468,14 @@ extension DetailViewController: NewICS214ModalTVCDelegate {
         self.dismiss(animated: true, completion: nil)
         if theUserTime != nil {
             let theUserTimeID = theUserTime.objectID
-            DispatchQueue.main.async {
-                self.nc.post(name:Notification.Name(rawValue: FJkICS214_FROM_MASTER),
+            if theFireJournalUser != nil {
+                let theUserID = theFireJournalUser.objectID
+                
+                DispatchQueue.main.async {
+                    self.nc.post(name:Notification.Name(rawValue: FJkICS214_FROM_MASTER),
                         object: nil,
-                        userInfo: ["objectID": ics214OID, "shift": MenuItems.ics214, "theUserTimeID": theUserTimeID])
+                        userInfo: ["objectID": ics214OID, "shift": MenuItems.ics214, "theUserTimeID": theUserTimeID, "theUserID": theUserID])
+                }
             }
         }
     }

@@ -52,6 +52,8 @@ class FourSwitchCell: UITableViewCell {
                 localIncidentSwitch.setOn(true, animated: true)
                 localIncidentMasterIV.isHidden = false
                 localIncidentMasterIV.alpha = 1.0
+                type = TypeOfForm.incidentForm.rawValue
+                typeOfForm = TypeOfForm.incidentForm
                 femaTaskForceSwitch.setOn(false, animated: true)
                 femaMasterIV.isHidden = false
                 femaMasterIV.alpha = 0.0
@@ -77,6 +79,8 @@ class FourSwitchCell: UITableViewCell {
                 femaTaskForceSwitch.setOn(true, animated: true)
                 femaMasterIV.isHidden = false
                 femaMasterIV.alpha = 1.0
+                type = TypeOfForm.femaTaskForceForm.rawValue
+                typeOfForm = TypeOfForm.femaTaskForceForm
                 localIncidentSwitch.setOn(false, animated: true)
                 localIncidentMasterIV.isHidden = false
                 localIncidentMasterIV.alpha = 0.0
@@ -108,6 +112,8 @@ class FourSwitchCell: UITableViewCell {
                 strikeTeamSwitch.setOn(true, animated: true)
                 strikeTeamMasterIV.isHidden = false
                 strikeTeamMasterIV.alpha = 1.0
+                type = TypeOfForm.strikeForceForm.rawValue
+                typeOfForm = TypeOfForm.strikeForceForm
                 otherSwitch.setOn(false, animated: true)
                 otherMasterIV.isHidden = false
                 otherMasterIV.alpha = 0.0
@@ -126,6 +132,8 @@ class FourSwitchCell: UITableViewCell {
             if self.theOtherOn {
                 otherSwitch.setOn(true, animated: true)
                 otherMasterIV.isHidden = false
+                type = TypeOfForm.otherForm.rawValue
+                typeOfForm = TypeOfForm.otherForm
                 otherMasterIV.alpha = 1.0
                 localIncidentSwitch.setOn(false, animated: true)
                 localIncidentMasterIV.isHidden = false

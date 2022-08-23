@@ -106,6 +106,15 @@ extension ListTVC: ICS214DetailViewControllerDelegate {
     
 }
 
+extension ListTVC: ICS214FormDetailVCDelegate {
+    
+    func cancelICS214FormDetail() {
+        
+    }
+    
+    
+}
+
 extension ListTVC: PersonalJournalDelegate {
     
         //    MARK: -PersonalJournalDelegate

@@ -277,7 +277,9 @@ class LaunchNotifications {
         {
             if let id = userInfo["objectID"] as? NSManagedObjectID {
                 if let userTimeID = userInfo["theUserTimeID"] as? NSManagedObjectID {
-                vcLaunch.ics214Called(objectID: id, theUserTimeID: userTimeID)
+                    if let userID = userInfo["theUserID"] as? NSManagedObjectID {
+                        vcLaunch.ics214Called(objectID: id, theUserTimeID: userTimeID, userID: userID)
+                    }
                 }
             }
         }

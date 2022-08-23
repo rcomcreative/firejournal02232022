@@ -158,6 +158,12 @@ New ICS214
                         theICS214Form.ics214IncidentName = name
                     }
                     }
+                    if theMasterICS214Form.ics214IncidentInfo != nil {
+                        theIncident = theMasterICS214Form.ics214IncidentInfo
+                        if theIncident.theLocation != nil {
+                            theIncidentLocation = theIncident.theLocation
+                        }
+                    }
                 }
 //            }
         }

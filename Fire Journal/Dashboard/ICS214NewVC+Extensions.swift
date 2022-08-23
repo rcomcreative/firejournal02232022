@@ -202,7 +202,7 @@ extension ICS214NewVC: ModalHeaderSaveDismissDelegate {
             
             DispatchQueue.main.async {
                 let objectID = self.theIncidentLocation.objectID
-                    self.nc.post(name: .fireJournalModifyFCLocationToCloud, object: nil, userInfo: ["objectID": objectID as NSManagedObjectID])
+                self.nc.post(name: .fireJournalModifyFCLocationToCloud, object: nil, userInfo: ["objectID": objectID as NSManagedObjectID])
             }
             if let utOID = theUserTimeOID {
                 DispatchQueue.main.async {
@@ -388,34 +388,34 @@ extension ICS214NewVC: UITableViewDelegate {
         var zip: String = ""
         var latitude: String = ""
         var longitude: String = ""
-        if theIncident.locationAvailable {
-            if theIncident.theLocation != nil {
-                if let theIncidentLocation = theIncident.theLocation {
-                    
-                    if let number = theIncidentLocation.streetNumber {
-                        streetAddress = number + " "
-                    }
-                    if let street = theIncidentLocation.streetName {
-                        streetAddress = streetAddress + street
-                    }
-                    if let c = theIncidentLocation.city {
-                        city = c
-                    }
-                    if let s = theIncidentLocation.state {
-                        state = s
-                    }
-                    if let z = theIncidentLocation.zip {
-                        zip = z
-                    }
-                    if theIncidentLocation.latitude != 0.0 {
-                        latitude = String(theIncidentLocation.latitude)
-                    }
-                    if theIncidentLocation.longitude != 0.0 {
-                        longitude = String(theIncidentLocation.longitude)
-                    }
+        
+        if theIncident.theLocation != nil {
+            if let theIncidentLocation = theIncident.theLocation {
+                
+                if let number = theIncidentLocation.streetNumber {
+                    streetAddress = number + " "
+                }
+                if let street = theIncidentLocation.streetName {
+                    streetAddress = streetAddress + street
+                }
+                if let c = theIncidentLocation.city {
+                    city = c
+                }
+                if let s = theIncidentLocation.state {
+                    state = s
+                }
+                if let z = theIncidentLocation.zip {
+                    zip = z
+                }
+                if theIncidentLocation.latitude != 0.0 {
+                    latitude = String(theIncidentLocation.latitude)
+                }
+                if theIncidentLocation.longitude != 0.0 {
+                    longitude = String(theIncidentLocation.longitude)
                 }
             }
         }
+        
         cell.addressTF.text = streetAddress
         cell.addressTF.placeholder = "100 Grant"
         cell.addressTF.textColor = UIColor(named: "FJIconRed")
@@ -608,7 +608,7 @@ extension ICS214NewVC: UITableViewDataSource {
         case 1, 2, 4, 7, 8, 9:
             return 85
         case 3:
-            if theIncident.locationAvailable {
+            if theIncidentLocation != nil {
                 return 100
             } else {
                 if Device.IS_IPHONE {
@@ -642,7 +642,7 @@ extension ICS214NewVC: UITableViewDataSource {
             cell = configureLabelTextFieldCell(cell, index: indexPath)
             return cell
         case 3:
-            if theIncident.locationAvailable {
+            if theIncidentLocation != nil {
                 var cell = tableView.dequeueReusableCell(withIdentifier: "ICS214IncidentAddressTVCell", for: indexPath) as! ICS214IncidentAddressTVCell
                 cell = configureICS214IncidentAddressTVCell(cell, index: indexPath)
                 cell.configure()

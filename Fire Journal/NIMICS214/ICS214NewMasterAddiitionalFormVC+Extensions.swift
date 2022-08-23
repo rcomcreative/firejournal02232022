@@ -40,6 +40,20 @@ extension ICS214NewMasterAddiitionalFormVC {
         return cellParts
     }
     
+    func getTheLastMaster() {
+        theICS214ProviderContext = theICS214Provider.persistentContainer.newBackgroundContext()
+        guard let result = theICS214Provider.getTheInCompleteMasterICS214(theICS214ProviderContext) else {
+            type = TypeOfForm.incidentForm
+            return
+        }
+        if !result.isEmpty {
+            let form = result.last
+            if let theType = form?.ics214Effort {
+                type = theICS214Provider.determineICS214TypeFromString(theType: theType)
+            }
+        }
+    }
+    
     func configureModalHeaderSaveDismiss() {
         ics214ModalHeaderV = Bundle.main.loadNibNamed("ModalHeaderSaveDismiss", owner: self, options: nil)?.first as? ModalHeaderSaveDismiss
         ics214ModalHeaderV.translatesAutoresizingMaskIntoConstraints = false
@@ -108,7 +122,7 @@ extension ICS214NewMasterAddiitionalFormVC: UITableViewDelegate {
     
     func configureModalHeaderCell(_ cell: ModalHeaderCell, index: IndexPath) -> ModalHeaderCell {
         cell.tag = index.row
-        cell.descriptionText = "ACTIVITY LOG (ICS 2140"
+        cell.descriptionText = "ACTIVITY LOG (ICS 214)"
         cell.selectionStyle = .none
         return cell
     }
@@ -157,7 +171,6 @@ extension ICS214NewMasterAddiitionalFormVC: UITableViewDelegate {
             case .otherForm:
                 cell.otherOn = true
                 cell.setNeedsDisplay()
-            default: break
             }
         } else {
             cell.instructionsText = InfoBodyText.ics214AdditionalFormsInstructions.rawValue
@@ -174,7 +187,6 @@ extension ICS214NewMasterAddiitionalFormVC: UITableViewDelegate {
             case .otherForm:
                 cell.otherOn = true
                 cell.setNeedsDisplay()
-            default: break
             }
         }
         return cell
@@ -695,9 +707,8 @@ extension ICS214NewMasterAddiitionalFormVC: FourSwitchCellDelegate {
             userDefaults.set(TypeOfForm.femaTaskForceForm.rawValue, forKey: FJkICS214TYPEOFFORM)
         case.otherForm:
             userDefaults.set(TypeOfForm.otherForm.rawValue, forKey: FJkICS214TYPEOFFORM)
-        default: break
         }
-        switch self.type {
+        switch typeOfForm {
         case .incidentForm:
             sections = NewMasterSections.section3
             self.ics214TableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: .automatic)
@@ -722,7 +733,6 @@ extension ICS214NewMasterAddiitionalFormVC: FourSwitchCellDelegate {
                 sections = NewMasterSections.section3
                 self.ics214TableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: .automatic)
             }
-        default: break
         }
     }
     

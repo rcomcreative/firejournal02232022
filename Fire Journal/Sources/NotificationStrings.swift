@@ -46,6 +46,14 @@ extension Notification.Name {
     static let fConDeletedRebuildDetail = Notification.Name("fConDeletedRebuildDetail")
     static let fConDeletionNotificationSentFromCloud = Notification.Name("fConDeletionNotificationSentFromCloud")
     static let fConDeletionChangedInternally = Notification.Name("fConDeletionChangedInternally")
+    static let fConDeletionICS214Personnel = Notification.Name("fConDeletionICS214Personnel")
+    static let fConEditICS214Personnel = Notification.Name("fConEditICS214Personnel")
+    static let fConEditICS214UserAttendee = Notification.Name("fConEditICS214UserAttendee")
+    static let fConEditICS214ActivityLog = Notification.Name("fConEditICS214ActivityLog")
+    static let fConDelteICS214ActivityLog = Notification.Name("fConDelteICS214ActivityLog")
+    static let fConLaunchEditICS214ActivityLog = Notification.Name("fConLaunchEditICS214ActivityLog")
+    static let fConLaunchDeleteICS214ActivityLog = Notification.Name("fConLaunchDeleteICS214ActivityLog")
+    static let fConICS214DropTheSpinner = Notification.Name("fConICS214DropTheSpinner")
 }
 
 let ICS214NewIncidentVCSegue = "ICS214NewIncidentVCSegue"

@@ -182,7 +182,7 @@ extension ICS214NewFSOVC: ModalHeaderSaveDismissDelegate {
             DispatchQueue.main.async {
                 self.nc.post(name:Notification.Name(rawValue: FJkICS214_NEW_TO_LIST),
                              object: nil,
-                             userInfo: ["objectID": ""])
+                             userInfo: ["objectID": objectID])
                 print("rawValue: FJkICS214_NEW_TO_LIST")
             }
             delegate?.saveTheICS214NewFSO(objectID: objectID)

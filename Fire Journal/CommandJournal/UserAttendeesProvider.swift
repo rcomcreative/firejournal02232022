@@ -45,7 +45,6 @@ class UserAttendeesProvider: NSObject, NSFetchedResultsControllerDelegate {
         self.persistentContainer = persistentContainer
         self.privateDatabase = myContainer.privateCloudDatabase
         super.init()
-        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: context)
     }
     
         // MARK: -
@@ -129,6 +128,8 @@ class UserAttendeesProvider: NSObject, NSFetchedResultsControllerDelegate {
     }
     
     func buildUserAttendeesFromCKRecord(_ ckRecord: CKRecord, _ theUserAttendees: UserAttendees, _ context: NSManagedObjectContext, completionHandler: (() -> Void)? = nil) {
+        
+        nc.addObserver(self, selector:#selector(managedObjectContextDidSave(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: context)
         self.context = context
         self.ckRecord = ckRecord
         self.theUserAttendees = theUserAttendees

@@ -679,34 +679,38 @@ class VCLaunch:  SettingsTVCDelegate,MapTVCDelegate,IncidentTVCDelegate,JournalT
                 userInfo: nil)
     }
     
-    func ics214CalledFromList(sizeTrait: SizeTrait,id: NSManagedObjectID, theUserTimeID: NSManagedObjectID)-> Void {
+    func ics214CalledFromList(sizeTrait: SizeTrait,id: NSManagedObjectID, theUserTimeID: NSManagedObjectID, userID: NSManagedObjectID)-> Void {
         
-        let storyboard = UIStoryboard(name: "NewICS214", bundle: nil)
-        let controller  = storyboard.instantiateViewController(identifier: "NewICS214DetailTVC") as! NewICS214DetailTVC
-        let navigator = UINavigationController.init(rootViewController: controller)
-        controller.navigationItem.leftItemsSupplementBackButton = true
-        controller.navigationItem.leftBarButtonItem = self.splitVC?.displayModeButtonItem
-        //        controller.managedObjectContext = context
-        
-        controller.objectID = id
-        controller.theUserTimeOID = theUserTimeID
-        controller.delegate = self
-        self.splitVC?.showDetailViewController(navigator, sender:self)
-    }
-    
-    @objc func ics214Called(objectID: NSManagedObjectID, theUserTimeID: NSManagedObjectID)-> Void{
-        
-        if Device.IS_IPAD {
-            let storyboard = UIStoryboard(name: "NewICS214", bundle: nil)
-            let controller  = storyboard.instantiateViewController(identifier: "NewICS214DetailTVC") as! NewICS214DetailTVC
+        let storyboard = UIStoryboard(name: "ICS214FormDetail", bundle: nil)
+        if let controller  = storyboard.instantiateViewController(identifier: "ICS214FormDetailVC") as? ICS214FormDetailVC {
             let navigator = UINavigationController.init(rootViewController: controller)
             controller.navigationItem.leftItemsSupplementBackButton = true
             controller.navigationItem.leftBarButtonItem = self.splitVC?.displayModeButtonItem
             controller.delegate = self
-            controller.objectID = objectID
-            controller.theUserTimeOID = theUserTimeID
-            self.splitVC?.showDetailViewController(navigator, sender:self)
+            controller.theICS214FormOID = id
+            
+                controller.theUserTimeOID = theUserTimeID
+                controller.theUserOID = userID
+                self.splitVC?.showDetailViewController(navigator, sender:self)
         }
+    }
+    
+    @objc func ics214Called(objectID: NSManagedObjectID, theUserTimeID: NSManagedObjectID, userID: NSManagedObjectID)-> Void{
+        
+        if Device.IS_IPAD {
+            let storyboard = UIStoryboard(name: "ICS214FormDetail", bundle: nil)
+            if let controller  = storyboard.instantiateViewController(identifier: "ICS214FormDetailVC") as? ICS214FormDetailVC {
+                let navigator = UINavigationController.init(rootViewController: controller)
+                controller.navigationItem.leftItemsSupplementBackButton = true
+                controller.navigationItem.leftBarButtonItem = self.splitVC?.displayModeButtonItem
+                controller.delegate = self
+                controller.theICS214FormOID = objectID
+                
+                    controller.theUserTimeOID = theUserTimeID
+                    controller.theUserOID = userID
+                    self.splitVC?.showDetailViewController(navigator, sender:self)
+                }
+            }
         nc.post(name:Notification.Name(rawValue:"FJkICS214FORMLISTCALLED"),
                 object: nil,
                 userInfo: nil)
@@ -1047,6 +1051,15 @@ extension VCLaunch: TheStoreVCDelegate {
     
     func theStoreSubscriptionPurchased() {
 //        <#code#>
+    }
+    
+    
+}
+
+extension VCLaunch:  ICS214FormDetailVCDelegate {
+    
+    func cancelICS214FormDetail() {
+//
     }
     
     

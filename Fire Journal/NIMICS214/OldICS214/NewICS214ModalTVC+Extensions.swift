@@ -243,9 +243,12 @@ extension NewICS214ModalTVC: EffortSetUpCellDelegate {
             DispatchQueue.main.async {
                 if self.theUserTime != nil {
                     let theUserTimeID = self.theUserTime.objectID
-                nc.post(name:Notification.Name(rawValue: FJkICS214_FROM_MASTER),
-                        object: nil,
-                        userInfo: ["objectID": objectID, "shift": MenuItems.ics214, "theUserTimeID": theUserTimeID])
+                    if self.theUser != nil {
+                        let userID = self.theUser.objectID
+                            self.nc.post(name:Notification.Name(rawValue: FJkICS214_FROM_MASTER),
+                                    object: nil,
+                                    userInfo: ["objectID": objectID, "shift": MenuItems.ics214, "theUserTimeID": theUserTimeID, "theUserID": userID])
+                    }
                 }
             }
             DispatchQueue.main.async {

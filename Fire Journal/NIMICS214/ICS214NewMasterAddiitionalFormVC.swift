@@ -111,6 +111,7 @@ New ICS214
         launchNC.callNotifications()
         
         addObservers()
+        getTheLastMaster()
         _ = buildCellParts()
         
         configureModalHeaderSaveDismiss()

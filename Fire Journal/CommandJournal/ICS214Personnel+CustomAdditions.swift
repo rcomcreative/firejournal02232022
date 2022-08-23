@@ -14,6 +14,17 @@ import CoreLocation
 
 extension ICS214Personnel {
     
+    func buildTheICS214Personnel(_ userAttendeeGuid: String, _ ics214Guid: String) -> ICS214Personnel {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYYDDDMMHHmmAAAAAAAA"
+        let dateFormatted = dateFormatter.string(from:Date())
+        let theGuid = "80." + dateFormatted
+        self.ics214PersonelGuid = theGuid
+        self.userAttendeeGuid = userAttendeeGuid
+        self.ics214Guid = ics214Guid
+        return self
+    }
+    
     func newICS214PersonnelToTheCloud(ckRecordID: CKRecord.ID)->CKRecord {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "YYYYDDDMMHHmmAAAAAAAA"

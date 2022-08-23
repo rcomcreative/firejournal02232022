@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1300D5A424182B7800C4D92F /* YearOfMonths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1300D5A324182B7800C4D92F /* YearOfMonths.swift */; };
 		1300D5A624185A1300C4D92F /* GatherIncidents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1300D5A524185A1300C4D92F /* GatherIncidents.swift */; };
+		1303E2AB28ABFF5E008A4224 /* ICS214TextViewTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1303E2AA28ABFF5E008A4224 /* ICS214TextViewTVCell.swift */; };
 		130407BB289AD8A4003F1A37 /* ICS214NewMasterAddiitionalFormVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130407BA289AD8A4003F1A37 /* ICS214NewMasterAddiitionalFormVC.swift */; };
 		130407BD289AD8C6003F1A37 /* ICS214NewMasterAddiitionalForm.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 130407BC289AD8C6003F1A37 /* ICS214NewMasterAddiitionalForm.storyboard */; };
 		130407BF289ADD43003F1A37 /* ICS214NewMasterAddiitionalFormVC+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130407BE289ADD43003F1A37 /* ICS214NewMasterAddiitionalFormVC+Extensions.swift */; };
@@ -40,6 +41,8 @@
 		130C531A27DD1D0700750CC4 /* Mapping55to56.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 130C531927DD1D0700750CC4 /* Mapping55to56.xcmappingmodel */; };
 		130C572322E65321003EC919 /* CellHeaderW2Buttons.xib in Resources */ = {isa = PBXBuildFile; fileRef = 130C572122E65321003EC919 /* CellHeaderW2Buttons.xib */; };
 		130C572422E65321003EC919 /* CellHeaderW2Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130C572222E65321003EC919 /* CellHeaderW2Buttons.swift */; };
+		130D84B228A8593900597140 /* ICS214ActivityLogsCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130D84B128A8593900597140 /* ICS214ActivityLogsCVCell.swift */; };
+		130D84B428A8596B00597140 /* ICS214ActivityLogsCVTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130D84B328A8596B00597140 /* ICS214ActivityLogsCVTVCell.swift */; };
 		130DE0DC28872F95004E6A19 /* DeletionCKCD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130DE0DB28872F95004E6A19 /* DeletionCKCD.swift */; };
 		130E43B724B5116800DE092F /* NewICS214LabelTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130E43B524B5116800DE092F /* NewICS214LabelTextFieldCell.swift */; };
 		130E43B824B5116800DE092F /* NewICS214LabelTextFieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 130E43B624B5116800DE092F /* NewICS214LabelTextFieldCell.xib */; };
@@ -122,6 +125,8 @@
 		1332C49527DAA2E100E13733 /* ShiftNewModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1332C49427DAA2E100E13733 /* ShiftNewModalVC.swift */; };
 		1332C49727DAA2F500E13733 /* ShiftNew.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1332C49627DAA2F500E13733 /* ShiftNew.storyboard */; };
 		1333EC4A22DE4AF000AB889B /* CoreDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1354485322DD4D0C004C551A /* CoreDataTests.swift */; };
+		1334AFC528A9A59E0086968B /* ICS214ActivityLogVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1334AFC428A9A59E0086968B /* ICS214ActivityLogVC.swift */; };
+		1334AFC728A9A5B30086968B /* ICS214ActivityLog.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1334AFC628A9A5B30086968B /* ICS214ActivityLog.storyboard */; };
 		1336681F27D82046003F8816 /* LabelSingleDateFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1336681D27D82043003F8816 /* LabelSingleDateFieldCell.swift */; };
 		1336682127D8209D003F8816 /* LabelSingleDateFieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1336681E27D82046003F8816 /* LabelSingleDateFieldCell.xib */; };
 		1336682327D82B01003F8816 /* MultipleAddButtonTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1336682227D82B01003F8816 /* MultipleAddButtonTVCell.swift */; };
@@ -138,6 +143,8 @@
 		1336E59021ACA4F500DBD7D2 /* SettingsInfoHeaderV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1336E58F21ACA4F500DBD7D2 /* SettingsInfoHeaderV.xib */; };
 		1336E59221ACBB0F00DBD7D2 /* SettingsResetTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1336E59121ACBB0F00DBD7D2 /* SettingsResetTVC.swift */; };
 		1337233E219E2DFF0036D908 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1337233D219E2DFF0036D908 /* CoreDataController.swift */; };
+		1337F42028A4191100F69056 /* ICS214DetailHeaderTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1337F41F28A4191100F69056 /* ICS214DetailHeaderTVCell.swift */; };
+		1337F42228A444E100F69056 /* ICS214SegmentTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1337F42128A444E100F69056 /* ICS214SegmentTVCell.swift */; };
 		1338B93F23DB6A0900ABECA7 /* CellHeaderForFireEMSResourceEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1338B93E23DB6A0900ABECA7 /* CellHeaderForFireEMSResourceEdit.swift */; };
 		1338B94123DB6A3500ABECA7 /* CellHeaderForFireEMSResourceEdit.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1338B94023DB6A3500ABECA7 /* CellHeaderForFireEMSResourceEdit.xib */; };
 		1338E14C224160BA000EEBDC /* NFIRSsectionHeaderTHFV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1338E14B224160BA000EEBDC /* NFIRSsectionHeaderTHFV.swift */; };
@@ -247,6 +254,10 @@
 		13592C6924940AE200F5BDF0 /* NewICS214HeadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13592C6724940AE200F5BDF0 /* NewICS214HeadCell.xib */; };
 		13592C6C2494484D00F5BDF0 /* NewICS214DateTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13592C6A2494484D00F5BDF0 /* NewICS214DateTimeCell.swift */; };
 		13592C6D2494484D00F5BDF0 /* NewICS214DateTimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13592C6B2494484D00F5BDF0 /* NewICS214DateTimeCell.xib */; };
+		1359AF4E28A6C2B700E27C2E /* ICS214ResourcesHeaderTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1359AF4D28A6C2B700E27C2E /* ICS214ResourcesHeaderTVCell.swift */; };
+		1359AF5028A6D14F00E27C2E /* ICS214ActivityLogHeaderTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1359AF4F28A6D14F00E27C2E /* ICS214ActivityLogHeaderTVCell.swift */; };
+		1359AF5228A6D90000E27C2E /* ICS214ResourcesCVTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1359AF5128A6D90000E27C2E /* ICS214ResourcesCVTVCell.swift */; };
+		1359AF5428A6EADD00E27C2E /* ICS214ResourcesCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1359AF5328A6EADD00E27C2E /* ICS214ResourcesCVCell.swift */; };
 		135AFC0F231084F600C71A87 /* FDResourceIncidentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135AFC0D231084F600C71A87 /* FDResourceIncidentCell.swift */; };
 		1360753D2805EDC300B84636 /* NFIRSActionTakenProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1360753C2805EDC300B84636 /* NFIRSActionTakenProvider.swift */; };
 		1360753F2805F11800B84636 /* UserFDIDProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1360753E2805F11800B84636 /* UserFDIDProvider.swift */; };
@@ -370,10 +381,13 @@
 		138854092295D21900870EC5 /* SettingsResetDataTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138854082295D21900870EC5 /* SettingsResetDataTVC.swift */; };
 		1389DEC8245B7CBF00A90715 /* TheResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1389DEC7245B7CBF00A90715 /* TheResource.swift */; };
 		1389DECA245B7D0D00A90715 /* TheFDResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1389DEC9245B7D0D00A90715 /* TheFDResource.swift */; };
+		138ADABA28AFEE39004752CF /* SignatureImageTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138ADAB928AFEE39004752CF /* SignatureImageTVCell.swift */; };
 		138B2DA922DE4913003C8B0E /* Fire JournalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F3E76E219B72050044CF41 /* Fire JournalTests.swift */; };
 		138B71E8229DE07B0048C6C0 /* DeleteFromListOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138B71E7229DE07B0048C6C0 /* DeleteFromListOperation.swift */; };
 		138BF28524D095460031E6C6 /* ICS214ToCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138BF28424D095460031E6C6 /* ICS214ToCloud.swift */; };
 		138DAED328107A3B007602AE /* Promotion.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 138DAED228107A3B007602AE /* Promotion.storyboard */; };
+		138ED95328AAC358009E0212 /* ICS214CrewEdit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 138ED95228AAC358009E0212 /* ICS214CrewEdit.storyboard */; };
+		138ED95528AAC38E009E0212 /* ICS214CrewEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138ED95428AAC38E009E0212 /* ICS214CrewEditVC.swift */; };
 		138F15A6219F7224007173C6 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138F15A4219F7224007173C6 /* Reachability.swift */; };
 		138F15B5219F86D8007173C6 /* LoadUserItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138F15B4219F86D8007173C6 /* LoadUserItems.swift */; };
 		138F15B7219F8F2E007173C6 /* FireJournalUserOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138F15B6219F8F2E007173C6 /* FireJournalUserOperation.swift */; };
@@ -457,6 +471,8 @@
 		139F01A92330404200C64F9E /* Mapping38to39.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 139F01A82330404200C64F9E /* Mapping38to39.xcmappingmodel */; };
 		13A00592282F13DA00375198 /* FJFCLocationSyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A00591282F13DA00375198 /* FJFCLocationSyncOperation.swift */; };
 		13A00595282F1ACB00375198 /* Mapping76to77.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 13A00594282F1ACB00375198 /* Mapping76to77.xcmappingmodel */; };
+		13A075BA28B17AD300ADF95A /* ICS214EditHeaderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A075B928B17AD300ADF95A /* ICS214EditHeaderVC.swift */; };
+		13A075BC28B17AE500ADF95A /* ICS214EditHeader.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13A075BB28B17AE500ADF95A /* ICS214EditHeader.storyboard */; };
 		13A10BC0283C093900AD1DA3 /* FJUpdateIncidentAddressToFCLocationOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A10BBF283C093900AD1DA3 /* FJUpdateIncidentAddressToFCLocationOperation.swift */; };
 		13A10BC2283C095B00AD1DA3 /* FJUpdateJournalAddressToFCLocationOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A10BC1283C095B00AD1DA3 /* FJUpdateJournalAddressToFCLocationOperation.swift */; };
 		13A10BC5283D73DA00AD1DA3 /* Mapping80to81.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 13A10BC4283D73DA00AD1DA3 /* Mapping80to81.xcmappingmodel */; };
@@ -602,6 +618,7 @@
 		13C321E7289DA04300C2A6CF /* ICS214NewIncidentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C321E6289DA04300C2A6CF /* ICS214NewIncidentVC.swift */; };
 		13C321E9289DA06400C2A6CF /* ICS214NewIncident.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13C321E8289DA06400C2A6CF /* ICS214NewIncident.storyboard */; };
 		13C321EB289DA0CB00C2A6CF /* ICS214NewIncidentVC+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C321EA289DA0CB00C2A6CF /* ICS214NewIncidentVC+Extensions.swift */; };
+		13C7C2AF28A59C8000339388 /* ICS214ButtonTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C7C2AE28A59C8000339388 /* ICS214ButtonTVCell.swift */; };
 		13C8676824CB71BB002C61F6 /* NewICS214NewIncidentTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C8676724CB71BB002C61F6 /* NewICS214NewIncidentTVC.swift */; };
 		13C8676A24CB739F002C61F6 /* NewICS214NewIncidentTVC+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C8676924CB739F002C61F6 /* NewICS214NewIncidentTVC+Extension.swift */; };
 		13C894FF24BE381B005E2861 /* NewICS214AssignedResourceEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C894FE24BE381B005E2861 /* NewICS214AssignedResourceEditVC.swift */; };
@@ -1259,6 +1276,7 @@
 /* Begin PBXFileReference section */
 		1300D5A324182B7800C4D92F /* YearOfMonths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearOfMonths.swift; sourceTree = "<group>"; };
 		1300D5A524185A1300C4D92F /* GatherIncidents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatherIncidents.swift; sourceTree = "<group>"; };
+		1303E2AA28ABFF5E008A4224 /* ICS214TextViewTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICS214TextViewTVCell.swift; sourceTree = "<group>"; };
 		130407BA289AD8A4003F1A37 /* ICS214NewMasterAddiitionalFormVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICS214NewMasterAddiitionalFormVC.swift; sourceTree = "<group>"; };
 		130407BC289AD8C6003F1A37 /* ICS214NewMasterAddiitionalForm.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ICS214NewMasterAddiitionalForm.storyboard; sourceTree = "<group>"; };
 		130407BE289ADD43003F1A37 /* ICS214NewMasterAddiitionalFormVC+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICS214NewMasterAddiitionalFormVC+Extensions.swift"; sourceTree = "<group>"; };
@@ -1297,6 +1315,8 @@
 		130C531927DD1D0700750CC4 /* Mapping55to56.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = Mapping55to56.xcmappingmodel; sourceTree = "<group>"; };
 		130C572122E65321003EC919 /* CellHeaderW2Buttons.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CellHeaderW2Buttons.xib; sourceTree = "<group>"; };
 		130C572222E65321003EC919 /* CellHeaderW2Buttons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellHeaderW2Buttons.swift; sourceTree = "<group>"; };
+		130D84B128A8593900597140 /* ICS214ActivityLogsCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICS214ActivityLogsCVCell.swift; sourceTree = "<group>"; };
+		130D84B328A8596B00597140 /* ICS214ActivityLogsCVTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICS214ActivityLogsCVTVCell.swift; sourceTree = "<group>"; };
 		130DE0DB28872F95004E6A19 /* DeletionCKCD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletionCKCD.swift; sourceTree = "<group>"; };
 		130E43B524B5116800DE092F /* NewICS214LabelTextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewICS214LabelTextFieldCell.swift; sourceTree = SOURCE_ROOT; };
 		130E43B624B5116800DE092F /* NewICS214LabelTextFieldCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewICS214LabelTextFieldCell.xib; sourceTree = SOURCE_ROOT; };
@@ -1412,6 +1432,8 @@
 		1331671D24A56F99003F3882 /* NewICS214ResourceCompleteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewICS214ResourceCompleteCell.xib; sourceTree = "<group>"; };
 		1332C49427DAA2E100E13733 /* ShiftNewModalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftNewModalVC.swift; sourceTree = "<group>"; };
 		1332C49627DAA2F500E13733 /* ShiftNew.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ShiftNew.storyboard; sourceTree = "<group>"; };
+		1334AFC428A9A59E0086968B /* ICS214ActivityLogVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICS214ActivityLogVC.swift; sourceTree = "<group>"; };
+		1334AFC628A9A5B30086968B /* ICS214ActivityLog.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ICS214ActivityLog.storyboard; sourceTree = "<group>"; };
 		1336681D27D82043003F8816 /* LabelSingleDateFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelSingleDateFieldCell.swift; sourceTree = "<group>"; };
 		1336681E27D82046003F8816 /* LabelSingleDateFieldCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LabelSingleDateFieldCell.xib; sourceTree = "<group>"; };
 		1336682227D82B01003F8816 /* MultipleAddButtonTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleAddButtonTVCell.swift; sourceTree = "<group>"; };
@@ -1429,6 +1451,8 @@
 		1336E58F21ACA4F500DBD7D2 /* SettingsInfoHeaderV.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsInfoHeaderV.xib; sourceTree = "<group>"; };
 		1336E59121ACBB0F00DBD7D2 /* SettingsResetTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsResetTVC.swift; sourceTree = "<group>"; };
 		1337233D219E2DFF0036D908 /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
+		1337F41F28A4191100F69056 /* ICS214DetailHeaderTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICS214DetailHeaderTVCell.swift; sourceTree = "<group>"; };
+		1337F42128A444E100F69056 /* ICS214SegmentTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICS214SegmentTVCell.swift; sourceTree = "<group>"; };
 		1338B93E23DB6A0900ABECA7 /* CellHeaderForFireEMSResourceEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellHeaderForFireEMSResourceEdit.swift; sourceTree = "<group>"; };
 		1338B94023DB6A3500ABECA7 /* CellHeaderForFireEMSResourceEdit.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CellHeaderForFireEMSResourceEdit.xib; sourceTree = "<group>"; };
 		1338E14B224160BA000EEBDC /* NFIRSsectionHeaderTHFV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFIRSsectionHeaderTHFV.swift; sourceTree = "<group>"; };
@@ -1544,6 +1568,10 @@
 		13592C6724940AE200F5BDF0 /* NewICS214HeadCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewICS214HeadCell.xib; sourceTree = "<group>"; };
 		13592C6A2494484D00F5BDF0 /* NewICS214DateTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewICS214DateTimeCell.swift; sourceTree = "<group>"; };
 		13592C6B2494484D00F5BDF0 /* NewICS214DateTimeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewICS214DateTimeCell.xib; sourceTree = "<group>"; };
+		1359AF4D28A6C2B700E27C2E /* ICS214ResourcesHeaderTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICS214ResourcesHeaderTVCell.swift; sourceTree = "<group>"; };
+		1359AF4F28A6D14F00E27C2E /* ICS214ActivityLogHeaderTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICS214ActivityLogHeaderTVCell.swift; sourceTree = "<group>"; };
+		1359AF5128A6D90000E27C2E /* ICS214ResourcesCVTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICS214ResourcesCVTVCell.swift; sourceTree = "<group>"; };
+		1359AF5328A6EADD00E27C2E /* ICS214ResourcesCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICS214ResourcesCVCell.swift; sourceTree = "<group>"; };
 		135AFC0D231084F600C71A87 /* FDResourceIncidentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FDResourceIncidentCell.swift; sourceTree = "<group>"; };
 		1360753C2805EDC300B84636 /* NFIRSActionTakenProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFIRSActionTakenProvider.swift; sourceTree = "<group>"; };
 		1360753E2805F11800B84636 /* UserFDIDProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFDIDProvider.swift; sourceTree = "<group>"; };
@@ -1679,9 +1707,12 @@
 		138854082295D21900870EC5 /* SettingsResetDataTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsResetDataTVC.swift; sourceTree = "<group>"; };
 		1389DEC7245B7CBF00A90715 /* TheResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheResource.swift; sourceTree = "<group>"; };
 		1389DEC9245B7D0D00A90715 /* TheFDResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheFDResource.swift; sourceTree = "<group>"; };
+		138ADAB928AFEE39004752CF /* SignatureImageTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureImageTVCell.swift; sourceTree = "<group>"; };
 		138B71E7229DE07B0048C6C0 /* DeleteFromListOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteFromListOperation.swift; sourceTree = "<group>"; };
 		138BF28424D095460031E6C6 /* ICS214ToCloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICS214ToCloud.swift; sourceTree = "<group>"; };
 		138DAED228107A3B007602AE /* Promotion.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Promotion.storyboard; sourceTree = "<group>"; };
+		138ED95228AAC358009E0212 /* ICS214CrewEdit.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ICS214CrewEdit.storyboard; sourceTree = "<group>"; };
+		138ED95428AAC38E009E0212 /* ICS214CrewEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICS214CrewEditVC.swift; sourceTree = "<group>"; };
 		138F15A4219F7224007173C6 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		138F15B4219F86D8007173C6 /* LoadUserItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadUserItems.swift; sourceTree = "<group>"; };
 		138F15B6219F8F2E007173C6 /* FireJournalUserOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireJournalUserOperation.swift; sourceTree = "<group>"; };
@@ -1775,6 +1806,8 @@
 		13A00591282F13DA00375198 /* FJFCLocationSyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FJFCLocationSyncOperation.swift; sourceTree = "<group>"; };
 		13A00593282F1A9100375198 /* FireJournal77.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FireJournal77.xcdatamodel; sourceTree = "<group>"; };
 		13A00594282F1ACB00375198 /* Mapping76to77.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = Mapping76to77.xcmappingmodel; sourceTree = "<group>"; };
+		13A075B928B17AD300ADF95A /* ICS214EditHeaderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICS214EditHeaderVC.swift; sourceTree = "<group>"; };
+		13A075BB28B17AE500ADF95A /* ICS214EditHeader.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ICS214EditHeader.storyboard; sourceTree = "<group>"; };
 		13A10BBF283C093900AD1DA3 /* FJUpdateIncidentAddressToFCLocationOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FJUpdateIncidentAddressToFCLocationOperation.swift; sourceTree = "<group>"; };
 		13A10BC1283C095B00AD1DA3 /* FJUpdateJournalAddressToFCLocationOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FJUpdateJournalAddressToFCLocationOperation.swift; sourceTree = "<group>"; };
 		13A10BC3283D739700AD1DA3 /* FireJournal81.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FireJournal81.xcdatamodel; sourceTree = "<group>"; };
@@ -1928,6 +1961,7 @@
 		13C321E6289DA04300C2A6CF /* ICS214NewIncidentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICS214NewIncidentVC.swift; sourceTree = "<group>"; };
 		13C321E8289DA06400C2A6CF /* ICS214NewIncident.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ICS214NewIncident.storyboard; sourceTree = "<group>"; };
 		13C321EA289DA0CB00C2A6CF /* ICS214NewIncidentVC+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICS214NewIncidentVC+Extensions.swift"; sourceTree = "<group>"; };
+		13C7C2AE28A59C8000339388 /* ICS214ButtonTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICS214ButtonTVCell.swift; sourceTree = "<group>"; };
 		13C8676724CB71BB002C61F6 /* NewICS214NewIncidentTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewICS214NewIncidentTVC.swift; sourceTree = "<group>"; };
 		13C8676924CB739F002C61F6 /* NewICS214NewIncidentTVC+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewICS214NewIncidentTVC+Extension.swift"; sourceTree = "<group>"; };
 		13C894FE24BE381B005E2861 /* NewICS214AssignedResourceEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewICS214AssignedResourceEditVC.swift; sourceTree = "<group>"; };
@@ -3914,6 +3948,9 @@
 				130407BC289AD8C6003F1A37 /* ICS214NewMasterAddiitionalForm.storyboard */,
 				13C321E8289DA06400C2A6CF /* ICS214NewIncident.storyboard */,
 				133996FD28A2C679005B4847 /* ICS214FormDetail.storyboard */,
+				1334AFC628A9A5B30086968B /* ICS214ActivityLog.storyboard */,
+				138ED95228AAC358009E0212 /* ICS214CrewEdit.storyboard */,
+				13A075BB28B17AE500ADF95A /* ICS214EditHeader.storyboard */,
 			);
 			path = storyboards;
 			sourceTree = "<group>";
@@ -3967,6 +4004,20 @@
 				137E373E289EE70E008DE107 /* ICS214IncidentAddressTVCell.swift */,
 				133996F928A2C64F005B4847 /* ICS214FormDetailVC.swift */,
 				133996FB28A2C664005B4847 /* ICS214FormDetailVC+Extensions.swift */,
+				1337F42128A444E100F69056 /* ICS214SegmentTVCell.swift */,
+				1337F41F28A4191100F69056 /* ICS214DetailHeaderTVCell.swift */,
+				13C7C2AE28A59C8000339388 /* ICS214ButtonTVCell.swift */,
+				1359AF4D28A6C2B700E27C2E /* ICS214ResourcesHeaderTVCell.swift */,
+				1359AF5128A6D90000E27C2E /* ICS214ResourcesCVTVCell.swift */,
+				1359AF5328A6EADD00E27C2E /* ICS214ResourcesCVCell.swift */,
+				130D84B328A8596B00597140 /* ICS214ActivityLogsCVTVCell.swift */,
+				130D84B128A8593900597140 /* ICS214ActivityLogsCVCell.swift */,
+				1334AFC428A9A59E0086968B /* ICS214ActivityLogVC.swift */,
+				138ED95428AAC38E009E0212 /* ICS214CrewEditVC.swift */,
+				13A075B928B17AD300ADF95A /* ICS214EditHeaderVC.swift */,
+				1359AF4F28A6D14F00E27C2E /* ICS214ActivityLogHeaderTVCell.swift */,
+				1303E2AA28ABFF5E008A4224 /* ICS214TextViewTVCell.swift */,
+				138ADAB928AFEE39004752CF /* SignatureImageTVCell.swift */,
 			);
 			path = NIMICS214;
 			sourceTree = "<group>";
@@ -4550,6 +4601,7 @@
 				13F3EB0C219B80BF0044CF41 /* LabelTextFieldDirectionalSwitchCell.xib in Resources */,
 				1358ACC82485B31C00F5125E /* IncidentAdditionalResoucesCell.xib in Resources */,
 				13BA68F023FDC81400427FCE /* ResourceEdit.storyboard in Resources */,
+				13A075BC28B17AE500ADF95A /* ICS214EditHeader.storyboard in Resources */,
 				13F3E9D4219B80BF0044CF41 /* CompletedThreeFieldCell.xib in Resources */,
 				13F40B8A27DFFDB400D02972 /* IncidentVC.storyboard in Resources */,
 				13F3EB3C219B80BF0044CF41 /* LabelAnswerSwitchCell.xib in Resources */,
@@ -4635,6 +4687,7 @@
 				13EE551D22D68FE300713C9B /* EffortSetUpCell.xib in Resources */,
 				13BF8B5B27F2305E0056C25E /* LabelDateiPhoneTVCell.xib in Resources */,
 				13D6F70C27EBDF4600CCFCFD /* FlameLogoCell.xib in Resources */,
+				1334AFC728A9A5B30086968B /* ICS214ActivityLog.storyboard in Resources */,
 				13C96DDB25310A5800C5195F /* ARC_LabelCell.xib in Resources */,
 				1387CF9623FCAF6A00043305 /* SettingsMyResourcesHeaderV.xib in Resources */,
 				13F3EA9C219B80BF0044CF41 /* States.plist in Resources */,
@@ -4860,6 +4913,7 @@
 				1314272A27E77731008CD9BB /* LabelCell.xib in Resources */,
 				134FF4DB244525430064ABF3 /* WeatherCVCell.xib in Resources */,
 				13F3EB9E219B80BF0044CF41 /* OpenModalFiveV.xib in Resources */,
+				138ED95328AAC358009E0212 /* ICS214CrewEdit.storyboard in Resources */,
 				13F3EADA219B80BF0044CF41 /* TimeAndDateIncidentCell.xib in Resources */,
 				13D0793121A4B82D00068B0A /* FireJournalSettingsCell.xib in Resources */,
 				133EE9C1224425E200541240 /* NFIRSDateTimeInstructCell.xib in Resources */,
@@ -4955,6 +5009,7 @@
 				13DE9C2028079FC40081A61E /* OnboardProfileFormVC.swift in Sources */,
 				13A6D71827F7AE9F008CA1D9 /* IncidentPhotoCollectionCell.swift in Sources */,
 				1351A2DA280F6CB300D00A5C /* NewOnboardFiveVC.swift in Sources */,
+				138ED95528AAC38E009E0212 /* ICS214CrewEditVC.swift in Sources */,
 				13BF8B5D27F255140056C25E /* TheJournalNoteVC.swift in Sources */,
 				138787FF287F357900409E4D /* SingleICS214ActivityLogOperation.swift in Sources */,
 				13DD441F21CEB2EB006C3FB9 /* AllModifiedICS214ActivityLogOperation.swift in Sources */,
@@ -5160,6 +5215,7 @@
 				13532E8427E3B09C00F41CB7 /* Mapping56to57.xcmappingmodel in Sources */,
 				13AE703322F637F000C672C9 /* TestViewController.swift in Sources */,
 				138024EC233402F9004961AB /* NewStoreBetaVC.swift in Sources */,
+				130D84B228A8593900597140 /* ICS214ActivityLogsCVCell.swift in Sources */,
 				13F3EB84219B80BF0044CF41 /* OnboardSixVC.swift in Sources */,
 				1358ACC3248595A900F5125E /* IncidentAdditionalStationApparatusTVC.swift in Sources */,
 				13CEE9A6238DE63F002BF5F3 /* SettingsModalHeadzerSaveDismiss.swift in Sources */,
@@ -5220,6 +5276,7 @@
 				13F0E419244E4D7800C99409 /* EachMonthsTotals.swift in Sources */,
 				139F01A92330404200C64F9E /* Mapping38to39.xcmappingmodel in Sources */,
 				13F3EA7E219B80BF0044CF41 /* RankOperation.swift in Sources */,
+				1359AF5028A6D14F00E27C2E /* ICS214ActivityLogHeaderTVCell.swift in Sources */,
 				13A10BC7283EEAC500AD1DA3 /* StatusManager.swift in Sources */,
 				13F3EB28219B80BF0044CF41 /* LabelAnswerSwitchCell.swift in Sources */,
 				132304BB21B1E0BE006013D3 /* Mapping12to13.xcmappingmodel in Sources */,
@@ -5240,10 +5297,12 @@
 				13C321E7289DA04300C2A6CF /* ICS214NewIncidentVC.swift in Sources */,
 				13DD443B21CEBFD1006C3FB9 /* FJUserTagsSyncOperation.swift in Sources */,
 				13A00595282F1ACB00375198 /* Mapping76to77.xcmappingmodel in Sources */,
+				1337F42228A444E100F69056 /* ICS214SegmentTVCell.swift in Sources */,
 				138787FD287E1EF300409E4D /* ICS214Provider.swift in Sources */,
 				13F3EB06219B80BF0044CF41 /* ControllerLabelCell.swift in Sources */,
 				13DD445D21CEC1C1006C3FB9 /* ModifyUserAttendeesOperation.swift in Sources */,
 				13C96D9625310A4100C5195F /* ARCrossFormSyncFromCloudOperation.swift in Sources */,
+				13A075BA28B17AD300ADF95A /* ICS214EditHeaderVC.swift in Sources */,
 				13C321EB289DA0CB00C2A6CF /* ICS214NewIncidentVC+Extensions.swift in Sources */,
 				1398D202282AE57200648CF1 /* Mapping74to75.xcmappingmodel in Sources */,
 				13C96E0C25310A6300C5195F /* Campaign+Extension.swift in Sources */,
@@ -5319,6 +5378,7 @@
 				13CED152230216CB0064DF57 /* StartShiftFDResourcesCell.swift in Sources */,
 				138F15C5219F901A007173C6 /* FJUserAttendeesOperation.swift in Sources */,
 				13F3E960219B80BF0044CF41 /* BuildButtons.swift in Sources */,
+				1337F42028A4191100F69056 /* ICS214DetailHeaderTVCell.swift in Sources */,
 				138F15BB219F8F61007173C6 /* FJJournalOperation.swift in Sources */,
 				13F3EA82219B80BF0044CF41 /* PlatoonOperation.swift in Sources */,
 				13368BF721CAC4C300D75B3B /* ModifyICS214ToCloudOperation.swift in Sources */,
@@ -5326,6 +5386,7 @@
 				1351A2E0280F6CDD00D00A5C /* NewOnboardEightVC.swift in Sources */,
 				13D880522249387700135D50 /* StartShiftData.swift in Sources */,
 				130C530B27DC026600750CC4 /* OnBoardMapVC.swift in Sources */,
+				1359AF5228A6D90000E27C2E /* ICS214ResourcesCVTVCell.swift in Sources */,
 				1369340C286FAF1400229BFC /* ShiftIncidentTotals.swift in Sources */,
 				13F3EA00219B80BF0044CF41 /* CompletedThreeFieldExpandedCell.swift in Sources */,
 				13F3EA94219B80BF0044CF41 /* CompletedModulesOperation.swift in Sources */,
@@ -5438,6 +5499,7 @@
 				1376B05D22E3CEBF00485455 /* Mapping32to33.xcmappingmodel in Sources */,
 				13108F372549D0FB0073AD1C /* StreetTypeReloadOperation.swift in Sources */,
 				13C10A7427EB9FA4004CD6C2 /* IncidentDateAndNoteVC.swift in Sources */,
+				1303E2AB28ABFF5E008A4224 /* ICS214TextViewTVCell.swift in Sources */,
 				13F3EBB2219B80BF0044CF41 /* OpenModalSix.swift in Sources */,
 				130C530F27DC236800750CC4 /* GetTheUserLocation.swift in Sources */,
 				133C8B5F21C9BC6600BA9F5B /* ICS214Form+CustomAdditions.swift in Sources */,
@@ -5460,6 +5522,7 @@
 				130C52FE27DBDF3200750CC4 /* Mapping52to53.xcmappingmodel in Sources */,
 				1351A2DE280F6CCE00D00A5C /* NewOnboardSevenVC.swift in Sources */,
 				13DD442B21CEBD2E006C3FB9 /* UserPlatoon+CustomAdditions.swift in Sources */,
+				1359AF5428A6EADD00E27C2E /* ICS214ResourcesCVCell.swift in Sources */,
 				13A2D6D92409E2BC00824015 /* SwitchLeftAlignedTVCell.swift in Sources */,
 				13755B4922A7E2E600487D42 /* DeleteFromCloudWithGeneratedIDSyncOperation.swift in Sources */,
 				138F15C1219F8FB2007173C6 /* FJICS214FormOperation.swift in Sources */,
@@ -5536,6 +5599,7 @@
 				13BA68ED23FDC7FE00427FCE /* ResourceLabelTextViewTVCell.swift in Sources */,
 				13F3EA4E219B80BF0044CF41 /* CellHeaderFDID.swift in Sources */,
 				134FF4EF244525430064ABF3 /* TodaysShiftCVCell.swift in Sources */,
+				1334AFC528A9A59E0086968B /* ICS214ActivityLogVC.swift in Sources */,
 				13DD441D21CEB2CA006C3FB9 /* ModifyICS214PersonnelOperation.swift in Sources */,
 				13BE99AC25644F3E00DC9BC4 /* ICS214PersonnelBackedUpOperation.swift in Sources */,
 				1336682527D82CF8003F8816 /* RankTVCell.swift in Sources */,
@@ -5543,6 +5607,7 @@
 				1336682327D82B01003F8816 /* MultipleAddButtonTVCell.swift in Sources */,
 				13DD444321CEC01F006C3FB9 /* FJNFIRSStreetTypeSyncOperation.swift in Sources */,
 				138F15CB219F905E007173C6 /* FJUserTimeOperation.swift in Sources */,
+				1359AF4E28A6C2B700E27C2E /* ICS214ResourcesHeaderTVCell.swift in Sources */,
 				13DD442921CEBCF7006C3FB9 /* UserRank+CustomAdditions.swift in Sources */,
 				13F1657B2270CF8D00FA717A /* ICS214Data.swift in Sources */,
 				13F3E996219B80BF0044CF41 /* IncidentTypeCell.swift in Sources */,
@@ -5639,6 +5704,7 @@
 				13ABC97221C45665002B506A /* ProfileLabelWithLocationButtonsCell.swift in Sources */,
 				131FC95B22C6C3A80015F966 /* Mapping29to30.xcmappingmodel in Sources */,
 				134E058F2280BE5100055C6F /* DeleteICS214PersonnelAssociatedWithFormOperation.swift in Sources */,
+				130D84B428A8596B00597140 /* ICS214ActivityLogsCVTVCell.swift in Sources */,
 				13CE0EA028189D8400D44FB5 /* JournalTagsCVCell.swift in Sources */,
 				133996FC28A2C664005B4847 /* ICS214FormDetailVC+Extensions.swift in Sources */,
 				13F3EB60219B80BF0044CF41 /* IncidentTextViewWithDirectionalCell.swift in Sources */,
@@ -5659,6 +5725,7 @@
 				13F3E9A0219B80BF0044CF41 /* ModalHeaderCell.swift in Sources */,
 				13DD442D21CEBDB0006C3FB9 /* UserResources+CustomAdditions.swift in Sources */,
 				13F3EA76219B80BF0044CF41 /* BattalionOperation.swift in Sources */,
+				13C7C2AF28A59C8000339388 /* ICS214ButtonTVCell.swift in Sources */,
 				13C96E1E25310A7300C5195F /* CloudKitAlert.swift in Sources */,
 				134FF4E5244525430064ABF3 /* NewFormsCVCell.swift in Sources */,
 				13C96E0B25310A6300C5195F /* TypeTVC.swift in Sources */,
@@ -5730,6 +5797,7 @@
 				139AB2192804DF9F0091D024 /* UserLocalIncidentTypeBuildOperation.swift in Sources */,
 				13B35518240AF4B40072155E /* UpdateShiftData.swift in Sources */,
 				13C96E2525310A7300C5195F /* CloudTypes.swift in Sources */,
+				138ADABA28AFEE39004752CF /* SignatureImageTVCell.swift in Sources */,
 				13F3E9B6219B80BF0044CF41 /* ParagraphCell.swift in Sources */,
 				13D880542249396F00135D50 /* NotificationStrings.swift in Sources */,
 				13A21EA924228D21002EBCB6 /* CellType.swift in Sources */,
@@ -5937,7 +6005,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Fire Journal/Fire Journal.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4.0.22;
+				CURRENT_PROJECT_VERSION = 4.0.24;
 				DEVELOPMENT_TEAM = 8Y2CT58NL3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5977,7 +6045,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Fire Journal/Fire Journal.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4.0.22;
+				CURRENT_PROJECT_VERSION = 4.0.24;
 				DEVELOPMENT_TEAM = 8Y2CT58NL3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

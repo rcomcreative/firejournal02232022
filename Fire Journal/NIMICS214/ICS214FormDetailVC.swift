@@ -57,6 +57,11 @@ class ICS214FormDetailVC: SpinnerViewController, UINavigationControllerDelegate 
     
     let dateFormatter = DateFormatter()
     
+    lazy var theJournalProvider: JournalProvider = {
+        let provider = JournalProvider(with: (UIApplication.shared.delegate as! AppDelegate).persistentContainer)
+        return provider
+    }()
+    var theJournalContext: NSManagedObjectContext!
     var theJournalLocation: FCLocation!
     var theJournal: Journal!
     var theJournalOID: NSManagedObjectID!
@@ -73,6 +78,18 @@ class ICS214FormDetailVC: SpinnerViewController, UINavigationControllerDelegate 
     var theMasterICS214FormOID: NSManagedObjectID!
     var theICS214ActivityLog =  [ICS214ActivityLog]()
     var theICS214Personnel = [ICS214Personnel]()
+    var theICS214Location: FCLocation!
+    
+    var ics214ToCloud: ICS214ToCloud!
+    
+    var attendeeHeight: CGFloat = 0
+    var attendeesAvailable: Bool = false
+    var activityHeight: CGFloat = 0
+    var activityAvailable: Bool = false
+    var signatureAvailable: Bool = false
+    
+    var personnelTVC: NewICS214ResourcesAssignedTVC!
+    var ics214ActivityLogVC: ICS214ActivityLogVC!
     
     lazy var theUserAttendeeProvider: UserAttendeesProvider = {
         let provider = UserAttendeesProvider(with: (UIApplication.shared.delegate as! AppDelegate).persistentContainer)
@@ -117,6 +134,13 @@ NIMS ICS 214
     var fromMap: Bool = false
     var saveButton: UIBarButtonItem!
     var pdfLink: String = ""
+    var editVC: NewICS214AssignedResourceEditVC!
+    var editHeaderVC: ICS214EditHeaderVC!
+    
+    var subscriptionBought: Bool = false
+    
+    var child: SpinnerViewController!
+    var childAdded: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -127,7 +151,11 @@ NIMS ICS 214
         
         grabTheManagedObjects()
         
+        buildAddObservers()
+        
         buildNavigation()
+        
+        subscriptionBought = userDefaults.bool(forKey: FJkSUBSCRIPTIONIsLocallyCached)
         
         getUserLocation.determineLocation()
         configureics214TableView()
@@ -191,6 +219,7 @@ NIMS ICS 214
         let message: InfoBodyText = .newICS214FormDescription
         let alert = UIAlertController.init(title: title.rawValue, message: message.rawValue, preferredStyle: .alert)
         let okAction = UIAlertAction.init(title: "Okay", style: .default, handler: {_ in
+            self.createSpinnerView()
             self.alertUp = false
         })
         alert.addAction(okAction)
@@ -210,6 +239,68 @@ NIMS ICS 214
         self.present(alert, animated: true, completion: nil)
     }
     
+    func shareAlert() {
+        let message: String = InfoBodyText.ics214ShareSupportNotes.rawValue
+        let title: String = InfoBodyText.ics214ShareSupportSubject.rawValue
+        let alert = UIAlertController.init(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction.init(title: "Okay", style: .default, handler: {_ in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+                alert.dismiss(animated: true, completion: nil)
+                self.alertUp = false
+            })
+        })
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func infoAlert() {
+        let theSubject: String = InfoBodyText.ics214SupportSubject.rawValue
+        let theMessage: String = InfoBodyText.ics214SupportNotes.rawValue
+        let alert = UIAlertController.init(title: theSubject, message: theMessage, preferredStyle: .alert)
+        let okAction = UIAlertAction.init(title: "Got it!", style: .default, handler: {_ in
+            self.alertUp = false
+        })
+        alert.addAction(okAction)
+        alertUp = true
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+//    MARK: -SPINNER VIEW CONTROLLER-
+        /// creates a spinner view to hold the scene while data is downloaded from cloudkit
+        /// posts to master to lock all the buttons down
+    func createSpinnerView() {
+        child = SpinnerViewController()
+        childAdded = true
+            // add the spinner view controller
+        addChild(child)
+        child.view.frame = view.frame
+        view.addSubview(child.view)
+        child.didMove(toParent: self)
+        nc.post(name:Notification.Name(rawValue: FJkLOCKMASTERDOWNFORDOWNLOAD),
+                object: nil,
+                userInfo: nil)
+    }
+    
+        /// observer on FJkLocationsAllUpdatedToSC
+        /// - Parameter ns: no user info
+    @objc func removeSpinnerUpdate(ns: Notification) {
+        if childAdded {
+            DispatchQueue.main.async {
+                    // then remove the spinner view controller
+                self.child.willMove(toParent: nil)
+                self.child.view.removeFromSuperview()
+                self.child.removeFromParent()
+                self.nc.post(name:Notification.Name(rawValue: FJkLOCKMASTERDOWNFORDOWNLOAD),
+                             object: nil,
+                             userInfo: nil)
+                self.nc.post(name:Notification.Name(rawValue: FJkLETSCHECKTHEVERSION),
+                             object: nil,
+                             userInfo: nil)
+            }
+            childAdded = false
+        }
+    }
+    
         // MARK: -
         // MARK: Notification Handling
     @objc func managedObjectContextDidSave(notification: Notification) {
@@ -225,8 +316,28 @@ NIMS ICS 214
         saveToCD()
     }
     
+    @objc func saveICS214Attendees(_ sender:Any) {
+        theICS214Form.ics214ModDate = Date()
+        theICS214Form.ics214BackedUp = false
+        saveToCD()
+    }
+    
     func saveToCD() {
-        
+        do {
+            try context.save()
+            DispatchQueue.main.async {
+                self.nc.post(name:NSNotification.Name.NSManagedObjectContextDidSave,object:self.context,userInfo:["info":"NewICS214DetailTVC merge that"])
+            }
+            DispatchQueue.main.async {
+                self.nc.post(name: Notification.Name(rawValue: FJkRELOADTHELIST),
+                             object: nil, userInfo: ["shift":MenuItems.ics214])
+                
+                self.nc.post(name: NSNotification.Name(rawValue: FJkMODIFIEDICS214FORM_TOCLOUDKIT), object: nil, userInfo:["objectID": self.theICS214FormOID as Any])
+                
+            }
+        } catch let error as NSError {
+            print("NewICS214DetailTVC line 236 Fetch Error: \(error.localizedDescription)")
+        }
     }
     
 }

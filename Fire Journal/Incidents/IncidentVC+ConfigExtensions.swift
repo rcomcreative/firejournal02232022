@@ -496,7 +496,7 @@ extension IncidentVC {
             cell.yesNoB = yesNo
             cell.myShift = MenuItems.incidents
             cell.incidentType = .emergency
-            cell.subjectL.text = "Arson"
+            cell.subjectL.text = "Arson Investigation"
             cell.leftText = "No"
             cell.rightText = "Yes"
             cell.rightL.textColor = UIColor.systemRed

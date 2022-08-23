@@ -348,10 +348,13 @@ extension ListTVC: ICS214NewMasterAddiitionalFormVCDelegate {
         self.dismiss(animated: true, completion: nil)
         if theUserTime != nil {
             let theUserTimeID = theUserTime.objectID
+            if theFireJournalUser != nil {
+                let userID = theFireJournalUser.objectID
             DispatchQueue.main.async {
                 self.nc.post(name:Notification.Name(rawValue: FJkICS214_FROM_MASTER),
                              object: nil,
-                             userInfo: ["objectID": newICS214FormOID, "shift": MenuItems.ics214, "theUserTimeID": theUserTimeID])
+                             userInfo: ["objectID": newICS214FormOID, "shift": MenuItems.ics214, "theUserTimeID": theUserTimeID, "theUserID": userID])
+            }
             }
         }
         self.tableView.reloadData()
