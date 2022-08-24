@@ -21,18 +21,18 @@ extension ICS214FormDetailVC {
     fileprivate func buildActivityHeight() {
         if !theICS214ActivityLog.isEmpty {
             activityAvailable = true
-//            var heightCount: CGFloat = 0
-//            for activityLog in theICS214ActivityLog {
-//                if let log = activityLog.ics214ActivityLog {
-//                    if log == "" {
-//
-//                    } else {
-//                        let height = configureLabelHeight(text: log)
-//                        heightCount = heightCount + height
-//                    }
-//                }
-//            }
-//            activityHeight = heightCount
+                //            var heightCount: CGFloat = 0
+                //            for activityLog in theICS214ActivityLog {
+                //                if let log = activityLog.ics214ActivityLog {
+                //                    if log == "" {
+                //
+                //                    } else {
+                //                        let height = configureLabelHeight(text: log)
+                //                        heightCount = heightCount + height
+                //                    }
+                //                }
+                //            }
+                //            activityHeight = heightCount
             
             let count = theICS214ActivityLog.count
             let height = (44 * 3) * count
@@ -264,15 +264,7 @@ extension ICS214FormDetailVC {
                     if !theICS214ActivityLog.isEmpty {
                         activityAvailable = true
                         let count = theICS214ActivityLog.count
-//                        var heightCount: CGFloat = 0
                         let height = (44 * 3) * count
-//                        for activityLog in theICS214ActivityLog {
-//                            if let log = activityLog.ics214ActivityLog {
-//                                let height = configureLabelHeight(text: log)
-//                                heightCount = heightCount + height
-//                            }
-//                        }
-//                        activityHeight = heightCount
                         activityHeight = CGFloat(height)
                     }
                     
@@ -287,12 +279,21 @@ extension ICS214FormDetailVC {
     @objc func editThePersonnel(nc: Notification) {
         if let userInfo = nc.userInfo as! [String: Any]? {
             if let id = userInfo["userAttendeeID"] as? NSManagedObjectID {
-                let crew = context.object(with: id) as? UserAttendees
-                let storyboard = UIStoryboard(name: "AssignedResource", bundle: nil)
-                editVC  = storyboard.instantiateViewController(identifier: "NewICS214AssignedResourceEditVC") as? NewICS214AssignedResourceEditVC
-                editVC.path = IndexPath(row: 12, section: 0)
-                editVC.cMember = crew
+                let objectID = id
+                
+                slideInTransitioningDelgate.direction = .bottom
+                slideInTransitioningDelgate.disableCompactHeight = true
+                let storyboard = UIStoryboard(name: "ICS214ResourceEdit", bundle: nil)
+                editVC  = storyboard.instantiateViewController(identifier: "ICS214ResourceEditVC") as? ICS214ResourceEditVC
+                let index = IndexPath(row: 12, section: 0)
+                editVC.configure(objectID, index: index)
+                editVC.transitioningDelegate = slideInTransitioningDelgate
                 editVC.delegate = self
+                if Device.IS_IPHONE {
+                    editVC.modalPresentationStyle = .formSheet
+                } else {
+                    editVC.modalPresentationStyle = .custom
+                }
                 self.present(editVC, animated: true )
             }
         }
@@ -369,6 +370,21 @@ extension ICS214FormDetailVC {
         
         
     }
+}
+
+extension ICS214FormDetailVC: ICS214ResourceEditVCDelegate {
+    
+    func cancelResourceEditVC() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func saveResourceEdit(_ userAttendeesOID: NSManagedObjectID, index: IndexPath) {
+        editVC.dismiss(animated: true, completion: {
+            self.ics214TableView.reloadRows(at: [index], with: .automatic)
+        })
+    }
+    
+    
 }
 
 extension ICS214FormDetailVC: NewICS214AssignedResourceEditVCDelegate {
@@ -1126,14 +1142,6 @@ extension ICS214FormDetailVC: ICS214ActivityLogVCDelegate {
         }
         if !theICS214ActivityLog.isEmpty {
             activityAvailable = true
-//            var heightCount: CGFloat = 0
-//            for activityLog in theICS214ActivityLog {
-//                if let log = activityLog.ics214ActivityLog {
-//                    let height = configureLabelHeight(text: log)
-//                    heightCount = heightCount + height
-//                }
-//            }
-//            activityHeight = heightCount
             let count = theICS214ActivityLog.count
             let height = (44 * 3) * count
             activityHeight = CGFloat(height)

@@ -264,7 +264,7 @@ extension ICS214ResourcesCVTVCell: UICollectionViewDelegate {
         
         
         return UIContextMenuConfiguration(identifier: nil,
-                                          previewProvider: previewProvider,
+                                          previewProvider: nil,
                                           actionProvider: actionProvider)
     }
     

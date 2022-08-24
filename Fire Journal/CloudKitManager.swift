@@ -367,7 +367,7 @@ class CloudKitManager: NSObject {
         
         nc.addObserver(self, selector: #selector(newUserAttendeeToCloud(ns:)), name: NSNotification.Name(rawValue:FJkNEWUSERATTENDEE_TOCLOUDKIT), object: nil)
         
-        nc.addObserver(self, selector: #selector(modifiedUserAttendeeToCloud(ns:)), name: NSNotification.Name(rawValue:FJkMODIFIEDUSERATTENDEE_TOCLOUDKIT), object: nil)
+        nc.addObserver(self, selector: #selector(modifiedUserAttendeeToCloud(ns:)), name: NSNotification.Name(rawValue: FJkMODIFIEDUSERATTENDEE_TOCLOUDKIT), object: nil)
         
         nc.addObserver(self, selector: #selector(deleteUserAttendeeToCloud(ns:)), name: NSNotification.Name(rawValue:FJkDELETEUSERATTENDEE_TOCLOUDKIT), object: nil)
         

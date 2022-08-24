@@ -254,9 +254,9 @@
         <relationship name="fireJournalUserARCFormDetail" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ARCrossForm" inverseName="fireJournalUserDetail" inverseEntity="ARCrossForm"/>
         <relationship name="fireJournalUserDetails" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Journal" inverseName="fireJournalUserInfo" inverseEntity="Journal"/>
         <relationship name="fireJournalUserFSDetail" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="FireSafetyInspection" inverseName="fireJournalUserFSInfo" inverseEntity="FireSafetyInspection"/>
-        <relationship name="fireJournalUserICS214Info" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ICS214Form" inverseName="ics214FJUDetail" inverseEntity="ICS214Form"/>
+        <relationship name="fireJournalUserICS214Info" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ICS214Form"/>
         <relationship name="fireJournalUserIncDetails" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Incident" inverseName="fireJournalUserIncInfo" inverseEntity="Incident"/>
-        <relationship name="ics214Form" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ICS214Form"/>
+        <relationship name="ics214Form" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ICS214Form" inverseName="ics214FJUDetail" inverseEntity="ICS214Form"/>
         <relationship name="injuries" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="FireJournalUserInjuries" inverseName="fireJournalUser" inverseEntity="FireJournalUserInjuries"/>
         <relationship name="promotion" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PromotionJournal" inverseName="user" inverseEntity="PromotionJournal"/>
         <relationship name="theLocation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FCLocation" inverseName="fireJournalUser" inverseEntity="FCLocation"/>
@@ -676,7 +676,7 @@
         <attribute name="journalGuid" optional="YES" attributeType="String"/>
         <attribute name="userTimeGuid" optional="YES" attributeType="String"/>
         <relationship name="ics214ActivityDetail" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ICS214ActivityLog" inverseName="ics214ActivityInfo" inverseEntity="ICS214ActivityLog"/>
-        <relationship name="ics214FJUDetail" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FireJournalUser" inverseName="fireJournalUserICS214Info" inverseEntity="FireJournalUser"/>
+        <relationship name="ics214FJUDetail" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FireJournalUser" inverseName="ics214Form" inverseEntity="FireJournalUser"/>
         <relationship name="ics214IncidentInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Incident" inverseName="ics214Detail" inverseEntity="Incident"/>
         <relationship name="ics214JournalInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Journal" inverseName="journalICS214Details" inverseEntity="Journal"/>
         <relationship name="ics214PersonneDetail" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ICS214Personnel" inverseName="ics214PersonnelInfo" inverseEntity="ICS214Personnel"/>

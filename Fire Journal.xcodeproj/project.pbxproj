@@ -618,6 +618,8 @@
 		13C321E7289DA04300C2A6CF /* ICS214NewIncidentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C321E6289DA04300C2A6CF /* ICS214NewIncidentVC.swift */; };
 		13C321E9289DA06400C2A6CF /* ICS214NewIncident.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13C321E8289DA06400C2A6CF /* ICS214NewIncident.storyboard */; };
 		13C321EB289DA0CB00C2A6CF /* ICS214NewIncidentVC+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C321EA289DA0CB00C2A6CF /* ICS214NewIncidentVC+Extensions.swift */; };
+		13C4341528B6827B00CE5A71 /* ICS214ResourceEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C4341428B6827B00CE5A71 /* ICS214ResourceEditVC.swift */; };
+		13C4341728B682A600CE5A71 /* ICS214ResourceEdit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13C4341628B682A600CE5A71 /* ICS214ResourceEdit.storyboard */; };
 		13C7C2AF28A59C8000339388 /* ICS214ButtonTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C7C2AE28A59C8000339388 /* ICS214ButtonTVCell.swift */; };
 		13C8676824CB71BB002C61F6 /* NewICS214NewIncidentTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C8676724CB71BB002C61F6 /* NewICS214NewIncidentTVC.swift */; };
 		13C8676A24CB739F002C61F6 /* NewICS214NewIncidentTVC+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C8676924CB739F002C61F6 /* NewICS214NewIncidentTVC+Extension.swift */; };
@@ -1961,6 +1963,8 @@
 		13C321E6289DA04300C2A6CF /* ICS214NewIncidentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICS214NewIncidentVC.swift; sourceTree = "<group>"; };
 		13C321E8289DA06400C2A6CF /* ICS214NewIncident.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ICS214NewIncident.storyboard; sourceTree = "<group>"; };
 		13C321EA289DA0CB00C2A6CF /* ICS214NewIncidentVC+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICS214NewIncidentVC+Extensions.swift"; sourceTree = "<group>"; };
+		13C4341428B6827B00CE5A71 /* ICS214ResourceEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICS214ResourceEditVC.swift; sourceTree = "<group>"; };
+		13C4341628B682A600CE5A71 /* ICS214ResourceEdit.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ICS214ResourceEdit.storyboard; sourceTree = "<group>"; };
 		13C7C2AE28A59C8000339388 /* ICS214ButtonTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICS214ButtonTVCell.swift; sourceTree = "<group>"; };
 		13C8676724CB71BB002C61F6 /* NewICS214NewIncidentTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewICS214NewIncidentTVC.swift; sourceTree = "<group>"; };
 		13C8676924CB739F002C61F6 /* NewICS214NewIncidentTVC+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewICS214NewIncidentTVC+Extension.swift"; sourceTree = "<group>"; };
@@ -3885,7 +3889,6 @@
 		13F3E7CC219B7E8A0044CF41 /* storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				13759BD327F8976D00F733DF /* FullImage.storyboard */,
 				1358ACC02485956600F5125E /* AdditionalStationApparatus.storyboard */,
 				1320A6CE25C4B5CB00690613 /* AdjustDateForLog.storyboard */,
 				13EEF6E725310753007287C7 /* ARC_StoryBoards */,
@@ -3893,13 +3896,25 @@
 				13D6F71227EBE05B00CCFCFD /* AssignedResource.storyboard */,
 				13DF8A1E23524436007B4007 /* CustomResource.storyboard */,
 				13B35513240AEB590072155E /* EndShiftDashboardModal.storyboard */,
+				13510260280E482E005A605F /* FormModal.storyboard */,
+				13759BD327F8976D00F733DF /* FullImage.storyboard */,
+				1334AFC628A9A5B30086968B /* ICS214ActivityLog.storyboard */,
+				138ED95228AAC358009E0212 /* ICS214CrewEdit.storyboard */,
 				13E2C93324B9079700F333C7 /* ICS214Edit.storyboard */,
+				13A075BB28B17AE500ADF95A /* ICS214EditHeader.storyboard */,
 				13F3E7D2219B7E8A0044CF41 /* ICS214Form.storyboard */,
+				133996FD28A2C679005B4847 /* ICS214FormDetail.storyboard */,
+				139DC5162894A71500EFFABC /* ICS214New.storyboard */,
+				137E3744289F167A008DE107 /* ICS214NewFSO.storyboard */,
+				13C321E8289DA06400C2A6CF /* ICS214NewIncident.storyboard */,
+				130407BC289AD8C6003F1A37 /* ICS214NewMasterAddiitionalForm.storyboard */,
 				13EA353127E551F00058D6EE /* IncidentDateAndNote.storyboard */,
 				13F40B9527E101F400D02972 /* IncidentEdit.storyboard */,
 				130C52F827DBD9F700750CC4 /* IncidentNew.storyboard */,
 				1390D2E027E8F56300EE3DFD /* IncidentNote.storyboard */,
 				13F40B8927DFFDB400D02972 /* IncidentVC.storyboard */,
+				136CF4A02821ADE300994371 /* JournalEdit.storyboard */,
+				13BF8B6127F284610056C25E /* JournalNewModal.storyboard */,
 				13B01476235650C3008E53F4 /* JournalSB.storyboard */,
 				13F3E7CE219B7E8A0044CF41 /* LaunchScreen.storyboard */,
 				1374C86B2454F5E6009B99A9 /* LetsStart.storyboard */,
@@ -3911,46 +3926,36 @@
 				13AB7ECD23DA6F5A009AC32E /* MyFireEMSResourcesEdit.storyboard */,
 				13592C602494091200F5BDF0 /* NewICS214.storyboard */,
 				137087CE24AE6E2200979391 /* NewICS214ResourcesAssigned.storyboard */,
+				1351A2CF280F3AA000D00A5C /* NewOnboarding.storyboard */,
+				13CAD4042810848E00E025BC /* NewPromotion.storyboard */,
 				13F3E7D3219B7E8A0044CF41 /* NFIRSFormGroup.storyboard */,
 				130C530C27DC02EE00750CC4 /* OnBoard.storyboard */,
 				13F3E7CD219B7E8A0044CF41 /* Onboarding.storyboard */,
-				1351A2CF280F3AA000D00A5C /* NewOnboarding.storyboard */,
+				13DE9C2128079FDC0081A61E /* OnboardProfileForm.storyboard */,
 				13431903245C9012008EBAFF /* OpenFDResources.storyboard */,
 				13117A4D2352546800AD6069 /* Platoons.storyboard */,
+				138DAED228107A3B007602AE /* Promotion.storyboard */,
+				138F9223282329CE00969BFE /* PromotionEdit.storyboard */,
+				13CAD4102810C1A800E025BC /* PromotionNote.storyboard */,
 				139895A927E2A63D008A57DF /* RelieveSupervisor.storyboard */,
 				13D6F70D27EBDFAD00CCFCFD /* RelieveSupervisorModal.storyboard */,
 				13BA68EF23FDC81300427FCE /* ResourceEdit.storyboard */,
 				13DF8A1723511945007B4007 /* Resources.storyboard */,
+				13DB37E5281C9C9000B77FD8 /* SettingsInfo.storyboard */,
 				13BA68D323FDC57100427FCE /* SettingsMyResources.storyboard */,
+				1369340F2870E50300229BFC /* SettingsYourData.storyboard */,
+				138787ED28748A6700409E4D /* SettingsYourDataWarning.storyboard */,
 				137D5DAD27D809480059ED36 /* ShiftEnd.storyboard */,
 				1332C49627DAA2F500E13733 /* ShiftNew.storyboard */,
 				1383467127E40FEF00B40A4D /* StaffContact.storyboard */,
 				13A2D6E62409E32600824015 /* StartShiftDashboardModal.storyboard */,
 				1390D2E127E8F56300EE3DFD /* Tags.storyboard */,
-				13BF8B5F27F255420056C25E /* TheJournalNote.storyboard */,
-				13BF8B6127F284610056C25E /* JournalNewModal.storyboard */,
-				13B3550D240AE9B40072155E /* UpdateShiftDashboardModal.storyboard */,
-				13CAF8B727F3B831000FE0CA /* TheShiftNote.storyboard */,
 				13E23BA027F4F4710033BCA6 /* TheJournal.storyboard */,
-				13DE9C2128079FDC0081A61E /* OnboardProfileForm.storyboard */,
-				13510260280E482E005A605F /* FormModal.storyboard */,
-				138DAED228107A3B007602AE /* Promotion.storyboard */,
-				13CAD4042810848E00E025BC /* NewPromotion.storyboard */,
-				13CAD4102810C1A800E025BC /* PromotionNote.storyboard */,
-				13DB37E5281C9C9000B77FD8 /* SettingsInfo.storyboard */,
-				136CF4A02821ADE300994371 /* JournalEdit.storyboard */,
-				138F9223282329CE00969BFE /* PromotionEdit.storyboard */,
+				13BF8B5F27F255420056C25E /* TheJournalNote.storyboard */,
+				13CAF8B727F3B831000FE0CA /* TheShiftNote.storyboard */,
 				13AD9341282494C00090F8C3 /* TheStore.storyboard */,
-				1369340F2870E50300229BFC /* SettingsYourData.storyboard */,
-				138787ED28748A6700409E4D /* SettingsYourDataWarning.storyboard */,
-				139DC5162894A71500EFFABC /* ICS214New.storyboard */,
-				137E3744289F167A008DE107 /* ICS214NewFSO.storyboard */,
-				130407BC289AD8C6003F1A37 /* ICS214NewMasterAddiitionalForm.storyboard */,
-				13C321E8289DA06400C2A6CF /* ICS214NewIncident.storyboard */,
-				133996FD28A2C679005B4847 /* ICS214FormDetail.storyboard */,
-				1334AFC628A9A5B30086968B /* ICS214ActivityLog.storyboard */,
-				138ED95228AAC358009E0212 /* ICS214CrewEdit.storyboard */,
-				13A075BB28B17AE500ADF95A /* ICS214EditHeader.storyboard */,
+				13B3550D240AE9B40072155E /* UpdateShiftDashboardModal.storyboard */,
+				13C4341628B682A600CE5A71 /* ICS214ResourceEdit.storyboard */,
 			);
 			path = storyboards;
 			sourceTree = "<group>";
@@ -4015,6 +4020,7 @@
 				1334AFC428A9A59E0086968B /* ICS214ActivityLogVC.swift */,
 				138ED95428AAC38E009E0212 /* ICS214CrewEditVC.swift */,
 				13A075B928B17AD300ADF95A /* ICS214EditHeaderVC.swift */,
+				13C4341428B6827B00CE5A71 /* ICS214ResourceEditVC.swift */,
 				1359AF4F28A6D14F00E27C2E /* ICS214ActivityLogHeaderTVCell.swift */,
 				1303E2AA28ABFF5E008A4224 /* ICS214TextViewTVCell.swift */,
 				138ADAB928AFEE39004752CF /* SignatureImageTVCell.swift */,
@@ -4768,6 +4774,7 @@
 				13D6F6F427EBD9C100CCFCFD /* NFIRSsectionHeaderTHFV.xib in Resources */,
 				13F3EBBA219B80BF0044CF41 /* OpenModalNineV.xib in Resources */,
 				13ABC97321C45665002B506A /* ProfileLabelWithLocationButtonsCell.xib in Resources */,
+				13C4341728B682A600CE5A71 /* ICS214ResourceEdit.storyboard in Resources */,
 				13F3EBA6219B80BF0044CF41 /* OpenModalSevenV.xib in Resources */,
 				13F3E992219B80BF0044CF41 /* IncidentDateInputCell.xib in Resources */,
 				136E354C24CCCBF400B5FC85 /* NewICS214HeaderCell.xib in Resources */,
@@ -5548,6 +5555,7 @@
 				13EE551C22D68FE300713C9B /* EffortSetUpCell.swift in Sources */,
 				13755B4722A72E7500487D42 /* DeleteFromCloudWithGuidSyncOperation.swift in Sources */,
 				13EA352727E50C1F0058D6EE /* Mapping57to58.xcmappingmodel in Sources */,
+				13C4341528B6827B00CE5A71 /* ICS214ResourceEditVC.swift in Sources */,
 				13A2D6E22409E2BC00824015 /* SubjectLCell.swift in Sources */,
 				13DD441921CEB2A2006C3FB9 /* NewICS214PersonnelOperation.swift in Sources */,
 				137E983121BC711900E72B2A /* ModifyIncidentToCloudOperation.swift in Sources */,
@@ -6005,7 +6013,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Fire Journal/Fire Journal.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4.0.24;
+				CURRENT_PROJECT_VERSION = 4.0.25;
 				DEVELOPMENT_TEAM = 8Y2CT58NL3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6045,7 +6053,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Fire Journal/Fire Journal.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4.0.24;
+				CURRENT_PROJECT_VERSION = 4.0.25;
 				DEVELOPMENT_TEAM = 8Y2CT58NL3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

@@ -44,6 +44,8 @@ class NewICS214ResourcesAssignedTVC: UITableViewController {
     }()
     var taskContext: NSManagedObjectContext!
     
+    var editVC: ICS214ResourceEditVC!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -178,13 +180,42 @@ extension NewICS214ResourcesAssignedTVC:  NewICS214Resource3TFCellDelegate {
     }
     
     func theEditButtonWasTapped(indexPath: IndexPath, crew: UserAttendees) {
-        let storyboard = UIStoryboard(name: "AssignedResource", bundle: nil)
-        let editVC  = storyboard.instantiateViewController(identifier: "NewICS214AssignedResourceEditVC") as! NewICS214AssignedResourceEditVC
-        editVC.path = indexPath
-        editVC.cMember = crew
+        let objectID = crew.objectID
+        slideInTransitioningDelgate.direction = .bottom
+        slideInTransitioningDelgate.disableCompactHeight = true
+        let storyboard = UIStoryboard(name: "ICS214ResourceEdit", bundle: nil)
+        editVC  = storyboard.instantiateViewController(identifier: "ICS214ResourceEditVC") as? ICS214ResourceEditVC
+        let index = IndexPath(row: 12, section: 0)
+        editVC.configure(objectID, index: index)
+        editVC.transitioningDelegate = slideInTransitioningDelgate
         editVC.delegate = self
-        present(editVC, animated: true )
+        if Device.IS_IPHONE {
+            editVC.modalPresentationStyle = .formSheet
+        } else {
+            editVC.modalPresentationStyle = .custom
+        }
+        self.present(editVC, animated: true )
     }
+    
+}
+
+extension NewICS214ResourcesAssignedTVC: ICS214ResourceEditVCDelegate {
+    
+    func cancelResourceEditVC() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func saveResourceEdit(_ userAttendeesOID: NSManagedObjectID, index: IndexPath) {
+        editVC.dismiss(animated: true, completion: {
+            if let member = self.context.object(with: userAttendeesOID) as? UserAttendees {
+            member.attendeeModDate = Date()
+            member.attendeeBackUp = false
+            }
+            self.saveToCoreData()
+            self.tableView.reloadRows(at: [index], with: .automatic)
+        })
+    }
+    
     
 }
 

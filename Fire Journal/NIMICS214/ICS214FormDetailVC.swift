@@ -96,7 +96,7 @@ class ICS214FormDetailVC: SpinnerViewController, UINavigationControllerDelegate 
         return provider
     }()
     var theUserAttendeeContext: NSManagedObjectContext!
-    
+    var theUserAttendee: UserAttendees!
     var thePersonnel = [UserAttendees]()
     
     var theTypeOfForm: TypeOfForm = TypeOfForm.incidentForm
@@ -134,7 +134,7 @@ NIMS ICS 214
     var fromMap: Bool = false
     var saveButton: UIBarButtonItem!
     var pdfLink: String = ""
-    var editVC: NewICS214AssignedResourceEditVC!
+    var editVC: ICS214ResourceEditVC!
     var editHeaderVC: ICS214EditHeaderVC!
     
     var subscriptionBought: Bool = false
